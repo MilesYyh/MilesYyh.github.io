@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>rosetta on 叶宇浩随记博客</title>
+    <link>https://example.com/tags/rosetta/</link>
+    <description>Recent content in rosetta on 叶宇浩随记博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 14 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://example.com/tags/rosetta/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>De novo design of small beta barrel proteins</title>
+      <link>https://example.com/p/de-novo-design-of-small-beta-barrel-proteins/</link>
+      <pubDate>Tue, 14 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/de-novo-design-of-small-beta-barrel-proteins/</guid>
+      <description>De novo design of small beta barrel proteins
+link:https://www.pnas.org/doi/abs/10.1073/pnas.2207974120</description>
+    </item>
+    
+    <item>
+      <title>De novo design of luciferases using deep learning</title>
+      <link>https://example.com/p/de-novo-design-of-luciferases-using-deep-learning/</link>
+      <pubDate>Thu, 02 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/de-novo-design-of-luciferases-using-deep-learning/</guid>
+      <description>De novo design of luciferases using deep learning
+link:https://www.nature.com/articles/s41586-023-05696-3</description>
+    </item>
+    
+    <item>
+      <title>Macromolecular modeling and design in Rosetta: recent methods and frameworks</title>
+      <link>https://example.com/p/macromolecular-modeling-and-design-in-rosetta-recent-methods-and-frameworks/</link>
+      <pubDate>Thu, 19 Jan 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/macromolecular-modeling-and-design-in-rosetta-recent-methods-and-frameworks/</guid>
+      <description>Macromolecular modeling and design in Rosetta: recent methods and frameworks
+link:https://www.nature.com/articles/s41592-020-0848-2</description>
+    </item>
+    
+    <item>
+      <title>Obtaining protein foldability information from computational models of AlphaFold2 and RoseTTAFold</title>
+      <link>https://example.com/p/obtaining-protein-foldability-information-from-computational-models-of-alphafold2-and-rosettafold/</link>
+      <pubDate>Thu, 15 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/obtaining-protein-foldability-information-from-computational-models-of-alphafold2-and-rosettafold/</guid>
+      <description>Obtaining protein foldability information from computational models of AlphaFold2 and RoseTTAFold
+link:https://www.sciencedirect.com/science/article/pii/S2001037022003683</description>
+    </item>
+    
+    <item>
+      <title>Accurate positioning of functional residues with robotics-inspired computational protein design </title>
+      <link>https://example.com/p/accurate-positioning-of-functional-residues-with-robotics-inspired-computational-protein-design/</link>
+      <pubDate>Thu, 01 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/accurate-positioning-of-functional-residues-with-robotics-inspired-computational-protein-design/</guid>
+      <description>Accurate positioning of functional residues with robotics-inspired computational protein design
+link:https://www.pnas.org/doi/abs/10.1073/pnas.2115480119</description>
+    </item>
+    
+    <item>
+      <title>Robust deep learning–based protein sequence design using ProteinMPNN</title>
+      <link>https://example.com/p/robust-deep-learningbased-protein-sequence-design-using-proteinmpnn/</link>
+      <pubDate>Thu, 01 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/robust-deep-learningbased-protein-sequence-design-using-proteinmpnn/</guid>
+      <description>Robust deep learning–based protein sequence design using ProteinMPNN
+link:https://www.science.org/doi/abs/10.1126/science.add2187</description>
+    </item>
+    
+    <item>
+      <title>Accurate prediction of protein structures and interactions using a 3-track neural network</title>
+      <link>https://example.com/p/accurate-prediction-of-protein-structures-and-interactions-using-a-3-track-neural-network/</link>
+      <pubDate>Wed, 17 Aug 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/accurate-prediction-of-protein-structures-and-interactions-using-a-3-track-neural-network/</guid>
+      <description>Accurate prediction of protein structures and interactions using a 3-track neural network
+link:https://www.science.org/doi/abs/10.1126/science.abj8754</description>
+    </item>
+    
+    <item>
+      <title>Automated Design of Efficient and Functionally Diverse Enzyme Repertoires </title>
+      <link>https://example.com/p/automated-design-of-efficient-and-functionally-diverse-enzyme-repertoires/</link>
+      <pubDate>Thu, 11 Aug 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/automated-design-of-efficient-and-functionally-diverse-enzyme-repertoires/</guid>
+      <description>Automated Design of Efficient and Functionally Diverse Enzyme Repertoires
+link:https://www.sciencedirect.com/science/article/pii/S1097276518306932</description>
+    </item>
+    
+    <item>
+      <title>Practically Useful: What the Rosetta Protein Modeling Suite Can Do for You</title>
+      <link>https://example.com/p/practically-useful-what-the-rosetta-protein-modeling-suite-can-do-for-you/</link>
+      <pubDate>Wed, 04 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/practically-useful-what-the-rosetta-protein-modeling-suite-can-do-for-you/</guid>
+      <description>Practically Useful: What the Rosetta Protein Modeling Suite Can Do for You</description>
+    </item>
+    
+    <item>
+      <title>PyRosetta: a script-based interface for implementing molecular modeling algorithms using Rosetta</title>
+      <link>https://example.com/p/pyrosetta-a-script-based-interface-for-implementing-molecular-modeling-algorithms-using-rosetta/</link>
+      <pubDate>Tue, 03 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/pyrosetta-a-script-based-interface-for-implementing-molecular-modeling-algorithms-using-rosetta/</guid>
+      <description>PyRosetta: a script-based interface for implementing molecular modeling algorithms using Rosetta
+link:https://academic.oup.com/bioinformatics/article/26/5/689/212442?login=false</description>
+    </item>
+    
+    <item>
+      <title>RosettaScripts: A Scripting Language Interface to the Rosetta Macromolecular Modeling Suite</title>
+      <link>https://example.com/p/rosettascripts-a-scripting-language-interface-to-the-rosetta-macromolecular-modeling-suite/</link>
+      <pubDate>Sat, 19 Mar 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/rosettascripts-a-scripting-language-interface-to-the-rosetta-macromolecular-modeling-suite/</guid>
+      <description>RosettaScripts: A Scripting Language Interface to the Rosetta Macromolecular Modeling Suite
+link:https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0020161</description>
+    </item>
+    
+    <item>
+      <title>Macromolecular Modeling with Rosetta</title>
+      <link>https://example.com/p/macromolecular-modeling-with-rosetta/</link>
+      <pubDate>Wed, 12 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/macromolecular-modeling-with-rosetta/</guid>
+      <description>Macromolecular Modeling with Rosetta
+link:https://www.annualreviews.org/doi/abs/10.1146/annurev.biochem.77.062906.171838</description>
+    </item>
+    
+    <item>
+      <title>ROSETTALIGAND Docking with Full Ligand and Receptor Flexibility </title>
+      <link>https://example.com/p/rosettaligand-docking-with-full-ligand-and-receptor-flexibility/</link>
+      <pubDate>Wed, 12 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/rosettaligand-docking-with-full-ligand-and-receptor-flexibility/</guid>
+      <description>ROSETTALIGAND Docking with Full Ligand and Receptor Flexibility
+link:https://www.sciencedirect.com/science/article/abs/pii/S0022283608014289</description>
+    </item>
+    
+    <item>
+      <title>test</title>
+      <link>https://example.com/p/test/</link>
+      <pubDate>Thu, 13 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/test/</guid>
+      <description>这是正文内容！！ 随便放上一张照片看看 image 这是一个标题测试 这是另一个标题测试 这是标题测试 这是另一个图片测试 image </description>
+    </item>
+    
+  </channel>
+</rss>

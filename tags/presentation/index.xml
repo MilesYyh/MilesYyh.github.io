@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>presentation on 叶宇浩随记博客</title>
+    <link>https://example.com/tags/presentation/</link>
+    <description>Recent content in presentation on 叶宇浩随记博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 15 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://example.com/tags/presentation/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>PPT插入可交互的3D蛋白结构展示</title>
+      <link>https://example.com/p/ppt%E6%8F%92%E5%85%A5%E5%8F%AF%E4%BA%A4%E4%BA%92%E7%9A%843d%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%B1%95%E7%A4%BA/</link>
+      <pubDate>Wed, 15 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/ppt%E6%8F%92%E5%85%A5%E5%8F%AF%E4%BA%A4%E4%BA%92%E7%9A%843d%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%B1%95%E7%A4%BA/</guid>
+      <description>偶然间在公众号的文章看到了在PPT中插入3D结构的展示方法[^学习来源1],感觉挺好玩的，遂写此post记录
+结构格式要求 结构文件格式要求为gltf格式
+gltf格式 glTF™ is a royalty-free specification for the efficient transmission and loading of 3D scenes and models by engines and applications. glTF minimizes the size of 3D assets, and the runtime processing needed to unpack and use them. glTF defines an extensible, publishing format that streamlines authoring workflows and interactive services by enabling the interoperable use of 3D content across the industry. [^学习来源2]简单来说，gltf就是一种3D结构格式的文件
+将结构保存为gtlf格式 使用完PyMOL调整完蛋白结构后，直接保存为gltf格式即可
+save xxx.</description>
+    </item>
+    
+  </channel>
+</rss>

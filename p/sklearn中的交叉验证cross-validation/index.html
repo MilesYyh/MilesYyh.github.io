@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='sklearn是利用python进行机器学习中一个非常全面和好用的第三方库，用过的都说好。今天主要记录一下sklearn中关于交叉验证的各种用法，主要是对sklearn官方文档 https://scikit-learn.org/stable/modules/cross_validation.html
+import numpy as np from sklearn.model_selection import train_test_split from sklearn.datasets import load_iris from sklearn import svm iris = load_iris() iris.data.shape,iris.target.shape result:
+((150, 4), (150,)) train_test_split 对数据集进行快速打乱（分为训练集和测试集）, 这里相当于对数据集进行了shuffle后按照给定的test_size进行数据集划分
+这里是按照6:4对训练集测试集进行划分 X_train,X_test,y_train,y_test = train_test_split(iris.data,iris.target,test_size=.4,random_state=22)
+code:
+X_train.shape,y_train.shape result:
+((90, 4), (90,)) code:
+iris.data[:5] result: code:
+X_train[:5] result: code:
+clf = svm.SVC(kernel=&amp;#34;linear&amp;#34;,C=1) clf.fit(X_train,y_train) result:
+SVC(C=1, kernel=&amp;#39;linear&amp;#39;) clf.score(X_test,y_test) result:
+0.9833333333333333 cross_val_score 对数据集进行指定次数的交叉验证并为每次验证效果评测 其中，score 默认是以 scoring=&amp;lsquo;f1_macro’进行评测的，余外针对分类或回归还有： 这需要from　sklearn import metrics ,通过在cross_val_score 指定参数来设定评测标准； 当cv 指定为int 类型时，默认使用KFold 或StratifiedKFold 进行数据集打乱，下面会对KFold 和StratifiedKFold 进行介绍'><title>sklearn中的交叉验证Cross-Validation</title>
+
+<link rel='canonical' href='https://example.com/p/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81cross-validation/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='sklearn中的交叉验证Cross-Validation'>
+<meta property='og:description' content='sklearn是利用python进行机器学习中一个非常全面和好用的第三方库，用过的都说好。今天主要记录一下sklearn中关于交叉验证的各种用法，主要是对sklearn官方文档 https://scikit-learn.org/stable/modules/cross_validation.html
+import numpy as np from sklearn.model_selection import train_test_split from sklearn.datasets import load_iris from sklearn import svm iris = load_iris() iris.data.shape,iris.target.shape result:
+((150, 4), (150,)) train_test_split 对数据集进行快速打乱（分为训练集和测试集）, 这里相当于对数据集进行了shuffle后按照给定的test_size进行数据集划分
+这里是按照6:4对训练集测试集进行划分 X_train,X_test,y_train,y_test = train_test_split(iris.data,iris.target,test_size=.4,random_state=22)
+code:
+X_train.shape,y_train.shape result:
+((90, 4), (90,)) code:
+iris.data[:5] result: code:
+X_train[:5] result: code:
+clf = svm.SVC(kernel=&amp;#34;linear&amp;#34;,C=1) clf.fit(X_train,y_train) result:
+SVC(C=1, kernel=&amp;#39;linear&amp;#39;) clf.score(X_test,y_test) result:
+0.9833333333333333 cross_val_score 对数据集进行指定次数的交叉验证并为每次验证效果评测 其中，score 默认是以 scoring=&amp;lsquo;f1_macro’进行评测的，余外针对分类或回归还有： 这需要from　sklearn import metrics ,通过在cross_val_score 指定参数来设定评测标准； 当cv 指定为int 类型时，默认使用KFold 或StratifiedKFold 进行数据集打乱，下面会对KFold 和StratifiedKFold 进行介绍'>
+<meta property='og:url' content='https://example.com/p/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81cross-validation/'>
+<meta property='og:site_name' content='叶宇浩随记博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='python' /><meta property='article:tag' content='sklearn' /><meta property='article:published_time' content='2022-12-16T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2022-12-16T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="sklearn中的交叉验证Cross-Validation">
+<meta name="twitter:description" content="sklearn是利用python进行机器学习中一个非常全面和好用的第三方库，用过的都说好。今天主要记录一下sklearn中关于交叉验证的各种用法，主要是对sklearn官方文档 https://scikit-learn.org/stable/modules/cross_validation.html
+import numpy as np from sklearn.model_selection import train_test_split from sklearn.datasets import load_iris from sklearn import svm iris = load_iris() iris.data.shape,iris.target.shape result:
+((150, 4), (150,)) train_test_split 对数据集进行快速打乱（分为训练集和测试集）, 这里相当于对数据集进行了shuffle后按照给定的test_size进行数据集划分
+这里是按照6:4对训练集测试集进行划分 X_train,X_test,y_train,y_test = train_test_split(iris.data,iris.target,test_size=.4,random_state=22)
+code:
+X_train.shape,y_train.shape result:
+((90, 4), (90,)) code:
+iris.data[:5] result: code:
+X_train[:5] result: code:
+clf = svm.SVC(kernel=&amp;#34;linear&amp;#34;,C=1) clf.fit(X_train,y_train) result:
+SVC(C=1, kernel=&amp;#39;linear&amp;#39;) clf.score(X_test,y_test) result:
+0.9833333333333333 cross_val_score 对数据集进行指定次数的交叉验证并为每次验证效果评测 其中，score 默认是以 scoring=&amp;lsquo;f1_macro’进行评测的，余外针对分类或回归还有： 这需要from　sklearn import metrics ,通过在cross_val_score 指定参数来设定评测标准； 当cv 指定为int 类型时，默认使用KFold 或StratifiedKFold 进行数据集打乱，下面会对KFold 和StratifiedKFold 进行介绍">
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>Back</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/code/" style="background-color: #fa1; color: #fff;">
+                编程
+            </a>
+        
+            <a href="/categories/deeplearning/" style="background-color: #0f1503; color: #fff;">
+                深度学习
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81cross-validation/">sklearn中的交叉验证Cross-Validation</a>
+    </h2>
+
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Dec 16, 2022</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    2 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <p>sklearn是利用python进行机器学习中一个非常全面和好用的第三方库，用过的都说好。今天主要记录一下sklearn中关于交叉验证的各种用法，主要是对sklearn官方文档
+<a class="link" href="https://scikit-learn.org/stable/modules/cross_validation.html"  target="_blank" rel="noopener"
+    >https://scikit-learn.org/stable/modules/cross_validation.html</a></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">svm</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">iris</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">iris</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span><span class="n">iris</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">shape</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="p">((</span><span class="mi">150</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">150</span><span class="p">,))</span>
+</span></span></code></pre></div><h2 id="train_test_split">train_test_split</h2>
+<p>对数据集进行快速打乱（分为训练集和测试集）,
+这里相当于对数据集进行了shuffle后按照给定的test_size进行数据集划分</p>
+<p>这里是按照6:4对训练集测试集进行划分
+X_train,X_test,y_train,y_test = train_test_split(iris.data,iris.target,test_size=.4,random_state=22)</p>
+<p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span><span class="n">y_train</span><span class="o">.</span><span class="n">shape</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="p">((</span><span class="mi">90</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">90</span><span class="p">,))</span>
+</span></span></code></pre></div><p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">iris</span><span class="o">.</span><span class="n">data</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 272; 
+			flex-basis: 653px"
+	>
+	<a href="/p/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81cross-validation/picture/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81Cross-Validation.png" data-size="534x196">
+		<img src="/p/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81cross-validation/picture/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81Cross-Validation.png"
+			width="534"
+			height="196"
+			srcset="/p/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81cross-validation/picture/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81Cross-Validation_hu46a565d7c0a9dd31d2caa81edb92d0f2_20166_480x0_resize_box_3.png 480w, /p/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81cross-validation/picture/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81Cross-Validation_hu46a565d7c0a9dd31d2caa81edb92d0f2_20166_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">X_train</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 319; 
+			flex-basis: 765px"
+	>
+	<a href="/p/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81cross-validation/picture/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81Cross-Validation-1.png" data-size="638x200">
+		<img src="/p/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81cross-validation/picture/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81Cross-Validation-1.png"
+			width="638"
+			height="200"
+			srcset="/p/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81cross-validation/picture/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81Cross-Validation-1_hu171555229f88f2fe47f823eb896bdedf_20203_480x0_resize_box_3.png 480w, /p/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81cross-validation/picture/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81Cross-Validation-1_hu171555229f88f2fe47f823eb896bdedf_20203_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">clf</span> <span class="o">=</span> <span class="n">svm</span><span class="o">.</span><span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s2">&#34;linear&#34;</span><span class="p">,</span><span class="n">C</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span><span class="n">y_train</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">SVC</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">kernel</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">)</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">clf</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span><span class="n">y_test</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="mf">0.9833333333333333</span>
+</span></span></code></pre></div><h2 id="cross_val_score">cross_val_score</h2>
+<p>对数据集进行指定次数的交叉验证并为每次验证效果评测
+其中，score 默认是以 scoring=&lsquo;f1_macro’进行评测的，余外针对分类或回归还有：
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 183; 
+			flex-basis: 440px"
+	>
+	<a href="/p/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81cross-validation/picture/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81Cross-Validation-2.png" data-size="1234x672">
+		<img src="/p/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81cross-validation/picture/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81Cross-Validation-2.png"
+			width="1234"
+			height="672"
+			srcset="/p/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81cross-validation/picture/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81Cross-Validation-2_hu57c470d602f6d7fe264db2b62518240c_276857_480x0_resize_box_3.png 480w, /p/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81cross-validation/picture/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81Cross-Validation-2_hu57c470d602f6d7fe264db2b62518240c_276857_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+这需要from　sklearn import metrics ,通过在cross_val_score 指定参数来设定评测标准；
+当cv 指定为int 类型时，默认使用KFold 或StratifiedKFold 进行数据集打乱，下面会对KFold 和StratifiedKFold 进行介绍</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">cross_val_score</span>
+</span></span><span class="line"><span class="cl"><span class="n">clf</span> <span class="o">=</span> <span class="n">svm</span><span class="o">.</span><span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s2">&#34;linear&#34;</span><span class="p">,</span><span class="n">C</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">scores</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span><span class="n">iris</span><span class="o">.</span><span class="n">data</span><span class="p">,</span><span class="n">iris</span><span class="o">.</span><span class="n">target</span><span class="p">,</span><span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">scores</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">array</span><span class="p">([</span><span class="mf">0.96666667</span><span class="p">,</span> <span class="mf">1.</span>        <span class="p">,</span> <span class="mf">0.96666667</span><span class="p">,</span> <span class="mf">0.96666667</span><span class="p">,</span> <span class="mf">1.</span>        <span class="p">])</span>
+</span></span></code></pre></div><p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">scores</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="mf">0.9800000000000001</span>
+</span></span></code></pre></div><h2 id="在cross_val_score-中同样可使用pipeline-进行流水线操作">在cross_val_score 中同样可使用pipeline 进行流水线操作</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">preprocessing</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">make_pipeline</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">clf</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">preprocessing</span><span class="o">.</span><span class="n">StandardScaler</span><span class="p">(),</span><span class="n">svm</span><span class="o">.</span><span class="n">SVC</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">cross_val_score</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span><span class="n">iris</span><span class="o">.</span><span class="n">data</span><span class="p">,</span><span class="n">iris</span><span class="o">.</span><span class="n">target</span><span class="p">,</span><span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">array</span><span class="p">([</span><span class="mf">0.96666667</span><span class="p">,</span> <span class="mf">0.96666667</span><span class="p">,</span> <span class="mf">0.96666667</span><span class="p">,</span> <span class="mf">0.93333333</span><span class="p">,</span> <span class="mf">1.</span>        <span class="p">])</span>
+</span></span></code></pre></div><h2 id="cross_val_predict">cross_val_predict</h2>
+<p>cross_val_predict 与 cross_val_score 很相像，不过不同于返回的是评测效果，cross_val_predict 返回的是estimator 的分类结果（或回归值），这个对于后期模型的改善很重要，可以通过该预测输出对比实际目标值，准确定位到预测出错的地方，为我们参数优化及问题排查十分的重要</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">cross_val_predict</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">metrics</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">predicted</span> <span class="o">=</span> <span class="n">cross_val_predict</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span><span class="n">iris</span><span class="o">.</span><span class="n">data</span><span class="p">,</span><span class="n">iris</span><span class="o">.</span><span class="n">target</span><span class="p">,</span><span class="n">cv</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">predicted</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 467; 
+			flex-basis: 1121px"
+	>
+	<a href="/p/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81cross-validation/picture/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81Cross-Validation-3.png" data-size="1252x268">
+		<img src="/p/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81cross-validation/picture/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81Cross-Validation-3.png"
+			width="1252"
+			height="268"
+			srcset="/p/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81cross-validation/picture/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81Cross-Validation-3_hu34908432580d4d5f08e4a66fee8d36dd_27222_480x0_resize_box_3.png 480w, /p/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81cross-validation/picture/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81Cross-Validation-3_hu34908432580d4d5f08e4a66fee8d36dd_27222_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>code</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">metrics</span><span class="o">.</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">iris</span><span class="o">.</span><span class="n">target</span><span class="p">,</span><span class="n">predicted</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="mf">0.9666666666666667</span>
+</span></span></code></pre></div><h2 id="kfold">KFold</h2>
+<p>K折交叉验证，这是将数据集分成K份的官方给定方案，所谓K折就是将数据集通过K次分割，使得所有数据既在训练集出现过，又在测试集出现过，当然，每次分割中不会有重叠。相当于无放回抽样</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">KFold</span>
+</span></span><span class="line"><span class="cl"><span class="n">X</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;a&#34;</span><span class="p">,</span><span class="s2">&#34;b&#34;</span><span class="p">,</span><span class="s2">&#34;c&#34;</span><span class="p">,</span><span class="s2">&#34;d&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">kf</span> <span class="o">=</span> <span class="n">KFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">train</span><span class="p">,</span><span class="n">test</span> <span class="ow">in</span> <span class="n">kf</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">train</span><span class="p">,</span><span class="n">test</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">X</span><span class="p">)[</span><span class="n">train</span><span class="p">],</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">X</span><span class="p">)[</span><span class="n">test</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 169; 
+			flex-basis: 407px"
+	>
+	<a href="/p/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81cross-validation/picture/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81Cross-Validation-4.png" data-size="448x264">
+		<img src="/p/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81cross-validation/picture/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81Cross-Validation-4.png"
+			width="448"
+			height="264"
+			srcset="/p/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81cross-validation/picture/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81Cross-Validation-4_hube80da39be24abdd87aafcfbdc242ff6_10655_480x0_resize_box_3.png 480w, /p/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81cross-validation/picture/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81Cross-Validation-4_hube80da39be24abdd87aafcfbdc242ff6_10655_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="leaveoneout">LeaveOneOut</h2>
+<p>LeaveOneOut 其实就是KFold 的一个特例，因为使用次数比较多，因此独立的定义出来，完全可以通过KFold 实现</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">LeaveOneOut</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">X</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">loo</span> <span class="o">=</span> <span class="n">LeaveOneOut</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">train</span><span class="p">,</span><span class="n">test</span> <span class="ow">in</span> <span class="n">loo</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">train</span><span class="p">,</span><span class="n">test</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 160; 
+			flex-basis: 384px"
+	>
+	<a href="/p/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81cross-validation/picture/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81Cross-Validation-5.png" data-size="266x166">
+		<img src="/p/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81cross-validation/picture/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81Cross-Validation-5.png"
+			width="266"
+			height="166"
+			srcset="/p/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81cross-validation/picture/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81Cross-Validation-5_hu974b1316e7d6587822481f5ec764917f_8108_480x0_resize_box_3.png 480w, /p/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81cross-validation/picture/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81Cross-Validation-5_hu974b1316e7d6587822481f5ec764917f_8108_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#使用KFold实现LeaveOneOut</span>
+</span></span><span class="line"><span class="cl"><span class="n">kf</span> <span class="o">=</span> <span class="n">KFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">train</span><span class="p">,</span><span class="n">test</span> <span class="ow">in</span> <span class="n">kf</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">train</span><span class="p">,</span><span class="n">test</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 138; 
+			flex-basis: 331px"
+	>
+	<a href="/p/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81cross-validation/picture/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81Cross-Validation-6.png" data-size="224x162">
+		<img src="/p/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81cross-validation/picture/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81Cross-Validation-6.png"
+			width="224"
+			height="162"
+			srcset="/p/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81cross-validation/picture/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81Cross-Validation-6_hu3376d61cbb4a831cfd96ae0717de61a3_4544_480x0_resize_box_3.png 480w, /p/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81cross-validation/picture/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81Cross-Validation-6_hu3376d61cbb4a831cfd96ae0717de61a3_4544_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="leavepout">LeavePOut</h2>
+<p>这个也是KFold 的一个特例，用KFold 实现起来稍麻烦些，跟LeaveOneOut 也很像。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">LeavePOut</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">lpo</span> <span class="o">=</span> <span class="n">LeavePOut</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">train</span><span class="p">,</span><span class="n">test</span> <span class="ow">in</span> <span class="n">lpo</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">train</span><span class="p">,</span><span class="n">test</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 101; 
+			flex-basis: 244px"
+	>
+	<a href="/p/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81cross-validation/picture/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81Cross-Validation-8.png" data-size="224x220">
+		<img src="/p/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81cross-validation/picture/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81Cross-Validation-8.png"
+			width="224"
+			height="220"
+			srcset="/p/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81cross-validation/picture/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81Cross-Validation-8_hu8c4d9ce0e76a0127acbdaacb1c46580c_5660_480x0_resize_box_3.png 480w, /p/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81cross-validation/picture/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81Cross-Validation-8_hu8c4d9ce0e76a0127acbdaacb1c46580c_5660_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="shufflesplit">ShuffleSplit</h2>
+<p>ShuffleSplit 咋一看用法跟LeavePOut 很像，其实两者完全不一样，LeavePOut 是使得数据集经过数次分割后，所有的测试集出现的元素的集合即是完整的数据集，即无放回的抽样，而ShuffleSplit 则是有放回的抽样，只能说经过一个足够大的抽样次数后，保证测试集出现了完成的数据集的倍数</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">ShuffleSplit</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ss</span> <span class="o">=</span> <span class="n">ShuffleSplit</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span><span class="n">test_size</span><span class="o">=</span><span class="mf">.25</span><span class="p">,</span><span class="n">random_state</span><span class="o">=</span><span class="mi">22</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">train</span><span class="p">,</span><span class="n">test</span> <span class="ow">in</span> <span class="n">ss</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">train</span><span class="p">,</span><span class="n">test</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 242; 
+			flex-basis: 581px"
+	>
+	<a href="/p/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81cross-validation/picture/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81Cross-Validation-10.png" data-size="354x146">
+		<img src="/p/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81cross-validation/picture/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81Cross-Validation-10.png"
+			width="354"
+			height="146"
+			srcset="/p/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81cross-validation/picture/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81Cross-Validation-10_huc4b0d1b08e06018890923f8b408b4b28_7628_480x0_resize_box_3.png 480w, /p/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81cross-validation/picture/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81Cross-Validation-10_huc4b0d1b08e06018890923f8b408b4b28_7628_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="stratifiedkfold">StratifiedKFold</h2>
+<p>这个就比较好玩了，通过指定分组，对测试集进行无放回抽样。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">StratifiedKFold</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">skf</span> <span class="o">=</span> <span class="n">StratifiedKFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">train</span><span class="p">,</span><span class="n">test</span> <span class="ow">in</span> <span class="n">skf</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">train</span><span class="p">,</span><span class="n">test</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 313; 
+			flex-basis: 751px"
+	>
+	<a href="/p/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81cross-validation/picture/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81Cross-Validation-11.png" data-size="426x136">
+		<img src="/p/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81cross-validation/picture/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81Cross-Validation-11.png"
+			width="426"
+			height="136"
+			srcset="/p/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81cross-validation/picture/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81Cross-Validation-11_hu02a663baa03380c0556890867e88a81a_13068_480x0_resize_box_3.png 480w, /p/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81cross-validation/picture/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81Cross-Validation-11_hu02a663baa03380c0556890867e88a81a_13068_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="groudkfold">GroudKFold</h2>
+<p>这个跟StratifiedKFold 比较像，不过测试集是按照一定分组进行打乱的，即先分堆，然后把这些堆打乱，每个堆里的顺序还是固定不变的</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">GroupKFold</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">X</span> <span class="o">=</span> <span class="p">[</span><span class="mf">.1</span><span class="p">,</span> <span class="mf">.2</span><span class="p">,</span> <span class="mf">2.2</span><span class="p">,</span> <span class="mf">2.4</span><span class="p">,</span> <span class="mf">2.3</span><span class="p">,</span> <span class="mf">4.55</span><span class="p">,</span> <span class="mf">5.8</span><span class="p">,</span> <span class="mf">8.8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">,</span><span class="s1">&#39;d&#39;</span><span class="p">,</span><span class="s1">&#39;d&#39;</span><span class="p">,</span><span class="s1">&#39;d&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">groups</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">gkf</span> <span class="o">=</span> <span class="n">GroupKFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">train</span><span class="p">,</span><span class="n">test</span> <span class="ow">in</span> <span class="n">gkf</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">groups</span><span class="o">=</span><span class="n">groups</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">train</span><span class="p">,</span><span class="n">test</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 297; 
+			flex-basis: 713px"
+	>
+	<a href="/p/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81cross-validation/picture/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81Cross-Validation-12.png" data-size="440x148">
+		<img src="/p/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81cross-validation/picture/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81Cross-Validation-12.png"
+			width="440"
+			height="148"
+			srcset="/p/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81cross-validation/picture/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81Cross-Validation-12_hu4b3aa5cdd1fb807f0bfbddadab5ce094_13459_480x0_resize_box_3.png 480w, /p/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81cross-validation/picture/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81Cross-Validation-12_hu4b3aa5cdd1fb807f0bfbddadab5ce094_13459_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="leaveonegroupout">LeaveOneGroupOut</h2>
+<p>这个是在GroupKFold 上的基础上混乱度又减小了，按照给定的分组方式将测试集分割下来</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">LeaveOneGroupOut</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">X</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="mi">80</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">groups</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">logo</span> <span class="o">=</span> <span class="n">LeaveOneGroupOut</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">train</span><span class="p">,</span><span class="n">test</span> <span class="ow">in</span> <span class="n">logo</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">groups</span><span class="o">=</span><span class="n">groups</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">train</span><span class="p">,</span><span class="n">test</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 251; 
+			flex-basis: 603px"
+	>
+	<a href="/p/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81cross-validation/picture/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81Cross-Validation-13.png" data-size="332x132">
+		<img src="/p/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81cross-validation/picture/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81Cross-Validation-13.png"
+			width="332"
+			height="132"
+			srcset="/p/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81cross-validation/picture/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81Cross-Validation-13_hu17ca267f38927d9b7509b520e1444e80_9814_480x0_resize_box_3.png 480w, /p/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81cross-validation/picture/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81Cross-Validation-13_hu17ca267f38927d9b7509b520e1444e80_9814_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="leavepgroupsout">LeavePGroupsOut</h2>
+<p>这个没啥可说的，跟上面那个一样，只是一个是单组，一个是多组</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">LeavePGroupsOut</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">groups</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">lpgo</span> <span class="o">=</span> <span class="n">LeavePGroupsOut</span><span class="p">(</span><span class="n">n_groups</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">train</span><span class="p">,</span><span class="n">test</span> <span class="ow">in</span> <span class="n">lpgo</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">groups</span><span class="o">=</span><span class="n">groups</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">train</span><span class="p">,</span><span class="n">test</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 239; 
+			flex-basis: 575px"
+	>
+	<a href="/p/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81cross-validation/picture/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81Cross-Validation-14.png" data-size="302x126">
+		<img src="/p/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81cross-validation/picture/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81Cross-Validation-14.png"
+			width="302"
+			height="126"
+			srcset="/p/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81cross-validation/picture/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81Cross-Validation-14_hu295f058467af70b226e778e3240b4e44_8157_480x0_resize_box_3.png 480w, /p/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81cross-validation/picture/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81Cross-Validation-14_hu295f058467af70b226e778e3240b4e44_8157_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="groupshufflesplot">GroupShuffleSplot</h2>
+<p>这个是有放回抽样</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">GroupShuffleSplit</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">X</span> <span class="o">=</span> <span class="p">[</span><span class="mf">.1</span><span class="p">,</span> <span class="mf">.2</span><span class="p">,</span> <span class="mf">2.2</span><span class="p">,</span> <span class="mf">2.4</span><span class="p">,</span> <span class="mf">2.3</span><span class="p">,</span> <span class="mf">4.55</span><span class="p">,</span> <span class="mf">5.8</span><span class="p">,</span> <span class="mf">.001</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">groups</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">gss</span> <span class="o">=</span> <span class="n">GroupShuffleSplit</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span><span class="n">test_size</span><span class="o">=</span><span class="mf">.5</span><span class="p">,</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">train</span><span class="p">,</span><span class="n">test</span> <span class="ow">in</span> <span class="n">gss</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">groups</span><span class="o">=</span><span class="n">groups</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">train</span><span class="p">,</span><span class="n">test</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 227; 
+			flex-basis: 544px"
+	>
+	<a href="/p/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81cross-validation/picture/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81Cross-Validation-15.png" data-size="336x148">
+		<img src="/p/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81cross-validation/picture/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81Cross-Validation-15.png"
+			width="336"
+			height="148"
+			srcset="/p/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81cross-validation/picture/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81Cross-Validation-15_huff115a6434cce3f8c9cd1788612a6844_13209_480x0_resize_box_3.png 480w, /p/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81cross-validation/picture/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81Cross-Validation-15_huff115a6434cce3f8c9cd1788612a6844_13209_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="timeseriessplit">TimeSeriesSplit</h2>
+<p>针对时间序列的处理，防止未来数据的使用，分割时是将数据进行从前到后切割（这个说法其实不太恰当，因为切割是延续性的。。）</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">TimeSeriesSplit</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],[</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],[</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],[</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]])</span>
+</span></span><span class="line"><span class="cl"><span class="n">tscv</span> <span class="o">=</span> <span class="n">TimeSeriesSplit</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">train</span><span class="p">,</span><span class="n">test</span> <span class="ow">in</span> <span class="n">tscv</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">train</span><span class="p">,</span><span class="n">test</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 212; 
+			flex-basis: 509px"
+	>
+	<a href="/p/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81cross-validation/picture/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81Cross-Validation-16.png" data-size="280x132">
+		<img src="/p/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81cross-validation/picture/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81Cross-Validation-16.png"
+			width="280"
+			height="132"
+			srcset="/p/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81cross-validation/picture/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81Cross-Validation-16_hu9177c1a4a43251020299e982da3c0b0b_7274_480x0_resize_box_3.png 480w, /p/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81cross-validation/picture/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81Cross-Validation-16_hu9177c1a4a43251020299e982da3c0b0b_7274_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/python/">python</a>
+        
+            <a href="/tags/sklearn/">sklearn</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">Related contents</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="">
+    <a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">阿里云_ML_02_数据探索</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">阿里云_ML_03_特征工程</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_04_%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">阿里云_ML_04_模型训练</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_05_%E6%A8%A1%E5%9E%8B%E9%AA%8C%E8%AF%81/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">阿里云_ML_05_模型验证</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/sklearn.preprocessing.standardscaler%E6%95%B0%E6%8D%AE%E6%A0%87%E5%87%86%E5%8C%96/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">sklearn.preprocessing.StandardScaler数据标准化</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2022 - 
+        
+        2023 叶宇浩随记博客
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.5.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">Table of contents</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#train_test_split">train_test_split</a></li>
+    <li><a href="#cross_val_score">cross_val_score</a></li>
+    <li><a href="#在cross_val_score-中同样可使用pipeline-进行流水线操作">在cross_val_score 中同样可使用pipeline 进行流水线操作</a></li>
+    <li><a href="#cross_val_predict">cross_val_predict</a></li>
+    <li><a href="#kfold">KFold</a></li>
+    <li><a href="#leaveoneout">LeaveOneOut</a></li>
+    <li><a href="#leavepout">LeavePOut</a></li>
+    <li><a href="#shufflesplit">ShuffleSplit</a></li>
+    <li><a href="#stratifiedkfold">StratifiedKFold</a></li>
+    <li><a href="#groudkfold">GroudKFold</a></li>
+    <li><a href="#leaveonegroupout">LeaveOneGroupOut</a></li>
+    <li><a href="#leavepgroupsout">LeavePGroupsOut</a></li>
+    <li><a href="#groupshufflesplot">GroupShuffleSplot</a></li>
+    <li><a href="#timeseriessplit">TimeSeriesSplit</a></li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

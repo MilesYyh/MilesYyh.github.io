@@ -1,0 +1,20 @@
+select resn HOH 
+remove sele
+set cartoon_loop_radius, 0.2
+set cartoon_oval_width, 0.2
+set cartoon_rect_width, 0.2
+set specular, off
+set ray_trace_mode, 1
+select name ca
+show spheres, sele
+set sphere_scale, 0
+set cartoon_side_chain_helper, 1
+bg_color white
+color gray80
+set ray_trace_disco_factor, 1.0
+set ray_trace_gain, 0.0
+set ambient, 0.66
+set ray_shadow, 0
+zoom
+orient
+ray

@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='机器学习--朴素贝叶斯代码'><title>myNBcode</title>
+
+<link rel='canonical' href='https://example.com/p/mynbcode/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='myNBcode'>
+<meta property='og:description' content='机器学习--朴素贝叶斯代码'>
+<meta property='og:url' content='https://example.com/p/mynbcode/'>
+<meta property='og:site_name' content='叶宇浩随记博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='python' /><meta property='article:tag' content='sklearn' /><meta property='article:published_time' content='2021-09-11T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-09-11T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="myNBcode">
+<meta name="twitter:description" content="机器学习--朴素贝叶斯代码">
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>Back</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/code/" style="background-color: #fa1; color: #fff;">
+                编程
+            </a>
+        
+            <a href="/categories/deeplearning/" style="background-color: #0f1503; color: #fff;">
+                深度学习
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/mynbcode/">myNBcode</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        机器学习--朴素贝叶斯代码
+    </h3>
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Sep 11, 2021</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    3 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <blockquote>
+<p>copy过来的，略作修改</p>
+</blockquote>
+<p>1．朴素贝叶斯法是典型的生成学习方法。生成方法由训练数据学习联合概率分布
+$P(X,Y)$，然后求得后验概率分布$P(Y|X)$。具体来说，利用训练数据学习$P(X|Y)$和$P(Y)$的估计，得到联合概率分布：</p>
+<p>$$P(X,Y)＝P(Y)P(X|Y)$$</p>
+<p>概率估计方法可以是极大似然估计或贝叶斯估计。</p>
+<p>2．朴素贝叶斯法的基本假设是条件独立性，</p>
+<p>$$\begin{aligned} P(X&amp;=x | Y=c_{k} )=P\left(X^{(1)}=x^{(1)}, \cdots, X^{(n)}=x^{(n)} | Y=c_{k}\right) \ &amp;=\prod_{j=1}^{n} P\left(X^{(j)}=x^{(j)} | Y=c_{k}\right) \end{aligned}$$</p>
+<p>这是一个较强的假设。由于这一假设，模型包含的条件概率的数量大为减少，朴素贝叶斯法的学习与预测大为简化。因而朴素贝叶斯法高效，且易于实现。其缺点是分类的性能不一定很高。</p>
+<p>3．朴素贝叶斯法利用贝叶斯定理与学到的联合概率模型进行分类预测。</p>
+<p>$$P(Y | X)=\frac{P(X, Y)}{P(X)}=\frac{P(Y) P(X | Y)}{\sum_{Y} P(Y) P(X | Y)}$$</p>
+<p>将输入$x$分到后验概率最大的类$y$。</p>
+<p>$$y=\arg \max <em>{c</em>{k}} P\left(Y=c_{k}\right) \prod_{j=1}^{n} P\left(X_{j}=x^{(j)} | Y=c_{k}\right)$$</p>
+<p>后验概率最大等价于0-1损失函数时的期望风险最小化。（可能会用到拉普拉斯平滑）</p>
+<p>模型：</p>
+<ul>
+<li>高斯模型</li>
+<li>多项式模型</li>
+<li>伯努利模型</li>
+</ul>
+<h2 id="自定义一组数据用来看看">自定义一组数据用来看看</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">math</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#这里用的是sklearn上自带的数据集Iris 鸢尾花</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#https://www.cnblogs.com/nolonely/p/6980160.html</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#http://scikit-learn.org/stable/auto_examples/datasets/plot_iris_dataset.html</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#从model_selection模块中导入train_test_split划分数据用</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+</span></span></code></pre></div><p>先来初步了解上这个dataset
+<a class="link" href="https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_iris.html"  target="_blank" rel="noopener"
+    >https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_iris.html</a></p>
+<p>这是data即数据集的数据样本不包含结果和列名</p>
+<p>data{ndarray, dataframe} of shape (150, 4)</p>
+<p>The data matrix. If as_frame=True, data will be a pandas DataFrame.</p>
+<p>这是数据列名,即特征名</p>
+<p>feature_names: list</p>
+<p>The names of the dataset columns.</p>
+<p>这是数据的结果名称，即出现了什么结果，是一个集合的概念</p>
+<p>target_names: list</p>
+<p>The names of target classes.</p>
+<p>这是每一个样本的结果</p>
+<p>target: {ndarray, Series} of shape (150,)</p>
+<p>The classification target. If as_frame=True, target will be a pandas Series.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">iris</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">()</span><span class="c1">#加载iris对象</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#用pd.DataFrame()创建一个dataframe的对象，参数有data，index，columns等</span>
+</span></span><span class="line"><span class="cl"><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">iris</span><span class="o">.</span><span class="n">data</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="n">iris</span><span class="o">.</span><span class="n">feature_names</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 294; 
+			flex-basis: 706px"
+	>
+	<a href="/p/mynbcode/picture/myNBcode.png" data-size="848x288">
+		<img src="/p/mynbcode/picture/myNBcode.png"
+			width="848"
+			height="288"
+			srcset="/p/mynbcode/picture/myNBcode_huc7c9e4cfb647fc26bb8269dac5be29d8_22781_480x0_resize_box_3.png 480w, /p/mynbcode/picture/myNBcode_huc7c9e4cfb647fc26bb8269dac5be29d8_22781_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>可以看出数据中没有标签结果即分类的结果，所以要加上去看看</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">df</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">iris</span><span class="o">.</span><span class="n">target</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">df</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">100</span><span class="p">]</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 152; 
+			flex-basis: 366px"
+	>
+	<a href="/p/mynbcode/picture/myNBcode-1.png" data-size="888x582">
+		<img src="/p/mynbcode/picture/myNBcode-1.png"
+			width="888"
+			height="582"
+			srcset="/p/mynbcode/picture/myNBcode-1_hu58effaab84fced24e2362bebd22f2fe8_46054_480x0_resize_box_3.png 480w, /p/mynbcode/picture/myNBcode-1_hu58effaab84fced24e2362bebd22f2fe8_46054_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+再仔细观察可以发现列名有个单位，把他去掉先</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#重命名列名</span>
+</span></span><span class="line"><span class="cl"><span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;sepal length&#39;</span><span class="p">,</span><span class="s1">&#39;sepal width&#39;</span><span class="p">,</span><span class="s1">&#39;petal length&#39;</span><span class="p">,</span><span class="s1">&#39;petal width&#39;</span><span class="p">,</span><span class="s1">&#39;label&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 251; 
+			flex-basis: 604px"
+	>
+	<a href="/p/mynbcode/picture/myNBcode-2.png" data-size="650x258">
+		<img src="/p/mynbcode/picture/myNBcode-2.png"
+			width="650"
+			height="258"
+			srcset="/p/mynbcode/picture/myNBcode-2_huf1b2eb3a0a51a15f54ef2f399cd36538_23227_480x0_resize_box_3.png 480w, /p/mynbcode/picture/myNBcode-2_huf1b2eb3a0a51a15f54ef2f399cd36538_23227_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">df</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 168; 
+			flex-basis: 403px"
+	>
+	<a href="/p/mynbcode/picture/myNBcode-3.png" data-size="296x176">
+		<img src="/p/mynbcode/picture/myNBcode-3.png"
+			width="296"
+			height="176"
+			srcset="/p/mynbcode/picture/myNBcode-3_hu3bcce364f82f137c78ca6cf07d18aca8_13445_480x0_resize_box_3.png 480w, /p/mynbcode/picture/myNBcode-3_hu3bcce364f82f137c78ca6cf07d18aca8_13445_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+把dataframe转为np数据，方便后面训练</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">dataset</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="mi">100</span><span class="p">,:])</span>
+</span></span><span class="line"><span class="cl"><span class="n">dataset</span><span class="o">.</span><span class="n">shape</span>
+</span></span></code></pre></div><p>result:</p>
+<pre tabindex="0"><code>(100, 5)
+</code></pre><h2 id="划分数据集">划分数据集</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">X</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[:,:</span><span class="mi">4</span><span class="p">]</span><span class="c1">#dataset[:,:-1]</span>
+</span></span><span class="line"><span class="cl"><span class="n">Y</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[:,</span><span class="mi">4</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">X_train</span><span class="p">,</span><span class="n">X_test</span><span class="p">,</span><span class="n">Y_train</span><span class="p">,</span><span class="n">Y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">,</span><span class="n">test_size</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#train_test_split依次返回X训练，X测试，Y训练，Y测试的结果</span>
+</span></span><span class="line"><span class="cl"><span class="n">X_train</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">Y_train</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="p">(</span><span class="n">array</span><span class="p">([</span><span class="mf">5.</span> <span class="p">,</span> <span class="mf">3.3</span><span class="p">,</span> <span class="mf">1.4</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">]),</span> <span class="mf">0.0</span><span class="p">)</span>
+</span></span></code></pre></div><h2 id="算法">算法</h2>
+<p>在徒手写之前先用sklearn实现一遍，因为比较简单</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#导入NB模型 高斯模型  伯努利模型 多项式模型</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">sklearn.naive_bayes</span> <span class="kn">import</span> <span class="n">GaussianNB</span><span class="p">,</span><span class="n">BernoulliNB</span><span class="p">,</span><span class="n">MultinomialNB</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#加载模型</span>
+</span></span><span class="line"><span class="cl"><span class="n">G_model</span> <span class="o">=</span> <span class="n">GaussianNB</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">B_model</span> <span class="o">=</span> <span class="n">BernoulliNB</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">M_model</span> <span class="o">=</span> <span class="n">MultinomialNB</span><span class="p">()</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#训练数据</span>
+</span></span><span class="line"><span class="cl"><span class="n">G_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span><span class="n">Y_train</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">B_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span><span class="n">Y_train</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">M_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span><span class="n">Y_train</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">MultinomialNB</span><span class="p">()</span>
+</span></span></code></pre></div><p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#查看score，其实我这里还没搞清sklearn中的score到底是什么</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#用测试集测试score</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">G_model</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span><span class="n">Y_test</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">B_model</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span><span class="n">Y_test</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">M_model</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span><span class="n">Y_test</span><span class="p">))</span>
+</span></span></code></pre></div><p>result：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="mf">1.0</span>
+</span></span><span class="line"><span class="cl"><span class="mf">0.425</span>
+</span></span><span class="line"><span class="cl"><span class="mf">1.0</span>
+</span></span></code></pre></div><p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#预测一下</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#随便输入一个样本</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">G_model</span><span class="o">.</span><span class="n">predict</span><span class="p">([[</span><span class="mf">3.1</span><span class="p">,</span> <span class="mf">4.4</span><span class="p">,</span> <span class="mf">2.1</span><span class="p">,</span><span class="mf">0.3</span><span class="p">]]))</span>    
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">B_model</span><span class="o">.</span><span class="n">predict</span><span class="p">([[</span><span class="mf">3.1</span><span class="p">,</span> <span class="mf">4.4</span><span class="p">,</span> <span class="mf">2.1</span><span class="p">,</span><span class="mf">0.3</span><span class="p">]]))</span>   
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">M_model</span><span class="o">.</span><span class="n">predict</span><span class="p">([[</span><span class="mf">3.1</span><span class="p">,</span> <span class="mf">4.4</span><span class="p">,</span> <span class="mf">2.1</span><span class="p">,</span><span class="mf">0.3</span><span class="p">]]))</span>   
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="p">[</span><span class="mf">0.</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mf">1.</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mf">0.</span><span class="p">]</span>
+</span></span></code></pre></div><p>在sklearn中可以看出Gaussian和Multinomial的准确性是一致的，Burnoulli的准确性低,注意了是针对iris这一数据而言的</p>
+<h2 id="徒手写实现一遍">徒手写实现一遍</h2>
+<p>参考：https://machinelearningmastery.com/naive-bayes-classifier-scratch-python/</p>
+<h3 id="gaussiannb-高斯朴素贝叶斯">GaussianNB 高斯朴素贝叶斯</h3>
+<p>特征的可能性被假设为高斯</p>
+<p>概率密度函数：
+$$P(x_i | y_k)=\frac{1}{\sqrt{2\pi\sigma^2_{yk}}}exp(-\frac{(x_i-\mu_{yk})^2}{2\sigma^2_{yk}})$$</p>
+<p>数学期望(mean)：$\mu$</p>
+<p>方差：$\sigma^2=\frac{\sum(X-\mu)^2}{N}$</p>
+<p>实际上是计算每个数据处于不同类别中的概率，取大的</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#封装一个类</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#注意下类的继承性</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">NaiveBayes</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#这一步可以将其理解为固定的init自身写法</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;NB&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="kc">None</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1">#后面的方法中都要记得传入self</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#mean数学期望均值</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">mean</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">x</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">mean_result</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">mean_result</span>
+</span></span><span class="line"><span class="cl">                                    
+</span></span><span class="line"><span class="cl">    <span class="c1">#方差</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">stdev</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">x</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">#这里self可以理解为因为要在类中调用类中已经定义了的方法，所以要使用self引出</span>
+</span></span><span class="line"><span class="cl">        <span class="n">average</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">#pow(i-average,2) for i in x]注意下列表推导式的运用</span>
+</span></span><span class="line"><span class="cl">        <span class="n">stdev_result</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">sum</span><span class="p">([</span><span class="n">math</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="n">average</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x</span><span class="p">])</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">stdev_result</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">   <span class="c1">#概率密度函数</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">Gaussian_pro</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">mean</span><span class="p">,</span><span class="n">stdev</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">#这里的x是X_test或者要被预测的数据</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">#exponent</span>
+</span></span><span class="line"><span class="cl">        <span class="n">exp_part</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">mean</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="n">stdev</span><span class="p">,</span><span class="mi">2</span><span class="p">))))</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Gaussian_result</span> <span class="o">=</span> <span class="n">exp_part</span> <span class="o">/</span> <span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="n">stdev</span><span class="p">,</span><span class="mi">2</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">Gaussian_result</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1">#处理训练样本,获取每个样本数据的mean和stdev，回头看下概率密度函数，就知道了</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#https://www.cnblogs.com/sddai/p/14303453.html</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#理解下参数前面的*号，其解包作用即将list/turple中的元素逐一取出；字典的话用**</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#这个summarize到底有什么用啊？？？ </span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#我知道这个summarize的用处了，看下面fit函数就明白了，它是用来返回每个类别的mean和stdev的</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">summarize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">X_train</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">summarize_result</span> <span class="o">=</span> <span class="p">[(</span><span class="bp">self</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">stdev</span><span class="p">(</span><span class="n">i</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">X_train</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">#返回每个数据的mean和stdev</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">summarize_result</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1">#分类分别求出训练样本的数学期望和标准差</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">#先看看标签的类别</span>
+</span></span><span class="line"><span class="cl">        <span class="n">labels</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">Y</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">#把相同类别的数据放在一起，用字典</span>
+</span></span><span class="line"><span class="cl">        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="n">label</span><span class="p">:</span> <span class="p">[]</span> <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">labels</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">label</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">            <span class="n">data</span><span class="p">[</span><span class="n">label</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">#dictionary.items返回可遍历的(键, 值) 元组数组</span>
+</span></span><span class="line"><span class="cl">            <span class="n">label</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">summarize</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="k">for</span> <span class="n">label</span><span class="p">,</span><span class="n">value</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">#print(self.model)</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">#这里self.model的结果就是每个类别下的X的均值和方差了</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="s2">&#34;训练结束啦&#34;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1">#计算概率</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">calculate_pro</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">input_data</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">#首先清楚一点:预测数据的类别，就是看它在哪种类别下的概率大</span>
+</span></span><span class="line"><span class="cl">        <span class="n">pro</span> <span class="o">=</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">#这个for间接体现出了用class的好处</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">label</span><span class="p">,</span><span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">#初始化每个类别的概率为1</span>
+</span></span><span class="line"><span class="cl">            <span class="n">pro</span><span class="p">[</span><span class="n">label</span><span class="p">]</span><span class="o">=</span><span class="mi">1</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">#len(value)相当于判断有多个特征，因为要每个特征与自己对应的mean和stdev做运算</span>
+</span></span><span class="line"><span class="cl">            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)):</span>
+</span></span><span class="line"><span class="cl">                <span class="n">mean</span><span class="p">,</span><span class="n">stdev</span> <span class="o">=</span> <span class="n">value</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">                <span class="c1">#这里就相当于计算改类别下的特征概率了       注意独立性所以总概率变成相乘了</span>
+</span></span><span class="line"><span class="cl">                <span class="n">pro</span><span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="o">*=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Gaussian_pro</span><span class="p">(</span><span class="n">input_data</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">mean</span><span class="p">,</span><span class="n">stdev</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">pro</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1">#预测类别</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">X_test</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">#后面的[]是根据实际数据读取的label</span>
+</span></span><span class="line"><span class="cl">        <span class="n">label</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">calculate_pro</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">label</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1">#打分</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">score</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">X_test</span><span class="p">,</span><span class="n">Y_test</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">right</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">X</span><span class="p">,</span><span class="n">Y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span><span class="n">Y_test</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">            <span class="n">label</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="n">label</span> <span class="o">==</span> <span class="n">Y</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">right</span> <span class="o">+=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">right</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_test</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">             
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">model_1</span> <span class="o">=</span> <span class="n">NaiveBayes</span><span class="p">()</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">NB</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">model_1</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span><span class="n">Y_train</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 737; 
+			flex-basis: 1770px"
+	>
+	<a href="/p/mynbcode/picture/myNBcode-4.png" data-size="1298x176">
+		<img src="/p/mynbcode/picture/myNBcode-4.png"
+			width="1298"
+			height="176"
+			srcset="/p/mynbcode/picture/myNBcode-4_hu7174169266281bb73572d64f7a7f515b_46542_480x0_resize_box_3.png 480w, /p/mynbcode/picture/myNBcode-4_hu7174169266281bb73572d64f7a7f515b_46542_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">model_1</span><span class="o">.</span><span class="n">predict</span><span class="p">([</span><span class="mf">4.5</span><span class="p">,</span><span class="mf">4.4</span><span class="p">,</span><span class="mf">2.0</span><span class="p">,</span><span class="mf">0.4</span><span class="p">])</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="mf">0.0</span>
+</span></span></code></pre></div><p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">model_1</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span><span class="n">Y_test</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="mf">1.0</span>
+</span></span></code></pre></div><p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;a&#39;</span><span class="p">:[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;b&#39;</span><span class="p">:[</span><span class="mi">232</span><span class="p">,</span><span class="mi">333</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">for</span> <span class="n">label</span><span class="p">,</span><span class="n">value</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">label</span><span class="p">,</span><span class="n">value</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">a</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">b</span> <span class="p">[</span><span class="mi">232</span><span class="p">,</span> <span class="mi">333</span><span class="p">]</span>
+</span></span></code></pre></div><p><strong>以下是关于sklearn结果输出的区别</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#https://www.cnblogs.com/pinard/p/6074222.html</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</span></span><span class="line"><span class="cl"><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">]])</span>
+</span></span><span class="line"><span class="cl"><span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">sklearn.naive_bayes</span> <span class="kn">import</span> <span class="n">GaussianNB</span>
+</span></span><span class="line"><span class="cl"><span class="n">clf</span> <span class="o">=</span> <span class="n">GaussianNB</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#拟合数据</span>
+</span></span><span class="line"><span class="cl"><span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;==Predict result by predict==&#34;</span><span class="p">)</span><span class="c1">#返回最佳的label</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">([[</span><span class="o">-</span><span class="mf">0.8</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]]))</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;==Predict result by predict_proba==&#34;</span><span class="p">)</span><span class="c1">#返回label的概率</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">clf</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">([[</span><span class="o">-</span><span class="mf">0.8</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]]))</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;==Predict result by predict_log_proba==&#34;</span><span class="p">)</span><span class="c1">#将最终概率结果值对数转换</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">clf</span><span class="o">.</span><span class="n">predict_log_proba</span><span class="p">([[</span><span class="o">-</span><span class="mf">0.8</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]]))</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 320; 
+			flex-basis: 768px"
+	>
+	<a href="/p/mynbcode/picture/myNBcode-5.png" data-size="608x190">
+		<img src="/p/mynbcode/picture/myNBcode-5.png"
+			width="608"
+			height="190"
+			srcset="/p/mynbcode/picture/myNBcode-5_hu4a4b5c93ed6ea665848121444455599e_30476_480x0_resize_box_3.png 480w, /p/mynbcode/picture/myNBcode-5_hu4a4b5c93ed6ea665848121444455599e_30476_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="总结">总结</h2>
+<ol>
+<li>一般采用pd读取数据，后面训练时再转化为np格式</li>
+<li>徒手写的model_1逻辑还是有点问题，回头再看看，感觉上是没有理解怎么bayes的原理    看3已解决</li>
+<li>2022/1/05 看了这篇博客发现自己有个地方理解错了：https://www.cnblogs.com/pinard/p/6069267.html</li>
+</ol>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/python/">python</a>
+        
+            <a href="/tags/sklearn/">sklearn</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">Related contents</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="">
+    <a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">阿里云_ML_02_数据探索</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">阿里云_ML_03_特征工程</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_04_%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">阿里云_ML_04_模型训练</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_05_%E6%A8%A1%E5%9E%8B%E9%AA%8C%E8%AF%81/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">阿里云_ML_05_模型验证</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81cross-validation/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">sklearn中的交叉验证Cross-Validation</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2022 - 
+        
+        2023 叶宇浩随记博客
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.5.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">Table of contents</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#自定义一组数据用来看看">自定义一组数据用来看看</a></li>
+    <li><a href="#划分数据集">划分数据集</a></li>
+    <li><a href="#算法">算法</a></li>
+    <li><a href="#徒手写实现一遍">徒手写实现一遍</a>
+      <ol>
+        <li><a href="#gaussiannb-高斯朴素贝叶斯">GaussianNB 高斯朴素贝叶斯</a></li>
+      </ol>
+    </li>
+    <li><a href="#总结">总结</a></li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='biopython官方教程学习笔记'><title>Ch4_Sequence_annotation_object_序列注释信息</title>
+
+<link rel='canonical' href='https://example.com/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='Ch4_Sequence_annotation_object_序列注释信息'>
+<meta property='og:description' content='biopython官方教程学习笔记'>
+<meta property='og:url' content='https://example.com/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/'>
+<meta property='og:site_name' content='叶宇浩随记博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='tutorials' /><meta property='article:published_time' content='2021-08-04T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-08-04T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="Ch4_Sequence_annotation_object_序列注释信息">
+<meta name="twitter:description" content="biopython官方教程学习笔记">
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>Back</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/biopython/" style="background-color: #002be1; color: #fff;">
+                生物编程
+            </a>
+        
+            <a href="/categories/bioinformatic/" style="background-color: #7816ff; color: #fff;">
+                生物信息学&amp;计算生物学
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/">Ch4_Sequence_annotation_object_序列注释信息</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        biopython官方教程学习笔记
+    </h3>
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Aug 04, 2021</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    1 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <p><strong>biopython官方地址：</strong><a class="link" href="https://biopython.org/"  target="_blank" rel="noopener"
+    ><strong>https://biopython.org/</strong></a></p>
+<p><strong>github地址：</strong><a class="link" href="https://github.com/biopython/biopython/blob/master/README.rst"  target="_blank" rel="noopener"
+    ><strong>https://github.com/biopython/biopython/blob/master/</strong></a></p>
+<p><strong>中文版教程：</strong><a class="link" href="https://biopython-cn.readthedocs.io/zh_CN/latest/cn/chr06.html"  target="_blank" rel="noopener"
+    ><strong>https://biopython-cn.readthedocs.io/zh_CN/latest/cn/chr06.html</strong></a></p>
+<p><strong>biopython包的说明（具体到每个模块了）：</strong><a class="link" href="https://www.osgeo.cn/biopython/Bio.HMM.DynamicProgramming.html"  target="_blank" rel="noopener"
+    ><strong>https://www.osgeo.cn/biopython/Bio.HMM.DynamicProgramming.html</strong></a></p>
+<h2 id="help查看帮助">help查看帮助</h2>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 428; 
+			flex-basis: 1028px"
+	>
+	<a href="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF.png" data-size="480x112">
+		<img src="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF.png"
+			width="480"
+			height="112"
+			srcset="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF_hu2a6fb2de226699defbebbd1518f568a6_16271_480x0_resize_box_3.png 480w, /p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF_hu2a6fb2de226699defbebbd1518f568a6_16271_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="seqrecord对象的属性">SeqRecord对象的属性</h2>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 238; 
+			flex-basis: 573px"
+	>
+	<a href="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-1.png" data-size="908x380">
+		<img src="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-1.png"
+			width="908"
+			height="380"
+			srcset="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-1_hubc1f06b71da9eddddb649e4dec185422_222434_480x0_resize_box_3.png 480w, /p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-1_hubc1f06b71da9eddddb649e4dec185422_222434_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 474; 
+			flex-basis: 1138px"
+	>
+	<a href="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-2.png" data-size="920x194">
+		<img src="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-2.png"
+			width="920"
+			height="194"
+			srcset="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-2_huaca6f1a760952e78dc230a61683ae73c_112579_480x0_resize_box_3.png 480w, /p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-2_huaca6f1a760952e78dc230a61683ae73c_112579_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="创建seqrecord对象">创建SeqRecord对象</h2>
+<h3 id="直接用seq">直接用Seq</h3>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 470; 
+			flex-basis: 1130px"
+	>
+	<a href="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-3.png" data-size="518x110">
+		<img src="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-3.png"
+			width="518"
+			height="110"
+			srcset="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-3_hu0800e74b6184bd368726517b9f3bba14_34138_480x0_resize_box_3.png 480w, /p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-3_hu0800e74b6184bd368726517b9f3bba14_34138_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="可以直接赋予其相关信息">可以直接赋予其相关信息</h3>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 436; 
+			flex-basis: 1047px"
+	>
+	<a href="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-4.png" data-size="864x198">
+		<img src="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-4.png"
+			width="864"
+			height="198"
+			srcset="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-4_hudc653de463875afe11ef040736e34e06_65947_480x0_resize_box_3.png 480w, /p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-4_hudc653de463875afe11ef040736e34e06_65947_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="annotations的字典">annotations的字典</h3>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 523; 
+			flex-basis: 1255px"
+	>
+	<a href="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-6.png" data-size="816x156">
+		<img src="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-6.png"
+			width="816"
+			height="156"
+			srcset="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-6_hu17d05fa011915354f23b0fb2cce1d6b0_51363_480x0_resize_box_3.png 480w, /p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-6_hu17d05fa011915354f23b0fb2cce1d6b0_51363_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="letter_annotations的字典">letter_annotations的字典</h3>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 703; 
+			flex-basis: 1687px"
+	>
+	<a href="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-7.png" data-size="872x124">
+		<img src="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-7.png"
+			width="872"
+			height="124"
+			srcset="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-7_hu35c34bc36572737966f242bae0dfb3e9_55915_480x0_resize_box_3.png 480w, /p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-7_hu35c34bc36572737966f242bae0dfb3e9_55915_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="读取fastancbi创建seqrecord-objects">读取fasta(NCBI)创建SeqRecord objects</h3>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 196; 
+			flex-basis: 471px"
+	>
+	<a href="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-8.png" data-size="920x468">
+		<img src="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-8.png"
+			width="920"
+			height="468"
+			srcset="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-8_hu083bd8438ea821b655f88149d519927b_210803_480x0_resize_box_3.png 480w, /p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-8_hu083bd8438ea821b655f88149d519927b_210803_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="读取genbank-files-genbamk创建seqrecord对象">读取GenBank files （GenBamk）创建SeqRecord对象</h3>
+<p>这里以NC_005816.gb为例
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 425; 
+			flex-basis: 1021px"
+	>
+	<a href="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-9.png" data-size="800x188">
+		<img src="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-9.png"
+			width="800"
+			height="188"
+			srcset="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-9_hu5a5b07c9c6b0b39672ca5e80462e7083_73156_480x0_resize_box_3.png 480w, /p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-9_hu5a5b07c9c6b0b39672ca5e80462e7083_73156_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+同样用SeqIO读取
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 324; 
+			flex-basis: 778px"
+	>
+	<a href="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-10.png" data-size="908x280">
+		<img src="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-10.png"
+			width="908"
+			height="280"
+			srcset="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-10_hucdac6ef477559d5500571d4fd10d8f14_131033_480x0_resize_box_3.png 480w, /p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-10_hucdac6ef477559d5500571d4fd10d8f14_131033_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 150; 
+			flex-basis: 361px"
+	>
+	<a href="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-11.png" data-size="894x594">
+		<img src="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-11.png"
+			width="894"
+			height="594"
+			srcset="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-11_huc74d8f171a7078ba7b4296f4cb64634b_177884_480x0_resize_box_3.png 480w, /p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-11_huc74d8f171a7078ba7b4296f4cb64634b_177884_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="seqfeatrue-objects">SeqFeatrue objects</h2>
+<h3 id="属性">属性：</h3>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 143; 
+			flex-basis: 343px"
+	>
+	<a href="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-12.png" data-size="888x620">
+		<img src="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-12.png"
+			width="888"
+			height="620"
+			srcset="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-12_hu8c5a4ae1291c06bf3c938dd0dc3b8cea_216164_480x0_resize_box_3.png 480w, /p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-12_hu8c5a4ae1291c06bf3c938dd0dc3b8cea_216164_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 350; 
+			flex-basis: 840px"
+	>
+	<a href="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-13.png" data-size="904x258">
+		<img src="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-13.png"
+			width="904"
+			height="258"
+			srcset="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-13_hu74649e7837dcc76ceeb82d11e07de6da_188370_480x0_resize_box_3.png 480w, /p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-13_hu74649e7837dcc76ceeb82d11e07de6da_188370_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="postions--locations">Postions / locations</h3>
+<p>The key idea about each SeqFeature object is to describe a region on a parent sequence, for which we use a location object, typically describing a range between two positions. Two try to clarify the terminology we&rsquo;re using</p>
+<h4 id="locations的分类">locations的分类</h4>
+<p>具体的可以百度看下</p>
+<ul>
+<li>FeatureLocation object</li>
+<li>CompoundLocation object</li>
+</ul>
+<h6 id="positions的分类">positions的分类</h6>
+<p>具体的可以百度看下</p>
+<ul>
+<li>Fuzzy postion</li>
+<li>ExactPosition</li>
+<li>BeforePosition</li>
+<li>AfterPosition</li>
+<li>WithinPosition</li>
+<li>OneOfPosition</li>
+<li>UnknownPosition</li>
+</ul>
+<h3 id="seqfeature的使用">SeqFeature的使用</h3>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 635; 
+			flex-basis: 1524px"
+	>
+	<a href="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-14.png" data-size="724x114">
+		<img src="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-14.png"
+			width="724"
+			height="114"
+			srcset="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-14_hu5cbbb6b1cb85ea3ea13d343c39c2ed86_49784_480x0_resize_box_3.png 480w, /p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-14_hu5cbbb6b1cb85ea3ea13d343c39c2ed86_49784_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 684; 
+			flex-basis: 1643px"
+	>
+	<a href="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-15.png" data-size="452x66">
+		<img src="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-15.png"
+			width="452"
+			height="66"
+			srcset="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-15_hu75974880a3a35aaa4a9398681633d46d_9439_480x0_resize_box_3.png 480w, /p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-15_hu75974880a3a35aaa4a9398681633d46d_9439_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 168; 
+			flex-basis: 405px"
+	>
+	<a href="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-16.png" data-size="854x506">
+		<img src="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-16.png"
+			width="854"
+			height="506"
+			srcset="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-16_huf032eb83f46bb99d09c5dda9d1e8aa85_159608_480x0_resize_box_3.png 480w, /p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-16_huf032eb83f46bb99d09c5dda9d1e8aa85_159608_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="loop-返回相关注释信息">loop 返回相关注释信息</h2>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 174; 
+			flex-basis: 419px"
+	>
+	<a href="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-17.png" data-size="920x526">
+		<img src="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-17.png"
+			width="920"
+			height="526"
+			srcset="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-17_hue75edd0acf7d042289507b93469ca936_83397_480x0_resize_box_3.png 480w, /p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-17_hue75edd0acf7d042289507b93469ca936_83397_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="从feature返回相关序列">从Feature返回相关序列</h2>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 228; 
+			flex-basis: 549px"
+	>
+	<a href="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-18.png" data-size="920x402">
+		<img src="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-18.png"
+			width="920"
+			height="402"
+			srcset="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-18_hu3a93bdd9fde0b7dd4e7a610be495995f_220026_480x0_resize_box_3.png 480w, /p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-18_hu3a93bdd9fde0b7dd4e7a610be495995f_220026_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 365; 
+			flex-basis: 876px"
+	>
+	<a href="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-19.png" data-size="920x252">
+		<img src="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-19.png"
+			width="920"
+			height="252"
+			srcset="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-19_hu58bdc8738f7006745e0ddcc777c14d28_89553_480x0_resize_box_3.png 480w, /p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-19_hu58bdc8738f7006745e0ddcc777c14d28_89553_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="comparision">Comparision</h2>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 466; 
+			flex-basis: 1120px"
+	>
+	<a href="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-20.png" data-size="588x126">
+		<img src="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-20.png"
+			width="588"
+			height="126"
+			srcset="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-20_hu07e9dcfc22f3cc7591c14c41fc4ff6b1_46626_480x0_resize_box_3.png 480w, /p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-20_hu07e9dcfc22f3cc7591c14c41fc4ff6b1_46626_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 1017; 
+			flex-basis: 2442px"
+	>
+	<a href="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-21.png" data-size="692x68">
+		<img src="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-21.png"
+			width="692"
+			height="68"
+			srcset="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-21_hu8eb0ac592a54feadf2fe58683b417a81_15768_480x0_resize_box_3.png 480w, /p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-21_hu8eb0ac592a54feadf2fe58683b417a81_15768_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+像biopython1.67后的版本则会出现raiseerror
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 362; 
+			flex-basis: 869px"
+	>
+	<a href="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-22.png" data-size="920x254">
+		<img src="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-22.png"
+			width="920"
+			height="254"
+			srcset="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-22_huec10f54eb401281753a5fb297343710f_82296_480x0_resize_box_3.png 480w, /p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-22_huec10f54eb401281753a5fb297343710f_82296_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="format格式化的方法">format格式化的方法</h2>
+<p>就是说可以将SeqRecord对象生成fasta格式的文件
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 180; 
+			flex-basis: 434px"
+	>
+	<a href="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-23.png" data-size="854x472">
+		<img src="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-23.png"
+			width="854"
+			height="472"
+			srcset="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-23_hu1bb1550047e029fe444cb98810e1703d_203467_480x0_resize_box_3.png 480w, /p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-23_hu1bb1550047e029fe444cb98810e1703d_203467_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="seqrecord对象也可以使用切片">SeqRecord对象也可以使用切片</h2>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 391; 
+			flex-basis: 938px"
+	>
+	<a href="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-24.png" data-size="876x224">
+		<img src="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-24.png"
+			width="876"
+			height="224"
+			srcset="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-24_hu88db5cc0efd199b823c619a185e2f041_96660_480x0_resize_box_3.png 480w, /p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-24_hu88db5cc0efd199b823c619a185e2f041_96660_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 107; 
+			flex-basis: 257px"
+	>
+	<a href="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-25.png" data-size="756x704">
+		<img src="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-25.png"
+			width="756"
+			height="704"
+			srcset="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-25_hu26601fff5daeee69be338a7e7286699a_206496_480x0_resize_box_3.png 480w, /p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-25_hu26601fff5daeee69be338a7e7286699a_206496_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 155; 
+			flex-basis: 374px"
+	>
+	<a href="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-26.png" data-size="836x536">
+		<img src="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-26.png"
+			width="836"
+			height="536"
+			srcset="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-26_hufcb8debbb3784c61f13a8fb83d890133_175493_480x0_resize_box_3.png 480w, /p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-26_hufcb8debbb3784c61f13a8fb83d890133_175493_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="增加seqrecord-objects">增加SeqRecord objects</h2>
+<p>先搞出来两个SeqRecord的对象
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 187; 
+			flex-basis: 450px"
+	>
+	<a href="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-27.png" data-size="920x490">
+		<img src="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-27.png"
+			width="920"
+			height="490"
+			srcset="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-27_hu9f29a9559129d77a87e201109a21a3e2_200350_480x0_resize_box_3.png 480w, /p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-27_hu9f29a9559129d77a87e201109a21a3e2_200350_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+如何将这两个SeqRecord连接在一起呢？
+直接相+
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 353; 
+			flex-basis: 849px"
+	>
+	<a href="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-28.png" data-size="920x260">
+		<img src="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-28.png"
+			width="920"
+			height="260"
+			srcset="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-28_hu14b1f8715ecbe4f92c81eedf6c947750_83808_480x0_resize_box_3.png 480w, /p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-28_hu14b1f8715ecbe4f92c81eedf6c947750_83808_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+但是这样对于部分文件来说合并的时候会使得基因注释信息有些搞不见，模糊化</p>
+<h2 id="对于seqrecord也可以用反向互补但是要赋予一个新的id">对于SeqRecord也可以用反向互补，但是要赋予一个新的id</h2>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 302; 
+			flex-basis: 724px"
+	>
+	<a href="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-29.png" data-size="894x296">
+		<img src="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-29.png"
+			width="894"
+			height="296"
+			srcset="/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-29_hua9564a844c1427eb73f9250c34e019da_129942_480x0_resize_box_3.png 480w, /p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/picture/Ch4_Sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF-29_hua9564a844c1427eb73f9250c34e019da_129942_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/tutorials/">tutorials</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2022 - 
+        
+        2023 叶宇浩随记博客
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.5.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">Table of contents</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#help查看帮助">help查看帮助</a></li>
+    <li><a href="#seqrecord对象的属性">SeqRecord对象的属性</a></li>
+    <li><a href="#创建seqrecord对象">创建SeqRecord对象</a>
+      <ol>
+        <li><a href="#直接用seq">直接用Seq</a></li>
+        <li><a href="#可以直接赋予其相关信息">可以直接赋予其相关信息</a></li>
+        <li><a href="#annotations的字典">annotations的字典</a></li>
+        <li><a href="#letter_annotations的字典">letter_annotations的字典</a></li>
+        <li><a href="#读取fastancbi创建seqrecord-objects">读取fasta(NCBI)创建SeqRecord objects</a></li>
+        <li><a href="#读取genbank-files-genbamk创建seqrecord对象">读取GenBank files （GenBamk）创建SeqRecord对象</a></li>
+      </ol>
+    </li>
+    <li><a href="#seqfeatrue-objects">SeqFeatrue objects</a>
+      <ol>
+        <li><a href="#属性">属性：</a></li>
+        <li><a href="#postions--locations">Postions / locations</a>
+          <ol>
+            <li><a href="#locations的分类">locations的分类</a></li>
+          </ol>
+        </li>
+        <li><a href="#seqfeature的使用">SeqFeature的使用</a></li>
+      </ol>
+    </li>
+    <li><a href="#loop-返回相关注释信息">loop 返回相关注释信息</a></li>
+    <li><a href="#从feature返回相关序列">从Feature返回相关序列</a></li>
+    <li><a href="#comparision">Comparision</a></li>
+    <li><a href="#format格式化的方法">format格式化的方法</a></li>
+    <li><a href="#seqrecord对象也可以使用切片">SeqRecord对象也可以使用切片</a></li>
+    <li><a href="#增加seqrecord-objects">增加SeqRecord objects</a></li>
+    <li><a href="#对于seqrecord也可以用反向互补但是要赋予一个新的id">对于SeqRecord也可以用反向互补，但是要赋予一个新的id</a></li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>numpy on 叶宇浩随记博客</title>
+    <link>https://example.com/tags/numpy/</link>
+    <description>Recent content in numpy on 叶宇浩随记博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 21 Dec 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://example.com/tags/numpy/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>numpy基础练习13_Statistics</title>
+      <link>https://example.com/p/numpy%E5%9F%BA%E7%A1%80%E7%BB%83%E4%B9%A013_statistics/</link>
+      <pubDate>Tue, 21 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/numpy%E5%9F%BA%E7%A1%80%E7%BB%83%E4%B9%A013_statistics/</guid>
+      <description>这是为了熟悉并加强numpy而找来做的练习，来源：https://github.com/fengdu78/Data-Science-Notes/tree/master/2.numpy/numpy_exercises
+__author__ = &amp;#34;kyubyong. kbpark.linguist@gmail.com&amp;#34; import numpy as np np.__version__ &amp;#39;1.11.3&amp;#39; Order statistics Q1. Return the minimum value of x along the second axis.
+x = np.arange(4).reshape((2, 2)) print(&amp;#34;x=\n&amp;#34;, x) print(&amp;#34;ans=\n&amp;#34;, np.amin(x, 1)) x= [[0 1] [2 3]] ans= [0 2] Q2. Return the maximum value of x along the second axis. Reduce the second axis to the dimension with size one.
+x = np.arange(4).reshape((2, 2)) print(&amp;#34;x=\n&amp;#34;, x) print(&amp;#34;ans=\n&amp;#34;, np.</description>
+    </item>
+    
+    <item>
+      <title>numpy基础练习12_Soring, searching, and counting</title>
+      <link>https://example.com/p/numpy%E5%9F%BA%E7%A1%80%E7%BB%83%E4%B9%A012_soring-searching-and-counting/</link>
+      <pubDate>Mon, 20 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/numpy%E5%9F%BA%E7%A1%80%E7%BB%83%E4%B9%A012_soring-searching-and-counting/</guid>
+      <description>这是为了熟悉并加强numpy而找来做的练习，来源：https://github.com/fengdu78/Data-Science-Notes/tree/master/2.numpy/numpy_exercises
+import numpy as np np.__version__ &amp;#39;1.11.2&amp;#39; author = &amp;#39;kyubyong. longinglove@nate.com&amp;#39; Sorting Q1. Sort x along the second axis.
+x = np.array([[1,4],[3,1]]) out = np.sort(x, axis=1) x.sort(axis=1) assert np.array_equal(out, x) print out [[1 4] [1 3]] Q2. Sort pairs of surnames and first names and return their indices. (first by surname, then by name).
+surnames = (&amp;#39;Hertz&amp;#39;, &amp;#39;Galilei&amp;#39;, &amp;#39;Hertz&amp;#39;) first_names = (&amp;#39;Heinrich&amp;#39;, &amp;#39;Galileo&amp;#39;, &amp;#39;Gustav&amp;#39;) print np.lexsort((first_names, surnames)) [1 2 0] Q3.</description>
+    </item>
+    
+    <item>
+      <title>numpy基础练习10_Random Sampling</title>
+      <link>https://example.com/p/numpy%E5%9F%BA%E7%A1%80%E7%BB%83%E4%B9%A010_random-sampling/</link>
+      <pubDate>Sun, 19 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/numpy%E5%9F%BA%E7%A1%80%E7%BB%83%E4%B9%A010_random-sampling/</guid>
+      <description>这是为了熟悉并加强numpy而找来做的练习，来源：https://github.com/fengdu78/Data-Science-Notes/tree/master/2.numpy/numpy_exercises
+import numpy as np np.__version__ &amp;#39;1.11.2&amp;#39; __author__ = &amp;#39;kyubyong. longinglove@nate.com&amp;#39; Simple random data Q1. Create an array of shape (3, 2) and populate it with random samples from a uniform distribution over [0, 1).
+np.random.rand(3, 2) # Or np.random.random((3,2)) array([[ 0.13879034, 0.71300174], [ 0.08121322, 0.00393554], [ 0.02349471, 0.56677474]]) Q2. Create an array of shape (1000, 1000) and populate it with random samples from a standard normal distribution. And verify that the mean and standard deviation is close enough to 0 and 1 repectively.</description>
+    </item>
+    
+    <item>
+      <title>numpy基础练习11_Set routines</title>
+      <link>https://example.com/p/numpy%E5%9F%BA%E7%A1%80%E7%BB%83%E4%B9%A011_set-routines/</link>
+      <pubDate>Sun, 19 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/numpy%E5%9F%BA%E7%A1%80%E7%BB%83%E4%B9%A011_set-routines/</guid>
+      <description>这是为了熟悉并加强numpy而找来做的练习，来源：https://github.com/fengdu78/Data-Science-Notes/tree/master/2.numpy/numpy_exercises
+import numpy as np np.__version__ &amp;#39;1.11.2&amp;#39; author = &amp;#39;kyubyong. longinglove@nate.com&amp;#39; Making proper sets Q1. Get unique elements and reconstruction indices from x. And reconstruct x.
+x = np.array([1, 2, 6, 4, 2, 3, 2]) out, indices = np.unique(x, return_inverse=True) print &amp;#34;unique elements =&amp;#34;, out print &amp;#34;reconstruction indices =&amp;#34;, indices print &amp;#34;reconstructed =&amp;#34;, out[indices] unique elements = [1 2 3 4 6] reconstruction indices = [0 1 4 3 1 2 1] reconstructed = [1 2 6 4 2 3 2] Boolean operations Q2.</description>
+    </item>
+    
+    <item>
+      <title>numpy基础练习9_Mathematical functions</title>
+      <link>https://example.com/p/numpy%E5%9F%BA%E7%A1%80%E7%BB%83%E4%B9%A09_mathematical-functions/</link>
+      <pubDate>Sun, 19 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/numpy%E5%9F%BA%E7%A1%80%E7%BB%83%E4%B9%A09_mathematical-functions/</guid>
+      <description>这是为了熟悉并加强numpy而找来做的练习，来源：https://github.com/fengdu78/Data-Science-Notes/tree/master/2.numpy/numpy_exercises
+import numpy as np np.__version__ &amp;#39;1.11.2&amp;#39; __author__ = &amp;#34;kyubyong. kbpark.linguist@gmail.com. https://github.com/kyubyong&amp;#34; Trigonometric functions Q1. Calculate sine, cosine, and tangent of x, element-wise.
+x = np.array([0., 1., 30, 90]) print &amp;#34;sine:&amp;#34;, np.sin(x) print &amp;#34;cosine:&amp;#34;, np.cos(x) print &amp;#34;tangent:&amp;#34;, np.tan(x) sine: [ 0. 0.84147098 -0.98803162 0.89399666] cosine: [ 1. 0.54030231 0.15425145 -0.44807362] tangent: [ 0. 1.55740772 -6.4053312 -1.99520041] Q2. Calculate inverse sine, inverse cosine, and inverse tangent of x, element-wise.
+x = np.</description>
+    </item>
+    
+    <item>
+      <title>numpy基础练习7_number</title>
+      <link>https://example.com/p/numpy%E5%9F%BA%E7%A1%80%E7%BB%83%E4%B9%A07_number/</link>
+      <pubDate>Sat, 18 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/numpy%E5%9F%BA%E7%A1%80%E7%BB%83%E4%B9%A07_number/</guid>
+      <description>这是为了熟悉并加强numpy而找来做的练习，来源：https://github.com/fengdu78/Data-Science-Notes/tree/master/2.numpy/numpy_exercises
+from __future__ import print_function import numpy as np import matplotlib.pyplot as plt %matplotlib inline from datetime import date date.today() datetime.date(2017, 11, 2) author = &amp;#34;kyubyong. https://github.com/Kyubyong/numpy_exercises&amp;#34; np.__version__ &amp;#39;1.13.1&amp;#39; Complex Numbers Q1. Return the angle of a in radian.
+a = 1+1j output = np.angle(a, deg=False) print(output) 0.785398163397 Q2. Return the real part and imaginary part of a.
+a = np.array([1+2j, 3+4j, 5+6j]) real = a.real imag = a.imag print(&amp;#34;real part=&amp;#34;, real) print(&amp;#34;imaginary part=&amp;#34;, imag) real part= [ 1.</description>
+    </item>
+    
+    <item>
+      <title>numpy基础练习8_Logic functions</title>
+      <link>https://example.com/p/numpy%E5%9F%BA%E7%A1%80%E7%BB%83%E4%B9%A08_logic-functions/</link>
+      <pubDate>Sat, 18 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/numpy%E5%9F%BA%E7%A1%80%E7%BB%83%E4%B9%A08_logic-functions/</guid>
+      <description>这是为了熟悉并加强numpy而找来做的练习，来源：https://github.com/fengdu78/Data-Science-Notes/tree/master/2.numpy/numpy_exercises
+import numpy as np np.__version__ &amp;#39;1.11.2&amp;#39; Truth value testing Q1. Let x be an arbitrary array. Return True if none of the elements of x is zero. Remind that 0 evaluates to False in python.
+x = np.array([1,2,3]) print np.all(x) x = np.array([1,0,3]) print np.all(x) True False Q2. Let x be an arbitrary array. Return True if any of the elements of x is non-zero.
+x = np.array([1,0,0]) print np.</description>
+    </item>
+    
+    <item>
+      <title>numpy基础练习6_Linear algebra</title>
+      <link>https://example.com/p/numpy%E5%9F%BA%E7%A1%80%E7%BB%83%E4%B9%A06_linear-algebra/</link>
+      <pubDate>Fri, 17 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/numpy%E5%9F%BA%E7%A1%80%E7%BB%83%E4%B9%A06_linear-algebra/</guid>
+      <description>这是为了熟悉并加强numpy而找来做的练习，来源：https://github.com/fengdu78/Data-Science-Notes/tree/master/2.numpy/numpy_exercises
+import numpy as np np.__version__ &amp;#39;1.11.2&amp;#39; Matrix and vector products Q1. Predict the results of the following code.
+x = [1,2] y = [[4, 1], [2, 2]] print np.dot(x, y) print np.dot(y, x) print np.matmul(x, y) print np.inner(x, y) print np.inner(y, x) [8 5] [6 6] [8 5] [6 6] [6 6] Q2. Predict the results of the following code.
+x = [[1, 0], [0, 1]] y = [[4, 1], [2, 2], [1, 1]] print np.</description>
+    </item>
+    
+    <item>
+      <title>numpy基础练习4_info</title>
+      <link>https://example.com/p/numpy%E5%9F%BA%E7%A1%80%E7%BB%83%E4%B9%A04_info/</link>
+      <pubDate>Wed, 15 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/numpy%E5%9F%BA%E7%A1%80%E7%BB%83%E4%B9%A04_info/</guid>
+      <description>这是为了熟悉并加强numpy而找来做的练习，来源：https://github.com/fengdu78/Data-Science-Notes/tree/master/2.numpy/numpy_exercises
+import numpy as np np.__version__ &amp;#39;1.11.2&amp;#39; Q1. Search for docstrings of the numpy functions on linear algebra.
+np.lookfor(&amp;#39;linear algebra&amp;#39;) Search results for &amp;#39;linear algebra&amp;#39; ----------------------------------- numpy.linalg.solve Solve a linear matrix equation, or system of linear scalar equations. numpy.poly Find the coefficients of a polynomial with the given sequence of roots. numpy.restoredot Restore `dot`, `vdot`, and `innerproduct` to the default non-BLAS numpy.linalg.eig Compute the eigenvalues and right eigenvectors of a square array.</description>
+    </item>
+    
+    <item>
+      <title>numpy基础练习3_String</title>
+      <link>https://example.com/p/numpy%E5%9F%BA%E7%A1%80%E7%BB%83%E4%B9%A03_string/</link>
+      <pubDate>Tue, 14 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/numpy%E5%9F%BA%E7%A1%80%E7%BB%83%E4%B9%A03_string/</guid>
+      <description>这是为了熟悉并加强numpy而找来做的练习，来源：https://github.com/fengdu78/Data-Science-Notes/tree/master/2.numpy/numpy_exercises
+String operations from __future__ import print_function import numpy as np author = &amp;#34;kyubyong. https://github.com/Kyubyong/numpy_exercises&amp;#34; np.__version__ &amp;#39;1.11.3&amp;#39; Q1. Concatenate x1 and x2.
+x1 = np.array([&amp;#39;Hello&amp;#39;, &amp;#39;Say&amp;#39;], dtype=np.str) x2 = np.array([&amp;#39; world&amp;#39;, &amp;#39; something&amp;#39;], dtype=np.str) out = np.char.add(x1, x2) print(out) [&amp;#39;Hello world&amp;#39; &amp;#39;Say something&amp;#39;] Q2. Repeat x three time element-wise.
+x = np.array([&amp;#39;Hello &amp;#39;, &amp;#39;Say &amp;#39;], dtype=np.str) out = np.char.multiply(x, 3) print(out) [&amp;#39;Hello Hello Hello &amp;#39; &amp;#39;Say Say Say &amp;#39;] Q3-1.</description>
+    </item>
+    
+    <item>
+      <title>numpy基础练习2_Array manipulation routines</title>
+      <link>https://example.com/p/numpy%E5%9F%BA%E7%A1%80%E7%BB%83%E4%B9%A02_array-manipulation-routines/</link>
+      <pubDate>Mon, 13 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/numpy%E5%9F%BA%E7%A1%80%E7%BB%83%E4%B9%A02_array-manipulation-routines/</guid>
+      <description>这是为了熟悉并加强numpy而找来做的练习，来源：https://github.com/fengdu78/Data-Science-Notes/tree/master/2.numpy/numpy_exercises
+import numpy as np np.__version__ &amp;#39;1.11.2&amp;#39; Q1. Let x be a ndarray [10, 10, 3] with all elements set to one. Reshape x so that the size of the second dimension equals 150.
+x = np.ones([10, 10, 3]) out = np.reshape(x, [-1, 150]) print out assert np.allclose(out, np.ones([10, 10, 3]).reshape([-1, 150])) [[ 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1.</description>
+    </item>
+    
+    <item>
+      <title>numpy基础练习1_Array creation routines</title>
+      <link>https://example.com/p/numpy%E5%9F%BA%E7%A1%80%E7%BB%83%E4%B9%A01_array-creation-routines/</link>
+      <pubDate>Sun, 12 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/numpy%E5%9F%BA%E7%A1%80%E7%BB%83%E4%B9%A01_array-creation-routines/</guid>
+      <description>这是为了熟悉并加强numpy而找来做的练习，来源：https://github.com/fengdu78/Data-Science-Notes/tree/master/2.numpy/numpy_exercises
+Ones and zeros import numpy as np Create a new array of 2*2 integers, without initializing entries.
+np.empty([2,2], int) array([[0, 0], [0, 0]]) Let X = np.array([1,2,3], [4,5,6], np.int32).
+Create a new array with the same shape and type as X.
+X = np.array([[1,2,3], [4,5,6]], np.int32) np.empty_like(X) array([[1, 2, 3], [4, 5, 6]]) Create a 3-D array with ones on the diagonal and zeros elsewhere.
+np.eye(3) array([[ 1., 0.</description>
+    </item>
+    
+    <item>
+      <title>100道numpy练习</title>
+      <link>https://example.com/p/100%E9%81%93numpy%E7%BB%83%E4%B9%A0/</link>
+      <pubDate>Sat, 11 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/100%E9%81%93numpy%E7%BB%83%E4%B9%A0/</guid>
+      <description>这是为了熟悉并加强numpy而找来做的练习，来源：https://github.com/rougier/numpy-100
+100 numpy exercises with hint This is a collection of exercises that have been collected in the numpy mailing list, on stack overflow and in the numpy documentation. The goal of this collection is to offer a quick reference for both old and new users but also to provide a set of exercises for those who teach.
+If you find an error or think you&amp;rsquo;ve a better way to solve some of them, feel free to open an issue at https://github.</description>
+    </item>
+    
+  </channel>
+</rss>

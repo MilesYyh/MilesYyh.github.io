@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='sys.argv'><title>argparse参数个性化的用法整理</title>
+
+<link rel='canonical' href='https://example.com/p/argparse%E5%8F%82%E6%95%B0%E4%B8%AA%E6%80%A7%E5%8C%96%E7%9A%84%E7%94%A8%E6%B3%95%E6%95%B4%E7%90%86/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='argparse参数个性化的用法整理'>
+<meta property='og:description' content='sys.argv'>
+<meta property='og:url' content='https://example.com/p/argparse%E5%8F%82%E6%95%B0%E4%B8%AA%E6%80%A7%E5%8C%96%E7%9A%84%E7%94%A8%E6%B3%95%E6%95%B4%E7%90%86/'>
+<meta property='og:site_name' content='叶宇浩随记博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='python' /><meta property='article:published_time' content='2022-01-20T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2022-01-20T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="argparse参数个性化的用法整理">
+<meta name="twitter:description" content="sys.argv">
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>Back</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/code/" style="background-color: #fa1; color: #fff;">
+                编程
+            </a>
+        
+            <a href="/categories/linux/" style="background-color: #083; color: #fff;">
+                linux系统
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/argparse%E5%8F%82%E6%95%B0%E4%B8%AA%E6%80%A7%E5%8C%96%E7%9A%84%E7%94%A8%E6%B3%95%E6%95%B4%E7%90%86/">argparse参数个性化的用法整理</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        sys.argv
+    </h3>
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Jan 20, 2022</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    3 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <blockquote>
+<p>整理 下关于 argparse的用法，主要用于参数提示</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#coding=utf-8</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">argparse</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">ast</span> <span class="kn">import</span> <span class="n">Store</span><span class="p">,</span> <span class="n">parse</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">cgi</span> <span class="kn">import</span> <span class="n">test</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">email</span> <span class="kn">import</span> <span class="n">parser</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">count</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pydoc</span> <span class="kn">import</span> <span class="n">describe</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">ssl</span> <span class="kn">import</span> <span class="n">ALERT_DESCRIPTION_UNEXPECTED_MESSAGE</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">this</span> <span class="kn">import</span> <span class="n">s</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">tokenize</span> <span class="kn">import</span> <span class="n">group</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">turtle</span> <span class="kn">import</span> <span class="n">Turtle</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">turtle</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">False_</span>
+</span></span></code></pre></div><p>使用前要实例化一个ArgumentParser对象</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">&#34;这是ArugementParser中的description&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+</span></span></code></pre></div><h2 id="heading"></h2>
+<p>这上面当你运行</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">python</span> <span class="n">test</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">h</span>
+</span></span></code></pre></div><p>注意要加上-h参数，就是出现主要的decsription中的str</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&#34;test&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;输出的内容是</span><span class="si">%s</span><span class="s2">&#34;</span> <span class="o">%</span> <span class="n">args</span><span class="o">.</span><span class="n">test</span><span class="p">)</span>
+</span></span></code></pre></div><h2 id="heading-1"></h2>
+<p>这个其实就是添加了cmd中一个位置，将获取到的值存入到test这个变量中
+要取变量的值先通过parse_args()获取到args对象</p>
+<p>比如我运行</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">python</span> <span class="n">test</span><span class="o">.</span><span class="n">py</span> <span class="n">hello</span>
+</span></span></code></pre></div><p>则会返回  输出的内容是hello</p>
+<p>但是运行 python test.py  则会提示缺乏argument参数，而且会提示那个参数命为test，即代码中写的，
+那么用这个来可以提示用户缺乏了啥参数，即把test换成描述性语言</p>
+<p>运行 python test.py hello world 则会返回  多了个参数，因为代码中只定义了一个占位</p>
+<h2 id="heading-2"></h2>
+<p>这里怎么为这个参数添加描述呢，就是说怎么让别人运行-h时能知道这个参数代表啥呢？</p>
+<p>add_argument()中的help参数可以帮忙</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&#34;test&#34;</span><span class="p">,</span><span class="n">help</span><span class="o">=</span><span class="s2">&#34;这是test的代表意义&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;输出的内容是</span><span class="si">%s</span><span class="s2">&#34;</span> <span class="o">%</span> <span class="n">args</span><span class="o">.</span><span class="n">test</span><span class="p">)</span>
+</span></span></code></pre></div><p>运行python test.py -h 时就可以展示这个信息了</p>
+<h2 id="heading-3"></h2>
+<p>add_argument()中的参数type可以指定参数类型,没有指定则会默认为str</p>
+<p>传入不符合的则会报错</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&#34;test&#34;</span><span class="p">,</span><span class="n">typ</span> <span class="n">e</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+</span></span></code></pre></div><h2 id="heading-4"></h2>
+<p>可选参数，这里觉得可以起到一个定位参数的作用</p>
+<p>add_argument参数&quot;-&quot; / “&ndash;”；在参数前加上前缀&ndash;，即意味着这个参数是可选参数,和之前的”里面不加-是不一样的含义</p>
+<p>&ndash; / - 表示参数可选，用户给不给值无所谓，而不加- / &ndash; 则表示这个参数必选要用</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#“”是必须的</span>
+</span></span><span class="line"><span class="cl"><span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&#34;-t&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;</span><span class="si">%s</span><span class="s2">&#34;</span> <span class="o">%</span> <span class="n">args</span><span class="p">)</span>
+</span></span></code></pre></div><p>运行python test.py不会报错，只是print那里会用None替代</p>
+<p>运行python test.py -t test 完美！！</p>
+<h2 id="heading-5"></h2>
+<p>add_argument参数action=&ldquo;store_true&rdquo;</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&#34;-t&#34;</span><span class="p">,</span><span class="n">action</span><span class="o">=</span><span class="s2">&#34;store_true&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;</span><span class="si">%s</span><span class="s2">&#34;</span> <span class="o">%</span> <span class="n">args</span><span class="p">)</span>
+</span></span></code></pre></div><p>运行python test.py -t 只要使用了-t 的值则会True,但是运行python test.py -t test 则会报错，也就是说定义了action=&ldquo;store_true&rdquo;，就不能从命令行传值,实现这一目的的方法是将action参数的值指定为 &ldquo;store_true&rdquo;</p>
+<p>通过这个特点，就可以实现使用某一个特定功能这个目的</p>
+<h2 id="heading-6"></h2>
+<p>add_argument中的“-”和“&ndash;”指定参数是一样的，但是这里有个比较巧妙的地方是：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">&#34;这是主要描述&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&#34;-t&#34;</span><span class="p">,</span><span class="s2">&#34;--test&#34;</span><span class="p">,</span><span class="n">help</span><span class="o">=</span><span class="s2">&#34;这是代码中test（-t）的意义&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&#34;-d&#34;</span><span class="p">,</span><span class="s2">&#34;--dest&#34;</span><span class="p">,</span><span class="n">help</span><span class="o">=</span><span class="s2">&#34;这是代码中dest（-d）的意义&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+</span></span></code></pre></div><p>上面add_argument “-” ”&ndash;“ 这样写的好处在于&ndash;后可以直接指定意义，方便写代码，如下</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">test</span><span class="p">)</span> <span class="c1">#等同于args.t</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">dest</span><span class="p">)</span>
+</span></span></code></pre></div><h2 id="heading-7"></h2>
+<p>add_argument中的参数choices可以为参数传入的值设定一个范围,用户传入的值不在范围内则报错,注意用户上传然后系统读取到的是str类型，所以如果choices是int类型的话，要指定type=int,否则会报错</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&#34;-t&#34;</span><span class="p">,</span><span class="s2">&#34;--test&#34;</span><span class="p">,</span><span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span><span class="n">choices</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">test</span><span class="p">)</span>
+</span></span></code></pre></div><h2 id="heading-8"></h2>
+<p>add_argument中的参数action=&ldquo;count&quot;可以计算出用户使用了这个参数的次数,但是指定了action=&ldquo;count&quot;的话用户就不能传值了，否则会报错</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&#34;-t&#34;</span><span class="p">,</span><span class="s2">&#34;--test&#34;</span><span class="p">,</span><span class="n">action</span><span class="o">=</span><span class="s2">&#34;count&#34;</span><span class="p">,</span><span class="n">help</span><span class="o">=</span><span class="s2">&#34;这是test的help&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">arg</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">arg</span><span class="o">.</span><span class="n">test</span><span class="p">)</span>
+</span></span></code></pre></div><h2 id="heading-9"></h2>
+<p>add_argument()中的参数default可以指定参数的默认值，没设定默认值时默认值为None</p>
+<h2 id="heading-10"></h2>
+<p>设置冲突参数
+就是说当一些参数只能选择一个使用时，可以用方法add_mutually_exclusive_group()</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">group</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">add_mutually_exclusive_group</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">group</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&#34;-t&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">group</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&#34;-d&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+</span></span></code></pre></div><h2 id="heading-11"></h2>
+<p>下面是对ArgumentParser方法中参数的说明：</p>
+<p>prog中可以赋予运行程序出现的语句,默认为sys.argv[0]就是你脚本的名字,就是程序此时会变成你自定义的名字</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">prog</span><span class="o">=</span><span class="s2">&#34;这是测试&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">parser</span><span class="o">.</span><span class="n">print_help</span><span class="p">()</span>
+</span></span></code></pre></div><h2 id="heading-12"></h2>
+<p>usage可以修改cmd运行程序中第二个出现的字体,
+如果要传递prog中的值，则需要写成 %(prog)s</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">prog</span><span class="o">=</span><span class="s2">&#34;这是测试&#34;</span><span class="p">,</span><span class="n">usage</span><span class="o">=</span><span class="s2">&#34;</span><span class="si">%(prog)s</span><span class="s2"> [usage中的字]&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">parser</span><span class="o">.</span><span class="n">print_help</span><span class="p">()</span>
+</span></span></code></pre></div><h2 id="heading-13"></h2>
+<p>description则可以添加主要描述，会换行</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">prog</span><span class="o">=</span><span class="s2">&#34;这是测试&#34;</span><span class="p">,</span><span class="n">usage</span><span class="o">=</span><span class="s2">&#34;</span><span class="si">%(prog)s</span><span class="s2"> [usage中的字]&#34;</span><span class="p">,</span><span class="n">description</span><span class="o">=</span><span class="s2">&#34;这是主要描述&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">parser</span><span class="o">.</span><span class="n">print_help</span><span class="p">()</span>
+</span></span></code></pre></div><h2 id="heading-14"></h2>
+<p>epilog可以赋予结束语的描述</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">prog</span><span class="o">=</span><span class="s2">&#34;这是测试&#34;</span><span class="p">,</span><span class="n">usage</span><span class="o">=</span><span class="s2">&#34;</span><span class="si">%(prog)s</span><span class="s2"> [usage中的字]&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">description</span><span class="o">=</span><span class="s2">&#34;这是主要描述&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">epilog</span><span class="o">=</span><span class="s2">&#34;这是结束语&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">parser</span><span class="o">.</span><span class="n">print_help</span><span class="p">()</span>
+</span></span></code></pre></div><h2 id="heading-15"></h2>
+<p>parents这个没看懂有什么用</p>
+<h2 id="heading-16"></h2>
+<p>ormatter_class 这个参数可以指定展示文字的格式</p>
+<h2 id="heading-17"></h2>
+<p>prefix_chars可以修改运行程序时候前面的-,改成自己需要的样式，如，想要运行python test.py +test 123</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">prefix_chars</span><span class="o">=</span><span class="s2">&#34;+&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&#34;+t&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&#34;+d&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">t</span><span class="p">,</span><span class="n">args</span><span class="o">.</span><span class="n">d</span><span class="p">)</span>
+</span></span></code></pre></div><h2 id="heading-18"></h2>
+<p>fromfile_prefix_char=‘@’  从文件中读取命令参数
+有一个文件为args.txt  注意文件中的参数和值要换行
+在parse_args([&quot;@args.txt&rdquo;]) 类似这样传入文件命
+命令行参数从文件中读取</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">fromfile_prefix_chars</span><span class="o">=</span><span class="s1">&#39;@&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-f&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">([</span><span class="s1">&#39;-f&#39;</span><span class="p">,</span> <span class="s1">&#39;foo&#39;</span><span class="p">,</span> <span class="s1">&#39;@args.txt&#39;</span><span class="p">])</span>
+</span></span></code></pre></div><h2 id="heading-19"></h2>
+<p>exit_on_error=False 可以捕获用户传入的值不符合要求,而不会被argparsr中断程序</p>
+<p>错误类型为argparse.ArgumentError,只存在Python3.9.。。。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">exit_on_errors</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&#34;-t&#34;</span><span class="p">,</span><span class="s2">&#34;--t&#34;</span><span class="p">,</span><span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">(</span><span class="s2">&#34;--t a&#34;</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="k">except</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentError</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;nonon!!&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><blockquote>
+<p>add_argument方法中的参数说明</p>
+</blockquote>
+<h2 id="heading-20"></h2>
+<p>name or flags其实就是赋予参数名</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&#34;-t&#34;</span><span class="p">,</span><span class="s2">&#34;--t&#34;</span><span class="p">)</span><span class="c1">#一般会赋予短名和长名</span>
+</span></span></code></pre></div><h2 id="heading-21"></h2>
+<p>action则是用来对参数的值进行互动的</p>
+<ul>
+<li>默认为action = &ldquo;store&rdquo; 即存储值</li>
+<li>action = &ldquo;store_const&rdquo; 这是存储const的值；用户可以传值但是没有用，改变不了这个const的值</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&#34;--t&#34;</span><span class="p">,</span><span class="n">action</span><span class="o">=</span><span class="s2">&#34;store_const&#34;</span><span class="p">,</span><span class="n">const</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">([</span><span class="s1">&#39;--t&#39;</span><span class="p">]))</span>
+</span></span></code></pre></div><ul>
+<li>action = “store_true” / action = “store_false”,可以理解为一种开关，只有用户使用了这个参数，才会返回Ture,否则会false</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&#34;--t&#34;</span><span class="p">,</span><span class="n">action</span><span class="o">=</span><span class="s2">&#34;store_true&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span><span class="o">.</span><span class="n">t</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">python</span> <span class="n">test</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">t</span> <span class="n">是Ture</span>
+</span></span><span class="line"><span class="cl"><span class="n">python</span> <span class="n">test</span><span class="o">.</span><span class="n">py</span> <span class="n">是False</span>
+</span></span><span class="line"><span class="cl"><span class="n">python</span> <span class="n">test</span><span class="p">,</span><span class="n">py</span> <span class="o">-</span><span class="n">t</span> <span class="mi">123</span> <span class="n">报错</span><span class="err">，</span><span class="n">所以是不能传值的</span>
+</span></span></code></pre></div><ul>
+<li>action = “append”,这样写用户可以 python test.py -t 123 -t 123 传入多个t的值，且会被放到一个list中</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&#34;-t&#34;</span><span class="p">,</span><span class="n">action</span><span class="o">=</span><span class="s2">&#34;append&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span><span class="o">.</span><span class="n">t</span><span class="p">)</span>
+</span></span></code></pre></div><p>这样写的话，可以运行python test.py -t 123 -t 456 但是只用456值会显示,就是说它会用最新的值取覆盖旧的值</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&#34;-t&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span><span class="o">.</span><span class="n">t</span><span class="p">)</span>
+</span></span></code></pre></div><ul>
+<li>action = &ldquo;append_const&rdquo;,这样会将const定义的的值传给定义的参数中，一般在多个参数需要在同一列表中存储常数时会有用</li>
+<li>action = &ldquo;count&rdquo;,这个可以用来计算一个参数出现的次数</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&#34;-t&#34;</span><span class="p">,</span><span class="n">action</span><span class="o">=</span><span class="s2">&#34;count&#34;</span><span class="p">,</span><span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span><span class="o">.</span><span class="n">t</span>
+</span></span></code></pre></div><p>运行python test.py -t -t 和 python test,py -tt 是一样的效果,python test.py -t 123 会报错，就是说定义了action=&ldquo;count&quot;的话用户是不能传值的</p>
+<ul>
+<li>action=&ldquo;version&rdquo;,help参数则是用来添加版信息,action定义了version，则后面要说明version的str</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">prog</span><span class="o">=</span><span class="s2">&#34;TEST&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&#34;-t&#34;</span><span class="p">,</span><span class="n">action</span><span class="o">=</span><span class="s2">&#34;version&#34;</span><span class="p">,</span><span class="n">version</span><span class="o">=</span><span class="s2">&#34; </span><span class="si">%(prog)s</span><span class="s2"> 2.0&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;输出的内容是</span><span class="si">%s</span><span class="s2">&#34;</span> <span class="o">%</span> <span class="n">args</span><span class="o">.</span><span class="n">t</span><span class="p">)</span>
+</span></span></code></pre></div><h2 id="heading-22"></h2>
+<p>nargs,如果等于一个数字起到一个指定参数用户可以传入多少个值，然后程序会将这些值存在一个list中,
+如果等于&rdquo;*&rdquo; &ldquo;+&rdquo; 则会将用户所有参数传入的值放在同一个list中,如果等于&quot;?&quot; 则运行用户直接提供一个文件，注意程序中记得将type = argparse.FileType(&ldquo;w&rdquo;)</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&#34;-t&#34;</span><span class="p">,</span><span class="s2">&#34;--test&#34;</span><span class="p">,</span><span class="n">nargs</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span><span class="o">.</span><span class="n">test</span><span class="p">)</span>
+</span></span></code></pre></div><p>运行python test.py -t 123 456 789这样才可以
+python test.py -t 123 456 和 python test.py -t 123 不行</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&#34;-t&#34;</span><span class="p">,</span><span class="s2">&#34;--test&#34;</span><span class="p">,</span><span class="n">nargs</span><span class="o">=</span><span class="s2">&#34;+&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&#34;-dt&#34;</span><span class="p">,</span><span class="s2">&#34;--dtest&#34;</span><span class="p">,</span><span class="n">nargs</span><span class="o">=</span><span class="s2">&#34;+&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">())</span>
+</span></span></code></pre></div><p>python test.py -t 123 -dt 456 则会将 123 456 放在一个list中</p>
+<h2 id="heading-23"></h2>
+<p>type,可以定义用户传入数据的类型</p>
+<h2 id="heading-24"></h2>
+<p>choic,可以限制用户输入参数的值范围以及选项</p>
+<h2 id="heading-25"></h2>
+<p>requeired=True,可以将一个可选参数变为必选</p>
+<h2 id="heading-26"></h2>
+<p>help,则是添加帮助信息,具体表现为用户运行python test.py -h 时显示的参数信息</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">parser</span> <span class="o">=</span><span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&#34;-t&#34;</span><span class="p">,</span><span class="n">help</span><span class="o">=</span><span class="s2">&#34;123&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&#34;-d&#34;</span><span class="p">,</span><span class="n">help</span><span class="o">=</span><span class="s2">&#34;456&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#要有下面这句话 python test.py -h 才有用</span>
+</span></span><span class="line"><span class="cl"><span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">prog</span><span class="o">=</span><span class="s1">&#39;frobble&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s1">&#39;?&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">help</span><span class="o">=</span><span class="s1">&#39;the bar to </span><span class="si">%(prog)s</span><span class="s1"> (default: </span><span class="si">%(default)s</span><span class="s1">)&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">parser</span><span class="o">.</span><span class="n">print_help</span><span class="p">()</span>
+</span></span></code></pre></div><p>由这个可以看出如果要在方法内调用内部参数的值，则要写成 %(参数名)s</p>
+<h2 id="heading-27"></h2>
+<p>metavar,在显示帮助信息时，会将参数名字自动变成大学的，如-t -T,使用metavar 可以自定义-T名字</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">arser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&#34;-t&#34;</span><span class="p">,</span><span class="s2">&#34;--test&#34;</span><span class="p">,</span><span class="n">metavar</span><span class="o">=</span><span class="s2">&#34;666&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">usage</span><span class="p">:</span> <span class="n">test</span><span class="o">.</span><span class="n">py</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">t</span> <span class="mi">666</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">optional</span> <span class="n">arguments</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">  <span class="o">-</span><span class="n">h</span><span class="p">,</span> <span class="o">--</span><span class="n">help</span>          <span class="n">show</span> <span class="n">this</span> <span class="n">help</span> <span class="n">message</span> <span class="ow">and</span> <span class="n">exit</span>
+</span></span><span class="line"><span class="cl">  <span class="o">-</span><span class="n">t</span> <span class="mi">666</span><span class="p">,</span> <span class="o">--</span><span class="n">test</span> <span class="mi">666</span>
+</span></span></code></pre></div><h2 id="heading-28"></h2>
+<p>dest,实则是修改属性名，系统会自动将&ndash;test 或者 -test 生成这个dest的值 ,可以修改</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&#34;-t&#34;</span><span class="p">,</span><span class="s2">&#34;--test&#34;</span><span class="p">,</span><span class="n">dest</span><span class="o">=</span><span class="s2">&#34;dddtest&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">usage</span><span class="p">:</span> <span class="n">test</span><span class="o">.</span><span class="n">py</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">t</span> <span class="n">DDDTEST</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">optional</span> <span class="n">arguments</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">  <span class="o">-</span><span class="n">h</span><span class="p">,</span> <span class="o">--</span><span class="n">help</span>            <span class="n">show</span> <span class="n">this</span> <span class="n">help</span> <span class="n">message</span> <span class="ow">and</span> <span class="n">exit</span>
+</span></span><span class="line"><span class="cl">  <span class="o">-</span><span class="n">t</span> <span class="n">DDDTEST</span><span class="p">,</span> <span class="o">--</span><span class="n">test</span> <span class="n">DDDTEST</span>
+</span></span></code></pre></div><h2 id="heading-29"></h2>
+<p>参数和参数值在程序中的赋予
+一般写成这样 [&quot;&ndash;test&quot;,&ldquo;value&rdquo;]
+对于长参数(&ndash;开头)可以写成这样 [&quot;&ndash;test=value&quot;]
+对于短参数（-开头）可以写成这样 [&quot;-tvalue&quot;]
+另外对于短参数的话，可以使用[&quot;-xyzT&quot;] 连接起来 x,y,z是参数，T是值，这里的结果是x=True,y=True,z=T</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&#34;-t&#34;</span><span class="p">,</span><span class="n">action</span><span class="o">=</span><span class="s2">&#34;store_true&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&#34;-d&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">([</span><span class="s2">&#34;-td1&#34;</span><span class="p">])</span>
+</span></span></code></pre></div><h2 id="heading-30"></h2>
+<p>参数缩写,在程序内部是可以不写全参数名字的</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&#34;-test&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&#34;-dtest&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">a</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">(</span><span class="s2">&#34;-tes 123&#34;</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">(</span><span class="s2">&#34;-dtes 456&#34;</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</span></span></code></pre></div><h2 id="heading-31"></h2>
+<p>程序内部赋值和用户赋值是不同的,就是说用户运行 python test.py -t 123 这是用户赋予-t参数的值123,而在程序内部则是 这样赋值的
+parse_arg([&quot;-t123&quot;]) 等写法</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/python/">python</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2022 - 
+        
+        2023 叶宇浩随记博客
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.5.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">Table of contents</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#heading"></a></li>
+    <li><a href="#heading-1"></a></li>
+    <li><a href="#heading-2"></a></li>
+    <li><a href="#heading-3"></a></li>
+    <li><a href="#heading-4"></a></li>
+    <li><a href="#heading-5"></a></li>
+    <li><a href="#heading-6"></a></li>
+    <li><a href="#heading-7"></a></li>
+    <li><a href="#heading-8"></a></li>
+    <li><a href="#heading-9"></a></li>
+    <li><a href="#heading-10"></a></li>
+    <li><a href="#heading-11"></a></li>
+    <li><a href="#heading-12"></a></li>
+    <li><a href="#heading-13"></a></li>
+    <li><a href="#heading-14"></a></li>
+    <li><a href="#heading-15"></a></li>
+    <li><a href="#heading-16"></a></li>
+    <li><a href="#heading-17"></a></li>
+    <li><a href="#heading-18"></a></li>
+    <li><a href="#heading-19"></a></li>
+    <li><a href="#heading-20"></a></li>
+    <li><a href="#heading-21"></a></li>
+    <li><a href="#heading-22"></a></li>
+    <li><a href="#heading-23"></a></li>
+    <li><a href="#heading-24"></a></li>
+    <li><a href="#heading-25"></a></li>
+    <li><a href="#heading-26"></a></li>
+    <li><a href="#heading-27"></a></li>
+    <li><a href="#heading-28"></a></li>
+    <li><a href="#heading-29"></a></li>
+    <li><a href="#heading-30"></a></li>
+    <li><a href="#heading-31"></a></li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

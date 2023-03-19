@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='PyMOL美化结构技巧'><title>PyMOL蛋白结美化参数(整合)</title>
+
+<link rel='canonical' href='https://example.com/p/pymol%E8%9B%8B%E7%99%BD%E7%BB%93%E7%BE%8E%E5%8C%96%E5%8F%82%E6%95%B0%E6%95%B4%E5%90%88/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='PyMOL蛋白结美化参数(整合)'>
+<meta property='og:description' content='PyMOL美化结构技巧'>
+<meta property='og:url' content='https://example.com/p/pymol%E8%9B%8B%E7%99%BD%E7%BB%93%E7%BE%8E%E5%8C%96%E5%8F%82%E6%95%B0%E6%95%B4%E5%90%88/'>
+<meta property='og:site_name' content='叶宇浩随记博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='structure' /><meta property='article:tag' content='tips' /><meta property='article:published_time' content='2022-10-12T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2022-10-12T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="PyMOL蛋白结美化参数(整合)">
+<meta name="twitter:description" content="PyMOL美化结构技巧">
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>Back</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/pymol/" style="background-color: #6a43e5; color: #fff;">
+                PyMOL
+            </a>
+        
+            <a href="/categories/protein_structure/" style="background-color: #e2144a; color: #fff;">
+                蛋白结构
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/pymol%E8%9B%8B%E7%99%BD%E7%BB%93%E7%BE%8E%E5%8C%96%E5%8F%82%E6%95%B0%E6%95%B4%E5%90%88/">PyMOL蛋白结美化参数(整合)</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        PyMOL美化结构技巧
+    </h3>
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Oct 12, 2022</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    2 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <blockquote>
+<p>PyMOL的功能十分强大，特别是命令行的参数，它可以对蛋白结构的细节展示进行许多调整，方便使用，这里集合一些参数，直接复制进pymol的cmd即可（本post会持续更新）</p>
+</blockquote>
+<h2 id="pymol-wiki">PyMOL-wiki</h2>
+<p>PyMOL官网本身有gallery（https://pymolwiki.org/index.php/Gallery），这里会有一堆大佬去上传自己的展示参数，只不过，我发现似乎有点少
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 219; 
+			flex-basis: 527px"
+	>
+	<a href="/p/pymol%E8%9B%8B%E7%99%BD%E7%BB%93%E7%BE%8E%E5%8C%96%E5%8F%82%E6%95%B0%E6%95%B4%E5%90%88/picture/PyMOL%E8%9B%8B%E7%99%BD%E7%BB%93%E7%BE%8E%E5%8C%96%E5%8F%82%E6%95%B0.png" data-size="3360x1528">
+		<img src="/p/pymol%E8%9B%8B%E7%99%BD%E7%BB%93%E7%BE%8E%E5%8C%96%E5%8F%82%E6%95%B0%E6%95%B4%E5%90%88/picture/PyMOL%E8%9B%8B%E7%99%BD%E7%BB%93%E7%BE%8E%E5%8C%96%E5%8F%82%E6%95%B0.png"
+			width="3360"
+			height="1528"
+			srcset="/p/pymol%E8%9B%8B%E7%99%BD%E7%BB%93%E7%BE%8E%E5%8C%96%E5%8F%82%E6%95%B0%E6%95%B4%E5%90%88/picture/PyMOL%E8%9B%8B%E7%99%BD%E7%BB%93%E7%BE%8E%E5%8C%96%E5%8F%82%E6%95%B0_hu87a58590430ee139a1917f468d4c8987_808976_480x0_resize_box_3.png 480w, /p/pymol%E8%9B%8B%E7%99%BD%E7%BB%93%E7%BE%8E%E5%8C%96%E5%8F%82%E6%95%B0%E6%95%B4%E5%90%88/picture/PyMOL%E8%9B%8B%E7%99%BD%E7%BB%93%E7%BE%8E%E5%8C%96%E5%8F%82%E6%95%B0_hu87a58590430ee139a1917f468d4c8987_808976_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<blockquote>
+<p>下面的大部分是转载的[^学习来源2],当然了，用到自己的结构上时，可以自行参数调整，比如不喜欢侧链的信息，就可以自行hide起来，自行修改color等</p>
+</blockquote>
+<h2 id="细节侧链美漫风">细节侧链美漫风</h2>
+<p>参数</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">reinitialize</span>
+</span></span><span class="line"><span class="cl"><span class="n">select</span> <span class="n">resn</span> <span class="n">HOH</span> 
+</span></span><span class="line"><span class="cl"><span class="n">remove</span> <span class="n">sele</span>
+</span></span><span class="line"><span class="cl"><span class="n">select</span> <span class="n">hydrophobic</span><span class="p">,</span> <span class="p">(</span><span class="n">resn</span> <span class="n">ala</span><span class="o">+</span><span class="n">gly</span><span class="o">+</span><span class="n">val</span><span class="o">+</span><span class="n">ile</span><span class="o">+</span><span class="n">leu</span><span class="o">+</span><span class="n">phe</span><span class="o">+</span><span class="n">met</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">show</span> <span class="n">sticks</span><span class="p">,</span> <span class="p">(</span><span class="n">hydrophobic</span> <span class="ow">and</span> <span class="p">(</span><span class="err">!</span><span class="n">name</span> <span class="n">c</span><span class="o">+</span><span class="n">n</span><span class="o">+</span><span class="n">o</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">color</span> <span class="n">yelloworange</span><span class="p">,</span> <span class="n">hydrophobic</span>
+</span></span><span class="line"><span class="cl"><span class="n">select</span> <span class="n">hydrophilic</span><span class="p">,</span> <span class="err">!</span><span class="n">hydrophobic</span> <span class="ow">and</span> <span class="p">(</span><span class="err">!</span><span class="n">name</span> <span class="n">c</span><span class="o">+</span><span class="n">n</span><span class="o">+</span><span class="n">o</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">show</span> <span class="n">sticks</span><span class="p">,</span> <span class="n">hydrophilic</span>
+</span></span><span class="line"><span class="cl"><span class="n">color</span> <span class="n">lightblue</span><span class="p">,</span> <span class="n">hydrophilic</span>
+</span></span><span class="line"><span class="cl"><span class="n">color</span> <span class="n">white</span><span class="p">,</span> <span class="n">bb</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl"><span class="n">color</span> <span class="n">oxygen</span><span class="p">,</span> <span class="n">elem</span> <span class="n">o</span>
+</span></span><span class="line"><span class="cl"><span class="n">color</span> <span class="n">nitrogen</span><span class="p">,</span> <span class="n">elem</span> <span class="n">N</span>
+</span></span><span class="line"><span class="cl"><span class="n">color</span> <span class="n">sulfur</span><span class="p">,</span> <span class="n">elem</span> <span class="n">S</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> <span class="n">ray_trace_mode</span><span class="p">,</span><span class="mi">3</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> <span class="n">stick_radius</span><span class="p">,</span> <span class="mf">0.4</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> <span class="n">cartoon_loop_radius</span><span class="p">,</span> <span class="mf">0.4</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> <span class="n">cartoon_oval_width</span><span class="p">,</span> <span class="mf">0.4</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> <span class="n">cartoon_rect_width</span><span class="p">,</span> <span class="mf">0.4</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> <span class="n">fog</span><span class="p">,</span><span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="n">bg_color</span> <span class="n">white</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> <span class="n">valence</span><span class="p">,</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> <span class="n">ray_shadow</span><span class="p">,</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="n">zoom</span>
+</span></span><span class="line"><span class="cl"><span class="n">orient</span>
+</span></span><span class="line"><span class="cl"><span class="n">ray</span>
+</span></span></code></pre></div><blockquote>
+<p>图片展示（take PDB code:7f52，删除了水分子，图片背景实际上是白色的，放在word中会更明显）
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 130; 
+			flex-basis: 313px"
+	>
+	<a href="/p/pymol%E8%9B%8B%E7%99%BD%E7%BB%93%E7%BE%8E%E5%8C%96%E5%8F%82%E6%95%B0%E6%95%B4%E5%90%88/picture/1_0.png" data-size="1280x980">
+		<img src="/p/pymol%E8%9B%8B%E7%99%BD%E7%BB%93%E7%BE%8E%E5%8C%96%E5%8F%82%E6%95%B0%E6%95%B4%E5%90%88/picture/1_0.png"
+			width="1280"
+			height="980"
+			srcset="/p/pymol%E8%9B%8B%E7%99%BD%E7%BB%93%E7%BE%8E%E5%8C%96%E5%8F%82%E6%95%B0%E6%95%B4%E5%90%88/picture/1_0_hu40e9f8361541a55e00489d9d1395976a_520046_480x0_resize_box_3.png 480w, /p/pymol%E8%9B%8B%E7%99%BD%E7%BB%93%E7%BE%8E%E5%8C%96%E5%8F%82%E6%95%B0%E6%95%B4%E5%90%88/picture/1_0_hu40e9f8361541a55e00489d9d1395976a_520046_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 167; 
+			flex-basis: 401px"
+	>
+	<a href="/p/pymol%E8%9B%8B%E7%99%BD%E7%BB%93%E7%BE%8E%E5%8C%96%E5%8F%82%E6%95%B0%E6%95%B4%E5%90%88/picture/PyMOL%E8%9B%8B%E7%99%BD%E7%BB%93%E7%BE%8E%E5%8C%96%E5%8F%82%E6%95%B0-2.png" data-size="1224x732">
+		<img src="/p/pymol%E8%9B%8B%E7%99%BD%E7%BB%93%E7%BE%8E%E5%8C%96%E5%8F%82%E6%95%B0%E6%95%B4%E5%90%88/picture/PyMOL%E8%9B%8B%E7%99%BD%E7%BB%93%E7%BE%8E%E5%8C%96%E5%8F%82%E6%95%B0-2.png"
+			width="1224"
+			height="732"
+			srcset="/p/pymol%E8%9B%8B%E7%99%BD%E7%BB%93%E7%BE%8E%E5%8C%96%E5%8F%82%E6%95%B0%E6%95%B4%E5%90%88/picture/PyMOL%E8%9B%8B%E7%99%BD%E7%BB%93%E7%BE%8E%E5%8C%96%E5%8F%82%E6%95%B0-2_hu007c52829b190b8b568b403d65b492d3_785810_480x0_resize_box_3.png 480w, /p/pymol%E8%9B%8B%E7%99%BD%E7%BB%93%E7%BE%8E%E5%8C%96%E5%8F%82%E6%95%B0%E6%95%B4%E5%90%88/picture/PyMOL%E8%9B%8B%E7%99%BD%E7%BB%93%E7%BE%8E%E5%8C%96%E5%8F%82%E6%95%B0-2_hu007c52829b190b8b568b403d65b492d3_785810_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+个人很喜欢这个风格，不过我经常会将其他的侧链信息都隐藏起来，从而突出某些位点的sticks</p>
+</blockquote>
+<h2 id="单色扁平莫兰迪">单色扁平莫兰迪</h2>
+<p>参数</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">select</span> <span class="n">resn</span> <span class="n">HOH</span> 
+</span></span><span class="line"><span class="cl"><span class="n">remove</span> <span class="n">sele</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> <span class="n">cartoon_loop_radius</span><span class="p">,</span> <span class="mf">0.2</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> <span class="n">cartoon_oval_width</span><span class="p">,</span> <span class="mf">0.2</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> <span class="n">cartoon_rect_width</span><span class="p">,</span> <span class="mf">0.2</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> <span class="n">specular</span><span class="p">,</span> <span class="n">off</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> <span class="n">ray_trace_mode</span><span class="p">,</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="n">select</span> <span class="n">name</span> <span class="n">ca</span>
+</span></span><span class="line"><span class="cl"><span class="n">show</span> <span class="n">spheres</span><span class="p">,</span> <span class="n">sele</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> <span class="n">sphere_scale</span><span class="p">,</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> <span class="n">cartoon_side_chain_helper</span><span class="p">,</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="n">bg_color</span> <span class="n">white</span>
+</span></span><span class="line"><span class="cl"><span class="n">color</span> <span class="n">gray80</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> <span class="n">ray_trace_disco_factor</span><span class="p">,</span> <span class="mf">1.0</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> <span class="n">ray_trace_gain</span><span class="p">,</span> <span class="mf">0.0</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> <span class="n">ambient</span><span class="p">,</span> <span class="mf">0.66</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> <span class="n">ray_shadow</span><span class="p">,</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="n">zoom</span>
+</span></span><span class="line"><span class="cl"><span class="n">orient</span>
+</span></span><span class="line"><span class="cl"><span class="n">ray</span>
+</span></span></code></pre></div><blockquote>
+<p>样图展示</p>
+</blockquote>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 153; 
+			flex-basis: 368px"
+	>
+	<a href="/p/pymol%E8%9B%8B%E7%99%BD%E7%BB%93%E7%BE%8E%E5%8C%96%E5%8F%82%E6%95%B0%E6%95%B4%E5%90%88/picture/2_1.png" data-size="1748x1138">
+		<img src="/p/pymol%E8%9B%8B%E7%99%BD%E7%BB%93%E7%BE%8E%E5%8C%96%E5%8F%82%E6%95%B0%E6%95%B4%E5%90%88/picture/2_1.png"
+			width="1748"
+			height="1138"
+			srcset="/p/pymol%E8%9B%8B%E7%99%BD%E7%BB%93%E7%BE%8E%E5%8C%96%E5%8F%82%E6%95%B0%E6%95%B4%E5%90%88/picture/2_1_huf765e88c6c366bd6dac6c1685fe400a5_392030_480x0_resize_box_3.png 480w, /p/pymol%E8%9B%8B%E7%99%BD%E7%BB%93%E7%BE%8E%E5%8C%96%E5%8F%82%E6%95%B0%E6%95%B4%E5%90%88/picture/2_1_huf765e88c6c366bd6dac6c1685fe400a5_392030_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 133; 
+			flex-basis: 320px"
+	>
+	<a href="/p/pymol%E8%9B%8B%E7%99%BD%E7%BB%93%E7%BE%8E%E5%8C%96%E5%8F%82%E6%95%B0%E6%95%B4%E5%90%88/picture/2_2.png" data-size="1280x960">
+		<img src="/p/pymol%E8%9B%8B%E7%99%BD%E7%BB%93%E7%BE%8E%E5%8C%96%E5%8F%82%E6%95%B0%E6%95%B4%E5%90%88/picture/2_2.png"
+			width="1280"
+			height="960"
+			srcset="/p/pymol%E8%9B%8B%E7%99%BD%E7%BB%93%E7%BE%8E%E5%8C%96%E5%8F%82%E6%95%B0%E6%95%B4%E5%90%88/picture/2_2_hud186fb8f61a70ca85a70f3988a936b4f_658950_480x0_resize_box_3.png 480w, /p/pymol%E8%9B%8B%E7%99%BD%E7%BB%93%E7%BE%8E%E5%8C%96%E5%8F%82%E6%95%B0%E6%95%B4%E5%90%88/picture/2_2_hud186fb8f61a70ca85a70f3988a936b4f_658950_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="饱和质感彩虹糖">饱和质感彩虹糖</h2>
+<p>参数</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">select</span> <span class="n">resn</span> <span class="n">HOH</span> 
+</span></span><span class="line"><span class="cl"><span class="n">remove</span> <span class="n">sele</span>
+</span></span><span class="line"><span class="cl"><span class="n">cartoon</span> <span class="n">loop</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> <span class="n">cartoon_loop_radius</span><span class="p">,</span> <span class="mf">1.5</span>
+</span></span><span class="line"><span class="cl"><span class="n">spectrum</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> <span class="n">fog</span><span class="p">,</span><span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="n">bg_color</span> <span class="n">white</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> <span class="n">valence</span><span class="p">,</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> <span class="n">ray_shadow</span><span class="p">,</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> <span class="n">ray_trace_mode</span><span class="p">,</span> <span class="mi">3</span>
+</span></span><span class="line"><span class="cl"><span class="n">zoom</span>
+</span></span><span class="line"><span class="cl"><span class="n">orient</span>
+</span></span><span class="line"><span class="cl"><span class="n">ray</span>
+</span></span></code></pre></div><blockquote>
+<p>样图展示</p>
+</blockquote>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 133; 
+			flex-basis: 320px"
+	>
+	<a href="/p/pymol%E8%9B%8B%E7%99%BD%E7%BB%93%E7%BE%8E%E5%8C%96%E5%8F%82%E6%95%B0%E6%95%B4%E5%90%88/picture/3_1.png" data-size="1280x960">
+		<img src="/p/pymol%E8%9B%8B%E7%99%BD%E7%BB%93%E7%BE%8E%E5%8C%96%E5%8F%82%E6%95%B0%E6%95%B4%E5%90%88/picture/3_1.png"
+			width="1280"
+			height="960"
+			srcset="/p/pymol%E8%9B%8B%E7%99%BD%E7%BB%93%E7%BE%8E%E5%8C%96%E5%8F%82%E6%95%B0%E6%95%B4%E5%90%88/picture/3_1_hu411356aef287c304e1a865e0427186ab_340710_480x0_resize_box_3.png 480w, /p/pymol%E8%9B%8B%E7%99%BD%E7%BB%93%E7%BE%8E%E5%8C%96%E5%8F%82%E6%95%B0%E6%95%B4%E5%90%88/picture/3_1_hu411356aef287c304e1a865e0427186ab_340710_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 133; 
+			flex-basis: 320px"
+	>
+	<a href="/p/pymol%E8%9B%8B%E7%99%BD%E7%BB%93%E7%BE%8E%E5%8C%96%E5%8F%82%E6%95%B0%E6%95%B4%E5%90%88/picture/3_2.png" data-size="1280x960">
+		<img src="/p/pymol%E8%9B%8B%E7%99%BD%E7%BB%93%E7%BE%8E%E5%8C%96%E5%8F%82%E6%95%B0%E6%95%B4%E5%90%88/picture/3_2.png"
+			width="1280"
+			height="960"
+			srcset="/p/pymol%E8%9B%8B%E7%99%BD%E7%BB%93%E7%BE%8E%E5%8C%96%E5%8F%82%E6%95%B0%E6%95%B4%E5%90%88/picture/3_2_hu4d9cd9cb1aa5c3fe8b34118f3573dbc2_479076_480x0_resize_box_3.png 480w, /p/pymol%E8%9B%8B%E7%99%BD%E7%BB%93%E7%BE%8E%E5%8C%96%E5%8F%82%E6%95%B0%E6%95%B4%E5%90%88/picture/3_2_hu4d9cd9cb1aa5c3fe8b34118f3573dbc2_479076_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="alphafold的新美学">AlphaFold的新美学</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">bg_color</span> <span class="n">white</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> <span class="n">spec_reflect</span><span class="p">,</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> <span class="n">ray_trace_mode</span><span class="p">,</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="n">set_color</span> <span class="n">high_lddt_c</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.325490196078431</span><span class="p">,</span><span class="mf">0.843137254901961</span> <span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">set_color</span> <span class="n">normal_lddt_c</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.341176470588235</span><span class="p">,</span><span class="mf">0.792156862745098</span><span class="p">,</span><span class="mf">0.976470588235294</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">set_color</span> <span class="n">medium_lddt_c</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.858823529411765</span><span class="p">,</span><span class="mf">0.070588235294118</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">set_color</span> <span class="n">low_lddt_c</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.494117647058824</span><span class="p">,</span><span class="mf">0.270588235294118</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">color</span> <span class="n">high_lddt_c</span><span class="p">,</span> <span class="p">(</span><span class="n">b</span> <span class="o">&gt;</span> <span class="mi">90</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">color</span> <span class="n">normal_lddt_c</span><span class="p">,</span> <span class="p">(</span><span class="n">b</span> <span class="o">&lt;</span> <span class="mi">90</span> <span class="ow">and</span> <span class="n">b</span> <span class="o">&gt;</span> <span class="mi">70</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">color</span> <span class="n">medium_lddt_c</span><span class="p">,</span> <span class="p">(</span><span class="n">b</span> <span class="o">&lt;</span> <span class="mi">70</span> <span class="ow">and</span> <span class="n">b</span> <span class="o">&gt;</span> <span class="mi">50</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">color</span> <span class="n">low_lddt_c</span><span class="p">,</span> <span class="p">(</span><span class="n">b</span> <span class="o">&lt;</span> <span class="mi">50</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">space</span> <span class="n">rgb</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> <span class="n">ray_shadow</span><span class="p">,</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> <span class="n">fog</span><span class="p">,</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="n">zoom</span>
+</span></span><span class="line"><span class="cl"><span class="n">orient</span>
+</span></span><span class="line"><span class="cl"><span class="n">ray</span>
+</span></span></code></pre></div><blockquote>
+<p>样图展示</p>
+</blockquote>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 133; 
+			flex-basis: 320px"
+	>
+	<a href="/p/pymol%E8%9B%8B%E7%99%BD%E7%BB%93%E7%BE%8E%E5%8C%96%E5%8F%82%E6%95%B0%E6%95%B4%E5%90%88/picture/4_1.png" data-size="1280x960">
+		<img src="/p/pymol%E8%9B%8B%E7%99%BD%E7%BB%93%E7%BE%8E%E5%8C%96%E5%8F%82%E6%95%B0%E6%95%B4%E5%90%88/picture/4_1.png"
+			width="1280"
+			height="960"
+			srcset="/p/pymol%E8%9B%8B%E7%99%BD%E7%BB%93%E7%BE%8E%E5%8C%96%E5%8F%82%E6%95%B0%E6%95%B4%E5%90%88/picture/4_1_hub7722e31cdd9f732584cd37452852905_320160_480x0_resize_box_3.png 480w, /p/pymol%E8%9B%8B%E7%99%BD%E7%BB%93%E7%BE%8E%E5%8C%96%E5%8F%82%E6%95%B0%E6%95%B4%E5%90%88/picture/4_1_hub7722e31cdd9f732584cd37452852905_320160_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 133; 
+			flex-basis: 320px"
+	>
+	<a href="/p/pymol%E8%9B%8B%E7%99%BD%E7%BB%93%E7%BE%8E%E5%8C%96%E5%8F%82%E6%95%B0%E6%95%B4%E5%90%88/picture/4_2.png" data-size="1280x960">
+		<img src="/p/pymol%E8%9B%8B%E7%99%BD%E7%BB%93%E7%BE%8E%E5%8C%96%E5%8F%82%E6%95%B0%E6%95%B4%E5%90%88/picture/4_2.png"
+			width="1280"
+			height="960"
+			srcset="/p/pymol%E8%9B%8B%E7%99%BD%E7%BB%93%E7%BE%8E%E5%8C%96%E5%8F%82%E6%95%B0%E6%95%B4%E5%90%88/picture/4_2_hu2a723c383ca61d726dcd8973c6d8ba3b_734681_480x0_resize_box_3.png 480w, /p/pymol%E8%9B%8B%E7%99%BD%E7%BB%93%E7%BE%8E%E5%8C%96%E5%8F%82%E6%95%B0%E6%95%B4%E5%90%88/picture/4_2_hu2a723c383ca61d726dcd8973c6d8ba3b_734681_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="suntyle">Suntyle</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">hide</span>
+</span></span><span class="line"><span class="cl"><span class="n">show</span> <span class="n">cartoon</span>
+</span></span><span class="line"><span class="cl"><span class="n">select</span> <span class="n">resn</span> <span class="n">HOH</span> 
+</span></span><span class="line"><span class="cl"><span class="n">remove</span> <span class="n">sele</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> <span class="n">ambient</span><span class="p">,</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> <span class="n">spec_reflect</span><span class="p">,</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="n">select</span> <span class="n">resn</span> <span class="n">HOH</span>
+</span></span><span class="line"><span class="cl"><span class="n">remove</span> <span class="n">sele</span>
+</span></span><span class="line"><span class="cl"><span class="n">bg_color</span> <span class="n">white</span>
+</span></span><span class="line"><span class="cl"><span class="n">util</span><span class="o">.</span><span class="n">cbc</span><span class="p">(</span><span class="n">selection</span><span class="o">=</span><span class="s1">&#39;(all)&#39;</span><span class="p">,</span><span class="n">first_color</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span><span class="n">quiet</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">legacy</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">_self</span><span class="o">=</span><span class="n">cmd</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> <span class="n">fog</span><span class="p">,</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> <span class="n">cartoon_loop_radius</span><span class="p">,</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="n">cartoon</span> <span class="n">loop</span>
+</span></span><span class="line"><span class="cl"><span class="n">zoom</span>
+</span></span><span class="line"><span class="cl"><span class="n">orient</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> <span class="n">ray_trace_mode</span><span class="p">,</span> <span class="mi">3</span>
+</span></span><span class="line"><span class="cl"><span class="n">ray</span>
+</span></span></code></pre></div><blockquote>
+<p>样图展示 (这个样式在PyMOL里面看可能很不好看，但是在ray之后，边缘化特别好看)</p>
+</blockquote>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 119; 
+			flex-basis: 286px"
+	>
+	<a href="/p/pymol%E8%9B%8B%E7%99%BD%E7%BB%93%E7%BE%8E%E5%8C%96%E5%8F%82%E6%95%B0%E6%95%B4%E5%90%88/picture/5_1.png" data-size="1280x1072">
+		<img src="/p/pymol%E8%9B%8B%E7%99%BD%E7%BB%93%E7%BE%8E%E5%8C%96%E5%8F%82%E6%95%B0%E6%95%B4%E5%90%88/picture/5_1.png"
+			width="1280"
+			height="1072"
+			srcset="/p/pymol%E8%9B%8B%E7%99%BD%E7%BB%93%E7%BE%8E%E5%8C%96%E5%8F%82%E6%95%B0%E6%95%B4%E5%90%88/picture/5_1_hu1fa72ffe1b21cbcdc0497b1139703ad5_185454_480x0_resize_box_3.png 480w, /p/pymol%E8%9B%8B%E7%99%BD%E7%BB%93%E7%BE%8E%E5%8C%96%E5%8F%82%E6%95%B0%E6%95%B4%E5%90%88/picture/5_1_hu1fa72ffe1b21cbcdc0497b1139703ad5_185454_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 119; 
+			flex-basis: 286px"
+	>
+	<a href="/p/pymol%E8%9B%8B%E7%99%BD%E7%BB%93%E7%BE%8E%E5%8C%96%E5%8F%82%E6%95%B0%E6%95%B4%E5%90%88/picture/5_2.png" data-size="1280x1072">
+		<img src="/p/pymol%E8%9B%8B%E7%99%BD%E7%BB%93%E7%BE%8E%E5%8C%96%E5%8F%82%E6%95%B0%E6%95%B4%E5%90%88/picture/5_2.png"
+			width="1280"
+			height="1072"
+			srcset="/p/pymol%E8%9B%8B%E7%99%BD%E7%BB%93%E7%BE%8E%E5%8C%96%E5%8F%82%E6%95%B0%E6%95%B4%E5%90%88/picture/5_2_hucb42b4ec4914607e0fe8e091b5fb933b_247774_480x0_resize_box_3.png 480w, /p/pymol%E8%9B%8B%E7%99%BD%E7%BB%93%E7%BE%8E%E5%8C%96%E5%8F%82%E6%95%B0%E6%95%B4%E5%90%88/picture/5_2_hucb42b4ec4914607e0fe8e091b5fb933b_247774_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="surface背景氨基酸细节风-1">surface背景+氨基酸细节风-1</h2>
+<blockquote>
+<p>[^学习来源3、4]</p>
+</blockquote>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 198; 
+			flex-basis: 475px"
+	>
+	<a href="/p/pymol%E8%9B%8B%E7%99%BD%E7%BB%93%E7%BE%8E%E5%8C%96%E5%8F%82%E6%95%B0%E6%95%B4%E5%90%88/picture/PyMOL%E8%9B%8B%E7%99%BD%E7%BB%93%E7%BE%8E%E5%8C%96%E5%8F%82%E6%95%B0-4.png" data-size="1788x902">
+		<img src="/p/pymol%E8%9B%8B%E7%99%BD%E7%BB%93%E7%BE%8E%E5%8C%96%E5%8F%82%E6%95%B0%E6%95%B4%E5%90%88/picture/PyMOL%E8%9B%8B%E7%99%BD%E7%BB%93%E7%BE%8E%E5%8C%96%E5%8F%82%E6%95%B0-4.png"
+			width="1788"
+			height="902"
+			srcset="/p/pymol%E8%9B%8B%E7%99%BD%E7%BB%93%E7%BE%8E%E5%8C%96%E5%8F%82%E6%95%B0%E6%95%B4%E5%90%88/picture/PyMOL%E8%9B%8B%E7%99%BD%E7%BB%93%E7%BE%8E%E5%8C%96%E5%8F%82%E6%95%B0-4_hu3bb975800ff8bd78ed59827afac70da4_778631_480x0_resize_box_3.png 480w, /p/pymol%E8%9B%8B%E7%99%BD%E7%BB%93%E7%BE%8E%E5%8C%96%E5%8F%82%E6%95%B0%E6%95%B4%E5%90%88/picture/PyMOL%E8%9B%8B%E7%99%BD%E7%BB%93%E7%BE%8E%E5%8C%96%E5%8F%82%E6%95%B0-4_hu3bb975800ff8bd78ed59827afac70da4_778631_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>主要参数</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">bg_color</span> <span class="n">white</span> 
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> <span class="n">antialias</span><span class="p">,</span><span class="mi">5</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> <span class="n">ambient</span><span class="p">,</span> <span class="mf">0.7</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> <span class="n">ray_trace_mode</span><span class="p">,</span><span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> <span class="n">transparency</span><span class="p">,</span><span class="mf">0.6</span>
+</span></span><span class="line"><span class="cl"><span class="n">ray</span>
+</span></span></code></pre></div><blockquote>
+<p>上面的参数是主要的，更多的信息如surface需要自己去调整去</p>
+</blockquote>
+<h2 id="学习来源">学习来源</h2>
+<p>1.https://pymolwiki.org/index.php/Gallery
+2.https://mp.weixin.qq.com/s/lW4n7g1VUFEsJAnllc9kRg
+3.https://twitter.com/tonets/status/1631207549260242946?cxt=HHwWhIC9ifSnm6MtAAAA
+4.https://twitter.com/tonets/status/1631540589920493568?cxt=HHwWgIC9rbbhsqQtAAAA</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/structure/">structure</a>
+        
+            <a href="/tags/tips/">tips</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">Related contents</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="">
+    <a href="/p/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">蛋白结构图片美化</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2022 - 
+        
+        2023 叶宇浩随记博客
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.5.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">Table of contents</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#pymol-wiki">PyMOL-wiki</a></li>
+    <li><a href="#细节侧链美漫风">细节侧链美漫风</a></li>
+    <li><a href="#单色扁平莫兰迪">单色扁平莫兰迪</a></li>
+    <li><a href="#饱和质感彩虹糖">饱和质感彩虹糖</a></li>
+    <li><a href="#alphafold的新美学">AlphaFold的新美学</a></li>
+    <li><a href="#suntyle">Suntyle</a></li>
+    <li><a href="#surface背景氨基酸细节风-1">surface背景+氨基酸细节风-1</a></li>
+    <li><a href="#学习来源">学习来源</a></li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

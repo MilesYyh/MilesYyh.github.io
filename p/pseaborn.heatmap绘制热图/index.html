@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='数据可视化热图'><title>pseaborn.heatmap绘制热图</title>
+
+<link rel='canonical' href='https://example.com/p/pseaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='pseaborn.heatmap绘制热图'>
+<meta property='og:description' content='数据可视化热图'>
+<meta property='og:url' content='https://example.com/p/pseaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE/'>
+<meta property='og:site_name' content='叶宇浩随记博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='python' /><meta property='article:tag' content='数据可视化' /><meta property='article:published_time' content='2022-05-11T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2022-05-11T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="pseaborn.heatmap绘制热图">
+<meta name="twitter:description" content="数据可视化热图">
+    </head>
+    <body class="
+    article-page 
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        on-phone--column extended
+    
+">
+    
+        <aside class="sidebar left-sidebar sticky">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header class="site-info">
+        
+            
+            <figure class="site-avatar">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hub6b2d46d776162e2e8dcd667345276ca_41574_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+
+                
+            </figure>
+            
+        
+        
+        <h1 class="site-name"><a href="/">叶宇浩随记博客</a></h1>
+        <h2 class="site-description">始于rosetta</h2></header>
+
+    <ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/' target="_blank">
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>分类</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>检索</span>
+            </a>
+        </li>
+        
+
+        
+            <li id="dark-mode-toggle">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <span>Dark Mode</span>
+            </li>
+        
+    </ol>
+</aside>
+
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/code/" style="background-color: #fa1; color: #fff;">
+                编程
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/pseaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE/">pseaborn.heatmap绘制热图</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        数据可视化热图
+    </h3>
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">May 11, 2022</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    2 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <blockquote>
+<p>第一个学的python的包就是matplotlib，特地整理了去年的学习笔记</p>
+</blockquote>
+<p>code：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#随机创建10行12列的数组，定义一个子图宽高为9和6，应用到热力图中</span>
+</span></span><span class="line"><span class="cl"><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">22</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">uniform_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">12</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">f</span><span class="p">,</span><span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">uniform_data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 144; 
+			flex-basis: 347px"
+	>
+	<a href="/p/pseaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE/picture/seaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE.png" data-size="1594x1100">
+		<img src="/p/pseaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE/picture/seaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE.png"
+			width="1594"
+			height="1100"
+			srcset="/p/pseaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE/picture/seaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE_hu5ef20915450ab512d7f0449a3d2fc8ea_114505_480x0_resize_box_3.png 480w, /p/pseaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE/picture/seaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE_hu5ef20915450ab512d7f0449a3d2fc8ea_114505_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#现在在上图的基础上改变一下色彩图的上下界</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">uniform_data</span><span class="p">,</span><span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#和上图对比就会发现色彩图的上下界更明确了</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 159; 
+			flex-basis: 381px"
+	>
+	<a href="/p/pseaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE/picture/seaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE-1.png" data-size="792x498">
+		<img src="/p/pseaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE/picture/seaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE-1.png"
+			width="792"
+			height="498"
+			srcset="/p/pseaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE/picture/seaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE-1_hu45721c5867b3b4cc2af7db86ef2ac2a7_32455_480x0_resize_box_3.png 480w, /p/pseaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE/picture/seaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE-1_hu45721c5867b3b4cc2af7db86ef2ac2a7_32455_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>使用发散色图绘制以0为中心的数据的热力图 这里使用的是np.random.randn()函数，和上面的np.random.rand()函数不一样的。因为这个函数可以返回一个或一组服从标准正态分布的随机样本值，上面的np.random.rand()函数返回一个或一组服从0~1均匀分布的随机样本值，随机样本取值范围是[0,1)，不包括1</p>
+<p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">uniform_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">12</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">f</span><span class="p">,</span><span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">uniform_data</span><span class="p">,</span><span class="n">center</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 152; 
+			flex-basis: 366px"
+	>
+	<a href="/p/pseaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE/picture/seaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE-2.png" data-size="1136x744">
+		<img src="/p/pseaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE/picture/seaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE-2.png"
+			width="1136"
+			height="744"
+			srcset="/p/pseaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE/picture/seaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE-2_hu595b1c2999759db91878b99849eaac43_33164_480x0_resize_box_3.png 480w, /p/pseaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE/picture/seaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE-2_hu595b1c2999759db91878b99849eaac43_33164_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>为行和列加上有意义的标签,使用sns.load_dataset(&ldquo;flights&rdquo;)自带的数据集，数据集的部分截图如下,共143行数据:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 98; 
+			flex-basis: 237px"
+	>
+	<a href="/p/pseaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE/picture/seaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE-3.png" data-size="538x544">
+		<img src="/p/pseaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE/picture/seaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE-3.png"
+			width="538"
+			height="544"
+			srcset="/p/pseaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE/picture/seaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE-3_huf693a0fbe52534c9eeef37172de7bd92_278261_480x0_resize_box_3.png 480w, /p/pseaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE/picture/seaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE-3_huf693a0fbe52534c9eeef37172de7bd92_278261_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">flights</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s2">&#34;flights&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><p>接着使用了一个特别高效的函数pivot()，该函数有三个参数(index,columns,values)，第一个参数index是指新表的索引，第二个参数columns是新表的列名，第三个参数values是指新表中的值，看效果就比较明确了</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">flights</span> <span class="o">=</span> <span class="n">flights</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="s2">&#34;month&#34;</span><span class="p">,</span><span class="s2">&#34;year&#34;</span><span class="p">,</span><span class="s2">&#34;passengers&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">flights</span>
+</span></span></code></pre></div><p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 157; 
+			flex-basis: 377px"
+	>
+	<a href="/p/pseaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE/picture/seaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE-4.png" data-size="1184x752">
+		<img src="/p/pseaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE/picture/seaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE-4.png"
+			width="1184"
+			height="752"
+			srcset="/p/pseaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE/picture/seaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE-4_hua372177773d14a24f5b25d8e4608e5b1_129845_480x0_resize_box_3.png 480w, /p/pseaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE/picture/seaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE-4_hua372177773d14a24f5b25d8e4608e5b1_129845_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>由表可以看出第一个参数就是行标，第二个参数是列标，第三个参数是表中的值。 显示一下热力图
+code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">flights</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 150; 
+			flex-basis: 360px"
+	>
+	<a href="/p/pseaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE/picture/seaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE-5.png" data-size="852x568">
+		<img src="/p/pseaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE/picture/seaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE-5.png"
+			width="852"
+			height="568"
+			srcset="/p/pseaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE/picture/seaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE-5_hu06a9e4859b19bf83715d64ccb59fa773_49874_480x0_resize_box_3.png 480w, /p/pseaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE/picture/seaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE-5_hu06a9e4859b19bf83715d64ccb59fa773_49874_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>使用整型格式的数值为每个单元格注释</p>
+<p>heatmap中的参数annot为True时，为每个单元格写入数据值。如果数组具有与数据相同的形状，则使用它来注释热力图而不是原始数据。参数fmt是指添加注释时要使用的字符串格式代码
+code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">flights</span><span class="p">,</span><span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">fmt</span><span class="o">=</span><span class="s2">&#34;d&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 148; 
+			flex-basis: 355px"
+	>
+	<a href="/p/pseaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE/picture/seaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE-6.png" data-size="818x552">
+		<img src="/p/pseaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE/picture/seaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE-6.png"
+			width="818"
+			height="552"
+			srcset="/p/pseaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE/picture/seaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE-6_huaca37313a7f2468d68ec5504ab52e681_269093_480x0_resize_box_3.png 480w, /p/pseaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE/picture/seaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE-6_huaca37313a7f2468d68ec5504ab52e681_269093_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>为每个单元格之间添加行</p>
+<p>heatmap函数中的参数linewidths是指划分每个单元格的行的宽度
+code</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">flights</span><span class="p">,</span><span class="n">linewidths</span><span class="o">=</span><span class="mf">.5</span><span class="p">)</span>
+</span></span></code></pre></div><p>result
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 152; 
+			flex-basis: 365px"
+	>
+	<a href="/p/pseaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE/picture/seaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE-7.png" data-size="820x538">
+		<img src="/p/pseaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE/picture/seaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE-7.png"
+			width="820"
+			height="538"
+			srcset="/p/pseaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE/picture/seaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE-7_hudf8cc78d661426fc8639a7e1fbdada6e_58524_480x0_resize_box_3.png 480w, /p/pseaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE/picture/seaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE-7_hudf8cc78d661426fc8639a7e1fbdada6e_58524_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>换一个不同的色彩图</p>
+<p>heatmap函数中的参数cmap是指色彩颜色的选择，可选的颜色还有很多，比如:Accent, Accent_r, Blues, Blues_r, BrBG, BrBG_r, BuGn, BuGn_r, BuPu, BuPu_r, CMRmap, CMRmap_r, Dark2, Dark2_r, GnBu, GnBu_r, Greens, Greens_r, Greys, Greys_r, OrRd, OrRd_r, Oranges, Oranges_r, PRGn, PRGn_r, Paired, Paired_r, Pastel1, Pastel1_r, Pastel2, Pastel2_r, PiYG, PiYG_r, PuBu, PuBuGn, PuBuGn_r, PuBu_r, PuOr, PuOr_r, PuRd, PuRd_r, Purples, Purples_r, RdBu, RdBu_r, RdGy, RdGy_r, RdPu, RdPu_r, RdYlBu, RdYlBu_r, RdYlGn, RdYlGn_r, Reds, Reds_r, Set1, Set1_r, Set2, Set2_r, Set3, Set3_r, Spectral, Spectral_r, Wistia, Wistia_r, YlGn, YlGnBu, YlGnBu_r, YlGn_r, YlOrBr, YlOrBr_r, YlOrRd, YlOrRd_r&hellip;其中末尾加r是颜色取反</p>
+<p>code</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">flights</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s2">&#34;RdPu&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 139; 
+			flex-basis: 334px"
+	>
+	<a href="/p/pseaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE/picture/seaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE-8.png" data-size="798x572">
+		<img src="/p/pseaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE/picture/seaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE-8.png"
+			width="798"
+			height="572"
+			srcset="/p/pseaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE/picture/seaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE-8_hu17713d800920a838359d024b2362be8a_48522_480x0_resize_box_3.png 480w, /p/pseaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE/picture/seaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE-8_hu17713d800920a838359d024b2362be8a_48522_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>将色彩图特定值设为中心
+code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">flights</span><span class="p">,</span><span class="n">center</span><span class="o">=</span><span class="n">flights</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&#34;Jan&#34;</span><span class="p">,</span><span class="mi">1955</span><span class="p">])</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 153; 
+			flex-basis: 367px"
+	>
+	<a href="/p/pseaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE/picture/seaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE-9.png" data-size="846x552">
+		<img src="/p/pseaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE/picture/seaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE-9.png"
+			width="846"
+			height="552"
+			srcset="/p/pseaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE/picture/seaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE-9_hu8d58e2ff8039c96e4d7de6eacc0f2ca2_49327_480x0_resize_box_3.png 480w, /p/pseaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE/picture/seaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE-9_hu8d58e2ff8039c96e4d7de6eacc0f2ca2_49327_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>只绘制列标签不绘制行标签</p>
+<p>heatmap函数中的参数xticklabels,yticklabels如果是True则绘制数据框的列名称;如果是False则不绘制列名称，如果是列表则将这些替代标签绘制为xticklabels;如果是整数则使用列名称也只是绘制n个标签;如果是自动的，请尝试密集绘制不重叠的标签。</p>
+<p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">flights</span><span class="p">,</span><span class="n">xticklabels</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">yticklabels</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 137; 
+			flex-basis: 329px"
+	>
+	<a href="/p/pseaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE/picture/seaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE-10.png" data-size="728x530">
+		<img src="/p/pseaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE/picture/seaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE-10.png"
+			width="728"
+			height="530"
+			srcset="/p/pseaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE/picture/seaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE-10_hu0c68a959e47930779c92ba13ec792fb5_29098_480x0_resize_box_3.png 480w, /p/pseaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE/picture/seaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE-10_hu0c68a959e47930779c92ba13ec792fb5_29098_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>不绘制颜色条</p>
+<p>heatmap函数中的参数cbar为TRUE即绘制颜色条，为False就不绘制颜色条</p>
+<p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">flights</span><span class="p">,</span><span class="n">cbar</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 179; 
+			flex-basis: 431px"
+	>
+	<a href="/p/pseaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE/picture/seaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE-11.png" data-size="992x552">
+		<img src="/p/pseaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE/picture/seaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE-11.png"
+			width="992"
+			height="552"
+			srcset="/p/pseaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE/picture/seaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE-11_hu473174cd75da62aad5c60d3310f7fc08_38162_480x0_resize_box_3.png 480w, /p/pseaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE/picture/seaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE-11_hu473174cd75da62aad5c60d3310f7fc08_38162_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>使用 不同的轴作为颜色条</p>
+<p>subplots函数中的参数gridspec_kw是将字典的关键字传递给GridSpec构造函数创建子图放在网格里。heatmap函数中的参数ax指绘制图的轴，否则使用当前活动的轴，cbar_ax用于绘制颜色条的轴，否则从主轴获取；cbar_kwsfig.colorbar的关键字参数.这部分不太会用大白话解释，直接上图吧</p>
+<p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">grid_kws</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&#34;height_ratios&#34;</span><span class="p">:(</span><span class="mf">.9</span><span class="p">,</span><span class="mf">.09</span><span class="p">),</span><span class="s2">&#34;hspace&#34;</span><span class="p">:</span><span class="mf">.3</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="n">f</span><span class="p">,(</span><span class="n">ax</span><span class="p">,</span><span class="n">cbar_ax</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="n">gridspec_kw</span><span class="o">=</span><span class="n">grid_kws</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">flights</span><span class="p">,</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span><span class="n">cbar_ax</span><span class="o">=</span><span class="n">cbar_ax</span><span class="p">,</span><span class="n">cbar_kws</span><span class="o">=</span><span class="p">{</span><span class="s2">&#34;orientation&#34;</span><span class="p">:</span><span class="s2">&#34;horizontal&#34;</span><span class="p">})</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 170; 
+			flex-basis: 408px"
+	>
+	<a href="/p/pseaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE/picture/seaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE-12.png" data-size="848x498">
+		<img src="/p/pseaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE/picture/seaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE-12.png"
+			width="848"
+			height="498"
+			srcset="/p/pseaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE/picture/seaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE-12_hub529460bd244d7dd6e3dd3b7452eb29d_42807_480x0_resize_box_3.png 480w, /p/pseaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE/picture/seaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE-12_hub529460bd244d7dd6e3dd3b7452eb29d_42807_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>仅绘制矩阵的一部分</p>
+<p>首先创建一组服从正太分布的矩阵，并计算其每一列的相关系数记为corr，创建这么多0矩阵。np.triu_indices_from(mask)这个函数一直不太理解什么意思，把输出放在这里，以后有机会遇到再再补充和纠正</p>
+<p>heatmap函数中的参数mask如果通过，则数据不会显示在mask为True的单元格中，具有缺失值的单元格将自动被屏蔽。参数square为Ture，则将Axes方面设置为相等，并使其每个单元格为方形。参数vmax用于锚定色彩图的值，否则会从数据和其他关键字参数推断出来，但是这里为3还是不太理解。直接贴出热力图吧</p>
+<p>掩码是一个与数据同样大小的数组，掩码只有真假二值，mask中为1的单元格，画图后，data对应的单元格不显示。mask中为0的单元格，画图后，data对应的单元格显示热力图</p>
+<p>code</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">corr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">200</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">corr</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">mask</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">mask</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">triu_indices_from</span><span class="p">(</span><span class="n">mask</span><span class="p">)]</span> <span class="o">=</span> <span class="kc">True</span>
+</span></span><span class="line"><span class="cl"><span class="k">with</span> <span class="n">sns</span><span class="o">.</span><span class="n">axes_style</span><span class="p">(</span><span class="s2">&#34;white&#34;</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">corr</span><span class="p">,</span><span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">,</span><span class="n">vmax</span><span class="o">=</span><span class="mf">.3</span><span class="p">,</span><span class="n">square</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span></code></pre></div><p>result
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 85; 
+			flex-basis: 204px"
+	>
+	<a href="/p/pseaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE/picture/seaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE-13.png" data-size="746x874">
+		<img src="/p/pseaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE/picture/seaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE-13.png"
+			width="746"
+			height="874"
+			srcset="/p/pseaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE/picture/seaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE-13_hube06715ad8ccaa5bfd56cbf8f0f562ee_66434_480x0_resize_box_3.png 480w, /p/pseaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE/picture/seaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE-13_hube06715ad8ccaa5bfd56cbf8f0f562ee_66434_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>np.triu_indices_from(mask)是返回上三角矩阵的元素的坐标。The indices for the triangle. The returned tuple contains two arrays, each with the indices along one dimension of the array. Can be used to slice a ndarray of shape(n, n). 返回的是一个二元组，元组第一个元素是所有元素的行坐标，第二个元素是所有元素的列坐标。可以执行下面代码观察：</p>
+<p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">mask</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">triu_indices_from</span><span class="p">(</span><span class="n">mask</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">mask</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">triu_indices_from</span><span class="p">(</span><span class="n">mask</span><span class="p">)]</span> <span class="o">=</span> <span class="kc">True</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">mask</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="p">[[</span><span class="mf">0.</span> <span class="mf">0.</span> <span class="mf">0.</span> <span class="mf">0.</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"> <span class="p">[</span><span class="mf">0.</span> <span class="mf">0.</span> <span class="mf">0.</span> <span class="mf">0.</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"> <span class="p">[</span><span class="mf">0.</span> <span class="mf">0.</span> <span class="mf">0.</span> <span class="mf">0.</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"> <span class="p">[</span><span class="mf">0.</span> <span class="mf">0.</span> <span class="mf">0.</span> <span class="mf">0.</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">int64</span><span class="p">),</span> <span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">int64</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="p">[[</span><span class="mf">1.</span> <span class="mf">1.</span> <span class="mf">1.</span> <span class="mf">1.</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"> <span class="p">[</span><span class="mf">0.</span> <span class="mf">1.</span> <span class="mf">1.</span> <span class="mf">1.</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"> <span class="p">[</span><span class="mf">0.</span> <span class="mf">0.</span> <span class="mf">1.</span> <span class="mf">1.</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"> <span class="p">[</span><span class="mf">0.</span> <span class="mf">0.</span> <span class="mf">0.</span> <span class="mf">1.</span><span class="p">]]</span>
+</span></span></code></pre></div><p>mask : boolean array or DataFrame, optional If passed, data will not be shown in cells where mask is True. Cells with missing values are automatically masked. mask是掩码。passed是传入该参数。如果传入该参数，掩码位置是true的单元格不显示。如果某单元格无值，也自动不显示。加入下面行，可以看到效果。</p>
+<p>掩码是一个与数据同样大小的数组，掩码只有真假二值，mask中为1的单元格，画图后，data对应的单元格不显示。mask中为0的单元格，画图后，data对应的单元格显示热力图</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/python/">python</a>
+        
+            <a href="/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/">数据可视化</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">Related contents</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="">
+    <a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">阿里云_ML_02_数据探索</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">阿里云_ML_03_特征工程</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_04_%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">阿里云_ML_04_模型训练</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_05_%E6%A8%A1%E5%9E%8B%E9%AA%8C%E8%AF%81/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">阿里云_ML_05_模型验证</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/sns.boxplot%E7%AE%80%E5%8D%95%E7%94%A8%E6%B3%95/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">sns.boxplot()简单用法</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2022 - 
+        
+        2023 叶宇浩随记博客
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.5.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='PyMOL美化结构技巧'><title>蛋白结构图片美化</title>
+
+<link rel='canonical' href='https://example.com/p/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='蛋白结构图片美化'>
+<meta property='og:description' content='PyMOL美化结构技巧'>
+<meta property='og:url' content='https://example.com/p/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96/'>
+<meta property='og:site_name' content='叶宇浩随记博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='structure' /><meta property='article:tag' content='tips' /><meta property='article:published_time' content='2022-10-20T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2022-10-20T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="蛋白结构图片美化">
+<meta name="twitter:description" content="PyMOL美化结构技巧">
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>Back</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/pymol/" style="background-color: #6a43e5; color: #fff;">
+                PyMOL
+            </a>
+        
+            <a href="/categories/protein_structure/" style="background-color: #e2144a; color: #fff;">
+                蛋白结构
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96/">蛋白结构图片美化</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        PyMOL美化结构技巧
+    </h3>
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Oct 20, 2022</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    2 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <blockquote>
+<p>这是我在别人的基础上，然后自行调整了很多细节信息，较为满意的结构图片的展示，特写此post来记录分享（take an example），当然了，能帮到大家也是一件极好的事
+（主要用的都是cmd的命令，所以本记录不适合零基础）</p>
+</blockquote>
+<h2 id="载入蛋白结构">载入蛋白结构</h2>
+<p>这里我使用的是PDB code 4MDS</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">load</span> <span class="mi">4</span><span class="n">MDS</span>
+</span></span></code></pre></div><h2 id="去除水分子和配体">去除水分子和配体</h2>
+<p>这一步根据自己的需要去做 （其实做不做都无所谓）</p>
+<h3 id="去水">去水</h3>
+<blockquote>
+<p>去水（蛋白主体旁边的红点其实就是水分子）</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">remove</span> <span class="n">solvent</span>
+</span></span></code></pre></div><h3 id="展示序列信息">展示序列信息</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">set</span> <span class="n">seq_view</span><span class="p">,</span><span class="mi">1</span>
+</span></span></code></pre></div><p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 1674; 
+			flex-basis: 4018px"
+	>
+	<a href="/p/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96/picture/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96.png" data-size="1038x62">
+		<img src="/p/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96/picture/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96.png"
+			width="1038"
+			height="62"
+			srcset="/p/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96/picture/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96_hud733160b3811046eb4c4234e1f63d3be_1991_480x0_resize_box_3.png 480w, /p/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96/picture/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96_hud733160b3811046eb4c4234e1f63d3be_1991_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<blockquote>
+<p>可以看到这里有三个配体，名字分别为23H，DMS</p>
+</blockquote>
+<h3 id="去除配体结构">去除配体结构</h3>
+<blockquote>
+<p>resn 后面的名字 （23H，DMS）根据自己研究蛋白的配体名字来修改</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">remove</span> <span class="n">resn</span> <span class="mi">23</span><span class="n">H</span>
+</span></span><span class="line"><span class="cl"><span class="n">remove</span> <span class="n">resn</span> <span class="n">DMS</span>
+</span></span></code></pre></div><h2 id="复制主要参数">复制主要参数</h2>
+<blockquote>
+<p>这里的参数来源于参考资料[^1]，我略作了修改</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">select</span> <span class="n">resn</span> <span class="n">HOH</span> 
+</span></span><span class="line"><span class="cl"><span class="n">remove</span> <span class="n">sele</span>
+</span></span><span class="line"><span class="cl"><span class="n">select</span> <span class="n">hydrophobic</span><span class="p">,</span> <span class="p">(</span><span class="n">resn</span> <span class="n">ala</span><span class="o">+</span><span class="n">gly</span><span class="o">+</span><span class="n">val</span><span class="o">+</span><span class="n">ile</span><span class="o">+</span><span class="n">leu</span><span class="o">+</span><span class="n">phe</span><span class="o">+</span><span class="n">met</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">show</span> <span class="n">sticks</span><span class="p">,</span> <span class="p">(</span><span class="n">hydrophobic</span> <span class="ow">and</span> <span class="p">(</span><span class="err">!</span><span class="n">name</span> <span class="n">c</span><span class="o">+</span><span class="n">n</span><span class="o">+</span><span class="n">o</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">color</span> <span class="n">yelloworange</span><span class="p">,</span> <span class="n">hydrophobic</span>
+</span></span><span class="line"><span class="cl"><span class="n">select</span> <span class="n">hydrophilic</span><span class="p">,</span> <span class="err">!</span><span class="n">hydrophobic</span> <span class="ow">and</span> <span class="p">(</span><span class="err">!</span><span class="n">name</span> <span class="n">c</span><span class="o">+</span><span class="n">n</span><span class="o">+</span><span class="n">o</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">show</span> <span class="n">sticks</span><span class="p">,</span> <span class="n">hydrophilic</span>
+</span></span><span class="line"><span class="cl"><span class="n">color</span> <span class="n">lightblue</span><span class="p">,</span> <span class="n">hydrophilic</span>
+</span></span><span class="line"><span class="cl"><span class="n">color</span> <span class="n">white</span><span class="p">,</span> <span class="n">bb</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl"><span class="n">color</span> <span class="n">oxygen</span><span class="p">,</span> <span class="n">elem</span> <span class="n">o</span>
+</span></span><span class="line"><span class="cl"><span class="n">color</span> <span class="n">nitrogen</span><span class="p">,</span> <span class="n">elem</span> <span class="n">N</span>
+</span></span><span class="line"><span class="cl"><span class="n">color</span> <span class="n">sulfur</span><span class="p">,</span> <span class="n">elem</span> <span class="n">S</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> <span class="n">ray_trace_mode</span><span class="p">,</span><span class="mi">3</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> <span class="n">stick_radius</span><span class="p">,</span> <span class="mf">0.4</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> <span class="n">cartoon_loop_radius</span><span class="p">,</span> <span class="mf">0.4</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> <span class="n">cartoon_oval_width</span><span class="p">,</span> <span class="mf">0.4</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> <span class="n">cartoon_rect_width</span><span class="p">,</span> <span class="mf">0.4</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> <span class="n">fog</span><span class="p">,</span><span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="n">bg_color</span> <span class="n">white</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> <span class="n">valence</span><span class="p">,</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> <span class="n">ray_shadow</span><span class="p">,</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="n">zoom</span>
+</span></span><span class="line"><span class="cl"><span class="n">orient</span>
+</span></span><span class="line"><span class="cl"><span class="n">color</span> <span class="n">gray80</span>
+</span></span><span class="line"><span class="cl"><span class="n">hide</span> <span class="n">sticks</span>
+</span></span></code></pre></div><blockquote>
+<p>样图展示，最后会得到一个灰色带白的protein cartoon
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 117; 
+			flex-basis: 280px"
+	>
+	<a href="/p/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96/picture/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96-1.png" data-size="1634x1396">
+		<img src="/p/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96/picture/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96-1.png"
+			width="1634"
+			height="1396"
+			srcset="/p/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96/picture/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96-1_hu4ef4cbd4389050de4b3bb8970aa00844_153505_480x0_resize_box_3.png 480w, /p/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96/picture/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96-1_hu4ef4cbd4389050de4b3bb8970aa00844_153505_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+</blockquote>
+<h2 id="个性化目标残基">个性化目标残基</h2>
+<blockquote>
+<p>这一步也是要根据自己感兴趣的残基来，我这里以<strong>位点ARG-191为例</strong></p>
+</blockquote>
+<blockquote>
+<p>方便看结构，先将背景调回黑色</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">bg_color</span> <span class="n">black</span>
+</span></span></code></pre></div><blockquote>
+<p>将目标残基，赋予到一个新的名为test的object上</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">select</span> <span class="n">test</span><span class="p">,</span> <span class="n">resi</span> <span class="mi">191</span>
+</span></span></code></pre></div><blockquote>
+<p>将主窗口的视觉集中到目标残基上</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">zoom</span> <span class="n">test</span>
+</span></span></code></pre></div><blockquote>
+<p>将目标残基展示为棍sticks状</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">show</span> <span class="n">sticks</span><span class="p">,</span><span class="n">test</span>
+</span></span></code></pre></div><blockquote>
+<p>修改残基的颜色</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">color</span> <span class="n">tv_blue</span><span class="p">,</span><span class="n">test</span>
+</span></span></code></pre></div><blockquote>
+<p>保存一个pse文件 (因为在PyMOL中没有”撤回“的操作，但是可以利用pse文件乘坐时光机回到保存为pse时的那个样子，后面的步骤哪里不小心出错了，可以打开pse文件重新操作)</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">save</span> <span class="mf">01.</span><span class="n">pse</span>
+</span></span></code></pre></div><h2 id="展示氢键作用">展示氢键作用</h2>
+<blockquote>
+<p>寻找与目标氨基酸形成了氢键的周围氨基酸（这里使用鼠标操作会比命令行更方便）</p>
+</blockquote>
+<h3 id="生成氢键">生成氢键</h3>
+<ul>
+<li>命令行版本 (生成的是”test_hbond“的object)</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">cmd</span><span class="o">.</span><span class="n">dist</span><span class="p">(</span><span class="s2">&#34;test_hbond&#34;</span><span class="p">,</span><span class="s2">&#34;(test)&#34;</span><span class="p">,</span><span class="s2">&#34;(byobj (test)) and (not (test))&#34;</span><span class="p">,</span><span class="n">quiet</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">mode</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">reset</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</span></span></code></pre></div><p>Or</p>
+<ul>
+<li>鼠标操作 （生成的是”test_polar_conts“的object）
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 104; 
+			flex-basis: 251px"
+	>
+	<a href="/p/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96/picture/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96-2.png" data-size="954x910">
+		<img src="/p/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96/picture/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96-2.png"
+			width="954"
+			height="910"
+			srcset="/p/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96/picture/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96-2_hu7d919db1aa130a4def6e0ac636a517f5_23732_480x0_resize_box_3.png 480w, /p/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96/picture/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96-2_hu7d919db1aa130a4def6e0ac636a517f5_23732_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></li>
+</ul>
+<blockquote>
+<p>样图展示 (我这里使用的是命令行的操作)</p>
+</blockquote>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 155; 
+			flex-basis: 372px"
+	>
+	<a href="/p/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96/picture/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96-3.png" data-size="1674x1078">
+		<img src="/p/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96/picture/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96-3.png"
+			width="1674"
+			height="1078"
+			srcset="/p/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96/picture/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96-3_hu547dd91ebed51f398ca07864d1817040_54573_480x0_resize_box_3.png 480w, /p/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96/picture/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96-3_hu547dd91ebed51f398ca07864d1817040_54573_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="寻找作用的氨基酸">寻找作用的氨基酸</h3>
+<blockquote>
+<p>个人习惯，为了方便寻找目标氨基酸形成氢键的另一个氨基酸，我会先把整个蛋白都展示出棍状先</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">show</span> <span class="n">sticks</span>
+</span></span></code></pre></div><blockquote>
+<p>然后再通过鼠标的操作，选择另一个残基，并且将其重命名为Hbond_AA
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 66; 
+			flex-basis: 160px"
+	>
+	<a href="/p/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96/picture/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96-4.png" data-size="1010x1510">
+		<img src="/p/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96/picture/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96-4.png"
+			width="1010"
+			height="1510"
+			srcset="/p/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96/picture/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96-4_hu35724605d2b2521e205e6f248dbddd74_573110_480x0_resize_box_3.png 480w, /p/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96/picture/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96-4_hu35724605d2b2521e205e6f248dbddd74_573110_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+</blockquote>
+<blockquote>
+<p>接下来，个性化Hbond_AA（重新赋色）
+因为上面将整个蛋白的sticks都展现了出来，现在已经不需要了</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#隐藏整体的sticks</span>
+</span></span><span class="line"><span class="cl"><span class="n">hide</span> <span class="n">sticks</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#展示目标氨基酸和作用氨基酸的sticks</span>
+</span></span><span class="line"><span class="cl"><span class="n">show</span> <span class="n">sticks</span><span class="p">,</span><span class="n">test</span>
+</span></span><span class="line"><span class="cl"><span class="n">show</span> <span class="n">sticks</span><span class="p">,</span><span class="n">Hbond_AA</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#修改Hbond_AA这个氨基酸的颜色</span>
+</span></span><span class="line"><span class="cl"><span class="n">color</span> <span class="n">paleyellow</span><span class="p">,</span><span class="n">Hbond_AA</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#将背景改回白色</span>
+</span></span><span class="line"><span class="cl"><span class="n">bg_color</span> <span class="n">white</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">save</span> <span class="mf">02.</span><span class="n">pse</span>
+</span></span></code></pre></div><h3 id="修改氢键的展示形式">修改氢键的展示形式</h3>
+<blockquote>
+<p>PyMOL默认氢键的展示形式为<strong>黄色、断点线</strong></p>
+</blockquote>
+<ul>
+<li>修改线条形式</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">set</span> <span class="n">dash_gap</span> <span class="mi">0</span>
+</span></span></code></pre></div><p>参数说明：
+dash_gap后面的数值越大，短点先之间的间隔就越大
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 167; 
+			flex-basis: 401px"
+	>
+	<a href="/p/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96/picture/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96-5.png" data-size="1880x1124">
+		<img src="/p/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96/picture/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96-5.png"
+			width="1880"
+			height="1124"
+			srcset="/p/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96/picture/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96-5_hud89647352e1fb984e8ea92bfc8c837a4_492092_480x0_resize_box_3.png 480w, /p/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96/picture/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96-5_hud89647352e1fb984e8ea92bfc8c837a4_492092_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<ul>
+<li>修改线条的粗细</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">set</span> <span class="n">dash_radius</span> <span class="mf">0.05</span>
+</span></span></code></pre></div><p>参数说明：
+dash_radius 的值越大，线条越粗
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 166; 
+			flex-basis: 399px"
+	>
+	<a href="/p/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96/picture/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96-6.png" data-size="1814x1090">
+		<img src="/p/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96/picture/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96-6.png"
+			width="1814"
+			height="1090"
+			srcset="/p/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96/picture/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96-6_hu6f1ed0659c3e43feab29924ed6236a90_397949_480x0_resize_box_3.png 480w, /p/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96/picture/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96-6_hu6f1ed0659c3e43feab29924ed6236a90_397949_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<ul>
+<li>修改线条的颜色</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#test_hbond名字，根据自己的修改</span>
+</span></span><span class="line"><span class="cl"><span class="n">color</span> <span class="n">red</span><span class="p">,</span><span class="n">test_hbond</span>
+</span></span></code></pre></div><h2 id="个性化label的展现形式">个性化label的展现形式</h2>
+<ul>
+<li>显示label</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">show</span> <span class="n">label</span><span class="p">,</span><span class="n">Hbond_AA</span>
+</span></span><span class="line"><span class="cl"><span class="n">show</span> <span class="n">label</span><span class="p">,</span><span class="n">test</span>
+</span></span></code></pre></div><p>当然了也可以直接使用鼠标点击”L“</p>
+<ul>
+<li>调整label大小</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">set</span> <span class="n">label_size</span><span class="p">,</span><span class="mi">36</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#cmd.set(&#39;label_size&#39;,36,&#39;&#39;,0)</span>
+</span></span></code></pre></div><ul>
+<li>调整label颜色 (有需要的话，我这里还是会黑色好了)</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">set</span> <span class="n">label_color</span><span class="p">,</span><span class="n">black</span>
+</span></span></code></pre></div><ul>
+<li>调整label的字体形式
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 102; 
+			flex-basis: 245px"
+	>
+	<a href="/p/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96/picture/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96-9.png" data-size="1024x1002">
+		<img src="/p/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96/picture/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96-9.png"
+			width="1024"
+			height="1002"
+			srcset="/p/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96/picture/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96-9_hu41e8acdb3aaa0a353c812498f6b476bb_331453_480x0_resize_box_3.png 480w, /p/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96/picture/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96-9_hu41e8acdb3aaa0a353c812498f6b476bb_331453_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></li>
+<li>细节化label （这一部分都是用鼠标操作）
+<ul>
+<li>Mouse Mode 改为 Editing 模式
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 182; 
+			flex-basis: 438px"
+	>
+	<a href="/p/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96/picture/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96-8.png" data-size="428x234">
+		<img src="/p/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96/picture/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96-8.png"
+			width="428"
+			height="234"
+			srcset="/p/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96/picture/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96-8_hu214a9075004efa74e43a04d9afa7a564_3886_480x0_resize_box_3.png 480w, /p/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96/picture/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96-8_hu214a9075004efa74e43a04d9afa7a564_3886_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></li>
+<li>通过鼠标将label移动到适合的位置，目前到这步是这样的效果
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 160; 
+			flex-basis: 384px"
+	>
+	<a href="/p/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96/picture/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96-11.png" data-size="2404x1500">
+		<img src="/p/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96/picture/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96-11.png"
+			width="2404"
+			height="1500"
+			srcset="/p/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96/picture/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96-11_huaa0f985a188e23f4e992a5b0bb8d6d38_113883_480x0_resize_box_3.png 480w, /p/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96/picture/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96-11_huaa0f985a188e23f4e992a5b0bb8d6d38_113883_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></li>
+<li>删除氨基酸three-letter 和 position之间的”-“，对每个label鼠标右键，进行删除即可
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 282; 
+			flex-basis: 677px"
+	>
+	<a href="/p/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96/picture/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96-12.png" data-size="1790x634">
+		<img src="/p/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96/picture/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96-12.png"
+			width="1790"
+			height="634"
+			srcset="/p/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96/picture/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96-12_hufd459ed1e1e9de3965601f6be3e53d90_198682_480x0_resize_box_3.png 480w, /p/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96/picture/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96-12_hufd459ed1e1e9de3965601f6be3e53d90_198682_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></li>
+<li>添加黑框 (也是对每个氨基酸鼠标右键，选择Background Color &ndash; front )
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 302; 
+			flex-basis: 725px"
+	>
+	<a href="/p/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96/picture/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96-13.png" data-size="1718x568">
+		<img src="/p/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96/picture/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96-13.png"
+			width="1718"
+			height="568"
+			srcset="/p/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96/picture/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96-13_hu7fc5813b6b5c0f7890d11df943e81d44_171911_480x0_resize_box_3.png 480w, /p/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96/picture/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96-13_hu7fc5813b6b5c0f7890d11df943e81d44_171911_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></li>
+<li>添加 label的指向对象（这个也是右键edit出现的，connector中选择show即可），这条黑线会跟着lable的移动而移动
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 212; 
+			flex-basis: 510px"
+	>
+	<a href="/p/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96/picture/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96-15.png" data-size="1288x606">
+		<img src="/p/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96/picture/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96-15.png"
+			width="1288"
+			height="606"
+			srcset="/p/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96/picture/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96-15_hu68ee890b89152160ab9799e8db862c2d_126689_480x0_resize_box_3.png 480w, /p/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96/picture/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96-15_hu68ee890b89152160ab9799e8db862c2d_126689_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>到此目前的效果如下
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 146; 
+			flex-basis: 352px"
+	>
+	<a href="/p/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96/picture/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96-17.png" data-size="1198x816">
+		<img src="/p/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96/picture/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96-17.png"
+			width="1198"
+			height="816"
+			srcset="/p/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96/picture/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96-17_huf2c93f5d6e7aef555f96a8bdc5e28afb_62804_480x0_resize_box_3.png 480w, /p/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96/picture/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96-17_huf2c93f5d6e7aef555f96a8bdc5e28afb_62804_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+</blockquote>
+<h2 id="导出图片">导出图片</h2>
+<blockquote>
+<p>这一步使用的是ray (个人更喜欢ray)or draw，不太考虑截图，使用ray时有一个比较在意的点就是，如果你设置背景的东西的透明度则ray导出图片中是没有背景的（比如cartoon的透明度）</p>
+</blockquote>
+<ul>
+<li>A:设置cartoon的透明度为80%，使用ray渲染</li>
+</ul>
+<blockquote>
+<p><em>使用ray渲染完后，马上使用png保存图片，如果ray完后再点击任何地方都会取消ray的效果</em></p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">set</span> <span class="n">cartoon_transparency</span><span class="p">,</span><span class="mf">0.8</span>
+</span></span><span class="line"><span class="cl"><span class="n">ray</span>
+</span></span><span class="line"><span class="cl"><span class="n">png</span> <span class="n">A</span><span class="o">.</span><span class="n">png</span>
+</span></span></code></pre></div><ul>
+<li>B:设置cartoon的透明度为40%，使用ray渲染</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">set</span> <span class="n">cartoon_transparency</span><span class="p">,</span><span class="mf">0.4</span>
+</span></span><span class="line"><span class="cl"><span class="n">ray</span>
+</span></span><span class="line"><span class="cl"><span class="n">png</span> <span class="n">B</span><span class="o">.</span><span class="n">png</span>
+</span></span></code></pre></div><ul>
+<li>C、D分别是对应使用ray而改成了draw的渲染下的情况
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 113; 
+			flex-basis: 273px"
+	>
+	<a href="/p/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96/picture/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96-18.png" data-size="670x588">
+		<img src="/p/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96/picture/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96-18.png"
+			width="670"
+			height="588"
+			srcset="/p/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96/picture/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96-18_hu4f29bac31754668c45387689619a4130_81981_480x0_resize_box_3.png 480w, /p/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96/picture/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96-18_hu4f29bac31754668c45387689619a4130_81981_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></li>
+</ul>
+<blockquote>
+<p>最后的样图展示
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 118; 
+			flex-basis: 284px"
+	>
+	<a href="/p/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96/picture/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96-20.png" data-size="1568x1324">
+		<img src="/p/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96/picture/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96-20.png"
+			width="1568"
+			height="1324"
+			srcset="/p/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96/picture/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96-20_hu4821385dbd608bdd465016e0e62bc438_544936_480x0_resize_box_3.png 480w, /p/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96/picture/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96-20_hu4821385dbd608bdd465016e0e62bc438_544936_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+</blockquote>
+<ul>
+<li>在透明度达到80时，ray渲染的图片是没有了背景的</li>
+<li>同等下ray渲染的质感高于draw</li>
+<li>当然了可以搭配上surface之类的展现形式，混搭也好看</li>
+</ul>
+<h2 id="参考资料">参考资料</h2>
+<p>1.https://mp.weixin.qq.com/s/lW4n7g1VUFEsJAnllc9kRg</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/structure/">structure</a>
+        
+            <a href="/tags/tips/">tips</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">Related contents</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="">
+    <a href="/p/pymol%E8%9B%8B%E7%99%BD%E7%BB%93%E7%BE%8E%E5%8C%96%E5%8F%82%E6%95%B0%E6%95%B4%E5%90%88/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">PyMOL蛋白结美化参数(整合)</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2022 - 
+        
+        2023 叶宇浩随记博客
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.5.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">Table of contents</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#载入蛋白结构">载入蛋白结构</a></li>
+    <li><a href="#去除水分子和配体">去除水分子和配体</a>
+      <ol>
+        <li><a href="#去水">去水</a></li>
+        <li><a href="#展示序列信息">展示序列信息</a></li>
+        <li><a href="#去除配体结构">去除配体结构</a></li>
+      </ol>
+    </li>
+    <li><a href="#复制主要参数">复制主要参数</a></li>
+    <li><a href="#个性化目标残基">个性化目标残基</a></li>
+    <li><a href="#展示氢键作用">展示氢键作用</a>
+      <ol>
+        <li><a href="#生成氢键">生成氢键</a></li>
+        <li><a href="#寻找作用的氨基酸">寻找作用的氨基酸</a></li>
+        <li><a href="#修改氢键的展示形式">修改氢键的展示形式</a></li>
+      </ol>
+    </li>
+    <li><a href="#个性化label的展现形式">个性化label的展现形式</a></li>
+    <li><a href="#导出图片">导出图片</a></li>
+    <li><a href="#参考资料">参考资料</a></li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

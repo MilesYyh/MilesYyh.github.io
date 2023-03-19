@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>linux系统 on 叶宇浩随记博客</title>
+    <link>https://example.com/categories/linux/</link>
+    <description>Recent content in linux系统 on 叶宇浩随记博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 20 Jan 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://example.com/categories/linux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>argparse参数个性化的用法整理</title>
+      <link>https://example.com/p/argparse%E5%8F%82%E6%95%B0%E4%B8%AA%E6%80%A7%E5%8C%96%E7%9A%84%E7%94%A8%E6%B3%95%E6%95%B4%E7%90%86/</link>
+      <pubDate>Thu, 20 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/argparse%E5%8F%82%E6%95%B0%E4%B8%AA%E6%80%A7%E5%8C%96%E7%9A%84%E7%94%A8%E6%B3%95%E6%95%B4%E7%90%86/</guid>
+      <description>整理 下关于 argparse的用法，主要用于参数提示
+#coding=utf-8 import argparse from ast import Store, parse from cgi import test from email import parser from itertools import count from pydoc import describe from ssl import ALERT_DESCRIPTION_UNEXPECTED_MESSAGE from this import s from tokenize import group from turtle import Turtle import turtle from numpy import False_ 使用前要实例化一个ArgumentParser对象
+parser = argparse.ArgumentParser(description=&amp;#34;这是ArugementParser中的description&amp;#34;) parser.parse_args() 这上面当你运行
+python test.py -h 注意要加上-h参数，就是出现主要的decsription中的str
+parser = argparse.ArgumentParser() parser.add_argument(&amp;#34;test&amp;#34;) args = parser.parse_args() print(&amp;#34;输出的内容是%s&amp;#34; % args.test) 这个其实就是添加了cmd中一个位置，将获取到的值存入到test这个变量中 要取变量的值先通过parse_args()获取到args对象</description>
+    </item>
+    
+    <item>
+      <title>Anaconda创建env环境</title>
+      <link>https://example.com/p/anaconda%E5%88%9B%E5%BB%BAenv%E7%8E%AF%E5%A2%83/</link>
+      <pubDate>Mon, 10 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/anaconda%E5%88%9B%E5%BB%BAenv%E7%8E%AF%E5%A2%83/</guid>
+      <description>这里记录下anaconda常用的命名
+1.创建虚拟环境
+conda create -n 虚拟环境env的名字 python=X.X(可选)
+或者同时安装一些包
+conda create -n 虚拟环境env的名字 numpy pandas(等包名) python=X.X(可选)
+2.激活虚拟环境
+Linux: source activate env名字
+Window: activate env名字
+3.退出虚拟环境
+Linux: source deactivate env名字
+Window：deactivate env名字
+4.删除虚拟环境
+删除整个环境
+conda remove -n env名字 &amp;ndash;all
+删除环境中的某个包
+conda remove -n env名字 包名
+5.其他
+查看安装了哪些包
+conda list
+安装包
+conda install
+查看当前存在哪些env
+conda env list
+检查更新当前conda
+conda update conda</description>
+    </item>
+    
+    <item>
+      <title>每节问题整理</title>
+      <link>https://example.com/p/%E6%AF%8F%E8%8A%82%E9%97%AE%E9%A2%98%E6%95%B4%E7%90%86/</link>
+      <pubDate>Wed, 15 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E6%AF%8F%E8%8A%82%E9%97%AE%E9%A2%98%E6%95%B4%E7%90%86/</guid>
+      <description>-i 表示忽略大小写（windox下大小写不敏感，但是Linux下敏感）</description>
+    </item>
+    
+    <item>
+      <title>Linux学习字典</title>
+      <link>https://example.com/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/</link>
+      <pubDate>Fri, 10 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/</guid>
+      <description>这是系统性学习一遍Linxu的笔记 看的教程：https://www.bilibili.com/video/BV1CQ4y127LQ?spm_id_from=333.999.0.0
+ls 1 列的第一个字符可能是 d/l/- -表示这个文件是一个二进制文件 d表示是一个目录文件 l表示一个软连接文件；第二个字符到第九个字符代表权限
+2 列 表示文件的数量 （如目录的多个文件也会显示出来）
+3 列/4列 分别是文件的所有者/所有组 配合权限使用
+5 列是文件的大小 单位为btype（字节） ls -alh可以转换为M/kb的形式
+6 列 文件上一次被修改的时间 （当年的会具体到h）
+7 文件名 （软连接则指向真实路径）
+以.点开头的是隐藏文件，ls -a 可以看出
+ls -al /cd /pwd/ls -alh Linux文件系统 bin ： 放的都是命令文件
+sbin： 放的是命令文件 权限等级高于bin
+boot : 存放的是启动系统所需的东西
+dev ： 存放Linux的设备文件
+etc ： 存放配置/应用 文件
+home： 存放用户的身份目录 root比较特殊单独成一个
+run：系统启动和程序启动时运行产生的文件
+usr: 存放应用程序的文件
+tmp：存放临时文件 /dev/sda2 理解为window的D盘访问
+cp / mv cp cp -r 可以拷贝目录中的所有文件（目录） mv 用法和cp一样 touch / mkdir / rm touch 1112310630.</description>
+    </item>
+    
+    <item>
+      <title>安装虚拟机</title>
+      <link>https://example.com/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/</link>
+      <pubDate>Mon, 12 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/</guid>
+      <description> 再点击完成
+点击开启虚拟机 Try and install
+等待即可
+重启计算
+安装tools
+点击虚拟机
+安装tool
+双击将tar.gz取出来
+将其复制到home下
+tar -xzvf 解压
+进入文件夹
+sudo ./vmware-install.pl
+接下来N多的enter，N多的YES，自己慢慢按吧
+重启虚拟机
+若还没有全屏显示，则将虚拟机的【查看】-&amp;gt;【自动调整大小】-&amp;gt;【自适应客户机】,都选上。即可实现全屏。
+安装vmware tools实现全屏后，即也实现了在主机（WIN7）和虚拟机VMware （ubuntu）间
+直接拖拽文件 联网 </description>
+    </item>
+    
+  </channel>
+</rss>

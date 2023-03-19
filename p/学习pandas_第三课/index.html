@@ -1,0 +1,1267 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='这是跟学《学习pandas》学习笔记这本书的学习笔记'><title>学习Pandas_第三课</title>
+
+<link rel='canonical' href='https://example.com/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='学习Pandas_第三课'>
+<meta property='og:description' content='这是跟学《学习pandas》学习笔记这本书的学习笔记'>
+<meta property='og:url' content='https://example.com/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/'>
+<meta property='og:site_name' content='叶宇浩随记博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='tutorials' /><meta property='article:tag' content='pandas' /><meta property='article:published_time' content='2021-09-21T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-09-21T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="学习Pandas_第三课">
+<meta name="twitter:description" content="这是跟学《学习pandas》学习笔记这本书的学习笔记">
+    </head>
+    <body class="
+    article-page 
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        on-phone--column extended
+    
+">
+    
+        <aside class="sidebar left-sidebar sticky">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header class="site-info">
+        
+            
+            <figure class="site-avatar">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hub6b2d46d776162e2e8dcd667345276ca_41574_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+
+                
+            </figure>
+            
+        
+        
+        <h1 class="site-name"><a href="/">叶宇浩随记博客</a></h1>
+        <h2 class="site-description">始于rosetta</h2></header>
+
+    <ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/' target="_blank">
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>分类</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>检索</span>
+            </a>
+        </li>
+        
+
+        
+            <li id="dark-mode-toggle">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <span>Dark Mode</span>
+            </li>
+        
+    </ol>
+</aside>
+
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/python/" >
+                python
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/">学习Pandas_第三课</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        这是跟学《学习pandas》学习笔记这本书的学习笔记
+    </h3>
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Sep 21, 2021</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    4 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <p>获取数据 - 我们的数据在一个 Excel 文件中，包含了每一个日期的客户数量。 我们
+将学习如何读取 Excel 文件的内容并处理其中的数据。</p>
+<p>准备数据 - 这组时间序列的数据并不规整而且有重复。 我们的挑战是整理这些数据
+并且预测下一个年度的客户数。</p>
+<p>分析数据 - 我们将使用图形来查看趋势情况和离群点。我们会使用一些内置的计算
+工具来预测下一年度的客户数。</p>
+<p>表现数据 - 结果将会被绘制成图形。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">warnings</span>
+</span></span><span class="line"><span class="cl"><span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&#34;ignore&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&#34;font.sans-serif&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;SimHei&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&#34;axes.unicode_minus&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="err">?</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#date_range()函数用来生成时间序列的</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#参数freq是单位</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#设置种子</span>
+</span></span><span class="line"><span class="cl"><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">2021</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#生成测试数据的函数</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">create_dataset</span><span class="p">(</span><span class="n">Number</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">output</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">Number</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="c1">#创建一个按周期计算的日期的范围（每周一起始）   ==》 W-MON</span>
+</span></span><span class="line"><span class="cl">        <span class="n">rng</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="s2">&#34;1/1/2021&#34;</span><span class="p">,</span><span class="n">end</span><span class="o">=</span><span class="s2">&#34;12/31/2024&#34;</span><span class="p">,</span><span class="n">freq</span><span class="o">=</span><span class="s2">&#34;W-MON&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="c1">#创建一些随机数</span>
+</span></span><span class="line"><span class="cl">        <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span><span class="mi">1000</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">rng</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="c1">#状态池</span>
+</span></span><span class="line"><span class="cl">        <span class="n">status</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="c1">#创建一个随机的状态列表</span>
+</span></span><span class="line"><span class="cl">        <span class="n">random_status</span> <span class="o">=</span> <span class="p">[</span><span class="n">status</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">status</span><span class="p">))]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">rng</span><span class="p">))]</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="c1">#行政洲state的列表</span>
+</span></span><span class="line"><span class="cl">        <span class="n">states</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;GA&#34;</span><span class="p">,</span><span class="s2">&#34;FL&#34;</span><span class="p">,</span><span class="s2">&#34;fl&#34;</span><span class="p">,</span><span class="s2">&#34;NY&#34;</span><span class="p">,</span><span class="s2">&#34;NJ&#34;</span><span class="p">,</span><span class="s2">&#34;TX&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="c1">#创建一个行政周期的随机列表</span>
+</span></span><span class="line"><span class="cl">        <span class="n">random_states</span> <span class="o">=</span>  <span class="p">[</span><span class="n">states</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">states</span><span class="p">))]</span><span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">rng</span><span class="p">))]</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="n">output</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">random_states</span><span class="p">,</span><span class="n">random_status</span><span class="p">,</span><span class="n">data</span><span class="p">,</span><span class="n">rng</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">output</span>
+</span></span><span class="line"><span class="cl">    
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="s2">&#34;1/1/2021&#34;</span><span class="p">,</span><span class="n">end</span><span class="o">=</span><span class="s2">&#34;12/31/2024&#34;</span><span class="p">,</span><span class="n">freq</span><span class="o">=</span><span class="s2">&#34;W-MON&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 262; 
+			flex-basis: 629px"
+	>
+	<a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE.png" data-size="1160x442">
+		<img src="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE.png"
+			width="1160"
+			height="442"
+			srcset="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE_hu7cab37d180dc7cb1d07e0c3f16808830_64127_480x0_resize_box_3.png 480w, /p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE_hu7cab37d180dc7cb1d07e0c3f16808830_64127_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>现在我们有了一个生成测试数据的函数，我们来创建一些数据并放到一个dataframe 中</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">dataset</span> <span class="o">=</span> <span class="n">create_dataset</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#read_csv 才是 names/header参数</span>
+</span></span><span class="line"><span class="cl"><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&#34;States&#34;</span><span class="p">,</span><span class="s2">&#34;Status&#34;</span><span class="p">,</span><span class="s2">&#34;CustomerCount&#34;</span><span class="p">,</span><span class="s2">&#34;StatusDate&#34;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 224; 
+			flex-basis: 538px"
+	>
+	<a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-1.png" data-size="870x388">
+		<img src="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-1.png"
+			width="870"
+			height="388"
+			srcset="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-1_hu93f5bbc91dd98cbee1672cdc45e5b6ed_79274_480x0_resize_box_3.png 480w, /p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-1_hu93f5bbc91dd98cbee1672cdc45e5b6ed_79274_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 142; 
+			flex-basis: 342px"
+	>
+	<a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-2.png" data-size="702x492">
+		<img src="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-2.png"
+			width="702"
+			height="492"
+			srcset="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-2_hub5ee39251f45677f1f66692f515cece6_43681_480x0_resize_box_3.png 480w, /p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-2_hub5ee39251f45677f1f66692f515cece6_43681_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>现在我们将这个 dataframe 保存到 Excel 文件中，然后再读取出来放回到
+dataframe 中。 我们简单地展示一下如何读写 Excel 文件。</p>
+<p>我们不会把索引值(index)写到 Excel 文件中，这些索引值不是我们的测试数据的一
+部分。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#j结果保存到excel中，跟csv是差不多的</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#要openpyxl 包</span>
+</span></span><span class="line"><span class="cl"><span class="n">df</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="s2">&#34;./Lesson3.xlsx&#34;</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">encoding</span><span class="o">=</span><span class="s2">&#34;UTF-8&#34;</span><span class="p">)</span><span class="c1">#这里不知道哪里有问题</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#破案了是notebook本身看不了xlxs的问题，实际上生成的文件没问题</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># df.to_csv(&#34;./Lesson3.csv&#34;,index=False,encoding=&#34;UTF-8&#34;)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;Done&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">Done</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="err">?</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 读取第一个页签(sheetname)，并指定索引列index_col是 StatusDate</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#需要xlrd包</span>
+</span></span><span class="line"><span class="cl"><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s2">&#34;./Lesson3.xlsx&#34;</span><span class="p">,</span><span class="n">sheet_name</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">index_col</span><span class="o">=</span><span class="s2">&#34;StatusDate&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># df = pd.read_csv(&#34;./Lesson3.csv&#34;,index_col=&#34;StatusDate&#34;)</span>
+</span></span><span class="line"><span class="cl"><span class="n">df</span><span class="o">.</span><span class="n">dtypes</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 340; 
+			flex-basis: 816px"
+	>
+	<a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-3.png" data-size="476x140">
+		<img src="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-3.png"
+			width="476"
+			height="140"
+			srcset="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-3_hu2cc75d1178aea52e3698e3c8c520a7fe_17350_480x0_resize_box_3.png 480w, /p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-3_hu2cc75d1178aea52e3698e3c8c520a7fe_17350_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">df</span><span class="o">.</span><span class="n">index</span>
+</span></span></code></pre></div><p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 252; 
+			flex-basis: 605px"
+	>
+	<a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-4.png" data-size="1166x462">
+		<img src="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-4.png"
+			width="1166"
+			height="462"
+			srcset="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-4_hu852304395157484e09ba42260e207eb8_67924_480x0_resize_box_3.png 480w, /p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-4_hu852304395157484e09ba42260e207eb8_67924_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+</span></span></code></pre></div><p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 104; 
+			flex-basis: 251px"
+	>
+	<a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-5.png" data-size="584x558">
+		<img src="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-5.png"
+			width="584"
+			height="558"
+			srcset="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-5_hu9aeff36c908d08c2a67724913bda11cb_45203_480x0_resize_box_3.png 480w, /p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-5_hu9aeff36c908d08c2a67724913bda11cb_45203_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>这一部分，我们尝试将数据进行清洗以备分析:</p>
+<ol>
+<li>确保 state 列都是大写</li>
+<li>只选择 Status = 1 的那些记录</li>
+<li>对 State 列中的 NJ 和 NY，都合并为 NY</li>
+<li>去除一些离群中 (数据集中一些特别奇异的结果)</li>
+</ol>
+<p>让我们先快速看一下 State 列中的大小写情况。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">df</span><span class="p">[</span><span class="s2">&#34;States&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"> <span class="n">array</span><span class="p">([</span><span class="s1">&#39;NJ&#39;</span><span class="p">,</span> <span class="s1">&#39;fl&#39;</span><span class="p">,</span> <span class="s1">&#39;TX&#39;</span><span class="p">,</span> <span class="s1">&#39;FL&#39;</span><span class="p">,</span> <span class="s1">&#39;GA&#39;</span><span class="p">,</span> <span class="s1">&#39;NY&#39;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span>
+</span></span></code></pre></div><p>我们用 upper() 函数和 dataframe 的 apply 属性将 State 的值都转换为大写。</p>
+<p>lambda 函数简单地将 upper() 函数应用到 State 列中的每一个值上。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#清洗State列，全部转换为大写</span>
+</span></span><span class="line"><span class="cl"><span class="n">df</span><span class="p">[</span><span class="s2">&#34;States&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">States</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="o">.</span><span class="n">upper</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="n">df</span><span class="p">[</span><span class="s2">&#34;States&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">array</span><span class="p">([</span><span class="s1">&#39;NJ&#39;</span><span class="p">,</span> <span class="s1">&#39;FL&#39;</span><span class="p">,</span> <span class="s1">&#39;TX&#39;</span><span class="p">,</span> <span class="s1">&#39;GA&#39;</span><span class="p">,</span> <span class="s1">&#39;NY&#39;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">df</span><span class="o">.</span><span class="n">apply</span><span class="err">?</span><span class="c1">#df.apply(func)就是对df数据的每个元素使用传入的func</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#只保留Status == 1</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># df[df.[&#34;Status&#34;] == 1]</span>
+</span></span><span class="line"><span class="cl"><span class="n">mask</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&#34;Status&#34;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">df</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 95; 
+			flex-basis: 228px"
+	>
+	<a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-6.png" data-size="724x762">
+		<img src="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-6.png"
+			width="724"
+			height="762"
+			srcset="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-6_huacf2d6d59f682fb40da9b31e94b6a717_61531_480x0_resize_box_3.png 480w, /p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-6_huacf2d6d59f682fb40da9b31e94b6a717_61531_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>将 NJ 转换为 NY，仅需简单地:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#也可以用个mask</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#注意某的.号</span>
+</span></span><span class="line"><span class="cl"><span class="n">df</span><span class="p">[</span><span class="s2">&#34;States&#34;</span><span class="p">][</span><span class="n">df</span><span class="p">[</span><span class="s2">&#34;States&#34;</span><span class="p">]</span><span class="o">==</span><span class="s2">&#34;NJ&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&#34;NY&#34;</span>
+</span></span></code></pre></div><p>现在我们看一下，我们有了一个更加干净的数据集了。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">df</span><span class="p">[</span><span class="s2">&#34;States&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">array</span><span class="p">([</span><span class="s1">&#39;NY&#39;</span><span class="p">,</span> <span class="s1">&#39;FL&#39;</span><span class="p">,</span> <span class="s1">&#39;GA&#39;</span><span class="p">,</span> <span class="s1">&#39;TX&#39;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span>
+</span></span></code></pre></div><p>这时也许我们可以将数据绘制成图形查看一下数据中是否有任何离群值(outliers)或
+者不一致(inconsistencies)。</p>
+<p>我们使用 dataframe 中的 plot() 函数。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">df</span><span class="p">[</span><span class="s2">&#34;CustomerCount&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#之前读取的时候已经指定了index，所以这里的轴就是这个的</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 266; 
+			flex-basis: 638px"
+	>
+	<a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-7.png" data-size="1166x438">
+		<img src="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-7.png"
+			width="1166"
+			height="438"
+			srcset="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-7_hud04ccb64ce892ed70593d4db7f5d63df_166256_480x0_resize_box_3.png 480w, /p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-7_hud04ccb64ce892ed70593d4db7f5d63df_166256_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>如果我们看这些数据，我们会意识到同一个 State, StatusDate 和 Status 的组合会
+有多个值。 这可能意味着我们在处理的数据是脏数据/坏数据/不精确的数据
+(dirty/bad/inaccurate)，但我们不这样假设。 我们假设这个数据集是一个更大更大
+数据集的一个子集(subset)，并且如果我们简单的将 State, StatusDate 和 Status 组
+合下的 CustomerCount 累加起来, 我们将得到每一天的 全部客户数量 (Total
+Customer Count)。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">sortdf</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&#34;States&#34;</span><span class="p">]</span><span class="o">==</span><span class="s2">&#34;NY&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">sort_index</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="c1">#索引为第零列即StatusDate</span>
+</span></span><span class="line"><span class="cl"><span class="n">sortdf</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 58; 
+			flex-basis: 140px"
+	>
+	<a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-8.png" data-size="694x1184">
+		<img src="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-8.png"
+			width="694"
+			height="1184"
+			srcset="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-8_hu6b4a5cbdc9b08f4cf33933b01563dc65_103356_480x0_resize_box_3.png 480w, /p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-8_hu6b4a5cbdc9b08f4cf33933b01563dc65_103356_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+我们的任务是创建一个新的 dataframe，然后对数据进行压缩处理，是的每一个</p>
+<p>State 和 StatusDate 组合代表一天的客户数量。 我们可以忽略 Status 列因为这一</p>
+<p>列我们之前处理过只有 1 这个值了。 要完成这个操作，我们使用 dataframe 的</p>
+<p>groupyby() 和 sum() 这两个函数。</p>
+<p>注意，我们要使用 reset_index。 如果我们不这么做，我们将无法同时用 State 和</p>
+<p>StatusDate 这两列来做分组，因为 groupby 函数需要列(columns)来做为输入(译者</p>
+<p>注: StatusDate 目前是 index，不是 column)。 reset_index 函数将把 dataframen</p>
+<p>中作为索引(index)的 StatusDate 变回普通的列。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#reset_index可以取消之前定义的索引列</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#仔细体会下groupby的分组功能</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 先 reset_index，然后按照 State 和 StatusDate 来做分组 (groupby)  多个group依据时记得用[]阔起来</span>
+</span></span><span class="line"><span class="cl"><span class="n">Daily</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">&#34;States&#34;</span><span class="p">,</span><span class="s2">&#34;StatusDate&#34;</span><span class="p">])</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#sum是因为有可能有重复的日期</span>
+</span></span><span class="line"><span class="cl"><span class="n">Daily</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 168; 
+			flex-basis: 405px"
+	>
+	<a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-9.png" data-size="730x432">
+		<img src="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-9.png"
+			width="730"
+			height="432"
+			srcset="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-9_hu07162de6faf34de88feb81844dd04a4e_31807_480x0_resize_box_3.png 480w, /p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-9_hu07162de6faf34de88feb81844dd04a4e_31807_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>在 Daily 这个 dataframe 中，State 和 StatusDate 这两列被自动设置为了索引
+(index)。   就是说groupby后会自动列为index</p>
+<p>你可以将 index 设想为数据库表中的逐渐(primary key)，只不过没有唯一
+性(unique)的限制。</p>
+<p>索引中的这些列让我们更容易的可以选择，绘图和执行一些计算。</p>
+<p>接下去我们将 Status 删掉，它的值就是 1，没有多少用途了。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#可以直接用py的del删除</span>
+</span></span><span class="line"><span class="cl"><span class="k">del</span> <span class="n">Daily</span><span class="p">[</span><span class="s2">&#34;Status&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">Daily</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 88; 
+			flex-basis: 212px"
+	>
+	<a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-10.png" data-size="506x572">
+		<img src="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-10.png"
+			width="506"
+			height="572"
+			srcset="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-10_hue87e317f7854d0319c7e6bbc9ef76f98_41515_480x0_resize_box_3.png 480w, /p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-10_hue87e317f7854d0319c7e6bbc9ef76f98_41515_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 看一下 dataframe 中的索引(index)</span>
+</span></span><span class="line"><span class="cl"><span class="n">Daily</span><span class="o">.</span><span class="n">index</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 132; 
+			flex-basis: 317px"
+	>
+	<a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-11.png" data-size="994x752">
+		<img src="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-11.png"
+			width="994"
+			height="752"
+			srcset="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-11_hu08dc7a420fde358a78baa94d2b195a1d_111081_480x0_resize_box_3.png 480w, /p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-11_hu08dc7a420fde358a78baa94d2b195a1d_111081_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#对于index使用levels[]可以过的指定的索引类别</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#选择State这个索引</span>
+</span></span><span class="line"><span class="cl"><span class="n">Daily</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">levels</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">Index</span><span class="p">([</span><span class="s1">&#39;FL&#39;</span><span class="p">,</span> <span class="s1">&#39;GA&#39;</span><span class="p">,</span> <span class="s1">&#39;NY&#39;</span><span class="p">,</span> <span class="s1">&#39;TX&#39;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;object&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;States&#39;</span><span class="p">)</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#选择StatusDate这个索引</span>
+</span></span><span class="line"><span class="cl"><span class="n">Daily</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">levels</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</span></span></code></pre></div><p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 253; 
+			flex-basis: 608px"
+	>
+	<a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-12.png" data-size="1162x458">
+		<img src="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-12.png"
+			width="1162"
+			height="458"
+			srcset="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-12_hue0a4e3efa7d5647b5c64743885751c33_67166_480x0_resize_box_3.png 480w, /p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-12_hue0a4e3efa7d5647b5c64743885751c33_67166_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>我们按照每一个州来绘制一下图表。</p>
+<p>正如你所看到的，将图表按照不同的 State 区分开，我们能看到更清晰的数据。</p>
+<p>你能看到任何离群值(outlier)吗?</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">Daily</span><span class="o">.</span><span class="n">loc</span><span class="err">?</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#loc是用来根据label(行的名字)获取数据的</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">Daily</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&#34;FL&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">Daily</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&#34;GA&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">Daily</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&#34;NY&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">Daily</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&#34;TX&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 74; 
+			flex-basis: 178px"
+	>
+	<a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-13.png" data-size="780x1048">
+		<img src="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-13.png"
+			width="780"
+			height="1048"
+			srcset="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-13_hub73e0420a316976b86315197fd26c4ba_203486_480x0_resize_box_3.png 480w, /p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-13_hub73e0420a316976b86315197fd26c4ba_203486_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 75; 
+			flex-basis: 180px"
+	>
+	<a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-14.png" data-size="824x1096">
+		<img src="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-14.png"
+			width="824"
+			height="1096"
+			srcset="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-14_hu0e82d2812f6d06919d12ade1283b260f_197153_480x0_resize_box_3.png 480w, /p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-14_hu0e82d2812f6d06919d12ade1283b260f_197153_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>我们也可以指定一个日期，比如 2012，来绘制图表。 We can also just plot the
+data on a specific date, like 2012. 我们能够清晰地看到这些州的数据分布很广。 因
+为这些数据包含了每周的客户数量，数据的变化情况看上去是可以预测的。 在这个
+教程里面，我们假设没有坏数据并继续往下。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#注意这里是没有.号的</span>
+</span></span><span class="line"><span class="cl"><span class="n">Daily</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&#34;FL&#34;</span><span class="p">][</span><span class="s2">&#34;2022&#34;</span><span class="p">:]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">Daily</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&#34;GA&#34;</span><span class="p">][</span><span class="s2">&#34;2022&#34;</span><span class="p">:]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">Daily</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&#34;NY&#34;</span><span class="p">][</span><span class="s2">&#34;2022&#34;</span><span class="p">:]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">Daily</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&#34;TX&#34;</span><span class="p">][</span><span class="s2">&#34;2022&#34;</span><span class="p">:]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 71; 
+			flex-basis: 171px"
+	>
+	<a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-15.png" data-size="752x1054">
+		<img src="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-15.png"
+			width="752"
+			height="1054"
+			srcset="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-15_hub3e4c8e62a15f913f33d5840adad4906_185839_480x0_resize_box_3.png 480w, /p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-15_hub3e4c8e62a15f913f33d5840adad4906_185839_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 75; 
+			flex-basis: 181px"
+	>
+	<a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-16.png" data-size="848x1124">
+		<img src="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-16.png"
+			width="848"
+			height="1124"
+			srcset="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-16_huc1658b800cd4880a62fc044117387756_184698_480x0_resize_box_3.png 480w, /p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-16_huc1658b800cd4880a62fc044117387756_184698_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>我们假设每个月的客户数量应该是保持相对稳定的。 在一个月内任何在这个特定范
+围之外的数据都可以从数据集中移除。 最终的结果应该更加的平滑并且图形不会有
+尖刺。</p>
+<p>StateYearMonth - 这里我们通过 State, StatusDate 中的年份(year)和月份(Month)
+来分组。</p>
+<p>Daily[&lsquo;Outlier&rsquo;] - 一个布尔(boolean)变量值 (True 或者 False)，从而我们会知道
+CustomerCount 值是否在一个可接受的范围之内。</p>
+<p>我们将会用到 transform 而不是 apply。 原因是， transform 将会保持 dataframe
+矩阵的形状(shape)(就是行列数不变)而 apply 会改变矩阵的形状。 看过前面的图形
+我们意识到这些图形不是高斯分布的(gaussian distribution)，这意味着我们不能使
+用均值(mean)和标准差(stDev)这些统计量。 我们将使用百分位数(percentile)。 请
+注意这里也会有把好数据消除掉的风险。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">Daily</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">get_level_values</span><span class="err">?</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#这种情况下只对xlsx有用，而对csv没用</span>
+</span></span><span class="line"><span class="cl"><span class="n">Daily</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">get_level_values</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">year</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 472; 
+			flex-basis: 1134px"
+	>
+	<a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-17.png" data-size="1144x242">
+		<img src="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-17.png"
+			width="1144"
+			height="242"
+			srcset="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-17_hu89181dbaa206ada3d002a81e88237d09_30129_480x0_resize_box_3.png 480w, /p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-17_hu89181dbaa206ada3d002a81e88237d09_30129_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#计算离群值</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#index.get_level_values()是用来获取某个行label的所有值</span>
+</span></span><span class="line"><span class="cl"><span class="n">State_year_month</span> <span class="o">=</span> <span class="n">Daily</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="n">Daily</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">get_level_values</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="c1">#state</span>
+</span></span><span class="line"><span class="cl">                                 <span class="n">Daily</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">get_level_values</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">year</span><span class="p">,</span><span class="c1">#statusdate的年</span>
+</span></span><span class="line"><span class="cl">                                 <span class="n">Daily</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">get_level_values</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">month</span><span class="p">])</span><span class="c1">#statusdate的月</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#可以这样赋予新的一列</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#transform和apply的用处一样，但是它不会原始数据的shape</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#quantile是求分位数</span>
+</span></span><span class="line"><span class="cl"><span class="n">Daily</span><span class="p">[</span><span class="s1">&#39;Lower&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">State_year_month</span><span class="p">[</span><span class="s1">&#39;CustomerCount&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">q</span><span class="o">=</span><span class="mf">.25</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="mf">1.5</span><span class="o">*</span><span class="n">x</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">q</span><span class="o">=</span><span class="mf">.75</span><span class="p">)</span><span class="o">-</span><span class="n">x</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">q</span><span class="o">=</span><span class="mf">.25</span><span class="p">))</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">Daily</span><span class="p">[</span><span class="s1">&#39;Upper&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">State_year_month</span><span class="p">[</span><span class="s1">&#39;CustomerCount&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">q</span><span class="o">=</span><span class="mf">.75</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="mf">1.5</span><span class="o">*</span><span class="n">x</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">q</span><span class="o">=</span><span class="mf">.75</span><span class="p">)</span><span class="o">-</span><span class="n">x</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">q</span><span class="o">=</span><span class="mf">.25</span><span class="p">))</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">Daily</span><span class="p">[</span><span class="s1">&#39;Outlier&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">Daily</span><span class="p">[</span><span class="s1">&#39;CustomerCount&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">Daily</span><span class="p">[</span><span class="s1">&#39;Lower&#39;</span><span class="p">])</span> <span class="o">|</span> <span class="p">(</span><span class="n">Daily</span><span class="p">[</span><span class="s1">&#39;CustomerCount&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">Daily</span><span class="p">[</span><span class="s1">&#39;Upper&#39;</span><span class="p">])</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 移除离群值</span>
+</span></span><span class="line"><span class="cl"><span class="n">Daily</span> <span class="o">=</span> <span class="n">Daily</span><span class="p">[</span><span class="n">Daily</span><span class="p">[</span><span class="s1">&#39;Outlier&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="kc">False</span><span class="p">]</span>
+</span></span></code></pre></div><p>Daily 这个 dataframe 按照每天来汇总了客户数量。 而原始的数据则可能每一天会
+有多个记录。 我们现在保留下一个用 State 和 StatusDate 来做索引的数据集。
+Outlier 列如果是 False 的化代表这条记录不是一个离群值。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">Daily</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 248; 
+			flex-basis: 596px"
+	>
+	<a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-18.png" data-size="984x396">
+		<img src="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-18.png"
+			width="984"
+			height="396"
+			srcset="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-18_huf64809e5029b7ea729f80cf7a48d5b8c_55686_480x0_resize_box_3.png 480w, /p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-18_huf64809e5029b7ea729f80cf7a48d5b8c_55686_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>我们创建一个单独的 dataframe，叫 ALL，仅用 StatusDate 来为 Daily 数据集做索
+引。</p>
+<p>我们简单地去掉 State 这一列。 Max 列则代表了每一个月最大的客户数量。</p>
+<p>Max 列是用来是的图形更顺滑的。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 按日期计算出最大的客户数</span>
+</span></span><span class="line"><span class="cl"><span class="n">ALL</span> <span class="o">=</span>  <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">Daily</span><span class="p">[</span><span class="s2">&#34;CustomerCount&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">Daily</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">get_level_values</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#重命名列名</span>
+</span></span><span class="line"><span class="cl"><span class="n">ALL</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;CustomerCount&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#按照年和月来分组</span>
+</span></span><span class="line"><span class="cl"><span class="n">Year_month</span> <span class="o">=</span> <span class="n">ALL</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="o">.</span><span class="n">year</span><span class="p">,</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="o">.</span><span class="n">month</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#找出每一个年和月的组合中最大的客户数</span>
+</span></span><span class="line"><span class="cl"><span class="n">ALL</span><span class="p">[</span><span class="s2">&#34;Max&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Year_month</span><span class="p">[</span><span class="s2">&#34;CustomerCount&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="n">ALL</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</span></span></code></pre></div><p>result
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 117; 
+			flex-basis: 282px"
+	>
+	<a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-19.png" data-size="452x384">
+		<img src="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-19.png"
+			width="452"
+			height="384"
+			srcset="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-19_hu413e818c9e91ebbc2544579c4c4f07cf_31930_480x0_resize_box_3.png 480w, /p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-19_hu413e818c9e91ebbc2544579c4c4f07cf_31930_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>从上面的 ALL dataframe 中可以看到，在 2021年1月的这个月份，最大的客户数是
+1235。 如果我们使用 apply 的方式，我们将会得到一个以 (年 和 月）组合作为索引
+的 dataframe ，只有 Max 这一列有1235这个值。</p>
+<p>如果当前的客户数达到了公司制定的一定的目标值，这也会是一个很有趣的度量
+值。</p>
+<p>现在的任务是可视化的展示当前的客户数是否达到了下面列出的目标值。</p>
+<p>我们把这些目标叫做 BHAG (Big Hairy Annual Goal，年度战略目标)。</p>
+<p>12/31/2011 - 1,000 客户</p>
+<p>12/31/2012 - 2,000 客户</p>
+<p>12/31/2013 - 3,000 客户</p>
+<p>我们将用 date_range 函数来创建日期。</p>
+<p>定义: date_range(start=None, end=None, periods=None, freq=&lsquo;D&rsquo;, tz=None,
+normalize=False, name=None, closed=None)</p>
+<p>文档(Docstring): 返回一个固定频率的日期时间索引，用日历天作为默认的频率
+把频率设定为 A 或者是“年度” 我们将等到上述三个年份。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#创建BHAG</span>
+</span></span><span class="line"><span class="cl"><span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1000</span><span class="p">,</span><span class="mi">2000</span><span class="p">,</span><span class="mi">3000</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">idx</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s2">&#34;12/31/2021&#34;</span><span class="p">,</span><span class="s2">&#34;12/31/2023&#34;</span><span class="p">,</span><span class="n">freq</span><span class="o">=</span><span class="s2">&#34;A&#34;</span><span class="p">)</span><span class="c1">#&#39;A&#39;年度划分</span>
+</span></span><span class="line"><span class="cl"><span class="n">BHAG</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="n">idx</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&#34;BHAG&#34;</span><span class="p">])</span><span class="c1">#参数index可以自定义行label</span>
+</span></span><span class="line"><span class="cl"><span class="n">BHAG</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 167; 
+			flex-basis: 402px"
+	>
+	<a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-21.png" data-size="406x242">
+		<img src="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-21.png"
+			width="406"
+			height="242"
+			srcset="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-21_hu874336d26bd6defc857b358681e7d0cd_13564_480x0_resize_box_3.png 480w, /p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-21_hu874336d26bd6defc857b358681e7d0cd_13564_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>我们之前学过用 concat 把 dataframe 合并。</p>
+<p>记住，当我们设置 axis = 0 时我们按列合并 (row wise, 译者注: 即直接把列合并进去，行方向数据缺失用NaN来填
+充）。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 把 BHAG 和 ALL 两个数据集合并在一起</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#contact是合并DataFrame  合并的对象记得[]装在一起  axis可以指定方式，0为列，1为行</span>
+</span></span><span class="line"><span class="cl"><span class="n">combined</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">ALL</span><span class="p">,</span><span class="n">BHAG</span><span class="p">],</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">combined</span> <span class="o">=</span> <span class="n">combined</span><span class="o">.</span><span class="n">sort_index</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="c1">#索引为第零列且排序，而sorted_value()不会产生索引的变化</span>
+</span></span><span class="line"><span class="cl"><span class="n">combined</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 198; 
+			flex-basis: 477px"
+	>
+	<a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-22.png" data-size="676x340">
+		<img src="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-22.png"
+			width="676"
+			height="340"
+			srcset="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-22_hu42fee7847a1478346b0838800136f562_38814_480x0_resize_box_3.png 480w, /p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-22_hu42fee7847a1478346b0838800136f562_38814_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#绘图</span>
+</span></span><span class="line"><span class="cl"><span class="n">fig</span><span class="p">,</span><span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">7</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#fillna是用来填充NAN值的   method可以指定填充的方法：</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># pad/ffill：用前一个非缺失值去填充该缺失值</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># backfill/bfill：用下一个非缺失值填充该缺失值</span>
+</span></span><span class="line"><span class="cl"><span class="n">combined</span><span class="p">[</span><span class="s2">&#34;BHAG&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">&#34;pad&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">&#34;green&#34;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s2">&#34;BHAS&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">combined</span><span class="p">[</span><span class="s2">&#34;Max&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">&#34;blue&#34;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s2">&#34;All Market&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&#34;best&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 161; 
+			flex-basis: 388px"
+	>
+	<a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-23.png" data-size="1158x716">
+		<img src="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-23.png"
+			width="1158"
+			height="716"
+			srcset="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-23_hu46441df3df33e5b5ee94f2e48193ed28_92479_480x0_resize_box_3.png 480w, /p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-23_hu46441df3df33e5b5ee94f2e48193ed28_92479_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+这里还有一个需求是预测下一个年度的客户数，我们之后会通过几个简单的步骤完
+成。 我们想把已经合并的 dataframe 按照 Year 来分组，并且计算出年度的最大客
+户数。 这样每一行就是一个年度的数据。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">Year</span> <span class="o">=</span> <span class="n">combined</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="o">.</span><span class="n">year</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">Year</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 205; 
+			flex-basis: 494px"
+	>
+	<a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-24.png" data-size="564x274">
+		<img src="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-24.png"
+			width="564"
+			height="274"
+			srcset="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-24_hubfdc89407a2c4ae18565ec4e304403eb_28546_480x0_resize_box_3.png 480w, /p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-24_hubfdc89407a2c4ae18565ec4e304403eb_28546_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 增加一列，表示为每一年比上一年变化的百分比</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#pct_change用来计算变化率的    （后一个值-前一个值）／前一个值</span>
+</span></span><span class="line"><span class="cl"><span class="n">Year</span><span class="p">[</span><span class="s2">&#34;YR_PCT_Change&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Year</span><span class="p">[</span><span class="s2">&#34;Max&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">pct_change</span><span class="p">(</span><span class="n">periods</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">Year</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 280; 
+			flex-basis: 674px"
+	>
+	<a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-25.png" data-size="854x304">
+		<img src="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-25.png"
+			width="854"
+			height="304"
+			srcset="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-25_huffcfd7098e3b7aac1ce1c983fc4dd5f5_36922_480x0_resize_box_3.png 480w, /p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-25_huffcfd7098e3b7aac1ce1c983fc4dd5f5_36922_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>要得到下一个年度末的客户数，我们假定当前的增长速率是维持恒定的。 我们按照
+这个增长速率来预测下一个年度的客户数量。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#ix是loc和iloc的结合</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#新库ix直接变为了iloc</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">Year</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">2023</span><span class="p">,</span><span class="s2">&#34;YR_PCT_Change&#34;</span><span class="p">])</span> <span class="o">*</span> <span class="n">Year</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">2023</span><span class="p">,</span><span class="s2">&#34;Max&#34;</span><span class="p">]</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#pd可以直接用本身的函数plot画图</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#前面传入y的数据，plot后面指定图的大小、位置等        x轴会默认为传入的数据的行索引</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 第一张图是整个市场的</span>
+</span></span><span class="line"><span class="cl"><span class="n">ALL</span><span class="p">[</span><span class="s1">&#39;Max&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;ALL Markets&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 后面四张</span>
+</span></span><span class="line"><span class="cl"><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">fig</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">hspace</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span><span class="c1">#可以理解为排版美观</span>
+</span></span><span class="line"><span class="cl"><span class="n">Daily</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;FL&#39;</span><span class="p">][</span><span class="s1">&#39;CustomerCount&#39;</span><span class="p">][</span><span class="s1">&#39;2012&#39;</span><span class="p">:]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;pad&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="n">Daily</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;GA&#39;</span><span class="p">][</span><span class="s1">&#39;CustomerCount&#39;</span><span class="p">][</span><span class="s1">&#39;2012&#39;</span><span class="p">:]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;pad&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="n">Daily</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;TX&#39;</span><span class="p">][</span><span class="s1">&#39;CustomerCount&#39;</span><span class="p">][</span><span class="s1">&#39;2012&#39;</span><span class="p">:]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;pad&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="n">Daily</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;NY&#39;</span><span class="p">][</span><span class="s1">&#39;CustomerCount&#39;</span><span class="p">][</span><span class="s1">&#39;2012&#39;</span><span class="p">:]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;pad&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 增加图表的抬头</span>
+</span></span><span class="line"><span class="cl"><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Florida&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Georgia&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Texas&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;North East&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Daily</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&#34;FC&#34;</span><span class="p">][</span><span class="s2">&#34;&#34;</span><span class="p">][</span><span class="mi">2022</span><span class="p">]</span>
+</span></span></code></pre></div><p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 98; 
+			flex-basis: 235px"
+	>
+	<a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-26.png" data-size="1152x1172">
+		<img src="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-26.png"
+			width="1152"
+			height="1172"
+			srcset="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-26_hu3b0e0dfccb71995fdd49d1023e21054c_290860_480x0_resize_box_3.png 480w, /p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/picture/%E7%AC%AC3%E8%AF%BE-26_hu3b0e0dfccb71995fdd49d1023e21054c_290860_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/tutorials/">tutorials</a>
+        
+            <a href="/tags/pandas/">pandas</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">Related contents</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="">
+    <a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%8D%81%E4%B8%80%E8%AF%BE/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">学习Pandas_第十一课</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%83%E8%AF%BE/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">学习Pandas_第七课</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%8D%81%E8%AF%BE/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">学习Pandas_第十课</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%BA%94%E8%AF%BE/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">学习Pandas_第五课</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%85%AD%E8%AF%BE/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">学习Pandas_第六课</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2022 - 
+        
+        2023 叶宇浩随记博客
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.5.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

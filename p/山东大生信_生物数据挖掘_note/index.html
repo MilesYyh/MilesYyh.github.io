@@ -1,0 +1,1557 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='山东大生信课程'><title>山东大生信_生物数据挖掘_note</title>
+
+<link rel='canonical' href='https://example.com/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='山东大生信_生物数据挖掘_note'>
+<meta property='og:description' content='山东大生信课程'>
+<meta property='og:url' content='https://example.com/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/'>
+<meta property='og:site_name' content='叶宇浩随记博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='tutorials' /><meta property='article:published_time' content='2021-11-02T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-11-02T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="山东大生信_生物数据挖掘_note">
+<meta name="twitter:description" content="山东大生信课程">
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>Back</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/bioinformatic/" style="background-color: #7816ff; color: #fff;">
+                生物信息学&amp;计算生物学
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/">山东大生信_生物数据挖掘_note</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        山东大生信课程
+    </h3>
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Nov 02, 2021</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    4 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <blockquote>
+<p><strong>写在前面的话：这个笔记不过多深入知识，因为做入门有，大概知道什么时候该用哪个，以及现在有什么技术</strong></p>
+</blockquote>
+<h2 id="生物数据挖掘这章讲的有点水">生物数据挖掘（这章讲的有点水）</h2>
+<p>大数据有四字箴言：大、快、杂、
+疑，即大数据资料量庞大、变化飞快、种类繁杂、以及真伪存疑</p>
+<h3 id="数据库系统">数据库系统</h3>
+<p>数据挖掘涉及三个领域：统计、数据库系统和机器学习。关于统计，有专门的统计课程
+不属于这门课的主要讲授内容。这一章主要从数据库系统和机器学习这两部分入手来掌握数
+据挖掘的基本方法。
+数据库系统就是存放数据的数据库和管理数据库的管理软件加在一起，即，数据库+数
+据库管理系统=数据库系统。这就像一个图书馆，除了书籍以外，还要有图书管理员，否则
+书放不进去也拿不出来</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 427px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId20.png" data-size="516x290">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId20.png"
+			width="516"
+			height="290"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId20_hu4e4b0f530749d8798fed6921956979d3_95325_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId20_hu4e4b0f530749d8798fed6921956979d3_95325_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.278423009623797in&rdquo;}</p>
+<p>数据库有很多类型，比如传统的关系型数据库，是以表格的形式存储数据的。还有近些
+年越来越流行的面向对象型数据库，比如 XML 数据库。它是以 XML
+格式存储数据的。Xml
+格式的数据都是以尖括号括起来的标签开始，在标签名前加个斜线结束。标签中还可以再包
+含子一级的标签。比如病人资料这个标签下就有两个病人标签，每个病人标签下还有四个记
+录病人信息的标签。如果需要的话，疾病这个标签下还可以再加入更深一层的标签，比如疾
+病的名字、分型等等。这样一层一层的，结构非常清晰而且灵活，特别适合存储复杂的生物
+数据。这是传统的关系型数据库无法比拟的</p>
+<h3 id="机器学习">机器学习</h3>
+<h4 id="主要任务">主要任务</h4>
+<p>机器学习主要是设计和分析一些让计算机可以自动&quot;学习&quot;的算法。这些算法是一类从
+数据中获得规律，并利用这些规律对未知数据进行预测的算法。比如有台电脑，我们想让他
+学会辨认各种球，那么我们就拿来很多球让电脑学习，告诉它这样的球足球、这样的球是排
+球，这样的球是篮球，这样的球是棒球。经过大量的学习后，电脑说，我已经学会了，可以
+分清这四种球了。好，我们来考考他。学过的都能掌握，没学过的打死也不会，这就是机器
+学习。如果机器学习到了一个很高的境界，能够主动学习了，并能正确掌握学习到的东西，
+那就走向人工智能了。目前市面上比较火的公子小白就具备机器学习的功能，但可惜仍然是
+比较初级的被动学习，还没有智能到主动学习</p>
+<p>现在回到最初的问题上，看看这个电脑是怎么学会识别各种球的。电脑没有眼睛，所以
+我们也不是真的把球摆到电脑面前让他看。我们实际上是把电脑学习的物体转化成了向量，
+让电脑读取向量值，也就是用向量来描述物体。我们可以用一个 5
+维的向量来描述一个球。
+这五个维度分别描述了球的直径、重量、颜色、材质和纹路。这样一个向量足够将各种球区
+分开了。几乎所有物体我们都可以把他转化成多维向量。比如图片可以转换成颜色柱状图，
+并由此创建一个 36
+维的向量，一个维度对应一种颜色，每一维度上的值代表这种颜色在图
+片中出现的频率。再比如，基因表达水平，可以用描述基因芯片上每个点的颜色及深浅的向
+量来表示。甚至我们教室里的每一个人都可以向量化</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 197; 
+			flex-basis: 473px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId24.png" data-size="513x260">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId24.png"
+			width="513"
+			height="260"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId24_huaf6fb59d4929253d504fd37b07a03c58_128248_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId24_huaf6fb59d4929253d504fd37b07a03c58_128248_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;2.9564643482064743in&rdquo;}</p>
+<p>机器都能学些什么，也就是机器学习的任务。常见的机器学习的任务
+有分类、聚类和回归。分类和聚类虽然名字很像，但他们的区别还是巨大的。之前教给小电
+脑完成的任务就是分类任务</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 169; 
+			flex-basis: 406px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId27.png" data-size="515x304">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId27.png"
+			width="515"
+			height="304"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId27_hub6271648ec296a0c73af786028d7f9fb_144425_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId27_hub6271648ec296a0c73af786028d7f9fb_144425_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.4433650481189852in&rdquo;}</p>
+<p>分类任务要有足够的背景知识去训练电脑，告诉电脑这个样的都是篮球，这个样的都是
+足球，这样的都是排球。然后拿学习过的这些球以外的球，让电脑判断是哪一种球，这就是
+分类</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 188; 
+			flex-basis: 451px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId30.png" data-size="514x273">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId30.png"
+			width="514"
+			height="273"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId30_hud48611bc3e417f813f0e97cb65259833_150159_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId30_hud48611bc3e417f813f0e97cb65259833_150159_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.098248031496063in&rdquo;}</p>
+<p>再来看聚类，要理解聚类可以设想这样一个场景，一个外星人来到地球，对球状物体非
+常痴迷，从地球上搜集了大量的球状物体。它不知道这些球状物都是什么，为了更好的研究
+它们，外星人把长得差不多的球都放在了一起，并且将它们命名为球 1、 球 2
+和球 3。这个
+过程就叫聚类。由此可见，聚类和分类最大的区别就是聚类不需要背景知识，而分类需要</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 181; 
+			flex-basis: 434px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId33.png" data-size="520x287">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId33.png"
+			width="520"
+			height="287"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId33_hu1a7501f9bb109b1e42ebcf4a370fd886_164504_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId33_hu1a7501f9bb109b1e42ebcf4a370fd886_164504_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.219550524934383in&rdquo;}</p>
+<p>最后看看回归。回归跟分类一样，也是通过对背景知识的学习达到预测未知的目的。只
+不过，这次预测的不是属于哪一类，而是预测一个具体的数值。比如房产公司可以根据房屋
+情况利用回归算法估算房屋价格。房产公司拥有大量已成交房屋的数据，包括房子大小、地
+皮大小、卧室数量、建材是否是花岗岩、有没有地下室以及房屋的最终售价。现在他们想要让电脑学习这些数据，从而建立起房屋的各项指标和价格之间的定量关系，这样他们就能够
+更加准确的给待出售的房屋定价了。通过机器学习，最终返回了一个公式。公式体现了
+x1、 x2、x3、x4 和 x5 与 y 之间的定量关系。对于新登记的房屋，只要把 x1
+到 x5 这五个指标数 值带入公式，就可以估算出房屋的售价</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 185; 
+			flex-basis: 446px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId36.png" data-size="591x318">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId36.png"
+			width="591"
+			height="318"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId36_hu61bd3e7499d21667290839bb902f2b18_169708_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId36_hu61bd3e7499d21667290839bb902f2b18_169708_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.138747812773403in&rdquo;}</p>
+<h4 id="k次交叉检验">K次交叉检验</h4>
+<p>回归和分类都需要背景知识，也就是训练组数据来训练出预测模型，而聚类不需要。预
+测模型训练好之后还需要从训练组数据中拿出一部分作为测试组数据来测试模型的准确度。
+这里问题就来了。哪些数据可以用来做测试组呢？</p>
+<p>理论上，所有已知结果的数据都应该拿来训练，这样训练才充分。可是，这些训练数据
+以外的都是不知道结果的，无法拿来做测试？用训练数据本身做测试，肯定不行！因为你的
+算法就是基于你的这组数据产生，肯定适合你的这些数据，但是换这些数据以外的数据可能
+就不适合了，属于过学习。那么，我们从训练组数据里拿出一小部分做测试用，用剩下的做
+训练，这样是否可行呢？也不行，因为有一部分知识预测模型没有学习到，属于欠学习</p>
+<p>这时，我们可以使用 K 次交叉检验（K-fold cross validation）。所谓 K
+次交叉检验就是把 所有能够搜集到的已知结果的数据，分成 K 份。我们以 4
+份为例。将第一份拿出来作为测 试组数据，其余 3
+份作为训练组数据。用选定的算法根据训练组数据训练出一个模型。再用
+测试组数据测试模型的准确度。然后将第二份拿出来作为测试组数据，其余 3
+份作为训练组
+数据。用选定的算法根据训练组数据训练出一个模型。再用测试组数据测试模型的准确度。
+依次类推，让每一份都作一次测试组数据。这样就会用同一种选定的算法构建出 4
+个模型， 进行 4 次测试，得到 4 个准确度。最后取 4
+个准确度的平均值，得到的平均准确度就是用全
+部训练组数据训练出的最终模型的准确度。利用 K
+次交叉检验可以有效避免过学习的现象。
+因为测试组数据并未参与相应模型的构建。同时也避免了欠学习的现象，因为所有训练组数
+据都学习到了</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 336; 
+			flex-basis: 806px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId40.png" data-size="521x155">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId40.png"
+			width="521"
+			height="155"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId40_huc66441fa865c75c7ecabf987a1d53ab2_61992_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId40_huc66441fa865c75c7ecabf987a1d53ab2_61992_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;1.735444006999125in&rdquo;}</p>
+<h4 id="常见算法">常见算法</h4>
+<p>机器学习能完成诸如分类、聚类、回归等任务。那他是如何完成这些任务的呢？是通过
+各种机器学习的算法来完成的。常见的算法有贝叶斯、最近邻居、决策树、支持向量机、人
+工神经网络、遗传算法等。我们没有足够的时间从理论上完全掌握这些算法，但是应该从科
+普的角度至少知道他们是怎么回事。这里挑其中一二给大家介绍一下</p>
+<p>所谓贝叶斯法就是基于贝叶斯原理的一种概率统计算法。关于贝叶斯定理我们已经在前
+面的章节给大家详细介绍过了。这里就不多说了</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 212; 
+			flex-basis: 509px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId44.png" data-size="382x180">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId44.png"
+			width="382"
+			height="180"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId44_huffc795750cc10651739642d6fdc85ee0_63180_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId44_huffc795750cc10651739642d6fdc85ee0_63180_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.305555555555555in&rdquo; height=&ldquo;2.5in&rdquo;}</p>
+<p>再来看最近邻居法。它是把已知物体根据它们的属性，标记在一个坐标系中。比如各种
+钉子根据它们的外形是红色这堆，各种螺丝是绿色这堆，蓝色这堆是各种螺母。因为螺母外
+形上跟钉子和螺丝差别较大，所以在坐标系中，它离另两种物体比较远。接下来我们根据新
+物体的外形把它也标记在坐标系中。然后看离它最近的邻居是什么，它就是什么。这里，离
+新物体最近的是螺母，那么新物体就应被分类为螺母</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 195; 
+			flex-basis: 469px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId47.png" data-size="442x226">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId47.png"
+			width="442"
+			height="226"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId47_hu739c12ea072d4c6be35fab0437f538dd_82387_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId47_hu739c12ea072d4c6be35fab0437f538dd_82387_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;2.9826541994750655in&rdquo;}</p>
+<p>决策树非常好理解，给大家举个例子就明白了。这是个保险公司统计的被保人所处年龄、
+所开车型与出险率高低的统计表。历年数据显示，23
+岁开家庭车的司机风险高，17 岁开跑 车的高，简直就是马路杀手，43
+岁开跑车的也高，看来跑车风险就是高。68 岁开家庭车的 低。32
+岁开大卡车的也低。别问什么，这是德国教材上的例子。现在我们来看看保险公司
+利用这些数据都做了什么。他们根据这些数据画了一棵树，并利用这棵树对即将投保的人进
+行风险评估。先判断车型，大卡车的风险低，不是大卡车的再判断年龄，60
+岁以上低，60
+岁以下高。有了这棵树，只要知道新投保人的年龄和车型，就可以判断出风险高低。这就是
+决策树</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 227; 
+			flex-basis: 545px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId50.png" data-size="548x241">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId50.png"
+			width="548"
+			height="241"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId50_hu3a3bb0e9d5ad79e4c92923d444b77855_119953_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId50_hu3a3bb0e9d5ad79e4c92923d444b77855_119953_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;2.56538823272091in&rdquo;}</p>
+<p>支持向量机和最近邻居差不多，也是把已知物体根据属性标记在坐标系中，然后画一条
+线。画的这条线要尽可能的把不同物体全部分开。新物体落在线的哪一侧就属于哪种物体。
+问题的关键就是这条线怎么话。绿色和蓝色两种画法肯定都没有黄色画法好。比如绿色这条
+线，如果新物体落在这个位置，因为他在绿线的右侧，所以他会和黄点归入一类，但实际上
+他跟这堆蓝点离得更近。如果，这条线画成黄线这样，就不会出现刚才的问题。所以我们要
+画这样一条线，首先这条线要把不同的已知物体尽可能的分开，且线两边距离线最近的物体
+到线的垂直距离要尽 可能的大。也就是所 谓的间隔最大化，也
+叫做最大最小距离。 只有这样画出线才能 成功完成任务</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 178; 
+			flex-basis: 429px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId53.png" data-size="408x228">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId53.png"
+			width="408"
+			height="228"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId53_hubadfa804f2b5b073e8542efe0c500b12_85388_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId53_hubadfa804f2b5b073e8542efe0c500b12_85388_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.666666666666667in&rdquo;
+height=&ldquo;3.1666666666666665in&rdquo;}</p>
+<h3 id="weka">WEKA</h3>
+<p>介绍一款做数据挖掘的傻瓜级软件 WEKA<br>
+<a class="link" href="http://www.cs.waikato.ac.nz/ml/weka/"  target="_blank" rel="noopener"
+    >http://www.cs.waikato.ac.nz/ml/weka/</a><br>
+WEKA 的全名是怀卡托智能分析环境。WEKA 也是新西兰一种鸟的名字。WEKA
+的主要开 发者来自新西兰怀卡托大学。WEKA
+是免费的，它可以完成各种各样的数据挖掘任务，就
+像傻瓜相机一样，算法的事儿完全不需要你操心，你只要输入数据，告诉 WEKA
+你要完成 什么样的挖掘任务，再选择现成的算法，WEKA
+就会为你返回想要的结果模型</p>
+<p>WEKA 不能读取 Excel 数据。WEKA 的数据 存储格式是 ARFF
+格式。这种格式的文件其实就是一个纯文本文件，可以用写字板或记事本
+打开。在 WEKA 安装目录下的 data 文件夹里有许多 ARFF
+文件。我们用记事本打开其中的 weather_numeric.arff<br>
+（右）是 ARFF 数据的原始容貌。我们也可以用 WEKA 的 ARFF
+viewer，将这些文本样式的数据转换成表格形式（左）。这组数据记录了不同的
+天气与是否适合打球之间的对应关系。比如晴天，温度 85，湿度
+85，不刮风的时候不适合 打球，而阴天，温度 80，湿度
+90，不刮风的时候适合打球</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 174; 
+			flex-basis: 418px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId59.png" data-size="1007x578">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId59.png"
+			width="1007"
+			height="578"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId59_huc6af1631c2af3726515179afeb786790_370407_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId59_huc6af1631c2af3726515179afeb786790_370407_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.348228346456693in&rdquo;}</p>
+<h4 id="weak中的术语">WEAK中的术语</h4>
+<p>表格里的一行叫做一个实例（Instance），相当于统计学中的一个样本，
+或者数据库中的一条记录。这组数据一共有 14 行，也就是 14
+个实例。表格里的一列称为一 个属性（Attribute），这个表格一共有 5
+个属性，分别是 outlook（天气概况）、temperature（温
+度）、humidity（湿度），windy（是否刮风）以及
+play（是否打球）。前四个属性是关于天气
+的描述，最后一个属性是要判断的关键性问题。这个表格实际上就是反映了前四个属性跟最
+后一个属性之间的关系。所以 WEKA
+管一个表格叫一个关系（Relation）。这个关系的名字 是 weather（天气）</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 180; 
+			flex-basis: 433px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId62.png" data-size="1042x577">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId62.png"
+			width="1042"
+			height="577"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId62_hud1a4e2af31783921b878b721355e98b4_476659_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId62_hud1a4e2af31783921b878b721355e98b4_476659_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.2301662292213473in&rdquo;}</p>
+<h4 id="arff文件的格式">ARFF文件的格式</h4>
+<p>WEKA 读取 ARFF 文件的重要依据是分行和空格，因此不能在这种
+文件里随意的断行，以及随意加入空格。空行以及全是空格的行将被忽略。打开一个
+ARFF 文件，经常会看到大段%开头的内容，这些是关于数据的注释。WEKA
+在读取文件时会自动 忽略这些行。除去注释后，整个 ARFF
+文件可以分为两个部分，第一部分头信息（head
+information）是对关系和属性的定义，第二部分数据信息（data
+information）就是数据值</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 175; 
+			flex-basis: 420px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId66.png" data-size="1044x596">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId66.png"
+			width="1044"
+			height="596"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId66_hu88794d1217f1ad3c7b697aa03e7cb62d_364237_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId66_hu88794d1217f1ad3c7b697aa03e7cb62d_364237_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.330139982502187in&rdquo;}</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 178; 
+			flex-basis: 429px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId69.png" data-size="1005x562">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId69.png"
+			width="1005"
+			height="562"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId69_hud72d445bbeca12866631e230a01b2dc1_314138_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId69_hud72d445bbeca12866631e230a01b2dc1_314138_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.262023184601925in&rdquo;}</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 179; 
+			flex-basis: 430px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId72.png" data-size="982x547">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId72.png"
+			width="982"
+			height="547"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId72_hu0387bb8a0564326db107f591bdb368e3_378259_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId72_hu0387bb8a0564326db107f591bdb368e3_378259_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.249320866141732in&rdquo;}</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 182; 
+			flex-basis: 437px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId75.png" data-size="1003x550">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId75.png"
+			width="1003"
+			height="550"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId75_hu84edbbc52716bc9ecdedeabeb4e0b01b_379629_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId75_hu84edbbc52716bc9ecdedeabeb4e0b01b_379629_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.19873687664042in&rdquo;}</p>
+<h4 id="属性类型和转换">属性类型和转换</h4>
+<p>ARFF
+格式中共有四种属性类型，分别是数值型（numeric）、标称型（nominal）、字符串
+型（string）和时间日期型（date）</p>
+<h5 id="数值型-numeric">数值型 numeric</h5>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 182; 
+			flex-basis: 437px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId79.png" data-size="1024x562">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId79.png"
+			width="1024"
+			height="562"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId79_hua92ea9446f8ccf3b5dc43be5b59e83b0_267182_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId79_hua92ea9446f8ccf3b5dc43be5b59e83b0_267182_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.2014971566054244in&rdquo;}</p>
+<h5 id="标称型">标称型</h5>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 425px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId83.png" data-size="1013x572">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId83.png"
+			width="1013"
+			height="572"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId83_hub8eac9040a2a1c30be25aaef92ffacf8_308982_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId83_hub8eac9040a2a1c30be25aaef92ffacf8_308982_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.2938462379702536in&rdquo;}</p>
+<h5 id="字符串型">字符串型</h5>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 181; 
+			flex-basis: 434px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId87.png" data-size="1027x567">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId87.png"
+			width="1027"
+			height="567"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId87_hu4a9fe7e184e159a527a1101249805ffd_316170_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId87_hu4a9fe7e184e159a527a1101249805ffd_316170_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.220544619422572in&rdquo;}</p>
+<h5 id="时间日期型">时间日期型</h5>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 180; 
+			flex-basis: 432px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId91.png" data-size="1044x580">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId91.png"
+			width="1044"
+			height="580"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId91_huba22b35b36b3679f70dfdb70dc0d6070_314336_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId91_huba22b35b36b3679f70dfdb70dc0d6070_314336_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.2407403762029747in&rdquo;}</p>
+<h5 id="转换">转换</h5>
+<p>WEKA 虽然不能读取 Excel 文件，但是它可以读取 csv
+文件。更加值得庆幸的是， Excel 也可以读写 csv 文件。比如示例文件
+test.xls 是 Excel 文件。数据的第一行说明了
+每一列是什么内容，之后共有四行数据。我们可以将这个 Excel 文件另存为 csv
+文件，起名 为 test.csv。csv
+文件是用逗号分隔各列的纯文本文件，可以用记事本打开，也可以用 Excel
+打开，还可以用 WEKA 的 Arff viewer 打开。用 WEKA 的 Arff viewer 打开
+test.csv 之后， 就可以通过 save as（另存为）将数据保存为 ARFF
+文件了，起名为 test.arff。用记事 本打开 test.arff，可以看到 WEKA
+将文件名作为关系的名字，并且根据原来 Excel 里第
+一行的内容自动定义了属性，并根据后面数据的情况，自动给属性分配了属性类型。注意，
+自动分配的属性类型可能不准确。比如
+name（名字）这个属性，很显然不应该是标称型的，
+而应该是字符串型的，所以需要人工更正。接下来的数据部分会自动用逗号分隔，缺失数据
+也会自动填补问号</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 174; 
+			flex-basis: 417px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId95.png" data-size="1043x599">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId95.png"
+			width="1043"
+			height="599"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId95_hu8d5b484972389c1962464070ef98f830_321592_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId95_hu8d5b484972389c1962464070ef98f830_321592_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.3501115485564306in&rdquo;}</p>
+<h4 id="explorer界面介绍">Explorer界面介绍</h4>
+<p>数据准备好了，我们可以开始挖掘了。 WEKA 主窗口打开 Explorer
+界面。Explorer 界面可以帮助我们完成数据预处理和各种挖 掘任务。点 open
+file，载入我们要挖掘的数据，weather_numeric.arff 文件</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 171; 
+			flex-basis: 412px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId100.png" data-size="982x571">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId100.png"
+			width="982"
+			height="571"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId100_hudb084e335e65ccaefe30b5927764d704_328099_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId100_hudb084e335e65ccaefe30b5927764d704_328099_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.3918864829396327in&rdquo;}</p>
+<p>数据 载入后，整个界面根据功能不同，可分成 8 个区域</p>
+<ul>
+<li>区域 1
+的几个选项卡是用来切换不同的挖掘任务面板的。我们当前所处的面板是数据预
+处理面板，可对数据进行预览和预处理。后面还有分类任务面板，聚类任务面板等</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 176; 
+			flex-basis: 423px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId103.png" data-size="987x559">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId103.png"
+			width="987"
+			height="559"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId103_hud9bb8c8074526851274dee2f123a67bf_262761_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId103_hud9bb8c8074526851274dee2f123a67bf_262761_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.303781714785652in&rdquo;}</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 186; 
+			flex-basis: 447px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId106.png" data-size="634x340">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId106.png"
+			width="634"
+			height="340"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId106_hucc0a5f1677db7c6c959d2ce68c940a4a_92276_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId106_hucc0a5f1677db7c6c959d2ce68c940a4a_92276_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.1282852143482063in&rdquo;}</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li></li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 172; 
+			flex-basis: 413px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId109.png" data-size="652x378">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId109.png"
+			width="652"
+			height="378"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId109_hu4eafb45c36c1da7814135f0d3f36dfbb_103497_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId109_hu4eafb45c36c1da7814135f0d3f36dfbb_103497_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.381901793525809in&rdquo;}</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li></li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 163; 
+			flex-basis: 391px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId112.png" data-size="547x335">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId112.png"
+			width="547"
+			height="335"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId112_hua5c80e311510a569a1682c0ea3b0facd_94673_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId112_hua5c80e311510a569a1682c0ea3b0facd_94673_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.572516404199475in&rdquo;}</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li></li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 150; 
+			flex-basis: 361px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId115.png" data-size="650x432">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId115.png"
+			width="650"
+			height="432"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId115_hu4bb683beebd39bd4c2788706cfb8875b_147331_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId115_hu4bb683beebd39bd4c2788706cfb8875b_147331_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.876922572178478in&rdquo;}</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li></li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 101; 
+			flex-basis: 243px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId118.png" data-size="582x574">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId118.png"
+			width="582"
+			height="574"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId118_hu8ecf769e55dcb146a739d48867635783_187406_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId118_hu8ecf769e55dcb146a739d48867635783_187406_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;5.753149606299212in&rdquo;}</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li></li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li>
+<p>区域7 下方的直方图会给出具有不同outlook标称的实例中play 是yes 和no
+的分布情况。 比如 outlook 是 sunny 的这五条实例中，play 是 yes
+的是蓝色这些，play 是 no 的是红色这些。 outlook 是 overcast 这 4
+条实例中，play 都 是蓝色的，也就是都是 yes。Outlook 是 rainy 的 5
+条实例中，play 是 yes 的是蓝色的三条， play 是 no 的是红色的两条</p>
+</li>
+<li>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 186; 
+			flex-basis: 448px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId121.png" data-size="588x315">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId121.png"
+			width="588"
+			height="315"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId121_hu0bd4e0dcb4d9b9081bfc093fd832f4eb_123817_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId121_hu0bd4e0dcb4d9b9081bfc093fd832f4eb_123817_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.125in&rdquo;}</p>
+</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li></li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li>
+<p>现在我们点 Visualize All
+看一下所有属性的直方图。这时看到，标称型属性和数值型属
+性的直方图是有差别的，数值型的直方图是根据平均值划分出两个区段，分别统计每个区段
+里 class 属性的分布。</p>
+</li>
+<li>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 167; 
+			flex-basis: 402px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId124.png" data-size="1000x596">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId124.png"
+			width="1000"
+			height="596"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId124_hua575112677ff179080666535bf4ebe23_155113_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId124_hua575112677ff179080666535bf4ebe23_155113_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.4766666666666666in&rdquo;}</p>
+</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li></li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 158; 
+			flex-basis: 379px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId127.png" data-size="593x375">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId127.png"
+			width="593"
+			height="375"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId127_hu92688ea5273a0bd269c7996c9a0ad887_117574_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId127_hu92688ea5273a0bd269c7996c9a0ad887_117574_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.688869203849519in&rdquo;}</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li></li>
+</ul>
+<h4 id="数据预处理">数据预处理</h4>
+<p>在进行挖掘任务之前，通常还需要对数据进行预处理，比如更换属性类型或者增加删减
+属性等。这些预处理工作主要是通过 Explorer 界面下的 Filter
+下拉菜单里的各种函数来实现
+的。比如在实际应用中，我们经常会需要把数值型的属性改成标称型的属性。这时可以用
+Filter 下的 unsupervised 下的 attribute 下的 discretize 离散化函数来实现</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 172; 
+			flex-basis: 413px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId131.png" data-size="1005x584">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId131.png"
+			width="1005"
+			height="584"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId131_huddec2e9cbfc9bbf12ebec6bc6bf4ca58_249017_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId131_huddec2e9cbfc9bbf12ebec6bc6bf4ca58_249017_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.389717847769029in&rdquo;}</p>
+<p>选中 discretize 函数后，点击选中后出现的参数框。弹出参数设置窗口。从
+AttributeIndices
+（属性代号参数）指定要更改哪个属性的属性类型。比如我们更改第二个属性
+temperature （温度）和第三个属性
+humidity（湿度），这两个数值型的属性，那么这里就写&quot;2,3&quot;。</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 174; 
+			flex-basis: 417px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId134.png" data-size="994x571">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId134.png"
+			width="994"
+			height="571"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId134_hud44408db88f60a7a3b8c49306f41370a_326762_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId134_hud44408db88f60a7a3b8c49306f41370a_326762_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.350938320209974in&rdquo;}</p>
+<p>discretize
+函数会将所有实例中对应属性下的数值离散化成几个区段，每个区段赋予一个标称，同一区
+段里的数值都转化成这一区段的标称。所以我们还需要指定一下，要离散化成几个区段。这
+里我们定为 3 个，那么新属性将具有 3 个标称。其他参数不变，点
+ok，窗口关闭，再点 apply</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 425px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId137.png" data-size="1011x570">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId137.png"
+			width="1011"
+			height="570"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId137_hue9d4eb010056fbe84f29673cbc1c2d3e_314782_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId137_hue9d4eb010056fbe84f29673cbc1c2d3e_314782_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.28882217847769in&rdquo;}</p>
+<p>现在看一下
+temperature（温度）这个属性，原来是数值型的。离散化函数处理之后，变
+成了标称型。函数将所有温度数值离散化成了三个区段，&rsquo;(-inf-71]&rsquo;（温度值小于
+71）
+的都归入了第一区段，拥有第一个标称。标称的具体写法虽然怪异，但是它很清楚的告诉了
+我们哪些数值归入了第一个标称。&rsquo;(71-78]&rsquo;（温度值在 71 到 78
+之间）的归入第二区段， 拥有第二个标称；&rsquo;(78-inf)&rsquo;（温度值大于
+78）的归入第三区段，拥有第三个标称</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 198; 
+			flex-basis: 476px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId140.png" data-size="595x300">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId140.png"
+			width="595"
+			height="300"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId140_hu2013907b27dc8b9183b776a862a5f751_110028_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId140_hu2013907b27dc8b9183b776a862a5f751_110028_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;2.941175634295713in&rdquo;}</p>
+<p>可以看到，现在标称型的温度属性的直方图已经变成三个离散的柱子了，而不再是根据
+平均值划分统计了。除了 discretize 离散化函数，NumericToNominal
+函数也可以将数值型的
+属性转化成标称型。这两个函数虽然达到的最终目的是一样的，但是具体的转化方法是不一
+样的。究竟哪里不一样，请大家自己尝试比较一下</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 173; 
+			flex-basis: 415px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId143.png" data-size="1019x589">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId143.png"
+			width="1019"
+			height="589"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId143_hud44c5904de6f98038bd2e524530315a7_332497_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId143_hud44c5904de6f98038bd2e524530315a7_332497_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.3717694663167106in&rdquo;}</p>
+<p>通过 AddExpression
+函数可以增加一个属性。比如增加新属性的值等于温度除以湿度。 重新打开
+weather_numeric.arff 文件。此时，温度和湿度的属性都是数值型的。Filter
+→unsupervised→attribute→AddExpression。从参数设置窗口设置新属性的公式，温度除以湿
+度，也就是第二个属性 a2 除以第三个属性 a3，即a2/a3。再定义新属性的名字为
+temp/humi。 点 ok，点
+apply，新属性就产生了。<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 174; 
+			flex-basis: 417px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId146.png" data-size="1036x595">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId146.png"
+			width="1036"
+			height="595"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId146_hucfb818cd3986eabf3ba9bcfaaca04e1b_321435_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId146_hucfb818cd3986eabf3ba9bcfaaca04e1b_321435_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.350224190726159in&rdquo;}</p>
+<p>注意新创建的属性都会添加在属性列表的最后，这就会 影响 WEKA 对 class
+属性的判断，需要手动将 class 属性重新选为 play</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 179; 
+			flex-basis: 431px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId149.png" data-size="1024x569">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId149.png"
+			width="1024"
+			height="569"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId149_hu3537b243350d21e43a38ea124b3a3da7_325992_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId149_hu3537b243350d21e43a38ea124b3a3da7_325992_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.241373578302712in&rdquo;}</p>
+<h3 id="执行挖掘任务">执行挖掘任务</h3>
+<p>WEKA
+把分类和回归两种挖掘任务都放在&quot;Classify&quot;选项卡中，是有原因的。因为这
+两种挖掘任务都有一个目标属性，也就是输出变量，并且都是根据实例的一组特征属性，也
+就是输入变量，对目标属性进行预测。比如之前讲过的分类例子是根据各种天气特征属性预
+测是否打球这个目标属性。回归例子里是根据房屋特征属性来预测房屋价格这个目标属性。
+为了实现这一目的，首先需要有一个训练数据集，这个数据集中每个实例的输入和输出都是
+已知的。观察训练集中的实例，可以建立起预测模型。有了这个模型，就可以对新的输出未
+知的数据进行预测了。衡量模型的好坏就在于预测的准确程度如何。目标属性是标称型的，
+就是分类任务，目标属性是数值型的就是回归任务。</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 181; 
+			flex-basis: 435px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId154.png" data-size="1015x560">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId154.png"
+			width="1015"
+			height="560"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId154_hub98b83008cf00e7d27da980e805ed9e8_386311_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId154_hub98b83008cf00e7d27da980e805ed9e8_386311_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.218390201224847in&rdquo;}</p>
+<p>WEKA
+自带的典型分类算法有贝叶斯、人工神经网络、支持向量机、决策树等等。典
+型的回归算法有线性回归和简单线性回归等</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 174; 
+			flex-basis: 418px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId157.png" data-size="929x533">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId157.png"
+			width="929"
+			height="533"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId157_hueb7b4b50d105d41304fce396e5cf12a0_293672_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId157_hueb7b4b50d105d41304fce396e5cf12a0_293672_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.346788057742782in&rdquo;}</p>
+<p>一个具体的任务</p>
+<p>WEKA 的安装目录下有一个有关糖尿病的 ARFF 文件：WEKA 安装目录/data
+/diabetes.arff。里面记录了 768 位 21 岁以上女性的 8
+种生理指标跟糖尿病检测结果是
+阴性还是阳性之间的关系。我们要用这组数据来创建一个预测模型，通过这个模型只要输入
+某位未做过糖尿病检测的女士的这 8 种生理指标就可以预测出她是否患有糖尿病</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 191; 
+			flex-basis: 459px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId160.png" data-size="588x307">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId160.png"
+			width="588"
+			height="307"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId160_hu03c6179bff903b30e78d0a621c2e8858_190765_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId160_hu03c6179bff903b30e78d0a621c2e8858_190765_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.045634295713036in&rdquo;}</p>
+<p>具体的操作</p>
+<p>Explorer 界面下，首先从 preprocess 标签下打开，diabetes.arff
+文件，导入数据。然后在 classify 标签下选择分类算法。选
+classifiers→tree（决策树）→random tree（随机决策树）来
+创建预测模型。预测模型准确度的检验方法选 10
+次交叉检验，再次确认目标属性是否选择 正确。最后点
+start。任务开始后会看到 WEKA 鸟走了两步又坐下了，说明任务完成</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 265; 
+			flex-basis: 637px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId163.png" data-size="1400x527">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId163.png"
+			width="1400"
+			height="527"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId163_hu4d1c2174e20d5090e5bd7718988b3642_384019_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId163_hu4d1c2174e20d5090e5bd7718988b3642_384019_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;2.1958333333333333in&rdquo;}</p>
+<p>任务完成后，output
+窗口里显示出了一个文本形式的决策树。这样的决策树方便进一步
+编写程序以实现预测模型的自动化。此外，还有图形样式的决策树。从任务列表里找到刚刚
+完成的任务，右键点击，选 Visualize
+Tree。这时一棵图形化的决策树就出现了。因为树太大，
+窗口又太小，所以全都挤在一起了。为了看清楚，可以放大窗口，再右键点击，选
+fit to screen 将树放大<br>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 178; 
+			flex-basis: 429px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId166.png" data-size="839x469">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId166.png"
+			width="839"
+			height="469"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId166_hu69776853c22a0816d30cf4b7e58d4cae_208064_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId166_hu69776853c22a0816d30cf4b7e58d4cae_208064_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.260825678040245in&rdquo;}</p>
+<p>有了这棵树，我们只需要输入 8
+种生理指标，就可以从树根开始一层一层的判断直到末
+端的叶子。叶子上写的总是目标属性，也就是预测的糖尿病检测结果是阴性还是阳性。</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 254; 
+			flex-basis: 609px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId169.png" data-size="917x361">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId169.png"
+			width="917"
+			height="361"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId169_hu5b5c991c4f81a7bbed306d5bfbbec352_149770_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId169_hu5b5c991c4f81a7bbed306d5bfbbec352_149770_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;2.2964370078740157in&rdquo;}</p>
+<p>有了预测模型只是第一步，我们还需要知道预测模型的准确度如何，也就是判断模型是
+否可信。10
+次交叉检验的返回结果告诉我们，交叉检验下，68%的实例能够预测出正确结果，
+32%的预测结果是错误的。除此之外，还提供了其他很多准确度衡量参数。交叉检验后得出的
+Confusion Matirx 是个很有用的矩阵。它提供了 TPFPTNFN
+的统计值，用以计算上述的各 种准确度衡量参数<br>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 102; 
+			flex-basis: 245px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId172.png" data-size="606x593">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId172.png"
+			width="606"
+			height="593"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId172_hu377ea1bf4aaef51997882ddd58e76844_241360_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId172_hu377ea1bf4aaef51997882ddd58e76844_241360_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;5.708195538057743in&rdquo;}</p>
+<p>由此得出的 TP、FP、TN、FN 可以带入公式计算各种准确度衡量参数，包括
+sensitivity 和 specificity。当把 test_negative
+定义为阳性结果，test_positive 定义为阴性结果的时候，会得 出另外一套
+TP、FP、TN、FN，从而计算出另一套准确度衡量参数。两次统计结果可分别
+体现出目标属性中每个标称的预测质量</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 92; 
+			flex-basis: 221px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId175.png" data-size="711x771">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId175.png"
+			width="711"
+			height="771"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId175_hu3ad09f7d2a616b8618eb320a9b8018ec_310627_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/media/rId175_hu3ad09f7d2a616b8618eb320a9b8018ec_310627_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;6.325597112860892in&rdquo;}</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/tutorials/">tutorials</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2022 - 
+        
+        2023 叶宇浩随记博客
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.5.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">Table of contents</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#生物数据挖掘这章讲的有点水">生物数据挖掘（这章讲的有点水）</a>
+      <ol>
+        <li><a href="#数据库系统">数据库系统</a></li>
+        <li><a href="#机器学习">机器学习</a>
+          <ol>
+            <li><a href="#主要任务">主要任务</a></li>
+            <li><a href="#k次交叉检验">K次交叉检验</a></li>
+            <li><a href="#常见算法">常见算法</a></li>
+          </ol>
+        </li>
+        <li><a href="#weka">WEKA</a>
+          <ol>
+            <li><a href="#weak中的术语">WEAK中的术语</a></li>
+            <li><a href="#arff文件的格式">ARFF文件的格式</a></li>
+            <li><a href="#属性类型和转换">属性类型和转换</a></li>
+            <li><a href="#explorer界面介绍">Explorer界面介绍</a></li>
+            <li><a href="#数据预处理">数据预处理</a></li>
+          </ol>
+        </li>
+        <li><a href="#执行挖掘任务">执行挖掘任务</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

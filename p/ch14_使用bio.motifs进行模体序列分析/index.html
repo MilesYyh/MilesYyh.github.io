@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='biopython官方教程学习笔记'><title>ch14_使用Bio.motifs进行模体序列分析</title>
+
+<link rel='canonical' href='https://example.com/p/ch14_%E4%BD%BF%E7%94%A8bio.motifs%E8%BF%9B%E8%A1%8C%E6%A8%A1%E4%BD%93%E5%BA%8F%E5%88%97%E5%88%86%E6%9E%90/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='ch14_使用Bio.motifs进行模体序列分析'>
+<meta property='og:description' content='biopython官方教程学习笔记'>
+<meta property='og:url' content='https://example.com/p/ch14_%E4%BD%BF%E7%94%A8bio.motifs%E8%BF%9B%E8%A1%8C%E6%A8%A1%E4%BD%93%E5%BA%8F%E5%88%97%E5%88%86%E6%9E%90/'>
+<meta property='og:site_name' content='叶宇浩随记博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='tutorials' /><meta property='article:published_time' content='2021-08-14T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-08-14T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="ch14_使用Bio.motifs进行模体序列分析">
+<meta name="twitter:description" content="biopython官方教程学习笔记">
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>Back</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/biopython/" style="background-color: #002be1; color: #fff;">
+                生物编程
+            </a>
+        
+            <a href="/categories/bioinformatic/" style="background-color: #7816ff; color: #fff;">
+                生物信息学&amp;计算生物学
+            </a>
+        
+            <a href="/categories/protein_design/" style="background-color: #0938ff; color: #fff;">
+                蛋白设计
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/ch14_%E4%BD%BF%E7%94%A8bio.motifs%E8%BF%9B%E8%A1%8C%E6%A8%A1%E4%BD%93%E5%BA%8F%E5%88%97%E5%88%86%E6%9E%90/">ch14_使用Bio.motifs进行模体序列分析</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        biopython官方教程学习笔记
+    </h3>
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Aug 14, 2021</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    13 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <p><strong>biopython官方地址：</strong><a class="link" href="https://biopython.org/"  target="_blank" rel="noopener"
+    ><strong>https://biopython.org/</strong></a></p>
+<p><strong>github地址：</strong><a class="link" href="https://github.com/biopython/biopython/blob/master/README.rst"  target="_blank" rel="noopener"
+    ><strong>https://github.com/biopython/biopython/blob/master/</strong></a></p>
+<p><strong>中文版教程：</strong><a class="link" href="https://biopython-cn.readthedocs.io/zh_CN/latest/cn/chr06.html"  target="_blank" rel="noopener"
+    ><strong>https://biopython-cn.readthedocs.io/zh_CN/latest/cn/chr06.html</strong></a></p>
+<p><strong>biopython包的说明（具体到每个模块了）：</strong><a class="link" href="https://www.osgeo.cn/biopython/Bio.HMM.DynamicProgramming.html"  target="_blank" rel="noopener"
+    ><strong>https://www.osgeo.cn/biopython/Bio.HMM.DynamicProgramming.html</strong></a></p>
+<p>这章主要的介绍Biopython中的 Bio.motifs 包。这个包是为了方便那些需要进行模体序列分析的人们而特意提供的，所以我想你们在使用时肯定对模体序列分析的一些相关要点都很熟悉。假如在使用中遇到不清楚的地方，请您查阅 相关章节以获得有关的信息。<br>
+这章的大部分内容是介绍Biopython 1.61 之前版本中新加入的 Bio.motifs 包，该包替代了Biopython 1.50版本中的 Bio.Motif 包，而 Bio.Motif 包是基于较早版本的Biopython 中的两个模块 Bio.AlignAce 和 Bio.MEME 。Bio.motifs 包较好地综合了上述的几个模块的功能，做为一个统一模块工具。<br>
+说到其他库，看到这里，你或许会对 <a class="link" href="http://fraenkel.mit.edu/TAMO/"  target="_blank" rel="noopener"
+    >TAMO</a> 感兴趣，这是另一个分析模体序列的Python库。它能提供更多关于 <em>de-novo</em> 模体的查找方式，不过它并没有纳入到Biopython中，而且在商业用途上还有一些限制</p>
+<h2 id="模体对象">模体对象</h2>
+<p>由于我们感兴趣的是模体分析，所以我们需要先看看 Motif 对象。对此我们需要先导入Bio.motifs包：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio</span> <span class="kn">import</span> <span class="n">motifs</span>
+</span></span></code></pre></div><p>然后我们可以开始创建我们第一个模体对象。我们可以从模体的实例列表中创建一个 Motif 对象，也可以通过读取模体数据库中或模体查找软件产生的文件来获得一个 Motif 对象</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio</span> <span class="kn">import</span> <span class="n">motifs</span>
+</span></span></code></pre></div><h2 id="从实例中创建一个模体">从实例中创建一个模体</h2>
+<p>假设我们有一些DNA模体的实例</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio.Seq</span> <span class="kn">import</span> <span class="n">Seq</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">instances</span> <span class="o">=</span> <span class="p">[</span><span class="n">Seq</span><span class="p">(</span><span class="s2">&#34;TACAA&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>              <span class="n">Seq</span><span class="p">(</span><span class="s2">&#34;TACGC&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>              <span class="n">Seq</span><span class="p">(</span><span class="s2">&#34;TACAC&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>              <span class="n">Seq</span><span class="p">(</span><span class="s2">&#34;TACCC&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>              <span class="n">Seq</span><span class="p">(</span><span class="s2">&#34;AACCC&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>              <span class="n">Seq</span><span class="p">(</span><span class="s2">&#34;AATGC&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>              <span class="n">Seq</span><span class="p">(</span><span class="s2">&#34;AATGC&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>             <span class="p">]</span>
+</span></span></code></pre></div><p>然后我们可以如下创建一个模体对象：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">m</span> <span class="o">=</span> <span class="n">motifs</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">instances</span><span class="p">)</span>
+</span></span></code></pre></div><p>这些实例被存储在一个名为 m.instances 的属性中，这个其实也就是一个Python的列表，只不过附加了一些功能，这些功能将在之后介绍。将这些模体对象打印出来后就可以看出这些实例是从哪构建出来的。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="n">m</span>
+</span></span><span class="line"><span class="cl"><span class="n">TACAA</span>
+</span></span><span class="line"><span class="cl"><span class="n">TACGC</span>
+</span></span><span class="line"><span class="cl"><span class="n">TACAC</span>
+</span></span><span class="line"><span class="cl"><span class="n">TACCC</span>
+</span></span><span class="line"><span class="cl"><span class="n">AACCC</span>
+</span></span><span class="line"><span class="cl"><span class="n">AATGC</span>
+</span></span><span class="line"><span class="cl"><span class="n">AATGC</span>
+</span></span></code></pre></div><p>模体的长度像其他一些实例一些被定义为序列的长度：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="mi">5</span>
+</span></span></code></pre></div><p>模体对象有一个 .counts 属性，可以用来查看碱基在每个位置的数目。可以把这个统计表用易读的格式打印出来：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="n">m</span><span class="o">.</span><span class="n">counts</span>
+</span></span><span class="line"><span class="cl">        <span class="mi">0</span>      <span class="mi">1</span>      <span class="mi">2</span>      <span class="mi">3</span>      <span class="mi">4</span>
+</span></span><span class="line"><span class="cl"><span class="n">A</span><span class="p">:</span>   <span class="mf">3.00</span>   <span class="mf">7.00</span>   <span class="mf">0.00</span>   <span class="mf">2.00</span>   <span class="mf">1.00</span>
+</span></span><span class="line"><span class="cl"><span class="n">C</span><span class="p">:</span>   <span class="mf">0.00</span>   <span class="mf">0.00</span>   <span class="mf">5.00</span>   <span class="mf">2.00</span>   <span class="mf">6.00</span>
+</span></span><span class="line"><span class="cl"><span class="n">G</span><span class="p">:</span>   <span class="mf">0.00</span>   <span class="mf">0.00</span>   <span class="mf">0.00</span>   <span class="mf">3.00</span>   <span class="mf">0.00</span>
+</span></span><span class="line"><span class="cl"><span class="n">T</span><span class="p">:</span>   <span class="mf">4.00</span>   <span class="mf">0.00</span>   <span class="mf">2.00</span>   <span class="mf">0.00</span>   <span class="mf">0.00</span>
+</span></span></code></pre></div><p>你也可以像使用字典一样获取这些数目：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">m</span><span class="o">.</span><span class="n">counts</span><span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+</span></span></code></pre></div><p>但是你也可以把它看成一个二维数列，核苷酸作为列，位置作为行：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">m</span><span class="o">.</span><span class="n">counts</span><span class="p">[</span><span class="s1">&#39;T&#39;</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="mi">4</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">m</span><span class="o">.</span><span class="n">counts</span><span class="p">[</span><span class="s1">&#39;T&#39;</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="mi">2</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">m</span><span class="o">.</span><span class="n">counts</span><span class="p">[</span><span class="s1">&#39;T&#39;</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="mi">0</span>
+</span></span></code></pre></div><p>你还可以直接获得核苷酸数目矩阵中的列</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">m</span><span class="o">.</span><span class="n">counts</span><span class="p">[:,</span><span class="mi">3</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span><span class="s1">&#39;A&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;T&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;G&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}</span>
+</span></span></code></pre></div><p>除了使用核苷酸本身，你还可以使用模体碱基序列按字符排序后的核苷酸索引：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">m</span><span class="o">.</span><span class="n">alphabet</span>
+</span></span><span class="line"><span class="cl"><span class="n">IUPACUnambiguousDNA</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">m</span><span class="o">.</span><span class="n">alphabet</span><span class="o">.</span><span class="n">letters</span>
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;GATC&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">alphabet</span><span class="o">.</span><span class="n">letters</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="s1">&#39;G&#39;</span><span class="p">,</span> <span class="s1">&#39;T&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">m</span><span class="o">.</span><span class="n">counts</span><span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,:]</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">m</span><span class="o">.</span><span class="n">counts</span><span class="p">[</span><span class="mi">0</span><span class="p">,:]</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</span></span></code></pre></div><p>模体有一个相关联的一致序列，这个序列被定义为由 .counts 矩阵相应列中具有最大值的碱基，这些碱基是按模体序列排列的</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">m</span><span class="o">.</span><span class="n">consensus</span>
+</span></span><span class="line"><span class="cl"><span class="n">Seq</span><span class="p">(</span><span class="s1">&#39;TACGC&#39;</span><span class="p">,</span> <span class="n">IUPACUnambiguousDNA</span><span class="p">())</span>
+</span></span></code></pre></div><p>反一致序列也一样，只不过是由 .counts 矩阵中相应列的最小值来选：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">m</span><span class="o">.</span><span class="n">anticonsensus</span>
+</span></span><span class="line"><span class="cl"><span class="n">Seq</span><span class="p">(</span><span class="s1">&#39;GGGTG&#39;</span><span class="p">,</span> <span class="n">IUPACUnambiguousDNA</span><span class="p">())</span>
+</span></span></code></pre></div><p>你也可以利用简并一致序列，用不确定核苷酸来表示序列某一位置的所有核苷酸：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">m</span><span class="o">.</span><span class="n">degenerate_consensus</span>
+</span></span><span class="line"><span class="cl"><span class="n">Seq</span><span class="p">(</span><span class="s1">&#39;WACVC&#39;</span><span class="p">,</span> <span class="n">IUPACAmbiguousDNA</span><span class="p">())</span>
+</span></span></code></pre></div><p>此处，W和R都是按照IUPAC不确定核苷酸表规定的：W代表A或T，V代表A，C或G [<a class="link" href="https://biopython-cn.readthedocs.io/zh_CN/latest/cn/chr23.html#cornish1985"  target="_blank" rel="noopener"
+    >10</a>] 。这些简并一致序列是按照Cavener指定的规则 [<a class="link" href="https://biopython-cn.readthedocs.io/zh_CN/latest/cn/chr23.html#cavener1987"  target="_blank" rel="noopener"
+    >11</a>] 来建立的</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">r</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">reverse_complement</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">r</span><span class="o">.</span><span class="n">consensus</span>
+</span></span><span class="line"><span class="cl"><span class="n">Seq</span><span class="p">(</span><span class="s1">&#39;GCGTA&#39;</span><span class="p">,</span> <span class="n">IUPACUnambiguousDNA</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">r</span><span class="o">.</span><span class="n">degenerate_consensus</span>
+</span></span><span class="line"><span class="cl"><span class="n">Seq</span><span class="p">(</span><span class="s1">&#39;GBGTW&#39;</span><span class="p">,</span> <span class="n">IUPACAmbiguousDNA</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="n">r</span>
+</span></span><span class="line"><span class="cl"><span class="n">TTGTA</span>
+</span></span><span class="line"><span class="cl"><span class="n">GCGTA</span>
+</span></span><span class="line"><span class="cl"><span class="n">GTGTA</span>
+</span></span><span class="line"><span class="cl"><span class="n">GGGTA</span>
+</span></span><span class="line"><span class="cl"><span class="n">GGGTT</span>
+</span></span><span class="line"><span class="cl"><span class="n">GCATT</span>
+</span></span><span class="line"><span class="cl"><span class="n">GCATT</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#反向互补序列和简并一致序列都只在DNA模体中有</span>
+</span></span></code></pre></div><h2 id="读取模体">读取模体</h2>
+<p>从实例手动创建一个模体确实有点无趣，所以用一些I/O函数来读写模体是很有用的。目前对于如何存储模体还没有一些真正的标准，不过有一些格式用得比其他更经常。这其中最重要的区别在于模体表示是基于实例还是某种PWM矩阵<br>
+<strong>JASPAR</strong><br>
+作为一个最流行的模体数据库 <a class="link" href="http://jaspar.genereg.net/"  target="_blank" rel="noopener"
+    >JASPAR</a> 它不是以一系列的实例就是频率矩阵。比如，下面就是JASPAR Arnt.sites 文件的开头和结尾行显示了老鼠螺旋-环-螺旋转录因子Arnt的结合位点：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;</span><span class="n">MA0004</span> <span class="n">ARNT</span>    <span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="n">CACGTGatgtcctc</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;</span><span class="n">MA0004</span> <span class="n">ARNT</span>    <span class="mi">2</span>
+</span></span><span class="line"><span class="cl"><span class="n">CACGTGggaggtac</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;</span><span class="n">MA0004</span> <span class="n">ARNT</span>    <span class="mi">3</span>
+</span></span><span class="line"><span class="cl"><span class="n">CACGTGccgcgcgc</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;</span><span class="n">MA0004</span> <span class="n">ARNT</span>    <span class="mi">18</span>
+</span></span><span class="line"><span class="cl"><span class="n">AACGTGacagccctcc</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;</span><span class="n">MA0004</span> <span class="n">ARNT</span>    <span class="mi">19</span>
+</span></span><span class="line"><span class="cl"><span class="n">AACGTGcacatcgtcc</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;</span><span class="n">MA0004</span> <span class="n">ARNT</span>    <span class="mi">20</span>
+</span></span><span class="line"><span class="cl"><span class="n">aggaatCGCGTGc</span><span class="err">```</span>
+</span></span><span class="line"><span class="cl"><span class="n">那些用大字字母表示的序列的一部分就是被用来相互比对的模体实例</span><span class="err">。</span>  
+</span></span><span class="line"><span class="cl"><span class="n">我们可以从下面的实例创建一个</span> <span class="n">Motif</span> <span class="n">对象</span><span class="err">：</span>
+</span></span><span class="line"><span class="cl"><span class="err">```</span><span class="n">python</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio</span> <span class="kn">import</span> <span class="n">motifs</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">arnt</span> <span class="o">=</span> <span class="n">motifs</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s2">&#34;Arnt.sites&#34;</span><span class="p">),</span> <span class="s2">&#34;sites&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><p>从这个模体创建的实例存储在该模体的 .instances 属性：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="n">arnt</span><span class="o">.</span><span class="n">instances</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="n">Seq</span><span class="p">(</span><span class="s1">&#39;CACGTG&#39;</span><span class="p">,</span> <span class="n">IUPACUnambiguousDNA</span><span class="p">()),</span> <span class="n">Seq</span><span class="p">(</span><span class="s1">&#39;CACGTG&#39;</span><span class="p">,</span> <span class="n">IUPACUnambiguousDNA</span><span class="p">()),</span> <span class="n">Seq</span><span class="p">(</span><span class="s1">&#39;CACGTG&#39;</span><span class="p">,</span> <span class="n">IUPACUnambiguousDNA</span><span class="p">())]</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">instance</span> <span class="ow">in</span> <span class="n">arnt</span><span class="o">.</span><span class="n">instances</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>     <span class="nb">print</span> <span class="n">instance</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="n">CACGTG</span>
+</span></span><span class="line"><span class="cl"><span class="n">CACGTG</span>
+</span></span><span class="line"><span class="cl"><span class="n">CACGTG</span>
+</span></span><span class="line"><span class="cl"><span class="n">CACGTG</span>
+</span></span><span class="line"><span class="cl"><span class="n">CACGTG</span>
+</span></span><span class="line"><span class="cl"><span class="n">CACGTG</span>
+</span></span><span class="line"><span class="cl"><span class="n">CACGTG</span>
+</span></span><span class="line"><span class="cl"><span class="n">CACGTG</span>
+</span></span><span class="line"><span class="cl"><span class="n">CACGTG</span>
+</span></span><span class="line"><span class="cl"><span class="n">CACGTG</span>
+</span></span><span class="line"><span class="cl"><span class="n">CACGTG</span>
+</span></span><span class="line"><span class="cl"><span class="n">CACGTG</span>
+</span></span><span class="line"><span class="cl"><span class="n">CACGTG</span>
+</span></span><span class="line"><span class="cl"><span class="n">CACGTG</span>
+</span></span><span class="line"><span class="cl"><span class="n">CACGTG</span>
+</span></span><span class="line"><span class="cl"><span class="n">AACGTG</span>
+</span></span><span class="line"><span class="cl"><span class="n">AACGTG</span>
+</span></span><span class="line"><span class="cl"><span class="n">AACGTG</span>
+</span></span><span class="line"><span class="cl"><span class="n">AACGTG</span>
+</span></span><span class="line"><span class="cl"><span class="n">CGCGTG</span>
+</span></span></code></pre></div><p>这个模体的计数矩阵可以从这些实例中自动计算出来：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="n">arnt</span><span class="o">.</span><span class="n">counts</span>
+</span></span><span class="line"><span class="cl">        <span class="mi">0</span>      <span class="mi">1</span>      <span class="mi">2</span>      <span class="mi">3</span>      <span class="mi">4</span>      <span class="mi">5</span>
+</span></span><span class="line"><span class="cl"><span class="n">A</span><span class="p">:</span>   <span class="mf">4.00</span>  <span class="mf">19.00</span>   <span class="mf">0.00</span>   <span class="mf">0.00</span>   <span class="mf">0.00</span>   <span class="mf">0.00</span>
+</span></span><span class="line"><span class="cl"><span class="n">C</span><span class="p">:</span>  <span class="mf">16.00</span>   <span class="mf">0.00</span>  <span class="mf">20.00</span>   <span class="mf">0.00</span>   <span class="mf">0.00</span>   <span class="mf">0.00</span>
+</span></span><span class="line"><span class="cl"><span class="n">G</span><span class="p">:</span>   <span class="mf">0.00</span>   <span class="mf">1.00</span>   <span class="mf">0.00</span>  <span class="mf">20.00</span>   <span class="mf">0.00</span>  <span class="mf">20.00</span>
+</span></span><span class="line"><span class="cl"><span class="n">T</span><span class="p">:</span>   <span class="mf">0.00</span>   <span class="mf">0.00</span>   <span class="mf">0.00</span>   <span class="mf">0.00</span>  <span class="mf">20.00</span>   <span class="mf">0.00</span>
+</span></span></code></pre></div><p>JASPAR数据库也可以让模体像计数矩阵一样获得，不需要那些创建它们的实例。比如，下面这个JASPAR文件 SRF.pfm 包含了人类SRF转录因子的计数矩阵：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"> <span class="mi">2</span>  <span class="mi">9</span>  <span class="mi">0</span>  <span class="mi">1</span> <span class="mi">32</span>  <span class="mi">3</span> <span class="mi">46</span>  <span class="mi">1</span> <span class="mi">43</span> <span class="mi">15</span>  <span class="mi">2</span>  <span class="mi">2</span>
+</span></span><span class="line"><span class="cl"> <span class="mi">1</span> <span class="mi">33</span> <span class="mi">45</span> <span class="mi">45</span>  <span class="mi">1</span>  <span class="mi">1</span>  <span class="mi">0</span>  <span class="mi">0</span>  <span class="mi">0</span>  <span class="mi">1</span>  <span class="mi">0</span>  <span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="mi">39</span>  <span class="mi">2</span>  <span class="mi">1</span>  <span class="mi">0</span>  <span class="mi">0</span>  <span class="mi">0</span>  <span class="mi">0</span>  <span class="mi">0</span>  <span class="mi">0</span>  <span class="mi">0</span> <span class="mi">44</span> <span class="mi">43</span>
+</span></span><span class="line"><span class="cl"> <span class="mi">4</span>  <span class="mi">2</span>  <span class="mi">0</span>  <span class="mi">0</span> <span class="mi">13</span> <span class="mi">42</span>  <span class="mi">0</span> <span class="mi">45</span>  <span class="mi">3</span> <span class="mi">30</span>  <span class="mi">0</span>  <span class="mi">0</span>
+</span></span></code></pre></div><p>我们可以如下为计数矩阵创建一个模体：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">srf</span> <span class="o">=</span> <span class="n">motifs</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s2">&#34;SRF.pfm&#34;</span><span class="p">),</span><span class="s2">&#34;pfm&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="n">srf</span><span class="o">.</span><span class="n">counts</span>
+</span></span><span class="line"><span class="cl">        <span class="mi">0</span>      <span class="mi">1</span>      <span class="mi">2</span>      <span class="mi">3</span>      <span class="mi">4</span>      <span class="mi">5</span>      <span class="mi">6</span>      <span class="mi">7</span>      <span class="mi">8</span>      <span class="mi">9</span>     <span class="mi">10</span>     <span class="mi">11</span>
+</span></span><span class="line"><span class="cl"><span class="n">A</span><span class="p">:</span>   <span class="mf">2.00</span>   <span class="mf">9.00</span>   <span class="mf">0.00</span>   <span class="mf">1.00</span>  <span class="mf">32.00</span>   <span class="mf">3.00</span>  <span class="mf">46.00</span>   <span class="mf">1.00</span>  <span class="mf">43.00</span>  <span class="mf">15.00</span>   <span class="mf">2.00</span>   <span class="mf">2.00</span>
+</span></span><span class="line"><span class="cl"><span class="n">C</span><span class="p">:</span>   <span class="mf">1.00</span>  <span class="mf">33.00</span>  <span class="mf">45.00</span>  <span class="mf">45.00</span>   <span class="mf">1.00</span>   <span class="mf">1.00</span>   <span class="mf">0.00</span>   <span class="mf">0.00</span>   <span class="mf">0.00</span>   <span class="mf">1.00</span>   <span class="mf">0.00</span>   <span class="mf">1.00</span>
+</span></span><span class="line"><span class="cl"><span class="n">G</span><span class="p">:</span>  <span class="mf">39.00</span>   <span class="mf">2.00</span>   <span class="mf">1.00</span>   <span class="mf">0.00</span>   <span class="mf">0.00</span>   <span class="mf">0.00</span>   <span class="mf">0.00</span>   <span class="mf">0.00</span>   <span class="mf">0.00</span>   <span class="mf">0.00</span>  <span class="mf">44.00</span>  <span class="mf">43.00</span>
+</span></span><span class="line"><span class="cl"><span class="n">T</span><span class="p">:</span>   <span class="mf">4.00</span>   <span class="mf">2.00</span>   <span class="mf">0.00</span>   <span class="mf">0.00</span>  <span class="mf">13.00</span>  <span class="mf">42.00</span>   <span class="mf">0.00</span>  <span class="mf">45.00</span>   <span class="mf">3.00</span>  <span class="mf">30.00</span>   <span class="mf">0.00</span>   <span class="mf">0.00</span>
+</span></span></code></pre></div><p>由于这个模体是由计数矩阵直接创建的，所以它没有相关的实例：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="n">srf</span><span class="o">.</span><span class="n">instances</span>
+</span></span><span class="line"><span class="cl"><span class="kc">None</span>
+</span></span></code></pre></div><p>我们可以获得这两个模体的一致序列：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="n">arnt</span><span class="o">.</span><span class="n">counts</span><span class="o">.</span><span class="n">consensus</span>
+</span></span><span class="line"><span class="cl"><span class="n">CACGTG</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="n">srf</span><span class="o">.</span><span class="n">counts</span><span class="o">.</span><span class="n">consensus</span>
+</span></span><span class="line"><span class="cl"><span class="n">GCCCATATATGG</span>
+</span></span></code></pre></div><p><strong>MEME</strong><br>
+MEME 是一个用来在一堆相关DNA或蛋白质序列中发现模体的工具。它输入一组相关DNA或蛋白质序列，输出所要求的模体。因此和JASPAR文件相比，MEME输出文件里面一般是含有多个模体。例子如下<br>
+在输出文件的开头，有一些MEME生成的关于MEME和所用MEME版本的背景信息：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">********************************************************************************</span>
+</span></span><span class="line"><span class="cl"><span class="n">MEME</span> <span class="o">-</span> <span class="n">Motif</span> <span class="n">discovery</span> <span class="n">tool</span>
+</span></span><span class="line"><span class="cl"><span class="o">********************************************************************************</span>
+</span></span><span class="line"><span class="cl"><span class="n">MEME</span> <span class="n">version</span> <span class="mf">3.0</span> <span class="p">(</span><span class="n">Release</span> <span class="n">date</span><span class="p">:</span> <span class="mi">2004</span><span class="o">/</span><span class="mi">08</span><span class="o">/</span><span class="mi">18</span> <span class="mi">09</span><span class="p">:</span><span class="mi">07</span><span class="p">:</span><span class="mi">01</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span></code></pre></div><p>再往下，简要概括了输入的训练序列集：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">********************************************************************************</span>
+</span></span><span class="line"><span class="cl"><span class="n">TRAINING</span> <span class="n">SET</span>
+</span></span><span class="line"><span class="cl"><span class="o">********************************************************************************</span>
+</span></span><span class="line"><span class="cl"><span class="n">DATAFILE</span><span class="o">=</span> <span class="n">INO_up800</span><span class="o">.</span><span class="n">s</span>
+</span></span><span class="line"><span class="cl"><span class="n">ALPHABET</span><span class="o">=</span> <span class="n">ACGT</span>
+</span></span><span class="line"><span class="cl"><span class="n">Sequence</span> <span class="n">name</span>            <span class="n">Weight</span> <span class="n">Length</span>  <span class="n">Sequence</span> <span class="n">name</span>            <span class="n">Weight</span> <span class="n">Length</span>
+</span></span><span class="line"><span class="cl"><span class="o">-------------</span>            <span class="o">------</span> <span class="o">------</span>  <span class="o">-------------</span>            <span class="o">------</span> <span class="o">------</span>
+</span></span><span class="line"><span class="cl"><span class="n">CHO1</span>                     <span class="mf">1.0000</span>    <span class="mi">800</span>  <span class="n">CHO2</span>                     <span class="mf">1.0000</span>    <span class="mi">800</span>
+</span></span><span class="line"><span class="cl"><span class="n">FAS1</span>                     <span class="mf">1.0000</span>    <span class="mi">800</span>  <span class="n">FAS2</span>                     <span class="mf">1.0000</span>    <span class="mi">800</span>
+</span></span><span class="line"><span class="cl"><span class="n">ACC1</span>                     <span class="mf">1.0000</span>    <span class="mi">800</span>  <span class="n">INO1</span>                     <span class="mf">1.0000</span>    <span class="mi">800</span>
+</span></span><span class="line"><span class="cl"><span class="n">OPI3</span>                     <span class="mf">1.0000</span>    <span class="mi">800</span>
+</span></span><span class="line"><span class="cl"><span class="o">********************************************************************************</span>
+</span></span></code></pre></div><p>以及所使用到的命令：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">********************************************************************************</span>
+</span></span><span class="line"><span class="cl"><span class="n">COMMAND</span> <span class="n">LINE</span> <span class="n">SUMMARY</span>
+</span></span><span class="line"><span class="cl"><span class="o">********************************************************************************</span>
+</span></span><span class="line"><span class="cl"><span class="n">This</span> <span class="n">information</span> <span class="n">can</span> <span class="n">also</span> <span class="n">be</span> <span class="n">useful</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">event</span> <span class="n">you</span> <span class="n">wish</span> <span class="n">to</span> <span class="n">report</span> <span class="n">a</span>
+</span></span><span class="line"><span class="cl"><span class="n">problem</span> <span class="k">with</span> <span class="n">the</span> <span class="n">MEME</span> <span class="n">software</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">command</span><span class="p">:</span> <span class="n">meme</span> <span class="o">-</span><span class="n">mod</span> <span class="n">oops</span> <span class="o">-</span><span class="n">dna</span> <span class="o">-</span><span class="n">revcomp</span> <span class="o">-</span><span class="n">nmotifs</span> <span class="mi">2</span> <span class="o">-</span><span class="n">bfile</span> <span class="n">yeast</span><span class="o">.</span><span class="n">nc</span><span class="mf">.6</span><span class="o">.</span><span class="n">freq</span> <span class="n">INO_up800</span><span class="o">.</span><span class="n">s</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span></code></pre></div><p>接下来就是每个被发现模体的详细信息：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">********************************************************************************</span>
+</span></span><span class="line"><span class="cl"><span class="n">MOTIF</span>  <span class="mi">1</span>        <span class="n">width</span> <span class="o">=</span>   <span class="mi">12</span>   <span class="n">sites</span> <span class="o">=</span>   <span class="mi">7</span>   <span class="n">llr</span> <span class="o">=</span> <span class="mi">95</span>   <span class="n">E</span><span class="o">-</span><span class="n">value</span> <span class="o">=</span> <span class="mf">2.0e-001</span>
+</span></span><span class="line"><span class="cl"><span class="o">********************************************************************************</span>
+</span></span><span class="line"><span class="cl"><span class="o">--------------------------------------------------------------------------------</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Motif</span> <span class="mi">1</span> <span class="n">Description</span>
+</span></span><span class="line"><span class="cl"><span class="o">--------------------------------------------------------------------------------</span>
+</span></span><span class="line"><span class="cl"><span class="n">Simplified</span>        <span class="n">A</span>  <span class="p">:::</span><span class="mi">9</span><span class="p">:</span><span class="n">a</span><span class="p">::::</span><span class="mi">3</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="n">pos</span><span class="o">.-</span><span class="n">specific</span>     <span class="n">C</span>  <span class="p">::</span><span class="n">a</span><span class="p">:</span><span class="mi">9</span><span class="p">:</span><span class="mi">11691</span><span class="n">a</span>
+</span></span><span class="line"><span class="cl"><span class="n">probability</span>       <span class="n">G</span>  <span class="p">::::</span><span class="mi">1</span><span class="p">::</span><span class="mi">94</span><span class="p">:</span><span class="mi">4</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="n">matrix</span>            <span class="n">T</span>  <span class="n">aa</span><span class="p">:</span><span class="mi">1</span><span class="p">::</span><span class="mi">9</span><span class="p">::</span><span class="mi">11</span><span class="p">:</span>
+</span></span></code></pre></div><p>使用下面的方法来读取这个文件（以 meme.dna.oops.txt 存储）：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">handle</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&#34;meme.dna.oops.txt&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">record</span> <span class="o">=</span> <span class="n">motifs</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="s2">&#34;meme&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">handle</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span></span></code></pre></div><p>motifs.parse 命令直接读取整个文件，所以在使用后可以关闭这个文件。其中头文件信息被存储于属性中</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">record</span><span class="o">.</span><span class="n">version</span>
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;3.0&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">record</span><span class="o">.</span><span class="n">datafile</span>
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;INO_up800.s&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">record</span><span class="o">.</span><span class="n">command</span>
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;meme -mod oops -dna -revcomp -nmotifs 2 -bfile yeast.nc.6.freq INO_up800.s&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">record</span><span class="o">.</span><span class="n">alphabet</span>
+</span></span><span class="line"><span class="cl"><span class="n">IUPACUnambiguousDNA</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">record</span><span class="o">.</span><span class="n">sequences</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="s1">&#39;CHO1&#39;</span><span class="p">,</span> <span class="s1">&#39;CHO2&#39;</span><span class="p">,</span> <span class="s1">&#39;FAS1&#39;</span><span class="p">,</span> <span class="s1">&#39;FAS2&#39;</span><span class="p">,</span> <span class="s1">&#39;ACC1&#39;</span><span class="p">,</span> <span class="s1">&#39;INO1&#39;</span><span class="p">,</span> <span class="s1">&#39;OPI3&#39;</span><span class="p">]</span>
+</span></span></code></pre></div><p>这个数据记录是 Bio.motifs.meme.Record 类的一个对象。这个类继承于列表（list），所以你可以把这个 record 看成模体对象的一个列表：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">record</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="mi">2</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">motif</span> <span class="o">=</span> <span class="n">record</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="n">motif</span><span class="o">.</span><span class="n">consensus</span>
+</span></span><span class="line"><span class="cl"><span class="n">TTCACATGCCGC</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="n">motif</span><span class="o">.</span><span class="n">degenerate_consensus</span>
+</span></span><span class="line"><span class="cl"><span class="n">TTCACATGSCNC</span>
+</span></span></code></pre></div><p>除了一般的模体属性外，每个模体还同时保存着它们由MEME计算的各自特异信息。例如</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">motif</span><span class="o">.</span><span class="n">num_occurrences</span>
+</span></span><span class="line"><span class="cl"><span class="mi">7</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">motif</span><span class="o">.</span><span class="n">length</span>
+</span></span><span class="line"><span class="cl"><span class="mi">12</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">evalue</span> <span class="o">=</span> <span class="n">motif</span><span class="o">.</span><span class="n">evalue</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="s2">&#34;</span><span class="si">%3.1g</span><span class="s2">&#34;</span> <span class="o">%</span> <span class="n">evalue</span>
+</span></span><span class="line"><span class="cl"><span class="mf">0.2</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">motif</span><span class="o">.</span><span class="n">name</span>
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;Motif 1&#39;</span>
+</span></span></code></pre></div><p>除了像上面所做的用索引来获得相关记录，你也可以用它的名称来找到这个记录</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">motif</span> <span class="o">=</span> <span class="n">record</span><span class="p">[</span><span class="s1">&#39;Motif 1&#39;</span><span class="p">]</span>
+</span></span></code></pre></div><p>每个模体都有一个 .instances 属性与在这个被发现模体中的序列实例，能够为每个实例提供一些信息：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">motif</span><span class="o">.</span><span class="n">instances</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="mi">7</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">motif</span><span class="o">.</span><span class="n">instances</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">Instance</span><span class="p">(</span><span class="s1">&#39;TTCACATGCCGC&#39;</span><span class="p">,</span> <span class="n">IUPACUnambiguousDNA</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">motif</span><span class="o">.</span><span class="n">instances</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">motif_name</span>
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;Motif 1&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">motif</span><span class="o">.</span><span class="n">instances</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">sequence_name</span>
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;INO1&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">motif</span><span class="o">.</span><span class="n">instances</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">start</span>
+</span></span><span class="line"><span class="cl"><span class="mi">620</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">motif</span><span class="o">.</span><span class="n">instances</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strand</span>
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;-&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">motif</span><span class="o">.</span><span class="n">instances</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">length</span>
+</span></span><span class="line"><span class="cl"><span class="mi">12</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">pvalue</span> <span class="o">=</span> <span class="n">motif</span><span class="o">.</span><span class="n">instances</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">pvalue</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="s2">&#34;</span><span class="si">%5.3g</span><span class="s2">&#34;</span> <span class="o">%</span> <span class="n">pvalue</span>
+</span></span><span class="line"><span class="cl"><span class="mf">1.85e-08</span>
+</span></span></code></pre></div><p><strong>MAST</strong><br>
+<strong>TRANSFAC</strong><br>
+TRANSFAC是一个为转录因子手动创建的一个专业数据库，同时还包括染色体结合位点和DNA结合的描述 [<a class="link" href="https://biopython-cn.readthedocs.io/zh_CN/latest/cn/chr23.html#matys2003"  target="_blank" rel="noopener"
+    >27</a>] 。TRANSFAC数据库中所用的文件格式至今还被其他工具所使用，我们下面将介绍TRANSFAC文件格式<br>
+TRANSFAC文件格式简单概括如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">ID</span>  <span class="n">motif1</span>
+</span></span><span class="line"><span class="cl"><span class="n">P0</span>      <span class="n">A</span>      <span class="n">C</span>      <span class="n">G</span>      <span class="n">T</span>
+</span></span><span class="line"><span class="cl"><span class="mi">01</span>      <span class="mi">1</span>      <span class="mi">2</span>      <span class="mi">2</span>      <span class="mi">0</span>      <span class="n">S</span>
+</span></span><span class="line"><span class="cl"><span class="mi">02</span>      <span class="mi">2</span>      <span class="mi">1</span>      <span class="mi">2</span>      <span class="mi">0</span>      <span class="n">R</span>
+</span></span><span class="line"><span class="cl"><span class="mi">03</span>      <span class="mi">3</span>      <span class="mi">0</span>      <span class="mi">1</span>      <span class="mi">1</span>      <span class="n">A</span>
+</span></span><span class="line"><span class="cl"><span class="mi">04</span>      <span class="mi">0</span>      <span class="mi">5</span>      <span class="mi">0</span>      <span class="mi">0</span>      <span class="n">C</span>
+</span></span><span class="line"><span class="cl"><span class="mi">05</span>      <span class="mi">5</span>      <span class="mi">0</span>      <span class="mi">0</span>      <span class="mi">0</span>      <span class="n">A</span>
+</span></span><span class="line"><span class="cl"><span class="mi">06</span>      <span class="mi">0</span>      <span class="mi">0</span>      <span class="mi">4</span>      <span class="mi">1</span>      <span class="n">G</span>
+</span></span><span class="line"><span class="cl"><span class="mi">07</span>      <span class="mi">0</span>      <span class="mi">1</span>      <span class="mi">4</span>      <span class="mi">0</span>      <span class="n">G</span>
+</span></span><span class="line"><span class="cl"><span class="mi">08</span>      <span class="mi">0</span>      <span class="mi">0</span>      <span class="mi">0</span>      <span class="mi">5</span>      <span class="n">T</span>
+</span></span><span class="line"><span class="cl"><span class="mi">09</span>      <span class="mi">0</span>      <span class="mi">0</span>      <span class="mi">5</span>      <span class="mi">0</span>      <span class="n">G</span>
+</span></span><span class="line"><span class="cl"><span class="mi">10</span>      <span class="mi">0</span>      <span class="mi">1</span>      <span class="mi">2</span>      <span class="mi">2</span>      <span class="n">K</span>
+</span></span><span class="line"><span class="cl"><span class="mi">11</span>      <span class="mi">0</span>      <span class="mi">2</span>      <span class="mi">0</span>      <span class="mi">3</span>      <span class="n">Y</span>
+</span></span><span class="line"><span class="cl"><span class="mi">12</span>      <span class="mi">1</span>      <span class="mi">0</span>      <span class="mi">3</span>      <span class="mi">1</span>      <span class="n">G</span>
+</span></span><span class="line"><span class="cl"><span class="o">//</span>
+</span></span></code></pre></div><p>这个文件显示了模体 motif1 中12个核苷酸的频率矩阵。总的来说，一个TRANSFAC文件里面可以包含多个模体。以下是示例文件 transfac.dat 的内容：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">VV</span>  <span class="n">EXAMPLE</span> <span class="n">January</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">2013</span>
+</span></span><span class="line"><span class="cl"><span class="n">XX</span>
+</span></span><span class="line"><span class="cl"><span class="o">//</span>
+</span></span><span class="line"><span class="cl"><span class="n">ID</span>  <span class="n">motif1</span>
+</span></span><span class="line"><span class="cl"><span class="n">P0</span>      <span class="n">A</span>      <span class="n">C</span>      <span class="n">G</span>      <span class="n">T</span>
+</span></span><span class="line"><span class="cl"><span class="mi">01</span>      <span class="mi">1</span>      <span class="mi">2</span>      <span class="mi">2</span>      <span class="mi">0</span>      <span class="n">S</span>
+</span></span><span class="line"><span class="cl"><span class="mi">02</span>      <span class="mi">2</span>      <span class="mi">1</span>      <span class="mi">2</span>      <span class="mi">0</span>      <span class="n">R</span>
+</span></span><span class="line"><span class="cl"><span class="mi">03</span>      <span class="mi">3</span>      <span class="mi">0</span>      <span class="mi">1</span>      <span class="mi">1</span>      <span class="n">A</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="mi">11</span>      <span class="mi">0</span>      <span class="mi">2</span>      <span class="mi">0</span>      <span class="mi">3</span>      <span class="n">Y</span>
+</span></span><span class="line"><span class="cl"><span class="mi">12</span>      <span class="mi">1</span>      <span class="mi">0</span>      <span class="mi">3</span>      <span class="mi">1</span>      <span class="n">G</span>
+</span></span><span class="line"><span class="cl"><span class="o">//</span>
+</span></span><span class="line"><span class="cl"><span class="n">ID</span>  <span class="n">motif2</span>
+</span></span><span class="line"><span class="cl"><span class="n">P0</span>      <span class="n">A</span>      <span class="n">C</span>      <span class="n">G</span>      <span class="n">T</span>
+</span></span><span class="line"><span class="cl"><span class="mi">01</span>      <span class="mi">2</span>      <span class="mi">1</span>      <span class="mi">2</span>      <span class="mi">0</span>      <span class="n">R</span>
+</span></span><span class="line"><span class="cl"><span class="mi">02</span>      <span class="mi">1</span>      <span class="mi">2</span>      <span class="mi">2</span>      <span class="mi">0</span>      <span class="n">S</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="mi">09</span>      <span class="mi">0</span>      <span class="mi">0</span>      <span class="mi">0</span>      <span class="mi">5</span>      <span class="n">T</span>
+</span></span><span class="line"><span class="cl"><span class="mi">10</span>      <span class="mi">0</span>      <span class="mi">2</span>      <span class="mi">0</span>      <span class="mi">3</span>      <span class="n">Y</span>
+</span></span><span class="line"><span class="cl"><span class="o">//</span>
+</span></span></code></pre></div><p>可用如下方法读取TRANSFAC文件：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">handle</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&#34;transfac.dat&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">record</span> <span class="o">=</span> <span class="n">motifs</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="s2">&#34;TRANSFAC&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">handle</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span></span></code></pre></div><p>如果有总版本号的话，它是存储在 record.version 中：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">record</span><span class="o">.</span><span class="n">version</span>
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;EXAMPLE January 15, 2013&#39;</span>
+</span></span></code></pre></div><p>每个在 record 中的模体都是 Bio.motifs.transfac.Motif 类的实例，这些实例同时继承 Bio.motifs.Motif 类和Python字典的属性。这些字典用双字母的键来存储关于这个模体的其他附加信息：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">motif</span> <span class="o">=</span> <span class="n">record</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">motif</span><span class="o">.</span><span class="n">degenerate_consensus</span> <span class="c1"># Using the Bio.motifs.Motif method</span>
+</span></span><span class="line"><span class="cl"><span class="n">Seq</span><span class="p">(</span><span class="s1">&#39;SRACAGGTGKYG&#39;</span><span class="p">,</span> <span class="n">IUPACAmbiguousDNA</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">motif</span><span class="p">[</span><span class="s1">&#39;ID&#39;</span><span class="p">]</span> <span class="c1"># Using motif as a dictionary</span>
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;motif1&#39;</span>
+</span></span></code></pre></div><p>TRANSFAC文件一般比这些例子更详细，包含了许多关于模体的附加信息。表格 列出了在TRANSFAC文件常见的双字母含义：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">table</span> <span class="p">:</span> <span class="n">TRANSFAC文件中常见的字段</span>
+</span></span><span class="line"><span class="cl"><span class="n">AC</span>	<span class="n">Accession</span> <span class="n">numbers</span> <span class="n">序列号</span>
+</span></span><span class="line"><span class="cl"><span class="n">AS</span>	<span class="n">Accession</span> <span class="n">numbers</span><span class="p">,</span> <span class="n">secondary</span> <span class="n">第二序列号</span>
+</span></span><span class="line"><span class="cl"><span class="n">BA</span>	<span class="n">Statistical</span> <span class="n">basis</span> <span class="n">统计依据</span>
+</span></span><span class="line"><span class="cl"><span class="n">BF</span>	<span class="n">Binding</span> <span class="n">factors</span> <span class="n">结合因子</span>
+</span></span><span class="line"><span class="cl"><span class="n">BS</span>	<span class="n">Factor</span> <span class="n">binding</span> <span class="n">sites</span> <span class="n">underlying</span> <span class="n">the</span> <span class="n">matrix</span> <span class="n">基于矩阵的转录结合位点</span>
+</span></span><span class="line"><span class="cl"><span class="n">CC</span>	<span class="n">Comments</span> <span class="n">注解</span>
+</span></span><span class="line"><span class="cl"><span class="n">CO</span>	<span class="n">Copyright</span> <span class="n">notice</span> <span class="n">版权事项</span>
+</span></span><span class="line"><span class="cl"><span class="n">DE</span>	<span class="n">Short</span> <span class="n">factor</span> <span class="n">description</span> <span class="n">短因子说明</span>
+</span></span><span class="line"><span class="cl"><span class="n">DR</span>	<span class="n">External</span> <span class="n">databases</span> <span class="n">外部数据库</span>
+</span></span><span class="line"><span class="cl"><span class="n">DT</span>	<span class="n">Date</span> <span class="n">created</span><span class="o">/</span><span class="n">updated</span> <span class="n">创建或更新日期</span>
+</span></span><span class="line"><span class="cl"><span class="n">HC</span>	<span class="n">Subfamilies</span> <span class="n">亚家庭名称</span>
+</span></span><span class="line"><span class="cl"><span class="n">HP</span>	<span class="n">Superfamilies</span> <span class="n">超家庭名称</span>
+</span></span><span class="line"><span class="cl"><span class="n">ID</span>	<span class="n">Identifier</span> <span class="n">身份证</span>
+</span></span><span class="line"><span class="cl"><span class="n">NA</span>	<span class="n">Name</span> <span class="n">of</span> <span class="n">the</span> <span class="n">binding</span> <span class="n">factor</span> <span class="n">结合因子的名称</span>
+</span></span><span class="line"><span class="cl"><span class="n">OC</span>	<span class="n">Taxonomic</span> <span class="n">classification</span> <span class="n">分类</span>
+</span></span><span class="line"><span class="cl"><span class="n">OS</span>	<span class="n">Species</span><span class="o">/</span><span class="n">Taxon</span> <span class="n">种类或分类</span>
+</span></span><span class="line"><span class="cl"><span class="n">OV</span>	<span class="n">Older</span> <span class="n">version</span> <span class="n">旧版本</span>
+</span></span><span class="line"><span class="cl"><span class="n">PV</span>	<span class="n">Preferred</span> <span class="n">version</span> <span class="n">首选版本</span>
+</span></span><span class="line"><span class="cl"><span class="n">TY</span>	<span class="n">Type</span> <span class="n">类型</span>
+</span></span><span class="line"><span class="cl"><span class="n">XX</span>	<span class="n">Empty</span> <span class="n">line</span><span class="p">;</span> <span class="n">these</span> <span class="n">are</span> <span class="ow">not</span> <span class="n">stored</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">Record</span><span class="o">.</span> <span class="n">空白行</span><span class="p">;</span><span class="n">没在记录中存储的数据</span>
+</span></span></code></pre></div><p>每个模体同时也有一个包含与这个模体相关参考资料的 references 属性，用下面的双字母键来获得：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">Table</span> <span class="p">:</span> <span class="n">TRANSFAC文件中用来存储参考资料的字段</span>
+</span></span><span class="line"><span class="cl"><span class="n">RN</span>	<span class="n">Reference</span> <span class="n">number</span> <span class="n">参考数目</span>
+</span></span><span class="line"><span class="cl"><span class="n">RA</span>	<span class="n">Reference</span> <span class="n">authors</span> <span class="n">参考资料作者</span>
+</span></span><span class="line"><span class="cl"><span class="n">RL</span>	<span class="n">Reference</span> <span class="n">data</span> <span class="n">参考数据</span>
+</span></span><span class="line"><span class="cl"><span class="n">RT</span>	<span class="n">Reference</span> <span class="n">title</span> <span class="n">参考标题</span>
+</span></span><span class="line"><span class="cl"><span class="n">RX</span>	<span class="n">PubMed</span> <span class="n">ID</span>
+</span></span></code></pre></div><p>将TRANSFAC文件按原来格式打印出来：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="n">record</span>
+</span></span><span class="line"><span class="cl"><span class="n">VV</span>  <span class="n">EXAMPLE</span> <span class="n">January</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">2013</span>
+</span></span><span class="line"><span class="cl"><span class="n">XX</span>
+</span></span><span class="line"><span class="cl"><span class="o">//</span>
+</span></span><span class="line"><span class="cl"><span class="n">ID</span>  <span class="n">motif1</span>
+</span></span><span class="line"><span class="cl"><span class="n">XX</span>
+</span></span><span class="line"><span class="cl"><span class="n">P0</span>      <span class="n">A</span>      <span class="n">C</span>      <span class="n">G</span>      <span class="n">T</span>
+</span></span><span class="line"><span class="cl"><span class="mi">01</span>      <span class="mi">1</span>      <span class="mi">2</span>      <span class="mi">2</span>      <span class="mi">0</span>      <span class="n">S</span>
+</span></span><span class="line"><span class="cl"><span class="mi">02</span>      <span class="mi">2</span>      <span class="mi">1</span>      <span class="mi">2</span>      <span class="mi">0</span>      <span class="n">R</span>
+</span></span><span class="line"><span class="cl"><span class="mi">03</span>      <span class="mi">3</span>      <span class="mi">0</span>      <span class="mi">1</span>      <span class="mi">1</span>      <span class="n">A</span>
+</span></span><span class="line"><span class="cl"><span class="mi">04</span>      <span class="mi">0</span>      <span class="mi">5</span>      <span class="mi">0</span>      <span class="mi">0</span>      <span class="n">C</span>
+</span></span><span class="line"><span class="cl"><span class="mi">05</span>      <span class="mi">5</span>      <span class="mi">0</span>      <span class="mi">0</span>      <span class="mi">0</span>      <span class="n">A</span>
+</span></span><span class="line"><span class="cl"><span class="mi">06</span>      <span class="mi">0</span>      <span class="mi">0</span>      <span class="mi">4</span>      <span class="mi">1</span>      <span class="n">G</span>
+</span></span><span class="line"><span class="cl"><span class="mi">07</span>      <span class="mi">0</span>      <span class="mi">1</span>      <span class="mi">4</span>      <span class="mi">0</span>      <span class="n">G</span>
+</span></span><span class="line"><span class="cl"><span class="mi">08</span>      <span class="mi">0</span>      <span class="mi">0</span>      <span class="mi">0</span>      <span class="mi">5</span>      <span class="n">T</span>
+</span></span><span class="line"><span class="cl"><span class="mi">09</span>      <span class="mi">0</span>      <span class="mi">0</span>      <span class="mi">5</span>      <span class="mi">0</span>      <span class="n">G</span>
+</span></span><span class="line"><span class="cl"><span class="mi">10</span>      <span class="mi">0</span>      <span class="mi">1</span>      <span class="mi">2</span>      <span class="mi">2</span>      <span class="n">K</span>
+</span></span><span class="line"><span class="cl"><span class="mi">11</span>      <span class="mi">0</span>      <span class="mi">2</span>      <span class="mi">0</span>      <span class="mi">3</span>      <span class="n">Y</span>
+</span></span><span class="line"><span class="cl"><span class="mi">12</span>      <span class="mi">1</span>      <span class="mi">0</span>      <span class="mi">3</span>      <span class="mi">1</span>      <span class="n">G</span>
+</span></span><span class="line"><span class="cl"><span class="n">XX</span>
+</span></span><span class="line"><span class="cl"><span class="o">//</span>
+</span></span><span class="line"><span class="cl"><span class="n">ID</span>  <span class="n">motif2</span>
+</span></span><span class="line"><span class="cl"><span class="n">XX</span>
+</span></span><span class="line"><span class="cl"><span class="n">P0</span>      <span class="n">A</span>      <span class="n">C</span>      <span class="n">G</span>      <span class="n">T</span>
+</span></span><span class="line"><span class="cl"><span class="mi">01</span>      <span class="mi">2</span>      <span class="mi">1</span>      <span class="mi">2</span>      <span class="mi">0</span>      <span class="n">R</span>
+</span></span><span class="line"><span class="cl"><span class="mi">02</span>      <span class="mi">1</span>      <span class="mi">2</span>      <span class="mi">2</span>      <span class="mi">0</span>      <span class="n">S</span>
+</span></span><span class="line"><span class="cl"><span class="mi">03</span>      <span class="mi">0</span>      <span class="mi">5</span>      <span class="mi">0</span>      <span class="mi">0</span>      <span class="n">C</span>
+</span></span><span class="line"><span class="cl"><span class="mi">04</span>      <span class="mi">3</span>      <span class="mi">0</span>      <span class="mi">1</span>      <span class="mi">1</span>      <span class="n">A</span>
+</span></span><span class="line"><span class="cl"><span class="mi">05</span>      <span class="mi">0</span>      <span class="mi">0</span>      <span class="mi">4</span>      <span class="mi">1</span>      <span class="n">G</span>
+</span></span><span class="line"><span class="cl"><span class="mi">06</span>      <span class="mi">5</span>      <span class="mi">0</span>      <span class="mi">0</span>      <span class="mi">0</span>      <span class="n">A</span>
+</span></span><span class="line"><span class="cl"><span class="mi">07</span>      <span class="mi">0</span>      <span class="mi">1</span>      <span class="mi">4</span>      <span class="mi">0</span>      <span class="n">G</span>
+</span></span><span class="line"><span class="cl"><span class="mi">08</span>      <span class="mi">0</span>      <span class="mi">0</span>      <span class="mi">5</span>      <span class="mi">0</span>      <span class="n">G</span>
+</span></span><span class="line"><span class="cl"><span class="mi">09</span>      <span class="mi">0</span>      <span class="mi">0</span>      <span class="mi">0</span>      <span class="mi">5</span>      <span class="n">T</span>
+</span></span><span class="line"><span class="cl"><span class="mi">10</span>      <span class="mi">0</span>      <span class="mi">2</span>      <span class="mi">0</span>      <span class="mi">3</span>      <span class="n">Y</span>
+</span></span><span class="line"><span class="cl"><span class="n">XX</span>
+</span></span><span class="line"><span class="cl"><span class="o">//</span>
+</span></span></code></pre></div><p>通过用字符串形式来截取输出并且保存在文件中，你可以按TRANSFAC的格式导出这些模体：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">text</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">record</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">handle</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&#34;mytransfacfile.dat&#34;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">handle</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">handle</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span></span></code></pre></div><h2 id="模体写出">模体写出</h2>
+<p>说到导出，我们可以先看看导出函数。以JASPAR .pfm 格式导出模体文件，可以用：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="n">m</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&#34;pfm&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="mi">3</span>       <span class="mi">7</span>       <span class="mi">0</span>       <span class="mi">2</span>       <span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="mi">0</span>       <span class="mi">0</span>       <span class="mi">5</span>       <span class="mi">2</span>       <span class="mi">6</span>
+</span></span><span class="line"><span class="cl"><span class="mi">0</span>       <span class="mi">0</span>       <span class="mi">0</span>       <span class="mi">3</span>       <span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="mi">4</span>       <span class="mi">0</span>       <span class="mi">2</span>       <span class="mi">0</span>       <span class="mi">0</span>
+</span></span></code></pre></div><p>用类似TRANSFAC的格式导出一个模体：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="n">m</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&#34;transfac&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">P0</span>      <span class="n">A</span>      <span class="n">C</span>      <span class="n">G</span>      <span class="n">T</span>
+</span></span><span class="line"><span class="cl"><span class="mi">01</span>      <span class="mi">3</span>      <span class="mi">0</span>      <span class="mi">0</span>      <span class="mi">4</span>      <span class="n">W</span>
+</span></span><span class="line"><span class="cl"><span class="mi">02</span>      <span class="mi">7</span>      <span class="mi">0</span>      <span class="mi">0</span>      <span class="mi">0</span>      <span class="n">A</span>
+</span></span><span class="line"><span class="cl"><span class="mi">03</span>      <span class="mi">0</span>      <span class="mi">5</span>      <span class="mi">0</span>      <span class="mi">2</span>      <span class="n">C</span>
+</span></span><span class="line"><span class="cl"><span class="mi">04</span>      <span class="mi">2</span>      <span class="mi">2</span>      <span class="mi">3</span>      <span class="mi">0</span>      <span class="n">V</span>
+</span></span><span class="line"><span class="cl"><span class="mi">05</span>      <span class="mi">1</span>      <span class="mi">6</span>      <span class="mi">0</span>      <span class="mi">0</span>      <span class="n">C</span>
+</span></span><span class="line"><span class="cl"><span class="n">XX</span>
+</span></span><span class="line"><span class="cl"><span class="o">//</span>
+</span></span></code></pre></div><p>你可以用 motifs.write 来写出多个模体。这个函数在使用的时候不必担心这些模体来自于TRANSFAC文件。比如：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;</span> <span class="n">two_motifs</span> <span class="o">=</span> <span class="p">[</span><span class="n">arnt</span><span class="p">,</span> <span class="n">srf</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="n">motifs</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">two_motifs</span><span class="p">,</span> <span class="s1">&#39;transfac&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">P0</span>      <span class="n">A</span>      <span class="n">C</span>      <span class="n">G</span>      <span class="n">T</span>
+</span></span><span class="line"><span class="cl"><span class="mi">01</span>      <span class="mi">4</span>     <span class="mi">16</span>      <span class="mi">0</span>      <span class="mi">0</span>      <span class="n">C</span>
+</span></span><span class="line"><span class="cl"><span class="mi">02</span>     <span class="mi">19</span>      <span class="mi">0</span>      <span class="mi">1</span>      <span class="mi">0</span>      <span class="n">A</span>
+</span></span><span class="line"><span class="cl"><span class="mi">03</span>      <span class="mi">0</span>     <span class="mi">20</span>      <span class="mi">0</span>      <span class="mi">0</span>      <span class="n">C</span>
+</span></span><span class="line"><span class="cl"><span class="mi">04</span>      <span class="mi">0</span>      <span class="mi">0</span>     <span class="mi">20</span>      <span class="mi">0</span>      <span class="n">G</span>
+</span></span><span class="line"><span class="cl"><span class="mi">05</span>      <span class="mi">0</span>      <span class="mi">0</span>      <span class="mi">0</span>     <span class="mi">20</span>      <span class="n">T</span>
+</span></span><span class="line"><span class="cl"><span class="mi">06</span>      <span class="mi">0</span>      <span class="mi">0</span>     <span class="mi">20</span>      <span class="mi">0</span>      <span class="n">G</span>
+</span></span><span class="line"><span class="cl"><span class="n">XX</span>
+</span></span><span class="line"><span class="cl"><span class="o">//</span>
+</span></span><span class="line"><span class="cl"><span class="n">P0</span>      <span class="n">A</span>      <span class="n">C</span>      <span class="n">G</span>      <span class="n">T</span>
+</span></span><span class="line"><span class="cl"><span class="mi">01</span>      <span class="mi">2</span>      <span class="mi">1</span>     <span class="mi">39</span>      <span class="mi">4</span>      <span class="n">G</span>
+</span></span><span class="line"><span class="cl"><span class="mi">02</span>      <span class="mi">9</span>     <span class="mi">33</span>      <span class="mi">2</span>      <span class="mi">2</span>      <span class="n">C</span>
+</span></span><span class="line"><span class="cl"><span class="mi">03</span>      <span class="mi">0</span>     <span class="mi">45</span>      <span class="mi">1</span>      <span class="mi">0</span>      <span class="n">C</span>
+</span></span><span class="line"><span class="cl"><span class="mi">04</span>      <span class="mi">1</span>     <span class="mi">45</span>      <span class="mi">0</span>      <span class="mi">0</span>      <span class="n">C</span>
+</span></span><span class="line"><span class="cl"><span class="mi">05</span>     <span class="mi">32</span>      <span class="mi">1</span>      <span class="mi">0</span>     <span class="mi">13</span>      <span class="n">A</span>
+</span></span><span class="line"><span class="cl"><span class="mi">06</span>      <span class="mi">3</span>      <span class="mi">1</span>      <span class="mi">0</span>     <span class="mi">42</span>      <span class="n">T</span>
+</span></span><span class="line"><span class="cl"><span class="mi">07</span>     <span class="mi">46</span>      <span class="mi">0</span>      <span class="mi">0</span>      <span class="mi">0</span>      <span class="n">A</span>
+</span></span><span class="line"><span class="cl"><span class="mi">08</span>      <span class="mi">1</span>      <span class="mi">0</span>      <span class="mi">0</span>     <span class="mi">45</span>      <span class="n">T</span>
+</span></span><span class="line"><span class="cl"><span class="mi">09</span>     <span class="mi">43</span>      <span class="mi">0</span>      <span class="mi">0</span>      <span class="mi">3</span>      <span class="n">A</span>
+</span></span><span class="line"><span class="cl"><span class="mi">10</span>     <span class="mi">15</span>      <span class="mi">1</span>      <span class="mi">0</span>     <span class="mi">30</span>      <span class="n">T</span>
+</span></span><span class="line"><span class="cl"><span class="mi">11</span>      <span class="mi">2</span>      <span class="mi">0</span>     <span class="mi">44</span>      <span class="mi">0</span>      <span class="n">G</span>
+</span></span><span class="line"><span class="cl"><span class="mi">12</span>      <span class="mi">2</span>      <span class="mi">1</span>     <span class="mi">43</span>      <span class="mi">0</span>      <span class="n">G</span>
+</span></span><span class="line"><span class="cl"><span class="n">XX</span>
+</span></span><span class="line"><span class="cl"><span class="o">//</span>
+</span></span></code></pre></div><h2 id="绘制序列标识图">绘制序列标识图</h2>
+<p>如果能够联网，我们可以创建一个 <a class="link" href="http://weblogo.berkeley.edu/"  target="_blank" rel="noopener"
+    >weblogo</a> ：<br>
+将得到的标识图存储成PNG格式</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">arnt</span><span class="o">.</span><span class="n">weblogo</span><span class="p">(</span><span class="s2">&#34;Arnt.png&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><h2 id="位置权重矩阵">位置权重矩阵</h2>
+<p>模体对象的 .counts 属性能够显示在序列上每个位置核苷酸出现的次数。我们可以把这矩阵除以序列中的实例数目来标准化这矩阵，得到每个核苷酸在序列位置上出现概率。我们把这概率看作位置权重矩阵。不过，要知道在字面上，这个术语也可以用来说明位置特异性得分矩阵，这个我们将会在下面讨论。<br>
+通常来说，伪计数（pseudocounts）在归一化之前都已经加到每个位置中。这样可以避免在这序列上过度拟合位置权重矩阵以至趋向于模体的实例的有限数量，还可以避免概率为0。向每个位置的核苷酸添加一个固定的伪计数，可以为 pseudocounts 参数指定一个数值：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">pwm</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">counts</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span><span class="n">pseudocounts</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="n">pwm</span>
+</span></span><span class="line"><span class="cl">        <span class="mi">0</span>      <span class="mi">1</span>      <span class="mi">2</span>      <span class="mi">3</span>      <span class="mi">4</span>
+</span></span><span class="line"><span class="cl"><span class="n">A</span><span class="p">:</span>   <span class="mf">0.39</span>   <span class="mf">0.83</span>   <span class="mf">0.06</span>   <span class="mf">0.28</span>   <span class="mf">0.17</span>
+</span></span><span class="line"><span class="cl"><span class="n">C</span><span class="p">:</span>   <span class="mf">0.06</span>   <span class="mf">0.06</span>   <span class="mf">0.61</span>   <span class="mf">0.28</span>   <span class="mf">0.72</span>
+</span></span><span class="line"><span class="cl"><span class="n">G</span><span class="p">:</span>   <span class="mf">0.06</span>   <span class="mf">0.06</span>   <span class="mf">0.06</span>   <span class="mf">0.39</span>   <span class="mf">0.06</span>
+</span></span><span class="line"><span class="cl"><span class="n">T</span><span class="p">:</span>   <span class="mf">0.50</span>   <span class="mf">0.06</span>   <span class="mf">0.28</span>   <span class="mf">0.06</span>   <span class="mf">0.06</span>
+</span></span></code></pre></div><p>另外， pseudocounts 可以利用字典为每个核苷酸指定一个伪计数值。例如，由于在人类基因组中GC含量大概为40%,因此可以选择下面这些伪计数值：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">pwm</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">counts</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span><span class="n">pseudocounts</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;A&#39;</span><span class="p">:</span><span class="mf">0.6</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">:</span> <span class="mf">0.4</span><span class="p">,</span> <span class="s1">&#39;G&#39;</span><span class="p">:</span> <span class="mf">0.4</span><span class="p">,</span> <span class="s1">&#39;T&#39;</span><span class="p">:</span> <span class="mf">0.6</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="n">pwm</span>
+</span></span><span class="line"><span class="cl">        <span class="mi">0</span>      <span class="mi">1</span>      <span class="mi">2</span>      <span class="mi">3</span>      <span class="mi">4</span>
+</span></span><span class="line"><span class="cl"><span class="n">A</span><span class="p">:</span>   <span class="mf">0.40</span>   <span class="mf">0.84</span>   <span class="mf">0.07</span>   <span class="mf">0.29</span>   <span class="mf">0.18</span>
+</span></span><span class="line"><span class="cl"><span class="n">C</span><span class="p">:</span>   <span class="mf">0.04</span>   <span class="mf">0.04</span>   <span class="mf">0.60</span>   <span class="mf">0.27</span>   <span class="mf">0.71</span>
+</span></span><span class="line"><span class="cl"><span class="n">G</span><span class="p">:</span>   <span class="mf">0.04</span>   <span class="mf">0.04</span>   <span class="mf">0.04</span>   <span class="mf">0.38</span>   <span class="mf">0.04</span>
+</span></span><span class="line"><span class="cl"><span class="n">T</span><span class="p">:</span>   <span class="mf">0.51</span>   <span class="mf">0.07</span>   <span class="mf">0.29</span>   <span class="mf">0.07</span>   <span class="mf">0.07</span>
+</span></span></code></pre></div><p>位置权重矩阵有它自己的方法计算一致序列、反向一致序列和简并一致序列：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">pwm</span><span class="o">.</span><span class="n">consensus</span>
+</span></span><span class="line"><span class="cl"><span class="n">Seq</span><span class="p">(</span><span class="s1">&#39;TACGC&#39;</span><span class="p">,</span> <span class="n">IUPACUnambiguousDNA</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">pwm</span><span class="o">.</span><span class="n">anticonsensus</span>
+</span></span><span class="line"><span class="cl"><span class="n">Seq</span><span class="p">(</span><span class="s1">&#39;GGGTG&#39;</span><span class="p">,</span> <span class="n">IUPACUnambiguousDNA</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">pwm</span><span class="o">.</span><span class="n">degenerate_consensus</span>
+</span></span><span class="line"><span class="cl"><span class="n">Seq</span><span class="p">(</span><span class="s1">&#39;WACNC&#39;</span><span class="p">,</span> <span class="n">IUPACAmbiguousDNA</span><span class="p">())</span>
+</span></span></code></pre></div><p>应当注意到由于伪计数的原因，由位置仅重矩阵计算得到的简并一致序列和由模体中实例计算得到的简并一致序列有一点不同：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">m</span><span class="o">.</span><span class="n">degenerate_consensus</span>
+</span></span><span class="line"><span class="cl"><span class="n">Seq</span><span class="p">(</span><span class="s1">&#39;WACVC&#39;</span><span class="p">,</span> <span class="n">IUPACAmbiguousDNA</span><span class="p">())</span>
+</span></span></code></pre></div><p>位置权重矩阵的反向互补矩阵可以直接用 pwm 计算出来：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">rpwm</span> <span class="o">=</span> <span class="n">pwm</span><span class="o">.</span><span class="n">reverse_complement</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="n">rpwm</span>
+</span></span><span class="line"><span class="cl">        <span class="mi">0</span>      <span class="mi">1</span>      <span class="mi">2</span>      <span class="mi">3</span>      <span class="mi">4</span>
+</span></span><span class="line"><span class="cl"><span class="n">A</span><span class="p">:</span>   <span class="mf">0.07</span>   <span class="mf">0.07</span>   <span class="mf">0.29</span>   <span class="mf">0.07</span>   <span class="mf">0.51</span>
+</span></span><span class="line"><span class="cl"><span class="n">C</span><span class="p">:</span>   <span class="mf">0.04</span>   <span class="mf">0.38</span>   <span class="mf">0.04</span>   <span class="mf">0.04</span>   <span class="mf">0.04</span>
+</span></span><span class="line"><span class="cl"><span class="n">G</span><span class="p">:</span>   <span class="mf">0.71</span>   <span class="mf">0.27</span>   <span class="mf">0.60</span>   <span class="mf">0.04</span>   <span class="mf">0.04</span>
+</span></span><span class="line"><span class="cl"><span class="n">T</span><span class="p">:</span>   <span class="mf">0.18</span>   <span class="mf">0.29</span>   <span class="mf">0.07</span>   <span class="mf">0.84</span>   <span class="mf">0.40</span>
+</span></span></code></pre></div><h2 id="位置特异性得分矩阵">位置特异性得分矩阵</h2>
+<p>使用背景分布和加入伪计数的PWM，很容易就能计算出log-odds比率，提供特定标记的log odds值，这值来自于在这个背景的模体。我们可以用在位置仅重矩阵中 .log-odds() 方法：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">pssm</span> <span class="o">=</span> <span class="n">pwm</span><span class="o">.</span><span class="n">log_odds</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="n">pssm</span>
+</span></span><span class="line"><span class="cl">        <span class="mi">0</span>      <span class="mi">1</span>      <span class="mi">2</span>      <span class="mi">3</span>      <span class="mi">4</span>
+</span></span><span class="line"><span class="cl"><span class="n">A</span><span class="p">:</span>   <span class="mf">0.68</span>   <span class="mf">1.76</span>  <span class="o">-</span><span class="mf">1.91</span>   <span class="mf">0.21</span>  <span class="o">-</span><span class="mf">0.49</span>
+</span></span><span class="line"><span class="cl"><span class="n">C</span><span class="p">:</span>  <span class="o">-</span><span class="mf">2.49</span>  <span class="o">-</span><span class="mf">2.49</span>   <span class="mf">1.26</span>   <span class="mf">0.09</span>   <span class="mf">1.51</span>
+</span></span><span class="line"><span class="cl"><span class="n">G</span><span class="p">:</span>  <span class="o">-</span><span class="mf">2.49</span>  <span class="o">-</span><span class="mf">2.49</span>  <span class="o">-</span><span class="mf">2.49</span>   <span class="mf">0.60</span>  <span class="o">-</span><span class="mf">2.49</span>
+</span></span><span class="line"><span class="cl"><span class="n">T</span><span class="p">:</span>   <span class="mf">1.03</span>  <span class="o">-</span><span class="mf">1.91</span>   <span class="mf">0.21</span>  <span class="o">-</span><span class="mf">1.91</span>  <span class="o">-</span><span class="mf">1.91</span>
+</span></span></code></pre></div><p>这时我们可以更经常看到特定标记和背景下的正值和负值。0.0意味着在模体和背景中观察到一个标记有相等的可能性。<br>
+上面是假设A,C,G和T在背景中出现的概率是相同的。那在A,C,G和T出现概率不同的情况下，为了计算特定背景下的位置特异性得分矩阵，可以使用 background 参数。例如，在40%GC含量的背景下，可以用：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">background</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;A&#39;</span><span class="p">:</span><span class="mf">0.3</span><span class="p">,</span><span class="s1">&#39;C&#39;</span><span class="p">:</span><span class="mf">0.2</span><span class="p">,</span><span class="s1">&#39;G&#39;</span><span class="p">:</span><span class="mf">0.2</span><span class="p">,</span><span class="s1">&#39;T&#39;</span><span class="p">:</span><span class="mf">0.3</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">pssm</span> <span class="o">=</span> <span class="n">pwm</span><span class="o">.</span><span class="n">log_odds</span><span class="p">(</span><span class="n">background</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="n">pssm</span>
+</span></span><span class="line"><span class="cl">        <span class="mi">0</span>      <span class="mi">1</span>      <span class="mi">2</span>      <span class="mi">3</span>      <span class="mi">4</span>
+</span></span><span class="line"><span class="cl"><span class="n">A</span><span class="p">:</span>   <span class="mf">0.42</span>   <span class="mf">1.49</span>  <span class="o">-</span><span class="mf">2.17</span>  <span class="o">-</span><span class="mf">0.05</span>  <span class="o">-</span><span class="mf">0.75</span>
+</span></span><span class="line"><span class="cl"><span class="n">C</span><span class="p">:</span>  <span class="o">-</span><span class="mf">2.17</span>  <span class="o">-</span><span class="mf">2.17</span>   <span class="mf">1.58</span>   <span class="mf">0.42</span>   <span class="mf">1.83</span>
+</span></span><span class="line"><span class="cl"><span class="n">G</span><span class="p">:</span>  <span class="o">-</span><span class="mf">2.17</span>  <span class="o">-</span><span class="mf">2.17</span>  <span class="o">-</span><span class="mf">2.17</span>   <span class="mf">0.92</span>  <span class="o">-</span><span class="mf">2.17</span>
+</span></span><span class="line"><span class="cl"><span class="n">T</span><span class="p">:</span>   <span class="mf">0.77</span>  <span class="o">-</span><span class="mf">2.17</span>  <span class="o">-</span><span class="mf">0.05</span>  <span class="o">-</span><span class="mf">2.17</span>  <span class="o">-</span><span class="mf">2.17</span>
+</span></span></code></pre></div><p>从PSSM中得到的最大和最小值被存储在 .max 和 .min 属性中：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="s2">&#34;</span><span class="si">%4.2f</span><span class="s2">&#34;</span> <span class="o">%</span> <span class="n">pssm</span><span class="o">.</span><span class="n">max</span>
+</span></span><span class="line"><span class="cl"><span class="mf">6.59</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="s2">&#34;</span><span class="si">%4.2f</span><span class="s2">&#34;</span> <span class="o">%</span> <span class="n">pssm</span><span class="o">.</span><span class="n">min</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span><span class="mf">10.85</span>
+</span></span></code></pre></div><p>在特定背景下计算平均值和标准方差使用 .mean 和 .std 方法。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">mean</span> <span class="o">=</span> <span class="n">pssm</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">background</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">std</span> <span class="o">=</span> <span class="n">pssm</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">background</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="s2">&#34;mean = </span><span class="si">%0.2f</span><span class="s2">, standard deviation = </span><span class="si">%0.2f</span><span class="s2">&#34;</span> <span class="o">%</span> <span class="p">(</span><span class="n">mean</span><span class="p">,</span> <span class="n">std</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">mean</span> <span class="o">=</span> <span class="mf">3.21</span><span class="p">,</span> <span class="n">standard</span> <span class="n">deviation</span> <span class="o">=</span> <span class="mf">2.59</span>
+</span></span></code></pre></div><p>如果没有指定特定的背景，就会使用一个统一的背景。因为同KL散度或相对熵的值相同，所以平均值就显得特别重要，并且它也是同背景相比的模体信息含量的测量方法。由于在Biopython中用以2为底的对数来计算log-odds值，信息含量的的单位是bit。<br>
+.reverse_complement, .consensus, .anticonsensus 和 .degenerate_consensus 方法可以直接对PSSM使用。</p>
+<h2 id="搜索实例">搜索实例</h2>
+<p>模体最常用的功能就是在序列中的查找它的实例。在这节，我们会用如下的序列作为例子：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">test_seq</span><span class="o">=</span><span class="n">Seq</span><span class="p">(</span><span class="s2">&#34;TACACTGCATTACAACCCAAGCATTA&#34;</span><span class="p">,</span><span class="n">m</span><span class="o">.</span><span class="n">alphabet</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">test_seq</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="mi">26</span>
+</span></span></code></pre></div><h3 id="搜索准确匹配实例">搜索准确匹配实例</h3>
+<p>查找实例最简单的方法就是查找模体实例的准确匹配：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">pos</span><span class="p">,</span><span class="n">seq</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">instances</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">test_seq</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>     <span class="nb">print</span> <span class="n">pos</span><span class="p">,</span> <span class="n">seq</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="mi">0</span> <span class="n">TACAC</span>
+</span></span><span class="line"><span class="cl"><span class="mi">10</span> <span class="n">TACAA</span>
+</span></span><span class="line"><span class="cl"><span class="mi">13</span> <span class="n">AACCC</span>
+</span></span></code></pre></div><p>我们可获得反向互补序列（找到互补链的实例）：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">pos</span><span class="p">,</span><span class="n">seq</span> <span class="ow">in</span> <span class="n">r</span><span class="o">.</span><span class="n">instances</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">test_seq</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>     <span class="nb">print</span> <span class="n">pos</span><span class="p">,</span> <span class="n">seq</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="mi">6</span> <span class="n">GCATT</span>
+</span></span><span class="line"><span class="cl"><span class="mi">20</span> <span class="n">GCATT</span>
+</span></span></code></pre></div><h3 id="用pssm得分搜索匹配实例">用PSSM得分搜索匹配实例</h3>
+<p>在模体中很容易找出相应的位置,引起对模体的高log-odds值：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">position</span><span class="p">,</span> <span class="n">score</span> <span class="ow">in</span> <span class="n">pssm</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">test_seq</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">3.0</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>     <span class="nb">print</span> <span class="s2">&#34;Position </span><span class="si">%d</span><span class="s2">: score = </span><span class="si">%5.3f</span><span class="s2">&#34;</span> <span class="o">%</span> <span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="n">score</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="n">Position</span> <span class="mi">0</span><span class="p">:</span> <span class="n">score</span> <span class="o">=</span> <span class="mf">5.622</span>
+</span></span><span class="line"><span class="cl"><span class="n">Position</span> <span class="o">-</span><span class="mi">20</span><span class="p">:</span> <span class="n">score</span> <span class="o">=</span> <span class="mf">4.601</span>
+</span></span><span class="line"><span class="cl"><span class="n">Position</span> <span class="mi">10</span><span class="p">:</span> <span class="n">score</span> <span class="o">=</span> <span class="mf">3.037</span>
+</span></span><span class="line"><span class="cl"><span class="n">Position</span> <span class="mi">13</span><span class="p">:</span> <span class="n">score</span> <span class="o">=</span> <span class="mf">5.738</span>
+</span></span><span class="line"><span class="cl"><span class="n">Position</span> <span class="o">-</span><span class="mi">6</span><span class="p">:</span> <span class="n">score</span> <span class="o">=</span> <span class="mf">4.601</span>
+</span></span></code></pre></div><p>负值的位置是指在测试序列的反向链中找到的模体的实例，而且得力于Python的索引。在 pos 的模体实例可以用 test_seq[pos:pos+len(m)] 来定位，不管 pos 值是正还是负。<br>
+你可能注意到阀值参数，在这里随意地设为3.0。这里是 _log_2 ，所以我们现在开始寻找那些在模体中出现概率为背景中出现概率8倍序列。默认的阀值是0.0,在此阀值下，会把所有比背景中出现概率大的模体实例都找出来。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">pssm</span><span class="o">.</span><span class="n">calculate</span><span class="p">(</span><span class="n">test_seq</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">array</span><span class="p">([</span>  <span class="mf">5.62230396</span><span class="p">,</span>  <span class="o">-</span><span class="mf">5.6796999</span> <span class="p">,</span>  <span class="o">-</span><span class="mf">3.43177247</span><span class="p">,</span>   <span class="mf">0.93827754</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="o">-</span><span class="mf">6.84962511</span><span class="p">,</span>  <span class="o">-</span><span class="mf">2.04066086</span><span class="p">,</span> <span class="o">-</span><span class="mf">10.84962463</span><span class="p">,</span>  <span class="o">-</span><span class="mf">3.65614533</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="o">-</span><span class="mf">0.03370807</span><span class="p">,</span>  <span class="o">-</span><span class="mf">3.91102552</span><span class="p">,</span>   <span class="mf">3.03734159</span><span class="p">,</span>  <span class="o">-</span><span class="mf">2.14918518</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="o">-</span><span class="mf">0.6016975</span> <span class="p">,</span>   <span class="mf">5.7381525</span> <span class="p">,</span>  <span class="o">-</span><span class="mf">0.50977498</span><span class="p">,</span>  <span class="o">-</span><span class="mf">3.56422281</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="o">-</span><span class="mf">8.73414803</span><span class="p">,</span>  <span class="o">-</span><span class="mf">0.09919716</span><span class="p">,</span>  <span class="o">-</span><span class="mf">0.6016975</span> <span class="p">,</span>  <span class="o">-</span><span class="mf">2.39429784</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">       <span class="o">-</span><span class="mf">10.84962463</span><span class="p">,</span>  <span class="o">-</span><span class="mf">3.65614533</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">float32</span><span class="p">)</span>
+</span></span></code></pre></div><p>通常来说，上述是计算PSSM得分的最快方法。这些得分只能由前导链用 pssm.calculate 计算得到。为了得到互补链的PSSM值，你可以利用PSSM的互补矩阵</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">rpssm</span> <span class="o">=</span> <span class="n">pssm</span><span class="o">.</span><span class="n">reverse_complement</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">rpssm</span><span class="o">.</span><span class="n">calculate</span><span class="p">(</span><span class="n">test_seq</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">array</span><span class="p">([</span> <span class="o">-</span><span class="mf">9.43458748</span><span class="p">,</span>  <span class="o">-</span><span class="mf">3.06172252</span><span class="p">,</span>  <span class="o">-</span><span class="mf">7.18665981</span><span class="p">,</span>  <span class="o">-</span><span class="mf">7.76216221</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="o">-</span><span class="mf">2.04066086</span><span class="p">,</span>  <span class="o">-</span><span class="mf">4.26466274</span><span class="p">,</span>   <span class="mf">4.60124254</span><span class="p">,</span>  <span class="o">-</span><span class="mf">4.2480607</span> <span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="o">-</span><span class="mf">8.73414803</span><span class="p">,</span>  <span class="o">-</span><span class="mf">2.26503372</span><span class="p">,</span>  <span class="o">-</span><span class="mf">6.49598789</span><span class="p">,</span>  <span class="o">-</span><span class="mf">5.64668512</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="o">-</span><span class="mf">8.73414803</span><span class="p">,</span> <span class="o">-</span><span class="mf">10.84962463</span><span class="p">,</span>  <span class="o">-</span><span class="mf">4.82356262</span><span class="p">,</span>  <span class="o">-</span><span class="mf">4.82356262</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="o">-</span><span class="mf">5.64668512</span><span class="p">,</span>  <span class="o">-</span><span class="mf">8.73414803</span><span class="p">,</span>  <span class="o">-</span><span class="mf">4.15613794</span><span class="p">,</span>  <span class="o">-</span><span class="mf">5.6796999</span> <span class="p">,</span>
+</span></span><span class="line"><span class="cl">         <span class="mf">4.60124254</span><span class="p">,</span>  <span class="o">-</span><span class="mf">4.2480607</span> <span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">float32</span><span class="p">)</span>
+</span></span></code></pre></div><h3 id="选择得分阈值">选择得分阈值</h3>
+<p>如果不想刚才那么随意设定一个阀值，你可以探究一下PSSM得分的分布。由于得分的空间分布随着模体长度而成倍增长，我们用一个近似于给定精度值来计算，如此可使计算成本更容易控制：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">distribution</span> <span class="o">=</span> <span class="n">pssm</span><span class="o">.</span><span class="n">distribution</span><span class="p">(</span><span class="n">background</span><span class="o">=</span><span class="n">background</span><span class="p">,</span> <span class="n">precision</span><span class="o">=</span><span class="mi">10</span><span class="o">**</span><span class="mi">4</span><span class="p">)</span>
+</span></span></code></pre></div><p>distribution 对象可以用来决定许多不同的阀值。我们可以指定一个需要的的假阳性率（找到一个由序列在此背景下产生的模体实例的概率）：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">threshold</span> <span class="o">=</span> <span class="n">distribution</span><span class="o">.</span><span class="n">threshold_fpr</span><span class="p">(</span><span class="mf">0.01</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="s2">&#34;</span><span class="si">%5.3f</span><span class="s2">&#34;</span> <span class="o">%</span> <span class="n">threshold</span>
+</span></span><span class="line"><span class="cl"><span class="mf">4.009</span>
+</span></span></code></pre></div><p>或者假阴性率（找不到模体产生的实例概率）：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">threshold</span> <span class="o">=</span> <span class="n">distribution</span><span class="o">.</span><span class="n">threshold_fnr</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="s2">&#34;</span><span class="si">%5.3f</span><span class="s2">&#34;</span> <span class="o">%</span> <span class="n">threshold</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span><span class="mf">0.510</span>
+</span></span></code></pre></div><p>或者一个阀值（近似），满足假阳性率和假阴性率之间的关系（fnr/fpr≃ <em>t</em>)：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">threshold</span> <span class="o">=</span> <span class="n">distribution</span><span class="o">.</span><span class="n">threshold_balanced</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="s2">&#34;</span><span class="si">%5.3f</span><span class="s2">&#34;</span> <span class="o">%</span> <span class="n">threshold</span>
+</span></span><span class="line"><span class="cl"><span class="mf">6.241</span>
+</span></span></code></pre></div><p>或者一个阀值能够大体满足假阳性率和信息含量的 −_log_ 值之间的相等关系（与Hertz和Stormo的Patser软件所用的一样）</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">threshold</span> <span class="o">=</span> <span class="n">distribution</span><span class="o">.</span><span class="n">threshold_patser</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="s2">&#34;</span><span class="si">%5.3f</span><span class="s2">&#34;</span> <span class="o">%</span> <span class="n">threshold</span>
+</span></span><span class="line"><span class="cl"><span class="mf">0.346</span>
+</span></span></code></pre></div><p>比如在我们这个模体中，当以1000比率的平衡阀值查找实例，你可以得到一个让你获得相同结果的阀值（对这个序列来说）。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">threshold</span> <span class="o">=</span> <span class="n">distribution</span><span class="o">.</span><span class="n">threshold_fpr</span><span class="p">(</span><span class="mf">0.01</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="s2">&#34;</span><span class="si">%5.3f</span><span class="s2">&#34;</span> <span class="o">%</span> <span class="n">threshold</span>
+</span></span><span class="line"><span class="cl"><span class="mf">4.009</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">position</span><span class="p">,</span> <span class="n">score</span> <span class="ow">in</span> <span class="n">pssm</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">test_seq</span><span class="p">,</span><span class="n">threshold</span><span class="o">=</span><span class="n">threshold</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>     <span class="nb">print</span> <span class="s2">&#34;Position </span><span class="si">%d</span><span class="s2">: score = </span><span class="si">%5.3f</span><span class="s2">&#34;</span> <span class="o">%</span> <span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="n">score</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="n">Position</span> <span class="mi">0</span><span class="p">:</span> <span class="n">score</span> <span class="o">=</span> <span class="mf">5.622</span>
+</span></span><span class="line"><span class="cl"><span class="n">Position</span> <span class="o">-</span><span class="mi">20</span><span class="p">:</span> <span class="n">score</span> <span class="o">=</span> <span class="mf">4.601</span>
+</span></span><span class="line"><span class="cl"><span class="n">Position</span> <span class="mi">13</span><span class="p">:</span> <span class="n">score</span> <span class="o">=</span> <span class="mf">5.738</span>
+</span></span><span class="line"><span class="cl"><span class="n">Position</span> <span class="o">-</span><span class="mi">6</span><span class="p">:</span> <span class="n">score</span> <span class="o">=</span> <span class="mf">4.601</span>
+</span></span></code></pre></div><h3 id="模体对象自身相关的位置特异性得分矩阵">模体对象自身相关的位置特异性得分矩阵</h3>
+<p>为了更好的利用PSSMs来查找潜在的TFBSs，每个模体都同位置权重矩阵和位置特异性得分矩阵相关联。用Arnt模体来举个例子：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio</span> <span class="kn">import</span> <span class="n">motifs</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">handle</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&#34;Arnt.sites&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">motif</span> <span class="o">=</span> <span class="n">motifs</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="s1">&#39;sites&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="n">motif</span><span class="o">.</span><span class="n">counts</span>
+</span></span><span class="line"><span class="cl">        <span class="mi">0</span>      <span class="mi">1</span>      <span class="mi">2</span>      <span class="mi">3</span>      <span class="mi">4</span>      <span class="mi">5</span>
+</span></span><span class="line"><span class="cl"><span class="n">A</span><span class="p">:</span>   <span class="mf">4.00</span>  <span class="mf">19.00</span>   <span class="mf">0.00</span>   <span class="mf">0.00</span>   <span class="mf">0.00</span>   <span class="mf">0.00</span>
+</span></span><span class="line"><span class="cl"><span class="n">C</span><span class="p">:</span>  <span class="mf">16.00</span>   <span class="mf">0.00</span>  <span class="mf">20.00</span>   <span class="mf">0.00</span>   <span class="mf">0.00</span>   <span class="mf">0.00</span>
+</span></span><span class="line"><span class="cl"><span class="n">G</span><span class="p">:</span>   <span class="mf">0.00</span>   <span class="mf">1.00</span>   <span class="mf">0.00</span>  <span class="mf">20.00</span>   <span class="mf">0.00</span>  <span class="mf">20.00</span>
+</span></span><span class="line"><span class="cl"><span class="n">T</span><span class="p">:</span>   <span class="mf">0.00</span>   <span class="mf">0.00</span>   <span class="mf">0.00</span>   <span class="mf">0.00</span>  <span class="mf">20.00</span>   <span class="mf">0.00</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="n">motif</span><span class="o">.</span><span class="n">pwm</span>
+</span></span><span class="line"><span class="cl">        <span class="mi">0</span>      <span class="mi">1</span>      <span class="mi">2</span>      <span class="mi">3</span>      <span class="mi">4</span>      <span class="mi">5</span>
+</span></span><span class="line"><span class="cl"><span class="n">A</span><span class="p">:</span>   <span class="mf">0.20</span>   <span class="mf">0.95</span>   <span class="mf">0.00</span>   <span class="mf">0.00</span>   <span class="mf">0.00</span>   <span class="mf">0.00</span>
+</span></span><span class="line"><span class="cl"><span class="n">C</span><span class="p">:</span>   <span class="mf">0.80</span>   <span class="mf">0.00</span>   <span class="mf">1.00</span>   <span class="mf">0.00</span>   <span class="mf">0.00</span>   <span class="mf">0.00</span>
+</span></span><span class="line"><span class="cl"><span class="n">G</span><span class="p">:</span>   <span class="mf">0.00</span>   <span class="mf">0.05</span>   <span class="mf">0.00</span>   <span class="mf">1.00</span>   <span class="mf">0.00</span>   <span class="mf">1.00</span>
+</span></span><span class="line"><span class="cl"><span class="n">T</span><span class="p">:</span>   <span class="mf">0.00</span>   <span class="mf">0.00</span>   <span class="mf">0.00</span>   <span class="mf">0.00</span>   <span class="mf">1.00</span>   <span class="mf">0.00</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="n">motif</span><span class="o">.</span><span class="n">pssm</span>
+</span></span><span class="line"><span class="cl">        <span class="mi">0</span>      <span class="mi">1</span>      <span class="mi">2</span>      <span class="mi">3</span>      <span class="mi">4</span>      <span class="mi">5</span>
+</span></span><span class="line"><span class="cl"><span class="n">A</span><span class="p">:</span>  <span class="o">-</span><span class="mf">0.32</span>   <span class="mf">1.93</span>   <span class="o">-</span><span class="n">inf</span>   <span class="o">-</span><span class="n">inf</span>   <span class="o">-</span><span class="n">inf</span>   <span class="o">-</span><span class="n">inf</span>
+</span></span><span class="line"><span class="cl"><span class="n">C</span><span class="p">:</span>   <span class="mf">1.68</span>   <span class="o">-</span><span class="n">inf</span>   <span class="mf">2.00</span>   <span class="o">-</span><span class="n">inf</span>   <span class="o">-</span><span class="n">inf</span>   <span class="o">-</span><span class="n">inf</span>
+</span></span><span class="line"><span class="cl"><span class="n">G</span><span class="p">:</span>   <span class="o">-</span><span class="n">inf</span>  <span class="o">-</span><span class="mf">2.32</span>   <span class="o">-</span><span class="n">inf</span>   <span class="mf">2.00</span>   <span class="o">-</span><span class="n">inf</span>   <span class="mf">2.00</span>
+</span></span><span class="line"><span class="cl"><span class="n">T</span><span class="p">:</span>   <span class="o">-</span><span class="n">inf</span>   <span class="o">-</span><span class="n">inf</span>   <span class="o">-</span><span class="n">inf</span>   <span class="o">-</span><span class="n">inf</span>   <span class="mf">2.00</span>   <span class="o">-</span><span class="n">inf</span>
+</span></span></code></pre></div><p>在这出现的负无穷大是由于在频率矩阵中相关项的值为0,并且我们默认使用0作为伪计数：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">letter</span> <span class="ow">in</span> <span class="s2">&#34;ACGT&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>     <span class="nb">print</span> <span class="s2">&#34;</span><span class="si">%s</span><span class="s2">: </span><span class="si">%4.2f</span><span class="s2">&#34;</span> <span class="o">%</span> <span class="p">(</span><span class="n">letter</span><span class="p">,</span> <span class="n">motif</span><span class="o">.</span><span class="n">pseudocounts</span><span class="p">[</span><span class="n">letter</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="n">A</span><span class="p">:</span> <span class="mf">0.00</span>
+</span></span><span class="line"><span class="cl"><span class="n">C</span><span class="p">:</span> <span class="mf">0.00</span>
+</span></span><span class="line"><span class="cl"><span class="n">G</span><span class="p">:</span> <span class="mf">0.00</span>
+</span></span><span class="line"><span class="cl"><span class="n">T</span><span class="p">:</span> <span class="mf">0.00</span>
+</span></span></code></pre></div><p>如果你更改了 .pseudocouts 属性，那么位置频率矩阵和位置特异性得分矩阵就都会自动重新计算：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">motif</span><span class="o">.</span><span class="n">pseudocounts</span> <span class="o">=</span> <span class="mf">3.0</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">letter</span> <span class="ow">in</span> <span class="s2">&#34;ACGT&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>     <span class="nb">print</span> <span class="s2">&#34;</span><span class="si">%s</span><span class="s2">: </span><span class="si">%4.2f</span><span class="s2">&#34;</span> <span class="o">%</span> <span class="p">(</span><span class="n">letter</span><span class="p">,</span> <span class="n">motif</span><span class="o">.</span><span class="n">pseudocounts</span><span class="p">[</span><span class="n">letter</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="n">A</span><span class="p">:</span> <span class="mf">3.00</span>
+</span></span><span class="line"><span class="cl"><span class="n">C</span><span class="p">:</span> <span class="mf">3.00</span>
+</span></span><span class="line"><span class="cl"><span class="n">G</span><span class="p">:</span> <span class="mf">3.00</span>
+</span></span><span class="line"><span class="cl"><span class="n">T</span><span class="p">:</span> <span class="mf">3.00</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="n">motif</span><span class="o">.</span><span class="n">pwm</span>
+</span></span><span class="line"><span class="cl">        <span class="mi">0</span>      <span class="mi">1</span>      <span class="mi">2</span>      <span class="mi">3</span>      <span class="mi">4</span>      <span class="mi">5</span>
+</span></span><span class="line"><span class="cl"><span class="n">A</span><span class="p">:</span>   <span class="mf">0.22</span>   <span class="mf">0.69</span>   <span class="mf">0.09</span>   <span class="mf">0.09</span>   <span class="mf">0.09</span>   <span class="mf">0.09</span>
+</span></span><span class="line"><span class="cl"><span class="n">C</span><span class="p">:</span>   <span class="mf">0.59</span>   <span class="mf">0.09</span>   <span class="mf">0.72</span>   <span class="mf">0.09</span>   <span class="mf">0.09</span>   <span class="mf">0.09</span>
+</span></span><span class="line"><span class="cl"><span class="n">G</span><span class="p">:</span>   <span class="mf">0.09</span>   <span class="mf">0.12</span>   <span class="mf">0.09</span>   <span class="mf">0.72</span>   <span class="mf">0.09</span>   <span class="mf">0.72</span>
+</span></span><span class="line"><span class="cl"><span class="n">T</span><span class="p">:</span>   <span class="mf">0.09</span>   <span class="mf">0.09</span>   <span class="mf">0.09</span>   <span class="mf">0.09</span>   <span class="mf">0.72</span>   <span class="mf">0.09</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="n">motif</span><span class="o">.</span><span class="n">pssm</span>
+</span></span><span class="line"><span class="cl">        <span class="mi">0</span>      <span class="mi">1</span>      <span class="mi">2</span>      <span class="mi">3</span>      <span class="mi">4</span>      <span class="mi">5</span>
+</span></span><span class="line"><span class="cl"><span class="n">A</span><span class="p">:</span>  <span class="o">-</span><span class="mf">0.19</span>   <span class="mf">1.46</span>  <span class="o">-</span><span class="mf">1.42</span>  <span class="o">-</span><span class="mf">1.42</span>  <span class="o">-</span><span class="mf">1.42</span>  <span class="o">-</span><span class="mf">1.42</span>
+</span></span><span class="line"><span class="cl"><span class="n">C</span><span class="p">:</span>   <span class="mf">1.25</span>  <span class="o">-</span><span class="mf">1.42</span>   <span class="mf">1.52</span>  <span class="o">-</span><span class="mf">1.42</span>  <span class="o">-</span><span class="mf">1.42</span>  <span class="o">-</span><span class="mf">1.42</span>
+</span></span><span class="line"><span class="cl"><span class="n">G</span><span class="p">:</span>  <span class="o">-</span><span class="mf">1.42</span>  <span class="o">-</span><span class="mf">1.00</span>  <span class="o">-</span><span class="mf">1.42</span>   <span class="mf">1.52</span>  <span class="o">-</span><span class="mf">1.42</span>   <span class="mf">1.52</span>
+</span></span><span class="line"><span class="cl"><span class="n">T</span><span class="p">:</span>  <span class="o">-</span><span class="mf">1.42</span>  <span class="o">-</span><span class="mf">1.42</span>  <span class="o">-</span><span class="mf">1.42</span>  <span class="o">-</span><span class="mf">1.42</span>   <span class="mf">1.52</span>  <span class="o">-</span><span class="mf">1.42</span>
+</span></span></code></pre></div><p>如果你想对4个核苷酸使用不同的伪计数，可以使用字典来设定4个核苷酸的 pseudocounts 。把 motif.pseudocounts 设为 None 会让伪计数重置为0的默认值。<br>
+位置特异性得分矩阵依赖于一个默认均一的背景分布：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">letter</span> <span class="ow">in</span> <span class="s2">&#34;ACGT&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>     <span class="nb">print</span> <span class="s2">&#34;</span><span class="si">%s</span><span class="s2">: </span><span class="si">%4.2f</span><span class="s2">&#34;</span> <span class="o">%</span> <span class="p">(</span><span class="n">letter</span><span class="p">,</span> <span class="n">motif</span><span class="o">.</span><span class="n">background</span><span class="p">[</span><span class="n">letter</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="n">A</span><span class="p">:</span> <span class="mf">0.25</span>
+</span></span><span class="line"><span class="cl"><span class="n">C</span><span class="p">:</span> <span class="mf">0.25</span>
+</span></span><span class="line"><span class="cl"><span class="n">G</span><span class="p">:</span> <span class="mf">0.25</span>
+</span></span><span class="line"><span class="cl"><span class="n">T</span><span class="p">:</span> <span class="mf">0.25</span>
+</span></span></code></pre></div><p>同样，如果你更改了背景分布，位置特异性得分矩阵也会重新计算：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">motif</span><span class="o">.</span><span class="n">background</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;A&#39;</span><span class="p">:</span> <span class="mf">0.2</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">:</span> <span class="mf">0.3</span><span class="p">,</span> <span class="s1">&#39;G&#39;</span><span class="p">:</span> <span class="mf">0.3</span><span class="p">,</span> <span class="s1">&#39;T&#39;</span><span class="p">:</span> <span class="mf">0.2</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="n">motif</span><span class="o">.</span><span class="n">pssm</span>
+</span></span><span class="line"><span class="cl">        <span class="mi">0</span>      <span class="mi">1</span>      <span class="mi">2</span>      <span class="mi">3</span>      <span class="mi">4</span>      <span class="mi">5</span>
+</span></span><span class="line"><span class="cl"><span class="n">A</span><span class="p">:</span>   <span class="mf">0.13</span>   <span class="mf">1.78</span>  <span class="o">-</span><span class="mf">1.09</span>  <span class="o">-</span><span class="mf">1.09</span>  <span class="o">-</span><span class="mf">1.09</span>  <span class="o">-</span><span class="mf">1.09</span>
+</span></span><span class="line"><span class="cl"><span class="n">C</span><span class="p">:</span>   <span class="mf">0.98</span>  <span class="o">-</span><span class="mf">1.68</span>   <span class="mf">1.26</span>  <span class="o">-</span><span class="mf">1.68</span>  <span class="o">-</span><span class="mf">1.68</span>  <span class="o">-</span><span class="mf">1.68</span>
+</span></span><span class="line"><span class="cl"><span class="n">G</span><span class="p">:</span>  <span class="o">-</span><span class="mf">1.68</span>  <span class="o">-</span><span class="mf">1.26</span>  <span class="o">-</span><span class="mf">1.68</span>   <span class="mf">1.26</span>  <span class="o">-</span><span class="mf">1.68</span>   <span class="mf">1.26</span>
+</span></span><span class="line"><span class="cl"><span class="n">T</span><span class="p">:</span>  <span class="o">-</span><span class="mf">1.09</span>  <span class="o">-</span><span class="mf">1.09</span>  <span class="o">-</span><span class="mf">1.09</span>  <span class="o">-</span><span class="mf">1.09</span>   <span class="mf">1.85</span>  <span class="o">-</span><span class="mf">1.09</span>
+</span></span></code></pre></div><p>把 motif.backgroud 设为 None 后会将其重置为均一的分布。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">motif</span><span class="o">.</span><span class="n">background</span> <span class="o">=</span> <span class="kc">None</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">letter</span> <span class="ow">in</span> <span class="s2">&#34;ACGT&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>     <span class="nb">print</span> <span class="s2">&#34;</span><span class="si">%s</span><span class="s2">: </span><span class="si">%4.2f</span><span class="s2">&#34;</span> <span class="o">%</span> <span class="p">(</span><span class="n">letter</span><span class="p">,</span> <span class="n">motif</span><span class="o">.</span><span class="n">background</span><span class="p">[</span><span class="n">letter</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="n">A</span><span class="p">:</span> <span class="mf">0.25</span>
+</span></span><span class="line"><span class="cl"><span class="n">C</span><span class="p">:</span> <span class="mf">0.25</span>
+</span></span><span class="line"><span class="cl"><span class="n">G</span><span class="p">:</span> <span class="mf">0.25</span>
+</span></span><span class="line"><span class="cl"><span class="n">T</span><span class="p">:</span> <span class="mf">0.25</span>
+</span></span></code></pre></div><p>如果你把 motif.background 设为一个单一值，这个值将会被看成是GC含量：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">motif</span><span class="o">.</span><span class="n">background</span> <span class="o">=</span> <span class="mf">0.8</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">letter</span> <span class="ow">in</span> <span class="s2">&#34;ACGT&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>     <span class="nb">print</span> <span class="s2">&#34;</span><span class="si">%s</span><span class="s2">: </span><span class="si">%4.2f</span><span class="s2">&#34;</span> <span class="o">%</span> <span class="p">(</span><span class="n">letter</span><span class="p">,</span> <span class="n">motif</span><span class="o">.</span><span class="n">background</span><span class="p">[</span><span class="n">letter</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="n">A</span><span class="p">:</span> <span class="mf">0.10</span>
+</span></span><span class="line"><span class="cl"><span class="n">C</span><span class="p">:</span> <span class="mf">0.40</span>
+</span></span><span class="line"><span class="cl"><span class="n">G</span><span class="p">:</span> <span class="mf">0.40</span>
+</span></span><span class="line"><span class="cl"><span class="n">T</span><span class="p">:</span> <span class="mf">0.10</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#应当注意到你能够在当前计算背景下计算PSSM的平均值</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="s2">&#34;</span><span class="si">%f</span><span class="s2">&#34;</span> <span class="o">%</span> <span class="n">motif</span><span class="o">.</span><span class="n">pssm</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">motif</span><span class="o">.</span><span class="n">background</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="mf">4.703928</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#它的标准方差也是一样：</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="s2">&#34;</span><span class="si">%f</span><span class="s2">&#34;</span> <span class="o">%</span> <span class="n">motif</span><span class="o">.</span><span class="n">pssm</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">motif</span><span class="o">.</span><span class="n">background</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="mf">3.290900</span>
+</span></span></code></pre></div><p>和它的分布</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">distribution</span> <span class="o">=</span> <span class="n">motif</span><span class="o">.</span><span class="n">pssm</span><span class="o">.</span><span class="n">distribution</span><span class="p">(</span><span class="n">background</span><span class="o">=</span><span class="n">motif</span><span class="o">.</span><span class="n">background</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">threshold</span> <span class="o">=</span> <span class="n">distribution</span><span class="o">.</span><span class="n">threshold_fpr</span><span class="p">(</span><span class="mf">0.01</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="s2">&#34;</span><span class="si">%f</span><span class="s2">&#34;</span> <span class="o">%</span> <span class="n">threshold</span>
+</span></span><span class="line"><span class="cl"><span class="mf">3.854375</span>
+</span></span></code></pre></div><p>请注意，每当你调用 motif.pwm 或 motif.pssm ，位置仅重矩阵和位置特异性得分矩阵都会重新计算。如果看重速度并且需要重复用到PWM或PSSM时，你可以把他们保存成变量，如下所示：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">pssm</span> <span class="o">=</span> <span class="n">motif</span><span class="o">.</span><span class="n">pssm</span>
+</span></span></code></pre></div><h2 id="模体比较">模体比较</h2>
+<p>在我们开始比较之前，应当要指出模体的边界通常比较模糊。这也就是说我们需要比较不同长度的模体，因此这些比较也要涉及到相关的比对。所以我们需要考虑两个东西：</p>
+<ul>
+<li>模体比对</li>
+<li>比较比对后模体的相关函数
+为了比对模体，我们使用PSSMs的不含间隔的比对，并且用0来代替矩阵开始和结束位置缺失的列。这说明我们能够有效地利用背景分布来代替PSSM中缺失的列。距离函数然后可以返回模体间最小的距离，以及比对中相应的偏移量。<br>
+举个例子，先导入和测试模体 m 相似的模体：</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">m_reb1</span> <span class="o">=</span> <span class="n">motifs</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s2">&#34;REB1.pfm&#34;</span><span class="p">),</span> <span class="s2">&#34;pfm&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">m_reb1</span><span class="o">.</span><span class="n">consensus</span>
+</span></span><span class="line"><span class="cl"><span class="n">Seq</span><span class="p">(</span><span class="s1">&#39;GTTACCCGG&#39;</span><span class="p">,</span> <span class="n">IUPACUnambiguousDNA</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="n">m_reb1</span><span class="o">.</span><span class="n">counts</span>
+</span></span><span class="line"><span class="cl">        <span class="mi">0</span>      <span class="mi">1</span>      <span class="mi">2</span>      <span class="mi">3</span>      <span class="mi">4</span>      <span class="mi">5</span>      <span class="mi">6</span>      <span class="mi">7</span>      <span class="mi">8</span>
+</span></span><span class="line"><span class="cl"><span class="n">A</span><span class="p">:</span>  <span class="mf">30.00</span>   <span class="mf">0.00</span>   <span class="mf">0.00</span> <span class="mf">100.00</span>   <span class="mf">0.00</span>   <span class="mf">0.00</span>   <span class="mf">0.00</span>   <span class="mf">0.00</span>  <span class="mf">15.00</span>
+</span></span><span class="line"><span class="cl"><span class="n">C</span><span class="p">:</span>  <span class="mf">10.00</span>   <span class="mf">0.00</span>   <span class="mf">0.00</span>   <span class="mf">0.00</span> <span class="mf">100.00</span> <span class="mf">100.00</span> <span class="mf">100.00</span>   <span class="mf">0.00</span>  <span class="mf">15.00</span>
+</span></span><span class="line"><span class="cl"><span class="n">G</span><span class="p">:</span>  <span class="mf">50.00</span>   <span class="mf">0.00</span>   <span class="mf">0.00</span>   <span class="mf">0.00</span>   <span class="mf">0.00</span>   <span class="mf">0.00</span>   <span class="mf">0.00</span>  <span class="mf">60.00</span>  <span class="mf">55.00</span>
+</span></span><span class="line"><span class="cl"><span class="n">T</span><span class="p">:</span>  <span class="mf">10.00</span> <span class="mf">100.00</span> <span class="mf">100.00</span>   <span class="mf">0.00</span>   <span class="mf">0.00</span>   <span class="mf">0.00</span>   <span class="mf">0.00</span>  <span class="mf">40.00</span>  <span class="mf">15.00</span>
+</span></span></code></pre></div><p>为了让模体能够进行相互比较，选择和模体 m 相同伪计数和背景值：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">m_reb1</span><span class="o">.</span><span class="n">pseudocounts</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;A&#39;</span><span class="p">:</span><span class="mf">0.6</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">:</span> <span class="mf">0.4</span><span class="p">,</span> <span class="s1">&#39;G&#39;</span><span class="p">:</span> <span class="mf">0.4</span><span class="p">,</span> <span class="s1">&#39;T&#39;</span><span class="p">:</span> <span class="mf">0.6</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">m_reb1</span><span class="o">.</span><span class="n">background</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;A&#39;</span><span class="p">:</span><span class="mf">0.3</span><span class="p">,</span><span class="s1">&#39;C&#39;</span><span class="p">:</span><span class="mf">0.2</span><span class="p">,</span><span class="s1">&#39;G&#39;</span><span class="p">:</span><span class="mf">0.2</span><span class="p">,</span><span class="s1">&#39;T&#39;</span><span class="p">:</span><span class="mf">0.3</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">pssm_reb1</span> <span class="o">=</span> <span class="n">m_reb1</span><span class="o">.</span><span class="n">pssm</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="n">pssm_reb1</span>
+</span></span><span class="line"><span class="cl">        <span class="mi">0</span>      <span class="mi">1</span>      <span class="mi">2</span>      <span class="mi">3</span>      <span class="mi">4</span>      <span class="mi">5</span>      <span class="mi">6</span>      <span class="mi">7</span>      <span class="mi">8</span>
+</span></span><span class="line"><span class="cl"><span class="n">A</span><span class="p">:</span>   <span class="mf">0.00</span>  <span class="o">-</span><span class="mf">5.67</span>  <span class="o">-</span><span class="mf">5.67</span>   <span class="mf">1.72</span>  <span class="o">-</span><span class="mf">5.67</span>  <span class="o">-</span><span class="mf">5.67</span>  <span class="o">-</span><span class="mf">5.67</span>  <span class="o">-</span><span class="mf">5.67</span>  <span class="o">-</span><span class="mf">0.97</span>
+</span></span><span class="line"><span class="cl"><span class="n">C</span><span class="p">:</span>  <span class="o">-</span><span class="mf">0.97</span>  <span class="o">-</span><span class="mf">5.67</span>  <span class="o">-</span><span class="mf">5.67</span>  <span class="o">-</span><span class="mf">5.67</span>   <span class="mf">2.30</span>   <span class="mf">2.30</span>   <span class="mf">2.30</span>  <span class="o">-</span><span class="mf">5.67</span>  <span class="o">-</span><span class="mf">0.41</span>
+</span></span><span class="line"><span class="cl"><span class="n">G</span><span class="p">:</span>   <span class="mf">1.30</span>  <span class="o">-</span><span class="mf">5.67</span>  <span class="o">-</span><span class="mf">5.67</span>  <span class="o">-</span><span class="mf">5.67</span>  <span class="o">-</span><span class="mf">5.67</span>  <span class="o">-</span><span class="mf">5.67</span>  <span class="o">-</span><span class="mf">5.67</span>   <span class="mf">1.57</span>   <span class="mf">1.44</span>
+</span></span><span class="line"><span class="cl"><span class="n">T</span><span class="p">:</span>  <span class="o">-</span><span class="mf">1.53</span>   <span class="mf">1.72</span>   <span class="mf">1.72</span>  <span class="o">-</span><span class="mf">5.67</span>  <span class="o">-</span><span class="mf">5.67</span>  <span class="o">-</span><span class="mf">5.67</span>  <span class="o">-</span><span class="mf">5.67</span>   <span class="mf">0.41</span>  <span class="o">-</span><span class="mf">0.97</span>
+</span></span></code></pre></div><p>我们将用皮尔逊相关（Pearson correlation）来比较这些模体。由于我们想要让它偏向于一个距离长度，我们实际上取1−_r_ ，其中 <em>r</em> 是皮尔逊相关系数（Pearson correlation coefficient，PCC）：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">distance</span><span class="p">,</span> <span class="n">offset</span> <span class="o">=</span> <span class="n">pssm</span><span class="o">.</span><span class="n">dist_pearson</span><span class="p">(</span><span class="n">pssm_reb1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="s2">&#34;distance = </span><span class="si">%5.3g</span><span class="s2">&#34;</span> <span class="o">%</span> <span class="n">distance</span>
+</span></span><span class="line"><span class="cl"><span class="n">distance</span> <span class="o">=</span> <span class="mf">0.239</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="n">offset</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span><span class="mi">2</span>
+</span></span></code></pre></div><p>这意味着模体 m 和 m_reb1 间最佳PCC可以从下面的比对中获得：<br>
+其中 b 代表背景分布。PCC值大概为1−0.239=0.761</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">m</span><span class="p">:</span>      <span class="n">bbTACGCbb</span>
+</span></span><span class="line"><span class="cl"><span class="n">m_reb1</span><span class="p">:</span> <span class="n">GTTACCCGG</span>
+</span></span></code></pre></div><h2 id="查找de-novo模体">查找De novo模体</h2>
+<p>如今，Biopython对 <em>De novo</em> 模体查找的支持是有限的。也就是说，我们支持AlignAce和MEME的运行和读取。由于模体查找工具如雨后春笋般出现，所以很欢迎新的分析程序加入进来</p>
+<h3 id="meme">MEME</h3>
+<p>假设用MEME以你喜欢的参数设置来跑序列，并把结果保存在文件 meme.out 中。你可以用以下的命令来得到MEME输出的模体：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio</span> <span class="kn">import</span> <span class="n">motifs</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">motifsM</span> <span class="o">=</span> <span class="n">motifs</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s2">&#34;meme.out&#34;</span><span class="p">),</span> <span class="s2">&#34;meme&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">motifsM</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="o">&lt;</span><span class="n">Bio</span><span class="o">.</span><span class="n">motifs</span><span class="o">.</span><span class="n">meme</span><span class="o">.</span><span class="n">Motif</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0xc356b0</span><span class="o">&gt;</span><span class="p">]</span>
+</span></span></code></pre></div><p>除了最想要的一系列模体外，结果中还包含了很多有用的信息，可以通过那些一目了然的属性名获得：</p>
+<ul>
+<li>.alphabet</li>
+<li>.datafile</li>
+<li>.sequence_names</li>
+<li>.version</li>
+<li>.command
+由MEME解析得到的模体可以像平常的模体对象（有实例）一样处理，它们也提供了一些额外的功能，可以为实例增加额外的信息。</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">motifsM</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">consensus</span>
+</span></span><span class="line"><span class="cl"><span class="n">Seq</span><span class="p">(</span><span class="s1">&#39;CTCAATCGTA&#39;</span><span class="p">,</span> <span class="n">IUPACUnambiguousDNA</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">motifsM</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">instances</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">sequence_name</span>
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;SEQ10;&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">motifsM</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">instances</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">start</span>
+</span></span><span class="line"><span class="cl"><span class="mi">3</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">motifsM</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">instances</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strand</span>
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;+&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">motifsM</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">instances</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">pvalue</span>
+</span></span><span class="line"><span class="cl"><span class="mf">8.71e-07</span>
+</span></span></code></pre></div><h3 id="alignace">AlignAce</h3>
+<p>我们可以用AlignACE程序实现类似的效果。假如，你把结果保存在 alignace.out 文件中。你可以用下面的代码读取结果：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio</span> <span class="kn">import</span> <span class="n">motifs</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">motifsA</span> <span class="o">=</span> <span class="n">motifs</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s2">&#34;alignace.out&#34;</span><span class="p">),</span><span class="s2">&#34;alignace&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><p>同样，你的模体也和正常的模体对象有相同的属性：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">motifsA</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">consensus</span>
+</span></span><span class="line"><span class="cl"><span class="n">Seq</span><span class="p">(</span><span class="s1">&#39;TCTACGATTGAG&#39;</span><span class="p">,</span> <span class="n">IUPACUnambiguousDNA</span><span class="p">())</span>
+</span></span></code></pre></div><p>事实上，你甚至可以观察到，AlignAce找到了一个和MEME非常相似的模体。下面只是MEME模体互补链的一个较长版本：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">motifsM</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">reverse_complement</span><span class="p">()</span><span class="o">.</span><span class="n">consensus</span>
+</span></span><span class="line"><span class="cl"><span class="n">Seq</span><span class="p">(</span><span class="s1">&#39;TACGATTGAG&#39;</span><span class="p">,</span> <span class="n">IUPACUnambiguousDNA</span><span class="p">())</span>
+</span></span></code></pre></div><p>如果你的机器上安装了AlignAce，你可以直接从Biopython中运行AlignAce。下面就是一个如何运行AlignAce的简单例子（其他参数可以用关键字参数来调用）：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">command</span><span class="o">=</span><span class="s2">&#34;/opt/bin/AlignACE&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">input_file</span><span class="o">=</span><span class="s2">&#34;test.fa&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio.motifs.applications</span> <span class="kn">import</span> <span class="n">AlignAceCommandline</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">cmd</span> <span class="o">=</span> <span class="n">AlignAceCommandline</span><span class="p">(</span><span class="n">cmd</span><span class="o">=</span><span class="n">command</span><span class="p">,</span><span class="nb">input</span><span class="o">=</span><span class="n">input_file</span><span class="p">,</span><span class="n">gcback</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span><span class="n">numcols</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">stdout</span><span class="p">,</span><span class="n">stderr</span><span class="o">=</span> <span class="n">cmd</span><span class="p">()</span>
+</span></span></code></pre></div><p>由于AlignAce把所有的结果输出到标准输出，所以你可以通过读取结果的第一部分来获得模体：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">motifs</span> <span class="o">=</span> <span class="n">motifs</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">stdout</span><span class="p">,</span><span class="s2">&#34;alignace&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><h2 id="相关链接">相关链接</h2>
+<ul>
+<li><a class="link" href="http://en.wikipedia.org/wiki/Sequence_motif"  target="_blank" rel="noopener"
+    >Sequence motif</a> in wikipedia</li>
+<li><a class="link" href="http://en.wikipedia.org/wiki/Sequence_motif"  target="_blank" rel="noopener"
+    >http://en.wikipedia.org/wiki/Sequence_motif</a></li>
+<li><a class="link" href="http://en.wikipedia.org/wiki/Position_weight_matrix"  target="_blank" rel="noopener"
+    >PWM</a> in wikipedia</li>
+<li><a class="link" href="http://en.wikipedia.org/wiki/Position_weight_matrix"  target="_blank" rel="noopener"
+    >http://en.wikipedia.org/wiki/Position_weight_matrix</a></li>
+<li><a class="link" href="http://en.wikipedia.org/wiki/Consensus_sequence"  target="_blank" rel="noopener"
+    >Consensus sequence</a> in wikipedia</li>
+<li><a class="link" href="http://en.wikipedia.org/wiki/Consensus_sequence"  target="_blank" rel="noopener"
+    >http://en.wikipedia.org/wiki/Consensus_sequence</a></li>
+<li><a class="link" href="http://bio.cs.washington.edu/assessment/"  target="_blank" rel="noopener"
+    >Comparison of different motif finding programs</a></li>
+<li><a class="link" href="http://bio.cs.washington.edu/assessment/"  target="_blank" rel="noopener"
+    >http://bio.cs.washington.edu/assessment/</a></li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/tutorials/">tutorials</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2022 - 
+        
+        2023 叶宇浩随记博客
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.5.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">Table of contents</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#模体对象">模体对象</a></li>
+    <li><a href="#从实例中创建一个模体">从实例中创建一个模体</a></li>
+    <li><a href="#读取模体">读取模体</a></li>
+    <li><a href="#模体写出">模体写出</a></li>
+    <li><a href="#绘制序列标识图">绘制序列标识图</a></li>
+    <li><a href="#位置权重矩阵">位置权重矩阵</a></li>
+    <li><a href="#位置特异性得分矩阵">位置特异性得分矩阵</a></li>
+    <li><a href="#搜索实例">搜索实例</a>
+      <ol>
+        <li><a href="#搜索准确匹配实例">搜索准确匹配实例</a></li>
+        <li><a href="#用pssm得分搜索匹配实例">用PSSM得分搜索匹配实例</a></li>
+        <li><a href="#选择得分阈值">选择得分阈值</a></li>
+        <li><a href="#模体对象自身相关的位置特异性得分矩阵">模体对象自身相关的位置特异性得分矩阵</a></li>
+      </ol>
+    </li>
+    <li><a href="#模体比较">模体比较</a></li>
+    <li><a href="#查找de-novo模体">查找De novo模体</a>
+      <ol>
+        <li><a href="#meme">MEME</a></li>
+        <li><a href="#alignace">AlignAce</a></li>
+      </ol>
+    </li>
+    <li><a href="#相关链接">相关链接</a></li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

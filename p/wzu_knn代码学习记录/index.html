@@ -1,0 +1,1364 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='这是WZU老师课程的机器学习--KNN代码的学习记录，因为有很多地方看不懂，所以加了自己的理解注释'><title>WZU_KNN代码学习记录</title>
+
+<link rel='canonical' href='https://example.com/p/wzu_knn%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='WZU_KNN代码学习记录'>
+<meta property='og:description' content='这是WZU老师课程的机器学习--KNN代码的学习记录，因为有很多地方看不懂，所以加了自己的理解注释'>
+<meta property='og:url' content='https://example.com/p/wzu_knn%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/'>
+<meta property='og:site_name' content='叶宇浩随记博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='python' /><meta property='article:tag' content='sklearn' /><meta property='article:published_time' content='2021-09-14T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-09-14T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="WZU_KNN代码学习记录">
+<meta name="twitter:description" content="这是WZU老师课程的机器学习--KNN代码的学习记录，因为有很多地方看不懂，所以加了自己的理解注释">
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>Back</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/code/" style="background-color: #fa1; color: #fff;">
+                编程
+            </a>
+        
+            <a href="/categories/deeplearning/" style="background-color: #0f1503; color: #fff;">
+                深度学习
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/wzu_knn%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/">WZU_KNN代码学习记录</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        这是WZU老师课程的机器学习--KNN代码的学习记录，因为有很多地方看不懂，所以加了自己的理解注释
+    </h3>
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Sep 14, 2021</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    9 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <h1 id="机器学习练习6-knn算法">机器学习练习6 KNN算法</h1>
+<p>代码修改并注释：黄海广，haiguang2000@wzu.edu.cn</p>
+<p>1．$k$近邻法是基本且简单的分类与回归方法。$k$近邻法的基本做法是：对给定的训练实例点和输入实例点，首先确定输入实例点的$k$个最近邻训练实例点，然后利用这$k$个训练实例点的类的多数来预测输入实例点的类。</p>
+<p>2．$k$近邻模型对应于基于训练数据集对特征空间的一个划分。$k$近邻法中，当训练集、距离度量、$k$值及分类决策规则确定后，其结果唯一确定。</p>
+<p>3．$k$近邻法三要素：距离度量、$k$值的选择和分类决策规则。常用的距离度量是欧氏距离及更一般的<strong>pL</strong>距离。$k$值小时，$k$近邻模型更复杂；$k$值大时，$k$近邻模型更简单。$k$值的选择反映了对近似误差与估计误差之间的权衡，通常由交叉验证选择最优的$k$。</p>
+<p>常用的分类决策规则是多数表决，对应于经验风险最小化。</p>
+<p>4．$k$近邻法的实现需要考虑如何快速搜索k个最近邻点。<strong>kd</strong>树是一种便于对k维空间中的数据进行快速检索的数据结构。kd树是二叉树，表示对$k$维空间的一个划分，其每个结点对应于$k$维空间划分中的一个超矩形区域。利用<strong>kd</strong>树可以省去对大部分数据点的搜索， 从而减少搜索的计算量。</p>
+<h2 id="距离度量">距离度量</h2>
+<p>在机器学习算法中，我们经常需要计算样本之间的相似度，通常的做法是计算样本之间的距离。</p>
+<p>设$x$和$y$为两个向量，求它们之间的距离。</p>
+<p>这里用Numpy实现，设和为<code>ndarray &lt;numpy.ndarray&gt;</code>，它们的shape都是<code>(N,)</code></p>
+<p>$d$为所求的距离，是个浮点数（<code>float</code>）。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>  <span class="c1">#注意：运行代码时候需要导入NumPy库</span>
+</span></span></code></pre></div><h3 id="欧氏距离euclidean-distance">欧氏距离(Euclidean distance)</h3>
+<p>欧几里得度量(euclidean metric)(也称欧氏距离)是一个通常采用的距离定义，指在$m$维空间中两个点之间的真实距离，或者向量的自然长度(即该点到原点的距离)。在二维和三维空间中的欧氏距离就是两点之间的实际距离。</p>
+<p>距离公式：</p>
+<p>$$
+d\left( x,y \right) = \sqrt{\sum_{i}^{}(x_{i} - y_{i})^{2}}
+$$
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 138; 
+			flex-basis: 332px"
+	>
+	<a href="/p/wzu_knn%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/picture/WZU-ML-lesson6-KNN%E6%B3%A8%E9%87%8A.png" data-size="850x614">
+		<img src="/p/wzu_knn%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/picture/WZU-ML-lesson6-KNN%E6%B3%A8%E9%87%8A.png"
+			width="850"
+			height="614"
+			srcset="/p/wzu_knn%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/picture/WZU-ML-lesson6-KNN%E6%B3%A8%E9%87%8A_hu6642ba6757cd4d8db99a84d5f18fdbe3_63053_480x0_resize_box_3.png 480w, /p/wzu_knn%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/picture/WZU-ML-lesson6-KNN%E6%B3%A8%E9%87%8A_hu6642ba6757cd4d8db99a84d5f18fdbe3_63053_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>代码实现：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">euclidean</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+</span></span></code></pre></div><h3 id="曼哈顿距离manhattan-distance">曼哈顿距离(Manhattan distance)</h3>
+<p>想象你在城市道路里，要从一个十字路口开车到另外一个十字路口，驾驶距离是两点间的直线距离吗？显然不是，除非你能穿越大楼。实际驾驶距离就是这个“曼哈顿距离”。而这也是曼哈顿距离名称的来源，曼哈顿距离也称为城市街区距离(City Block distance)。</p>
+<p>距离公式：</p>
+<p>$$
+d(x,y) = \sum_{i}^{}|x_{i} - y_{i}|
+$$
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 92; 
+			flex-basis: 221px"
+	>
+	<a href="/p/wzu_knn%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/picture/WZU-ML-lesson6-KNN%E6%B3%A8%E9%87%8A-1.png" data-size="784x850">
+		<img src="/p/wzu_knn%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/picture/WZU-ML-lesson6-KNN%E6%B3%A8%E9%87%8A-1.png"
+			width="784"
+			height="850"
+			srcset="/p/wzu_knn%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/picture/WZU-ML-lesson6-KNN%E6%B3%A8%E9%87%8A-1_hu4d3ba7f348fed41158a907d8033a28ad_167324_480x0_resize_box_3.png 480w, /p/wzu_knn%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/picture/WZU-ML-lesson6-KNN%E6%B3%A8%E9%87%8A-1_hu4d3ba7f348fed41158a907d8033a28ad_167324_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+代码实现：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">manhattan</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">y</span><span class="p">))</span>
+</span></span></code></pre></div><h3 id="切比雪夫距离chebyshev-distance">切比雪夫距离(Chebyshev distance)</h3>
+<p>在数学中，切比雪夫距离(Chebyshev distance)或是L∞度量，是向量空间中的一种度量，二个点之间的距离定义是其各坐标数值差绝对值的最大值。以数学的观点来看，切比雪夫距离是由一致范数(uniform norm)(或称为上确界范数)所衍生的度量，也是超凸度量(injective metric space)的一种。</p>
+<p>距离公式：</p>
+<p>$$
+d\left( x,y \right) = \max_{i}\left| x_{i} - y_{i} \right|
+$$
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 69; 
+			flex-basis: 166px"
+	>
+	<a href="/p/wzu_knn%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/picture/WZU-ML-lesson6-KNN%E6%B3%A8%E9%87%8A-2.png" data-size="566x814">
+		<img src="/p/wzu_knn%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/picture/WZU-ML-lesson6-KNN%E6%B3%A8%E9%87%8A-2.png"
+			width="566"
+			height="814"
+			srcset="/p/wzu_knn%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/picture/WZU-ML-lesson6-KNN%E6%B3%A8%E9%87%8A-2_hu72e2ae80a4e01ad6db3b82ee1c121548_540659_480x0_resize_box_3.png 480w, /p/wzu_knn%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/picture/WZU-ML-lesson6-KNN%E6%B3%A8%E9%87%8A-2_hu72e2ae80a4e01ad6db3b82ee1c121548_540659_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+若将国际象棋棋盘放在二维直角座标系中，格子的边长定义为1，座标的$x$轴及$y$轴和棋盘方格平行，原点恰落在某一格的中心点，则王从一个位置走到其他位置需要的步数恰为二个位置的切比雪夫距离，因此切比雪夫距离也称为棋盘距离。例如位置F6和位置E2的切比雪夫距离为4。任何一个不在棋盘边缘的位置，和周围八个位置的切比雪夫距离都是1。</p>
+<p>代码实现：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">chebyshev</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">y</span><span class="p">))</span>
+</span></span></code></pre></div><h3 id="闵可夫斯基距离minkowski-distance">闵可夫斯基距离(Minkowski distance)</h3>
+<p>闵氏空间指狭义相对论中由一个时间维和三个空间维组成的时空，为俄裔德国数学家闵可夫斯基(H.Minkowski,1864-1909)最先表述。他的平坦空间(即假设没有重力，曲率为零的空间)的概念以及表示为特殊距离量的几何学是与狭义相对论的要求相一致的。闵可夫斯基空间不同于牛顿力学的平坦空间。$p$取1或2时的闵氏距离是最为常用的，$p= 2$即为欧氏距离，而$p =1$时则为曼哈顿距离。</p>
+<p>当$p$取无穷时的极限情况下，可以得到切比雪夫距离。</p>
+<p>距离公式：</p>
+<p>$$
+d\left( x,y \right) = \left( \sum_{i}^{}|x_{i} - y_{i}|^{p} \right)^{\frac{1}{p}}
+$$</p>
+<p>代码实现：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">minkowski</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span><span class="o">**</span><span class="n">p</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">p</span><span class="p">)</span>
+</span></span></code></pre></div><h3 id="汉明距离hamming-distance">汉明距离(Hamming distance)</h3>
+<p>汉明距离是使用在数据传输差错控制编码里面的，汉明距离是一个概念，它表示两个(相同长度)字对应位不同的数量，我们以表示两个字,之间的汉明距离。对两个字符串进行异或运算，并统计结果为1的个数，那么这个数就是汉明距离。</p>
+<p>距离公式：</p>
+<p>$$
+d\left( x,y \right) = \frac{1}{N}\sum_{i}^{}1_{x_{i} \neq y_{i}}
+$$
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 170; 
+			flex-basis: 409px"
+	>
+	<a href="/p/wzu_knn%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/picture/WZU-ML-lesson6-KNN%E6%B3%A8%E9%87%8A-3.png" data-size="972x570">
+		<img src="/p/wzu_knn%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/picture/WZU-ML-lesson6-KNN%E6%B3%A8%E9%87%8A-3.png"
+			width="972"
+			height="570"
+			srcset="/p/wzu_knn%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/picture/WZU-ML-lesson6-KNN%E6%B3%A8%E9%87%8A-3_hu08d7c83ef3fb7d4cc5ffddebf123294b_226373_480x0_resize_box_3.png 480w, /p/wzu_knn%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/picture/WZU-ML-lesson6-KNN%E6%B3%A8%E9%87%8A-3_hu08d7c83ef3fb7d4cc5ffddebf123294b_226373_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+代码实现：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">hamming</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">x</span> <span class="o">!=</span> <span class="n">y</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</span></span></code></pre></div><h3 id="余弦相似度cosine-similarity">余弦相似度(Cosine Similarity)</h3>
+<p>余弦相似性通过测量两个向量的夹角的余弦值来度量它们之间的相似性。0度角的余弦值是1，而其他任何角度的余弦值都不大于1；并且其最小值是-1。从而两个向量之间的角度的余弦值确定两个向量是否大致指向相同的方向。两个向量有相同的指向时，余弦相似度的值为1；两个向量夹角为90°时，余弦相似度的值为0；两个向量指向完全相反的方向时，余弦相似度的值为-1。这结果是与向量的长度无关的，仅仅与向量的指向方向相关。余弦相似度通常用于正空间，因此给出的值为0到1之间。
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 247; 
+			flex-basis: 593px"
+	>
+	<a href="/p/wzu_knn%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/picture/WZU-ML-lesson6-KNN%E6%B3%A8%E9%87%8A-5.png" data-size="722x292">
+		<img src="/p/wzu_knn%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/picture/WZU-ML-lesson6-KNN%E6%B3%A8%E9%87%8A-5.png"
+			width="722"
+			height="292"
+			srcset="/p/wzu_knn%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/picture/WZU-ML-lesson6-KNN%E6%B3%A8%E9%87%8A-5_hudae191ca75f2e04fd84ec5ffa5ba26fe_28728_480x0_resize_box_3.png 480w, /p/wzu_knn%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/picture/WZU-ML-lesson6-KNN%E6%B3%A8%E9%87%8A-5_hudae191ca75f2e04fd84ec5ffa5ba26fe_28728_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>二维空间为例，上图的$a$和$b$是两个向量，我们要计算它们的夹角θ。余弦定理告诉我们，可以用下面的公式求得：</p>
+<p>$$
+\cos\theta = \frac{a^{2} + b^{2} - c^{2}}{2ab}
+$$</p>
+<p>假定$a$向量是$\left\lbrack x_{1},y_{1}
+\right\rbrack$，$b$向量是$\left\lbrack x_{2},y_{2}
+\right\rbrack$，两个向量间的余弦值可以通过使用欧几里得点积公式求出：</p>
+<p>$$
+\cos\left( \theta \right) = \frac{A \cdot B}{\parallel A \parallel \parallel B \parallel} = \frac{\sum_{i = 1}^{n}A_{i} \times B_{i}}{\sqrt{\sum_{i = 1}^{n}(A_{i})^{2} \times \sqrt{\sum_{i = 1}^{n}(B_{i})^{2}}}}
+$$</p>
+<p>$$
+\cos\left( \theta \right) = \frac{A \cdot B}{\parallel A \parallel \parallel B \parallel} = \frac{\left( x_{1},y_{1} \right) \cdot \left( x_{2},y_{2} \right)}{\sqrt{x_{1}^{2} + y_{1}^{2}} \times \sqrt{x_{2}^{2} + y_{2}^{2}}} = \frac{x_{1}x_{2} + y_{1}y_{2}}{\sqrt{x_{1}^{2} + y_{1}^{2}} \times \sqrt{x_{2}^{2} + y_{2}^{2}}}
+$$</p>
+<p>如果向量$a$和$b$不是二维而是$n$维，上述余弦的计算法仍然正确。假定$A$和$B$是两个$n$维向量，$A$是$\left\lbrack
+A_{1},A_{2},\ldots,A_{n} \right\rbrack$，$B$是$\left\lbrack
+B_{1},B_{2},\ldots,B_{n} \right\rbrack$，则$A$与$B$的夹角余弦等于：</p>
+<p>$$
+\cos\left( \theta \right) = \frac{A \cdot B}{\parallel A \parallel \parallel B \parallel} = \frac{\sum_{i = 1}^{n}A_{i} \times B_{i}}{\sqrt{\sum_{i = 1}^{n}(A_{i})^{2}} \times \sqrt{\sum_{i = 1}^{n}(B_{i})^{2}}}
+$$
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 138; 
+			flex-basis: 333px"
+	>
+	<a href="/p/wzu_knn%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/picture/WZU-ML-lesson6-KNN%E6%B3%A8%E9%87%8A-6.png" data-size="628x452">
+		<img src="/p/wzu_knn%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/picture/WZU-ML-lesson6-KNN%E6%B3%A8%E9%87%8A-6.png"
+			width="628"
+			height="452"
+			srcset="/p/wzu_knn%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/picture/WZU-ML-lesson6-KNN%E6%B3%A8%E9%87%8A-6_hub34d14ae32988dc08b5f4182a7e73e55_83458_480x0_resize_box_3.png 480w, /p/wzu_knn%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/picture/WZU-ML-lesson6-KNN%E6%B3%A8%E9%87%8A-6_hub34d14ae32988dc08b5f4182a7e73e55_83458_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+代码实现：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">square_rooted</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nb">round</span><span class="p">(</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">sum</span><span class="p">([</span><span class="n">a</span><span class="o">*</span><span class="n">a</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">x</span><span class="p">])),</span><span class="mi">3</span><span class="p">)</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">cosine_similarity</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">numerator</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">a</span> <span class="o">*</span> <span class="n">b</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="n">denominator</span> <span class="o">=</span> <span class="n">square_rooted</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="n">square_rooted</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nb">round</span><span class="p">(</span><span class="n">numerator</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">denominator</span><span class="p">),</span> <span class="mi">3</span><span class="p">)</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">cosine_similarity</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">45</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">54</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">15</span><span class="p">]))</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="mf">0.972</span>
+</span></span></code></pre></div><h2 id="knn算法">KNN算法</h2>
+<p>1．$k$近邻法是基本且简单的分类与回归方法。$k$近邻法的基本做法是：对给定的训练实例点和输入实例点，首先确定输入实例点的$k$个最近邻训练实例点，然后利用这$k$个训练实例点的类的多数来预测输入实例点的类。</p>
+<p>2．$k$近邻模型对应于基于训练数据集对特征空间的一个划分。$k$近邻法中，当训练集、距离度量、$k$值及分类决策规则确定后，其结果唯一确定。</p>
+<p>3．$k$近邻法三要素：距离度量、$k$值的选择和分类决策规则。常用的距离度量是欧氏距离。$k$值小时，$k$近邻模型更复杂；$k$值大时，$k$近邻模型更简单。$k$值的选择反映了对近似误差与估计误差之间的权衡，通常由交叉验证选择最优的$k$。</p>
+<p>常用的分类决策规则是多数表决，对应于经验风险最小化。</p>
+<p>4．$k$近邻法的实现需要考虑如何快速搜索k个最近邻点。<strong>kd</strong>树是一种便于对k维空间中的数据进行快速检索的数据结构。kd树是二叉树，表示对$k$维空间的一个划分，其每个结点对应于$k$维空间划分中的一个超矩形区域。利用<strong>kd</strong>树可以省去对大部分数据点的搜索， 从而减少搜索的计算量。</p>
+<p>python实现，遍历所有数据点，找出$n$个距离最近的点的分类情况，少数服从多数</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span>
+</span></span></code></pre></div><p>导入鸢尾花数据集</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">iris</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">iris</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">iris</span><span class="o">.</span><span class="n">feature_names</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">df</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">iris</span><span class="o">.</span><span class="n">target</span>
+</span></span><span class="line"><span class="cl"><span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;sepal length&#39;</span><span class="p">,</span> <span class="s1">&#39;sepal width&#39;</span><span class="p">,</span> <span class="s1">&#39;petal length&#39;</span><span class="p">,</span> <span class="s1">&#39;petal width&#39;</span><span class="p">,</span> <span class="s1">&#39;label&#39;</span><span class="p">]</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 220; 
+			flex-basis: 529px"
+	>
+	<a href="/p/wzu_knn%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/picture/WZU-ML-lesson6-KNN%E6%B3%A8%E9%87%8A-7.png" data-size="622x282">
+		<img src="/p/wzu_knn%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/picture/WZU-ML-lesson6-KNN%E6%B3%A8%E9%87%8A-7.png"
+			width="622"
+			height="282"
+			srcset="/p/wzu_knn%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/picture/WZU-ML-lesson6-KNN%E6%B3%A8%E9%87%8A-7_hucdda263303c30cfbc2cd5835c8d2b56a_24472_480x0_resize_box_3.png 480w, /p/wzu_knn%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/picture/WZU-ML-lesson6-KNN%E6%B3%A8%E9%87%8A-7_hucdda263303c30cfbc2cd5835c8d2b56a_24472_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+选择长和宽的数据进行可视化</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">df</span><span class="p">[:</span><span class="mi">50</span><span class="p">][</span><span class="s1">&#39;sepal length&#39;</span><span class="p">],</span> <span class="n">df</span><span class="p">[:</span><span class="mi">50</span><span class="p">][</span><span class="s1">&#39;sepal width&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;0&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="mi">50</span><span class="p">:</span><span class="mi">100</span><span class="p">][</span><span class="s1">&#39;sepal length&#39;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="mi">50</span><span class="p">:</span><span class="mi">100</span><span class="p">][</span><span class="s1">&#39;sepal width&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;1&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;sepal length&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;sepal width&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 155; 
+			flex-basis: 372px"
+	>
+	<a href="/p/wzu_knn%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/picture/WZU-ML-lesson6-KNN%E6%B3%A8%E9%87%8A-8.png" data-size="1234x796">
+		<img src="/p/wzu_knn%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/picture/WZU-ML-lesson6-KNN%E6%B3%A8%E9%87%8A-8.png"
+			width="1234"
+			height="796"
+			srcset="/p/wzu_knn%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/picture/WZU-ML-lesson6-KNN%E6%B3%A8%E9%87%8A-8_hub026bb991d4686dd55a9272c04a17aa5_67296_480x0_resize_box_3.png 480w, /p/wzu_knn%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/picture/WZU-ML-lesson6-KNN%E6%B3%A8%E9%87%8A-8_hub026bb991d4686dd55a9272c04a17aa5_67296_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="numpy实现">Numpy实现</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">KNN</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">n_neighbors</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">        parameter: n_neighbors 临近点个数
+</span></span></span><span class="line"><span class="cl"><span class="s2">        parameter: p 距离度量
+</span></span></span><span class="line"><span class="cl"><span class="s2">        &#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">=</span> <span class="n">n_neighbors</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">p</span> <span class="o">=</span> <span class="n">p</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">X_train</span> <span class="o">=</span> <span class="n">X_train</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">y_train</span> <span class="o">=</span> <span class="n">y_train</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 取出n个点</span>
+</span></span><span class="line"><span class="cl">        <span class="n">knn_list</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">            <span class="n">dist</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">X</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">X_train</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="nb">ord</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">knn_list</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">dist</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_train</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X_train</span><span class="p">)):</span>
+</span></span><span class="line"><span class="cl">            <span class="n">max_index</span> <span class="o">=</span> <span class="n">knn_list</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">knn_list</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+</span></span><span class="line"><span class="cl">            <span class="n">dist</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">X</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">X_train</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="nb">ord</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="n">knn_list</span><span class="p">[</span><span class="n">max_index</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">dist</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">knn_list</span><span class="p">[</span><span class="n">max_index</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">dist</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_train</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># 统计</span>
+</span></span><span class="line"><span class="cl">        <span class="n">knn</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">knn_list</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="n">count_pairs</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="n">knn</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">#         max_count = sorted(count_pairs, key=lambda x: x)[-1]</span>
+</span></span><span class="line"><span class="cl">        <span class="n">max_count</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">count_pairs</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">max_count</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">score</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">right_count</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">        <span class="n">n</span> <span class="o">=</span> <span class="mi">10</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">            <span class="n">label</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="n">label</span> <span class="o">==</span> <span class="n">y</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">right_count</span> <span class="o">+=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">right_count</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="mi">150</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]])</span>
+</span></span><span class="line"><span class="cl"><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">data</span><span class="p">[:,</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">clf</span> <span class="o">=</span> <span class="n">KNN</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">clf</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="mf">0.8</span>
+</span></span></code></pre></div><p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">test_point</span> <span class="o">=</span> <span class="p">[</span><span class="mf">6.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Test Point: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">test_point</span><span class="p">)))</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">Test</span> <span class="n">Point</span><span class="p">:</span> <span class="mf">2.0</span>
+</span></span></code></pre></div><h3 id="scikit-learn实例">Scikit-learn实例</h3>
+<h4 id="sklearnneighborskneighborsclassifier">sklearn.neighbors.KNeighborsClassifier</h4>
+<ul>
+<li>
+<p>n_neighbors: 临近点个数，即k的个数，默认是5</p>
+</li>
+<li>
+<p>p: 距离度量，默认</p>
+</li>
+<li>
+<p>algorithm: 近邻算法，可选{&lsquo;auto&rsquo;, &lsquo;ball_tree&rsquo;, &lsquo;kd_tree&rsquo;, &lsquo;brute&rsquo;}</p>
+</li>
+<li>
+<p>weights: 确定近邻的权重</p>
+</li>
+<li>
+<p>n_neighbors ： int，optional(default = 5)
+默认情况下kneighbors查询使用的邻居数。就是k-NN的k的值，选取最近的k个点。</p>
+</li>
+<li>
+<p>weights ： str或callable，可选(默认=‘uniform’)
+默认是uniform，参数可以是uniform、distance，也可以是用户自己定义的函数。uniform是均等的权重，就说所有的邻近点的权重都是相等的。distance是不均等的权重，距离近的点比距离远的点的影响大。用户自定义的函数，接收距离的数组，返回一组维数相同的权重。</p>
+</li>
+<li>
+<p>algorithm ： {‘auto’，‘ball_tree’，‘kd_tree’，‘brute’}，可选
+快速k近邻搜索算法，默认参数为auto，可以理解为算法自己决定合适的搜索算法。除此之外，用户也可以自己指定搜索算法ball_tree、kd_tree、brute方法进行搜索，brute是蛮力搜索，也就是线性扫描，当训练集很大时，计算非常耗时。kd_tree，构造kd树存储数据以便对其进行快速检索的树形数据结构，kd树也就是数据结构中的二叉树。以中值切分构造的树，每个结点是一个超矩形，在维数小于20时效率高。ball tree是为了克服kd树高纬失效而发明的，其构造过程是以质心C和半径r分割样本空间，每个节点是一个超球体。</p>
+</li>
+<li>
+<p>leaf_size ： int，optional(默认值= 30)
+默认是30，这个是构造的kd树和ball树的大小。这个值的设置会影响树构建的速度和搜索速度，同样也影响着存储树所需的内存大小。需要根据问题的性质选择最优的大小。</p>
+</li>
+<li>
+<p>p ： 整数，可选(默认= 2)
+距离度量公式。在上小结，我们使用欧氏距离公式进行距离度量。除此之外，还有其他的度量方法，例如曼哈顿距离。这个参数默认为2，也就是默认使用欧式距离公式进行距离度量。也可以设置为1，使用曼哈顿距离公式进行距离度量。</p>
+</li>
+<li>
+<p>metric ： 字符串或可调用，默认为’minkowski’
+用于距离度量，默认度量是minkowski，也就是p=2的欧氏距离(欧几里德度量)。</p>
+</li>
+<li>
+<p>metric_params ： dict，optional(默认=None)
+距离公式的其他关键参数，这个可以不管，使用默认的None即可。</p>
+</li>
+<li>
+<p>n_jobs ： int或None，可选(默认=None)
+并行处理设置。默认为1，临近点搜索并行工作数。如果为-1，那么CPU的所有cores都用于并行工作。</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">KNeighborsClassifier</span>
+</span></span></code></pre></div><p>不同k(n_neighbors)值下的结果：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">clf_sk</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">clf_sk</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+</span></span></code></pre></div><p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">clf_sk</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="mf">0.8</span>
+</span></span></code></pre></div><p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">clf_sk</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">clf_sk</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">clf_sk</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="mf">0.7333333333333333</span>
+</span></span></code></pre></div><p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">clf_sk</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">clf_sk</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">clf_sk</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="mf">0.7777777777777778</span>
+</span></span></code></pre></div><p>自动调参吧，试试循环，找到最优的k值</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">best_score</span> <span class="o">=</span> <span class="mf">0.0</span>
+</span></span><span class="line"><span class="cl"><span class="n">best_k</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">knn_clf</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="n">k</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">knn_clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">score</span> <span class="o">=</span> <span class="n">knn_clf</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">score</span> <span class="o">&gt;</span> <span class="n">best_score</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">best_k</span> <span class="o">=</span> <span class="n">k</span>
+</span></span><span class="line"><span class="cl">        <span class="n">best_score</span> <span class="o">=</span> <span class="n">score</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;best_k = &#34;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">best_k</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;best_score = &#34;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">best_score</span><span class="p">))</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">best_k</span> <span class="o">=</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl"><span class="n">best_score</span> <span class="o">=</span> <span class="mf">0.8</span>
+</span></span></code></pre></div><h2 id="kd树的划分和搜索">KD树的划分和搜索</h2>
+<h3 id="kd树">KD树</h3>
+<p>KD树(K-Dimension Tree)，，也可称之为$k$维树，可以用更高的效率来对空间进行划分，并且其结构非常适合寻找最近邻居和碰撞检测。KD树是一种便于对$k$维空间中的数据进行快速检索的数据结构。KD树是二叉树，表示对$k$维空间的一个划分，其每个结点对应于$k$维空间划分中的一个超矩形区域。利用KD树可以省去对大部分数据点的搜索，从而减少搜索的计算量。</p>
+<p>KD树是二叉树，表示对𝑘维空间的一个划分(partition)。构造KD树相当于不断地用垂直于坐标轴的超平面将𝑘维空间切分，构成一系列的$k$维超矩形区域。KD树的每个结点对应于一个$k$维超矩形区域。</p>
+<h3 id="构造kd树的方法">构造KD树的方法</h3>
+<p>构造根结点，使根结点对应于$k$维空间中包含所有实例点的超矩形区域；</p>
+<p>通过下面的递归方法，不断地对$k$维空间进行切分，生成子结点。</p>
+<p>在超矩形区域(结点)上选择一个坐标轴和在此坐标轴上的一个切分点，确定一个超平面，这个超平面通过选定的切分点并垂直于选定的坐标轴，将当前超矩形区域切分为左右两个子区域(子结点)；</p>
+<p>这时，实例被分到两个子区域。这个过程直到子区域内没有实例时终止(终止时的结点为叶结点)。</p>
+<p>在此过程中，将实例保存在相应的结点上。</p>
+<p>通常，依次选择坐标轴对空间切分，选择训练实例点在选定坐标轴上的中位数(median)为切分点，这样得到的KD树是平衡的。</p>
+<p>注意，平衡的KD树搜索时的效率未必是最优的。</p>
+<p>对于构建过程，有两个优化点：</p>
+<ol>
+<li>选择切分维度</li>
+</ol>
+<p>根据数据点在各维度上的分布情况，方差越大，分布越分散从方差大的维度开始切分，有较好的切分效果和平衡性。</p>
+<ol start="2">
+<li>确定中值点</li>
+</ol>
+<p>预先对原始数据点在所有维度进行一次排序，存储下来，然后在后续的中值选择中，无须每次都对其子集进行排序，提升了性能。也可以从原始数据点中随机选择固定数目的点，然后对其进行排序，每次从这些样本点中取中值，来作为分割超平面。该方式在实践中被证明可以取得很好性能及很好的平衡性。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pformat</span><span class="p">,</span><span class="n">pprint</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#注意下这个命名元组</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Node</span><span class="p">(</span><span class="n">namedtuple</span><span class="p">(</span><span class="s1">&#39;Node&#39;</span><span class="p">,</span> <span class="s1">&#39;location left_child right_child&#39;</span><span class="p">)):</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#str_用于为最终用户创建输出，而 _repr_ 主要用于调试和开发。 _repr_ 的目标是明确无误，_str_ 是可读的</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">pformat</span><span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># kd-tree每个结点中主要包含的数据结构如下</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">KdNode</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dom_elt</span><span class="p">,</span> <span class="n">split</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">dom_elt</span> <span class="o">=</span> <span class="n">dom_elt</span>  <span class="c1"># k维向量节点(k维空间中的一个样本点)</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">split</span> <span class="o">=</span> <span class="n">split</span>  <span class="c1"># 整数（进行分割维度的序号）</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">left</span>  <span class="c1"># 该结点分割超平面左子空间构成的kd-tree</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">right</span>  <span class="c1"># 该结点分割超平面右子空间构成的kd-tree</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#         print(&#34;这是dom_elt:&#34;,dom_elt)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#         print(&#34;这是split:&#34;,split)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#         print(&#34;这是left:&#34;,left)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#         print(&#34;这是right:&#34;,right)</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">KdTreeCreate</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">k</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>  <span class="c1"># 数据维度   其实就是为了获取特征数</span>
+</span></span><span class="line"><span class="cl">        <span class="n">n</span><span class="o">=</span><span class="mi">0</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="c1">#split是分隔维度的序号 就相当于计算出哪个特征(维度)的方差大得到这个特征所在的列序号，就这根据这个特征的大小划分数据</span>
+</span></span><span class="line"><span class="cl">        <span class="k">def</span> <span class="nf">CreateNode</span><span class="p">(</span><span class="n">split</span><span class="p">,</span> <span class="n">data_set</span><span class="p">):</span>  <span class="c1"># 按第split维划分数据集exset创建KdNode</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#             nonlocal n</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#             n+=1</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="ow">not</span> <span class="n">data_set</span><span class="p">:</span>  <span class="c1"># 数据集为空</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="kc">None</span>
+</span></span><span class="line"><span class="cl">                
+</span></span><span class="line"><span class="cl"><span class="c1">#                 return print(&#34;--------这是第{}次循环-----&#34;.format(n))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="c1"># key参数的值为一个函数，此函数只有一个参数且返回一个值用来进行比较</span>
+</span></span><span class="line"><span class="cl">            <span class="c1"># operator模块提供的itemgetter函数用于获取对象的哪些维的数据，参数为需要获取的数据在对象中的序号</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">#data_set.sort(key=itemgetter(split)) </span>
+</span></span><span class="line"><span class="cl">            <span class="c1"># 这里就是将dataset进行排序    排序规则按照前面生成的split列来划分数据，从小到大</span>
+</span></span><span class="line"><span class="cl">            <span class="n">data_set</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="n">split</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">            <span class="n">split_pos</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data_set</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>  <span class="c1"># //除法取整 split_pos因为前面已经排序了，所以这里就相当于确定中间值了即节点</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#             print(data_set) </span>
+</span></span><span class="line"><span class="cl"><span class="c1">#             print(&#34;index:&#34;,split_pos)</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">#nonlocal解决屏蔽向量</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#             print(&#34;--------这是第{}次循环-----&#34;.format(n))</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">#注意这里程序的index是从0开始的，数学上是从1开始的，所以前面取整是合理的。</span>
+</span></span><span class="line"><span class="cl">            <span class="n">median</span> <span class="o">=</span> <span class="n">data_set</span><span class="p">[</span><span class="n">split_pos</span><span class="p">]</span>  <span class="c1"># 中位数分割点                            6 = data_set[3]</span>
+</span></span><span class="line"><span class="cl">            <span class="n">split_next</span> <span class="o">=</span> <span class="p">(</span><span class="n">split</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">k</span>  <span class="c1"># cycle coordinates 循环坐标    感觉这里是针对数据的  这里有点没看懂？</span>
+</span></span><span class="line"><span class="cl">            <span class="c1"># 比如第一次：       split=0  （0+1）%k(2) = 1  </span>
+</span></span><span class="line"><span class="cl">            <span class="c1"># 第二次：  split_next=1   (1+1)%k(2) = 0</span>
+</span></span><span class="line"><span class="cl">            <span class="c1"># 第三次：  split_next=0    .....=1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="c1"># 递归的创建kd树</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">KdNode</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                <span class="n">median</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="n">split</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="c1">#递归</span>
+</span></span><span class="line"><span class="cl">                <span class="c1">#不是很清楚上面的那个split_next是怎么一回事</span>
+</span></span><span class="line"><span class="cl">                <span class="n">CreateNode</span><span class="p">(</span><span class="n">split_next</span><span class="p">,</span> <span class="n">data_set</span><span class="p">[:</span><span class="n">split_pos</span><span class="p">]),</span>  <span class="c1"># 创建左子树</span>
+</span></span><span class="line"><span class="cl">                <span class="n">CreateNode</span><span class="p">(</span><span class="n">split_next</span><span class="p">,</span> <span class="n">data_set</span><span class="p">[</span><span class="n">split_pos</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:]))</span>  <span class="c1"># 创建右子树</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="c1">#这样看来的话好像就是默认第一次时的第一个特征的方差最大</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="n">CreateNode</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>  <span class="c1"># 从第0维分量开始构建kd树,返回根节点</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># KDTree的前序遍历</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">preorder</span><span class="p">(</span><span class="n">root</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">dom_elt</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">root</span><span class="o">.</span><span class="n">left</span><span class="p">:</span>  <span class="c1"># 节点不为空</span>
+</span></span><span class="line"><span class="cl">        <span class="n">preorder</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">left</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">root</span><span class="o">.</span><span class="n">right</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">preorder</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">right</span><span class="p">)</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</span></span><span class="line"><span class="cl"><span class="n">data_md</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">7</span><span class="p">),</span> <span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mi">6</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span> <span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">data_mdL1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">7</span><span class="p">),(</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">)])</span>
+</span></span><span class="line"><span class="cl"><span class="n">data_mdR1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([(</span><span class="mi">9</span><span class="p">,</span><span class="mi">6</span><span class="p">),(</span><span class="mi">7</span><span class="p">,</span><span class="mi">2</span><span class="p">)])</span>
+</span></span><span class="line"><span class="cl"><span class="n">data_md_np</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data_md</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">data_md_np</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">data_mdR1</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 71; 
+			flex-basis: 171px"
+	>
+	<a href="/p/wzu_knn%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/picture/WZU-ML-lesson6-KNN%E6%B3%A8%E9%87%8A-10.png" data-size="140x196">
+		<img src="/p/wzu_knn%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/picture/WZU-ML-lesson6-KNN%E6%B3%A8%E9%87%8A-10.png"
+			width="140"
+			height="196"
+			srcset="/p/wzu_knn%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/picture/WZU-ML-lesson6-KNN%E6%B3%A8%E9%87%8A-10_hubef52c7642492a71066102bd35cd135b_7690_480x0_resize_box_3.png 480w, /p/wzu_knn%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/picture/WZU-ML-lesson6-KNN%E6%B3%A8%E9%87%8A-10_hubef52c7642492a71066102bd35cd135b_7690_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#这里就为什么要用到namedtuple的原因了，这样分类的x[0]才能取到第一列 如果是[[7,2],[3,6]]的话就是第一个元素的了[7,2]</span>
+</span></span><span class="line"><span class="cl"><span class="n">X</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">7</span><span class="p">,</span><span class="mi">2</span><span class="p">),(</span><span class="mi">3</span><span class="p">,</span><span class="mi">6</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="p">[(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span>
+</span></span></code></pre></div><p>确定中值点 预先对原始数据点在所有维度进行一次排序，存储下来，然后在后续的中值选择中，无须每次都对其子集进行排序，提升了性能。也可以从原始数据点中随机选择固定数目的点，然后对其进行排序，每次从这些样本点中取中值，来作为分割超平面。该方式在实践中被证明可以取得很好性能及很好的平衡性。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#好好根据这段话理解下面的例子结果</span>
+</span></span><span class="line"><span class="cl"><span class="n">kd_create_test</span> <span class="o">=</span> <span class="n">KdTreeCreate</span><span class="p">(</span><span class="n">data_md</span> <span class="p">)</span>  <span class="c1">#用md的例子看看先</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#第一次循环是: 执行预先对原始数据点在所有维度（其实就是第一个维度）进行一次排序  同时也取到了中值的index，</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#第二次循环是: 因为第一次循环知道了中值index，那么就可以符合KD树创建来划分了，这次先取出小于第一次循环得出的中值</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#第三次循环是: 同理因为第二次循环知道了上一小组的index  这次先取出小于第二次循环得出的中值，即构建了（2，3）这个最左下的点</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#第四次循环是： 空  本来过程也是同二三的，但是发现第三次取出后，后面没有数据了所以就返回这次空</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#第五次      空</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#第六次      ：返回最左下的节点（2，3） 同时因为第二次循环中得出这一次的中值划分，那么这次就取右边的点即[5,7]</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#第七次      空</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#第八次       空       连续两个空代表这个节点下已经没有左右点了</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#第九次      ：因为第一次中我们知道了中指，那么上面的循环取中值左边的点，那么这次我们开始划分第一次中值右边的点 同时返回最下面的第二个节点的信息</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#              并且第二次循环的数已经没了，就可以返回节点的信息了</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#             同时判断下剩下中值记得先看看那个维度的方差大</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#第十次       ：取出一个节点，后面的过程和前面是类似的</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 88; 
+			flex-basis: 212px"
+	>
+	<a href="/p/wzu_knn%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/picture/WZU-ML-lesson6-KNN%E6%B3%A8%E9%87%8A-12.png" data-size="1186x1342">
+		<img src="/p/wzu_knn%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/picture/WZU-ML-lesson6-KNN%E6%B3%A8%E9%87%8A-12.png"
+			width="1186"
+			height="1342"
+			srcset="/p/wzu_knn%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/picture/WZU-ML-lesson6-KNN%E6%B3%A8%E9%87%8A-12_hud9f4ef4b4dd2816fc787a24e3ac1abfe_241809_480x0_resize_box_3.png 480w, /p/wzu_knn%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/picture/WZU-ML-lesson6-KNN%E6%B3%A8%E9%87%8A-12_hud9f4ef4b4dd2816fc787a24e3ac1abfe_241809_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 186; 
+			flex-basis: 446px"
+	>
+	<a href="/p/wzu_knn%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/picture/WZU-ML-lesson6-KNN%E6%B3%A8%E9%87%8A-13.png" data-size="1292x694">
+		<img src="/p/wzu_knn%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/picture/WZU-ML-lesson6-KNN%E6%B3%A8%E9%87%8A-13.png"
+			width="1292"
+			height="694"
+			srcset="/p/wzu_knn%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/picture/WZU-ML-lesson6-KNN%E6%B3%A8%E9%87%8A-13_huc36f111da784db35f87a267a73474871_415427_480x0_resize_box_3.png 480w, /p/wzu_knn%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/picture/WZU-ML-lesson6-KNN%E6%B3%A8%E9%87%8A-13_huc36f111da784db35f87a267a73474871_415427_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 对构建好的kd树进行搜索，寻找与目标点最近的样本点：</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">sqrt</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 定义一个namedtuple,分别存放最近坐标点nearest_point、最近距离、和访问过的节点数nodes_visited</span>
+</span></span><span class="line"><span class="cl"><span class="n">result</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s2">&#34;Result_tuple&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="s2">&#34;nearest_point  nearest_dist  nodes_visited&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">find_nearest</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">point</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#以为point(4,4)为例子</span>
+</span></span><span class="line"><span class="cl">    <span class="n">k</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">point</span><span class="p">)</span>  <span class="c1"># 数据维度即数据特征数</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">travel</span><span class="p">(</span><span class="n">kd_node</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">max_dist</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">kd_node</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">result</span><span class="p">([</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">k</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&#34;inf&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">                          <span class="mi">0</span><span class="p">)</span>  <span class="c1"># python中用float(&#34;inf&#34;)和float(&#34;-inf&#34;)表示正负无穷</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">nodes_visited</span> <span class="o">=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">s</span> <span class="o">=</span> <span class="n">kd_node</span><span class="o">.</span><span class="n">split</span>  <span class="c1"># 进行分割的维度</span>
+</span></span><span class="line"><span class="cl">        <span class="n">pivot</span> <span class="o">=</span> <span class="n">kd_node</span><span class="o">.</span><span class="n">dom_elt</span>  <span class="c1"># 进行分割的“轴”</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">target</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">pivot</span><span class="p">[</span><span class="n">s</span><span class="p">]:</span>  <span class="c1"># 如果目标点第s维小于分割轴的对应值(目标离左子树更近)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">nearer_node</span> <span class="o">=</span> <span class="n">kd_node</span><span class="o">.</span><span class="n">left</span>  <span class="c1"># 下一个访问节点为左子树根节点</span>
+</span></span><span class="line"><span class="cl">            <span class="n">further_node</span> <span class="o">=</span> <span class="n">kd_node</span><span class="o">.</span><span class="n">right</span>  <span class="c1"># 同时记录下右子树</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span><span class="p">:</span>  <span class="c1"># 目标离右子树更近</span>
+</span></span><span class="line"><span class="cl">            <span class="n">nearer_node</span> <span class="o">=</span> <span class="n">kd_node</span><span class="o">.</span><span class="n">right</span>  <span class="c1"># 下一个访问节点为右子树根节点</span>
+</span></span><span class="line"><span class="cl">            <span class="n">further_node</span> <span class="o">=</span> <span class="n">kd_node</span><span class="o">.</span><span class="n">left</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">temp1</span> <span class="o">=</span> <span class="n">travel</span><span class="p">(</span><span class="n">nearer_node</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">max_dist</span><span class="p">)</span>  <span class="c1"># 进行遍历找到包含目标点的区域</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">nearest</span> <span class="o">=</span> <span class="n">temp1</span><span class="o">.</span><span class="n">nearest_point</span>  <span class="c1"># 以此叶结点作为“当前最近点”</span>
+</span></span><span class="line"><span class="cl">        <span class="n">dist</span> <span class="o">=</span> <span class="n">temp1</span><span class="o">.</span><span class="n">nearest_dist</span>  <span class="c1"># 更新最近距离</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">nodes_visited</span> <span class="o">+=</span> <span class="n">temp1</span><span class="o">.</span><span class="n">nodes_visited</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">dist</span> <span class="o">&lt;</span> <span class="n">max_dist</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">max_dist</span> <span class="o">=</span> <span class="n">dist</span>  <span class="c1"># 最近点将在以目标点为球心，max_dist为半径的超球体内</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">temp_dist</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">pivot</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">-</span> <span class="n">target</span><span class="p">[</span><span class="n">s</span><span class="p">])</span>  <span class="c1"># 第s维上目标点与分割超平面的距离</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">max_dist</span> <span class="o">&lt;</span> <span class="n">temp_dist</span><span class="p">:</span>  <span class="c1"># 判断超球体是否与超平面相交</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">result</span><span class="p">(</span><span class="n">nearest</span><span class="p">,</span> <span class="n">dist</span><span class="p">,</span> <span class="n">nodes_visited</span><span class="p">)</span>  <span class="c1"># 不相交则可以直接返回，不用继续判断</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">#----------------------------------------------------------------------</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 计算目标点与分割点的欧氏距离</span>
+</span></span><span class="line"><span class="cl">        <span class="n">temp_dist</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="nb">sum</span><span class="p">((</span><span class="n">p1</span> <span class="o">-</span> <span class="n">p2</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="k">for</span> <span class="n">p1</span><span class="p">,</span> <span class="n">p2</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">pivot</span><span class="p">,</span> <span class="n">target</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">temp_dist</span> <span class="o">&lt;</span> <span class="n">dist</span><span class="p">:</span>  <span class="c1"># 如果“更近”</span>
+</span></span><span class="line"><span class="cl">            <span class="n">nearest</span> <span class="o">=</span> <span class="n">pivot</span>  <span class="c1"># 更新最近点</span>
+</span></span><span class="line"><span class="cl">            <span class="n">dist</span> <span class="o">=</span> <span class="n">temp_dist</span>  <span class="c1"># 更新最近距离</span>
+</span></span><span class="line"><span class="cl">            <span class="n">max_dist</span> <span class="o">=</span> <span class="n">dist</span>  <span class="c1"># 更新超球体半径</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># 检查另一个子结点对应的区域是否有更近的点</span>
+</span></span><span class="line"><span class="cl">        <span class="n">temp2</span> <span class="o">=</span> <span class="n">travel</span><span class="p">(</span><span class="n">further_node</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">max_dist</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">nodes_visited</span> <span class="o">+=</span> <span class="n">temp2</span><span class="o">.</span><span class="n">nodes_visited</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">temp2</span><span class="o">.</span><span class="n">nearest_dist</span> <span class="o">&lt;</span> <span class="n">dist</span><span class="p">:</span>  <span class="c1"># 如果另一个子结点内存在更近距离</span>
+</span></span><span class="line"><span class="cl">            <span class="n">nearest</span> <span class="o">=</span> <span class="n">temp2</span><span class="o">.</span><span class="n">nearest_point</span>  <span class="c1"># 更新最近点</span>
+</span></span><span class="line"><span class="cl">            <span class="n">dist</span> <span class="o">=</span> <span class="n">temp2</span><span class="o">.</span><span class="n">nearest_dist</span>  <span class="c1"># 更新最近距离</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">result</span><span class="p">(</span><span class="n">nearest</span><span class="p">,</span> <span class="n">dist</span><span class="p">,</span> <span class="n">nodes_visited</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">travel</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="n">point</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&#34;inf&#34;</span><span class="p">))</span>  <span class="c1"># 从根节点开始递归</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#先用我们自己举的例子来看看</span>
+</span></span><span class="line"><span class="cl"><span class="n">data_md</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">7</span><span class="p">),</span> <span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mi">6</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span> <span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">kd_create_test</span> <span class="o">=</span> <span class="n">KdTreeCreate</span><span class="p">(</span><span class="n">data_md</span> <span class="p">)</span> 
+</span></span><span class="line"><span class="cl"><span class="n">kd_create_test_result</span> <span class="o">=</span> <span class="n">find_nearest</span><span class="p">(</span><span class="n">kd_create_test</span><span class="p">,[</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">kd_create_test_result</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#结果没问题</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">Result_tuple</span><span class="p">(</span><span class="n">nearest_point</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">nearest_dist</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">nodes_visited</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</span></span></code></pre></div><p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">process_time</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">random</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 产生一个k维随机向量，每维分量值在0~1之间</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">random_point</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">[</span><span class="n">random</span><span class="p">()</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 产生n个k维随机向量</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">random_points</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">[</span><span class="n">random_point</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">N</span> <span class="o">=</span> <span class="mi">400000</span>
+</span></span><span class="line"><span class="cl"><span class="n">t0</span> <span class="o">=</span> <span class="n">process_time</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">kd2</span> <span class="o">=</span> <span class="n">KdTreeCreate</span><span class="p">(</span><span class="n">random_points</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">N</span><span class="p">))</span>  <span class="c1"># 构建包含四十万个3维空间样本点的kd树</span>
+</span></span><span class="line"><span class="cl"><span class="n">ret2</span> <span class="o">=</span> <span class="n">find_nearest</span><span class="p">(</span><span class="n">kd2</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">])</span>  <span class="c1"># 四十万个样本点中寻找离目标最近的点</span>
+</span></span><span class="line"><span class="cl"><span class="n">t1</span> <span class="o">=</span> <span class="n">process_time</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;time: &#34;</span><span class="p">,</span> <span class="n">t1</span> <span class="o">-</span> <span class="n">t0</span><span class="p">,</span> <span class="s2">&#34;s&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">ret2</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 917; 
+			flex-basis: 2201px"
+	>
+	<a href="/p/wzu_knn%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/picture/WZU-ML-lesson6-KNN%E6%B3%A8%E9%87%8A-14.png" data-size="1266x138">
+		<img src="/p/wzu_knn%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/picture/WZU-ML-lesson6-KNN%E6%B3%A8%E9%87%8A-14.png"
+			width="1266"
+			height="138"
+			srcset="/p/wzu_knn%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/picture/WZU-ML-lesson6-KNN%E6%B3%A8%E9%87%8A-14_hu2cf04c1ed9f65b4c1a0121f5c9c3eb52_28241_480x0_resize_box_3.png 480w, /p/wzu_knn%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/picture/WZU-ML-lesson6-KNN%E6%B3%A8%E9%87%8A-14_hu2cf04c1ed9f65b4c1a0121f5c9c3eb52_28241_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="kd树的绘图代码">KD树的绘图代码</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">operator</span> <span class="kn">import</span> <span class="n">itemgetter</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">kdtree</span><span class="p">(</span><span class="n">point_list</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">point_list</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">None</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1"># 选择“基于深度的轴”，以便轴在所有有效值之间循环</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 只支持二维</span>
+</span></span><span class="line"><span class="cl">    <span class="n">axis</span> <span class="o">=</span> <span class="n">depth</span> <span class="o">%</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># Sort point list and choose median as pivot element</span>
+</span></span><span class="line"><span class="cl">    <span class="n">point_list</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">itemgetter</span><span class="p">(</span><span class="n">axis</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="n">median</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">point_list</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>  <span class="c1"># 选择中值点</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1"># 创建节点并构造子树</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">Node</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="n">location</span> <span class="o">=</span> <span class="n">point_list</span><span class="p">[</span><span class="n">median</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">        <span class="n">left_child</span> <span class="o">=</span> <span class="n">kdtree</span><span class="p">(</span><span class="n">point_list</span><span class="p">[:</span><span class="n">median</span><span class="p">],</span> <span class="n">depth</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">        <span class="n">right_child</span> <span class="o">=</span> <span class="n">kdtree</span><span class="p">(</span><span class="n">point_list</span><span class="p">[</span><span class="n">median</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:],</span> <span class="n">depth</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># KD树的线宽</span>
+</span></span><span class="line"><span class="cl"><span class="n">line_width</span> <span class="o">=</span> <span class="p">[</span><span class="mf">4.</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">,</span> <span class="mf">3.</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">,</span> <span class="mf">2.</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">.5</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">plot_tree</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">min_x</span><span class="p">,</span> <span class="n">max_x</span><span class="p">,</span> <span class="n">min_y</span><span class="p">,</span> <span class="n">max_y</span><span class="p">,</span> <span class="n">prev_node</span><span class="p">,</span> <span class="n">branch</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34; plot K-D tree
+</span></span></span><span class="line"><span class="cl"><span class="s2">    :param tree      input tree to be plotted
+</span></span></span><span class="line"><span class="cl"><span class="s2">    :param min_x
+</span></span></span><span class="line"><span class="cl"><span class="s2">    :param max_x
+</span></span></span><span class="line"><span class="cl"><span class="s2">    :param min_y
+</span></span></span><span class="line"><span class="cl"><span class="s2">    :param max_y
+</span></span></span><span class="line"><span class="cl"><span class="s2">    :param prev_node parent&#39;s node
+</span></span></span><span class="line"><span class="cl"><span class="s2">    :param branch    True if left, False if right
+</span></span></span><span class="line"><span class="cl"><span class="s2">    :param depth     tree&#39;s depth
+</span></span></span><span class="line"><span class="cl"><span class="s2">    :return tree     node
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">cur_node</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">location</span>  <span class="c1"># 当前树节点</span>
+</span></span><span class="line"><span class="cl">    <span class="n">left_branch</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">left_child</span>  <span class="c1"># 左分支</span>
+</span></span><span class="line"><span class="cl">    <span class="n">right_branch</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">right_child</span>  <span class="c1"># 右分支</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">#根据树的深度设置线条的宽度</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">depth</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">line_width</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ln_width</span> <span class="o">=</span> <span class="n">line_width</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">line_width</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ln_width</span> <span class="o">=</span> <span class="n">line_width</span><span class="p">[</span><span class="n">depth</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">k</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">cur_node</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">axis</span> <span class="o">=</span> <span class="n">depth</span> <span class="o">%</span> <span class="n">k</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># 画垂直分割线</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">axis</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">branch</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">prev_node</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="n">branch</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">max_y</span> <span class="o">=</span> <span class="n">prev_node</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">            <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">min_y</span> <span class="o">=</span> <span class="n">prev_node</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">cur_node</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">cur_node</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="p">[</span><span class="n">min_y</span><span class="p">,</span> <span class="n">max_y</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">                 <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                 <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                 <span class="n">linewidth</span><span class="o">=</span><span class="n">ln_width</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># 画水平分割线</span>
+</span></span><span class="line"><span class="cl">    <span class="k">elif</span> <span class="n">axis</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">branch</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">prev_node</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="n">branch</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">max_x</span> <span class="o">=</span> <span class="n">prev_node</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">            <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">min_x</span> <span class="o">=</span> <span class="n">prev_node</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">min_x</span><span class="p">,</span> <span class="n">max_x</span><span class="p">],</span> <span class="p">[</span><span class="n">cur_node</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">cur_node</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span>
+</span></span><span class="line"><span class="cl">                 <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                 <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                 <span class="n">linewidth</span><span class="o">=</span><span class="n">ln_width</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># 画当前节点</span>
+</span></span><span class="line"><span class="cl">    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">cur_node</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">cur_node</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;ko&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># 绘制当前节点的左分支和右分支</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">left_branch</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">plot_tree</span><span class="p">(</span><span class="n">left_branch</span><span class="p">,</span> <span class="n">min_x</span><span class="p">,</span> <span class="n">max_x</span><span class="p">,</span> <span class="n">min_y</span><span class="p">,</span> <span class="n">max_y</span><span class="p">,</span> <span class="n">cur_node</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                  <span class="n">depth</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">right_branch</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">plot_tree</span><span class="p">(</span><span class="n">right_branch</span><span class="p">,</span> <span class="n">min_x</span><span class="p">,</span> <span class="n">max_x</span><span class="p">,</span> <span class="n">min_y</span><span class="p">,</span> <span class="n">max_y</span><span class="p">,</span> <span class="n">cur_node</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                  <span class="n">depth</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">create_diagram</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">min_val</span><span class="p">,</span> <span class="n">max_val</span><span class="p">,</span> <span class="n">delta</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="s2">&#34;Kd Tree&#34;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="p">[</span><span class="n">min_val</span> <span class="o">-</span> <span class="n">delta</span><span class="p">,</span> <span class="n">max_val</span> <span class="o">+</span> <span class="n">delta</span><span class="p">,</span> <span class="n">min_val</span> <span class="o">-</span> <span class="n">delta</span><span class="p">,</span> <span class="n">max_val</span> <span class="o">+</span> <span class="n">delta</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">b</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s1">&#39;major&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;0.75&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">min_val</span> <span class="o">-</span> <span class="n">delta</span><span class="p">,</span> <span class="n">max_val</span> <span class="o">+</span> <span class="n">delta</span><span class="p">,</span> <span class="mi">1</span><span class="p">)])</span>
+</span></span><span class="line"><span class="cl">    <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">min_val</span> <span class="o">-</span> <span class="n">delta</span><span class="p">,</span> <span class="n">max_val</span> <span class="o">+</span> <span class="n">delta</span><span class="p">,</span> <span class="mi">1</span><span class="p">)])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># 画出树</span>
+</span></span><span class="line"><span class="cl">    <span class="n">plot_tree</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">min_val</span> <span class="o">-</span> <span class="n">delta</span><span class="p">,</span> <span class="n">max_val</span> <span class="o">+</span> <span class="n">delta</span><span class="p">,</span> <span class="n">min_val</span> <span class="o">-</span> <span class="n">delta</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">              <span class="n">max_val</span> <span class="o">+</span> <span class="n">delta</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;KD Tree&#39;</span><span class="p">)</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">label_nodes</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">loc</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">location</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mf">0.15</span><span class="p">,</span> <span class="n">loc</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mf">0.15</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">left_child</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">i</span> <span class="o">=</span> <span class="n">label_nodes</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">left_child</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">right_child</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">i</span> <span class="o">=</span> <span class="n">label_nodes</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">right_child</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">i</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">draw_target</span><span class="p">(</span><span class="n">point</span><span class="p">,</span> <span class="n">radius</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">point</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">point</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#ff007f&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">circle</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">Circle</span><span class="p">(</span><span class="n">point</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                        <span class="mf">0.3</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;#ff007f&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;#ff007f&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">circle</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># 围绕目标点绘制超球体</span>
+</span></span><span class="line"><span class="cl">    <span class="n">circle</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">Circle</span><span class="p">(</span><span class="n">point</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">radius</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;#ffd83d&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;#ffd83d&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">circle</span><span class="p">)</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">draw_neighbors</span><span class="p">(</span><span class="n">point_list</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="n">point_list</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 画出找到的最近的邻居</span>
+</span></span><span class="line"><span class="cl">        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">point</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">point</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;go&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">circle</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">Circle</span><span class="p">(</span><span class="n">point</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                            <span class="mf">0.3</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                            <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;#33cc00&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                            <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;#33cc00&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                            <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">circle</span><span class="p">)</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">graphviz</span> <span class="kn">import</span> <span class="n">Digraph</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">add_node</span><span class="p">(</span><span class="n">dot</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">parent_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">edge_label</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">loc</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">location</span>
+</span></span><span class="line"><span class="cl">    <span class="n">node_id</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">dot</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="n">node_id</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&#34;</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="se">\n</span><span class="s2">(</span><span class="si">{</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="n">loc</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">)&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">parent_id</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">dot</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="n">parent_id</span><span class="p">,</span> <span class="n">node_id</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">edge_label</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">left_child</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">i</span> <span class="o">=</span> <span class="n">add_node</span><span class="p">(</span><span class="n">dot</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">left_child</span><span class="p">,</span> <span class="n">node_id</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;l&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">right_child</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">i</span> <span class="o">=</span> <span class="n">add_node</span><span class="p">(</span><span class="n">dot</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">right_child</span><span class="p">,</span> <span class="n">node_id</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">i</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">create_graph</span><span class="p">(</span><span class="n">tree</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">dot</span> <span class="o">=</span> <span class="n">Digraph</span><span class="p">(</span><span class="n">comment</span><span class="o">=</span><span class="s1">&#39;Kd-tree&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">dot</span><span class="o">.</span><span class="n">attr</span><span class="p">(</span><span class="s1">&#39;node&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">             <span class="n">fontsize</span><span class="o">=</span><span class="s1">&#39;20&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">             <span class="n">shape</span><span class="o">=</span><span class="s1">&#39;circle&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">             <span class="n">width</span><span class="o">=</span><span class="s1">&#39;1&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">             <span class="n">fixedsize</span><span class="o">=</span><span class="s1">&#39;true&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">dot</span><span class="o">.</span><span class="n">attr</span><span class="p">(</span><span class="s1">&#39;edge&#39;</span><span class="p">,</span> <span class="n">arrowsize</span><span class="o">=</span><span class="s1">&#39;0.7&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">add_node</span><span class="p">(</span><span class="n">dot</span><span class="p">,</span> <span class="n">tree</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">dot</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># point_list = [[2,3],[5,7],[9,6],[4,5],[6,4],[7,2]]</span>
+</span></span><span class="line"><span class="cl"><span class="n">point_list1</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">),(</span><span class="mi">5</span><span class="p">,</span><span class="mi">7</span><span class="p">),(</span><span class="mi">9</span><span class="p">,</span><span class="mi">6</span><span class="p">),(</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">),(</span><span class="mi">6</span><span class="p">,</span><span class="mi">4</span><span class="p">),(</span><span class="mi">7</span><span class="p">,</span><span class="mi">2</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl"><span class="n">tree</span> <span class="o">=</span> <span class="n">kdtree</span><span class="p">(</span><span class="n">point_list1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">create_graph</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 509; 
+			flex-basis: 1222px"
+	>
+	<a href="/p/wzu_knn%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/picture/WZU-ML-lesson6-KNN%E6%B3%A8%E9%87%8A-15.png" data-size="754x148">
+		<img src="/p/wzu_knn%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/picture/WZU-ML-lesson6-KNN%E6%B3%A8%E9%87%8A-15.png"
+			width="754"
+			height="148"
+			srcset="/p/wzu_knn%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/picture/WZU-ML-lesson6-KNN%E6%B3%A8%E9%87%8A-15_hu79a06f79e0f93dfb099ee054f2f60106_23850_480x0_resize_box_3.png 480w, /p/wzu_knn%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/picture/WZU-ML-lesson6-KNN%E6%B3%A8%E9%87%8A-15_hu79a06f79e0f93dfb099ee054f2f60106_23850_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">max_int</span> <span class="o">=</span> <span class="mi">10000000</span>
+</span></span><span class="line"><span class="cl"><span class="n">min_int</span> <span class="o">=</span> <span class="o">-</span><span class="n">max_int</span> <span class="o">-</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="n">max_float</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">)</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">get_val_range</span><span class="p">(</span><span class="n">point_list</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">min_val</span> <span class="o">=</span> <span class="n">max_int</span>
+</span></span><span class="line"><span class="cl">    <span class="n">max_val</span> <span class="o">=</span> <span class="o">-</span><span class="n">max_int</span> <span class="o">-</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="n">point_list</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">min_v</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">point</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">min_v</span> <span class="o">&lt;</span> <span class="n">min_val</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">min_val</span> <span class="o">=</span> <span class="n">min_v</span>
+</span></span><span class="line"><span class="cl">        <span class="n">max_v</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">point</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">max_v</span> <span class="o">&gt;</span> <span class="n">max_val</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">max_val</span> <span class="o">=</span> <span class="n">max_v</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">(</span><span class="n">min_val</span><span class="p">,</span> <span class="n">max_val</span><span class="p">)</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">min_val</span><span class="p">,</span> <span class="n">max_val</span><span class="o">=</span><span class="n">get_val_range</span><span class="p">(</span><span class="n">point_list1</span><span class="p">)</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">create_diagram</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="mf">8.</span><span class="p">,</span> <span class="mf">8.</span><span class="p">,</span> <span class="n">min_val</span><span class="p">,</span> <span class="n">max_val</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">label_nodes</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</span></span></code></pre></div><p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 102; 
+			flex-basis: 246px"
+	>
+	<a href="/p/wzu_knn%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/picture/WZU-ML-lesson6-KNN%E6%B3%A8%E9%87%8A-16.png" data-size="798x776">
+		<img src="/p/wzu_knn%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/picture/WZU-ML-lesson6-KNN%E6%B3%A8%E9%87%8A-16.png"
+			width="798"
+			height="776"
+			srcset="/p/wzu_knn%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/picture/WZU-ML-lesson6-KNN%E6%B3%A8%E9%87%8A-16_hu35bf895b1fe3260c7b2c06686d9afb43_71747_480x0_resize_box_3.png 480w, /p/wzu_knn%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/picture/WZU-ML-lesson6-KNN%E6%B3%A8%E9%87%8A-16_hu35bf895b1fe3260c7b2c06686d9afb43_71747_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="参考">参考</h2>
+<ul>
+<li>Prof. Andrew Ng. Machine Learning. Stanford University</li>
+<li>李航，《统计学习方法》</li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/python/">python</a>
+        
+            <a href="/tags/sklearn/">sklearn</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">Related contents</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="">
+    <a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">阿里云_ML_02_数据探索</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">阿里云_ML_03_特征工程</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_04_%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">阿里云_ML_04_模型训练</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_05_%E6%A8%A1%E5%9E%8B%E9%AA%8C%E8%AF%81/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">阿里云_ML_05_模型验证</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81cross-validation/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">sklearn中的交叉验证Cross-Validation</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2022 - 
+        
+        2023 叶宇浩随记博客
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.5.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">Table of contents</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#距离度量">距离度量</a>
+      <ol>
+        <li><a href="#欧氏距离euclidean-distance">欧氏距离(Euclidean distance)</a></li>
+        <li><a href="#曼哈顿距离manhattan-distance">曼哈顿距离(Manhattan distance)</a></li>
+        <li><a href="#切比雪夫距离chebyshev-distance">切比雪夫距离(Chebyshev distance)</a></li>
+        <li><a href="#闵可夫斯基距离minkowski-distance">闵可夫斯基距离(Minkowski distance)</a></li>
+        <li><a href="#汉明距离hamming-distance">汉明距离(Hamming distance)</a></li>
+        <li><a href="#余弦相似度cosine-similarity">余弦相似度(Cosine Similarity)</a></li>
+      </ol>
+    </li>
+    <li><a href="#knn算法">KNN算法</a>
+      <ol>
+        <li><a href="#numpy实现">Numpy实现</a></li>
+        <li><a href="#scikit-learn实例">Scikit-learn实例</a>
+          <ol>
+            <li><a href="#sklearnneighborskneighborsclassifier">sklearn.neighbors.KNeighborsClassifier</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#kd树的划分和搜索">KD树的划分和搜索</a>
+      <ol>
+        <li><a href="#kd树">KD树</a></li>
+        <li><a href="#构造kd树的方法">构造KD树的方法</a></li>
+        <li><a href="#kd树的绘图代码">KD树的绘图代码</a></li>
+      </ol>
+    </li>
+    <li><a href="#参考">参考</a></li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

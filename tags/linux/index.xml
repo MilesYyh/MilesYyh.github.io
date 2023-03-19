@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>linux on 叶宇浩随记博客</title>
+    <link>https://example.com/tags/linux/</link>
+    <description>Recent content in linux on 叶宇浩随记博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 12 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://example.com/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>安装虚拟机</title>
+      <link>https://example.com/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/</link>
+      <pubDate>Mon, 12 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/</guid>
+      <description> 再点击完成
+点击开启虚拟机 Try and install
+等待即可
+重启计算
+安装tools
+点击虚拟机
+安装tool
+双击将tar.gz取出来
+将其复制到home下
+tar -xzvf 解压
+进入文件夹
+sudo ./vmware-install.pl
+接下来N多的enter，N多的YES，自己慢慢按吧
+重启虚拟机
+若还没有全屏显示，则将虚拟机的【查看】-&amp;gt;【自动调整大小】-&amp;gt;【自适应客户机】,都选上。即可实现全屏。
+安装vmware tools实现全屏后，即也实现了在主机（WIN7）和虚拟机VMware （ubuntu）间
+直接拖拽文件 联网 </description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>resetta on 叶宇浩随记博客</title>
+    <link>https://example.com/categories/resetta/</link>
+    <description>Recent content in resetta on 叶宇浩随记博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 04 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://example.com/categories/resetta/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Practically Useful: What the Rosetta Protein Modeling Suite Can Do for You</title>
+      <link>https://example.com/p/practically-useful-what-the-rosetta-protein-modeling-suite-can-do-for-you/</link>
+      <pubDate>Wed, 04 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/practically-useful-what-the-rosetta-protein-modeling-suite-can-do-for-you/</guid>
+      <description>Practically Useful: What the Rosetta Protein Modeling Suite Can Do for You</description>
+    </item>
+    
+    <item>
+      <title>PyRosetta: a script-based interface for implementing molecular modeling algorithms using Rosetta</title>
+      <link>https://example.com/p/pyrosetta-a-script-based-interface-for-implementing-molecular-modeling-algorithms-using-rosetta/</link>
+      <pubDate>Tue, 03 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/pyrosetta-a-script-based-interface-for-implementing-molecular-modeling-algorithms-using-rosetta/</guid>
+      <description>PyRosetta: a script-based interface for implementing molecular modeling algorithms using Rosetta
+link:https://academic.oup.com/bioinformatics/article/26/5/689/212442?login=false</description>
+    </item>
+    
+    <item>
+      <title>RosettaScripts: A Scripting Language Interface to the Rosetta Macromolecular Modeling Suite</title>
+      <link>https://example.com/p/rosettascripts-a-scripting-language-interface-to-the-rosetta-macromolecular-modeling-suite/</link>
+      <pubDate>Sat, 19 Mar 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/rosettascripts-a-scripting-language-interface-to-the-rosetta-macromolecular-modeling-suite/</guid>
+      <description>RosettaScripts: A Scripting Language Interface to the Rosetta Macromolecular Modeling Suite
+link:https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0020161</description>
+    </item>
+    
+  </channel>
+</rss>

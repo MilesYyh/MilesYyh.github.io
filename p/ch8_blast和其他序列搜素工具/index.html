@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='biopython官方教程学习笔记'><title>ch8_BLAST和其他序列搜素工具</title>
+
+<link rel='canonical' href='https://example.com/p/ch8_blast%E5%92%8C%E5%85%B6%E4%BB%96%E5%BA%8F%E5%88%97%E6%90%9C%E7%B4%A0%E5%B7%A5%E5%85%B7/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='ch8_BLAST和其他序列搜素工具'>
+<meta property='og:description' content='biopython官方教程学习笔记'>
+<meta property='og:url' content='https://example.com/p/ch8_blast%E5%92%8C%E5%85%B6%E4%BB%96%E5%BA%8F%E5%88%97%E6%90%9C%E7%B4%A0%E5%B7%A5%E5%85%B7/'>
+<meta property='og:site_name' content='叶宇浩随记博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='tutorials' /><meta property='article:published_time' content='2021-08-09T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-08-09T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="ch8_BLAST和其他序列搜素工具">
+<meta name="twitter:description" content="biopython官方教程学习笔记">
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>Back</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/biopython/" style="background-color: #002be1; color: #fff;">
+                生物编程
+            </a>
+        
+            <a href="/categories/bioinformatic/" style="background-color: #7816ff; color: #fff;">
+                生物信息学&amp;计算生物学
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/ch8_blast%E5%92%8C%E5%85%B6%E4%BB%96%E5%BA%8F%E5%88%97%E6%90%9C%E7%B4%A0%E5%B7%A5%E5%85%B7/">ch8_BLAST和其他序列搜素工具</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        biopython官方教程学习笔记
+    </h3>
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Aug 09, 2021</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    10 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <p><strong>biopython官方地址：</strong><a class="link" href="https://biopython.org/"  target="_blank" rel="noopener"
+    ><strong>https://biopython.org/</strong></a></p>
+<p><strong>github地址：</strong><a class="link" href="https://github.com/biopython/biopython/blob/master/README.rst"  target="_blank" rel="noopener"
+    ><strong>https://github.com/biopython/biopython/blob/master/</strong></a></p>
+<p><strong>中文版教程：</strong><a class="link" href="https://biopython-cn.readthedocs.io/zh_CN/latest/cn/chr06.html"  target="_blank" rel="noopener"
+    ><strong>https://biopython-cn.readthedocs.io/zh_CN/latest/cn/chr06.html</strong></a></p>
+<p><strong>biopython包的说明（具体到每个模块了）：</strong><a class="link" href="https://www.osgeo.cn/biopython/Bio.HMM.DynamicProgramming.html"  target="_blank" rel="noopener"
+    ><strong>https://www.osgeo.cn/biopython/Bio.HMM.DynamicProgramming.html</strong></a></p>
+<p>生物序列的鉴定是生物信息工作的主要部分。有几个工具像BLAST（可能是最流行 的），FASTA ，HMMER还有许多其它的都有这个功能，每个工具都有独特的算法和 途径。一般来说，这些工具都是用你的序列在数据库中搜索可能的匹配。随着序列 数量的增加（匹配数也会随之增加），将会有成百上千的可能匹配，解析这些结果 无疑变得越来越困难。理所当然，人工解析搜索结果变得不可能。而且你可能会同 时用几种不同的搜索工具，每种工具都有独特的统计方法、规则和输出格式。可以 想象，同时用多种工具搜索多条序列是多么恐怖的事。
+我们对此非常了解，所以我们在Biopython构建了 Bio.SearchIO 亚模块。Bio.SearchIO 模块使从搜索结果中提取信息变得简单，并且可以处理不同工具 的不同标准和规则。SearchIO 和BioPerl中模块名称一致。
+在本章中，我们将学习 Bio.SearchIO 的主要功能，了解它可以做什么。我 们将使用两个主要的搜索工具：BLAST和FASTA。它们只是用来阐明思路，你可以轻 易地把工作流程应用到 Bio.SearchIO 支持的其他工具中</p>
+<h2 id="searchio对象模型">SearchIO对象模型</h2>
+<p>尽管多数搜索工具的输出风格极为不同，但是它们蕴含的理念很相似：</p>
+<ul>
+<li>输出文件可能包含一条或更多的搜索查询的结果。</li>
+<li>在每次查询中，你会在给定的数据库中得到一个或更多的hit（命中）。</li>
+<li>在每个hit中，你会得到一个或更多包含query（查询)序列和数据库序列实际比对的区域。</li>
+<li>一些工具如BLAT和Exonerate可能会把这些区域分成几个比对片段（或在BLAT中 称为区块，在Exonerate中称为可能外显子）。这并不是很常见，像BLAST和 HMMER就不这么做。</li>
+</ul>
+<h3 id="一些名词介绍">一些名词介绍</h3>
+<p>知道这些共性之后，我们决定把它们作为创造 Bio.SearchIO 对象模型的基础。对 象模型是Python对象组成的嵌套分级系统，每个对象都代表一个上面列出的概念。这些对 象是：</p>
+<ul>
+<li>QueryResult，代表单个搜索查询。</li>
+<li>Hit，代表单个的数据库hit。Hit 对象包含在 QueryResult 中， 每个 QueryResult 中有0个或多个 Hit 对象。</li>
+<li>HSP (high-scoring pair（高分片段）)，代表query和hit序列中有 意义比对的区域。HSP 对象包含在 Hit 对象中，而且每个 Hit 有一个 或更多的 HSP 对象。</li>
+<li>HSPFragment，代表query和hit序列中单个的邻近比对。 HSPFragment 对象包含在 HSP 对象中。多数的搜索工具如BLAST和HMMER把 HSP 和 HSPFragment 合并，因为一个 HSP 只含有一个 HSPFragment。但是 像BLAT和Exonerate会产生含有多个 HSPFragment 的 HSP 。似乎有些困 惑？不要紧，稍后我们将详细介绍这两个对象。
+这四个对象是当你用 Bio.SearchIO 会碰到的。 Bio.SearchIO 四 个主要方法： read ，parse，index 或 index_db 中任意一个都可 以产生这四个对象。这些方法的会在后面的部分详细介绍。这部分只会用到 read 和 parse ，这两个方法和 Bio.SeqIO 以及 Bio.AlignIO 中的 read 和 parse 方法功 能相似：</li>
+<li>read 用于单query对输出文件进行搜索并且返回一个 QueryResult 对象。</li>
+<li>parse 用于多query对输出文件进行搜索并且返回一个可以yield QueryResult 对象的generator。
+完成这些之后，让我们开始学习每个 Bio.SearchIO 对象，从 QueryResult 开始。</li>
+</ul>
+<h3 id="queryresult">QueryResult</h3>
+<p>QueryResult，代表单query搜索，每个 QueryResult 中有0个或多个 Hit 对象。我们来看看BLAST文件是什么样的：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio</span> <span class="kn">import</span> <span class="n">SearchIO</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">blast_qresult</span> <span class="o">=</span> <span class="n">SearchIO</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s1">&#39;my_blast.xml&#39;</span><span class="p">,</span> <span class="s1">&#39;blast-xml&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="n">blast_qresult</span>
+</span></span><span class="line"><span class="cl"><span class="n">Program</span><span class="p">:</span> <span class="n">blastn</span> <span class="p">(</span><span class="mf">2.2.27</span><span class="o">+</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Query</span><span class="p">:</span> <span class="mi">42291</span> <span class="p">(</span><span class="mi">61</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">         <span class="n">mystery_seq</span>
+</span></span><span class="line"><span class="cl"> <span class="n">Target</span><span class="p">:</span> <span class="n">refseq_rna</span>
+</span></span><span class="line"><span class="cl">   <span class="n">Hits</span><span class="p">:</span> <span class="o">----</span>  <span class="o">-----</span>  <span class="o">----------------------------------------------------------</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">#  # HSP  ID + description</span>
+</span></span><span class="line"><span class="cl">         <span class="o">----</span>  <span class="o">-----</span>  <span class="o">----------------------------------------------------------</span>
+</span></span><span class="line"><span class="cl">            <span class="mi">0</span>      <span class="mi">1</span>  <span class="n">gi</span><span class="o">|</span><span class="mi">262205317</span><span class="o">|</span><span class="n">ref</span><span class="o">|</span><span class="n">NR_030195</span><span class="mf">.1</span><span class="o">|</span>  <span class="n">Homo</span> <span class="n">sapiens</span> <span class="n">microRNA</span> <span class="mf">52.</span><span class="o">..</span>
+</span></span><span class="line"><span class="cl">            <span class="mi">1</span>      <span class="mi">1</span>  <span class="n">gi</span><span class="o">|</span><span class="mi">301171311</span><span class="o">|</span><span class="n">ref</span><span class="o">|</span><span class="n">NR_035856</span><span class="mf">.1</span><span class="o">|</span>  <span class="n">Pan</span> <span class="n">troglodytes</span> <span class="n">microRNA</span><span class="o">...</span>
+</span></span><span class="line"><span class="cl">            <span class="mi">2</span>      <span class="mi">1</span>  <span class="n">gi</span><span class="o">|</span><span class="mi">270133242</span><span class="o">|</span><span class="n">ref</span><span class="o">|</span><span class="n">NR_032573</span><span class="mf">.1</span><span class="o">|</span>  <span class="n">Macaca</span> <span class="n">mulatta</span> <span class="n">microRNA</span> <span class="o">...</span>
+</span></span><span class="line"><span class="cl">            <span class="mi">3</span>      <span class="mi">2</span>  <span class="n">gi</span><span class="o">|</span><span class="mi">301171322</span><span class="o">|</span><span class="n">ref</span><span class="o">|</span><span class="n">NR_035857</span><span class="mf">.1</span><span class="o">|</span>  <span class="n">Pan</span> <span class="n">troglodytes</span> <span class="n">microRNA</span><span class="o">...</span>
+</span></span><span class="line"><span class="cl">            <span class="mi">4</span>      <span class="mi">1</span>  <span class="n">gi</span><span class="o">|</span><span class="mi">301171267</span><span class="o">|</span><span class="n">ref</span><span class="o">|</span><span class="n">NR_035851</span><span class="mf">.1</span><span class="o">|</span>  <span class="n">Pan</span> <span class="n">troglodytes</span> <span class="n">microRNA</span><span class="o">...</span>
+</span></span><span class="line"><span class="cl">            <span class="mi">5</span>      <span class="mi">2</span>  <span class="n">gi</span><span class="o">|</span><span class="mi">262205330</span><span class="o">|</span><span class="n">ref</span><span class="o">|</span><span class="n">NR_030198</span><span class="mf">.1</span><span class="o">|</span>  <span class="n">Homo</span> <span class="n">sapiens</span> <span class="n">microRNA</span> <span class="mf">52.</span><span class="o">..</span>
+</span></span><span class="line"><span class="cl">            <span class="mi">6</span>      <span class="mi">1</span>  <span class="n">gi</span><span class="o">|</span><span class="mi">262205302</span><span class="o">|</span><span class="n">ref</span><span class="o">|</span><span class="n">NR_030191</span><span class="mf">.1</span><span class="o">|</span>  <span class="n">Homo</span> <span class="n">sapiens</span> <span class="n">microRNA</span> <span class="mf">51.</span><span class="o">..</span>
+</span></span><span class="line"><span class="cl">            <span class="mi">7</span>      <span class="mi">1</span>  <span class="n">gi</span><span class="o">|</span><span class="mi">301171259</span><span class="o">|</span><span class="n">ref</span><span class="o">|</span><span class="n">NR_035850</span><span class="mf">.1</span><span class="o">|</span>  <span class="n">Pan</span> <span class="n">troglodytes</span> <span class="n">microRNA</span><span class="o">...</span>
+</span></span><span class="line"><span class="cl">            <span class="mi">8</span>      <span class="mi">1</span>  <span class="n">gi</span><span class="o">|</span><span class="mi">262205451</span><span class="o">|</span><span class="n">ref</span><span class="o">|</span><span class="n">NR_030222</span><span class="mf">.1</span><span class="o">|</span>  <span class="n">Homo</span> <span class="n">sapiens</span> <span class="n">microRNA</span> <span class="mf">51.</span><span class="o">..</span>
+</span></span><span class="line"><span class="cl">            <span class="mi">9</span>      <span class="mi">2</span>  <span class="n">gi</span><span class="o">|</span><span class="mi">301171447</span><span class="o">|</span><span class="n">ref</span><span class="o">|</span><span class="n">NR_035871</span><span class="mf">.1</span><span class="o">|</span>  <span class="n">Pan</span> <span class="n">troglodytes</span> <span class="n">microRNA</span><span class="o">...</span>
+</span></span><span class="line"><span class="cl">           <span class="mi">10</span>      <span class="mi">1</span>  <span class="n">gi</span><span class="o">|</span><span class="mi">301171276</span><span class="o">|</span><span class="n">ref</span><span class="o">|</span><span class="n">NR_035852</span><span class="mf">.1</span><span class="o">|</span>  <span class="n">Pan</span> <span class="n">troglodytes</span> <span class="n">microRNA</span><span class="o">...</span>
+</span></span><span class="line"><span class="cl">           <span class="mi">11</span>      <span class="mi">1</span>  <span class="n">gi</span><span class="o">|</span><span class="mi">262205290</span><span class="o">|</span><span class="n">ref</span><span class="o">|</span><span class="n">NR_030188</span><span class="mf">.1</span><span class="o">|</span>  <span class="n">Homo</span> <span class="n">sapiens</span> <span class="n">microRNA</span> <span class="mf">51.</span><span class="o">..</span>
+</span></span><span class="line"><span class="cl">           <span class="mi">12</span>      <span class="mi">1</span>  <span class="n">gi</span><span class="o">|</span><span class="mi">301171354</span><span class="o">|</span><span class="n">ref</span><span class="o">|</span><span class="n">NR_035860</span><span class="mf">.1</span><span class="o">|</span>  <span class="n">Pan</span> <span class="n">troglodytes</span> <span class="n">microRNA</span><span class="o">...</span>
+</span></span><span class="line"><span class="cl">           <span class="mi">13</span>      <span class="mi">1</span>  <span class="n">gi</span><span class="o">|</span><span class="mi">262205281</span><span class="o">|</span><span class="n">ref</span><span class="o">|</span><span class="n">NR_030186</span><span class="mf">.1</span><span class="o">|</span>  <span class="n">Homo</span> <span class="n">sapiens</span> <span class="n">microRNA</span> <span class="mf">52.</span><span class="o">..</span>
+</span></span><span class="line"><span class="cl">           <span class="mi">14</span>      <span class="mi">2</span>  <span class="n">gi</span><span class="o">|</span><span class="mi">262205298</span><span class="o">|</span><span class="n">ref</span><span class="o">|</span><span class="n">NR_030190</span><span class="mf">.1</span><span class="o">|</span>  <span class="n">Homo</span> <span class="n">sapiens</span> <span class="n">microRNA</span> <span class="mf">52.</span><span class="o">..</span>
+</span></span><span class="line"><span class="cl">           <span class="mi">15</span>      <span class="mi">1</span>  <span class="n">gi</span><span class="o">|</span><span class="mi">301171394</span><span class="o">|</span><span class="n">ref</span><span class="o">|</span><span class="n">NR_035865</span><span class="mf">.1</span><span class="o">|</span>  <span class="n">Pan</span> <span class="n">troglodytes</span> <span class="n">microRNA</span><span class="o">...</span>
+</span></span><span class="line"><span class="cl">           <span class="mi">16</span>      <span class="mi">1</span>  <span class="n">gi</span><span class="o">|</span><span class="mi">262205429</span><span class="o">|</span><span class="n">ref</span><span class="o">|</span><span class="n">NR_030218</span><span class="mf">.1</span><span class="o">|</span>  <span class="n">Homo</span> <span class="n">sapiens</span> <span class="n">microRNA</span> <span class="mf">51.</span><span class="o">..</span>
+</span></span><span class="line"><span class="cl">           <span class="mi">17</span>      <span class="mi">1</span>  <span class="n">gi</span><span class="o">|</span><span class="mi">262205423</span><span class="o">|</span><span class="n">ref</span><span class="o">|</span><span class="n">NR_030217</span><span class="mf">.1</span><span class="o">|</span>  <span class="n">Homo</span> <span class="n">sapiens</span> <span class="n">microRNA</span> <span class="mf">52.</span><span class="o">..</span>
+</span></span><span class="line"><span class="cl">           <span class="mi">18</span>      <span class="mi">1</span>  <span class="n">gi</span><span class="o">|</span><span class="mi">301171401</span><span class="o">|</span><span class="n">ref</span><span class="o">|</span><span class="n">NR_035866</span><span class="mf">.1</span><span class="o">|</span>  <span class="n">Pan</span> <span class="n">troglodytes</span> <span class="n">microRNA</span><span class="o">...</span>
+</span></span><span class="line"><span class="cl">           <span class="mi">19</span>      <span class="mi">1</span>  <span class="n">gi</span><span class="o">|</span><span class="mi">270133247</span><span class="o">|</span><span class="n">ref</span><span class="o">|</span><span class="n">NR_032574</span><span class="mf">.1</span><span class="o">|</span>  <span class="n">Macaca</span> <span class="n">mulatta</span> <span class="n">microRNA</span> <span class="o">...</span>
+</span></span><span class="line"><span class="cl">           <span class="mi">20</span>      <span class="mi">1</span>  <span class="n">gi</span><span class="o">|</span><span class="mi">262205309</span><span class="o">|</span><span class="n">ref</span><span class="o">|</span><span class="n">NR_030193</span><span class="mf">.1</span><span class="o">|</span>  <span class="n">Homo</span> <span class="n">sapiens</span> <span class="n">microRNA</span> <span class="mf">52.</span><span class="o">..</span>
+</span></span><span class="line"><span class="cl">           <span class="mi">21</span>      <span class="mi">2</span>  <span class="n">gi</span><span class="o">|</span><span class="mi">270132717</span><span class="o">|</span><span class="n">ref</span><span class="o">|</span><span class="n">NR_032716</span><span class="mf">.1</span><span class="o">|</span>  <span class="n">Macaca</span> <span class="n">mulatta</span> <span class="n">microRNA</span> <span class="o">...</span>
+</span></span><span class="line"><span class="cl">           <span class="mi">22</span>      <span class="mi">2</span>  <span class="n">gi</span><span class="o">|</span><span class="mi">301171437</span><span class="o">|</span><span class="n">ref</span><span class="o">|</span><span class="n">NR_035870</span><span class="mf">.1</span><span class="o">|</span>  <span class="n">Pan</span> <span class="n">troglodytes</span> <span class="n">microRNA</span><span class="o">...</span>
+</span></span><span class="line"><span class="cl">           <span class="mi">23</span>      <span class="mi">2</span>  <span class="n">gi</span><span class="o">|</span><span class="mi">270133306</span><span class="o">|</span><span class="n">ref</span><span class="o">|</span><span class="n">NR_032587</span><span class="mf">.1</span><span class="o">|</span>  <span class="n">Macaca</span> <span class="n">mulatta</span> <span class="n">microRNA</span> <span class="o">...</span>
+</span></span><span class="line"><span class="cl">           <span class="mi">24</span>      <span class="mi">2</span>  <span class="n">gi</span><span class="o">|</span><span class="mi">301171428</span><span class="o">|</span><span class="n">ref</span><span class="o">|</span><span class="n">NR_035869</span><span class="mf">.1</span><span class="o">|</span>  <span class="n">Pan</span> <span class="n">troglodytes</span> <span class="n">microRNA</span><span class="o">...</span>
+</span></span><span class="line"><span class="cl">           <span class="mi">25</span>      <span class="mi">1</span>  <span class="n">gi</span><span class="o">|</span><span class="mi">301171211</span><span class="o">|</span><span class="n">ref</span><span class="o">|</span><span class="n">NR_035845</span><span class="mf">.1</span><span class="o">|</span>  <span class="n">Pan</span> <span class="n">troglodytes</span> <span class="n">microRNA</span><span class="o">...</span>
+</span></span><span class="line"><span class="cl">           <span class="mi">26</span>      <span class="mi">2</span>  <span class="n">gi</span><span class="o">|</span><span class="mi">301171153</span><span class="o">|</span><span class="n">ref</span><span class="o">|</span><span class="n">NR_035838</span><span class="mf">.1</span><span class="o">|</span>  <span class="n">Pan</span> <span class="n">troglodytes</span> <span class="n">microRNA</span><span class="o">...</span>
+</span></span><span class="line"><span class="cl">           <span class="mi">27</span>      <span class="mi">2</span>  <span class="n">gi</span><span class="o">|</span><span class="mi">301171146</span><span class="o">|</span><span class="n">ref</span><span class="o">|</span><span class="n">NR_035837</span><span class="mf">.1</span><span class="o">|</span>  <span class="n">Pan</span> <span class="n">troglodytes</span> <span class="n">microRNA</span><span class="o">...</span>
+</span></span><span class="line"><span class="cl">           <span class="mi">28</span>      <span class="mi">2</span>  <span class="n">gi</span><span class="o">|</span><span class="mi">270133254</span><span class="o">|</span><span class="n">ref</span><span class="o">|</span><span class="n">NR_032575</span><span class="mf">.1</span><span class="o">|</span>  <span class="n">Macaca</span> <span class="n">mulatta</span> <span class="n">microRNA</span> <span class="o">...</span>
+</span></span><span class="line"><span class="cl">           <span class="mi">29</span>      <span class="mi">2</span>  <span class="n">gi</span><span class="o">|</span><span class="mi">262205445</span><span class="o">|</span><span class="n">ref</span><span class="o">|</span><span class="n">NR_030221</span><span class="mf">.1</span><span class="o">|</span>  <span class="n">Homo</span> <span class="n">sapiens</span> <span class="n">microRNA</span> <span class="mf">51.</span><span class="o">..</span>
+</span></span><span class="line"><span class="cl">           <span class="o">~~~</span>
+</span></span><span class="line"><span class="cl">           <span class="mi">97</span>      <span class="mi">1</span>  <span class="n">gi</span><span class="o">|</span><span class="mi">356517317</span><span class="o">|</span><span class="n">ref</span><span class="o">|</span><span class="n">XM_003527287</span><span class="mf">.1</span><span class="o">|</span>  <span class="n">PREDICTED</span><span class="p">:</span> <span class="n">Glycine</span> <span class="n">ma</span><span class="o">...</span>
+</span></span><span class="line"><span class="cl">           <span class="mi">98</span>      <span class="mi">1</span>  <span class="n">gi</span><span class="o">|</span><span class="mi">297814701</span><span class="o">|</span><span class="n">ref</span><span class="o">|</span><span class="n">XM_002875188</span><span class="mf">.1</span><span class="o">|</span>  <span class="n">Arabidopsis</span> <span class="n">lyrata</span> <span class="n">su</span><span class="o">...</span>
+</span></span><span class="line"><span class="cl">           <span class="mi">99</span>      <span class="mi">1</span>  <span class="n">gi</span><span class="o">|</span><span class="mi">397513516</span><span class="o">|</span><span class="n">ref</span><span class="o">|</span><span class="n">XM_003827011</span><span class="mf">.1</span><span class="o">|</span>  <span class="n">PREDICTED</span><span class="p">:</span> <span class="n">Pan</span> <span class="n">panisc</span><span class="o">...</span>
+</span></span></code></pre></div><p>虽然我们才接触对象模型的皮毛，但是你已经可以看到一些有用的信息了。通过调用<code>QueryResult</code> 对象的 print 方法，你可以看到：</p>
+<ul>
+<li>程序的名称和版本 (blastn version 2.2.27+)</li>
+<li>query的ID，描述和序列长度(ID是42291，描述是 ‘mystery_seq’，长度是61)</li>
+<li>搜索的目标数据库 (refseq_rna)</li>
+<li>hit结果的快速预览。对于我们的查询序列，有100个可能的hit（表格中表示的是 0-99）对于每个hit，我们可以看到它包含的高分比对片段（HSP)，ID和一个片 段描述。注意， Bio.SearchIO 截断了表格，只显示0-29，然后是97-99。
+现在让我们用同样的步骤来检查BLAT的结果：</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">blat_qre</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">sult</span> <span class="o">=</span> <span class="n">SearchIO</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s1">&#39;my_blat.psl&#39;</span><span class="p">,</span> <span class="s1">&#39;blat-psl&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="n">blat_qresult</span>
+</span></span><span class="line"><span class="cl"><span class="n">Program</span><span class="p">:</span> <span class="n">blat</span> <span class="p">(</span><span class="o">&lt;</span><span class="n">unknown</span> <span class="n">version</span><span class="o">&gt;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Query</span><span class="p">:</span> <span class="n">mystery_seq</span> <span class="p">(</span><span class="mi">61</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">         <span class="o">&lt;</span><span class="n">unknown</span> <span class="n">description</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"> <span class="n">Target</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">unknown</span> <span class="n">target</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">   <span class="n">Hits</span><span class="p">:</span> <span class="o">----</span>  <span class="o">-----</span>  <span class="o">----------------------------------------------------------</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">#  # HSP  ID + description</span>
+</span></span><span class="line"><span class="cl">         <span class="o">----</span>  <span class="o">-----</span>  <span class="o">----------------------------------------------------------</span>
+</span></span><span class="line"><span class="cl">            <span class="mi">0</span>     <span class="mi">17</span>  <span class="n">chr19</span>  <span class="o">&lt;</span><span class="n">unknown</span> <span class="n">description</span><span class="o">&gt;</span>
+</span></span></code></pre></div><p>马上可以看到一些不同点。有些是由于BLAT使用PSL格式储存它的信息，稍后会看 到。其余是由于BLAST和BLAT搜索的程序和数据库之间明显的差异造成的：</p>
+<ul>
+<li>程序名称和版本。 Bio.SearchIO 知道程序是BLAST，但是在输出文件中没 有信息显示程序版本，所以默认是 inknown</li>
+<li>query的ID，描述和序列的长度。注意，这些细节和BLAST的细节只有细小的差别， ID是 ‘mystery_seq’ 而不是42991，缺少描述，但是序列长度仍是61。这 实际上是文件格式本身导致的差异。BLAST有时创建自己的query ID并且用你的原 始ID作为序列描述。</li>
+<li>目标数据库是未知的，因为BLAT输出文件没提到相关信息。</li>
+<li>最后，hit列表完全不同。这里，我们的查询序列只命中到 ‘chr19’ 数据库条 目，但是我们可以看到它含有17个HSP区域。这并不让人诧异，考虑到我们 使用的是不同的程序，并且这些程序都有自己的数据库。
+所有通过调用 print 方法看到的信息都可以单独地用Python的对象属性获得（又叫点标记法）。同样还可以用相同的方法获得其他格式特有的属性。</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="s2">&#34;</span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&#34;</span> <span class="o">%</span> <span class="p">(</span><span class="n">blast_qresult</span><span class="o">.</span><span class="n">program</span><span class="p">,</span> <span class="n">blast_qresult</span><span class="o">.</span><span class="n">version</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">blastn</span> <span class="mf">2.2.27</span><span class="o">+</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="s2">&#34;</span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&#34;</span> <span class="o">%</span> <span class="p">(</span><span class="n">blat_qresult</span><span class="o">.</span><span class="n">program</span><span class="p">,</span> <span class="n">blat_qresult</span><span class="o">.</span><span class="n">version</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">blat</span> <span class="o">&lt;</span><span class="n">unknown</span> <span class="n">version</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">blast_qresult</span><span class="o">.</span><span class="n">param_evalue_threshold</span>    <span class="c1"># blast-xml specific</span>
+</span></span><span class="line"><span class="cl"><span class="mf">10.0</span>
+</span></span></code></pre></div><p>想获得一个可访问属性的完整列表，可以查询每个格式特有的文档。这些是 <a class="link" href="http://biopython.org/DIST/docs/api/Bio.SearchIO.BlastIO-module.html"  target="_blank" rel="noopener"
+    >BLAST</a> <a class="link" href="http://biopython.org/DIST/docs/api/Bio.SearchIO.BlatIO-module.html"  target="_blank" rel="noopener"
+    >BLAT</a>.
+已经知道了在 QueryResult 对象上可以调用 print 方法，让我们研究的更深 一些。 QueryResult 到底是什么？就Python对象来说， QueryResult 混合 了列表和字典的特性。换句话说，也就是一个包含了列表和字典功能的容器对象。
+和列表以及字典一样， QueryResult 对象是可迭代的。每次迭代返回一个hit 对象：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">hit</span> <span class="ow">in</span> <span class="n">blast_qresult</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>     <span class="n">hit</span>
+</span></span><span class="line"><span class="cl"><span class="n">Hit</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">&#39;gi|262205317|ref|NR_030195.1|&#39;</span><span class="p">,</span> <span class="n">query_id</span><span class="o">=</span><span class="s1">&#39;42291&#39;</span><span class="p">,</span> <span class="mi">1</span> <span class="n">hsps</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">Hit</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">&#39;gi|301171311|ref|NR_035856.1|&#39;</span><span class="p">,</span> <span class="n">query_id</span><span class="o">=</span><span class="s1">&#39;42291&#39;</span><span class="p">,</span> <span class="mi">1</span> <span class="n">hsps</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">Hit</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">&#39;gi|270133242|ref|NR_032573.1|&#39;</span><span class="p">,</span> <span class="n">query_id</span><span class="o">=</span><span class="s1">&#39;42291&#39;</span><span class="p">,</span> <span class="mi">1</span> <span class="n">hsps</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">Hit</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">&#39;gi|301171322|ref|NR_035857.1|&#39;</span><span class="p">,</span> <span class="n">query_id</span><span class="o">=</span><span class="s1">&#39;42291&#39;</span><span class="p">,</span> <span class="mi">2</span> <span class="n">hsps</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">Hit</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">&#39;gi|301171267|ref|NR_035851.1|&#39;</span><span class="p">,</span> <span class="n">query_id</span><span class="o">=</span><span class="s1">&#39;42291&#39;</span><span class="p">,</span> <span class="mi">1</span> <span class="n">hsps</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span></code></pre></div><p>要得到 QueryResult 对象有多少hit，可以简单调用Python的 len 方法：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">blast_qresult</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="mi">100</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">blat_qresult</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="mi">1</span>
+</span></span></code></pre></div><p>同列表类似，你可以用切片来获得 QueryResult 对象的hit：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">blast_qresult</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>        <span class="c1"># retrieves the top hit</span>
+</span></span><span class="line"><span class="cl"><span class="n">Hit</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">&#39;gi|262205317|ref|NR_030195.1|&#39;</span><span class="p">,</span> <span class="n">query_id</span><span class="o">=</span><span class="s1">&#39;42291&#39;</span><span class="p">,</span> <span class="mi">1</span> <span class="n">hsps</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">blast_qresult</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>       <span class="c1"># retrieves the last hit</span>
+</span></span><span class="line"><span class="cl"><span class="n">Hit</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">&#39;gi|397513516|ref|XM_003827011.1|&#39;</span><span class="p">,</span> <span class="n">query_id</span><span class="o">=</span><span class="s1">&#39;42291&#39;</span><span class="p">,</span> <span class="mi">1</span> <span class="n">hsps</span><span class="p">)</span>
+</span></span></code></pre></div><p>要得到多个hit，你同样可以对 QueryResult 对象作切片。这种情况下，返回一个包含被切hit的新 QueryResult 对象：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">blast_slice</span> <span class="o">=</span> <span class="n">blast_qresult</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span>     <span class="c1"># slices the first three hits</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="n">blast_slice</span>
+</span></span><span class="line"><span class="cl"><span class="n">Program</span><span class="p">:</span> <span class="n">blastn</span> <span class="p">(</span><span class="mf">2.2.27</span><span class="o">+</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Query</span><span class="p">:</span> <span class="mi">42291</span> <span class="p">(</span><span class="mi">61</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">         <span class="n">mystery_seq</span>
+</span></span><span class="line"><span class="cl"> <span class="n">Target</span><span class="p">:</span> <span class="n">refseq_rna</span>
+</span></span><span class="line"><span class="cl">   <span class="n">Hits</span><span class="p">:</span> <span class="o">----</span>  <span class="o">-----</span>  <span class="o">----------------------------------------------------------</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">#  # HSP  ID + description</span>
+</span></span><span class="line"><span class="cl">         <span class="o">----</span>  <span class="o">-----</span>  <span class="o">----------------------------------------------------------</span>
+</span></span><span class="line"><span class="cl">            <span class="mi">0</span>      <span class="mi">1</span>  <span class="n">gi</span><span class="o">|</span><span class="mi">262205317</span><span class="o">|</span><span class="n">ref</span><span class="o">|</span><span class="n">NR_030195</span><span class="mf">.1</span><span class="o">|</span>  <span class="n">Homo</span> <span class="n">sapiens</span> <span class="n">microRNA</span> <span class="mf">52.</span><span class="o">..</span>
+</span></span><span class="line"><span class="cl">            <span class="mi">1</span>      <span class="mi">1</span>  <span class="n">gi</span><span class="o">|</span><span class="mi">301171311</span><span class="o">|</span><span class="n">ref</span><span class="o">|</span><span class="n">NR_035856</span><span class="mf">.1</span><span class="o">|</span>  <span class="n">Pan</span> <span class="n">troglodytes</span> <span class="n">microRNA</span><span class="o">...</span>
+</span></span><span class="line"><span class="cl">            <span class="mi">2</span>      <span class="mi">1</span>  <span class="n">gi</span><span class="o">|</span><span class="mi">270133242</span><span class="o">|</span><span class="n">ref</span><span class="o">|</span><span class="n">NR_032573</span><span class="mf">.1</span><span class="o">|</span>  <span class="n">Macaca</span> <span class="n">mulatta</span> <span class="n">microRNA</span> <span class="o">...</span>
+</span></span></code></pre></div><p>同字典类似，可以通过ID获取hit。如果你知道一个特定的hit ID存在于一个搜索结果中时，特别有用：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">blast_qresult</span><span class="p">[</span><span class="s1">&#39;gi|262205317|ref|NR_030195.1|&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">Hit</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">&#39;gi|262205317|ref|NR_030195.1|&#39;</span><span class="p">,</span> <span class="n">query_id</span><span class="o">=</span><span class="s1">&#39;42291&#39;</span><span class="p">,</span> <span class="mi">1</span> <span class="n">hsps</span><span class="p">)</span>
+</span></span></code></pre></div><p>你可以用 hits 方法获得完整的 Hit 对象，也可以用 hit_keys 方法获得完整的 Hit ID：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">blast_qresult</span><span class="o">.</span><span class="n">hits</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="o">...</span><span class="p">]</span>       <span class="c1"># list of all hits</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">blast_qresult</span><span class="o">.</span><span class="n">hit_keys</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="o">...</span><span class="p">]</span>       <span class="c1"># list of all hit IDs</span>
+</span></span></code></pre></div><p>如果你想确定一个特定的hit是否存在于查询结果中该怎么做呢？可以用 in 关键字作一个简单的成员检验：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="s1">&#39;gi|262205317|ref|NR_030195.1|&#39;</span> <span class="ow">in</span> <span class="n">blast_qresult</span>
+</span></span><span class="line"><span class="cl"><span class="kc">True</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="s1">&#39;gi|262205317|ref|NR_030194.1|&#39;</span> <span class="ow">in</span> <span class="n">blast_qresult</span>
+</span></span><span class="line"><span class="cl"><span class="kc">False</span>
+</span></span></code></pre></div><p>有时候，只知道一个hit是否存在是不够的，你可能也会想知道hit的排名。 index 方法可以帮助你：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">blast_qresult</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s1">&#39;gi|301171437|ref|NR_035870.1|&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="mi">22</span>
+</span></span></code></pre></div><p>记住，我们用的是Python风格的索引，是从0开始。这代表hit的排名是23而不是22。
+同样，注意你看的hit排名是基于原始搜索输出文件的本来顺序。不同的搜索工具可 能会基于不同的标准排列hit。
+如果原本的hit排序不合你意，可以用 QueryResult 对象的 sort 方法。 它和Python的 list.sort 方法很相似，只是有个是否创建一个新的排序后的 QueryResult 对象的选项。
+这里有个用 QueryResult.sort 方法对hit排序的例子，这个方法基于每个hit 的完整序列长度。对于这个特殊的排序，我们设置 in_place 参数等于 False ， 这样排序方法会返回一个新的 QueryResult 对象，而原来的对象是未排序的。 我们同样可以设置 reverse 参数等于 <code>True</code> 以递减排序。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">hit</span> <span class="ow">in</span> <span class="n">blast_qresult</span><span class="p">[:</span><span class="mi">5</span><span class="p">]:</span>   <span class="c1"># id and sequence length of the first five hits</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>     <span class="nb">print</span> <span class="n">hit</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">hit</span><span class="o">.</span><span class="n">seq_len</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="n">gi</span><span class="o">|</span><span class="mi">262205317</span><span class="o">|</span><span class="n">ref</span><span class="o">|</span><span class="n">NR_030195</span><span class="mf">.1</span><span class="o">|</span> <span class="mi">61</span>
+</span></span><span class="line"><span class="cl"><span class="n">gi</span><span class="o">|</span><span class="mi">301171311</span><span class="o">|</span><span class="n">ref</span><span class="o">|</span><span class="n">NR_035856</span><span class="mf">.1</span><span class="o">|</span> <span class="mi">60</span>
+</span></span><span class="line"><span class="cl"><span class="n">gi</span><span class="o">|</span><span class="mi">270133242</span><span class="o">|</span><span class="n">ref</span><span class="o">|</span><span class="n">NR_032573</span><span class="mf">.1</span><span class="o">|</span> <span class="mi">85</span>
+</span></span><span class="line"><span class="cl"><span class="n">gi</span><span class="o">|</span><span class="mi">301171322</span><span class="o">|</span><span class="n">ref</span><span class="o">|</span><span class="n">NR_035857</span><span class="mf">.1</span><span class="o">|</span> <span class="mi">86</span>
+</span></span><span class="line"><span class="cl"><span class="n">gi</span><span class="o">|</span><span class="mi">301171267</span><span class="o">|</span><span class="n">ref</span><span class="o">|</span><span class="n">NR_035851</span><span class="mf">.1</span><span class="o">|</span> <span class="mi">80</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">sort_key</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">hit</span><span class="p">:</span> <span class="n">hit</span><span class="o">.</span><span class="n">seq_len</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">sorted_qresult</span> <span class="o">=</span> <span class="n">blast_qresult</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">sort_key</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">in_place</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">hit</span> <span class="ow">in</span> <span class="n">sorted_qresult</span><span class="p">[:</span><span class="mi">5</span><span class="p">]:</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>     <span class="nb">print</span> <span class="n">hit</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">hit</span><span class="o">.</span><span class="n">seq_len</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="n">gi</span><span class="o">|</span><span class="mi">397513516</span><span class="o">|</span><span class="n">ref</span><span class="o">|</span><span class="n">XM_003827011</span><span class="mf">.1</span><span class="o">|</span> <span class="mi">6002</span>
+</span></span><span class="line"><span class="cl"><span class="n">gi</span><span class="o">|</span><span class="mi">390332045</span><span class="o">|</span><span class="n">ref</span><span class="o">|</span><span class="n">XM_776818</span><span class="mf">.2</span><span class="o">|</span> <span class="mi">4082</span>
+</span></span><span class="line"><span class="cl"><span class="n">gi</span><span class="o">|</span><span class="mi">390332043</span><span class="o">|</span><span class="n">ref</span><span class="o">|</span><span class="n">XM_003723358</span><span class="mf">.1</span><span class="o">|</span> <span class="mi">4079</span>
+</span></span><span class="line"><span class="cl"><span class="n">gi</span><span class="o">|</span><span class="mi">356517317</span><span class="o">|</span><span class="n">ref</span><span class="o">|</span><span class="n">XM_003527287</span><span class="mf">.1</span><span class="o">|</span> <span class="mi">3251</span>
+</span></span><span class="line"><span class="cl"><span class="n">gi</span><span class="o">|</span><span class="mi">356543101</span><span class="o">|</span><span class="n">ref</span><span class="o">|</span><span class="n">XM_003539954</span><span class="mf">.1</span><span class="o">|</span> <span class="mi">2936</span>
+</span></span></code></pre></div><p>有 in_place 参数的好处是可以保留原本的顺序，后面会用到。注意这不是 QueryResult.sort 的默认行为，需要我们明确地设置 in_place 为 True 。
+现在，你已经知道使用 QueryResult 对象。但是，在我们学习 Bio.SearchIO 模块下个对象前，先了解下可以让 QueryResult 对象更易使用的两个方法： filter 和 map 方法。
+如果你对Python的列表推导式、generator表达式或内建的 filter 和 map 很熟悉，就知道（不知道就是看看吧!)它们在处理list-like的对象时有多有用。 你可以用这些内建的方法来操作 QueryResult 对象，但是这只对正常list有效，并且可操作性也会受到限制。
+这就是为什么 QueryResult 对象提供自己特有的 filter 和 map 方法。对于 filter 有相似的 hit_filter 和 hsp_filter 方法， 从名称就可以看出，这些方法过滤 QueryResult 对象的 Hit 对象或者 HSP 对象。同样的，对于 map ， QueryResult 对象同样提供相似 的 hit_map 和 hsp_map 方法。这些方法分别应用于 QueryResult 对象 hit 或者 HSP 对象。
+让我们来看看这些方法的功能，从 hit_filter 开始。这个方法接受一个回调 函数，这个函数检验给定的 Hit 是否符合你设定的条件。换句话说，这个方法 必须接受一个单独 Hit 对象作为参数并且返回 True 或 False 。
+这里有个用 hit_filter 筛选出只有一个HSP的 Hit 对象的例子：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">filter_func</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">hit</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">hit</span><span class="o">.</span><span class="n">hsps</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span>     <span class="c1"># the callback function</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">blast_qresult</span><span class="p">)</span>      <span class="c1"># no. of hits before filtering</span>
+</span></span><span class="line"><span class="cl"><span class="mi">100</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">filtered_qresult</span> <span class="o">=</span> <span class="n">blast_qresult</span><span class="o">.</span><span class="n">hit_filter</span><span class="p">(</span><span class="n">filter_func</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">filtered_qresult</span><span class="p">)</span>   <span class="c1"># no. of hits after filtering</span>
+</span></span><span class="line"><span class="cl"><span class="mi">37</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">hit</span> <span class="ow">in</span> <span class="n">filtered_qresult</span><span class="p">[:</span><span class="mi">5</span><span class="p">]:</span>    <span class="c1"># quick check for the hit lengths</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>     <span class="nb">print</span> <span class="n">hit</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">hit</span><span class="o">.</span><span class="n">hsps</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">gi</span><span class="o">|</span><span class="mi">301171322</span><span class="o">|</span><span class="n">ref</span><span class="o">|</span><span class="n">NR_035857</span><span class="mf">.1</span><span class="o">|</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl"><span class="n">gi</span><span class="o">|</span><span class="mi">262205330</span><span class="o">|</span><span class="n">ref</span><span class="o">|</span><span class="n">NR_030198</span><span class="mf">.1</span><span class="o">|</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl"><span class="n">gi</span><span class="o">|</span><span class="mi">301171447</span><span class="o">|</span><span class="n">ref</span><span class="o">|</span><span class="n">NR_035871</span><span class="mf">.1</span><span class="o">|</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl"><span class="n">gi</span><span class="o">|</span><span class="mi">262205298</span><span class="o">|</span><span class="n">ref</span><span class="o">|</span><span class="n">NR_030190</span><span class="mf">.1</span><span class="o">|</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl"><span class="n">gi</span><span class="o">|</span><span class="mi">270132717</span><span class="o">|</span><span class="n">ref</span><span class="o">|</span><span class="n">NR_032716</span><span class="mf">.1</span><span class="o">|</span> <span class="mi">2</span>
+</span></span></code></pre></div><p>hsp_filter 和 hit_filter 功能相同，只是它过滤每个hit中的 HSP 对象， 而不是 Hit 。
+对于 map 方法，同样接受一个回调函数作为参数。但是回调函数返回修改过的 Hit 或 HSP 对象（取决于你是否使用 hit_map 或 hsp_map 方法）， 而不是返回 True 或 False。
+来看一个用 hit_map 方法来重命名hit ID的例子：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">map_func</span><span class="p">(</span><span class="n">hit</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>     <span class="n">hit</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">hit</span><span class="o">.</span><span class="n">id</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;|&#39;</span><span class="p">)[</span><span class="mi">3</span><span class="p">]</span>   <span class="c1"># renames &#39;gi|301171322|ref|NR_035857.1|&#39; to &#39;NR_035857.1&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>     <span class="k">return</span> <span class="n">hit</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">mapped_qresult</span> <span class="o">=</span> <span class="n">blast_qresult</span><span class="o">.</span><span class="n">hit_map</span><span class="p">(</span><span class="n">map_func</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">hit</span> <span class="ow">in</span> <span class="n">mapped_qresult</span><span class="p">[:</span><span class="mi">5</span><span class="p">]:</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>     <span class="nb">print</span> <span class="n">hit</span><span class="o">.</span><span class="n">id</span>
+</span></span><span class="line"><span class="cl"><span class="n">NR_030195</span><span class="mf">.1</span>
+</span></span><span class="line"><span class="cl"><span class="n">NR_035856</span><span class="mf">.1</span>
+</span></span><span class="line"><span class="cl"><span class="n">NR_032573</span><span class="mf">.1</span>
+</span></span><span class="line"><span class="cl"><span class="n">NR_035857</span><span class="mf">.1</span>
+</span></span><span class="line"><span class="cl"><span class="n">NR_035851</span><span class="mf">.1</span>
+</span></span></code></pre></div><p>同样的， hsp_map 和 hit_map 作用相似, 但是作用于 HSP 对象而不是 Hit 对象。</p>
+<h3 id="hit">Hit</h3>
+<p>Hit 对象代表从单个数据库获得所有查询结果。在 Bio.SearchIO 对象等级中是二级容器。它们被包含在 QueryResult 对象中，同时它们又包含 HSP 对象。
+看看它们是什么样的，从我们的BLAST搜索开始：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio</span> <span class="kn">import</span> <span class="n">SearchIO</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">blast_qresult</span> <span class="o">=</span> <span class="n">SearchIO</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s1">&#39;my_blast.xml&#39;</span><span class="p">,</span> <span class="s1">&#39;blast-xml&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">blast_hit</span> <span class="o">=</span> <span class="n">blast_qresult</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>    <span class="c1"># fourth hit from the query result</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="n">blast_hit</span>
+</span></span><span class="line"><span class="cl"><span class="n">Query</span><span class="p">:</span> <span class="mi">42291</span>
+</span></span><span class="line"><span class="cl">       <span class="n">mystery_seq</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Hit</span><span class="p">:</span> <span class="n">gi</span><span class="o">|</span><span class="mi">301171322</span><span class="o">|</span><span class="n">ref</span><span class="o">|</span><span class="n">NR_035857</span><span class="mf">.1</span><span class="o">|</span> <span class="p">(</span><span class="mi">86</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">       <span class="n">Pan</span> <span class="n">troglodytes</span> <span class="n">microRNA</span> <span class="n">mir</span><span class="o">-</span><span class="mi">520</span><span class="n">c</span> <span class="p">(</span><span class="n">MIR520C</span><span class="p">),</span> <span class="n">microRNA</span>
+</span></span><span class="line"><span class="cl"> <span class="n">HSPs</span><span class="p">:</span> <span class="o">----</span>  <span class="o">--------</span>  <span class="o">---------</span>  <span class="o">------</span>  <span class="o">---------------</span>  <span class="o">---------------------</span>
+</span></span><span class="line"><span class="cl">          <span class="c1">#   E-value  Bit score    Span      Query range              Hit range</span>
+</span></span><span class="line"><span class="cl">       <span class="o">----</span>  <span class="o">--------</span>  <span class="o">---------</span>  <span class="o">------</span>  <span class="o">---------------</span>  <span class="o">---------------------</span>
+</span></span><span class="line"><span class="cl">          <span class="mi">0</span>   <span class="mf">8.9e-20</span>     <span class="mf">100.47</span>      <span class="mi">60</span>           <span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">61</span><span class="p">]</span>                <span class="p">[</span><span class="mi">13</span><span class="p">:</span><span class="mi">73</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">          <span class="mi">1</span>   <span class="mf">3.3e-06</span>      <span class="mf">55.39</span>      <span class="mi">60</span>           <span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">60</span><span class="p">]</span>                <span class="p">[</span><span class="mi">13</span><span class="p">:</span><span class="mi">73</span><span class="p">]</span>
+</span></span></code></pre></div><p>可以看到我们获得了必要的信息：</p>
+<ul>
+<li>query的ID和描述信息。一个hit总是和一个query绑定，所以我们同样希望记录原始 query。这些值可以通过 query_id 和 query_description 属性从hit 中获取。</li>
+<li>我们同样得到了hit的ID、描述和序列全长。它们可以分别通过 id， description，和 seq_len 获取。</li>
+<li>最后，有一个hit含有的HSP的简短信息表。在每行中，HSP重要信息被 列出来：HSP索引，e值，得分，长度（包括gap），query坐标和hit坐标。
+现在，和BLAT结果作对比。记住，在BLAT搜索结果中，我们发现有一个含有17HSP的hit。</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">blat_qresult</span> <span class="o">=</span> <span class="n">SearchIO</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s1">&#39;my_blat.psl&#39;</span><span class="p">,</span> <span class="s1">&#39;blat-psl&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">blat_hit</span> <span class="o">=</span> <span class="n">blat_qresult</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>      <span class="c1"># the only hit</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="n">blat_hit</span>
+</span></span><span class="line"><span class="cl"><span class="n">Query</span><span class="p">:</span> <span class="n">mystery_seq</span>
+</span></span><span class="line"><span class="cl">       <span class="o">&lt;</span><span class="n">unknown</span> <span class="n">description</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Hit</span><span class="p">:</span> <span class="n">chr19</span> <span class="p">(</span><span class="mi">59128983</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">       <span class="o">&lt;</span><span class="n">unknown</span> <span class="n">description</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"> <span class="n">HSPs</span><span class="p">:</span> <span class="o">----</span>  <span class="o">--------</span>  <span class="o">---------</span>  <span class="o">------</span>  <span class="o">---------------</span>  <span class="o">---------------------</span>
+</span></span><span class="line"><span class="cl">          <span class="c1">#   E-value  Bit score    Span      Query range              Hit range</span>
+</span></span><span class="line"><span class="cl">       <span class="o">----</span>  <span class="o">--------</span>  <span class="o">---------</span>  <span class="o">------</span>  <span class="o">---------------</span>  <span class="o">---------------------</span>
+</span></span><span class="line"><span class="cl">          <span class="mi">0</span>         <span class="err">?</span>          <span class="err">?</span>       <span class="err">?</span>           <span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">61</span><span class="p">]</span>    <span class="p">[</span><span class="mi">54204480</span><span class="p">:</span><span class="mi">54204541</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">          <span class="mi">1</span>         <span class="err">?</span>          <span class="err">?</span>       <span class="err">?</span>           <span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">61</span><span class="p">]</span>    <span class="p">[</span><span class="mi">54233104</span><span class="p">:</span><span class="mi">54264463</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">          <span class="mi">2</span>         <span class="err">?</span>          <span class="err">?</span>       <span class="err">?</span>           <span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">61</span><span class="p">]</span>    <span class="p">[</span><span class="mi">54254477</span><span class="p">:</span><span class="mi">54260071</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">          <span class="mi">3</span>         <span class="err">?</span>          <span class="err">?</span>       <span class="err">?</span>           <span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">61</span><span class="p">]</span>    <span class="p">[</span><span class="mi">54210720</span><span class="p">:</span><span class="mi">54210780</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">          <span class="mi">4</span>         <span class="err">?</span>          <span class="err">?</span>       <span class="err">?</span>           <span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">60</span><span class="p">]</span>    <span class="p">[</span><span class="mi">54198476</span><span class="p">:</span><span class="mi">54198536</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">          <span class="mi">5</span>         <span class="err">?</span>          <span class="err">?</span>       <span class="err">?</span>           <span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">61</span><span class="p">]</span>    <span class="p">[</span><span class="mi">54265610</span><span class="p">:</span><span class="mi">54265671</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">          <span class="mi">6</span>         <span class="err">?</span>          <span class="err">?</span>       <span class="err">?</span>           <span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">61</span><span class="p">]</span>    <span class="p">[</span><span class="mi">54238143</span><span class="p">:</span><span class="mi">54240175</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">          <span class="mi">7</span>         <span class="err">?</span>          <span class="err">?</span>       <span class="err">?</span>           <span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">60</span><span class="p">]</span>    <span class="p">[</span><span class="mi">54189735</span><span class="p">:</span><span class="mi">54189795</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">          <span class="mi">8</span>         <span class="err">?</span>          <span class="err">?</span>       <span class="err">?</span>           <span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">61</span><span class="p">]</span>    <span class="p">[</span><span class="mi">54185425</span><span class="p">:</span><span class="mi">54185486</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">          <span class="mi">9</span>         <span class="err">?</span>          <span class="err">?</span>       <span class="err">?</span>           <span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">60</span><span class="p">]</span>    <span class="p">[</span><span class="mi">54197657</span><span class="p">:</span><span class="mi">54197717</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">         <span class="mi">10</span>         <span class="err">?</span>          <span class="err">?</span>       <span class="err">?</span>           <span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">61</span><span class="p">]</span>    <span class="p">[</span><span class="mi">54255662</span><span class="p">:</span><span class="mi">54255723</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">         <span class="mi">11</span>         <span class="err">?</span>          <span class="err">?</span>       <span class="err">?</span>           <span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">61</span><span class="p">]</span>    <span class="p">[</span><span class="mi">54201651</span><span class="p">:</span><span class="mi">54201712</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">         <span class="mi">12</span>         <span class="err">?</span>          <span class="err">?</span>       <span class="err">?</span>           <span class="p">[</span><span class="mi">8</span><span class="p">:</span><span class="mi">60</span><span class="p">]</span>    <span class="p">[</span><span class="mi">54206009</span><span class="p">:</span><span class="mi">54206061</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">         <span class="mi">13</span>         <span class="err">?</span>          <span class="err">?</span>       <span class="err">?</span>          <span class="p">[</span><span class="mi">10</span><span class="p">:</span><span class="mi">61</span><span class="p">]</span>    <span class="p">[</span><span class="mi">54178987</span><span class="p">:</span><span class="mi">54179038</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">         <span class="mi">14</span>         <span class="err">?</span>          <span class="err">?</span>       <span class="err">?</span>           <span class="p">[</span><span class="mi">8</span><span class="p">:</span><span class="mi">61</span><span class="p">]</span>    <span class="p">[</span><span class="mi">54212018</span><span class="p">:</span><span class="mi">54212071</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">         <span class="mi">15</span>         <span class="err">?</span>          <span class="err">?</span>       <span class="err">?</span>           <span class="p">[</span><span class="mi">8</span><span class="p">:</span><span class="mi">51</span><span class="p">]</span>    <span class="p">[</span><span class="mi">54234278</span><span class="p">:</span><span class="mi">54234321</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">         <span class="mi">16</span>         <span class="err">?</span>          <span class="err">?</span>       <span class="err">?</span>           <span class="p">[</span><span class="mi">8</span><span class="p">:</span><span class="mi">61</span><span class="p">]</span>    <span class="p">[</span><span class="mi">54238143</span><span class="p">:</span><span class="mi">54238196</span><span class="p">]</span>
+</span></span></code></pre></div><p>我们得到了和前面看到的BLAST hit详细程度相似的结果。但是有些不同点需要解释：</p>
+<ul>
+<li>e-value和bit score列的值。因为BLAT HSP没有e-values和bit scores，默 认显示‘?’.</li>
+<li>span列是怎么回事呢？span值本来是显示完整的比对长度，包含所有的残基和 gap。但是PSL格式目前还不支持这些信息并且 Bio.SearchIO 也不打算去猜它到底是多少，所有我们得到了和e-value以及bit score列相同的 ‘?’。
+就Python对象来说， Hit 和列表行为最相似，但是额外含有 HSP 。如果 你对列表熟悉，在使用 Hit 对象是不会遇到困难。
+和列表一样， Hit 对象是可迭代的，并且每次迭代返回一个 HSP 对象：</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">hsp</span> <span class="ow">in</span> <span class="n">blast_hit</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>     <span class="n">hsp</span>
+</span></span><span class="line"><span class="cl"><span class="n">HSP</span><span class="p">(</span><span class="n">hit_id</span><span class="o">=</span><span class="s1">&#39;gi|301171322|ref|NR_035857.1|&#39;</span><span class="p">,</span> <span class="n">query_id</span><span class="o">=</span><span class="s1">&#39;42291&#39;</span><span class="p">,</span> <span class="mi">1</span> <span class="n">fragments</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">HSP</span><span class="p">(</span><span class="n">hit_id</span><span class="o">=</span><span class="s1">&#39;gi|301171322|ref|NR_035857.1|&#39;</span><span class="p">,</span> <span class="n">query_id</span><span class="o">=</span><span class="s1">&#39;42291&#39;</span><span class="p">,</span> <span class="mi">1</span> <span class="n">fragments</span><span class="p">)</span>
+</span></span></code></pre></div><p>你可以对 Hit 对象调用 len 方法查看它含有多少个 HSP 对象：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">blast_hit</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="mi">2</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">blat_hit</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="mi">17</span>
+</span></span></code></pre></div><p>你可以对 Hit 对象作切片取得单个或多个 HSP 对象，和 QueryResult 一样，如果切取多个 HSP ，会返回包含被切片 HSP 的一个新 Hit 对象。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">blat_hit</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>                 <span class="c1"># retrieve single items</span>
+</span></span><span class="line"><span class="cl"><span class="n">HSP</span><span class="p">(</span><span class="n">hit_id</span><span class="o">=</span><span class="s1">&#39;chr19&#39;</span><span class="p">,</span> <span class="n">query_id</span><span class="o">=</span><span class="s1">&#39;mystery_seq&#39;</span><span class="p">,</span> <span class="mi">1</span> <span class="n">fragments</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">sliced_hit</span> <span class="o">=</span> <span class="n">blat_hit</span><span class="p">[</span><span class="mi">4</span><span class="p">:</span><span class="mi">9</span><span class="p">]</span>  <span class="c1"># retrieve multiple items</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">sliced_hit</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="mi">5</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="n">sliced_hit</span>
+</span></span><span class="line"><span class="cl"><span class="n">Query</span><span class="p">:</span> <span class="n">mystery_seq</span>
+</span></span><span class="line"><span class="cl">       <span class="o">&lt;</span><span class="n">unknown</span> <span class="n">description</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Hit</span><span class="p">:</span> <span class="n">chr19</span> <span class="p">(</span><span class="mi">59128983</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">       <span class="o">&lt;</span><span class="n">unknown</span> <span class="n">description</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"> <span class="n">HSPs</span><span class="p">:</span> <span class="o">----</span>  <span class="o">--------</span>  <span class="o">---------</span>  <span class="o">------</span>  <span class="o">---------------</span>  <span class="o">---------------------</span>
+</span></span><span class="line"><span class="cl">          <span class="c1">#   E-value  Bit score    Span      Query range              Hit range</span>
+</span></span><span class="line"><span class="cl">       <span class="o">----</span>  <span class="o">--------</span>  <span class="o">---------</span>  <span class="o">------</span>  <span class="o">---------------</span>  <span class="o">---------------------</span>
+</span></span><span class="line"><span class="cl">          <span class="mi">0</span>         <span class="err">?</span>          <span class="err">?</span>       <span class="err">?</span>           <span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">60</span><span class="p">]</span>    <span class="p">[</span><span class="mi">54198476</span><span class="p">:</span><span class="mi">54198536</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">          <span class="mi">1</span>         <span class="err">?</span>          <span class="err">?</span>       <span class="err">?</span>           <span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">61</span><span class="p">]</span>    <span class="p">[</span><span class="mi">54265610</span><span class="p">:</span><span class="mi">54265671</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">          <span class="mi">2</span>         <span class="err">?</span>          <span class="err">?</span>       <span class="err">?</span>           <span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">61</span><span class="p">]</span>    <span class="p">[</span><span class="mi">54238143</span><span class="p">:</span><span class="mi">54240175</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">          <span class="mi">3</span>         <span class="err">?</span>          <span class="err">?</span>       <span class="err">?</span>           <span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">60</span><span class="p">]</span>    <span class="p">[</span><span class="mi">54189735</span><span class="p">:</span><span class="mi">54189795</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">          <span class="mi">4</span>         <span class="err">?</span>          <span class="err">?</span>       <span class="err">?</span>           <span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">61</span><span class="p">]</span>    <span class="p">[</span><span class="mi">54185425</span><span class="p">:</span><span class="mi">54185486</span><span class="p">]</span>
+</span></span></code></pre></div><p>你同样可以对一个 Hit 里的 HSP 排序，和你在 QueryResult 对象 中看到的方法一样。
+最后，同样可以对 Hit 对象使用 filter 和 map 方法。和 QueryResult 不同， Hit 对象只有一种 filter (Hit.filter) 和一种 map (Hit.map)</p>
+<h3 id="hsp">HSP</h3>
+<p>HSP (高分片段)代表hit序列中的一个区域，该区域包含对于查询序列有意义的 比对。它包含了你的查询序列和一个数据库条目之间精确的匹配。由于匹配取决于 序列搜索工具的算法， HSP 含有大部分统计信息，这些统计是由搜索工具计 算得到的。这使得不同搜索工具的 HSP 对象之间的差异和你在 QueryResult 以及 Hit 对象看到的差异更加明显。</p>
+<h4 id="blast-hsp的例子">BLAST HSP的例子</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio</span> <span class="kn">import</span> <span class="n">SearchIO</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">blast_qresult</span> <span class="o">=</span> <span class="n">SearchIO</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s1">&#39;my_blast.xml&#39;</span><span class="p">,</span> <span class="s1">&#39;blast-xml&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">blast_hsp</span> <span class="o">=</span> <span class="n">blast_qresult</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>    <span class="c1"># first hit, first hsp</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="n">blast_hsp</span>
+</span></span><span class="line"><span class="cl">      <span class="n">Query</span><span class="p">:</span> <span class="mi">42291</span> <span class="n">mystery_seq</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Hit</span><span class="p">:</span> <span class="n">gi</span><span class="o">|</span><span class="mi">262205317</span><span class="o">|</span><span class="n">ref</span><span class="o">|</span><span class="n">NR_030195</span><span class="mf">.1</span><span class="o">|</span> <span class="n">Homo</span> <span class="n">sapiens</span> <span class="n">microRNA</span> <span class="mi">520</span><span class="n">b</span> <span class="p">(</span><span class="n">MIR520</span><span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="n">Query</span> <span class="nb">range</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">61</span><span class="p">]</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Hit</span> <span class="nb">range</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">61</span><span class="p">]</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">Quick</span> <span class="n">stats</span><span class="p">:</span> <span class="n">evalue</span> <span class="mf">4.9e-23</span><span class="p">;</span> <span class="n">bitscore</span> <span class="mf">111.29</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Fragments</span><span class="p">:</span> <span class="mi">1</span> <span class="p">(</span><span class="mi">61</span> <span class="n">columns</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">     <span class="n">Query</span> <span class="o">-</span> <span class="n">CCCTCTACAGGGAAGCGCTTTCTGTTGTCTGAAAGAAAAGAAAGTGCTTCCTTTTAGAGGG</span>
+</span></span><span class="line"><span class="cl">             <span class="o">|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||</span>
+</span></span><span class="line"><span class="cl">       <span class="n">Hit</span> <span class="o">-</span> <span class="n">CCCTCTACAGGGAAGCGCTTTCTGTTGTCTGAAAGAAAAGAAAGTGCTTCCTTTTAGAGGG</span>
+</span></span></code></pre></div><p>和 QueryResult 以及 Hit 类似，调用 HSP 的 print 方法, 显示细节：</p>
+<ul>
+<li>有query和hit的ID以及描述。我们需要这些来识别我们的 HSP 。</li>
+<li>我们同样得到了query和hit序列的匹配范围。这里用的的切片标志着范围的表示 是使用Python的索引风格（从0开始，半开区间）。圆括号里的数字表示正负链。 这里，两条序列都是正链。</li>
+<li>还有一些简短统计：e-value和bitscore。</li>
+<li>还有一些HSP片段的信息。现在可以忽略，稍后会解释。</li>
+<li>最后，还有query和hit的比对。
+这些信息可以用点标记从它们本身获得，和 Hit 以及 QueryResult 相同：</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">blast_hsp</span><span class="o">.</span><span class="n">query_range</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">61</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">blast_hsp</span><span class="o">.</span><span class="n">evalue</span>
+</span></span><span class="line"><span class="cl"><span class="mf">4.91307e-23</span>
+</span></span></code></pre></div><p>它们并不是仅有的属性， HSP 对象有一系列的属性，使得获得它们的具体信 息更加容易。下面是一些例子：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">blast_hsp</span><span class="o">.</span><span class="n">hit_start</span>         <span class="c1"># start coordinate of the hit sequence</span>
+</span></span><span class="line"><span class="cl"><span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">blast_hsp</span><span class="o">.</span><span class="n">query_span</span>        <span class="c1"># how many residues in the query sequence</span>
+</span></span><span class="line"><span class="cl"><span class="mi">61</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">blast_hsp</span><span class="o">.</span><span class="n">aln_span</span>          <span class="c1"># how long the alignment is</span>
+</span></span><span class="line"><span class="cl"><span class="mi">61</span>
+</span></span></code></pre></div><h3 id="hsp片段">HSP片段</h3>
+<p>HSPFragment 代表query和hit之间单个连续匹配。应该把它当作对象模型 和搜索结果的核心，因为它决定你的搜索是否有结果。
+在多数情况下，你不必直接处理 HSPFragment 对象，因为没有那么多搜索工具 断裂它们的HSP。当你确实需要处理它们时，需要记住的是 HSPFragment 对象 要被写地尽量压缩。在多数情况下，它们仅仅包含直接与序列有关的属性：正负链， 阅读框，字母表，位置坐标，序列本身以及它们的ID和描述。
+当你对 HSPFragment 对象调用 print 方法时，这些属性可以非常简单地显示 出来。这里有个从我们BLAST搜索得到的例子</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio</span> <span class="kn">import</span> <span class="n">SearchIO</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">blast_qresult</span> <span class="o">=</span> <span class="n">SearchIO</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s1">&#39;my_blast.xml&#39;</span><span class="p">,</span> <span class="s1">&#39;blast-xml&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">blast_frag</span> <span class="o">=</span> <span class="n">blast_qresult</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>    <span class="c1"># first hit, first hsp, first fragment</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="n">blast_frag</span>
+</span></span><span class="line"><span class="cl">      <span class="n">Query</span><span class="p">:</span> <span class="mi">42291</span> <span class="n">mystery_seq</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Hit</span><span class="p">:</span> <span class="n">gi</span><span class="o">|</span><span class="mi">262205317</span><span class="o">|</span><span class="n">ref</span><span class="o">|</span><span class="n">NR_030195</span><span class="mf">.1</span><span class="o">|</span> <span class="n">Homo</span> <span class="n">sapiens</span> <span class="n">microRNA</span> <span class="mi">520</span><span class="n">b</span> <span class="p">(</span><span class="n">MIR520</span><span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="n">Query</span> <span class="nb">range</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">61</span><span class="p">]</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Hit</span> <span class="nb">range</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">61</span><span class="p">]</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Fragments</span><span class="p">:</span> <span class="mi">1</span> <span class="p">(</span><span class="mi">61</span> <span class="n">columns</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">     <span class="n">Query</span> <span class="o">-</span> <span class="n">CCCTCTACAGGGAAGCGCTTTCTGTTGTCTGAAAGAAAAGAAAGTGCTTCCTTTTAGAGGG</span>
+</span></span><span class="line"><span class="cl">             <span class="o">|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||</span>
+</span></span><span class="line"><span class="cl">       <span class="n">Hit</span> <span class="o">-</span> <span class="n">CCCTCTACAGGGAAGCGCTTTCTGTTGTCTGAAAGAAAAGAAAGTGCTTCCTTTTAGAGGG</span>
+</span></span></code></pre></div><p>在所有情况下，这些属性都可以通过我们最爱的点标记访问。一些例子：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">blast_frag</span><span class="o">.</span><span class="n">query_start</span>      <span class="c1"># query start coordinate</span>
+</span></span><span class="line"><span class="cl"><span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">blast_frag</span><span class="o">.</span><span class="n">hit_strand</span>       <span class="c1"># hit sequence strand</span>
+</span></span><span class="line"><span class="cl"><span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">blast_frag</span><span class="o">.</span><span class="n">hit</span>              <span class="c1"># hit sequence, as a SeqRecord object</span>
+</span></span><span class="line"><span class="cl"><span class="n">SeqRecord</span><span class="p">(</span><span class="n">seq</span><span class="o">=</span><span class="n">Seq</span><span class="p">(</span><span class="s1">&#39;CCCTCTACAGGGAAGCGCTTTCTGTTGTCTGAAAGAAAAGAAAGTGCTTCCTTT...GGG&#39;</span><span class="p">,</span> <span class="n">DNAAlphabet</span><span class="p">()),</span> <span class="nb">id</span><span class="o">=</span><span class="s1">&#39;gi|262205317|ref|NR_030195.1|&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;aligned hit sequence&#39;</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Homo sapiens microRNA 520b (MIR520B), microRNA&#39;</span><span class="p">,</span> <span class="n">dbxrefs</span><span class="o">=</span><span class="p">[])</span>
+</span></span></code></pre></div><h2 id="一些关于searchio的标准和惯例的注意事项">一些关于SearchIO的标准和惯例的注意事项</h2>
+<p>在使用 Bio.SearchIO 时你可以认为有个三个隐含的标准：</p>
+<ul>
+<li>第一个适用于序列坐标。在 Bio.SearchIO 模块中，所有序列坐标遵循Python 的坐标风格： 从0开始，半开区间。例如，在一个BLAST XML输出文件中，HSP的起始和结束坐标 是10和28，它们在 Bio.SearchIO 中将变成9和28。起始坐标变成9因为Python 中索引是从0开始，而结束坐标仍然是28因为Python索引删除了区间中最后一个 项目。</li>
+<li>第二个是关于序列坐标顺序。在 Bio.SearchIO 中，开始坐标总是小于或 等于结束坐标。但是这不是在所有的序列搜索工具中都始终适用。因为当序列 为负链时，起始坐标会更大一些。</li>
+<li>最后一个标准是关于链和阅读框的值。对于链值，只有四个可选值： 1 (正链)， -1 (负链)， 0 (蛋白序列)， 和 None (无链)。对于阅读框， 可选值是从 -3 至 3 的整型以及 None 。
+注意，这些标准只是存在于 Bio.SearchIO 对象中。如果你把 Bio.SearchIO 对象写入一种输出格式， Bio.SearchIO 会使用该格式的标准来输出。它并不 强加它的标准到你的输出文件。</li>
+</ul>
+<h3 id="读取搜素输出文件">读取搜素输出文件</h3>
+<p>有两个方法，你可以用来读取搜索输出文件到 Bio.SearchIO 对象： read 和 parse。 它们和其他亚模块如 Bio.SeqIO 或 Bio.AlignIO 中的 read 和 parse 方法在 本质上是相似的。你都需要提供搜索输出文件名和文件格式名，都是Python字符串类型。你可以 查阅文档来获得 Bio.SearchIO 可以识别的格式清单。
+Bio.SearchIO.read 用于读取单query的搜索输出文件并且返回一个 QueryResult 对象。你在前面的例子中已经看到过 read 的使用了。 你没看到的是， read 同样接受额外的关键字参数，取决于文件的格式。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio</span> <span class="kn">import</span> <span class="n">SearchIO</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">qresult</span> <span class="o">=</span> <span class="n">SearchIO</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s1">&#39;tab_2226_tblastn_003.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;blast-tab&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">qresult</span>
+</span></span><span class="line"><span class="cl"><span class="n">QueryResult</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">&#39;gi|16080617|ref|NP_391444.1|&#39;</span><span class="p">,</span> <span class="mi">3</span> <span class="n">hits</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">qresult2</span> <span class="o">=</span> <span class="n">SearchIO</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s1">&#39;tab_2226_tblastn_007.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;blast-tab&#39;</span><span class="p">,</span> <span class="n">comments</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">qresult2</span>
+</span></span><span class="line"><span class="cl"><span class="n">QueryResult</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">&#39;gi|16080617|ref|NP_391444.1|&#39;</span><span class="p">,</span> <span class="mi">3</span> <span class="n">hits</span><span class="p">)</span>
+</span></span></code></pre></div><p>对于 Bio.SearchIO.parse，是用来读取含有任意数量query的搜索输出文件。 这个方法返回一个generator对象，在每次迭代中yield一个 QueryResult 对象。 和 Bio.SearchIO.read 一样，它同样接受格式特异的关键字参数：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio</span> <span class="kn">import</span> <span class="n">SearchIO</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">qresults</span> <span class="o">=</span> <span class="n">SearchIO</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s1">&#39;tab_2226_tblastn_001.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;blast-tab&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">qresult</span> <span class="ow">in</span> <span class="n">qresults</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>     <span class="nb">print</span> <span class="n">qresult</span><span class="o">.</span><span class="n">id</span>
+</span></span><span class="line"><span class="cl"><span class="n">gi</span><span class="o">|</span><span class="mi">16080617</span><span class="o">|</span><span class="n">ref</span><span class="o">|</span><span class="n">NP_391444</span><span class="mf">.1</span><span class="o">|</span>
+</span></span><span class="line"><span class="cl"><span class="n">gi</span><span class="o">|</span><span class="mi">11464971</span><span class="p">:</span><span class="mi">4</span><span class="o">-</span><span class="mi">101</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">qresults2</span> <span class="o">=</span> <span class="n">SearchIO</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s1">&#39;tab_2226_tblastn_005.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;blast-tab&#39;</span><span class="p">,</span> <span class="n">comments</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">qresult</span> <span class="ow">in</span> <span class="n">qresults2</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>     <span class="nb">print</span> <span class="n">qresult</span><span class="o">.</span><span class="n">id</span>
+</span></span><span class="line"><span class="cl"><span class="n">random_s00</span>
+</span></span><span class="line"><span class="cl"><span class="n">gi</span><span class="o">|</span><span class="mi">16080617</span><span class="o">|</span><span class="n">ref</span><span class="o">|</span><span class="n">NP_391444</span><span class="mf">.1</span><span class="o">|</span>
+</span></span><span class="line"><span class="cl"><span class="n">gi</span><span class="o">|</span><span class="mi">11464971</span><span class="p">:</span><span class="mi">4</span><span class="o">-</span><span class="mi">101</span>
+</span></span></code></pre></div><h2 id="用索引处理含有大量搜素输出的文件">用索引处理含有大量搜素输出的文件</h2>
+<p>有时，你得到了一个包含成百上千个query的搜索输出文件要分析，你当然可以使用 Bio.SearchIO.parse 来处理，但是如果你仅仅需要访问少数query的话，效率 是及其低下的。这是因为 parse 会分析所有的query，直到找到你感兴趣。
+在这种情况下，理想的选择是用 Bio.SearchIO.index 或 Bio.SearchIO.index_db 来索引文件。如果名字听起来很熟悉，是因为你之前已经见过了，在章节这些方法和 Bio.SeqIO 中相应的方法行为很相似，只是多了些格式特异的关键字参数。
+这里有一些例子。你可以只用文件名和格式名来 index</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio</span> <span class="kn">import</span> <span class="n">SearchIO</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">idx</span> <span class="o">=</span> <span class="n">SearchIO</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s1">&#39;tab_2226_tblastn_001.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;blast-tab&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">idx</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="s1">&#39;gi|11464971:4-101&#39;</span><span class="p">,</span> <span class="s1">&#39;gi|16080617|ref|NP_391444.1|&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">idx</span><span class="p">[</span><span class="s1">&#39;gi|16080617|ref|NP_391444.1|&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">QueryResult</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">&#39;gi|16080617|ref|NP_391444.1|&#39;</span><span class="p">,</span> <span class="mi">3</span> <span class="n">hits</span><span class="p">)</span>
+</span></span></code></pre></div><p>或者依旧使用格式特异的关键字参数：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">idx</span> <span class="o">=</span> <span class="n">SearchIO</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s1">&#39;tab_2226_tblastn_005.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;blast-tab&#39;</span><span class="p">,</span> <span class="n">comments</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">idx</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="s1">&#39;gi|11464971:4-101&#39;</span><span class="p">,</span> <span class="s1">&#39;gi|16080617|ref|NP_391444.1|&#39;</span><span class="p">,</span> <span class="s1">&#39;random_s00&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">idx</span><span class="p">[</span><span class="s1">&#39;gi|16080617|ref|NP_391444.1|&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">QueryResult</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">&#39;gi|16080617|ref|NP_391444.1|&#39;</span><span class="p">,</span> <span class="mi">3</span> <span class="n">hits</span><span class="p">)</span>
+</span></span></code></pre></div><p>或者使用 key_function 参数，和 Bio.SeqIO 中一样：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">key_function</span> <span class="o">=</span> <span class="k">lambda</span> <span class="nb">id</span><span class="p">:</span> <span class="nb">id</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>    <span class="c1"># capitalizes the keys</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">idx</span> <span class="o">=</span> <span class="n">SearchIO</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s1">&#39;tab_2226_tblastn_001.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;blast-tab&#39;</span><span class="p">,</span> <span class="n">key_function</span><span class="o">=</span><span class="n">key_function</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">idx</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="s1">&#39;GI|11464971:4-101&#39;</span><span class="p">,</span> <span class="s1">&#39;GI|16080617|REF|NP_391444.1|&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">idx</span><span class="p">[</span><span class="s1">&#39;GI|16080617|REF|NP_391444.1|&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">QueryResult</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">&#39;gi|16080617|ref|NP_391444.1|&#39;</span><span class="p">,</span> <span class="mi">3</span> <span class="n">hits</span><span class="p">)</span>
+</span></span></code></pre></div><h2 id="写入和转换搜素输出文件">写入和转换搜素输出文件</h2>
+<h3 id="biosearchiowrite">Bio.SearchIO.write</h3>
+<p>有时候，读取一个搜索输出文件，作些调整并写到一个新的文件是很有用的。 Bio.SearchIO 提供了一个 write 方法，让你可以准确地完成这种工作。 它需要的参数是：一个可迭代返回 QueryResult 的对象，输出文件名，输出文件 格式和一些可选的格式特异的关键字参数。它返回一个4项目的元组，分别代表 被写入的 QueryResult， Hit， HSP， 和 HSPFragment 对象的数量。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio</span> <span class="kn">import</span> <span class="n">SearchIO</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">qresults</span> <span class="o">=</span> <span class="n">SearchIO</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s1">&#39;mirna.xml&#39;</span><span class="p">,</span> <span class="s1">&#39;blast-xml&#39;</span><span class="p">)</span>     <span class="c1"># read XML file</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">SearchIO</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">qresults</span><span class="p">,</span> <span class="s1">&#39;results.tab&#39;</span><span class="p">,</span> <span class="s1">&#39;blast-tab&#39;</span><span class="p">)</span>    <span class="c1"># write to tabular file</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">239</span><span class="p">,</span> <span class="mi">277</span><span class="p">,</span> <span class="mi">277</span><span class="p">)</span>
+</span></span></code></pre></div><p>你应该注意，不同的文件格式需要 QueryResult， Hit， HSP 和 HSPFragment 对象的不同属性。如果这些属性不存在，那么将不能写入。 也就是，你想写入的格式可能有时也会失效。举个例子，如果你读取一个BLASTXML文件， 你就不能将结果写入PSL文件，因为PSL文件需要一些属性，而这些属性BLAST却不能 提供（如重复匹配的数量）。如果你确实想写到PSL，可以手工设置这些属性。
+和 read， parse， index 和 index_db 相似， write 同 样接受格式特异的关键字参数。查阅文档获得 Bio.SearchIO 可写格式和这些 格式的参数的完整清单。</p>
+<h3 id="biosearchioconvert">Bio.SearchIO.convert()</h3>
+<p>最后， Bio.SearchIO 同样提供一个 convert 方法，可以理解为 Bio.SearchIO.parse 和 Bio.SearchIO.write 的简单替代方法。使用 convert 方法的例子如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio</span> <span class="kn">import</span> <span class="n">SearchIO</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">SearchIO</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;mirna.xml&#39;</span><span class="p">,</span> <span class="s1">&#39;blast-xml&#39;</span><span class="p">,</span> <span class="s1">&#39;results.tab&#39;</span><span class="p">,</span> <span class="s1">&#39;blast-tab&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">239</span><span class="p">,</span> <span class="mi">277</span><span class="p">,</span> <span class="mi">277</span><span class="p">)</span>
+</span></span></code></pre></div><p>因为 convert 使用 write 方法，所以只有所有需要的属性都存在时，格式 转换才能正常工作。这里由于BLAST XML文件提供BLAST 表格文件所需的所有默认值， 格式转换才能正常完成。但是，其他格式转换就可能不会正常工作，因为你需要先手工指定所需的属性。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/tutorials/">tutorials</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2022 - 
+        
+        2023 叶宇浩随记博客
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.5.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">Table of contents</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#searchio对象模型">SearchIO对象模型</a>
+      <ol>
+        <li><a href="#一些名词介绍">一些名词介绍</a></li>
+        <li><a href="#queryresult">QueryResult</a></li>
+        <li><a href="#hit">Hit</a></li>
+        <li><a href="#hsp">HSP</a>
+          <ol>
+            <li><a href="#blast-hsp的例子">BLAST HSP的例子</a></li>
+          </ol>
+        </li>
+        <li><a href="#hsp片段">HSP片段</a></li>
+      </ol>
+    </li>
+    <li><a href="#一些关于searchio的标准和惯例的注意事项">一些关于SearchIO的标准和惯例的注意事项</a>
+      <ol>
+        <li><a href="#读取搜素输出文件">读取搜素输出文件</a></li>
+      </ol>
+    </li>
+    <li><a href="#用索引处理含有大量搜素输出的文件">用索引处理含有大量搜素输出的文件</a></li>
+    <li><a href="#写入和转换搜素输出文件">写入和转换搜素输出文件</a>
+      <ol>
+        <li><a href="#biosearchiowrite">Bio.SearchIO.write</a></li>
+        <li><a href="#biosearchioconvert">Bio.SearchIO.convert()</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

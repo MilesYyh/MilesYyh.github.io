@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='简介 python中，yield关键字的作用：1、将一个函数修改为生成器，利用生成器可以有效地节约系统资源，避免不必要的内存占用；2、用于定义上下文管理器；3、协程；4、配合from形成yield from用于消费子生成器并传递消息。
+常见的情况 生成器 生成器函数（generation function） 和 生成器（generation） 生成器函数是一种特殊的函数，它的函数内部含有yield表达式，调用它会返回一个特殊的迭代器，称生成器。
+具体情况 def foo(): print(&amp;#34;starting&amp;#34;) yield g = foo() g #&amp;lt;generator object foo at 0x000001B77CB6C350&amp;gt; #没有任何输出。这是因为有yield，函数并没有被执行。只是将foo()指向了g。 #函数2 def foo(): print(&amp;#34;starting&amp;#34;) yield 1 print(&amp;#34;ending&amp;#34;) g = foo() g #&amp;lt;generator object foo at 0x000001B77CB6C820&amp;gt; print(next(g)) #starting #1 print(next(g)) #ending #--------------------------------------------------------------------------- #StopIteration Traceback (most recent call last) #~\AppData\Local\Temp/ipykernel_22044/2604396719.py in &amp;lt;module&amp;gt; #----&amp;gt; 1 print(next(g)) #StopIteration: 运行：输出了starting和1，并没有输出ending，这是因为next(g)只调用了一次，运行到了yield就返回了，print函数打印了返回值：1。这个时候函数停止了，等待下一次的next(g)调用。 迭代器是一个对象，这种对象每次只能调取一个数据元素。对迭代器不断调用 next() 方法（将迭代起变量放入next()中当参数），则可以依次获取下一个元素；当迭代器中没有元素时，调用 next() 方法会抛出 StopIteration（停止迭代） 异常。迭代器的 iter() 方法返回迭代器自身；因此迭代器也是可迭代的。 运行：接着上面的，第二个next(g)运行，报错是因为遍历结束了，无yield了。解决方法就是在最好加一个yield。'><title>yield的作用</title>
+
+<link rel='canonical' href='https://example.com/p/yield%E7%9A%84%E4%BD%9C%E7%94%A8/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='yield的作用'>
+<meta property='og:description' content='简介 python中，yield关键字的作用：1、将一个函数修改为生成器，利用生成器可以有效地节约系统资源，避免不必要的内存占用；2、用于定义上下文管理器；3、协程；4、配合from形成yield from用于消费子生成器并传递消息。
+常见的情况 生成器 生成器函数（generation function） 和 生成器（generation） 生成器函数是一种特殊的函数，它的函数内部含有yield表达式，调用它会返回一个特殊的迭代器，称生成器。
+具体情况 def foo(): print(&amp;#34;starting&amp;#34;) yield g = foo() g #&amp;lt;generator object foo at 0x000001B77CB6C350&amp;gt; #没有任何输出。这是因为有yield，函数并没有被执行。只是将foo()指向了g。 #函数2 def foo(): print(&amp;#34;starting&amp;#34;) yield 1 print(&amp;#34;ending&amp;#34;) g = foo() g #&amp;lt;generator object foo at 0x000001B77CB6C820&amp;gt; print(next(g)) #starting #1 print(next(g)) #ending #--------------------------------------------------------------------------- #StopIteration Traceback (most recent call last) #~\AppData\Local\Temp/ipykernel_22044/2604396719.py in &amp;lt;module&amp;gt; #----&amp;gt; 1 print(next(g)) #StopIteration: 运行：输出了starting和1，并没有输出ending，这是因为next(g)只调用了一次，运行到了yield就返回了，print函数打印了返回值：1。这个时候函数停止了，等待下一次的next(g)调用。 迭代器是一个对象，这种对象每次只能调取一个数据元素。对迭代器不断调用 next() 方法（将迭代起变量放入next()中当参数），则可以依次获取下一个元素；当迭代器中没有元素时，调用 next() 方法会抛出 StopIteration（停止迭代） 异常。迭代器的 iter() 方法返回迭代器自身；因此迭代器也是可迭代的。 运行：接着上面的，第二个next(g)运行，报错是因为遍历结束了，无yield了。解决方法就是在最好加一个yield。'>
+<meta property='og:url' content='https://example.com/p/yield%E7%9A%84%E4%BD%9C%E7%94%A8/'>
+<meta property='og:site_name' content='叶宇浩随记博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='python' /><meta property='article:published_time' content='2022-01-25T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2022-01-25T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="yield的作用">
+<meta name="twitter:description" content="简介 python中，yield关键字的作用：1、将一个函数修改为生成器，利用生成器可以有效地节约系统资源，避免不必要的内存占用；2、用于定义上下文管理器；3、协程；4、配合from形成yield from用于消费子生成器并传递消息。
+常见的情况 生成器 生成器函数（generation function） 和 生成器（generation） 生成器函数是一种特殊的函数，它的函数内部含有yield表达式，调用它会返回一个特殊的迭代器，称生成器。
+具体情况 def foo(): print(&amp;#34;starting&amp;#34;) yield g = foo() g #&amp;lt;generator object foo at 0x000001B77CB6C350&amp;gt; #没有任何输出。这是因为有yield，函数并没有被执行。只是将foo()指向了g。 #函数2 def foo(): print(&amp;#34;starting&amp;#34;) yield 1 print(&amp;#34;ending&amp;#34;) g = foo() g #&amp;lt;generator object foo at 0x000001B77CB6C820&amp;gt; print(next(g)) #starting #1 print(next(g)) #ending #--------------------------------------------------------------------------- #StopIteration Traceback (most recent call last) #~\AppData\Local\Temp/ipykernel_22044/2604396719.py in &amp;lt;module&amp;gt; #----&amp;gt; 1 print(next(g)) #StopIteration: 运行：输出了starting和1，并没有输出ending，这是因为next(g)只调用了一次，运行到了yield就返回了，print函数打印了返回值：1。这个时候函数停止了，等待下一次的next(g)调用。 迭代器是一个对象，这种对象每次只能调取一个数据元素。对迭代器不断调用 next() 方法（将迭代起变量放入next()中当参数），则可以依次获取下一个元素；当迭代器中没有元素时，调用 next() 方法会抛出 StopIteration（停止迭代） 异常。迭代器的 iter() 方法返回迭代器自身；因此迭代器也是可迭代的。 运行：接着上面的，第二个next(g)运行，报错是因为遍历结束了，无yield了。解决方法就是在最好加一个yield。">
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>Back</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/code/" style="background-color: #fa1; color: #fff;">
+                编程
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/yield%E7%9A%84%E4%BD%9C%E7%94%A8/">yield的作用</a>
+    </h2>
+
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Jan 25, 2022</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    2 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <h2 id="简介">简介</h2>
+<p>python中，yield关键字的作用：1、将一个函数修改为生成器，利用生成器可以有效地节约系统资源，避免不必要的内存占用；2、用于定义上下文管理器；3、协程；4、配合from形成yield from用于消费子生成器并传递消息。</p>
+<h2 id="常见的情况">常见的情况</h2>
+<h3 id="生成器">生成器</h3>
+<p>生成器函数（generation function） 和 生成器（generation）
+生成器函数是一种特殊的函数，它的函数内部含有yield表达式，调用它会返回一个特殊的迭代器，称生成器。</p>
+<h3 id="具体情况">具体情况</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">foo</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;starting&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">yield</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">g</span> <span class="o">=</span> <span class="n">foo</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">g</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&lt;generator object foo at 0x000001B77CB6C350&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#没有任何输出。这是因为有yield，函数并没有被执行。只是将foo()指向了g。</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#函数2</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">foo</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;starting&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">yield</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;ending&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl"><span class="n">g</span> <span class="o">=</span> <span class="n">foo</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">g</span> 
+</span></span><span class="line"><span class="cl"><span class="c1">#&lt;generator object foo at 0x000001B77CB6C820&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="n">g</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#starting</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="n">g</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#ending</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#---------------------------------------------------------------------------</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#StopIteration                             Traceback (most recent call last)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#~\AppData\Local\Temp/ipykernel_22044/2604396719.py in &lt;module&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#----&gt; 1 print(next(g))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#StopIteration: </span>
+</span></span></code></pre></div><p>运行：输出了starting和1，并没有输出ending，这是因为next(g)只调用了一次，运行到了yield就返回了，print函数打印了返回值：1。这个时候函数停止了，等待下一次的next(g)调用。
+迭代器是一个对象，这种对象每次只能调取一个数据元素。对迭代器不断调用 next() 方法（将迭代起变量放入next()中当参数），则可以依次获取下一个元素；当迭代器中没有元素时，调用 next() 方法会抛出 StopIteration（停止迭代） 异常。迭代器的 <strong>iter</strong>() 方法返回迭代器自身；因此迭代器也是可迭代的。
+运行：接着上面的，第二个next(g)运行，报错是因为遍历结束了，无yield了。解决方法就是在最好加一个yield。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">foo</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;starting&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">yield</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;ending&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">yield</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">g</span> <span class="o">=</span> <span class="n">foo</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="n">g</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="n">g</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;end&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">func</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">gen</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">yield</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">func</span><span class="p">))</span>   <span class="c1"># &lt;class &#39;function&#39;&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">gen</span><span class="p">))</span>    <span class="c1"># &lt;class &#39;function&#39;&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">func</span><span class="p">()))</span> <span class="c1"># &lt;class &#39;int&#39;&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">gen</span><span class="p">()))</span>  <span class="c1"># &lt;class &#39;generator&#39;&gt;</span>
+</span></span></code></pre></div><h2 id="heading"></h2>
+<h2 id="个人理解">个人理解</h2>
+<p>其实yield放在函数中起到的作用就是，将函数生成为一个生成器，每次调用才会运行yiled后面的语句（第一次调用运行第一个yield前的语句包含yield本身；第二次运行再从第一次运行的基础后面再运行到一个yield或者结束了）
+其实就是可以将一个函数分段运行，每次运行再基于前一次的基础去运行，</p>
+<p>python中的yield是停止当前函数跳出函数，停止状态的函数等待被调用激活， yield是一个常用于python函数定义中的关键字，它的作用是返回一个可以用来迭代（for循环）的生成器，它的应用场景通常为一个需要返回一系列值的，含有循环的函数中 生成器函数是一种特殊的函数，它的函数内部含有yield表达式，调用它会返回一个特殊的迭代器，称生成器。 yield是生成器这是yield实现其功能所必须成为的样子。如函数1：</p>
+<p>在一个函数中，程序执行到yield语句的时候，程序暂停，返回yield后面表达式的值，在下一次调用的时候，从yield语句暂停的地方继续执行，如此循环，直到函数执行完。</p>
+<p>yield 的好处</p>
+<p>介绍了这么多定义和用法，那么到底为什么要用yield呢？它有什么样的好处呢？</p>
+<p>在很多时候，我们需要逐个去获取容器内的某些数据，而这种仅仅获取部分元素的情况，并不需要我们将容器内所有的元素都取出来。比如说一个容器内现有10000个元素，但我们只需要前5个元素，那么解决办法通常由如下两种：</p>
+<p>·获取容器内的所有元素，然后取出前 5 个；</p>
+<p>·从头开始，逐个迭代容器内的元素，迭代 5 个元素之后停止。</p>
+<p>显而易见，如果容器内的元素数量非常多（比如有 10 ** 8 个），或者容器内的元素体积非常大，那么后一种方案能节省巨大的时间、空间开销。</p>
+<p>现在假设，我们有一个函数，其产出（返回值）是一个列表。而若我们知道，调用者对该函数的返回值，只有逐个迭代这一种方式。那么，如果函数生产列表中的每一个元素都需要耗费非常多的时间，或者生成所有元素需要等待很长时间，则使用 yield 把函数变成一个生成器函数，每次只产生一个元素，就能节省很多开销了。</p>
+<p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">foo</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;starting&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">yield</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">g</span> <span class="o">=</span> <span class="n">foo</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">g</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#没有任何输出。这是因为有yield，函数并没有被执行。只是将foo()指向了g。</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&lt;</span><span class="n">generator</span> <span class="nb">object</span> <span class="n">foo</span> <span class="n">at</span> <span class="mh">0x000001B77CB6C350</span><span class="o">&gt;</span>
+</span></span></code></pre></div><p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#函数2</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">foo</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;starting&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">yield</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;ending&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl"><span class="n">g</span> <span class="o">=</span> <span class="n">foo</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">g</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&lt;</span><span class="n">generator</span> <span class="nb">object</span> <span class="n">foo</span> <span class="n">at</span> <span class="mh">0x000001B77CB6C820</span><span class="o">&gt;</span>
+</span></span></code></pre></div><p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="n">g</span><span class="p">))</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">starting</span>
+</span></span><span class="line"><span class="cl"><span class="mi">1</span>
+</span></span></code></pre></div><p>运行：输出了starting和1，并没有输出ending，这是因为next(g)只调用了一次，运行到了yield就返回了，print函数打印了返回值：1。这个时候函数停止了，等待下一次的next(g)调用。</p>
+<p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#函数3</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">foo</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;starting&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">yield</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;ending&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">g</span> <span class="o">=</span> <span class="n">foo</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">g</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&lt;</span><span class="n">generator</span> <span class="nb">object</span> <span class="n">foo</span> <span class="n">at</span> <span class="mh">0x000001B77CB6CA50</span><span class="o">&gt;</span>
+</span></span></code></pre></div><p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="n">g</span><span class="p">))</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">starting</span>
+</span></span><span class="line"><span class="cl"><span class="mi">1</span>
+</span></span></code></pre></div><p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="n">g</span><span class="p">))</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">ending</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">---------------------------------------------------------------------------</span>
+</span></span><span class="line"><span class="cl"><span class="ne">StopIteration</span>                             <span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">~</span>\<span class="n">AppData</span>\<span class="n">Local</span>\<span class="n">Temp</span><span class="o">/</span><span class="n">ipykernel_22044</span><span class="o">/</span><span class="mf">2604396719.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">----&gt;</span> <span class="mi">1</span> <span class="nb">print</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="n">g</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="ne">StopIteration</span><span class="p">:</span>
+</span></span></code></pre></div><p>迭代器是一个对象，这种对象每次只能调取一个数据元素。对迭代器不断调用 next() 方法（将迭代起变量放入next()中当参数），则可以依次获取下一个元素；当迭代器中没有元素时，调用 next() 方法会抛出 StopIteration（停止迭代） 异常。迭代器的 <strong>iter</strong>() 方法返回迭代器自身；因此迭代器也是可迭代的。</p>
+<p>运行：接着上面的，第二个next(g)运行，报错是因为遍历结束了，无yield了。解决方法就是在最好加一个yield。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">foo</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;starting&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">yield</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;ending&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">yield</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">g</span> <span class="o">=</span> <span class="n">foo</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="n">g</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="n">g</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;end&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">starting</span>
+</span></span><span class="line"><span class="cl"><span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="n">ending</span>
+</span></span><span class="line"><span class="cl"><span class="mi">2</span>
+</span></span><span class="line"><span class="cl"><span class="n">end</span>
+</span></span></code></pre></div><p>yield的作用挺溜的，其丰富了函数的运行，让函数进入不同的运行阶段</p>
+<p>对，感觉上就是暂停了函数运行，等下次运行函数时再继续在前面运行的基础下往下运行</p>
+<p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">test</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="n">a</span> <span class="o">=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="k">yield</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl">    
+</span></span></code></pre></div><p>生成器函数（generation function） 和 生成器（generation）</p>
+<p>生成器函数是一种特殊的函数，它的函数内部含有yield表达式，调用它会返回一个特殊的迭代器，称生成器。</p>
+<p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">func</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">gen</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">yield</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">func</span><span class="p">))</span>   <span class="c1"># &lt;class &#39;function&#39;&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">gen</span><span class="p">))</span>    <span class="c1"># &lt;class &#39;function&#39;&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">func</span><span class="p">()))</span> <span class="c1"># &lt;class &#39;int&#39;&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">gen</span><span class="p">()))</span>  <span class="c1"># &lt;class &#39;generator&#39;&gt;</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&lt;</span><span class="k">class</span> <span class="err">&#39;</span><span class="nc">function</span><span class="s1">&#39;&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="k">class</span> <span class="err">&#39;</span><span class="nc">function</span><span class="s1">&#39;&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="k">class</span> <span class="err">&#39;</span><span class="nc">int</span><span class="s1">&#39;&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="k">class</span> <span class="err">&#39;</span><span class="nc">generator</span><span class="s1">&#39;&gt;</span>
+</span></span></code></pre></div><p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">10</span><span class="p">]</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">test_1</span><span class="p">(</span><span class="n">llist</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">llist</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">yield</span> <span class="n">i</span> 
+</span></span></code></pre></div><p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">test_1</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&lt;</span><span class="n">generator</span> <span class="nb">object</span> <span class="n">test_1</span> <span class="n">at</span> <span class="mh">0x0000015B9F9EB200</span><span class="o">&gt;</span>
+</span></span></code></pre></div><p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">next</span><span class="p">(</span><span class="n">test_1</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="mi">1</span>
+</span></span></code></pre></div><p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">next</span><span class="p">(</span><span class="n">test_1</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="mi">1</span>
+</span></span></code></pre></div>
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/python/">python</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2022 - 
+        
+        2023 叶宇浩随记博客
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.5.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">Table of contents</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#简介">简介</a></li>
+    <li><a href="#常见的情况">常见的情况</a>
+      <ol>
+        <li><a href="#生成器">生成器</a></li>
+        <li><a href="#具体情况">具体情况</a></li>
+      </ol>
+    </li>
+    <li><a href="#heading"></a></li>
+    <li><a href="#个人理解">个人理解</a></li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

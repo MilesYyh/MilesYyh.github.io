@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='整理一些李老师ppt内的内容，方便自己随时回顾'><title>GMX9ppt_非标准残基</title>
+
+<link rel='canonical' href='https://example.com/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='GMX9ppt_非标准残基'>
+<meta property='og:description' content='整理一些李老师ppt内的内容，方便自己随时回顾'>
+<meta property='og:url' content='https://example.com/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/'>
+<meta property='og:site_name' content='叶宇浩随记博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='gromacs' /><meta property='article:published_time' content='2022-01-24T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2022-01-24T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="GMX9ppt_非标准残基">
+<meta name="twitter:description" content="整理一些李老师ppt内的内容，方便自己随时回顾">
+    </head>
+    <body class="
+    article-page 
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        on-phone--column extended
+    
+">
+    
+        <aside class="sidebar left-sidebar sticky">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header class="site-info">
+        
+            
+            <figure class="site-avatar">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hub6b2d46d776162e2e8dcd667345276ca_41574_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+
+                
+            </figure>
+            
+        
+        
+        <h1 class="site-name"><a href="/">叶宇浩随记博客</a></h1>
+        <h2 class="site-description">始于rosetta</h2></header>
+
+    <ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/' target="_blank">
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>分类</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>检索</span>
+            </a>
+        </li>
+        
+
+        
+            <li id="dark-mode-toggle">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <span>Dark Mode</span>
+            </li>
+        
+    </ol>
+</aside>
+
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/molecular_simulation/" style="background-color: #33ff; color: #fff;">
+                分子动力学
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/">GMX9ppt_非标准残基</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        整理一些李老师ppt内的内容，方便自己随时回顾
+    </h3>
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Jan 24, 2022</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    1 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <blockquote>
+<p>此post用来存放一些ppt上的内容，仅方便学习用途</p>
+</blockquote>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 159; 
+			flex-basis: 382px"
+	>
+	<a href="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA.png" data-size="920x578">
+		<img src="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA.png"
+			width="920"
+			height="578"
+			srcset="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA_hu1ba867fbf7c7f983411262c6602ba303_735925_480x0_resize_box_3.png 480w, /p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA_hu1ba867fbf7c7f983411262c6602ba303_735925_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 154; 
+			flex-basis: 371px"
+	>
+	<a href="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-1.png" data-size="920x594">
+		<img src="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-1.png"
+			width="920"
+			height="594"
+			srcset="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-1_hu6b4dcebc18ef5efc33832334b85e2706_653511_480x0_resize_box_3.png 480w, /p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-1_hu6b4dcebc18ef5efc33832334b85e2706_653511_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 109; 
+			flex-basis: 261px"
+	>
+	<a href="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-2.png" data-size="920x844">
+		<img src="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-2.png"
+			width="920"
+			height="844"
+			srcset="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-2_huf00c898c507a724569bfe4b7cad0ae2a_731635_480x0_resize_box_3.png 480w, /p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-2_huf00c898c507a724569bfe4b7cad0ae2a_731635_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 331; 
+			flex-basis: 795px"
+	>
+	<a href="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-3.png" data-size="232x70">
+		<img src="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-3.png"
+			width="232"
+			height="70"
+			srcset="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-3_hue7fb59a89007f1390ccd488b56c0ac9c_15838_480x0_resize_box_3.png 480w, /p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-3_hue7fb59a89007f1390ccd488b56c0ac9c_15838_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 146; 
+			flex-basis: 351px"
+	>
+	<a href="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-4.png" data-size="830x566">
+		<img src="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-4.png"
+			width="830"
+			height="566"
+			srcset="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-4_hu7e2fa3d0ccbb3e1238b348ca662c4c68_222218_480x0_resize_box_3.png 480w, /p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-4_hu7e2fa3d0ccbb3e1238b348ca662c4c68_222218_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 120; 
+			flex-basis: 290px"
+	>
+	<a href="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-5.png" data-size="718x594">
+		<img src="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-5.png"
+			width="718"
+			height="594"
+			srcset="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-5_hu4cdcbbc920b8f406a564f854353c8bb3_235629_480x0_resize_box_3.png 480w, /p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-5_hu4cdcbbc920b8f406a564f854353c8bb3_235629_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 131; 
+			flex-basis: 316px"
+	>
+	<a href="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-6.png" data-size="920x698">
+		<img src="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-6.png"
+			width="920"
+			height="698"
+			srcset="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-6_hu26d381473a7150fc70b36ee877c39172_475266_480x0_resize_box_3.png 480w, /p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-6_hu26d381473a7150fc70b36ee877c39172_475266_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 110; 
+			flex-basis: 265px"
+	>
+	<a href="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-7.png" data-size="748x676">
+		<img src="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-7.png"
+			width="748"
+			height="676"
+			srcset="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-7_hu4b0734df290d0ae21cffb89f2bcaff96_184054_480x0_resize_box_3.png 480w, /p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-7_hu4b0734df290d0ae21cffb89f2bcaff96_184054_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 68; 
+			flex-basis: 163px"
+	>
+	<a href="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-8.png" data-size="532x782">
+		<img src="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-8.png"
+			width="532"
+			height="782"
+			srcset="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-8_hu4dd3b5a9e548d1041eae30919c274e49_660089_480x0_resize_box_3.png 480w, /p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-8_hu4dd3b5a9e548d1041eae30919c274e49_660089_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 194; 
+			flex-basis: 465px"
+	>
+	<a href="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-9.png" data-size="198x102">
+		<img src="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-9.png"
+			width="198"
+			height="102"
+			srcset="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-9_huc2d6190354153deac55e6851b8d99d4c_29416_480x0_resize_box_3.png 480w, /p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-9_huc2d6190354153deac55e6851b8d99d4c_29416_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 193; 
+			flex-basis: 463px"
+	>
+	<a href="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-10.png" data-size="788x408">
+		<img src="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-10.png"
+			width="788"
+			height="408"
+			srcset="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-10_hu0081a3997fff7076f7f20aaede657ed6_114270_480x0_resize_box_3.png 480w, /p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-10_hu0081a3997fff7076f7f20aaede657ed6_114270_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 461; 
+			flex-basis: 1106px"
+	>
+	<a href="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-11.png" data-size="830x180">
+		<img src="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-11.png"
+			width="830"
+			height="180"
+			srcset="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-11_hu110af07508cff932f24358ab5f879b8f_162439_480x0_resize_box_3.png 480w, /p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-11_hu110af07508cff932f24358ab5f879b8f_162439_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 175; 
+			flex-basis: 420px"
+	>
+	<a href="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-12.png" data-size="872x498">
+		<img src="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-12.png"
+			width="872"
+			height="498"
+			srcset="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-12_hub31680b92d10c621d048553e8352ce33_236359_480x0_resize_box_3.png 480w, /p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-12_hub31680b92d10c621d048553e8352ce33_236359_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 115; 
+			flex-basis: 277px"
+	>
+	<a href="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-14.png" data-size="830x718">
+		<img src="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-14.png"
+			width="830"
+			height="718"
+			srcset="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-14_huee995fb2395d5d2198061d3cdaa38e06_285986_480x0_resize_box_3.png 480w, /p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-14_huee995fb2395d5d2198061d3cdaa38e06_285986_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 231; 
+			flex-basis: 554px"
+	>
+	<a href="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-15.png" data-size="920x398">
+		<img src="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-15.png"
+			width="920"
+			height="398"
+			srcset="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-15_hu9f32fc2663c6d2850a9e96d7e766c8e5_367718_480x0_resize_box_3.png 480w, /p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-15_hu9f32fc2663c6d2850a9e96d7e766c8e5_367718_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 182; 
+			flex-basis: 438px"
+	>
+	<a href="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-16.png" data-size="920x504">
+		<img src="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-16.png"
+			width="920"
+			height="504"
+			srcset="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-16_hue1b2682cfd32ce62f19e0a1bbeaaf33d_181732_480x0_resize_box_3.png 480w, /p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-16_hue1b2682cfd32ce62f19e0a1bbeaaf33d_181732_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 125; 
+			flex-basis: 300px"
+	>
+	<a href="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-17.png" data-size="920x736">
+		<img src="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-17.png"
+			width="920"
+			height="736"
+			srcset="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-17_hu0bbc2f1aa0b309494053a20f2f82de5d_645822_480x0_resize_box_3.png 480w, /p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-17_hu0bbc2f1aa0b309494053a20f2f82de5d_645822_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 100; 
+			flex-basis: 241px"
+	>
+	<a href="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-18.png" data-size="894x890">
+		<img src="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-18.png"
+			width="894"
+			height="890"
+			srcset="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-18_hu48b662340906121d61459bd3ad1f2820_1046686_480x0_resize_box_3.png 480w, /p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-18_hu48b662340906121d61459bd3ad1f2820_1046686_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 119; 
+			flex-basis: 287px"
+	>
+	<a href="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-19.png" data-size="844x704">
+		<img src="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-19.png"
+			width="844"
+			height="704"
+			srcset="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-19_hu1e25b8a202cbc2de3657ab79ec8779ff_834572_480x0_resize_box_3.png 480w, /p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-19_hu1e25b8a202cbc2de3657ab79ec8779ff_834572_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+top删除了（每一部分属性中的都只保留残基的）</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 146; 
+			flex-basis: 351px"
+	>
+	<a href="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-20.png" data-size="920x628">
+		<img src="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-20.png"
+			width="920"
+			height="628"
+			srcset="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-20_hu02f09c6701afce3c6edfce2712f7ab09_647844_480x0_resize_box_3.png 480w, /p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-20_hu02f09c6701afce3c6edfce2712f7ab09_647844_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 121; 
+			flex-basis: 291px"
+	>
+	<a href="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-21.png" data-size="886x730">
+		<img src="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-21.png"
+			width="886"
+			height="730"
+			srcset="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-21_hu5035a9d0e9203169fbb48c2ae4b96a39_885321_480x0_resize_box_3.png 480w, /p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-21_hu5035a9d0e9203169fbb48c2ae4b96a39_885321_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 123; 
+			flex-basis: 296px"
+	>
+	<a href="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-22.png" data-size="760x616">
+		<img src="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-22.png"
+			width="760"
+			height="616"
+			srcset="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-22_hud626dfe2dce8708011af5941ca6320b5_603115_480x0_resize_box_3.png 480w, /p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-22_hud626dfe2dce8708011af5941ca6320b5_603115_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 230; 
+			flex-basis: 552px"
+	>
+	<a href="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-23.png" data-size="870x378">
+		<img src="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-23.png"
+			width="870"
+			height="378"
+			srcset="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-23_hu0f5b890d9299384857b54535d8ccc1b9_407375_480x0_resize_box_3.png 480w, /p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-23_hu0f5b890d9299384857b54535d8ccc1b9_407375_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 151; 
+			flex-basis: 364px"
+	>
+	<a href="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-24.png" data-size="848x558">
+		<img src="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-24.png"
+			width="848"
+			height="558"
+			srcset="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-24_hud940938f519792840391df177ef2c76e_511544_480x0_resize_box_3.png 480w, /p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-24_hud940938f519792840391df177ef2c76e_511544_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 131; 
+			flex-basis: 314px"
+	>
+	<a href="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-25.png" data-size="920x702">
+		<img src="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-25.png"
+			width="920"
+			height="702"
+			srcset="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-25_hud428bef0ab0d5b2c0cc20a83fdd7a205_701902_480x0_resize_box_3.png 480w, /p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-25_hud428bef0ab0d5b2c0cc20a83fdd7a205_701902_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 123; 
+			flex-basis: 295px"
+	>
+	<a href="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-26.png" data-size="766x622">
+		<img src="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-26.png"
+			width="766"
+			height="622"
+			srcset="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-26_hu14c52f01bb7cae3f47e180cd497b9db5_592519_480x0_resize_box_3.png 480w, /p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-26_hu14c52f01bb7cae3f47e180cd497b9db5_592519_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 102; 
+			flex-basis: 246px"
+	>
+	<a href="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-27.png" data-size="628x612">
+		<img src="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-27.png"
+			width="628"
+			height="612"
+			srcset="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-27_hu75f0206db4d7616459d75fbe8271cdff_396912_480x0_resize_box_3.png 480w, /p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-27_hu75f0206db4d7616459d75fbe8271cdff_396912_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 182; 
+			flex-basis: 439px"
+	>
+	<a href="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-28.png" data-size="900x492">
+		<img src="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-28.png"
+			width="900"
+			height="492"
+			srcset="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-28_hu59a80d76a7bf94669a14d358496e5630_307123_480x0_resize_box_3.png 480w, /p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-28_hu59a80d76a7bf94669a14d358496e5630_307123_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 108; 
+			flex-basis: 260px"
+	>
+	<a href="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-29.png" data-size="724x666">
+		<img src="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-29.png"
+			width="724"
+			height="666"
+			srcset="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-29_hud636ec9f0f176e4210fef7681031dfd5_350506_480x0_resize_box_3.png 480w, /p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-29_hud636ec9f0f176e4210fef7681031dfd5_350506_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 145; 
+			flex-basis: 348px"
+	>
+	<a href="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-30.png" data-size="726x500">
+		<img src="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-30.png"
+			width="726"
+			height="500"
+			srcset="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-30_hu0534ff84a9df38ae897f0ff456f6b630_446263_480x0_resize_box_3.png 480w, /p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-30_hu0534ff84a9df38ae897f0ff456f6b630_446263_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 119; 
+			flex-basis: 287px"
+	>
+	<a href="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-31.png" data-size="824x688">
+		<img src="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-31.png"
+			width="824"
+			height="688"
+			srcset="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-31_hu58cd8e4b02b51e61f807a2240739ce3a_417135_480x0_resize_box_3.png 480w, /p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-31_hu58cd8e4b02b51e61f807a2240739ce3a_417135_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 158; 
+			flex-basis: 380px"
+	>
+	<a href="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-32.png" data-size="920x580">
+		<img src="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-32.png"
+			width="920"
+			height="580"
+			srcset="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-32_hu90c76387fed70ff293f4e616e6f6e7a1_220486_480x0_resize_box_3.png 480w, /p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-32_hu90c76387fed70ff293f4e616e6f6e7a1_220486_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 122; 
+			flex-basis: 294px"
+	>
+	<a href="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-33.png" data-size="822x670">
+		<img src="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-33.png"
+			width="822"
+			height="670"
+			srcset="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-33_hue471c3e668322f266c3eae981bbd5a52_502510_480x0_resize_box_3.png 480w, /p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-33_hue471c3e668322f266c3eae981bbd5a52_502510_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 83; 
+			flex-basis: 199px"
+	>
+	<a href="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-34.png" data-size="422x508">
+		<img src="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-34.png"
+			width="422"
+			height="508"
+			srcset="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-34_hu4ca4a8f0ba0cb19a4ff15d786ba15579_157368_480x0_resize_box_3.png 480w, /p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-34_hu4ca4a8f0ba0cb19a4ff15d786ba15579_157368_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>第一行的那个删除了</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 114; 
+			flex-basis: 274px"
+	>
+	<a href="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-35.png" data-size="920x804">
+		<img src="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-35.png"
+			width="920"
+			height="804"
+			srcset="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-35_hu908dca6a45dac6032363e9a46a56b54f_568666_480x0_resize_box_3.png 480w, /p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-35_hu908dca6a45dac6032363e9a46a56b54f_568666_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 132; 
+			flex-basis: 318px"
+	>
+	<a href="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-36.png" data-size="920x694">
+		<img src="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-36.png"
+			width="920"
+			height="694"
+			srcset="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-36_hu0090750431884a0f19c8c1eae7066e32_313492_480x0_resize_box_3.png 480w, /p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-36_hu0090750431884a0f19c8c1eae7066e32_313492_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>JSMOL</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 113; 
+			flex-basis: 273px"
+	>
+	<a href="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-37.png" data-size="888x780">
+		<img src="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-37.png"
+			width="888"
+			height="780"
+			srcset="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-37_hu2594f5220bb5d4c18bb3fa01f5ffc5ee_537608_480x0_resize_box_3.png 480w, /p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-37_hu2594f5220bb5d4c18bb3fa01f5ffc5ee_537608_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 209; 
+			flex-basis: 503px"
+	>
+	<a href="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-38.png" data-size="256x122">
+		<img src="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-38.png"
+			width="256"
+			height="122"
+			srcset="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-38_hu6257686d15f4614c07aab75393b9a638_46088_480x0_resize_box_3.png 480w, /p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-38_hu6257686d15f4614c07aab75393b9a638_46088_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 221; 
+			flex-basis: 532px"
+	>
+	<a href="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-39.png" data-size="732x330">
+		<img src="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-39.png"
+			width="732"
+			height="330"
+			srcset="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-39_hu16baa888e42b8e42bb6fa0b208af27ae_141427_480x0_resize_box_3.png 480w, /p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-39_hu16baa888e42b8e42bb6fa0b208af27ae_141427_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>TPPMKTOP
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 115; 
+			flex-basis: 277px"
+	>
+	<a href="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-40.png" data-size="768x664">
+		<img src="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-40.png"
+			width="768"
+			height="664"
+			srcset="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-40_hu69c146555c2b0f5e4e8134c45b3adbaf_123059_480x0_resize_box_3.png 480w, /p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-40_hu69c146555c2b0f5e4e8134c45b3adbaf_123059_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 106; 
+			flex-basis: 254px"
+	>
+	<a href="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-41.png" data-size="600x566">
+		<img src="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-41.png"
+			width="600"
+			height="566"
+			srcset="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-41_huf438aad680e56aa773c11aa0d3fb2b49_119028_480x0_resize_box_3.png 480w, /p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-41_huf438aad680e56aa773c11aa0d3fb2b49_119028_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 141; 
+			flex-basis: 338px"
+	>
+	<a href="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-42.png" data-size="920x652">
+		<img src="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-42.png"
+			width="920"
+			height="652"
+			srcset="/p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-42_hu07d8d7e32ac71ede90aac9138d716bf7_261075_480x0_resize_box_3.png 480w, /p/gmx9ppt_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA/picture/GMX9_%E9%9D%9E%E6%A0%87%E5%87%86%E6%AE%8B%E5%9F%BA-42_hu07d8d7e32ac71ede90aac9138d716bf7_261075_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/gromacs/">gromacs</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2022 - 
+        
+        2023 叶宇浩随记博客
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.5.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

@@ -1,0 +1,1626 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='跟学的刘二老师pytorch'><title>ppt_Lecture_10_Basic_CNN</title>
+
+<link rel='canonical' href='https://example.com/p/ppt_lecture_10_basic_cnn/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='ppt_Lecture_10_Basic_CNN'>
+<meta property='og:description' content='跟学的刘二老师pytorch'>
+<meta property='og:url' content='https://example.com/p/ppt_lecture_10_basic_cnn/'>
+<meta property='og:site_name' content='叶宇浩随记博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='tutorials' /><meta property='article:tag' content='pytorch' /><meta property='article:published_time' content='2022-04-21T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2022-04-21T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="ppt_Lecture_10_Basic_CNN">
+<meta name="twitter:description" content="跟学的刘二老师pytorch">
+    </head>
+    <body class="
+    article-page 
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        on-phone--column extended
+    
+">
+    
+        <aside class="sidebar left-sidebar sticky">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header class="site-info">
+        
+            
+            <figure class="site-avatar">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hub6b2d46d776162e2e8dcd667345276ca_41574_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+
+                
+            </figure>
+            
+        
+        
+        <h1 class="site-name"><a href="/">叶宇浩随记博客</a></h1>
+        <h2 class="site-description">始于rosetta</h2></header>
+
+    <ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/' target="_blank">
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>分类</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>检索</span>
+            </a>
+        </li>
+        
+
+        
+            <li id="dark-mode-toggle">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <span>Dark Mode</span>
+            </li>
+        
+    </ol>
+</aside>
+
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/deeplearning/" style="background-color: #0f1503; color: #fff;">
+                深度学习
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/ppt_lecture_10_basic_cnn/">ppt_Lecture_10_Basic_CNN</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        跟学的刘二老师pytorch
+    </h3>
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Apr 21, 2022</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    1 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <blockquote>
+<p>这是跟学刘二老师的的课程ppt，特地放这里用来随时随地看</p>
+</blockquote>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0001.jpg" data-size="2000x1125">
+		<img src="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0001.jpg"
+			width="2000"
+			height="1125"
+			srcset="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0001_hud471c95c0871dfccafb4e1ca4486f823_170808_480x0_resize_q75_box.jpg 480w, /p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0001_hud471c95c0871dfccafb4e1ca4486f823_170808_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0002.jpg" data-size="2000x1125">
+		<img src="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0002.jpg"
+			width="2000"
+			height="1125"
+			srcset="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0002_hu583ea9a41b2bf4bb254c53031b2e4bec_640535_480x0_resize_q75_box.jpg 480w, /p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0002_hu583ea9a41b2bf4bb254c53031b2e4bec_640535_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0003.jpg" data-size="2000x1125">
+		<img src="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0003.jpg"
+			width="2000"
+			height="1125"
+			srcset="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0003_hu321d101bbef483910b971c1bf05a5b89_403069_480x0_resize_q75_box.jpg 480w, /p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0003_hu321d101bbef483910b971c1bf05a5b89_403069_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0004.jpg" data-size="2000x1125">
+		<img src="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0004.jpg"
+			width="2000"
+			height="1125"
+			srcset="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0004_hu321d101bbef483910b971c1bf05a5b89_346618_480x0_resize_q75_box.jpg 480w, /p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0004_hu321d101bbef483910b971c1bf05a5b89_346618_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0005.jpg" data-size="2000x1125">
+		<img src="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0005.jpg"
+			width="2000"
+			height="1125"
+			srcset="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0005_hu321d101bbef483910b971c1bf05a5b89_339944_480x0_resize_q75_box.jpg 480w, /p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0005_hu321d101bbef483910b971c1bf05a5b89_339944_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0006.jpg" data-size="2000x1125">
+		<img src="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0006.jpg"
+			width="2000"
+			height="1125"
+			srcset="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0006_hu321d101bbef483910b971c1bf05a5b89_342678_480x0_resize_q75_box.jpg 480w, /p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0006_hu321d101bbef483910b971c1bf05a5b89_342678_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0007.jpg" data-size="2000x1125">
+		<img src="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0007.jpg"
+			width="2000"
+			height="1125"
+			srcset="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0007_hu321d101bbef483910b971c1bf05a5b89_346678_480x0_resize_q75_box.jpg 480w, /p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0007_hu321d101bbef483910b971c1bf05a5b89_346678_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0008.jpg" data-size="2000x1125">
+		<img src="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0008.jpg"
+			width="2000"
+			height="1125"
+			srcset="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0008_hu321d101bbef483910b971c1bf05a5b89_349850_480x0_resize_q75_box.jpg 480w, /p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0008_hu321d101bbef483910b971c1bf05a5b89_349850_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0009.jpg" data-size="2000x1125">
+		<img src="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0009.jpg"
+			width="2000"
+			height="1125"
+			srcset="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0009_hu321d101bbef483910b971c1bf05a5b89_284588_480x0_resize_q75_box.jpg 480w, /p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0009_hu321d101bbef483910b971c1bf05a5b89_284588_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0010.jpg" data-size="2000x1125">
+		<img src="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0010.jpg"
+			width="2000"
+			height="1125"
+			srcset="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0010_hu321d101bbef483910b971c1bf05a5b89_287190_480x0_resize_q75_box.jpg 480w, /p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0010_hu321d101bbef483910b971c1bf05a5b89_287190_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0011.jpg" data-size="2000x1125">
+		<img src="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0011.jpg"
+			width="2000"
+			height="1125"
+			srcset="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0011_hu321d101bbef483910b971c1bf05a5b89_290689_480x0_resize_q75_box.jpg 480w, /p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0011_hu321d101bbef483910b971c1bf05a5b89_290689_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0012.jpg" data-size="2000x1125">
+		<img src="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0012.jpg"
+			width="2000"
+			height="1125"
+			srcset="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0012_hu321d101bbef483910b971c1bf05a5b89_292763_480x0_resize_q75_box.jpg 480w, /p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0012_hu321d101bbef483910b971c1bf05a5b89_292763_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0013.jpg" data-size="2000x1125">
+		<img src="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0013.jpg"
+			width="2000"
+			height="1125"
+			srcset="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0013_hu321d101bbef483910b971c1bf05a5b89_293389_480x0_resize_q75_box.jpg 480w, /p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0013_hu321d101bbef483910b971c1bf05a5b89_293389_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0014.jpg" data-size="2000x1125">
+		<img src="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0014.jpg"
+			width="2000"
+			height="1125"
+			srcset="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0014_hu321d101bbef483910b971c1bf05a5b89_297257_480x0_resize_q75_box.jpg 480w, /p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0014_hu321d101bbef483910b971c1bf05a5b89_297257_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0015.jpg" data-size="2000x1125">
+		<img src="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0015.jpg"
+			width="2000"
+			height="1125"
+			srcset="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0015_hu321d101bbef483910b971c1bf05a5b89_298904_480x0_resize_q75_box.jpg 480w, /p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0015_hu321d101bbef483910b971c1bf05a5b89_298904_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0016.jpg" data-size="2000x1125">
+		<img src="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0016.jpg"
+			width="2000"
+			height="1125"
+			srcset="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0016_hu321d101bbef483910b971c1bf05a5b89_289112_480x0_resize_q75_box.jpg 480w, /p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0016_hu321d101bbef483910b971c1bf05a5b89_289112_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0017.jpg" data-size="2000x1125">
+		<img src="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0017.jpg"
+			width="2000"
+			height="1125"
+			srcset="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0017_hu321d101bbef483910b971c1bf05a5b89_336962_480x0_resize_q75_box.jpg 480w, /p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0017_hu321d101bbef483910b971c1bf05a5b89_336962_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0018.jpg" data-size="2000x1125">
+		<img src="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0018.jpg"
+			width="2000"
+			height="1125"
+			srcset="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0018_hu321d101bbef483910b971c1bf05a5b89_382334_480x0_resize_q75_box.jpg 480w, /p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0018_hu321d101bbef483910b971c1bf05a5b89_382334_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0019.jpg" data-size="2000x1125">
+		<img src="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0019.jpg"
+			width="2000"
+			height="1125"
+			srcset="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0019_hu321d101bbef483910b971c1bf05a5b89_430215_480x0_resize_q75_box.jpg 480w, /p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0019_hu321d101bbef483910b971c1bf05a5b89_430215_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0020.jpg" data-size="2000x1125">
+		<img src="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0020.jpg"
+			width="2000"
+			height="1125"
+			srcset="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0020_hu321d101bbef483910b971c1bf05a5b89_441886_480x0_resize_q75_box.jpg 480w, /p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0020_hu321d101bbef483910b971c1bf05a5b89_441886_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0021.jpg" data-size="2000x1125">
+		<img src="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0021.jpg"
+			width="2000"
+			height="1125"
+			srcset="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0021_hu321d101bbef483910b971c1bf05a5b89_461463_480x0_resize_q75_box.jpg 480w, /p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0021_hu321d101bbef483910b971c1bf05a5b89_461463_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0022.jpg" data-size="2000x1125">
+		<img src="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0022.jpg"
+			width="2000"
+			height="1125"
+			srcset="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0022_hu321d101bbef483910b971c1bf05a5b89_509190_480x0_resize_q75_box.jpg 480w, /p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0022_hu321d101bbef483910b971c1bf05a5b89_509190_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0023.jpg" data-size="2000x1125">
+		<img src="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0023.jpg"
+			width="2000"
+			height="1125"
+			srcset="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0023_hu321d101bbef483910b971c1bf05a5b89_370322_480x0_resize_q75_box.jpg 480w, /p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0023_hu321d101bbef483910b971c1bf05a5b89_370322_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0024.jpg" data-size="2000x1125">
+		<img src="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0024.jpg"
+			width="2000"
+			height="1125"
+			srcset="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0024_hu321d101bbef483910b971c1bf05a5b89_416540_480x0_resize_q75_box.jpg 480w, /p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0024_hu321d101bbef483910b971c1bf05a5b89_416540_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0025.jpg" data-size="2000x1125">
+		<img src="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0025.jpg"
+			width="2000"
+			height="1125"
+			srcset="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0025_hu321d101bbef483910b971c1bf05a5b89_432436_480x0_resize_q75_box.jpg 480w, /p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0025_hu321d101bbef483910b971c1bf05a5b89_432436_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0026.jpg" data-size="2000x1125">
+		<img src="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0026.jpg"
+			width="2000"
+			height="1125"
+			srcset="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0026_hu321d101bbef483910b971c1bf05a5b89_468983_480x0_resize_q75_box.jpg 480w, /p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0026_hu321d101bbef483910b971c1bf05a5b89_468983_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0027.jpg" data-size="2000x1125">
+		<img src="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0027.jpg"
+			width="2000"
+			height="1125"
+			srcset="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0027_hu321d101bbef483910b971c1bf05a5b89_312590_480x0_resize_q75_box.jpg 480w, /p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0027_hu321d101bbef483910b971c1bf05a5b89_312590_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0028.jpg" data-size="2000x1125">
+		<img src="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0028.jpg"
+			width="2000"
+			height="1125"
+			srcset="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0028_hu321d101bbef483910b971c1bf05a5b89_436240_480x0_resize_q75_box.jpg 480w, /p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0028_hu321d101bbef483910b971c1bf05a5b89_436240_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0029.jpg" data-size="2000x1125">
+		<img src="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0029.jpg"
+			width="2000"
+			height="1125"
+			srcset="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0029_hu321d101bbef483910b971c1bf05a5b89_384956_480x0_resize_q75_box.jpg 480w, /p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0029_hu321d101bbef483910b971c1bf05a5b89_384956_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0030.jpg" data-size="2000x1125">
+		<img src="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0030.jpg"
+			width="2000"
+			height="1125"
+			srcset="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0030_hu321d101bbef483910b971c1bf05a5b89_369186_480x0_resize_q75_box.jpg 480w, /p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0030_hu321d101bbef483910b971c1bf05a5b89_369186_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0031.jpg" data-size="2000x1125">
+		<img src="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0031.jpg"
+			width="2000"
+			height="1125"
+			srcset="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0031_hu321d101bbef483910b971c1bf05a5b89_366039_480x0_resize_q75_box.jpg 480w, /p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0031_hu321d101bbef483910b971c1bf05a5b89_366039_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0032.jpg" data-size="2000x1125">
+		<img src="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0032.jpg"
+			width="2000"
+			height="1125"
+			srcset="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0032_hu321d101bbef483910b971c1bf05a5b89_366094_480x0_resize_q75_box.jpg 480w, /p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0032_hu321d101bbef483910b971c1bf05a5b89_366094_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0033.jpg" data-size="2000x1125">
+		<img src="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0033.jpg"
+			width="2000"
+			height="1125"
+			srcset="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0033_hu321d101bbef483910b971c1bf05a5b89_368110_480x0_resize_q75_box.jpg 480w, /p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0033_hu321d101bbef483910b971c1bf05a5b89_368110_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0034.jpg" data-size="2000x1125">
+		<img src="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0034.jpg"
+			width="2000"
+			height="1125"
+			srcset="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0034_hu321d101bbef483910b971c1bf05a5b89_367507_480x0_resize_q75_box.jpg 480w, /p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0034_hu321d101bbef483910b971c1bf05a5b89_367507_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0035.jpg" data-size="2000x1125">
+		<img src="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0035.jpg"
+			width="2000"
+			height="1125"
+			srcset="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0035_hu321d101bbef483910b971c1bf05a5b89_421141_480x0_resize_q75_box.jpg 480w, /p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0035_hu321d101bbef483910b971c1bf05a5b89_421141_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0036.jpg" data-size="2000x1125">
+		<img src="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0036.jpg"
+			width="2000"
+			height="1125"
+			srcset="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0036_hu321d101bbef483910b971c1bf05a5b89_285955_480x0_resize_q75_box.jpg 480w, /p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0036_hu321d101bbef483910b971c1bf05a5b89_285955_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0037.jpg" data-size="2000x1125">
+		<img src="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0037.jpg"
+			width="2000"
+			height="1125"
+			srcset="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0037_hu321d101bbef483910b971c1bf05a5b89_315970_480x0_resize_q75_box.jpg 480w, /p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0037_hu321d101bbef483910b971c1bf05a5b89_315970_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0038.jpg" data-size="2000x1125">
+		<img src="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0038.jpg"
+			width="2000"
+			height="1125"
+			srcset="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0038_hu321d101bbef483910b971c1bf05a5b89_357671_480x0_resize_q75_box.jpg 480w, /p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0038_hu321d101bbef483910b971c1bf05a5b89_357671_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0039.jpg" data-size="2000x1125">
+		<img src="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0039.jpg"
+			width="2000"
+			height="1125"
+			srcset="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0039_hu321d101bbef483910b971c1bf05a5b89_359636_480x0_resize_q75_box.jpg 480w, /p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0039_hu321d101bbef483910b971c1bf05a5b89_359636_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0040.jpg" data-size="2000x1125">
+		<img src="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0040.jpg"
+			width="2000"
+			height="1125"
+			srcset="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0040_hu321d101bbef483910b971c1bf05a5b89_395850_480x0_resize_q75_box.jpg 480w, /p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0040_hu321d101bbef483910b971c1bf05a5b89_395850_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0041.jpg" data-size="2000x1125">
+		<img src="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0041.jpg"
+			width="2000"
+			height="1125"
+			srcset="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0041_hu321d101bbef483910b971c1bf05a5b89_404990_480x0_resize_q75_box.jpg 480w, /p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0041_hu321d101bbef483910b971c1bf05a5b89_404990_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0042.jpg" data-size="2000x1125">
+		<img src="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0042.jpg"
+			width="2000"
+			height="1125"
+			srcset="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0042_hu321d101bbef483910b971c1bf05a5b89_264689_480x0_resize_q75_box.jpg 480w, /p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0042_hu321d101bbef483910b971c1bf05a5b89_264689_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0043.jpg" data-size="2000x1125">
+		<img src="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0043.jpg"
+			width="2000"
+			height="1125"
+			srcset="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0043_hu321d101bbef483910b971c1bf05a5b89_267015_480x0_resize_q75_box.jpg 480w, /p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0043_hu321d101bbef483910b971c1bf05a5b89_267015_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0044.jpg" data-size="2000x1125">
+		<img src="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0044.jpg"
+			width="2000"
+			height="1125"
+			srcset="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0044_hu321d101bbef483910b971c1bf05a5b89_267589_480x0_resize_q75_box.jpg 480w, /p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0044_hu321d101bbef483910b971c1bf05a5b89_267589_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0045.jpg" data-size="2000x1125">
+		<img src="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0045.jpg"
+			width="2000"
+			height="1125"
+			srcset="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0045_hu321d101bbef483910b971c1bf05a5b89_270131_480x0_resize_q75_box.jpg 480w, /p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0045_hu321d101bbef483910b971c1bf05a5b89_270131_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0046.jpg" data-size="2000x1125">
+		<img src="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0046.jpg"
+			width="2000"
+			height="1125"
+			srcset="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0046_hu321d101bbef483910b971c1bf05a5b89_267811_480x0_resize_q75_box.jpg 480w, /p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0046_hu321d101bbef483910b971c1bf05a5b89_267811_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0047.jpg" data-size="2000x1125">
+		<img src="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0047.jpg"
+			width="2000"
+			height="1125"
+			srcset="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0047_hu321d101bbef483910b971c1bf05a5b89_269605_480x0_resize_q75_box.jpg 480w, /p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0047_hu321d101bbef483910b971c1bf05a5b89_269605_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0048.jpg" data-size="2000x1125">
+		<img src="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0048.jpg"
+			width="2000"
+			height="1125"
+			srcset="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0048_hu321d101bbef483910b971c1bf05a5b89_270801_480x0_resize_q75_box.jpg 480w, /p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0048_hu321d101bbef483910b971c1bf05a5b89_270801_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0049.jpg" data-size="2000x1125">
+		<img src="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0049.jpg"
+			width="2000"
+			height="1125"
+			srcset="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0049_hu321d101bbef483910b971c1bf05a5b89_272953_480x0_resize_q75_box.jpg 480w, /p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0049_hu321d101bbef483910b971c1bf05a5b89_272953_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0050.jpg" data-size="2000x1125">
+		<img src="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0050.jpg"
+			width="2000"
+			height="1125"
+			srcset="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0050_hu321d101bbef483910b971c1bf05a5b89_408975_480x0_resize_q75_box.jpg 480w, /p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0050_hu321d101bbef483910b971c1bf05a5b89_408975_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0051.jpg" data-size="2000x1125">
+		<img src="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0051.jpg"
+			width="2000"
+			height="1125"
+			srcset="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0051_huad57fcf9b81f694e31fee11b88c14866_240972_480x0_resize_q75_box.jpg 480w, /p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0051_huad57fcf9b81f694e31fee11b88c14866_240972_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0052.jpg" data-size="2000x1125">
+		<img src="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0052.jpg"
+			width="2000"
+			height="1125"
+			srcset="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0052_huad57fcf9b81f694e31fee11b88c14866_305309_480x0_resize_q75_box.jpg 480w, /p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0052_huad57fcf9b81f694e31fee11b88c14866_305309_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0053.jpg" data-size="2000x1125">
+		<img src="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0053.jpg"
+			width="2000"
+			height="1125"
+			srcset="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0053_hubb96b68eab2ebb5022ff320721c00d82_390415_480x0_resize_q75_box.jpg 480w, /p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0053_hubb96b68eab2ebb5022ff320721c00d82_390415_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0054.jpg" data-size="2000x1125">
+		<img src="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0054.jpg"
+			width="2000"
+			height="1125"
+			srcset="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0054_hu583ea9a41b2bf4bb254c53031b2e4bec_650356_480x0_resize_q75_box.jpg 480w, /p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0054_hu583ea9a41b2bf4bb254c53031b2e4bec_650356_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0055.jpg" data-size="2000x1125">
+		<img src="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0055.jpg"
+			width="2000"
+			height="1125"
+			srcset="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0055_hu583ea9a41b2bf4bb254c53031b2e4bec_706341_480x0_resize_q75_box.jpg 480w, /p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0055_hu583ea9a41b2bf4bb254c53031b2e4bec_706341_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0056.jpg" data-size="2000x1125">
+		<img src="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0056.jpg"
+			width="2000"
+			height="1125"
+			srcset="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0056_hu51ae4c0e1fc51ae7afeb9fe009c753fc_481062_480x0_resize_q75_box.jpg 480w, /p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0056_hu51ae4c0e1fc51ae7afeb9fe009c753fc_481062_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0057.jpg" data-size="2000x1125">
+		<img src="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0057.jpg"
+			width="2000"
+			height="1125"
+			srcset="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0057_hu51ae4c0e1fc51ae7afeb9fe009c753fc_585831_480x0_resize_q75_box.jpg 480w, /p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0057_hu51ae4c0e1fc51ae7afeb9fe009c753fc_585831_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0058.jpg" data-size="2000x1125">
+		<img src="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0058.jpg"
+			width="2000"
+			height="1125"
+			srcset="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0058_hu51ae4c0e1fc51ae7afeb9fe009c753fc_604799_480x0_resize_q75_box.jpg 480w, /p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0058_hu51ae4c0e1fc51ae7afeb9fe009c753fc_604799_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0059.jpg" data-size="2000x1125">
+		<img src="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0059.jpg"
+			width="2000"
+			height="1125"
+			srcset="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0059_hu51ae4c0e1fc51ae7afeb9fe009c753fc_441627_480x0_resize_q75_box.jpg 480w, /p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0059_hu51ae4c0e1fc51ae7afeb9fe009c753fc_441627_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0060.jpg" data-size="2000x1125">
+		<img src="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0060.jpg"
+			width="2000"
+			height="1125"
+			srcset="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0060_hu51ae4c0e1fc51ae7afeb9fe009c753fc_536398_480x0_resize_q75_box.jpg 480w, /p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0060_hu51ae4c0e1fc51ae7afeb9fe009c753fc_536398_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0061.jpg" data-size="2000x1125">
+		<img src="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0061.jpg"
+			width="2000"
+			height="1125"
+			srcset="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0061_hu51ae4c0e1fc51ae7afeb9fe009c753fc_388646_480x0_resize_q75_box.jpg 480w, /p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0061_hu51ae4c0e1fc51ae7afeb9fe009c753fc_388646_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0062.jpg" data-size="2000x1125">
+		<img src="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0062.jpg"
+			width="2000"
+			height="1125"
+			srcset="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0062_hu51ae4c0e1fc51ae7afeb9fe009c753fc_481940_480x0_resize_q75_box.jpg 480w, /p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0062_hu51ae4c0e1fc51ae7afeb9fe009c753fc_481940_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0063.jpg" data-size="2000x1125">
+		<img src="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0063.jpg"
+			width="2000"
+			height="1125"
+			srcset="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0063_hu583ea9a41b2bf4bb254c53031b2e4bec_559293_480x0_resize_q75_box.jpg 480w, /p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0063_hu583ea9a41b2bf4bb254c53031b2e4bec_559293_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0064.jpg" data-size="2000x1125">
+		<img src="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0064.jpg"
+			width="2000"
+			height="1125"
+			srcset="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0064_hu9404c34f1f0e017a64e5cb7b29c9c5fc_435576_480x0_resize_q75_box.jpg 480w, /p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0064_hu9404c34f1f0e017a64e5cb7b29c9c5fc_435576_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0065.jpg" data-size="2000x1125">
+		<img src="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0065.jpg"
+			width="2000"
+			height="1125"
+			srcset="/p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0065_hud471c95c0871dfccafb4e1ca4486f823_172765_480x0_resize_q75_box.jpg 480w, /p/ppt_lecture_10_basic_cnn/ilovepdf_pages-to-jpg/Lecture_10_Basic_CNN_page-0065_hud471c95c0871dfccafb4e1ca4486f823_172765_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/tutorials/">tutorials</a>
+        
+            <a href="/tags/pytorch/">pytorch</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">Related contents</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="">
+    <a href="/p/lecture_13_rnn_classifier/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Lecture_13_RNN_Classifier</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/ppt_lecture_01_overview/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">ppt_Lecture_01_Overview</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/ppt_lecture_02_linear_model/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">ppt_Lecture_02_Linear_Model</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/ppt_lecture_03_gradient_descent/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">ppt_Lecture_03_Gradient_Descent</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/ppt_lecture_04_back_propagation/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">ppt_Lecture_04_Back_Propagation</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2022 - 
+        
+        2023 叶宇浩随记博客
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.5.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

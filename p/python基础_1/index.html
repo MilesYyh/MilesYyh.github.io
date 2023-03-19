@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='python的基础概念_1'><title>python基础_1</title>
+
+<link rel='canonical' href='https://example.com/p/python%E5%9F%BA%E7%A1%80_1/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='python基础_1'>
+<meta property='og:description' content='python的基础概念_1'>
+<meta property='og:url' content='https://example.com/p/python%E5%9F%BA%E7%A1%80_1/'>
+<meta property='og:site_name' content='叶宇浩随记博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='tutorials' /><meta property='article:tag' content='python' /><meta property='article:published_time' content='2021-03-04T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-03-04T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="python基础_1">
+<meta name="twitter:description" content="python的基础概念_1">
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>Back</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/code/" style="background-color: #fa1; color: #fff;">
+                编程
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/python%E5%9F%BA%E7%A1%80_1/">python基础_1</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        python的基础概念_1
+    </h3>
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Mar 04, 2021</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    3 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <blockquote>
+<p>这是看完pythond的书后，再过一遍基础知识的post，原文地址：https://github.com/fengdu78/Data-Science-Notes/tree/master/1.python-basic</p>
+</blockquote>
+<h2 id="print">print</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">name</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&#34;What is your name?&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;Hello &#34;</span><span class="o">+</span><span class="n">name</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 或者print(&#34;Hello&#34;,name ),print中逗号分隔直接将字符串用空格分隔，若用+号连接，并且想留空格，则在前一字符串留空格即可</span>
+</span></span></code></pre></div><pre tabindex="0"><code>What is your name?Mike
+Hello Mike
+</code></pre><h2 id="输入输出">输入输出</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">username</span><span class="o">=</span><span class="nb">input</span><span class="p">(</span><span class="s2">&#34;username:&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">password</span><span class="o">=</span><span class="nb">input</span><span class="p">(</span><span class="s2">&#34;password:&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">username</span><span class="p">,</span><span class="n">password</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>username:111
+password:666
+111 666
+</code></pre><h2 id="格式输入输出">格式输入输出</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 第一种方法</span>
+</span></span><span class="line"><span class="cl"><span class="n">name</span><span class="o">=</span><span class="nb">input</span><span class="p">(</span><span class="s2">&#34;Name:&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">age</span><span class="o">=</span><span class="nb">input</span><span class="p">(</span><span class="s2">&#34;age:&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">job</span><span class="o">=</span><span class="nb">input</span><span class="p">(</span><span class="s2">&#34;job:&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">info</span><span class="o">=</span><span class="s1">&#39;&#39;&#39;---------info of ---------&#39;&#39;&#39;</span> <span class="o">+</span> <span class="s1">&#39;&#39;&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s1">Name:&#39;&#39;&#39;</span><span class="o">+</span><span class="n">name</span><span class="o">+</span><span class="s1">&#39;&#39;&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s1">Age:&#39;&#39;&#39;</span><span class="o">+</span><span class="n">age</span><span class="o">+</span><span class="s1">&#39;&#39;&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s1">Job:&#39;&#39;&#39;</span><span class="o">+</span><span class="n">job</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">info</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>Name:Mike
+age:28
+job:worker
+---------info of ---------
+Name:Mike
+Age:28
+Job:worker
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 第二种方法</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">name</span><span class="o">=</span><span class="nb">input</span><span class="p">(</span><span class="s2">&#34;Name:&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">age</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s2">&#34;age:&#34;</span><span class="p">))</span>  <span class="c1">#如果不用int()就会报错(虽然输入为数字，但是print(type(age))为str型)，因为python如果不强制类型转化，就会默认字符型</span>
+</span></span><span class="line"><span class="cl"><span class="n">job</span><span class="o">=</span><span class="nb">input</span><span class="p">(</span><span class="s2">&#34;job:&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">info</span><span class="o">=</span><span class="s1">&#39;&#39;&#39;---------info of ---------
+</span></span></span><span class="line"><span class="cl"><span class="s1">Name:</span><span class="si">%s</span><span class="s1">
+</span></span></span><span class="line"><span class="cl"><span class="s1">Age:</span><span class="si">%d</span><span class="s1">
+</span></span></span><span class="line"><span class="cl"><span class="s1">Job:</span><span class="si">%s</span><span class="s1">&#39;&#39;&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="n">age</span><span class="p">,</span><span class="n">job</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">info</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>Name:Mike
+age:28
+job:worker
+---------info of ---------
+Name:Mike
+Age:28
+Job:worker
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 第三种方法</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">name</span><span class="o">=</span><span class="nb">input</span><span class="p">(</span><span class="s2">&#34;Name:&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">age</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s2">&#34;age:&#34;</span><span class="p">))</span>  <span class="c1">#如果不用int()就会报错(虽然输入为数字，但是print(type(age))为str型)，因为python如果不强制类型转化，就会默认字符型</span>
+</span></span><span class="line"><span class="cl"><span class="n">job</span><span class="o">=</span><span class="nb">input</span><span class="p">(</span><span class="s2">&#34;job:&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">info</span><span class="o">=</span><span class="s1">&#39;&#39;&#39;---------info of ---------
+</span></span></span><span class="line"><span class="cl"><span class="s1">Name:</span><span class="si">{_name}</span><span class="s1">
+</span></span></span><span class="line"><span class="cl"><span class="s1">Age:</span><span class="si">{_age}</span><span class="s1">
+</span></span></span><span class="line"><span class="cl"><span class="s1">Job:</span><span class="si">{_job}</span><span class="s1">&#39;&#39;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">_name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span><span class="n">_age</span><span class="o">=</span><span class="n">age</span><span class="p">,</span><span class="n">_job</span><span class="o">=</span><span class="n">job</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">info</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>Name:Mike
+age:28
+job:worker
+---------info of ---------
+Name:Mike
+Age:28
+Job:worker
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 第四种方法</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">name</span><span class="o">=</span><span class="nb">input</span><span class="p">(</span><span class="s2">&#34;Name:&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">age</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s2">&#34;age:&#34;</span><span class="p">))</span>  <span class="c1">#如果不用int()就会报错(虽然输入为数字，但是print(type(age))为str型)，因为python如果不强制类型转化，就会默认字符型</span>
+</span></span><span class="line"><span class="cl"><span class="n">job</span><span class="o">=</span><span class="nb">input</span><span class="p">(</span><span class="s2">&#34;job:&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">info</span><span class="o">=</span><span class="s1">&#39;&#39;&#39;---------info of ---------
+</span></span></span><span class="line"><span class="cl"><span class="s1">Name:</span><span class="si">{0}</span><span class="s1">
+</span></span></span><span class="line"><span class="cl"><span class="s1">Age:</span><span class="si">{1}</span><span class="s1">
+</span></span></span><span class="line"><span class="cl"><span class="s1">Job:</span><span class="si">{2}</span><span class="s1">&#39;&#39;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="n">age</span><span class="p">,</span><span class="n">job</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">info</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>Name:Mike
+age:28
+job:worker
+---------info of ---------
+Name:Mike
+Age:28
+Job:worker
+</code></pre><h2 id="输入密码不可见">输入密码不可见</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">getpass</span>
+</span></span><span class="line"><span class="cl"><span class="n">pwd</span><span class="o">=</span><span class="n">getpass</span><span class="o">.</span><span class="n">getpass</span><span class="p">(</span><span class="s2">&#34;请输入密码:&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">pwd</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>请输入密码:········
+3434
+</code></pre><h2 id="验证python缩进">验证，python缩进</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">_username</span><span class="o">=</span><span class="s1">&#39;Alex Li&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">_password</span><span class="o">=</span><span class="s1">&#39;abc123&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">username</span><span class="o">=</span><span class="nb">input</span><span class="p">(</span><span class="s2">&#34;username:&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">password</span><span class="o">=</span><span class="nb">input</span><span class="p">(</span><span class="s2">&#34;password:&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="n">_username</span><span class="o">==</span><span class="n">username</span> <span class="ow">and</span> <span class="n">_password</span><span class="o">==</span><span class="n">password</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">((</span><span class="s2">&#34;Welcome user </span><span class="si">{name}</span><span class="s2"> login...&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">username</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;Invalid username or password!&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>username:df
+password:i&#39;
+Invalid username or password!
+</code></pre><h2 id="指向---修改字符串">指向&mdash;修改字符串</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;Hello World&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">name</span> <span class="o">=</span> <span class="s2">&#34;Alex Li&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">name2</span><span class="o">=</span><span class="n">name</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;My name is&#34;</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span><span class="n">name2</span><span class="p">)</span> <span class="c1"># Alex Li Alex Li</span>
+</span></span><span class="line"><span class="cl"><span class="n">name</span> <span class="o">=</span> <span class="s2">&#34;PaoChe Ge&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># name2=name指的是name2与name一样指向Alex Li的内存地址，name指向改了，但是name2不变</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;My name is&#34;</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span><span class="n">name2</span><span class="p">)</span> <span class="c1"># PaoChe Ge Alex Li</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;您好，我来了&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>Hello World
+Alex Li
+My name is Alex Li Alex Li
+My name is PaoChe Ge Alex Li
+您好，我来了
+</code></pre><h2 id="注释-内涵">注释<code>''' '''</code>内涵</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 第一种情况就是注释</span>
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;&#39;&#39;print(&#34;这是一行注释&#34;)&#39;&#39;&#39;</span>
+</span></span></code></pre></div><pre tabindex="0"><code>&#39;print(&#34;这是一行注释&#34;)&#39;
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#第二种情况就是打印多行字符串</span>
+</span></span><span class="line"><span class="cl"><span class="nb">str</span><span class="o">=</span><span class="s1">&#39;&#39;&#39;这是第一行内容
+</span></span></span><span class="line"><span class="cl"><span class="s1">这是第二行内容&#39;&#39;&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>这是第一行内容
+这是第二行内容
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 3.单套双，双套单都可以</span>
+</span></span><span class="line"><span class="cl"><span class="n">str1</span><span class="o">=</span><span class="s2">&#34;i&#39;am a student&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">str1</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>i&#39;am a student
+</code></pre><h2 id="模块初始sys与os">模块初始sys与os</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">sys</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 打印环境变量</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+</span></span></code></pre></div><pre tabindex="0"><code>[&#39;&#39;, &#39;C:\\ProgramData\\Anaconda3\\python36.zip&#39;, &#39;C:\\ProgramData\\Anaconda3\\DLLs&#39;, &#39;C:\\ProgramData\\Anaconda3\\lib&#39;, &#39;C:\\ProgramData\\Anaconda3&#39;, &#39;C:\\ProgramData\\Anaconda3\\lib\\site-packages&#39;, &#39;C:\\ProgramData\\Anaconda3\\lib\\site-packages\\win32&#39;, &#39;C:\\ProgramData\\Anaconda3\\lib\\site-packages\\win32\\lib&#39;, &#39;C:\\ProgramData\\Anaconda3\\lib\\site-packages\\Pythonwin&#39;, &#39;C:\\ProgramData\\Anaconda3\\lib\\site-packages\\IPython\\extensions&#39;, &#39;C:\\Users\\haigu\\.ipython&#39;]
+[&#39;C:\\ProgramData\\Anaconda3\\lib\\site-packages\\ipykernel_launcher.py&#39;, &#39;-f&#39;, &#39;C:\\Users\\haigu\\AppData\\Roaming\\jupyter\\runtime\\kernel-28ddb76e-a36b-4edc-ab46-0b848ae5812f.json&#39;]
+C:\Users\haigu\AppData\Roaming\jupyter\runtime\kernel-28ddb76e-a36b-4edc-ab46-0b848ae5812f.json
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 进度条</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">time</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">50</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;#&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>##################################################
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">os</span>
+</span></span><span class="line"><span class="cl"><span class="n">cmd_res</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s2">&#34;dir&#34;</span><span class="p">)</span> <span class="c1"># os.system()执行后直接输出到终端，然后结束，最后cmd_res保存的是os.system()执行后的状态码</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;---&gt;&#34;</span><span class="p">,</span><span class="n">cmd_res</span><span class="p">)</span> <span class="c1"># ---&gt; 0</span>
+</span></span></code></pre></div><pre tabindex="0"><code>---&gt; 0
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">cmd_res1</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">popen</span><span class="p">(</span><span class="s2">&#34;dir&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;---&gt;&#34;</span><span class="p">,</span><span class="n">cmd_res1</span><span class="p">)</span> <span class="c1"># 得到的是内存对象值 ---&gt; &lt;os._wrap_close object at 0x00000000029187B8&gt;</span>
+</span></span></code></pre></div><pre tabindex="0"><code>---&gt; &lt;os._wrap_close object at 0x000001B85DEF9940&gt;
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">cmd_res1</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">popen</span><span class="p">(</span><span class="s2">&#34;dir&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;---&gt;&#34;</span><span class="p">,</span><span class="n">cmd_res1</span><span class="p">)</span> <span class="c1"># 读取数据必须再后面加个read()</span>
+</span></span></code></pre></div><pre tabindex="0"><code>---&gt;  驱动器 E 中的卷是 tools
+ 卷的序列号是 E2B0-A3DA
+
+ E:\tools\学术\python\两天入门python 的目录
+
+2018/12/15  11:10    &lt;DIR&gt;          .
+2018/12/15  11:10    &lt;DIR&gt;          ..
+2018/12/15  10:58    &lt;DIR&gt;          .ipynb_checkpoints
+2018/12/15  11:10             9,565 两天入门python.ipynb
+               1 个文件          9,565 字节
+               3 个目录 24,186,036,224 可用字节
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="s2">&#34;new_dir3&#34;</span><span class="p">)</span> <span class="c1"># 创建一个目录</span>
+</span></span><span class="line"><span class="cl"><span class="n">os</span><span class="o">.</span><span class="n">removedirs</span><span class="p">(</span><span class="s2">&#34;new_dir3&#34;</span><span class="p">)</span> <span class="c1"># 删除一个目录</span>
+</span></span></code></pre></div><h2 id="三元运算">三元运算</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 1.result = 值1 if 条件 else 值2</span>
+</span></span><span class="line"><span class="cl"><span class="n">a</span><span class="o">=</span><span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="n">b</span><span class="o">=</span><span class="mi">2</span>
+</span></span><span class="line"><span class="cl"><span class="n">c</span><span class="o">=</span><span class="mi">3</span>
+</span></span><span class="line"><span class="cl"><span class="n">d</span><span class="o">=</span><span class="n">a</span> <span class="k">if</span> <span class="n">a</span><span class="o">&gt;</span><span class="n">b</span> <span class="k">else</span> <span class="n">c</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>3
+</code></pre><h2 id="python3特性">python3特性</h2>
+<p>python3中最重要的新特性大概是对文本和二进制数据作了更为清晰的区分。文本总是Unicode，由str类型表示,</p>
+<p>二进制数据则由bytes类型表示。Python3不会以任意隐式的方式混用str和bytes，正是这使得两者区分特别清晰。</p>
+<p>即：在python2中类型会自动转化，而在python3中则要么报错，要么不转化</p>
+<p>str与bytes相互转化</p>
+<h2 id="bytes与str转化">bytes与str转化</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">msg</span><span class="o">=</span><span class="s2">&#34;我爱北京天安门&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>我爱北京天安门
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s2">&#34;utf-8&#34;</span><span class="p">))</span> <span class="c1"># str转bytes,编码</span>
+</span></span></code></pre></div><pre tabindex="0"><code>b&#39;\xe6\x88\x91\xe7\x88\xb1\xe5\x8c\x97\xe4\xba\xac\xe5\xa4\xa9\xe5\xae\x89\xe9\x97\xa8&#39;
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s2">&#34;utf-8&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s2">&#34;utf-8&#34;</span><span class="p">))</span> <span class="c1"># bytes转str,解码</span>
+</span></span></code></pre></div><pre tabindex="0"><code>我爱北京天安门
+</code></pre><h2 id="循环">循环</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;第一种循环&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;count:&#34;</span><span class="p">,</span><span class="n">count</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">count</span><span class="o">+=</span><span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">count</span><span class="o">==</span><span class="mi">10</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">break</span>
+</span></span></code></pre></div><pre tabindex="0"><code>第一种循环
+count: 0
+count: 1
+count: 2
+count: 3
+count: 4
+count: 5
+count: 6
+count: 7
+count: 8
+count: 9
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;第二种循环&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">count</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">2</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;count:&#34;</span><span class="p">,</span> <span class="n">count</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">i</span><span class="o">&lt;</span><span class="mi">5</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;loop &#34;</span><span class="p">,</span><span class="n">i</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">continue</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;hehe....&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">my_age</span><span class="o">=</span><span class="mi">28</span>
+</span></span><span class="line"><span class="cl"><span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="k">while</span> <span class="n">count</span><span class="o">&lt;</span><span class="mi">3</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">user_input</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s2">&#34;input your guess num:&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">user_input</span><span class="o">==</span><span class="n">my_age</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;Congratulations,you got it!&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">break</span>
+</span></span><span class="line"><span class="cl">    <span class="k">elif</span> <span class="n">user_input</span><span class="o">&lt;</span><span class="n">my_age</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;Oops,think bigger!&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;think smaller!&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">count</span><span class="o">+=</span><span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;猜这么多次都不对，你个笨蛋.&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>第二种循环
+count: 0
+count: 2
+count: 4
+count: 6
+count: 8
+loop  0
+hehe....
+loop  1
+hehe....
+loop  2
+hehe....
+loop  3
+hehe....
+loop  4
+hehe....
+input your guess num:2
+Oops,think bigger!
+猜这么多次都不对，你个笨蛋.
+input your guess num:28
+Congratulations,you got it!
+</code></pre><h2 id="练习---三级菜单">练习&mdash;三级菜单</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">data</span><span class="o">=</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;北京&#39;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;昌平&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;沙河&#34;</span><span class="p">:[</span><span class="s2">&#34;oldboys&#34;</span><span class="p">,</span><span class="s1">&#39;test&#39;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;天通苑&#34;</span><span class="p">:[</span><span class="s2">&#34;链家地产&#34;</span><span class="p">,</span><span class="s2">&#34;我爱我家&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;朝阳&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;望京&#34;</span><span class="p">:[</span><span class="s2">&#34;oldboys&#34;</span><span class="p">,</span><span class="s1">&#39;默陌陌&#39;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;国贸&#34;</span><span class="p">:[</span><span class="s2">&#34;CICC&#34;</span><span class="p">,</span><span class="s2">&#34;HP&#34;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;东直门&#34;</span><span class="p">:[</span><span class="s2">&#34;Advent&#34;</span><span class="p">,</span><span class="s2">&#34;飞信&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;海淀&#34;</span><span class="p">:{}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;山东&#39;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;德州&#34;</span><span class="p">:{},</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;青岛&#34;</span><span class="p">:{},</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;济南&#34;</span><span class="p">:{}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;广东&#39;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;德州&#34;</span><span class="p">:{},</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;青岛&#34;</span><span class="p">:{},</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;济南&#34;</span><span class="p">:{}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="n">exit_flag</span> <span class="o">=</span> <span class="kc">False</span>
+</span></span><span class="line"><span class="cl"><span class="k">while</span> <span class="ow">not</span> <span class="n">exit_flag</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">choice</span><span class="o">=</span><span class="nb">input</span><span class="p">(</span><span class="s2">&#34;选择进入1&gt;&gt;:&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">choice</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">while</span> <span class="ow">not</span> <span class="n">exit_flag</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">for</span> <span class="n">i2</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="n">choice</span><span class="p">]:</span>
+</span></span><span class="line"><span class="cl">                <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;</span><span class="se">\t</span><span class="s2">&#34;</span><span class="p">,</span><span class="n">i2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">choice2</span><span class="o">=</span><span class="nb">input</span><span class="p">(</span><span class="s2">&#34;选择进入2&gt;&gt;:&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="n">choice2</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="n">choice</span><span class="p">]:</span>
+</span></span><span class="line"><span class="cl">                <span class="k">while</span> <span class="ow">not</span> <span class="n">exit_flag</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">for</span> <span class="n">i3</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="n">choice</span><span class="p">][</span><span class="n">choice2</span><span class="p">]:</span>
+</span></span><span class="line"><span class="cl">                        <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;</span><span class="se">\t\t</span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">i3</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">choice3</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&#34;选择进入3&gt;&gt;:&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">if</span> <span class="n">choice3</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="n">choice</span><span class="p">][</span><span class="n">choice2</span><span class="p">]:</span>
+</span></span><span class="line"><span class="cl">                        <span class="k">for</span> <span class="n">i4</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="n">choice</span><span class="p">][</span><span class="n">choice2</span><span class="p">][</span><span class="n">choice3</span><span class="p">]:</span>
+</span></span><span class="line"><span class="cl">                            <span class="nb">print</span><span class="p">(</span><span class="n">i4</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">choice4</span><span class="o">=</span><span class="nb">input</span><span class="p">(</span><span class="s2">&#34;最后一层，按b返回&gt;&gt;:&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                        <span class="k">if</span> <span class="n">choice4</span><span class="o">==</span><span class="s1">&#39;b&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                            <span class="k">pass</span> <span class="c1"># pass可以理解为占位符，表示什么都不做，返回循环起始位置，以后可以在此处添加内容</span>
+</span></span><span class="line"><span class="cl">                        <span class="k">elif</span> <span class="n">choice4</span><span class="o">==</span><span class="s1">&#39;q&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                            <span class="n">exit_flag</span><span class="o">=</span><span class="kc">True</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">if</span> <span class="p">(</span><span class="n">choice3</span> <span class="o">==</span> <span class="s1">&#39;b&#39;</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">                        <span class="k">break</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">elif</span> <span class="n">choice3</span> <span class="o">==</span> <span class="s1">&#39;q&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">exit_flag</span> <span class="o">=</span> <span class="kc">True</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="n">choice2</span> <span class="o">==</span> <span class="s1">&#39;b&#39;</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">                <span class="k">break</span>
+</span></span><span class="line"><span class="cl">            <span class="k">elif</span> <span class="n">choice2</span> <span class="o">==</span> <span class="s1">&#39;q&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">exit_flag</span> <span class="o">=</span> <span class="kc">True</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">choice</span> <span class="o">==</span> <span class="s1">&#39;b&#39;</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">break</span>
+</span></span></code></pre></div><pre tabindex="0"><code>北京
+山东
+广东
+选择进入1&gt;&gt;:2
+北京
+山东
+广东
+选择进入1&gt;&gt;:3
+北京
+山东
+广东
+选择进入1&gt;&gt;:q
+北京
+山东
+广东
+选择进入1&gt;&gt;:2
+北京
+山东
+广东
+</code></pre>
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/tutorials/">tutorials</a>
+        
+            <a href="/tags/python/">python</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">Related contents</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="">
+    <a href="/p/py_basic_q91-100/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">py_basic_Q91-100</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/py_basic_q81-90/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">py_basic_Q81-90</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/py_basic_q71-80/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">py_basic_Q71-80</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/py_basic_q61-70/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">py_basic_Q61-70</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/py_basic_q51-60/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">py_basic_Q51-60</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2022 - 
+        
+        2023 叶宇浩随记博客
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.5.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">Table of contents</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#print">print</a></li>
+    <li><a href="#输入输出">输入输出</a></li>
+    <li><a href="#格式输入输出">格式输入输出</a></li>
+    <li><a href="#输入密码不可见">输入密码不可见</a></li>
+    <li><a href="#验证python缩进">验证，python缩进</a></li>
+    <li><a href="#指向---修改字符串">指向&mdash;修改字符串</a></li>
+    <li><a href="#注释-内涵">注释<code>''' '''</code>内涵</a></li>
+    <li><a href="#模块初始sys与os">模块初始sys与os</a></li>
+    <li><a href="#三元运算">三元运算</a></li>
+    <li><a href="#python3特性">python3特性</a></li>
+    <li><a href="#bytes与str转化">bytes与str转化</a></li>
+    <li><a href="#循环">循环</a></li>
+    <li><a href="#练习---三级菜单">练习&mdash;三级菜单</a></li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

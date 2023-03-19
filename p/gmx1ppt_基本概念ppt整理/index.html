@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='整理一些李老师ppt内的内容，方便自己随时回顾'><title>GMX1ppt_基本概念ppt整理</title>
+
+<link rel='canonical' href='https://example.com/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='GMX1ppt_基本概念ppt整理'>
+<meta property='og:description' content='整理一些李老师ppt内的内容，方便自己随时回顾'>
+<meta property='og:url' content='https://example.com/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/'>
+<meta property='og:site_name' content='叶宇浩随记博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='gromacs' /><meta property='article:published_time' content='2022-01-22T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2022-01-22T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="GMX1ppt_基本概念ppt整理">
+<meta name="twitter:description" content="整理一些李老师ppt内的内容，方便自己随时回顾">
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>Back</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/molecular_simulation/" style="background-color: #33ff; color: #fff;">
+                分子动力学
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/">GMX1ppt_基本概念ppt整理</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        整理一些李老师ppt内的内容，方便自己随时回顾
+    </h3>
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Jan 22, 2022</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    1 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <blockquote>
+<p>此post用来存放一些ppt上的内容，仅方便学习用途</p>
+</blockquote>
+<h2 id="时间尺度与研究方法">时间尺度与研究方法</h2>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 126; 
+			flex-basis: 304px"
+	>
+	<a href="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86.png" data-size="584x460">
+		<img src="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86.png"
+			width="584"
+			height="460"
+			srcset="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86_hu2c05681f20158181e73075c06e0fc6e9_207224_480x0_resize_box_3.png 480w, /p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86_hu2c05681f20158181e73075c06e0fc6e9_207224_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>注意下复杂性的问题.
+空间尺度越小，研究尺度也就越小（就是说空间尺度越小呢，它在单位时间内跑的距离就越小）.
+上面说是分子上的，现在我们关心的是蛋白上的，来说说蛋白运动的时间尺度问题</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 134; 
+			flex-basis: 321px"
+	>
+	<a href="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-1.png" data-size="920x686">
+		<img src="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-1.png"
+			width="920"
+			height="686"
+			srcset="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-1_hucaba6fb7bd903f0319a6e52d7be103fd_423243_480x0_resize_box_3.png 480w, /p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-1_hucaba6fb7bd903f0319a6e52d7be103fd_423243_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+氢键之类的那些跑到fs就可以看见了，但是蛋白那些至少要到ns才能看见</p>
+<h2 id="相关概念">相关概念</h2>
+<h3 id="分子模拟">分子模拟</h3>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 132; 
+			flex-basis: 317px"
+	>
+	<a href="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-3.png" data-size="920x696">
+		<img src="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-3.png"
+			width="920"
+			height="696"
+			srcset="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-3_hubc836f3d018342a3929a048886871541_687044_480x0_resize_box_3.png 480w, /p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-3_hubc836f3d018342a3929a048886871541_687044_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 133; 
+			flex-basis: 320px"
+	>
+	<a href="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-4.png" data-size="920x690">
+		<img src="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-4.png"
+			width="920"
+			height="690"
+			srcset="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-4_hud11318f00d627b83e9fffab6a0aba634_465370_480x0_resize_box_3.png 480w, /p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-4_hud11318f00d627b83e9fffab6a0aba634_465370_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 137; 
+			flex-basis: 329px"
+	>
+	<a href="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-5.png" data-size="920x670">
+		<img src="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-5.png"
+			width="920"
+			height="670"
+			srcset="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-5_hu126d62f209cfccd2269a2a8add3b10ea_491650_480x0_resize_box_3.png 480w, /p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-5_hu126d62f209cfccd2269a2a8add3b10ea_491650_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="力场">力场</h3>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 131; 
+			flex-basis: 316px"
+	>
+	<a href="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-6.png" data-size="896x680">
+		<img src="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-6.png"
+			width="896"
+			height="680"
+			srcset="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-6_hu17cdbfa078d3ac66240e14f791c823aa_570967_480x0_resize_box_3.png 480w, /p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-6_hu17cdbfa078d3ac66240e14f791c823aa_570967_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="成键相互作用">成键相互作用</h3>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 140; 
+			flex-basis: 336px"
+	>
+	<a href="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-7.png" data-size="920x656">
+		<img src="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-7.png"
+			width="920"
+			height="656"
+			srcset="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-7_hu42b05cf029607d3df9f6c16d36038603_328362_480x0_resize_box_3.png 480w, /p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-7_hu42b05cf029607d3df9f6c16d36038603_328362_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="库仑力">库仑力</h3>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 137; 
+			flex-basis: 329px"
+	>
+	<a href="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-8.png" data-size="910x662">
+		<img src="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-8.png"
+			width="910"
+			height="662"
+			srcset="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-8_huddc399c1a4aef24900989d1d3ffb8a2a_366286_480x0_resize_box_3.png 480w, /p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-8_huddc399c1a4aef24900989d1d3ffb8a2a_366286_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="vdw范德华力">VDW范德华力</h3>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 119; 
+			flex-basis: 287px"
+	>
+	<a href="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-9.png" data-size="820x684">
+		<img src="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-9.png"
+			width="820"
+			height="684"
+			srcset="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-9_hu5d9c88cfc66467f7fa0706c8875db9c3_300352_480x0_resize_box_3.png 480w, /p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-9_hu5d9c88cfc66467f7fa0706c8875db9c3_300352_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 139; 
+			flex-basis: 333px"
+	>
+	<a href="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-10.png" data-size="910x654">
+		<img src="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-10.png"
+			width="910"
+			height="654"
+			srcset="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-10_hu7f9ac09d252e2d37a5e3656a56fe83bd_384198_480x0_resize_box_3.png 480w, /p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-10_hu7f9ac09d252e2d37a5e3656a56fe83bd_384198_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="l-j势能曲线">L-J势能曲线</h3>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 132; 
+			flex-basis: 317px"
+	>
+	<a href="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-11.png" data-size="902x682">
+		<img src="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-11.png"
+			width="902"
+			height="682"
+			srcset="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-11_hu2f0a39e87ff000174372816810780e58_261888_480x0_resize_box_3.png 480w, /p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-11_hu2f0a39e87ff000174372816810780e58_261888_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 135; 
+			flex-basis: 325px"
+	>
+	<a href="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-12.png" data-size="902x666">
+		<img src="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-12.png"
+			width="902"
+			height="666"
+			srcset="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-12_hu459a87e17729ecb4a6e344a4b11e5472_343313_480x0_resize_box_3.png 480w, /p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-12_hu459a87e17729ecb4a6e344a4b11e5472_343313_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 123; 
+			flex-basis: 295px"
+	>
+	<a href="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-13.png" data-size="920x746">
+		<img src="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-13.png"
+			width="920"
+			height="746"
+			srcset="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-13_hucf75e293e4f3203a320dc0fe80d6157f_434370_480x0_resize_box_3.png 480w, /p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-13_hucf75e293e4f3203a320dc0fe80d6157f_434370_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="buckingham势能曲线">Buckingham势能曲线</h3>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 126; 
+			flex-basis: 302px"
+	>
+	<a href="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-14.png" data-size="896x710">
+		<img src="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-14.png"
+			width="896"
+			height="710"
+			srcset="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-14_hu2f95ff68ebc5ed6c9ae12b91efd99467_341081_480x0_resize_box_3.png 480w, /p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-14_hu2f95ff68ebc5ed6c9ae12b91efd99467_341081_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 150; 
+			flex-basis: 360px"
+	>
+	<a href="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-15.png" data-size="908x604">
+		<img src="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-15.png"
+			width="908"
+			height="604"
+			srcset="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-15_hu600c8ac52389e3ede6b286de885a6ef7_411286_480x0_resize_box_3.png 480w, /p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-15_hu600c8ac52389e3ede6b286de885a6ef7_411286_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="1-4相互作用">1-4相互作用</h3>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 122; 
+			flex-basis: 292px"
+	>
+	<a href="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-16.png" data-size="830x680">
+		<img src="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-16.png"
+			width="830"
+			height="680"
+			srcset="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-16_hu7ff412eaf0ced1c03e5544dbf0cce432_416232_480x0_resize_box_3.png 480w, /p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-16_hu7ff412eaf0ced1c03e5544dbf0cce432_416232_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="粒子的运动">粒子的运动</h3>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 124; 
+			flex-basis: 299px"
+	>
+	<a href="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-17.png" data-size="832x666">
+		<img src="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-17.png"
+			width="832"
+			height="666"
+			srcset="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-17_huf77149b2b2600509213d8b3ff7e1575c_369111_480x0_resize_box_3.png 480w, /p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-17_huf77149b2b2600509213d8b3ff7e1575c_369111_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="pbc">PBC</h3>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 127; 
+			flex-basis: 304px"
+	>
+	<a href="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-18.png" data-size="920x724">
+		<img src="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-18.png"
+			width="920"
+			height="724"
+			srcset="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-18_hudb835edd2f919a0ccbb21e1bc8311be7_313881_480x0_resize_box_3.png 480w, /p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-18_hudb835edd2f919a0ccbb21e1bc8311be7_313881_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 132; 
+			flex-basis: 319px"
+	>
+	<a href="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-19.png" data-size="888x668">
+		<img src="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-19.png"
+			width="888"
+			height="668"
+			srcset="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-19_hua40175682524cb2fbc9ad1df758cf951_471537_480x0_resize_box_3.png 480w, /p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-19_hua40175682524cb2fbc9ad1df758cf951_471537_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 176; 
+			flex-basis: 422px"
+	>
+	<a href="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-20.png" data-size="912x518">
+		<img src="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-20.png"
+			width="912"
+			height="518"
+			srcset="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-20_hub1e1c016e09a6422cf4f55e30de1d1a5_514823_480x0_resize_box_3.png 480w, /p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-20_hub1e1c016e09a6422cf4f55e30de1d1a5_514823_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 133; 
+			flex-basis: 319px"
+	>
+	<a href="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-21.png" data-size="900x676">
+		<img src="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-21.png"
+			width="900"
+			height="676"
+			srcset="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-21_huf6bf14fd4e9b8c28928beaa078630da2_990032_480x0_resize_box_3.png 480w, /p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-21_huf6bf14fd4e9b8c28928beaa078630da2_990032_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 133; 
+			flex-basis: 319px"
+	>
+	<a href="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-22.png" data-size="908x682">
+		<img src="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-22.png"
+			width="908"
+			height="682"
+			srcset="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-22_hu58d820e18b68964d2e38ae8a96c84876_857854_480x0_resize_box_3.png 480w, /p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-22_hu58d820e18b68964d2e38ae8a96c84876_857854_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="系综">系综</h3>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 132; 
+			flex-basis: 318px"
+	>
+	<a href="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-23.png" data-size="900x678">
+		<img src="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-23.png"
+			width="900"
+			height="678"
+			srcset="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-23_huc2fefd46536aaab9c80047de181fe435_408008_480x0_resize_box_3.png 480w, /p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-23_huc2fefd46536aaab9c80047de181fe435_408008_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="初始速度">初始速度</h3>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 134; 
+			flex-basis: 322px"
+	>
+	<a href="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-24.png" data-size="912x678">
+		<img src="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-24.png"
+			width="912"
+			height="678"
+			srcset="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-24_hu2fb11783f92828d3eb2a02dcb50b9c70_370476_480x0_resize_box_3.png 480w, /p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-24_hu2fb11783f92828d3eb2a02dcb50b9c70_370476_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="md基本算法流程">MD基本算法流程</h2>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 68; 
+			flex-basis: 164px"
+	>
+	<a href="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-25.png" data-size="456x666">
+		<img src="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-25.png"
+			width="456"
+			height="666"
+			srcset="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-25_hub0d2ea00acd95a361c5a6ce30fcac7ef_225790_480x0_resize_box_3.png 480w, /p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-25_hub0d2ea00acd95a361c5a6ce30fcac7ef_225790_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="vdm截断">VDM截断</h2>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 125; 
+			flex-basis: 302px"
+	>
+	<a href="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-26.png" data-size="758x602">
+		<img src="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-26.png"
+			width="758"
+			height="602"
+			srcset="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-26_hu90e3c68e836653b339cc84112124b672_304227_480x0_resize_box_3.png 480w, /p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-26_hu90e3c68e836653b339cc84112124b672_304227_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="库伦ewald">库伦Ewald</h2>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 131; 
+			flex-basis: 315px"
+	>
+	<a href="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-27.png" data-size="896x682">
+		<img src="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-27.png"
+			width="896"
+			height="682"
+			srcset="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-27_hub7f937c170dc48311b19087655474901_378443_480x0_resize_box_3.png 480w, /p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-27_hub7f937c170dc48311b19087655474901_378443_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 119; 
+			flex-basis: 287px"
+	>
+	<a href="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-28.png" data-size="828x692">
+		<img src="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-28.png"
+			width="828"
+			height="692"
+			srcset="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-28_hu264e7f7c1e316a312060820c42f23fd0_568660_480x0_resize_box_3.png 480w, /p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-28_hu264e7f7c1e316a312060820c42f23fd0_568660_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 129; 
+			flex-basis: 310px"
+	>
+	<a href="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-29.png" data-size="868x672">
+		<img src="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-29.png"
+			width="868"
+			height="672"
+			srcset="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-29_hu723a532fb15c34ae23e2c75a9997cb3b_441239_480x0_resize_box_3.png 480w, /p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-29_hu723a532fb15c34ae23e2c75a9997cb3b_441239_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="预平衡-em">预平衡 EM</h2>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 136; 
+			flex-basis: 328px"
+	>
+	<a href="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-30.png" data-size="916x670">
+		<img src="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-30.png"
+			width="916"
+			height="670"
+			srcset="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-30_hu561a08799b4f89a6da473247f8b8e9d9_387735_480x0_resize_box_3.png 480w, /p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-30_hu561a08799b4f89a6da473247f8b8e9d9_387735_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="em最小点">EM最小点</h3>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 137; 
+			flex-basis: 328px"
+	>
+	<a href="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-31.png" data-size="910x664">
+		<img src="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-31.png"
+			width="910"
+			height="664"
+			srcset="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-31_hu362be1aabb6f8c7d2bca25b713797a8b_372014_480x0_resize_box_3.png 480w, /p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-31_hu362be1aabb6f8c7d2bca25b713797a8b_372014_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="梯度下降-最陡下降">梯度下降-最陡下降</h3>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 135; 
+			flex-basis: 324px"
+	>
+	<a href="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-32.png" data-size="920x680">
+		<img src="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-32.png"
+			width="920"
+			height="680"
+			srcset="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-32_hubea535a71102f46a0c549f3c30e49a45_718891_480x0_resize_box_3.png 480w, /p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-32_hubea535a71102f46a0c549f3c30e49a45_718891_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="梯度下降-共轭梯度法">梯度下降-共轭梯度法</h3>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 134; 
+			flex-basis: 323px"
+	>
+	<a href="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-33.png" data-size="904x670">
+		<img src="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-33.png"
+			width="904"
+			height="670"
+			srcset="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-33_hufcec8656aabb5654d89d7982a92be953_631600_480x0_resize_box_3.png 480w, /p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-33_hufcec8656aabb5654d89d7982a92be953_631600_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="梯度下降-l-bfgc法">梯度下降 L-BFGC法</h3>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 135; 
+			flex-basis: 325px"
+	>
+	<a href="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-34.png" data-size="910x672">
+		<img src="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-34.png"
+			width="910"
+			height="672"
+			srcset="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-34_hua800e52476cd824c9a194a5fce320d82_496226_480x0_resize_box_3.png 480w, /p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-34_hua800e52476cd824c9a194a5fce320d82_496226_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="理论书籍推荐">理论书籍推荐</h2>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 143; 
+			flex-basis: 343px"
+	>
+	<a href="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-35.png" data-size="920x642">
+		<img src="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-35.png"
+			width="920"
+			height="642"
+			srcset="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-35_hubbdab00b11a60037bd6465916bdda0ed_575158_480x0_resize_box_3.png 480w, /p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-35_hubbdab00b11a60037bd6465916bdda0ed_575158_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 138; 
+			flex-basis: 333px"
+	>
+	<a href="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-36.png" data-size="920x662">
+		<img src="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-36.png"
+			width="920"
+			height="662"
+			srcset="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-36_huc872ca8ecfe484bbca358c9d43a8b0a2_610793_480x0_resize_box_3.png 480w, /p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-36_huc872ca8ecfe484bbca358c9d43a8b0a2_610793_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 134; 
+			flex-basis: 322px"
+	>
+	<a href="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-39.png" data-size="916x682">
+		<img src="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-39.png"
+			width="916"
+			height="682"
+			srcset="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-39_hu4644fcece5aefa16f2addf010b83a56b_850358_480x0_resize_box_3.png 480w, /p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-39_hu4644fcece5aefa16f2addf010b83a56b_850358_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 136; 
+			flex-basis: 327px"
+	>
+	<a href="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-38.png" data-size="918x672">
+		<img src="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-38.png"
+			width="918"
+			height="672"
+			srcset="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-38_hu0c334703f36df9de5278c336012a63d1_666894_480x0_resize_box_3.png 480w, /p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-38_hu0c334703f36df9de5278c336012a63d1_666894_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 138; 
+			flex-basis: 332px"
+	>
+	<a href="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-41.png" data-size="916x662">
+		<img src="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-41.png"
+			width="916"
+			height="662"
+			srcset="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-41_hu1acfe1c0e3527e1dd104cd373124eff8_583067_480x0_resize_box_3.png 480w, /p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-41_hu1acfe1c0e3527e1dd104cd373124eff8_583067_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 141; 
+			flex-basis: 339px"
+	>
+	<a href="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-42.png" data-size="920x650">
+		<img src="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-42.png"
+			width="920"
+			height="650"
+			srcset="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-42_hu981673cc21a2e7a431f81afaae7703a4_635753_480x0_resize_box_3.png 480w, /p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-42_hu981673cc21a2e7a431f81afaae7703a4_635753_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>问题部分：
+这个就是pbc
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 122; 
+			flex-basis: 294px"
+	>
+	<a href="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-43.png" data-size="888x724">
+		<img src="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-43.png"
+			width="888"
+			height="724"
+			srcset="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-43_hu0f2219fc74b73cbf86c6d8f052d2a222_405280_480x0_resize_box_3.png 480w, /p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-43_hu0f2219fc74b73cbf86c6d8f052d2a222_405280_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 152; 
+			flex-basis: 365px"
+	>
+	<a href="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-44.png" data-size="872x572">
+		<img src="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-44.png"
+			width="872"
+			height="572"
+			srcset="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-44_hu3cf5730cc1fef6d0f247b667865d4906_575563_480x0_resize_box_3.png 480w, /p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-44_hu3cf5730cc1fef6d0f247b667865d4906_575563_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 152; 
+			flex-basis: 365px"
+	>
+	<a href="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-45.png" data-size="872x572">
+		<img src="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-45.png"
+			width="872"
+			height="572"
+			srcset="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-45_hu3cf5730cc1fef6d0f247b667865d4906_575563_480x0_resize_box_3.png 480w, /p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-45_hu3cf5730cc1fef6d0f247b667865d4906_575563_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 157; 
+			flex-basis: 378px"
+	>
+	<a href="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-46.png" data-size="920x584">
+		<img src="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-46.png"
+			width="920"
+			height="584"
+			srcset="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-46_hub7e5fb6a5b0eed65ec80b5a34313d9ad_472038_480x0_resize_box_3.png 480w, /p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-46_hub7e5fb6a5b0eed65ec80b5a34313d9ad_472038_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 146; 
+			flex-basis: 352px"
+	>
+	<a href="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-47.png" data-size="920x626">
+		<img src="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-47.png"
+			width="920"
+			height="626"
+			srcset="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-47_hu28665e5a922b9a156d45016783ac0b16_359316_480x0_resize_box_3.png 480w, /p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-47_hu28665e5a922b9a156d45016783ac0b16_359316_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 138; 
+			flex-basis: 332px"
+	>
+	<a href="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-48.png" data-size="920x664">
+		<img src="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-48.png"
+			width="920"
+			height="664"
+			srcset="/p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-48_hu738aa6693d54ecb34ae03ed8fa32dcce_496477_480x0_resize_box_3.png 480w, /p/gmx1ppt_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86/picture/GMX1_%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5ppt%E6%95%B4%E7%90%86-48_hu738aa6693d54ecb34ae03ed8fa32dcce_496477_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/gromacs/">gromacs</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2022 - 
+        
+        2023 叶宇浩随记博客
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.5.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">Table of contents</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#时间尺度与研究方法">时间尺度与研究方法</a></li>
+    <li><a href="#相关概念">相关概念</a>
+      <ol>
+        <li><a href="#分子模拟">分子模拟</a></li>
+        <li><a href="#力场">力场</a></li>
+        <li><a href="#成键相互作用">成键相互作用</a></li>
+        <li><a href="#库仑力">库仑力</a></li>
+        <li><a href="#vdw范德华力">VDW范德华力</a></li>
+        <li><a href="#l-j势能曲线">L-J势能曲线</a></li>
+        <li><a href="#buckingham势能曲线">Buckingham势能曲线</a></li>
+        <li><a href="#1-4相互作用">1-4相互作用</a></li>
+        <li><a href="#粒子的运动">粒子的运动</a></li>
+        <li><a href="#pbc">PBC</a></li>
+        <li><a href="#系综">系综</a></li>
+        <li><a href="#初始速度">初始速度</a></li>
+      </ol>
+    </li>
+    <li><a href="#md基本算法流程">MD基本算法流程</a></li>
+    <li><a href="#vdm截断">VDM截断</a></li>
+    <li><a href="#库伦ewald">库伦Ewald</a></li>
+    <li><a href="#预平衡-em">预平衡 EM</a>
+      <ol>
+        <li><a href="#em最小点">EM最小点</a></li>
+        <li><a href="#梯度下降-最陡下降">梯度下降-最陡下降</a></li>
+        <li><a href="#梯度下降-共轭梯度法">梯度下降-共轭梯度法</a></li>
+        <li><a href="#梯度下降-l-bfgc法">梯度下降 L-BFGC法</a></li>
+      </ol>
+    </li>
+    <li><a href="#理论书籍推荐">理论书籍推荐</a></li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

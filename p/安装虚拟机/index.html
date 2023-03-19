@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='简单记录下如何使用VM配置一个linux虚拟机'><title>安装虚拟机</title>
+
+<link rel='canonical' href='https://example.com/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='安装虚拟机'>
+<meta property='og:description' content='简单记录下如何使用VM配置一个linux虚拟机'>
+<meta property='og:url' content='https://example.com/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/'>
+<meta property='og:site_name' content='叶宇浩随记博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='linux' /><meta property='article:published_time' content='2021-07-12T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-07-12T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="安装虚拟机">
+<meta name="twitter:description" content="简单记录下如何使用VM配置一个linux虚拟机">
+    </head>
+    <body class="
+    article-page 
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        on-phone--column extended
+    
+">
+    
+        <aside class="sidebar left-sidebar sticky">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header class="site-info">
+        
+            
+            <figure class="site-avatar">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hub6b2d46d776162e2e8dcd667345276ca_41574_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+
+                
+            </figure>
+            
+        
+        
+        <h1 class="site-name"><a href="/">叶宇浩随记博客</a></h1>
+        <h2 class="site-description">始于rosetta</h2></header>
+
+    <ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/' target="_blank">
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>分类</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>检索</span>
+            </a>
+        </li>
+        
+
+        
+            <li id="dark-mode-toggle">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <span>Dark Mode</span>
+            </li>
+        
+    </ol>
+</aside>
+
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/linux/" style="background-color: #083; color: #fff;">
+                linux系统
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/">安装虚拟机</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        简单记录下如何使用VM配置一个linux虚拟机
+    </h3>
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Jul 12, 2021</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    1 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 116; 
+			flex-basis: 280px"
+	>
+	<a href="/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA.png" data-size="628x538">
+		<img src="/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA.png"
+			width="628"
+			height="538"
+			srcset="/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA_hu2f488d47c042ff04df50641e7936e548_117686_480x0_resize_box_3.png 480w, /p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA_hu2f488d47c042ff04df50641e7936e548_117686_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 116; 
+			flex-basis: 280px"
+	>
+	<a href="/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-1.png" data-size="628x538">
+		<img src="/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-1.png"
+			width="628"
+			height="538"
+			srcset="/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-1_hu54dc2c6b51836666be3866a182c5de29_82943_480x0_resize_box_3.png 480w, /p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-1_hu54dc2c6b51836666be3866a182c5de29_82943_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 116; 
+			flex-basis: 280px"
+	>
+	<a href="/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-2.png" data-size="628x538">
+		<img src="/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-2.png"
+			width="628"
+			height="538"
+			srcset="/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-2_hu54dc2c6b51836666be3866a182c5de29_82943_480x0_resize_box_3.png 480w, /p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-2_hu54dc2c6b51836666be3866a182c5de29_82943_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 116; 
+			flex-basis: 280px"
+	>
+	<a href="/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-3.png" data-size="628x538">
+		<img src="/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-3.png"
+			width="628"
+			height="538"
+			srcset="/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-3_hudbad04460b1fabf2eda28b79c3003e5e_67248_480x0_resize_box_3.png 480w, /p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-3_hudbad04460b1fabf2eda28b79c3003e5e_67248_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 116; 
+			flex-basis: 280px"
+	>
+	<a href="/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-4.png" data-size="628x538">
+		<img src="/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-4.png"
+			width="628"
+			height="538"
+			srcset="/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-4_hu6e4807203362f1c75ceaee7dca124fa5_61576_480x0_resize_box_3.png 480w, /p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-4_hu6e4807203362f1c75ceaee7dca124fa5_61576_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 116; 
+			flex-basis: 280px"
+	>
+	<a href="/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-5.png" data-size="628x538">
+		<img src="/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-5.png"
+			width="628"
+			height="538"
+			srcset="/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-5_hu7ae466a863fae87e93b028a1bd02d7fb_99715_480x0_resize_box_3.png 480w, /p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-5_hu7ae466a863fae87e93b028a1bd02d7fb_99715_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+再点击完成</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 132; 
+			flex-basis: 319px"
+	>
+	<a href="/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-6.png" data-size="920x692">
+		<img src="/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-6.png"
+			width="920"
+			height="692"
+			srcset="/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-6_hu0d335497372c5644e84ebd68acd7ef43_154347_480x0_resize_box_3.png 480w, /p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-6_hu0d335497372c5644e84ebd68acd7ef43_154347_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 99; 
+			flex-basis: 238px"
+	>
+	<a href="/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-7.png" data-size="876x882">
+		<img src="/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-7.png"
+			width="876"
+			height="882"
+			srcset="/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-7_huab8603f477427f1a0470b0bd144382e7_145994_480x0_resize_box_3.png 480w, /p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-7_huab8603f477427f1a0470b0bd144382e7_145994_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 92; 
+			flex-basis: 221px"
+	>
+	<a href="/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-9.png" data-size="912x986">
+		<img src="/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-9.png"
+			width="912"
+			height="986"
+			srcset="/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-9_huf180bf2ca1c87ff09c496a4aad4d6f69_145995_480x0_resize_box_3.png 480w, /p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-9_huf180bf2ca1c87ff09c496a4aad4d6f69_145995_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>点击开启虚拟机
+Try and install</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 161; 
+			flex-basis: 387px"
+	>
+	<a href="/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-10.png" data-size="920x570">
+		<img src="/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-10.png"
+			width="920"
+			height="570"
+			srcset="/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-10_hu68c3295d214416474ccb8da3fe66e06f_335082_480x0_resize_box_3.png 480w, /p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-10_hu68c3295d214416474ccb8da3fe66e06f_335082_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 161; 
+			flex-basis: 387px"
+	>
+	<a href="/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-11.png" data-size="920x570">
+		<img src="/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-11.png"
+			width="920"
+			height="570"
+			srcset="/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-11_huabfee45e85e1ae192d10be098a601777_321727_480x0_resize_box_3.png 480w, /p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-11_huabfee45e85e1ae192d10be098a601777_321727_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 146; 
+			flex-basis: 350px"
+	>
+	<a href="/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-12.png" data-size="920x630">
+		<img src="/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-12.png"
+			width="920"
+			height="630"
+			srcset="/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-12_hucd77fa6d2cf0bacf6957a3e396d2ee40_300088_480x0_resize_box_3.png 480w, /p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-12_hucd77fa6d2cf0bacf6957a3e396d2ee40_300088_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 166; 
+			flex-basis: 400px"
+	>
+	<a href="/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-13.png" data-size="920x552">
+		<img src="/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-13.png"
+			width="920"
+			height="552"
+			srcset="/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-13_hu9ea3efdeb071806d2faa0ee6ab65f05f_269712_480x0_resize_box_3.png 480w, /p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-13_hu9ea3efdeb071806d2faa0ee6ab65f05f_269712_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 166; 
+			flex-basis: 400px"
+	>
+	<a href="/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-14.png" data-size="920x552">
+		<img src="/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-14.png"
+			width="920"
+			height="552"
+			srcset="/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-14_hu9ea3efdeb071806d2faa0ee6ab65f05f_341250_480x0_resize_box_3.png 480w, /p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-14_hu9ea3efdeb071806d2faa0ee6ab65f05f_341250_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 166; 
+			flex-basis: 400px"
+	>
+	<a href="/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-15.png" data-size="920x552">
+		<img src="/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-15.png"
+			width="920"
+			height="552"
+			srcset="/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-15_hu02fc631808a37a1b592f1db8b1b77693_275064_480x0_resize_box_3.png 480w, /p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-15_hu02fc631808a37a1b592f1db8b1b77693_275064_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>等待即可</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 133; 
+			flex-basis: 320px"
+	>
+	<a href="/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-16.png" data-size="920x690">
+		<img src="/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-16.png"
+			width="920"
+			height="690"
+			srcset="/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-16_huc6ff5bf8f2ae3af0ecb04956d4a8b626_390344_480x0_resize_box_3.png 480w, /p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-16_huc6ff5bf8f2ae3af0ecb04956d4a8b626_390344_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 133; 
+			flex-basis: 320px"
+	>
+	<a href="/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-17.png" data-size="920x690">
+		<img src="/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-17.png"
+			width="920"
+			height="690"
+			srcset="/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-17_hu6942bc2b5cae8db6db761dce49a70ef5_307188_480x0_resize_box_3.png 480w, /p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-17_hu6942bc2b5cae8db6db761dce49a70ef5_307188_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 112; 
+			flex-basis: 270px"
+	>
+	<a href="/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-18.png" data-size="920x816">
+		<img src="/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-18.png"
+			width="920"
+			height="816"
+			srcset="/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-18_hub9351503ee3816e5902e55ad8ea02e1a_85856_480x0_resize_box_3.png 480w, /p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-18_hub9351503ee3816e5902e55ad8ea02e1a_85856_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>重启计算</p>
+<p>安装tools</p>
+<p>点击虚拟机</p>
+<p>安装tool</p>
+<p>双击将tar.gz取出来</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 133; 
+			flex-basis: 320px"
+	>
+	<a href="/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-19.png" data-size="920x690">
+		<img src="/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-19.png"
+			width="920"
+			height="690"
+			srcset="/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-19_hu37b420426f0fcc46991722d85b054f3b_395199_480x0_resize_box_3.png 480w, /p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-19_hu37b420426f0fcc46991722d85b054f3b_395199_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 133; 
+			flex-basis: 320px"
+	>
+	<a href="/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-20.png" data-size="920x690">
+		<img src="/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-20.png"
+			width="920"
+			height="690"
+			srcset="/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-20_hu37b420426f0fcc46991722d85b054f3b_395199_480x0_resize_box_3.png 480w, /p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-20_hu37b420426f0fcc46991722d85b054f3b_395199_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>将其复制到home下</p>
+<p>tar -xzvf 解压</p>
+<p>进入文件夹</p>
+<p>sudo ./vmware-install.pl</p>
+<p>接下来N多的enter，N多的YES，自己慢慢按吧</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 133; 
+			flex-basis: 320px"
+	>
+	<a href="/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-21.png" data-size="920x690">
+		<img src="/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-21.png"
+			width="920"
+			height="690"
+			srcset="/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-21_hufb64e36779fbf430c25a05ae70ecf959_470927_480x0_resize_box_3.png 480w, /p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-21_hufb64e36779fbf430c25a05ae70ecf959_470927_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>重启虚拟机</p>
+<p>若还没有全屏显示，则将虚拟机的【查看】-&gt;【自动调整大小】-&gt;【自适应客户机】,都选上。即可实现全屏。</p>
+<p>安装vmware tools实现全屏后，即也实现了在主机（WIN7）和虚拟机VMware （ubuntu）间</p>
+<p>直接拖拽文件
+联网
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 139; 
+			flex-basis: 334px"
+	>
+	<a href="/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-22.png" data-size="920x660">
+		<img src="/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-22.png"
+			width="920"
+			height="660"
+			srcset="/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-22_huf51dea159c5f0312f60888239c407bfb_152276_480x0_resize_box_3.png 480w, /p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-22_huf51dea159c5f0312f60888239c407bfb_152276_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 196; 
+			flex-basis: 472px"
+	>
+	<a href="/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-23.png" data-size="366x186">
+		<img src="/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-23.png"
+			width="366"
+			height="186"
+			srcset="/p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-23_hu65c6d916974e00be7c16f93f1766f3b8_64378_480x0_resize_box_3.png 480w, /p/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/picture/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA-23_hu65c6d916974e00be7c16f93f1766f3b8_64378_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/linux/">linux</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2022 - 
+        
+        2023 叶宇浩随记博客
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.5.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='这是跟学《学习pandas》学习笔记这本书的学习笔记'><title>学习Pandas_第四课</title>
+
+<link rel='canonical' href='https://example.com/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%9B%9B%E8%AF%BE/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='学习Pandas_第四课'>
+<meta property='og:description' content='这是跟学《学习pandas》学习笔记这本书的学习笔记'>
+<meta property='og:url' content='https://example.com/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%9B%9B%E8%AF%BE/'>
+<meta property='og:site_name' content='叶宇浩随记博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='tutorials' /><meta property='article:tag' content='pandas' /><meta property='article:published_time' content='2021-09-22T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-09-22T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="学习Pandas_第四课">
+<meta name="twitter:description" content="这是跟学《学习pandas》学习笔记这本书的学习笔记">
+    </head>
+    <body class="
+    article-page 
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        on-phone--column extended
+    
+">
+    
+        <aside class="sidebar left-sidebar sticky">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header class="site-info">
+        
+            
+            <figure class="site-avatar">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hub6b2d46d776162e2e8dcd667345276ca_41574_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+
+                
+            </figure>
+            
+        
+        
+        <h1 class="site-name"><a href="/">叶宇浩随记博客</a></h1>
+        <h2 class="site-description">始于rosetta</h2></header>
+
+    <ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/' target="_blank">
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>分类</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>检索</span>
+            </a>
+        </li>
+        
+
+        
+            <li id="dark-mode-toggle">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <span>Dark Mode</span>
+            </li>
+        
+    </ol>
+</aside>
+
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/python/" >
+                python
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%9B%9B%E8%AF%BE/">学习Pandas_第四课</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        这是跟学《学习pandas》学习笔记这本书的学习笔记
+    </h3>
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Sep 22, 2021</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    1 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#一个小数据集</span>
+</span></span><span class="line"><span class="cl"><span class="n">d</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#创建一个dataframe</span>
+</span></span><span class="line"><span class="cl"><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">df</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 25; 
+			flex-basis: 61px"
+	>
+	<a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%9B%9B%E8%AF%BE/picture/%E7%AC%AC4%E8%AF%BE.png" data-size="150x582">
+		<img src="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%9B%9B%E8%AF%BE/picture/%E7%AC%AC4%E8%AF%BE.png"
+			width="150"
+			height="582"
+			srcset="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%9B%9B%E8%AF%BE/picture/%E7%AC%AC4%E8%AF%BE_hu3d6ec3804f041402e69425b0844d7d21_10332_480x0_resize_box_3.png 480w, /p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%9B%9B%E8%AF%BE/picture/%E7%AC%AC4%E8%AF%BE_hu3d6ec3804f041402e69425b0844d7d21_10332_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#修改列名</span>
+</span></span><span class="line"><span class="cl"><span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;Rev&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">df</span>
+</span></span></code></pre></div><p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 34; 
+			flex-basis: 82px"
+	>
+	<a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%9B%9B%E8%AF%BE/picture/%E7%AC%AC4%E8%AF%BE-1.png" data-size="194x564">
+		<img src="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%9B%9B%E8%AF%BE/picture/%E7%AC%AC4%E8%AF%BE-1.png"
+			width="194"
+			height="564"
+			srcset="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%9B%9B%E8%AF%BE/picture/%E7%AC%AC4%E8%AF%BE-1_hu95c5dda52a987cf55485a3e35107d51e_11371_480x0_resize_box_3.png 480w, /p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%9B%9B%E8%AF%BE/picture/%E7%AC%AC4%E8%AF%BE-1_hu95c5dda52a987cf55485a3e35107d51e_11371_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#增加一列         服从广播机制</span>
+</span></span><span class="line"><span class="cl"><span class="n">df</span><span class="p">[</span><span class="s2">&#34;NewCol&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">5</span>  
+</span></span><span class="line"><span class="cl"><span class="n">df</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 39; 
+			flex-basis: 95px"
+	>
+	<a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%9B%9B%E8%AF%BE/picture/%E7%AC%AC4%E8%AF%BE-2.png" data-size="238x596">
+		<img src="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%9B%9B%E8%AF%BE/picture/%E7%AC%AC4%E8%AF%BE-2.png"
+			width="238"
+			height="596"
+			srcset="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%9B%9B%E8%AF%BE/picture/%E7%AC%AC4%E8%AF%BE-2_hu8119a999c660ea7cb71ab05b3174f5fc_17711_480x0_resize_box_3.png 480w, /p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%9B%9B%E8%AF%BE/picture/%E7%AC%AC4%E8%AF%BE-2_hu8119a999c660ea7cb71ab05b3174f5fc_17711_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#修改一下增加这一列的值</span>
+</span></span><span class="line"><span class="cl"><span class="n">df</span><span class="p">[</span><span class="s2">&#34;NewCol&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&#34;NewCol&#34;</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="n">df</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 41; 
+			flex-basis: 99px"
+	>
+	<a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%9B%9B%E8%AF%BE/picture/%E7%AC%AC4%E8%AF%BE-3.png" data-size="250x604">
+		<img src="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%9B%9B%E8%AF%BE/picture/%E7%AC%AC4%E8%AF%BE-3.png"
+			width="250"
+			height="604"
+			srcset="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%9B%9B%E8%AF%BE/picture/%E7%AC%AC4%E8%AF%BE-3_hu5ff2faa72a9058186df8158668bb2a7a_18607_480x0_resize_box_3.png 480w, /p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%9B%9B%E8%AF%BE/picture/%E7%AC%AC4%E8%AF%BE-3_hu5ff2faa72a9058186df8158668bb2a7a_18607_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#可以删除这一列</span>
+</span></span><span class="line"><span class="cl"><span class="k">del</span> <span class="n">df</span><span class="p">[</span><span class="s2">&#34;NewCol&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">df</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 31; 
+			flex-basis: 75px"
+	>
+	<a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%9B%9B%E8%AF%BE/picture/%E7%AC%AC4%E8%AF%BE-4.png" data-size="186x592">
+		<img src="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%9B%9B%E8%AF%BE/picture/%E7%AC%AC4%E8%AF%BE-4.png"
+			width="186"
+			height="592"
+			srcset="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%9B%9B%E8%AF%BE/picture/%E7%AC%AC4%E8%AF%BE-4_hu7fe629b5754c16a98597d41cccb86987_11401_480x0_resize_box_3.png 480w, /p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%9B%9B%E8%AF%BE/picture/%E7%AC%AC4%E8%AF%BE-4_hu7fe629b5754c16a98597d41cccb86987_11401_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 让我们增加几列。 译者注: 当使用 dataframe 没有的列时，dataframe 自动增加这个新列</span>
+</span></span><span class="line"><span class="cl"><span class="n">df</span><span class="p">[</span><span class="s2">&#34;test&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3</span>
+</span></span><span class="line"><span class="cl"><span class="n">df</span><span class="p">[</span><span class="s2">&#34;col&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&#34;Rev&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">df</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 53; 
+			flex-basis: 128px"
+	>
+	<a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%9B%9B%E8%AF%BE/picture/%E7%AC%AC4%E8%AF%BE-5.png" data-size="316x590">
+		<img src="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%9B%9B%E8%AF%BE/picture/%E7%AC%AC4%E8%AF%BE-5.png"
+			width="316"
+			height="590"
+			srcset="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%9B%9B%E8%AF%BE/picture/%E7%AC%AC4%E8%AF%BE-5_hu84b929e7e252d9d44c444f203f27ab87_22055_480x0_resize_box_3.png 480w, /p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%9B%9B%E8%AF%BE/picture/%E7%AC%AC4%E8%AF%BE-5_hu84b929e7e252d9d44c444f203f27ab87_22055_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 如果有需要，可以改变索引(index)的名字     注意数量</span>
+</span></span><span class="line"><span class="cl"><span class="n">i</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">,</span><span class="s1">&#39;d&#39;</span><span class="p">,</span><span class="s1">&#39;e&#39;</span><span class="p">,</span><span class="s1">&#39;f&#39;</span><span class="p">,</span><span class="s1">&#39;g&#39;</span><span class="p">,</span><span class="s1">&#39;h&#39;</span><span class="p">,</span><span class="s1">&#39;i&#39;</span><span class="p">,</span><span class="s1">&#39;j&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">i</span>
+</span></span><span class="line"><span class="cl"><span class="n">df</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 51; 
+			flex-basis: 122px"
+	>
+	<a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%9B%9B%E8%AF%BE/picture/%E7%AC%AC4%E8%AF%BE-6.png" data-size="304x594">
+		<img src="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%9B%9B%E8%AF%BE/picture/%E7%AC%AC4%E8%AF%BE-6.png"
+			width="304"
+			height="594"
+			srcset="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%9B%9B%E8%AF%BE/picture/%E7%AC%AC4%E8%AF%BE-6_huc82d384ad9363985f6ab3ca83c4d350a_21477_480x0_resize_box_3.png 480w, /p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%9B%9B%E8%AF%BE/picture/%E7%AC%AC4%E8%AF%BE-6_huc82d384ad9363985f6ab3ca83c4d350a_21477_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 通过使用 *loc，我们可以选择 dataframe 中的部分数据        loc要传入值，不能是数字，而iloc可以</span>
+</span></span><span class="line"><span class="cl"><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&#34;a&#34;</span><span class="p">]</span>            <span class="c1">#loc是不能单独取列的</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 333; 
+			flex-basis: 801px"
+	>
+	<a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%9B%9B%E8%AF%BE/picture/%E7%AC%AC4%E8%AF%BE-7.png" data-size="474x142">
+		<img src="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%9B%9B%E8%AF%BE/picture/%E7%AC%AC4%E8%AF%BE-7.png"
+			width="474"
+			height="142"
+			srcset="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%9B%9B%E8%AF%BE/picture/%E7%AC%AC4%E8%AF%BE-7_hu063a71fd75434e864f683c120e8d9d33_10909_480x0_resize_box_3.png 480w, /p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%9B%9B%E8%AF%BE/picture/%E7%AC%AC4%E8%AF%BE-7_hu063a71fd75434e864f683c120e8d9d33_10909_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># df.loc[起始索引(包含):终止索引(包含)]      即行，列  但是列要是列名</span>
+</span></span><span class="line"><span class="cl"><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&#34;a&#34;</span><span class="p">:</span><span class="s2">&#34;d&#34;</span><span class="p">]</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 97; 
+			flex-basis: 235px"
+	>
+	<a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%9B%9B%E8%AF%BE/picture/%E7%AC%AC4%E8%AF%BE-8.png" data-size="282x288">
+		<img src="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%9B%9B%E8%AF%BE/picture/%E7%AC%AC4%E8%AF%BE-8.png"
+			width="282"
+			height="288"
+			srcset="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%9B%9B%E8%AF%BE/picture/%E7%AC%AC4%E8%AF%BE-8_hu661914616ddafe94bff891ee44dce7f3_10252_480x0_resize_box_3.png 480w, /p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%9B%9B%E8%AF%BE/picture/%E7%AC%AC4%E8%AF%BE-8_hu661914616ddafe94bff891ee44dce7f3_10252_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># df.iloc[起始索引(包含):终止索引(不包含)]</span>
+</span></span><span class="line"><span class="cl"><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 131; 
+			flex-basis: 316px"
+	>
+	<a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%9B%9B%E8%AF%BE/picture/%E7%AC%AC4%E8%AF%BE-9.png" data-size="282x214">
+		<img src="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%9B%9B%E8%AF%BE/picture/%E7%AC%AC4%E8%AF%BE-9.png"
+			width="282"
+			height="214"
+			srcset="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%9B%9B%E8%AF%BE/picture/%E7%AC%AC4%E8%AF%BE-9_hub4cdef5129e32471dd5335f646b24776_8261_480x0_resize_box_3.png 480w, /p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%9B%9B%E8%AF%BE/picture/%E7%AC%AC4%E8%AF%BE-9_hub4cdef5129e32471dd5335f646b24776_8261_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 也可以通过列名选择一列的值。</span>
+</span></span><span class="line"><span class="cl"><span class="n">df</span><span class="p">[</span><span class="s2">&#34;Rev&#34;</span><span class="p">]</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 107; 
+			flex-basis: 257px"
+	>
+	<a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%9B%9B%E8%AF%BE/picture/%E7%AC%AC4%E8%AF%BE-10.png" data-size="412x384">
+		<img src="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%9B%9B%E8%AF%BE/picture/%E7%AC%AC4%E8%AF%BE-10.png"
+			width="412"
+			height="384"
+			srcset="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%9B%9B%E8%AF%BE/picture/%E7%AC%AC4%E8%AF%BE-10_hud2625298d6e7f1b50f55bcd850a58394_16703_480x0_resize_box_3.png 480w, /p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%9B%9B%E8%AF%BE/picture/%E7%AC%AC4%E8%AF%BE-10_hud2625298d6e7f1b50f55bcd850a58394_16703_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#如果要取多列，记得用[]包起来</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#用一个列的list来选择多个列</span>
+</span></span><span class="line"><span class="cl"><span class="n">df</span><span class="p">[[</span><span class="s2">&#34;Rev&#34;</span><span class="p">,</span><span class="s2">&#34;test&#34;</span><span class="p">]]</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 43; 
+			flex-basis: 104px"
+	>
+	<a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%9B%9B%E8%AF%BE/picture/%E7%AC%AC4%E8%AF%BE-11.png" data-size="264x606">
+		<img src="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%9B%9B%E8%AF%BE/picture/%E7%AC%AC4%E8%AF%BE-11.png"
+			width="264"
+			height="606"
+			srcset="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%9B%9B%E8%AF%BE/picture/%E7%AC%AC4%E8%AF%BE-11_hu43d2ea59df50005eea2e1bcd5aedec5a_16981_480x0_resize_box_3.png 480w, /p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%9B%9B%E8%AF%BE/picture/%E7%AC%AC4%E8%AF%BE-11_hu43d2ea59df50005eea2e1bcd5aedec5a_16981_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># df.ix[行范围, 列范围]         已经抛弃了</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># df.ix[0:3,&#34;Rev&#34;]</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 选择 top-N 个记录 (默认是 5 个)</span>
+</span></span><span class="line"><span class="cl"><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</span></span></code></pre></div><p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 103; 
+			flex-basis: 248px"
+	>
+	<a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%9B%9B%E8%AF%BE/picture/%E7%AC%AC4%E8%AF%BE-12.png" data-size="352x340">
+		<img src="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%9B%9B%E8%AF%BE/picture/%E7%AC%AC4%E8%AF%BE-12.png"
+			width="352"
+			height="340"
+			srcset="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%9B%9B%E8%AF%BE/picture/%E7%AC%AC4%E8%AF%BE-12_hu8ff6358ff53432d54fcd7015441bf41f_12259_480x0_resize_box_3.png 480w, /p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%9B%9B%E8%AF%BE/picture/%E7%AC%AC4%E8%AF%BE-12_hu8ff6358ff53432d54fcd7015441bf41f_12259_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 选择 bottom-N 个记录 (默认是 5 个)</span>
+</span></span><span class="line"><span class="cl"><span class="n">df</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
+</span></span></code></pre></div><p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 82; 
+			flex-basis: 197px"
+	>
+	<a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%9B%9B%E8%AF%BE/picture/%E7%AC%AC4%E8%AF%BE-13.png" data-size="272x330">
+		<img src="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%9B%9B%E8%AF%BE/picture/%E7%AC%AC4%E8%AF%BE-13.png"
+			width="272"
+			height="330"
+			srcset="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%9B%9B%E8%AF%BE/picture/%E7%AC%AC4%E8%AF%BE-13_hua59bb009a4ec10c3efc27ea3c6ca9b6e_12013_480x0_resize_box_3.png 480w, /p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%9B%9B%E8%AF%BE/picture/%E7%AC%AC4%E8%AF%BE-13_hua59bb009a4ec10c3efc27ea3c6ca9b6e_12013_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/tutorials/">tutorials</a>
+        
+            <a href="/tags/pandas/">pandas</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">Related contents</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="">
+    <a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%8D%81%E4%B8%80%E8%AF%BE/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">学习Pandas_第十一课</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%83%E8%AF%BE/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">学习Pandas_第七课</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%8D%81%E8%AF%BE/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">学习Pandas_第十课</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%BA%94%E8%AF%BE/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">学习Pandas_第五课</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%85%AD%E8%AF%BE/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">学习Pandas_第六课</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2022 - 
+        
+        2023 叶宇浩随记博客
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.5.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

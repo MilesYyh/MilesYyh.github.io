@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>pytorch on 叶宇浩随记博客</title>
+    <link>https://example.com/tags/pytorch/</link>
+    <description>Recent content in pytorch on 叶宇浩随记博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 05 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://example.com/tags/pytorch/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Kaggle酶的热稳定性预测比赛_我的参赛笔记</title>
+      <link>https://example.com/p/kaggle%E9%85%B6%E7%9A%84%E7%83%AD%E7%A8%B3%E5%AE%9A%E6%80%A7%E9%A2%84%E6%B5%8B%E6%AF%94%E8%B5%9B_%E6%88%91%E7%9A%84%E5%8F%82%E8%B5%9B%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Sun, 05 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/kaggle%E9%85%B6%E7%9A%84%E7%83%AD%E7%A8%B3%E5%AE%9A%E6%80%A7%E9%A2%84%E6%B5%8B%E6%AF%94%E8%B5%9B_%E6%88%91%E7%9A%84%E5%8F%82%E8%B5%9B%E7%AC%94%E8%AE%B0/</guid>
+      <description>最近参加了一次酶稳定性预测的比赛，挺折磨的，发现很多东西都不会（主要是深度学习方面，学的不怎么好，理论和实际都比较缺，打算今年考完研后再系统性的学习一遍深度学习，不过所幸下次的学习有前面的杂七杂八学过的基础，美滋滋），特写此post来记录第一次真正使用过深度学习解决问题。
+顺便吐槽一下结果，在比赛ddl的前一天排名很好的，反正有铜牌（相当满足），比赛结束后直掉800多名hh。 比赛背景介绍 本次比赛实际上是一个回归任务，即输入的数据为：AA sequence（分别是野生型的突变序列）；输出数据为：酶的热稳定性值；即有一个蛋白（野生型），它有很多突变的位点，然后，我们需要看这些位点的突变是有利否，即这些突变能否提高热稳定性
+简单介绍一些计算生物方面的知识： 我一开始特别想用深度学习的方法（比如写个bliLSTM）来着，但是其实也不一定非得到上深度学习，因为现有的很多计算方法的结果也挺可靠的
+蛋白质稳定性工作在应用机器学习方法之前，在相关领域内也有一些计算方法可以实现，如：ESM, EVE 和 Rosetta （Rosetta 真的神！）等 ，在这次比赛中，直接运用这些方法而非机器学习方法也是允许的 AlphaFold2的诞生：我们在这次比赛中的目标是利用一级结构预测热稳定性，而如何利用一级结构预测整体的三级 PDB 文件：蛋白质的整体结构是三维的，如何通过结构化数据的方式理解三维的关系，包括每个氨基酸的坐标、种类等，常用的是PDB文件，PDB文件是一个开放的数据库，可以从中查询蛋白质相应的数据，如果是数据库中没有的蛋白质，则可以用AlphaFold2、I-TASSER、trRosetta、Robetta等进行预测，预测结果也是一个类似PDB格式的描述三维原子三维坐标关系的文件。 数据集介绍 比赛提供的wild-type序列：
+VPVNPEPDATSVENVALKTGSGDSQSDPIKADLEVKGQSALPFDVDCWAILCKGAPNVLQRVNEKTKNSNRDRSGANKGPFKDPQKWGIKALPPKNPSWSAQDFKSPEEYAFASSLQGGTNAILAPVNLASQNSQGGVLNGFYSANKVAQFDPSKPQQTKGTWFQITKFTGAAGPYCKALGSNDKSVCDKNKNIAGDWGFDPAKWAYQYDEKNNKFNYVGK train.csv 文件： seq_id:每条序列的身份即ID，用以区分序列 protein_sequence:蛋白质序列（官方说他们人为的将大部分将test测试集中的蛋白序列大部分都保持在了固定的220AA，即测试集中的蛋白序列部分氨基酸是被删除了的，可能是留下了结构域的部分） pH:每条序列的pH最适条件值 data_scource:每条序列对应的来源（实际上是每条序列是从哪里收集来的信息） tm:熔融温度，值越高，表示酶稳定性越高 train_updates_20220929.csv： 也是训练数据，官方的Train.csv文件有一定的错误，因此在9月29日发布了这份修改了错误的版本 test.csv 测试集 (它这里的数据相比于train.csv，少了tm的值) sample_submission： 最终预测结果文件提交的格式示例 wildtype_structure_prediction_af2.pdb 本次比赛野生型蛋白的三维结构文件 wild-type结构长这样 评分函数 本次比赛的评估指标是spearman 相关系数，即反应的是我们预测的tm值与真实值之间的相关性，因此本次比赛的相对大小重要性大于预测的绝对大小
+前期准备 本次比赛的目标是通过氨基酸序列，预测酶的热稳定性，即回归任务，核心难点有以下几块：
+训练数据集的构建：本次比赛允许使用外部数据，因此有参赛者找寻了大量的可用外部数据，需要研究如何将不同来源的数据合并在一个训练数据集。同时本次的测试数据集是仅由一条原始序列，进行各种单点突变而成，因此也需要在构建训练数据集的过程中尽量相似于测试数据，即单点突变等。
+tm数据的缺乏。大量的外部数据中，直接给定温度:Tm的数据还是比较少的，因此也由许多参赛者找寻了跟TM的相关数据，如预测ΔΔG等
+思路 基本思路，目前核心解决这个比赛任务的思路有以下几种：
+传统的生物学方法解决:如blosum评分矩阵，rosetta等，这种方式可以不用训练数据，直接对测试集数据进行计算，给出稳定性分数，优势是计算方便，缺点是目前来看准确性一般 机器学习的预测方式(3D CNN):蛋白质在空间中最终是三维结构，因此可以用3DCNN进行预测 Transformer(序列预测)：直接将蛋白质的氨基酸序列，如AAAKL…，作为序列，运用如LSTM、Transformer等模型进行序列预测 传统建模（XGBOOST、LIGHTGBM）：运用各种方式进行特征工程，运用XGB、LGB进行预测 开源方案 赛开始之初，最重要的就是研究目前开源的代码，主流的方案和思路是哪些，我主要看了三个，如下：
+LB开源最高、0.603分： https://www.kaggle.com/code/seyered/eda-novozymes-enzyme-stability XGB：https://www.kaggle.com/code/cdeotte/xgboost-5000-mutations-200-pdb-files-lb-0-410 3DCNN：https://www.kaggle.com/code/vslaykovsky/nesp-thermonet-v2 LB-0.603 这个代码的核心本质是利用一系列传统的生物计算方法为主，兼顾一部分机器学习算法的结果，进行模型的加权融合。主要的方法包括：
+Blosum: BLOSUM (Blocks of Amino Acid Substitution Matrix）：传统的生物方法，会计算序列之间每一个氨基酸变化带来的影响大小 PLDDT：Alphafold2在预测出整体结构后，对每一个氨基酸会给出一个置信度打分，即PLDDT，代表预测的准确与否，与稳定性有一定相关性 DeepDDG：利用深度学习预测稳定性的算法，已开源 Demask：利用线性模型预测的氨基酸改变后的作用大小 此外还有RMSD、SASA、Rosetta等，不一一赘述了，原文中有比较清晰的介绍 XGBoost 作者在通过一系列特征工程，构建了每条序列的特征，并且利用XGB模型进行预测，其中特征包括：</description>
+    </item>
+    
+    <item>
+      <title>有意思的卷积运算动画</title>
+      <link>https://example.com/p/%E6%9C%89%E6%84%8F%E6%80%9D%E7%9A%84%E5%8D%B7%E7%A7%AF%E8%BF%90%E7%AE%97%E5%8A%A8%E7%94%BB/</link>
+      <pubDate>Sat, 24 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E6%9C%89%E6%84%8F%E6%80%9D%E7%9A%84%E5%8D%B7%E7%A7%AF%E8%BF%90%E7%AE%97%E5%8A%A8%E7%94%BB/</guid>
+      <description> 在stackflow上看到了两个生动的卷积运算的动画，感觉很明了，来源：http://ww1.machinelearninguru.com/
+Your browser doesn&#39;t support HTML5 video. Here is a link to the video instead. Your browser doesn&#39;t support HTML5 video. Here is a link to the video instead. </description>
+    </item>
+    
+    <item>
+      <title>protein_class模型修复记录</title>
+      <link>https://example.com/p/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/</link>
+      <pubDate>Sat, 11 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/</guid>
+      <description>不久前，别人发给了我github上一个蛋白质分类的深度学习模型，在运行作者的代码时，发现模型似乎有点问题（反正在我的laptop上运行了不了，应该不是电脑的问题，因为我仔细看了后发现作者使用的biLSTM有问题，经过千辛万苦，终于让我改好了hhh）,特此写一篇markdown来记录（其实我对LSTM一点都不熟悉&amp;hellip;属于是误打误撞修好的）
+项目地址：https://github.com/jgbrasier/protein-classification 作者还提供了一个PDF（IDL_Projet.pdf）里面有详细说明模型的构造 PDF主要内容 数据的预处理 模型的结构 融合了两个模型的结构，分别是CNN卷积网络和BiLSTM。 超参数的设置 预测的准确率和混淆矩阵 我对代码的bug修改记录 数据读取部分 作者是在google lab上运行的，所以有数据上传部分的代码，但是我发现代码上传的好慢，于是自己手动上传了 作者原code: 我的修改： 直接注释就好了，将dataset下载到本地的目录，再读取
+数据加载部分 后面训练时，发现数据的维度对不上，而且我觉得他这里的数据加载器有问题，所以，我自己加了个数据的处理器（主要是加在了Model前面）： CNN_BiLSTM融合模型的问题 发现这里训练是也有问题（当时没截图），作者原代码：
+class CNN_BiLSTM(nn.Module): def __init__(self, vocab_size, embedding_size, hidden_size, n_filters, filter_sizes, num_layers, num_classes, batch_size): &amp;#34;&amp;#34;&amp;#34; vocab_size: int, number of words in vocbulary emedding_size: int, embedding dimension hidden_size: int, size of hidden layer num_layers: int, number of LSTM layers num_classes: number of classes batch_size: size of mini batches &amp;#34;&amp;#34;&amp;#34; super(CNN_BiLSTM, self).__init__() self.hidden_size = hidden_size self.</description>
+    </item>
+    
+    <item>
+      <title>Lecture_13_RNN_Classifier</title>
+      <link>https://example.com/p/lecture_13_rnn_classifier/</link>
+      <pubDate>Thu, 21 Apr 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/lecture_13_rnn_classifier/</guid>
+      <description>这是跟学刘二老师的的课程ppt，特地放这里用来随时随地看</description>
+    </item>
+    
+    <item>
+      <title>ppt_Lecture_01_Overview</title>
+      <link>https://example.com/p/ppt_lecture_01_overview/</link>
+      <pubDate>Thu, 21 Apr 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/ppt_lecture_01_overview/</guid>
+      <description>这是跟学刘二老师的的课程ppt，特地放这里用来随时随地看</description>
+    </item>
+    
+    <item>
+      <title>ppt_Lecture_02_Linear_Model</title>
+      <link>https://example.com/p/ppt_lecture_02_linear_model/</link>
+      <pubDate>Thu, 21 Apr 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/ppt_lecture_02_linear_model/</guid>
+      <description>这是跟学刘二老师的的课程ppt，特地放这里用来随时随地看</description>
+    </item>
+    
+    <item>
+      <title>ppt_Lecture_03_Gradient_Descent</title>
+      <link>https://example.com/p/ppt_lecture_03_gradient_descent/</link>
+      <pubDate>Thu, 21 Apr 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/ppt_lecture_03_gradient_descent/</guid>
+      <description>这是跟学刘二老师的的课程ppt，特地放这里用来随时随地看</description>
+    </item>
+    
+    <item>
+      <title>ppt_Lecture_04_Back_Propagation</title>
+      <link>https://example.com/p/ppt_lecture_04_back_propagation/</link>
+      <pubDate>Thu, 21 Apr 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/ppt_lecture_04_back_propagation/</guid>
+      <description>这是跟学刘二老师的的课程ppt，特地放这里用来随时随地看</description>
+    </item>
+    
+    <item>
+      <title>ppt_Lecture_05_Linear_Regression_with_PyTorch</title>
+      <link>https://example.com/p/ppt_lecture_05_linear_regression_with_pytorch/</link>
+      <pubDate>Thu, 21 Apr 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/ppt_lecture_05_linear_regression_with_pytorch/</guid>
+      <description>这是跟学刘二老师的的课程ppt，特地放这里用来随时随地看</description>
+    </item>
+    
+    <item>
+      <title>ppt_Lecture_06_Logistic_Regression</title>
+      <link>https://example.com/p/ppt_lecture_06_logistic_regression/</link>
+      <pubDate>Thu, 21 Apr 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/ppt_lecture_06_logistic_regression/</guid>
+      <description>这是跟学刘二老师的的课程ppt，特地放这里用来随时随地看</description>
+    </item>
+    
+    <item>
+      <title>ppt_Lecture_07_Multiple_Dimension_Input</title>
+      <link>https://example.com/p/ppt_lecture_07_multiple_dimension_input/</link>
+      <pubDate>Thu, 21 Apr 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/ppt_lecture_07_multiple_dimension_input/</guid>
+      <description>这是跟学刘二老师的的课程ppt，特地放这里用来随时随地看</description>
+    </item>
+    
+    <item>
+      <title>ppt_Lecture_08_Dataset_and_Dataloader</title>
+      <link>https://example.com/p/ppt_lecture_08_dataset_and_dataloader/</link>
+      <pubDate>Thu, 21 Apr 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/ppt_lecture_08_dataset_and_dataloader/</guid>
+      <description>这是跟学刘二老师的的课程ppt，特地放这里用来随时随地看</description>
+    </item>
+    
+    <item>
+      <title>ppt_Lecture_09_Softmax_Classifier</title>
+      <link>https://example.com/p/ppt_lecture_09_softmax_classifier/</link>
+      <pubDate>Thu, 21 Apr 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/ppt_lecture_09_softmax_classifier/</guid>
+      <description>这是跟学刘二老师的的课程ppt，特地放这里用来随时随地看</description>
+    </item>
+    
+    <item>
+      <title>ppt_Lecture_10_Basic_CNN</title>
+      <link>https://example.com/p/ppt_lecture_10_basic_cnn/</link>
+      <pubDate>Thu, 21 Apr 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/ppt_lecture_10_basic_cnn/</guid>
+      <description>这是跟学刘二老师的的课程ppt，特地放这里用来随时随地看</description>
+    </item>
+    
+    <item>
+      <title>ppt_Lecture_11_Advanced_CNN</title>
+      <link>https://example.com/p/ppt_lecture_11_advanced_cnn/</link>
+      <pubDate>Thu, 21 Apr 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/ppt_lecture_11_advanced_cnn/</guid>
+      <description>这是跟学刘二老师的的课程ppt，特地放这里用来随时随地看</description>
+    </item>
+    
+    <item>
+      <title>ppt_Lecture_12_Basic_RNN</title>
+      <link>https://example.com/p/ppt_lecture_12_basic_rnn/</link>
+      <pubDate>Thu, 21 Apr 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/ppt_lecture_12_basic_rnn/</guid>
+      <description>这是跟学刘二老师的的课程ppt，特地放这里用来随时随地看</description>
+    </item>
+    
+    <item>
+      <title>pytorch基本模型12_循环神经网路（基础篇）</title>
+      <link>https://example.com/p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B12_%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E8%B7%AF%E5%9F%BA%E7%A1%80%E7%AF%87/</link>
+      <pubDate>Mon, 28 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B12_%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E8%B7%AF%E5%9F%BA%E7%A1%80%E7%AF%87/</guid>
+      <description>这是学习pytorch基本使用的记录（我记得看的是B站刘二老师的视频）
+注意几个参数
+输入和隐层（输出）维度 序列长度 批处理大小 注 调用RNNCell这个需要循环，循环长度就是序列长度 import torch batch_size = 1 seq_len = 3 #序列长度 input_size = 4 #输入维度 hidden_size = 2 #隐层维度 cell = torch.nn.RNNCell(input_size=input_size,hidden_size=hidden_size) dataset = torch.randn(seq_len,batch_size,input_size) hidden = torch.zeros(batch_size,hidden_size) #for循环处理seq_len长度的数据 for idx,data in enumerate(dataset): print(&amp;#34;=&amp;#34;*20,idx,&amp;#34;=&amp;#34;*20) print(&amp;#34;Input size:&amp;#34;,data.shape,data) hidden = cell(data,hidden) print(&amp;#34;hidden size:&amp;#34;,hidden.shape,hidden) print(hidden) result:
+==================== 0 ==================== Input size: torch.Size([1, 4]) tensor([[-0.5352, 1.8843, -0.0926, 0.5294]]) hidden size: torch.Size([1, 2]) tensor([[ 0.3160, -0.5305]], grad_fn=&amp;lt;TanhBackward0&amp;gt;) tensor([[ 0.3160, -0.</description>
+    </item>
+    
+    <item>
+      <title>pytorch基本模型11_卷积神经网络（高级篇）</title>
+      <link>https://example.com/p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B11_%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E9%AB%98%E7%BA%A7%E7%AF%87/</link>
+      <pubDate>Fri, 25 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B11_%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E9%AB%98%E7%BA%A7%E7%AF%87/</guid>
+      <description>这是学习pytorch基本使用的记录（我记得看的是B站刘二老师的视频）
+1、卷积核超参数选择困难，自动找到卷积的最佳组合。 2、1x1卷积核，不同通道的信息融合。使用1x1卷积核虽然参数量增加了，但是能够显著的降低计算量(operations) 3、Inception Moudel由4个分支组成，要分清哪些是在Init里定义，哪些是在forward里调用。4个分支在dim=1(channels)上进行concatenate。24+16+24+24 = 88 4、GoogleNet的Inception(Pytorch实现) 5、1乘28乘28 → 10乘24乘24 → 10乘12乘12 → 88乘12乘12 → 20乘8乘8 → 88乘4乘4=1408 代码说明：
+1、先使用类对Inception Moudel进行封装
+2、先是1个卷积层(conv,maxpooling,relu)，然后inceptionA模块(输出的channels是24+16+24+24=88)，接下来又是一个卷积层(conv,mp,relu),然后inceptionA模块，最后一个全连接层(fc)。
+3、1408这个数据可以通过x = x.view(in_size, -1)后调用x.shape得到。
+import torch import torch.nn as nn from torchvision import datasets from torchvision import transforms from torch.utils.data import DataLoader import torch.nn.functional as F batch_size = 64 transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.1307),(0.3081,))]) train_dataset = datasets.MNIST(root=&amp;#34;../dataset/minis/&amp;#34;,train=True,transform=transform) train_loader = DataLoader(dataset=train_dataset,shuffle=True,batch_size=batch_size) test_dataset = datasets.MNIST(root=&amp;#34;../dataset/minis/&amp;#34;,train=False,transform=transform) test_loader = DataLoader(dataset=test_dataset,shuffle=True,batch_size=batch_size) class InceptionA(torch.</description>
+    </item>
+    
+    <item>
+      <title>pytorch基本模型10_卷积神经网络（基础篇）</title>
+      <link>https://example.com/p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B10_%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80%E7%AF%87/</link>
+      <pubDate>Thu, 24 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B10_%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80%E7%AF%87/</guid>
+      <description>这是学习pytorch基本使用的记录（我记得看的是B站刘二老师的视频）
+1、每一个卷积核它的通道数量要求和输入通道是一样的。这种卷积核的总数有多少个和你输出通道的数量是一样的
+2 卷积(convolution)后，C(Channels)变，W(width)和H(Height)可变可不变，取决于是否padding。subsampling(或pooling)后，C不变，W和H变
+3 卷积层：保留图像的空间信息。
+4 卷积层要求输入输出是四维张量(B,C,W,H)，全连接层的输入与输出都是二维张量(B,Input_feature)
+5 卷积(线性变换)，激活函数(非线性变换)，池化；这个过程若干次后，view打平，进入全连接层 1、torch.nn.Conv2d(1,10,kernel_size=3,stride=2,bias=False)
+1是指输入的Channel，灰色图像是1维的；10是指输出的Channel，也可以说第一个卷积层需要10个卷积核；kernel_size=3,卷积核大小是3x3；stride=2进行卷积运算时的步长，默认为1；bias=False卷积运算是否需要偏置bias，默认为False。padding = 0，卷积操作是否补0。
+2、self.fc = torch.nn.Linear(320, 10)，这个320获取的方式，可以通过x = x.view(batch_size, -1) # print(x.shape)可得到(64,320),64指的是batch，320就是指要进行全连接操作时，输入的特征维度。
+import torch from torchvision import datasets from torchvision import transforms from torch.utils.data import DataLoader import torch.nn.functional as F batch_size = 64 transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.1307,),(0.3081,))]) #简单来说就是使用datasets读取数据 #DataLoader来处理加入batch train_dataset = datasets.MNIST(root=&amp;#34;../dataset/minis/&amp;#34;,train=True,transform=transform) train_loader = DataLoader(train_dataset,shuffle=True,batch_size=batch_size) test_dataset = datasets.MNIST(root=&amp;#34;../dataset/minis/&amp;#34;,train=False,transform=transform) test_loader = DataLoader(test_dataset,shuffle=True,batch_size=batch_size) class Net(torch.nn.Module): def __init__(self): super(Net,self).__init__() self.conv1 = torch.</description>
+    </item>
+    
+    <item>
+      <title>pytorch基本模型07_处理多维特征的输入</title>
+      <link>https://example.com/p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B07_%E5%A4%84%E7%90%86%E5%A4%9A%E7%BB%B4%E7%89%B9%E5%BE%81%E7%9A%84%E8%BE%93%E5%85%A5/</link>
+      <pubDate>Tue, 22 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B07_%E5%A4%84%E7%90%86%E5%A4%9A%E7%BB%B4%E7%89%B9%E5%BE%81%E7%9A%84%E8%BE%93%E5%85%A5/</guid>
+      <description>这是学习pytorch基本使用的记录（我记得看的是B站刘二老师的视频）
+import torch import numpy as np xy = np.loadtxt(&amp;#34;../ppt&amp;amp;vedio/diabetes.csv.gz&amp;#34;,delimiter=&amp;#34;,&amp;#34;,dtype=np.float32) x_data = torch.from_numpy(xy[:,:-1]) # [-1] 最后得到的是个矩阵 y_data = torch.from_numpy(xy[:,[-1]]) x_data result:
+tensor([[-0.2941, 0.4874, 0.1803, ..., 0.0015, -0.5312, -0.0333], [-0.8824, -0.1457, 0.0820, ..., -0.2072, -0.7669, -0.6667], [-0.0588, 0.8392, 0.0492, ..., -0.3055, -0.4927, -0.6333], ..., [-0.4118, 0.2161, 0.1803, ..., -0.2191, -0.8574, -0.7000], [-0.8824, 0.2663, -0.0164, ..., -0.1028, -0.7686, -0.1333], [-0.8824, -0.0653, 0.1475, ..., -0.0939, -0.7976, -0.9333]]) In [11]: 1 class Model(torch.nn.Module): code</description>
+    </item>
+    
+    <item>
+      <title>pytorch基本模型08_加载数据集</title>
+      <link>https://example.com/p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B08_%E5%8A%A0%E8%BD%BD%E6%95%B0%E6%8D%AE%E9%9B%86/</link>
+      <pubDate>Tue, 22 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B08_%E5%8A%A0%E8%BD%BD%E6%95%B0%E6%8D%AE%E9%9B%86/</guid>
+      <description>这是学习pytorch基本使用的记录（我记得看的是B站刘二老师的视频）
+import numpy as np import torch from torch.utils.data import Dataset,DataLoader #DiabetesDataset集成了Dataset的属性 class DiabetesDataset(Dataset): def __init__(self,filepath): xy = np.loadtxt(filepath,delimiter=&amp;#34;,&amp;#34;,dtype=np.float32) self.len = xy.shape[0] #from_numpy 可以将numpy对象转为Tensor self.x_data = torch.from_numpy(xy[:,:-1]) self.y_data = torch.from_numpy(xy[:,[-1]]) def __getitem__(self,index): return self.x_data[index],self.y_data[index] def __len__(self): return self.len dataset = DiabetesDataset(&amp;#34;../ppt&amp;amp;vedio/diabetes.csv.gz&amp;#34;) train_loader = DataLoader(dataset=dataset, batch_size=32, shuffle=True, num_workers=0) class Model(torch.nn.Module): def __init__(self): super(Model,self).__init__() self.linear1 = torch.nn.Linear(8,6) self.linear2 = torch.nn.Linear(6,4) self.linear3 = torch.nn.Linear(4,1) self.sigmoid = torch.nn.Sigmoid() def forward(self,x): x = self.sigmoid(self.linear1(x)) x = self.</description>
+    </item>
+    
+    <item>
+      <title>pytorch基本模型09_多分类问题</title>
+      <link>https://example.com/p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B09_%E5%A4%9A%E5%88%86%E7%B1%BB%E9%97%AE%E9%A2%98/</link>
+      <pubDate>Tue, 22 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B09_%E5%A4%9A%E5%88%86%E7%B1%BB%E9%97%AE%E9%A2%98/</guid>
+      <description>这是学习pytorch基本使用的记录（我记得看的是B站刘二老师的视频）
+import torch import numpy as np y = np.array([1,0,0]) z = np.array([0.2,0.1,-0.1]) y_pred = np.exp(z) / np.exp(z).sum() loss = (-y * np.log(y_pred)).sum() print(loss) import torch y = torch.LongTensor([0]) z = torch.Tensor([[0.2,0.1,-0.1]]) criterion = torch.nn.CrossEntropyLoss() loss = criterion(z,y) print(loss) import torch criterion = torch.nn.CrossEntropyLoss() Y = torch.LongTensor([2,0,1]) Y_pred1 = torch.Tensor([[0.1,0.2,0.9], [1.1,0.1,0.2], [0.2,2.1,0.1]]) Y_pred2 = torch.Tensor(([[0.8,0.2,0.3], [0.2,0.3,0.5], [0.2,0.2,0.5]])) l1 = criterion(Y_pred1,Y) l2 = criterion(Y_pred2,Y) print(&amp;#34;Batch Loss1 = &amp;#34;,l1.data,&amp;#34;\nBatch Loss2=&amp;#34;,l2.data) #transfrom是用来处理数据的，如改变维度之类的 import torch from torchvision import transforms from torchvision import datasets from torch.</description>
+    </item>
+    
+    <item>
+      <title>pytorch基本模型05用PyTorch实现线性回归</title>
+      <link>https://example.com/p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B05%E7%94%A8pytorch%E5%AE%9E%E7%8E%B0%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/</link>
+      <pubDate>Sat, 19 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B05%E7%94%A8pytorch%E5%AE%9E%E7%8E%B0%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/</guid>
+      <description>这是学习pytorch基本使用的记录（我记得看的是B站刘二老师的视频）
+准备数据 设计计算单元 构建代价和优化函数 训练 import torch x_data = torch.Tensor([[1.0],[2.0],[3.0]]) y_data = torch.Tensor([[2.0],[4.0],[6.0]]) #计算单元 class LinerarModel(torch.nn.Module): def __init__(self): #super中传入类名 super(LinerarModel,self).__init__() self.linear = torch.nn.Linear(1,1)#weight and bias def forward(self,x): y_pred = self.linear(x) return y_pred #实例化 model = LinerarModel() #代价函数 实例化torch中的MSELoss criterion = torch.nn.MSELoss() #参数优化函数 实例化torch中的optim.SGD optimizer = torch.optim.SGD(model.parameters(),lr=0.01) print(model.parameters) result
+&amp;lt;bound method Module.parameters of LinerarModel( (linear): Linear(in_features=1, out_features=1, bias=True) )&amp;gt; code
+for epoch in range(1000): y_pred = model(x_data)#forward #这里model就已经构建了一个计算图了，又因为事用loss去求偏导，所以下面用loss.backward #loss这里会自动拼接上去上面的那个计算图 loss = criterion(y_pred,y_data) print(epoch,loss) optimizer.</description>
+    </item>
+    
+    <item>
+      <title>pytorch基本模型06._logistics回归</title>
+      <link>https://example.com/p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B06._logistics%E5%9B%9E%E5%BD%92/</link>
+      <pubDate>Sat, 19 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B06._logistics%E5%9B%9E%E5%BD%92/</guid>
+      <description>这是学习pytorch基本使用的记录（我记得看的是B站刘二老师的视频）
+code
+import torch x_data = torch.Tensor([[1.0],[2.0],[3.0]]) y_data = torch.Tensor([[0],[1],[0]]) class LogisticRegressionModel(torch.nn.Module): def __init__(self): super(LogisticRegressionModel,self).__init__() self.linear = torch.nn.Linear(1,1) def forward(self,x): #加了个激活函数 F.sigmoid() y_pred = torch.sigmoid(self.linear(x)) return y_pred model = LogisticRegressionModel() criterion = torch.nn.BCELoss() optimizer = torch.optim.SGD(model.parameters(),lr=0.01) for epoch in range(100): y_pred = model(x_data) loss = criterion(y_pred,y_data) print(epoch,loss.item()) optimizer.zero_grad() loss.backward() optimizer.step() print(&amp;#34;w=&amp;#34;,model.linear.weight.item()) print(&amp;#34;b=&amp;#34;,model.linear.bias.item()) result:
+0 0.6860817074775696 1 0.6860291957855225 2 0.6859772801399231 3 0.6859259605407715 4 0.6858751177787781 5 0.6858246922492981 6 0.6857749819755554 7 0.6857255101203918 8 0.</description>
+    </item>
+    
+    <item>
+      <title>pytorch基本模型04_反向传播</title>
+      <link>https://example.com/p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B04_%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/</link>
+      <pubDate>Tue, 15 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B04_%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/</guid>
+      <description>这是学习pytorch基本使用的记录（我记得看的是B站刘二老师的视频）
+Tensor对象包含了data和grad import torch x_data = [1.0, 2.0, 3.0] y_data = [2.0, 4.0, 6.0] #记得用[]装起来 w = torch.Tensor([1.0]) w.requires_grad = True #参数requires_grad = True/False 是用来设置是否计算梯度（求导）,默认是True #定义一个线性的计算单元 def forward(x): return x*w #定义损失函数 def loss(x,y): y_pred = forward(x) return (y_pred - y) ** 2 #forward(4).item 注意这里是将w（tensor）中的值取出，由于它是tensor对象，所以用item获取 print(&amp;#34;predict (before training)&amp;#34;,4,forward(4).item) for epoch in range(100): for x,y in zip(x_data,y_data): #这里的loss就会自动构建一个计算图(正向)了 l = loss(x,y) #用tenor本身有的backward l.backward() #要这样取出w.grad.item()权重导数的值 print(&amp;#34;\tgrad:&amp;#34;,x,y,w.grad.item()) #SGB w.data = w.data -0.01*w.grad.data #记得每次循环将此轮反向传播的梯度清零 要不然会累加 w.</description>
+    </item>
+    
+    <item>
+      <title>pytorch基本模型01_版本demo</title>
+      <link>https://example.com/p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B01_%E7%89%88%E6%9C%ACdemo/</link>
+      <pubDate>Sun, 13 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B01_%E7%89%88%E6%9C%ACdemo/</guid>
+      <description> 这是学习pytorch基本使用的记录（我记得看的是B站刘二老师的视频）
+code
+import torch torch.randn(*sizes, out=None) → Tensor
+等同于np.randn返回的是均值0，方差为1的正态分布 的张量
+code
+x = torch.randn(1,10) x result: code:
+prev_h = torch.randn(1,20) prev_h result: code:
+W_h = torch.randn(20,20) W_h result: W_x = torch.randn(20,10) W_x 查看pytorch版本
+import torch print(torch.__version__) </description>
+    </item>
+    
+    <item>
+      <title>pytorch基本模型02_线性模型</title>
+      <link>https://example.com/p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B02_%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/</link>
+      <pubDate>Sun, 13 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B02_%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/</guid>
+      <description>这是学习pytorch基本使用的记录（我记得看的是B站刘二老师的视频）
+import numpy as np import matplotlib.pyplot as plt x_data = [1.0,2.0,3.0] y_data = [2.0,4.0,6.0] #正向传播，预测y def forward(x): return x*w #计算损失 def loss(x,y): y_pred = forward(x) return (y_pred-y) * (y_pred-y) #权重更新存储 w_list = [] #mse均误差cunc mse_list = [] #产生不同的权重，用于计算 左闭右开 for w in np.arange(0.0,4.1,0.1): print(&amp;#34;w=&amp;#34;,w) l_sum = 0 #依次传入每个样本 for x_val,y_val in zip(x_data,y_data): y_pred_val = forward(x_val) #注意定义的loss中本身会计算产生一个正向传播的计算图 loss_val = loss(x_val,y_val) #mse这里是三个样本的损失之和 l_sum+=loss_val #t制表符会使得输出更好看 print(&amp;#34;\t&amp;#34;,x_val,y_val,y_pred_val,loss_val) print(&amp;#34;MSE=&amp;#34;,l_sum/3) w_list.append(w) mse_list.append(l_sum/3) result
+w= 0.</description>
+    </item>
+    
+    <item>
+      <title>pytorch基本模型03_梯度下降算法</title>
+      <link>https://example.com/p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B03_%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E7%AE%97%E6%B3%95/</link>
+      <pubDate>Sun, 13 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B03_%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E7%AE%97%E6%B3%95/</guid>
+      <description>这是学习pytorch基本使用的记录（我记得看的是B站刘二老师的视频）
+import numpy as np import matplotlib.pyplot as plt import matplotlib import warnings warnings.filterwarnings(&amp;#34;ignore&amp;#34;) import seaborn as sns plt.rcParams[&amp;#34;font.sans-serif&amp;#34;] = &amp;#34;SimHei&amp;#34; plt.rcParams[&amp;#34;axes.unicode_minus&amp;#34;] = False x_data = [1.0,2.0,3.0] y_data = [2.0,4.0,6.0] #初始化个权重值 w = 1.0 #正向传播 def forward(x): return w*x #代价 def cost(xs,ys): cost = 0 for x,y in zip(xs,ys): y_pred = forward(x) cost += (y_pred-y)**2 return cost/len(xs) #梯度求导部分 def gradient(xs,ys): grad = 0 for x,y in zip(xs,ys): grad += 2*x*(x*w-y) return grad / len(xs) print(&amp;#34;Predict (before training)&amp;#34;,4,forward(4)) cost_list = [] for epoch in range(100): cost_val = cost(x_data,y_data) cost_list.</description>
+    </item>
+    
+  </channel>
+</rss>

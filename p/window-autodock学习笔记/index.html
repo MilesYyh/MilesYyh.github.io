@@ -1,0 +1,1347 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='整理了下 win AutoDock的学习记录（主要方便自己看），看的是blibli和其他网址上别人的做法，因为是很久之前学的，所以暂时没找到链接（找到了再放上来）
+对接的完整步骤 修改默认工作目录 工作目录下要有adt.bat/autodock4.exe/autogrid4.exe 以及所要进行对接的受体和配体
+导入受体pdb File&amp;mdash;read Mol &amp;ndash;选择 （小红点代表水分子，要去除）
+去除受体的水分子 Edit &amp;ndash; delete water
+受体加氢 Edit &amp;ndash; Hydro &amp;ndash; add 选为受体 Grid &amp;ndash; Macro &amp;ndash; choose &amp;ndash; 选择 会生成一个受体pdbqt
+导入配体 同上
+加氢 同上
+选为配体 Ligand &amp;ndash; input &amp;ndash;choose
+检查下它的扭转键和中心 ligand &amp;ndash; Torsion Tree -Detect Root ligand &amp;ndash; Torsion Tree -Choose Torsion 红色的是不可以被扭转的，绿色的是可以被扭转的
+接下来导出为配体的pdbqt ligand &amp;ndash; output &amp;ndash; save as pdbqt (完成后记得删除DM中的对象)
+准备对接 导入受体 ： Grid &amp;ndash; Macromolecule &amp;ndash; open &amp;ndash;选择 导入配体： Grid &amp;ndash; Set Map Types &amp;ndash; open ligand &amp;ndash;选择 准备盒子运行的大小： Grid &amp;ndash; Grid Box &amp;ndash; 调整盒子大小（包裹核心位点或者整个protein） 将配体从box中取出 勾去掉后，不要关闭那个GUI，右键拖出小分子，拖出后将勾打上'><title>window AutoDock学习笔记</title>
+
+<link rel='canonical' href='https://example.com/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='window AutoDock学习笔记'>
+<meta property='og:description' content='整理了下 win AutoDock的学习记录（主要方便自己看），看的是blibli和其他网址上别人的做法，因为是很久之前学的，所以暂时没找到链接（找到了再放上来）
+对接的完整步骤 修改默认工作目录 工作目录下要有adt.bat/autodock4.exe/autogrid4.exe 以及所要进行对接的受体和配体
+导入受体pdb File&amp;mdash;read Mol &amp;ndash;选择 （小红点代表水分子，要去除）
+去除受体的水分子 Edit &amp;ndash; delete water
+受体加氢 Edit &amp;ndash; Hydro &amp;ndash; add 选为受体 Grid &amp;ndash; Macro &amp;ndash; choose &amp;ndash; 选择 会生成一个受体pdbqt
+导入配体 同上
+加氢 同上
+选为配体 Ligand &amp;ndash; input &amp;ndash;choose
+检查下它的扭转键和中心 ligand &amp;ndash; Torsion Tree -Detect Root ligand &amp;ndash; Torsion Tree -Choose Torsion 红色的是不可以被扭转的，绿色的是可以被扭转的
+接下来导出为配体的pdbqt ligand &amp;ndash; output &amp;ndash; save as pdbqt (完成后记得删除DM中的对象)
+准备对接 导入受体 ： Grid &amp;ndash; Macromolecule &amp;ndash; open &amp;ndash;选择 导入配体： Grid &amp;ndash; Set Map Types &amp;ndash; open ligand &amp;ndash;选择 准备盒子运行的大小： Grid &amp;ndash; Grid Box &amp;ndash; 调整盒子大小（包裹核心位点或者整个protein） 将配体从box中取出 勾去掉后，不要关闭那个GUI，右键拖出小分子，拖出后将勾打上'>
+<meta property='og:url' content='https://example.com/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+<meta property='og:site_name' content='叶宇浩随记博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2022-04-08T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2022-04-08T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="window AutoDock学习笔记">
+<meta name="twitter:description" content="整理了下 win AutoDock的学习记录（主要方便自己看），看的是blibli和其他网址上别人的做法，因为是很久之前学的，所以暂时没找到链接（找到了再放上来）
+对接的完整步骤 修改默认工作目录 工作目录下要有adt.bat/autodock4.exe/autogrid4.exe 以及所要进行对接的受体和配体
+导入受体pdb File&amp;mdash;read Mol &amp;ndash;选择 （小红点代表水分子，要去除）
+去除受体的水分子 Edit &amp;ndash; delete water
+受体加氢 Edit &amp;ndash; Hydro &amp;ndash; add 选为受体 Grid &amp;ndash; Macro &amp;ndash; choose &amp;ndash; 选择 会生成一个受体pdbqt
+导入配体 同上
+加氢 同上
+选为配体 Ligand &amp;ndash; input &amp;ndash;choose
+检查下它的扭转键和中心 ligand &amp;ndash; Torsion Tree -Detect Root ligand &amp;ndash; Torsion Tree -Choose Torsion 红色的是不可以被扭转的，绿色的是可以被扭转的
+接下来导出为配体的pdbqt ligand &amp;ndash; output &amp;ndash; save as pdbqt (完成后记得删除DM中的对象)
+准备对接 导入受体 ： Grid &amp;ndash; Macromolecule &amp;ndash; open &amp;ndash;选择 导入配体： Grid &amp;ndash; Set Map Types &amp;ndash; open ligand &amp;ndash;选择 准备盒子运行的大小： Grid &amp;ndash; Grid Box &amp;ndash; 调整盒子大小（包裹核心位点或者整个protein） 将配体从box中取出 勾去掉后，不要关闭那个GUI，右键拖出小分子，拖出后将勾打上">
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>Back</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/molecular_docking/" style="background-color: #02d600; color: #fff;">
+                分子对接
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">window AutoDock学习笔记</a>
+    </h2>
+
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Apr 08, 2022</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    2 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <blockquote>
+<p>整理了下 win AutoDock的学习记录（主要方便自己看），看的是blibli和其他网址上别人的做法，因为是很久之前学的，所以暂时没找到链接（找到了再放上来）</p>
+</blockquote>
+<h2 id="对接的完整步骤">对接的完整步骤</h2>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 289; 
+			flex-basis: 695px"
+	>
+	<a href="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.png" data-size="840x290">
+		<img src="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.png"
+			width="840"
+			height="290"
+			srcset="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0_hu33a9363c1b5d413731fbdb1258ac817f_188077_480x0_resize_box_3.png 480w, /p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0_hu33a9363c1b5d413731fbdb1258ac817f_188077_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="修改默认工作目录">修改默认工作目录</h3>
+<p>工作目录下要有adt.bat/autodock4.exe/autogrid4.exe  以及所要进行对接的受体和配体</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 274; 
+			flex-basis: 658px"
+	>
+	<a href="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1.png" data-size="840x306">
+		<img src="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1.png"
+			width="840"
+			height="306"
+			srcset="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1_hub936da90873c85530858276a492769aa_103475_480x0_resize_box_3.png 480w, /p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1_hub936da90873c85530858276a492769aa_103475_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="导入受体pdb">导入受体pdb</h3>
+<p>File&mdash;read Mol &ndash;选择
+（小红点代表水分子，要去除）</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 161; 
+			flex-basis: 387px"
+	>
+	<a href="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-2.png" data-size="840x520">
+		<img src="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-2.png"
+			width="840"
+			height="520"
+			srcset="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-2_hu7a810d2692efa3a2179e4c74ef8076b3_174158_480x0_resize_box_3.png 480w, /p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-2_hu7a810d2692efa3a2179e4c74ef8076b3_174158_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="去除受体的水分子">去除受体的水分子</h3>
+<p>Edit  &ndash; delete  water</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 130; 
+			flex-basis: 312px"
+	>
+	<a href="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-3.png" data-size="840x646">
+		<img src="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-3.png"
+			width="840"
+			height="646"
+			srcset="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-3_hudceed790df291778d8063c6d22533a61_263140_480x0_resize_box_3.png 480w, /p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-3_hudceed790df291778d8063c6d22533a61_263140_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="受体加氢">受体加氢</h3>
+<p>Edit &ndash; Hydro &ndash; add
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 129; 
+			flex-basis: 310px"
+	>
+	<a href="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-4.png" data-size="840x650">
+		<img src="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-4.png"
+			width="840"
+			height="650"
+			srcset="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-4_hua52d0dbb81a9b42f0f06e4fa4988d54b_445720_480x0_resize_box_3.png 480w, /p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-4_hua52d0dbb81a9b42f0f06e4fa4988d54b_445720_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="选为受体">选为受体</h3>
+<p>Grid &ndash; Macro &ndash; choose &ndash; 选择
+会生成一个受体pdbqt</p>
+<h3 id="导入配体">导入配体</h3>
+<p>同上</p>
+<h3 id="加氢">加氢</h3>
+<p>同上</p>
+<h3 id="选为配体">选为配体</h3>
+<p>Ligand &ndash; input &ndash;choose</p>
+<p>检查下它的扭转键和中心
+ligand &ndash; Torsion Tree -Detect Root
+ligand &ndash; Torsion Tree -Choose Torsion
+红色的是不可以被扭转的，绿色的是可以被扭转的</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 188; 
+			flex-basis: 452px"
+	>
+	<a href="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-5.png" data-size="840x446">
+		<img src="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-5.png"
+			width="840"
+			height="446"
+			srcset="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-5_hue46db014efa821d8e62db7807005307e_109866_480x0_resize_box_3.png 480w, /p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-5_hue46db014efa821d8e62db7807005307e_109866_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+接下来导出为配体的pdbqt
+ligand &ndash;  output &ndash; save as pdbqt
+(完成后记得删除DM中的对象)</p>
+<h3 id="准备对接">准备对接</h3>
+<p>导入受体 ： Grid &ndash; Macromolecule &ndash; open &ndash;选择
+导入配体：  Grid &ndash; Set Map Types  &ndash; open ligand &ndash;选择
+准备盒子运行的大小： Grid &ndash; Grid Box &ndash; 调整盒子大小（包裹核心位点或者整个protein）
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 159; 
+			flex-basis: 381px"
+	>
+	<a href="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-6.png" data-size="840x528">
+		<img src="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-6.png"
+			width="840"
+			height="528"
+			srcset="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-6_hu14c044d1f234f1065b0772ef9d122c6b_185110_480x0_resize_box_3.png 480w, /p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-6_hu14c044d1f234f1065b0772ef9d122c6b_185110_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>将配体从box中取出
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 133; 
+			flex-basis: 320px"
+	>
+	<a href="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-7.png" data-size="840x630">
+		<img src="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-7.png"
+			width="840"
+			height="630"
+			srcset="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-7_huad9361f7f98056fcd12b515188212aac_223175_480x0_resize_box_3.png 480w, /p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-7_huad9361f7f98056fcd12b515188212aac_223175_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>勾去掉后，不要关闭那个GUI，右键拖出小分子，拖出后将勾打上</p>
+<h3 id="保存盒子的大小">保存盒子的大小</h3>
+<p>在调整盒子的那个GUI，fiie &ndash; close saving current<br>
+grid &ndash; output &ndash; save GPF  (自行加上后缀.GPF)</p>
+<h3 id="运行autograd">运行AutoGrad</h3>
+<p>run &ndash;  run autograd
+仔细核查里面的参数
+Parameter Filename 那里要自己去手动选下
+无误后点 Launch
+运行完毕后会生成一堆/glg/map等文件</p>
+<h3 id="准备autodock的运行参数">准备autodock的运行参数</h3>
+<p>Docking &ndash; Macromoldecule &ndash; set rigid filename &ndash; 选择受体的pdbqt
+Docking &ndash; Ligand &ndash; choose &ndash; 选择配体
+Docking &ndash; Search parameter &ndash;  Genetic Algorithm
+Docking &ndash; output &ndash; LGA  （自行加上后缀.dpf）</p>
+<h3 id="运行autodock">运行autodock</h3>
+<p>Run &ndash; Run AutoDock (过程同运行autograd)
+会生成dlg文件</p>
+<h3 id="查看对接结果">查看对接结果</h3>
+<p>在此之前记得把view中的分子弄走先 （Edit &ndash; Delete &ndash; Delete Molecule）
+Analyze &ndash; docking &ndash; open &ndash; 选择刚刚生成的dlg文件
+Analyze &ndash; Macromolecule open &ndash; open (为了好看点，可以修改形式)
+Analyze &ndash; Conformations &ndash; play ranked by energy  会出现小条可以调整小分子的位置
+点击小条的倒数第二个按钮， Build  H-bonds  和 show info 可以查看每次的具体结果
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 219; 
+			flex-basis: 527px"
+	>
+	<a href="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-8.png" data-size="840x382">
+		<img src="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-8.png"
+			width="840"
+			height="382"
+			srcset="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-8_hu092c30fb264287c48a575e23aa04e9e9_265070_480x0_resize_box_3.png 480w, /p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-8_hu092c30fb264287c48a575e23aa04e9e9_265070_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>Analyze &ndash; conformations &ndash; load 可以查看其他的结合能</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 110; 
+			flex-basis: 265px"
+	>
+	<a href="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-9.png" data-size="840x760">
+		<img src="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-9.png"
+			width="840"
+			height="760"
+			srcset="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-9_hu15696485af2c08a05775bac3bb727a2e_361493_480x0_resize_box_3.png 480w, /p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-9_hu15696485af2c08a05775bac3bb727a2e_361493_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>Write Complex 可以将某次的对接结果的文件保存为pdbqt，然后再利用openlabel将pdbqt转化pdb，然后就可以在pymol中查看这个pdb了</p>
+<h2 id="可能存在的问题">可能存在的问题</h2>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 318; 
+			flex-basis: 763px"
+	>
+	<a href="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-10.png" data-size="840x264">
+		<img src="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-10.png"
+			width="840"
+			height="264"
+			srcset="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-10_hu20c6b3ac66f77e75e1b01ca74951c82c_127097_480x0_resize_box_3.png 480w, /p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-10_hu20c6b3ac66f77e75e1b01ca74951c82c_127097_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="蛋白质去水的方式">蛋白质去水的方式</h3>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 265; 
+			flex-basis: 637px"
+	>
+	<a href="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-11.png" data-size="840x316">
+		<img src="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-11.png"
+			width="840"
+			height="316"
+			srcset="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-11_hu02561ef016a6ba5585d7a0bca901a435_134656_480x0_resize_box_3.png 480w, /p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-11_hu02561ef016a6ba5585d7a0bca901a435_134656_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="蛋白质加氢是全氢还是极性氢">蛋白质加氢是全氢还是极性氢</h3>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 328; 
+			flex-basis: 787px"
+	>
+	<a href="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-12.png" data-size="840x256">
+		<img src="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-12.png"
+			width="840"
+			height="256"
+			srcset="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-12_huce4a14a50c063fa4e7345de680d4ed31_47669_480x0_resize_box_3.png 480w, /p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-12_huce4a14a50c063fa4e7345de680d4ed31_47669_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>极性氢的添加方式：Edit &ndash; Hydro &ndash;  add &ndash; Polar Only  (全氢：All Hydro)</p>
+<p>官网的回答：无论是在选为配体还是受体之前都要加全氢
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 976; 
+			flex-basis: 2344px"
+	>
+	<a href="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-13.png" data-size="840x86">
+		<img src="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-13.png"
+			width="840"
+			height="86"
+			srcset="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-13_hu9d958f735609689b7517c5e30048ffa9_84560_480x0_resize_box_3.png 480w, /p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-13_hu9d958f735609689b7517c5e30048ffa9_84560_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="3蛋白质是否要设置原子类型">3.蛋白质是否要设置原子类型</h3>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 350; 
+			flex-basis: 840px"
+	>
+	<a href="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-14.png" data-size="840x240">
+		<img src="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-14.png"
+			width="840"
+			height="240"
+			srcset="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-14_hu1a84ae88f1514dac82a7d917bc7bff75_82727_480x0_resize_box_3.png 480w, /p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-14_hu1a84ae88f1514dac82a7d917bc7bff75_82727_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>官方的回答
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 199; 
+			flex-basis: 477px"
+	>
+	<a href="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-15.png" data-size="840x422">
+		<img src="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-15.png"
+			width="840"
+			height="422"
+			srcset="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-15_hub6541c92c57a917965ed667cfe2e5c94_282359_480x0_resize_box_3.png 480w, /p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-15_hub6541c92c57a917965ed667cfe2e5c94_282359_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+就是用adt选为受体文件时会自动加上G电荷，柔和非极性氢，会自动识别原子类型</p>
+<h3 id="小分子加全氢还是极性氢该给残基分配好电荷吗">小分子加全氢还是极性氢？该给残基分配好电荷吗？？</h3>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 338; 
+			flex-basis: 812px"
+	>
+	<a href="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-16.png" data-size="840x248">
+		<img src="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-16.png"
+			width="840"
+			height="248"
+			srcset="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-16_hue0aa31b4f04f05f18a17fed08adeca78_115801_480x0_resize_box_3.png 480w, /p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-16_hue0aa31b4f04f05f18a17fed08adeca78_115801_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>加全氢！！！！
+怎么均匀分配电荷呢？Edit &ndash; Charges &ndash; Check Total on Resdiues
+在打开小分子的时，adt会自动加上电荷，如果再去加上上面操作会报错。
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 212; 
+			flex-basis: 509px"
+	>
+	<a href="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-17.png" data-size="840x396">
+		<img src="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-17.png"
+			width="840"
+			height="396"
+			srcset="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-17_hue7c0f658323e756c576f03c9ae653a4b_376035_480x0_resize_box_3.png 480w, /p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-17_hue7c0f658323e756c576f03c9ae653a4b_376035_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="是否给小分子计算静电荷compute-gasteiger">是否给小分子计算静电荷compute Gasteiger</h3>
+<p>就是说在加完氢后选择配体时会报错
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 101; 
+			flex-basis: 242px"
+	>
+	<a href="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-18.png" data-size="840x830">
+		<img src="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-18.png"
+			width="840"
+			height="830"
+			srcset="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-18_hu8392be23e160f5c838a47f6017fa5e51_794379_480x0_resize_box_3.png 480w, /p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-18_hu8392be23e160f5c838a47f6017fa5e51_794379_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>官方的回答：
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 215; 
+			flex-basis: 516px"
+	>
+	<a href="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-19.png" data-size="840x390">
+		<img src="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-19.png"
+			width="840"
+			height="390"
+			srcset="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-19_hudca06e682bc9f7b9e6e9d9b1dc944e39_409595_480x0_resize_box_3.png 480w, /p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-19_hudca06e682bc9f7b9e6e9d9b1dc944e39_409595_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+就是说他这里有可能属于第二三种情况，即它本身部分原子有部分电荷或者全部原子电荷为零，所以通过计算静电荷来解决，（没报错的话不要计算静电荷，对结合能结果会有影响）
+Edit &ndash; charges &ndash; Computes Gasteiger;  再次选为配体就可以成功了</p>
+<h3 id="是否给大分子计算静电荷compute-gasteiger">是否给大分子计算静电荷compute Gasteiger</h3>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 347; 
+			flex-basis: 833px"
+	>
+	<a href="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-20.png" data-size="840x242">
+		<img src="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-20.png"
+			width="840"
+			height="242"
+			srcset="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-20_hu49f209df6458cd2e3638d983a3293951_168980_480x0_resize_box_3.png 480w, /p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-20_hu49f209df6458cd2e3638d983a3293951_168980_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+图片中后者的操作相当于给没有带电的残基加上了电荷，而前者是不管有没有都会加上
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 210; 
+			flex-basis: 504px"
+	>
+	<a href="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-21.png" data-size="580x276">
+		<img src="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-21.png"
+			width="580"
+			height="276"
+			srcset="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-21_hu17aeeed292450d78bd8ce60ca17b82c2_142161_480x0_resize_box_3.png 480w, /p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-21_hu17aeeed292450d78bd8ce60ca17b82c2_142161_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>yes
+对于一些会冒出这个纠正（就是说这里是给这四个残基加上了静电荷）
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 134; 
+			flex-basis: 323px"
+	>
+	<a href="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-22.png" data-size="614x456">
+		<img src="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-22.png"
+			width="614"
+			height="456"
+			srcset="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-22_huddc4cd7594a5b5e7cc68e10b2cf9e9b6_141981_480x0_resize_box_3.png 480w, /p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-22_huddc4cd7594a5b5e7cc68e10b2cf9e9b6_141981_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+官方的回答：
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 229; 
+			flex-basis: 550px"
+	>
+	<a href="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-23.png" data-size="840x366">
+		<img src="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-23.png"
+			width="840"
+			height="366"
+			srcset="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-23_hu7421a4c8f0847aeeda24000d18cb3bb1_273795_480x0_resize_box_3.png 480w, /p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-23_hu7421a4c8f0847aeeda24000d18cb3bb1_273795_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>如果分子本身有一些没有电荷，adt会自动加上静电荷；如果分子本身有电荷，adt会询问是否保存还是添加静电荷</p>
+<h3 id="到底什么时候点击compute-gasteiger呢">到底什么时候点击compute Gasteiger呢</h3>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 244; 
+			flex-basis: 586px"
+	>
+	<a href="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-24.png" data-size="840x344">
+		<img src="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-24.png"
+			width="840"
+			height="344"
+			srcset="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-24_hu1fa65b236cbe6dca25d3a3a9a2efc00d_207047_480x0_resize_box_3.png 480w, /p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-24_hu1fa65b236cbe6dca25d3a3a9a2efc00d_207047_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 350; 
+			flex-basis: 840px"
+	>
+	<a href="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-25.png" data-size="840x240">
+		<img src="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-25.png"
+			width="840"
+			height="240"
+			srcset="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-25_hu41cb945ec135465adf4b1b6c24cc261f_138404_480x0_resize_box_3.png 480w, /p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-25_hu41cb945ec135465adf4b1b6c24cc261f_138404_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="nice-level是什么">Nice level是什么？</h3>
+<p>在点击 run  &ndash; run autogrid（run aotodock） 会出现Nice leve
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 245; 
+			flex-basis: 589px"
+	>
+	<a href="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-26.png" data-size="840x342">
+		<img src="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-26.png"
+			width="840"
+			height="342"
+			srcset="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-26_hue0447bb77b14161070a2a64704f6408e_305925_480x0_resize_box_3.png 480w, /p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-26_hue0447bb77b14161070a2a64704f6408e_305925_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+官方的回答：
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 471; 
+			flex-basis: 1132px"
+	>
+	<a href="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-27.png" data-size="840x178">
+		<img src="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-27.png"
+			width="840"
+			height="178"
+			srcset="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-27_hue8f591c86074bcdd864ba87d83313b91_70239_480x0_resize_box_3.png 480w, /p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-27_hue8f591c86074bcdd864ba87d83313b91_70239_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="如何获取小分子mol2或pdb文件">如何获取小分子mol2或pdb文件</h3>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 278; 
+			flex-basis: 667px"
+	>
+	<a href="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-28.png" data-size="840x302">
+		<img src="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-28.png"
+			width="840"
+			height="302"
+			srcset="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-28_hu2d4f135c0064fa4649fc371795323035_178693_480x0_resize_box_3.png 480w, /p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-28_hu2d4f135c0064fa4649fc371795323035_178693_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+注意是否下载的3D结构</p>
+<ul>
+<li>zinc：https://zinc15.docking.org/substances/home/</li>
+<li>TCMSP: <a class="link" href="https://old.tcmsp-e.com/tcmsp.php"  target="_blank" rel="noopener"
+    >https://old.tcmsp-e.com/tcmsp.php</a></li>
+<li>PubChem:https://pubchem.ncbi.nlm.nih.gov/  (他这里的sdf是三级结构)
+sdf的格式要通过openbabel转为mol2/pdb</li>
+</ul>
+<h3 id="为什么两次同样的操作会有不同的结果">为什么两次同样的操作会有不同的结果？</h3>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 281; 
+			flex-basis: 676px"
+	>
+	<a href="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-29.png" data-size="840x298">
+		<img src="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-29.png"
+			width="840"
+			height="298"
+			srcset="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-29_hu1f38796a675acbb693916ffd9994193d_197250_480x0_resize_box_3.png 480w, /p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-29_hu1f38796a675acbb693916ffd9994193d_197250_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+如何解决呢？
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 238; 
+			flex-basis: 572px"
+	>
+	<a href="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-30.png" data-size="840x352">
+		<img src="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-30.png"
+			width="840"
+			height="352"
+			srcset="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-30_hu2be5f925d1df71ee2c26a6fd8bec8b94_262681_480x0_resize_box_3.png 480w, /p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-30_hu2be5f925d1df71ee2c26a6fd8bec8b94_262681_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 102; 
+			flex-basis: 245px"
+	>
+	<a href="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-31.png" data-size="630x616">
+		<img src="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-31.png"
+			width="630"
+			height="616"
+			srcset="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-31_hu93c3505a038817d1da3e180462b1ef6d_334066_480x0_resize_box_3.png 480w, /p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-31_hu93c3505a038817d1da3e180462b1ef6d_334066_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="文件名有空格的错误">文件名有空格的错误</h3>
+<p>此时在运行 run &ndash; autograd时会不太行（即不会生成对应的map文件）</p>
+<h3 id="给ad4_parametersdat参数文件添加金属离子参数">给AD4_parameters.dat参数文件添加金属离子参数</h3>
+<p>具体地看另一份md</p>
+<h3 id="如何找到最优构象">如何找到最优构象</h3>
+<p>其实这个问题跟前面的为什么运行的结果不一样里降讲过了</p>
+<h3 id="对接结果结合能的转换">对接结果结合能的转换</h3>
+<p>adt中对接结果（看dlg文件）的结合能的单位是
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 344; 
+			flex-basis: 826px"
+	>
+	<a href="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-32.png" data-size="840x244">
+		<img src="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-32.png"
+			width="840"
+			height="244"
+			srcset="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-32_hufef21b9735d1d0c3b44a0eb4bc269535_104731_480x0_resize_box_3.png 480w, /p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-32_hufef21b9735d1d0c3b44a0eb4bc269535_104731_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 257; 
+			flex-basis: 618px"
+	>
+	<a href="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-33.png" data-size="840x326">
+		<img src="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-33.png"
+			width="840"
+			height="326"
+			srcset="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-33_hud9ec4834ee1c0a7a4bb265e8816fc3b4_68453_480x0_resize_box_3.png 480w, /p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-33_hud9ec4834ee1c0a7a4bb265e8816fc3b4_68453_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 204; 
+			flex-basis: 491px"
+	>
+	<a href="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-34.png" data-size="840x410">
+		<img src="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-34.png"
+			width="840"
+			height="410"
+			srcset="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-34_hu80abc248564316f48647940d6bb078c6_103969_480x0_resize_box_3.png 480w, /p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-34_hu80abc248564316f48647940d6bb078c6_103969_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="用pymol计算配体的rmsd">用PYMOL计算配体的RMSD</h3>
+<p>需要的文件：对接结果的pdbqt 和  用来对接的小分子配体pdbqt  导入到PYMOL中
+在命令行中输入 align 对接结果pdbqt名,配体pdbqt名
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 473; 
+			flex-basis: 1137px"
+	>
+	<a href="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-35.png" data-size="398x84">
+		<img src="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-35.png"
+			width="398"
+			height="84"
+			srcset="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-35_hu71da2de1f572a314b89e9ad371553f0e_15985_480x0_resize_box_3.png 480w, /p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-35_hu71da2de1f572a314b89e9ad371553f0e_15985_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 375; 
+			flex-basis: 900px"
+	>
+	<a href="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-36.png" data-size="840x224">
+		<img src="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-36.png"
+			width="840"
+			height="224"
+			srcset="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-36_hu4e8db16a00396484dee8f4ee83acb4bf_134110_480x0_resize_box_3.png 480w, /p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-36_hu4e8db16a00396484dee8f4ee83acb4bf_134110_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="因为文件名含有空格-报错">因为文件名含有空格 报错</h3>
+<p>运行run autogrid时
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 375; 
+			flex-basis: 900px"
+	>
+	<a href="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-37.png" data-size="840x224">
+		<img src="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-37.png"
+			width="840"
+			height="224"
+			srcset="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-37_hu4f2b706524137edabd26558d27f818ca_52908_480x0_resize_box_3.png 480w, /p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-37_hu4f2b706524137edabd26558d27f818ca_52908_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+这里就是因为工作目录中出现了空格</p>
+<h3 id="用r语言png函数输出高分辨率的图片">用R语言png函数输出高分辨率的图片</h3>
+<p>看对应的md</p>
+<h3 id="官方建议对接50次">官方建议对接50次</h3>
+<p>docking &ndash; search parameter &ndash; GA &ndash; Number of GA Runs  调整次数为50</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 750; 
+			flex-basis: 1800px"
+	>
+	<a href="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-38.png" data-size="840x112">
+		<img src="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-38.png"
+			width="840"
+			height="112"
+			srcset="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-38_hu09ee24588c3708e9266b54bb6e5bc5a2_108983_480x0_resize_box_3.png 480w, /p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-38_hu09ee24588c3708e9266b54bb6e5bc5a2_108983_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="19用pymol给蛋白质小分子添加标签">19.用PYMOL给蛋白质小分子添加标签</h3>
+<p>具体看对应的md</p>
+<h3 id="20adt的引用">20.ADT的引用</h3>
+<p>去官方网站找它的引用</p>
+<h3 id="21-点击run-autodock一闪而过的问题">21. 点击Run AutoDock一闪而过的问题</h3>
+<ul>
+<li>
+<p>看是否命名有空格</p>
+</li>
+<li>
+<p>即使是一闪而过，也会生成dlg文件，去dlg看相关的内容报错，如：
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 195; 
+			flex-basis: 468px"
+	>
+	<a href="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-39.png" data-size="840x430">
+		<img src="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-39.png"
+			width="840"
+			height="430"
+			srcset="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-39_hu7d6f82df5454ba0934d9fd24887b84d1_165911_480x0_resize_box_3.png 480w, /p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-39_hu7d6f82df5454ba0934d9fd24887b84d1_165911_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+可以看出是找不到map</p>
+<p>但是工作目录下有这个文件，但是它的报错的指向文件后面有个#，此时去看dpf（这个相当于ADT的参数文件了） 去里面将找不到的那个文件的 后面的 # 调远点（就是说# 与前面的 有个空格间隔  否则蛋白质名字太长的话会与#连在一起，所以蛋白质的命名不要太长好点）</p>
+</li>
+</ul>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 218; 
+			flex-basis: 525px"
+	>
+	<a href="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-40.png" data-size="840x384">
+		<img src="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-40.png"
+			width="840"
+			height="384"
+			srcset="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-40_hu21b54689f3e386895b28ba3a636534b1_218642_480x0_resize_box_3.png 480w, /p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-40_hu21b54689f3e386895b28ba3a636534b1_218642_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>重新运行 run &ndash; autodock  运行成功</p>
+<h3 id="知道活性中心坐标后怎么确定grid-box">知道活性中心坐标后怎么确定grid box</h3>
+<p>具体看对应的md</p>
+<h2 id="官方文档的解读">官方文档的解读</h2>
+<h3 id="byatmo-type">byatmo type</h3>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 171; 
+			flex-basis: 411px"
+	>
+	<a href="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-41.png" data-size="840x490">
+		<img src="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-41.png"
+			width="840"
+			height="490"
+			srcset="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-41_hubc994c653cb87a07d7f3f6495e42b157_208311_480x0_resize_box_3.png 480w, /p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-41_hubc994c653cb87a07d7f3f6495e42b157_208311_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 442; 
+			flex-basis: 1061px"
+	>
+	<a href="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-42.png" data-size="840x190">
+		<img src="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-42.png"
+			width="840"
+			height="190"
+			srcset="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-42_hue165dd9f1cc77c5ca1c0337e8d07e288_165871_480x0_resize_box_3.png 480w, /p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-42_hue165dd9f1cc77c5ca1c0337e8d07e288_165871_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+黄色：S原子 ； 蓝色：N原子 ； 红色：O原子 ； 灰色：不可以被旋转的C原子；</p>
+<h3 id="快捷键">快捷键</h3>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 125; 
+			flex-basis: 300px"
+	>
+	<a href="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-43.png" data-size="840x670">
+		<img src="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-43.png"
+			width="840"
+			height="670"
+			srcset="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-43_hu4cb9aa83c6d7e1f39b8c59eea79f3daa_256466_480x0_resize_box_3.png 480w, /p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-43_hu4cb9aa83c6d7e1f39b8c59eea79f3daa_256466_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="choose-torsions-需要注意的一点">Choose Torsions 需要注意的一点</h2>
+<p>最好保证此时只有一个分子，避免其他分子的影响
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 118; 
+			flex-basis: 285px"
+	>
+	<a href="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-44.png" data-size="840x706">
+		<img src="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-44.png"
+			width="840"
+			height="706"
+			srcset="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-44_hu7c737800d22e0253e66746c4fc6bf28c_315855_480x0_resize_box_3.png 480w, /p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-44_hu7c737800d22e0253e66746c4fc6bf28c_315855_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="gird生成的gpf">Gird生成的gpf</h3>
+<p>如果有金属离子，则要edit这个gpf</p>
+<h3 id="算法的优越性">算法的优越性</h3>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 193; 
+			flex-basis: 464px"
+	>
+	<a href="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-45.png" data-size="840x434">
+		<img src="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-45.png"
+			width="840"
+			height="434"
+			srcset="/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-45_hu4aab255db7e3c6f69f224ae71d515847_318829_480x0_resize_box_3.png 480w, /p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/picture/AutoDock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-45_hu4aab255db7e3c6f69f224ae71d515847_318829_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2022 - 
+        
+        2023 叶宇浩随记博客
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.5.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">Table of contents</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#对接的完整步骤">对接的完整步骤</a>
+      <ol>
+        <li><a href="#修改默认工作目录">修改默认工作目录</a></li>
+        <li><a href="#导入受体pdb">导入受体pdb</a></li>
+        <li><a href="#去除受体的水分子">去除受体的水分子</a></li>
+        <li><a href="#受体加氢">受体加氢</a></li>
+        <li><a href="#选为受体">选为受体</a></li>
+        <li><a href="#导入配体">导入配体</a></li>
+        <li><a href="#加氢">加氢</a></li>
+        <li><a href="#选为配体">选为配体</a></li>
+        <li><a href="#准备对接">准备对接</a></li>
+        <li><a href="#保存盒子的大小">保存盒子的大小</a></li>
+        <li><a href="#运行autograd">运行AutoGrad</a></li>
+        <li><a href="#准备autodock的运行参数">准备autodock的运行参数</a></li>
+        <li><a href="#运行autodock">运行autodock</a></li>
+        <li><a href="#查看对接结果">查看对接结果</a></li>
+      </ol>
+    </li>
+    <li><a href="#可能存在的问题">可能存在的问题</a>
+      <ol>
+        <li><a href="#蛋白质去水的方式">蛋白质去水的方式</a></li>
+        <li><a href="#蛋白质加氢是全氢还是极性氢">蛋白质加氢是全氢还是极性氢</a></li>
+        <li><a href="#3蛋白质是否要设置原子类型">3.蛋白质是否要设置原子类型</a></li>
+        <li><a href="#小分子加全氢还是极性氢该给残基分配好电荷吗">小分子加全氢还是极性氢？该给残基分配好电荷吗？？</a></li>
+        <li><a href="#是否给小分子计算静电荷compute-gasteiger">是否给小分子计算静电荷compute Gasteiger</a></li>
+        <li><a href="#是否给大分子计算静电荷compute-gasteiger">是否给大分子计算静电荷compute Gasteiger</a></li>
+        <li><a href="#到底什么时候点击compute-gasteiger呢">到底什么时候点击compute Gasteiger呢</a></li>
+        <li><a href="#nice-level是什么">Nice level是什么？</a></li>
+        <li><a href="#如何获取小分子mol2或pdb文件">如何获取小分子mol2或pdb文件</a></li>
+        <li><a href="#为什么两次同样的操作会有不同的结果">为什么两次同样的操作会有不同的结果？</a></li>
+        <li><a href="#文件名有空格的错误">文件名有空格的错误</a></li>
+        <li><a href="#给ad4_parametersdat参数文件添加金属离子参数">给AD4_parameters.dat参数文件添加金属离子参数</a></li>
+        <li><a href="#如何找到最优构象">如何找到最优构象</a></li>
+        <li><a href="#对接结果结合能的转换">对接结果结合能的转换</a></li>
+        <li><a href="#用pymol计算配体的rmsd">用PYMOL计算配体的RMSD</a></li>
+        <li><a href="#因为文件名含有空格-报错">因为文件名含有空格 报错</a></li>
+        <li><a href="#用r语言png函数输出高分辨率的图片">用R语言png函数输出高分辨率的图片</a></li>
+        <li><a href="#官方建议对接50次">官方建议对接50次</a></li>
+        <li><a href="#19用pymol给蛋白质小分子添加标签">19.用PYMOL给蛋白质小分子添加标签</a></li>
+        <li><a href="#20adt的引用">20.ADT的引用</a></li>
+        <li><a href="#21-点击run-autodock一闪而过的问题">21. 点击Run AutoDock一闪而过的问题</a></li>
+        <li><a href="#知道活性中心坐标后怎么确定grid-box">知道活性中心坐标后怎么确定grid box</a></li>
+      </ol>
+    </li>
+    <li><a href="#官方文档的解读">官方文档的解读</a>
+      <ol>
+        <li><a href="#byatmo-type">byatmo type</a></li>
+        <li><a href="#快捷键">快捷键</a></li>
+      </ol>
+    </li>
+    <li><a href="#choose-torsions-需要注意的一点">Choose Torsions 需要注意的一点</a>
+      <ol>
+        <li><a href="#gird生成的gpf">Gird生成的gpf</a></li>
+        <li><a href="#算法的优越性">算法的优越性</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

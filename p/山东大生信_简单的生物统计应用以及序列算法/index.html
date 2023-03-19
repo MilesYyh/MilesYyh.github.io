@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='山东大生信课程'><title>山东大生信_简单的生物统计应用以及序列算法</title>
+
+<link rel='canonical' href='https://example.com/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='山东大生信_简单的生物统计应用以及序列算法'>
+<meta property='og:description' content='山东大生信课程'>
+<meta property='og:url' content='https://example.com/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/'>
+<meta property='og:site_name' content='叶宇浩随记博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='tutorials' /><meta property='article:published_time' content='2021-10-31T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-10-31T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="山东大生信_简单的生物统计应用以及序列算法">
+<meta name="twitter:description" content="山东大生信课程">
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>Back</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/bioinformatic/" style="background-color: #7816ff; color: #fff;">
+                生物信息学&amp;计算生物学
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/">山东大生信_简单的生物统计应用以及序列算法</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        山东大生信课程
+    </h3>
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Oct 31, 2021</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    1 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <blockquote>
+<p><strong>写在前面的话：这个笔记不过多深入知识，因为做入门有，大概知道什么时候该用哪个，以及现在有什么技术</strong></p>
+</blockquote>
+<h2 id="简单的生物统计应用以及序列算法">简单的生物统计应用以及序列算法</h2>
+<h3 id="bayesj基础">Bayesj基础</h3>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 71; 
+			flex-basis: 172px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId20.png" data-size="481x670">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId20.png"
+			width="481"
+			height="670"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId20_hu315b29f4ce15255bdcd27853b9ffaa49_150370_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId20_hu315b29f4ce15255bdcd27853b9ffaa49_150370_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;8.125433070866142in&rdquo;}</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 158; 
+			flex-basis: 379px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId23.png" data-size="602x381">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId23.png"
+			width="602"
+			height="381"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId23_hud7420eca3cae216363fb4f146a78d831_115471_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId23_hud7420eca3cae216363fb4f146a78d831_115471_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.6918602362204727in&rdquo;}</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 171; 
+			flex-basis: 411px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId26.png" data-size="609x355">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId26.png"
+			width="609"
+			height="355"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId26_hubfd912864db1c05850492dada5d5c02a_73662_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId26_hubfd912864db1c05850492dada5d5c02a_73662_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.400382764654418in&rdquo;}</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 158; 
+			flex-basis: 380px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId29.png" data-size="657x414">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId29.png"
+			width="657"
+			height="414"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId29_hu627e8acd06c64569fa3f38136f676cd9_163722_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId29_hu627e8acd06c64569fa3f38136f676cd9_163722_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.6757983377077865in&rdquo;}</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 162; 
+			flex-basis: 389px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId32.png" data-size="636x392">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId32.png"
+			width="636"
+			height="392"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId32_hu9967bffb39ea9a3b330c616a13ad5cad_133040_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId32_hu9967bffb39ea9a3b330c616a13ad5cad_133040_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.5953871391076118in&rdquo;}</p>
+<h3 id="bayes在生物学的应用">Bayes在生物学的应用</h3>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 206; 
+			flex-basis: 496px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId36.png" data-size="589x285">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId36.png"
+			width="589"
+			height="285"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId36_hu8b61d7718bed17ac999ef71bee31db93_156623_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId36_hu8b61d7718bed17ac999ef71bee31db93_156623_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;2.822579833770779in&rdquo;}</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 191; 
+			flex-basis: 458px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId39.png" data-size="638x334">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId39.png"
+			width="638"
+			height="334"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId39_hu29702c2f912687816db53ded1f719de6_132881_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId39_hu29702c2f912687816db53ded1f719de6_132881_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.0538134295713038in&rdquo;}</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 180; 
+			flex-basis: 434px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId42.png" data-size="624x345">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId42.png"
+			width="624"
+			height="345"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId42_hua1776ad6e1a062d470b555944b4951c4_111515_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId42_hua1776ad6e1a062d470b555944b4951c4_111515_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.2251596675415573in&rdquo;}</p>
+<h3 id="二元预测的灵敏度和特异度">二元预测的灵敏度和特异度</h3>
+<h4 id="基本介绍">基本介绍</h4>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 180; 
+			flex-basis: 432px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId46.png" data-size="1028x570">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId46.png"
+			width="1028"
+			height="570"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId46_hu0310ea97a9831846ff4b738d66afc6f9_336710_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId46_hu0310ea97a9831846ff4b738d66afc6f9_336710_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.2344356955380578in&rdquo;}</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 167; 
+			flex-basis: 402px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId49.png" data-size="982x586">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId49.png"
+			width="982"
+			height="586"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId49_hudedb454d7c40c92f18172f135d2a7071_360082_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId49_hudedb454d7c40c92f18172f135d2a7071_360082_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.480990813648294in&rdquo;}</p>
+<p>A的灵敏度达到100%，说明它对发生很敏感，只要有发生就会探测到；A的特异度60%说明所引起的探测不一定是由于地震引起的<br>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 173; 
+			flex-basis: 416px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId52.png" data-size="1007x580">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId52.png"
+			width="1007"
+			height="580"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId52_hu184c52cda7cfa548d04d8c6b53aa228c_316060_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId52_hu184c52cda7cfa548d04d8c6b53aa228c_316060_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.3598140857392824in&rdquo;}</p>
+<h4 id="在生物学上的应用">在生物学上的应用</h4>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 174; 
+			flex-basis: 418px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId56.png" data-size="984x564">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId56.png"
+			width="984"
+			height="564"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId56_hua5007b7f875f5bcfc99ee861c21008c3_349110_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId56_hua5007b7f875f5bcfc99ee861c21008c3_349110_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.343495188101487in&rdquo;}</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 180; 
+			flex-basis: 432px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId59.png" data-size="651x361">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId59.png"
+			width="651"
+			height="361"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId59_huef12017f9ff3a8aaf5abe241133f4782_77942_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId59_huef12017f9ff3a8aaf5abe241133f4782_77942_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.2347659667541557in&rdquo;}</p>
+<h4 id="位点特异性加权矩阵">位点特异性加权矩阵</h4>
+<p>每一行是一个LRR的序列（长度为11）（上半部分）,
+来看看每一个氨基酸即20个氨基酸出现的概率（下半部分）；如第一行A在第一列（1）中
+代表A这个氨基酸出现在第一个序列中的占比为0.3%<br>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 190; 
+			flex-basis: 457px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId63.png" data-size="547x287">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId63.png"
+			width="547"
+			height="287"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId63_huca25ac30ebe55cc756e8ef5bb4919c21_79227_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId63_huca25ac30ebe55cc756e8ef5bb4919c21_79227_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.0606332020997375in&rdquo;}</p>
+<p>当作打分矩阵用来预测是哪里出现了LRR序列<br>
+如：构造一个长度为11的小窗口，一个一个位置往后面扫描，每一次都打一次分，<br>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 225; 
+			flex-basis: 540px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId66.png" data-size="766x340">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId66.png"
+			width="766"
+			height="340"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId66_hu60f9e4e2d394a8fa1dbe0e0a4e4bce1b_80791_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId66_hu60f9e4e2d394a8fa1dbe0e0a4e4bce1b_80791_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;2.589207130358705in&rdquo;}</p>
+<p>如何打分：<br>
+比如这个 LTVLMLLHNQL<br>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 163; 
+			flex-basis: 391px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId69.png" data-size="861x528">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId69.png"
+			width="861"
+			height="528"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId69_hu2007b4e9ef505b97419a2528a1e2d912_196469_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId69_hu2007b4e9ef505b97419a2528a1e2d912_196469_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.5772353455818022in&rdquo;}</p>
+<p>在矩阵中第一列找到L中出现的百分比为： 75% 即
+0.75；同样的方法找到后面的氨基酸的百分比之和，转为小数，相加求和<br>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 149; 
+			flex-basis: 359px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId72.png" data-size="564x377">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId72.png"
+			width="564"
+			height="377"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId72_hu330e2e8a2f354d54d01a6e8d2bcfec1d_91814_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId72_hu330e2e8a2f354d54d01a6e8d2bcfec1d_91814_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.8992311898512684in&rdquo;}</p>
+<p>量化的标准（阈值）的确定，即低于这个分值的不是LRR序列<br>
+怎么找到一个合理的阈值（即灵敏度和特异性高）<br>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 193; 
+			flex-basis: 465px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId75.png" data-size="659x340">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId75.png"
+			width="659"
+			height="340"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId75_hu40a65a467748199f6201e4eb2118e23f_53484_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId75_hu40a65a467748199f6201e4eb2118e23f_53484_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.0096095800524933in&rdquo;}</p>
+<p>看这两个的交点 （ 或者将这两条曲线叠加起来，纯数学求和，取最高值
+）<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 183; 
+			flex-basis: 441px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId78.png" data-size="724x394">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId78.png"
+			width="724"
+			height="394"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId78_hud573e55d4ec513eca59cd842bab80db7_56758_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId78_hud573e55d4ec513eca59cd842bab80db7_56758_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.1744925634295713in&rdquo;}</p>
+<h3 id="基本序列算法">基本序列算法</h3>
+<h4 id="基本概念">基本概念</h4>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 182; 
+			flex-basis: 439px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId83.png" data-size="975x533">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId83.png"
+			width="975"
+			height="533"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId83_huea4e05778a09326f0d1f4c0600e053be_217730_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId83_huea4e05778a09326f0d1f4c0600e053be_217730_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.188888888888889in&rdquo;}</p>
+<h4 id="构建后缀树">构建后缀树</h4>
+<p>后缀就是包含最后一个字符的子序列；<br>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 272; 
+			flex-basis: 654px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId87.png" data-size="979x359">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId87.png"
+			width="979"
+			height="359"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId87_hu3a403a9d73a3583312c03f5f74ad9c80_120799_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId87_hu3a403a9d73a3583312c03f5f74ad9c80_120799_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;2.139086832895888in&rdquo;}</p>
+<p>但要注意序列自己本身就是一个子序列<br>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 199; 
+			flex-basis: 479px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId90.png" data-size="963x482">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId90.png"
+			width="963"
+			height="482"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId90_hu74c59274d7b5a0fbe6f73ebe4b8365e8_136899_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId90_hu74c59274d7b5a0fbe6f73ebe4b8365e8_136899_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;2.9196948818897637in&rdquo;}</p>
+<p>将获得的后缀树画成一棵树，（相同的开头可以共用，注意都要从根点开始考虑）<br>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 209; 
+			flex-basis: 502px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId93.png" data-size="1003x479">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId93.png"
+			width="1003"
+			height="479"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId93_huaaeb7adeefcf68f6c37967aedfbb5718_182621_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId93_huaaeb7adeefcf68f6c37967aedfbb5718_182621_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;2.7858081802274715in&rdquo;}</p>
+<h4 id="后缀树的使用">后缀树的使用</h4>
+<p>查找是否在序列中</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 209; 
+			flex-basis: 503px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId97.png" data-size="1007x480">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId97.png"
+			width="1007"
+			height="480"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId97_hu0f45cbb28e8d5e755ebc0bd0a7ef1004_186696_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId97_hu0f45cbb28e8d5e755ebc0bd0a7ef1004_186696_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;2.7805358705161853in&rdquo;}</p>
+<p>查找重复次数</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 208; 
+			flex-basis: 501px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId100.png" data-size="990x474">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId100.png"
+			width="990"
+			height="474"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId100_huffef6b9b9903e7d6f185531df5cb0146_265551_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId100_huffef6b9b9903e7d6f185531df5cb0146_265551_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;2.7929286964129485in&rdquo;}</p>
+<p>查找最长重复子序列<br>
+先找到所有内节点，看其出现了最多字母的</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 203; 
+			flex-basis: 489px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId103.png" data-size="1005x493">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId103.png"
+			width="1005"
+			height="493"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId103_hu18fa726917a2cbc9e59da7737ffecc88_187816_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId103_hu18fa726917a2cbc9e59da7737ffecc88_187816_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;2.861525590551181in&rdquo;}</p>
+<p>$的作用</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 190; 
+			flex-basis: 456px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId106.png" data-size="958x504">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId106.png"
+			width="958"
+			height="504"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId106_hud93331d9cec38fbc81dd3a7174d0ee8e_168067_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId106_hud93331d9cec38fbc81dd3a7174d0ee8e_168067_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.0688932633420825in&rdquo;}</p>
+<h4 id="最高分-子序列">最高分-子序列</h4>
+<p>概念：</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 198; 
+			flex-basis: 477px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId110.png" data-size="987x496">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId110.png"
+			width="987"
+			height="496"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId110_hu60412c27dd31e1819a9dfdcae27b9699_148353_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId110_hu60412c27dd31e1819a9dfdcae27b9699_148353_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;2.931441382327209in&rdquo;}</p>
+<p>生物学的应用：</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 213; 
+			flex-basis: 511px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId113.png" data-size="1011x474">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId113.png"
+			width="1011"
+			height="474"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId113_hu37778f5baf2a1b80b8c13aa05e35b7cc_249098_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId113_hu37778f5baf2a1b80b8c13aa05e35b7cc_249098_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;2.734915791776028in&rdquo;}</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 207; 
+			flex-basis: 498px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId116.png" data-size="1014x488">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId116.png"
+			width="1014"
+			height="488"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId116_hu74a4034b8f232a1fd2b9738d8a454ec8_368664_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId116_hu74a4034b8f232a1fd2b9738d8a454ec8_368664_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;2.807363298337708in&rdquo;}</p>
+<p>计算的复杂度</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 203; 
+			flex-basis: 488px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId119.png" data-size="1017x500">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId119.png"
+			width="1017"
+			height="500"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId119_huc581e873b15a083537ef13eb34f46d92_286792_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/media/rId119_huc581e873b15a083537ef13eb34f46d92_286792_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;2.867911198600175in&rdquo;}</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/tutorials/">tutorials</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2022 - 
+        
+        2023 叶宇浩随记博客
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.5.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">Table of contents</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#简单的生物统计应用以及序列算法">简单的生物统计应用以及序列算法</a>
+      <ol>
+        <li><a href="#bayesj基础">Bayesj基础</a></li>
+        <li><a href="#bayes在生物学的应用">Bayes在生物学的应用</a></li>
+        <li><a href="#二元预测的灵敏度和特异度">二元预测的灵敏度和特异度</a>
+          <ol>
+            <li><a href="#基本介绍">基本介绍</a></li>
+            <li><a href="#在生物学上的应用">在生物学上的应用</a></li>
+            <li><a href="#位点特异性加权矩阵">位点特异性加权矩阵</a></li>
+          </ol>
+        </li>
+        <li><a href="#基本序列算法">基本序列算法</a>
+          <ol>
+            <li><a href="#基本概念">基本概念</a></li>
+            <li><a href="#构建后缀树">构建后缀树</a></li>
+            <li><a href="#后缀树的使用">后缀树的使用</a></li>
+            <li><a href="#最高分-子序列">最高分-子序列</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

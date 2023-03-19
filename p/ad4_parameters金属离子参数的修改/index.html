@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='整理了下 win AutoDock的学习记录（主要方便自己看），看的是blibli和其他网址上别人的做法，因为是很久之前学的，所以暂时没找到链接（找到了再放上来）
+在mpl文件夹中找到AD4_parameters.dat文件 并放置到工作目录下
+先看下缺乏的情况 顺便提下，在从RCSB PDB中下载pdb时 在下面可以看到一些详情；如什么东西在什么链
+去除相关链（可以直接在pymol中操作）
+命令行：remove chain B (C/D)
+去除水分子： A &amp;ndash; remove water
+如有小分子配体则删除 （怎么看是不是小分子配体呢？在seq 不是连续拼接上的，就是小分子配体；金属离子不要去除）
+File &amp;ndash; export Molecule &amp;ndash; pdb
+在ADT中导入刚才pymol生成的pdb，因为在pymol中去过水了，所以直接加氢就好了
+将NI.pdb 选为受体生成pdbqt 可以看出系统会自动提醒这个离子没有电荷（因为AD4_parameters.dat中没有这个金属离子的参数）
+然后就可以一波操作（如Grid导入受体/配体/确认对接box的大小）运行autogrid/autodock， 此时会有报错的内容： 报错的解决方案 修改AD4_parameters.dat的离子内容（去网上找一份比较齐全的，然后复制过去） 一定要记得修改gpf/dpf的文件 gpf（盒子的那个文件） / dpf是docking时生成那个文件
+在开头新增一行 paramter_file AD4_parameters.dat # force field default paramter_file 再次运行run &amp;ndash; autogrid'><title>AD4_parameters金属离子参数的修改</title>
+
+<link rel='canonical' href='https://example.com/p/ad4_parameters%E9%87%91%E5%B1%9E%E7%A6%BB%E5%AD%90%E5%8F%82%E6%95%B0%E7%9A%84%E4%BF%AE%E6%94%B9/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='AD4_parameters金属离子参数的修改'>
+<meta property='og:description' content='整理了下 win AutoDock的学习记录（主要方便自己看），看的是blibli和其他网址上别人的做法，因为是很久之前学的，所以暂时没找到链接（找到了再放上来）
+在mpl文件夹中找到AD4_parameters.dat文件 并放置到工作目录下
+先看下缺乏的情况 顺便提下，在从RCSB PDB中下载pdb时 在下面可以看到一些详情；如什么东西在什么链
+去除相关链（可以直接在pymol中操作）
+命令行：remove chain B (C/D)
+去除水分子： A &amp;ndash; remove water
+如有小分子配体则删除 （怎么看是不是小分子配体呢？在seq 不是连续拼接上的，就是小分子配体；金属离子不要去除）
+File &amp;ndash; export Molecule &amp;ndash; pdb
+在ADT中导入刚才pymol生成的pdb，因为在pymol中去过水了，所以直接加氢就好了
+将NI.pdb 选为受体生成pdbqt 可以看出系统会自动提醒这个离子没有电荷（因为AD4_parameters.dat中没有这个金属离子的参数）
+然后就可以一波操作（如Grid导入受体/配体/确认对接box的大小）运行autogrid/autodock， 此时会有报错的内容： 报错的解决方案 修改AD4_parameters.dat的离子内容（去网上找一份比较齐全的，然后复制过去） 一定要记得修改gpf/dpf的文件 gpf（盒子的那个文件） / dpf是docking时生成那个文件
+在开头新增一行 paramter_file AD4_parameters.dat # force field default paramter_file 再次运行run &amp;ndash; autogrid'>
+<meta property='og:url' content='https://example.com/p/ad4_parameters%E9%87%91%E5%B1%9E%E7%A6%BB%E5%AD%90%E5%8F%82%E6%95%B0%E7%9A%84%E4%BF%AE%E6%94%B9/'>
+<meta property='og:site_name' content='叶宇浩随记博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2022-04-07T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2022-04-07T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="AD4_parameters金属离子参数的修改">
+<meta name="twitter:description" content="整理了下 win AutoDock的学习记录（主要方便自己看），看的是blibli和其他网址上别人的做法，因为是很久之前学的，所以暂时没找到链接（找到了再放上来）
+在mpl文件夹中找到AD4_parameters.dat文件 并放置到工作目录下
+先看下缺乏的情况 顺便提下，在从RCSB PDB中下载pdb时 在下面可以看到一些详情；如什么东西在什么链
+去除相关链（可以直接在pymol中操作）
+命令行：remove chain B (C/D)
+去除水分子： A &amp;ndash; remove water
+如有小分子配体则删除 （怎么看是不是小分子配体呢？在seq 不是连续拼接上的，就是小分子配体；金属离子不要去除）
+File &amp;ndash; export Molecule &amp;ndash; pdb
+在ADT中导入刚才pymol生成的pdb，因为在pymol中去过水了，所以直接加氢就好了
+将NI.pdb 选为受体生成pdbqt 可以看出系统会自动提醒这个离子没有电荷（因为AD4_parameters.dat中没有这个金属离子的参数）
+然后就可以一波操作（如Grid导入受体/配体/确认对接box的大小）运行autogrid/autodock， 此时会有报错的内容： 报错的解决方案 修改AD4_parameters.dat的离子内容（去网上找一份比较齐全的，然后复制过去） 一定要记得修改gpf/dpf的文件 gpf（盒子的那个文件） / dpf是docking时生成那个文件
+在开头新增一行 paramter_file AD4_parameters.dat # force field default paramter_file 再次运行run &amp;ndash; autogrid">
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>Back</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/molecular_docking/" style="background-color: #02d600; color: #fff;">
+                分子对接
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/ad4_parameters%E9%87%91%E5%B1%9E%E7%A6%BB%E5%AD%90%E5%8F%82%E6%95%B0%E7%9A%84%E4%BF%AE%E6%94%B9/">AD4_parameters金属离子参数的修改</a>
+    </h2>
+
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Apr 07, 2022</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    1 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <blockquote>
+<p>整理了下 win AutoDock的学习记录（主要方便自己看），看的是blibli和其他网址上别人的做法，因为是很久之前学的，所以暂时没找到链接（找到了再放上来）</p>
+</blockquote>
+<h2 id="在mpl文件夹中找到ad4_parametersdat文件">在mpl文件夹中找到AD4_parameters.dat文件</h2>
+<p>并放置到工作目录下</p>
+<h2 id="先看下缺乏的情况">先看下缺乏的情况</h2>
+<p>顺便提下，在从RCSB PDB中下载pdb时 在下面可以看到一些详情；如什么东西在什么链</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 189; 
+			flex-basis: 454px"
+	>
+	<a href="/p/ad4_parameters%E9%87%91%E5%B1%9E%E7%A6%BB%E5%AD%90%E5%8F%82%E6%95%B0%E7%9A%84%E4%BF%AE%E6%94%B9/picture/AD4_parameters%E9%87%91%E5%B1%9E%E7%A6%BB%E5%AD%90%E5%8F%82%E6%95%B0%E7%9A%84%E4%BF%AE%E6%94%B9.png" data-size="840x444">
+		<img src="/p/ad4_parameters%E9%87%91%E5%B1%9E%E7%A6%BB%E5%AD%90%E5%8F%82%E6%95%B0%E7%9A%84%E4%BF%AE%E6%94%B9/picture/AD4_parameters%E9%87%91%E5%B1%9E%E7%A6%BB%E5%AD%90%E5%8F%82%E6%95%B0%E7%9A%84%E4%BF%AE%E6%94%B9.png"
+			width="840"
+			height="444"
+			srcset="/p/ad4_parameters%E9%87%91%E5%B1%9E%E7%A6%BB%E5%AD%90%E5%8F%82%E6%95%B0%E7%9A%84%E4%BF%AE%E6%94%B9/picture/AD4_parameters%E9%87%91%E5%B1%9E%E7%A6%BB%E5%AD%90%E5%8F%82%E6%95%B0%E7%9A%84%E4%BF%AE%E6%94%B9_hu9240943ea90e9e153886167c212fc972_198686_480x0_resize_box_3.png 480w, /p/ad4_parameters%E9%87%91%E5%B1%9E%E7%A6%BB%E5%AD%90%E5%8F%82%E6%95%B0%E7%9A%84%E4%BF%AE%E6%94%B9/picture/AD4_parameters%E9%87%91%E5%B1%9E%E7%A6%BB%E5%AD%90%E5%8F%82%E6%95%B0%E7%9A%84%E4%BF%AE%E6%94%B9_hu9240943ea90e9e153886167c212fc972_198686_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>去除相关链（可以直接在pymol中操作）</p>
+<p>命令行：remove chain B (C/D)</p>
+<p>去除水分子： A &ndash; remove water</p>
+<p>如有小分子配体则删除  （怎么看是不是小分子配体呢？在seq 不是连续拼接上的，就是小分子配体；金属离子不要去除）</p>
+<p>File &ndash; export  Molecule &ndash; pdb</p>
+<p>在ADT中导入刚才pymol生成的pdb，因为在pymol中去过水了，所以直接加氢就好了</p>
+<p>将NI.pdb 选为受体生成pdbqt
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 162; 
+			flex-basis: 388px"
+	>
+	<a href="/p/ad4_parameters%E9%87%91%E5%B1%9E%E7%A6%BB%E5%AD%90%E5%8F%82%E6%95%B0%E7%9A%84%E4%BF%AE%E6%94%B9/picture/AD4_parameters%E9%87%91%E5%B1%9E%E7%A6%BB%E5%AD%90%E5%8F%82%E6%95%B0%E7%9A%84%E4%BF%AE%E6%94%B9-1.png" data-size="512x316">
+		<img src="/p/ad4_parameters%E9%87%91%E5%B1%9E%E7%A6%BB%E5%AD%90%E5%8F%82%E6%95%B0%E7%9A%84%E4%BF%AE%E6%94%B9/picture/AD4_parameters%E9%87%91%E5%B1%9E%E7%A6%BB%E5%AD%90%E5%8F%82%E6%95%B0%E7%9A%84%E4%BF%AE%E6%94%B9-1.png"
+			width="512"
+			height="316"
+			srcset="/p/ad4_parameters%E9%87%91%E5%B1%9E%E7%A6%BB%E5%AD%90%E5%8F%82%E6%95%B0%E7%9A%84%E4%BF%AE%E6%94%B9/picture/AD4_parameters%E9%87%91%E5%B1%9E%E7%A6%BB%E5%AD%90%E5%8F%82%E6%95%B0%E7%9A%84%E4%BF%AE%E6%94%B9-1_hucad15e942ed69ac5a96195de554a37ff_38067_480x0_resize_box_3.png 480w, /p/ad4_parameters%E9%87%91%E5%B1%9E%E7%A6%BB%E5%AD%90%E5%8F%82%E6%95%B0%E7%9A%84%E4%BF%AE%E6%94%B9/picture/AD4_parameters%E9%87%91%E5%B1%9E%E7%A6%BB%E5%AD%90%E5%8F%82%E6%95%B0%E7%9A%84%E4%BF%AE%E6%94%B9-1_hucad15e942ed69ac5a96195de554a37ff_38067_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>可以看出系统会自动提醒这个离子没有电荷（因为AD4_parameters.dat中没有这个金属离子的参数）</p>
+<p>然后就可以一波操作（如Grid导入受体/配体/确认对接box的大小）运行autogrid/autodock，
+此时会有报错的内容：
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 552; 
+			flex-basis: 1326px"
+	>
+	<a href="/p/ad4_parameters%E9%87%91%E5%B1%9E%E7%A6%BB%E5%AD%90%E5%8F%82%E6%95%B0%E7%9A%84%E4%BF%AE%E6%94%B9/picture/AD4_parameters%E9%87%91%E5%B1%9E%E7%A6%BB%E5%AD%90%E5%8F%82%E6%95%B0%E7%9A%84%E4%BF%AE%E6%94%B9-2.png" data-size="840x152">
+		<img src="/p/ad4_parameters%E9%87%91%E5%B1%9E%E7%A6%BB%E5%AD%90%E5%8F%82%E6%95%B0%E7%9A%84%E4%BF%AE%E6%94%B9/picture/AD4_parameters%E9%87%91%E5%B1%9E%E7%A6%BB%E5%AD%90%E5%8F%82%E6%95%B0%E7%9A%84%E4%BF%AE%E6%94%B9-2.png"
+			width="840"
+			height="152"
+			srcset="/p/ad4_parameters%E9%87%91%E5%B1%9E%E7%A6%BB%E5%AD%90%E5%8F%82%E6%95%B0%E7%9A%84%E4%BF%AE%E6%94%B9/picture/AD4_parameters%E9%87%91%E5%B1%9E%E7%A6%BB%E5%AD%90%E5%8F%82%E6%95%B0%E7%9A%84%E4%BF%AE%E6%94%B9-2_hue618ed7b319a83a31b18ea519b639316_65179_480x0_resize_box_3.png 480w, /p/ad4_parameters%E9%87%91%E5%B1%9E%E7%A6%BB%E5%AD%90%E5%8F%82%E6%95%B0%E7%9A%84%E4%BF%AE%E6%94%B9/picture/AD4_parameters%E9%87%91%E5%B1%9E%E7%A6%BB%E5%AD%90%E5%8F%82%E6%95%B0%E7%9A%84%E4%BF%AE%E6%94%B9-2_hue618ed7b319a83a31b18ea519b639316_65179_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="报错的解决方案">报错的解决方案</h2>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 281; 
+			flex-basis: 676px"
+	>
+	<a href="/p/ad4_parameters%E9%87%91%E5%B1%9E%E7%A6%BB%E5%AD%90%E5%8F%82%E6%95%B0%E7%9A%84%E4%BF%AE%E6%94%B9/picture/AD4_parameters%E9%87%91%E5%B1%9E%E7%A6%BB%E5%AD%90%E5%8F%82%E6%95%B0%E7%9A%84%E4%BF%AE%E6%94%B9-3.png" data-size="840x298">
+		<img src="/p/ad4_parameters%E9%87%91%E5%B1%9E%E7%A6%BB%E5%AD%90%E5%8F%82%E6%95%B0%E7%9A%84%E4%BF%AE%E6%94%B9/picture/AD4_parameters%E9%87%91%E5%B1%9E%E7%A6%BB%E5%AD%90%E5%8F%82%E6%95%B0%E7%9A%84%E4%BF%AE%E6%94%B9-3.png"
+			width="840"
+			height="298"
+			srcset="/p/ad4_parameters%E9%87%91%E5%B1%9E%E7%A6%BB%E5%AD%90%E5%8F%82%E6%95%B0%E7%9A%84%E4%BF%AE%E6%94%B9/picture/AD4_parameters%E9%87%91%E5%B1%9E%E7%A6%BB%E5%AD%90%E5%8F%82%E6%95%B0%E7%9A%84%E4%BF%AE%E6%94%B9-3_hucab9a82fa5fe9d2fba979f2540497ad4_193133_480x0_resize_box_3.png 480w, /p/ad4_parameters%E9%87%91%E5%B1%9E%E7%A6%BB%E5%AD%90%E5%8F%82%E6%95%B0%E7%9A%84%E4%BF%AE%E6%94%B9/picture/AD4_parameters%E9%87%91%E5%B1%9E%E7%A6%BB%E5%AD%90%E5%8F%82%E6%95%B0%E7%9A%84%E4%BF%AE%E6%94%B9-3_hucab9a82fa5fe9d2fba979f2540497ad4_193133_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>修改AD4_parameters.dat的离子内容（去网上找一份比较齐全的，然后复制过去）
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 85; 
+			flex-basis: 205px"
+	>
+	<a href="/p/ad4_parameters%E9%87%91%E5%B1%9E%E7%A6%BB%E5%AD%90%E5%8F%82%E6%95%B0%E7%9A%84%E4%BF%AE%E6%94%B9/picture/AD4_parameters%E9%87%91%E5%B1%9E%E7%A6%BB%E5%AD%90%E5%8F%82%E6%95%B0%E7%9A%84%E4%BF%AE%E6%94%B9-4.png" data-size="840x980">
+		<img src="/p/ad4_parameters%E9%87%91%E5%B1%9E%E7%A6%BB%E5%AD%90%E5%8F%82%E6%95%B0%E7%9A%84%E4%BF%AE%E6%94%B9/picture/AD4_parameters%E9%87%91%E5%B1%9E%E7%A6%BB%E5%AD%90%E5%8F%82%E6%95%B0%E7%9A%84%E4%BF%AE%E6%94%B9-4.png"
+			width="840"
+			height="980"
+			srcset="/p/ad4_parameters%E9%87%91%E5%B1%9E%E7%A6%BB%E5%AD%90%E5%8F%82%E6%95%B0%E7%9A%84%E4%BF%AE%E6%94%B9/picture/AD4_parameters%E9%87%91%E5%B1%9E%E7%A6%BB%E5%AD%90%E5%8F%82%E6%95%B0%E7%9A%84%E4%BF%AE%E6%94%B9-4_hu9521583cbc80b2fb391894a3983495e5_682702_480x0_resize_box_3.png 480w, /p/ad4_parameters%E9%87%91%E5%B1%9E%E7%A6%BB%E5%AD%90%E5%8F%82%E6%95%B0%E7%9A%84%E4%BF%AE%E6%94%B9/picture/AD4_parameters%E9%87%91%E5%B1%9E%E7%A6%BB%E5%AD%90%E5%8F%82%E6%95%B0%E7%9A%84%E4%BF%AE%E6%94%B9-4_hu9521583cbc80b2fb391894a3983495e5_682702_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><strong>一定要记得修改gpf/dpf的文件</strong>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 646; 
+			flex-basis: 1550px"
+	>
+	<a href="/p/ad4_parameters%E9%87%91%E5%B1%9E%E7%A6%BB%E5%AD%90%E5%8F%82%E6%95%B0%E7%9A%84%E4%BF%AE%E6%94%B9/picture/AD4_parameters%E9%87%91%E5%B1%9E%E7%A6%BB%E5%AD%90%E5%8F%82%E6%95%B0%E7%9A%84%E4%BF%AE%E6%94%B9-5.png" data-size="840x130">
+		<img src="/p/ad4_parameters%E9%87%91%E5%B1%9E%E7%A6%BB%E5%AD%90%E5%8F%82%E6%95%B0%E7%9A%84%E4%BF%AE%E6%94%B9/picture/AD4_parameters%E9%87%91%E5%B1%9E%E7%A6%BB%E5%AD%90%E5%8F%82%E6%95%B0%E7%9A%84%E4%BF%AE%E6%94%B9-5.png"
+			width="840"
+			height="130"
+			srcset="/p/ad4_parameters%E9%87%91%E5%B1%9E%E7%A6%BB%E5%AD%90%E5%8F%82%E6%95%B0%E7%9A%84%E4%BF%AE%E6%94%B9/picture/AD4_parameters%E9%87%91%E5%B1%9E%E7%A6%BB%E5%AD%90%E5%8F%82%E6%95%B0%E7%9A%84%E4%BF%AE%E6%94%B9-5_hu1c11b91968211c74d99f8e29ce23ccaf_130853_480x0_resize_box_3.png 480w, /p/ad4_parameters%E9%87%91%E5%B1%9E%E7%A6%BB%E5%AD%90%E5%8F%82%E6%95%B0%E7%9A%84%E4%BF%AE%E6%94%B9/picture/AD4_parameters%E9%87%91%E5%B1%9E%E7%A6%BB%E5%AD%90%E5%8F%82%E6%95%B0%E7%9A%84%E4%BF%AE%E6%94%B9-5_hu1c11b91968211c74d99f8e29ce23ccaf_130853_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>gpf（盒子的那个文件） /  dpf是docking时生成那个文件</p>
+<p>在开头新增一行
+paramter_file AD4_parameters.dat     # force field default paramter_file
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 229; 
+			flex-basis: 550px"
+	>
+	<a href="/p/ad4_parameters%E9%87%91%E5%B1%9E%E7%A6%BB%E5%AD%90%E5%8F%82%E6%95%B0%E7%9A%84%E4%BF%AE%E6%94%B9/picture/AD4_parameters%E9%87%91%E5%B1%9E%E7%A6%BB%E5%AD%90%E5%8F%82%E6%95%B0%E7%9A%84%E4%BF%AE%E6%94%B9-6.png" data-size="840x366">
+		<img src="/p/ad4_parameters%E9%87%91%E5%B1%9E%E7%A6%BB%E5%AD%90%E5%8F%82%E6%95%B0%E7%9A%84%E4%BF%AE%E6%94%B9/picture/AD4_parameters%E9%87%91%E5%B1%9E%E7%A6%BB%E5%AD%90%E5%8F%82%E6%95%B0%E7%9A%84%E4%BF%AE%E6%94%B9-6.png"
+			width="840"
+			height="366"
+			srcset="/p/ad4_parameters%E9%87%91%E5%B1%9E%E7%A6%BB%E5%AD%90%E5%8F%82%E6%95%B0%E7%9A%84%E4%BF%AE%E6%94%B9/picture/AD4_parameters%E9%87%91%E5%B1%9E%E7%A6%BB%E5%AD%90%E5%8F%82%E6%95%B0%E7%9A%84%E4%BF%AE%E6%94%B9-6_hu7fd55b3733da80d698958bb81a4f4020_186715_480x0_resize_box_3.png 480w, /p/ad4_parameters%E9%87%91%E5%B1%9E%E7%A6%BB%E5%AD%90%E5%8F%82%E6%95%B0%E7%9A%84%E4%BF%AE%E6%94%B9/picture/AD4_parameters%E9%87%91%E5%B1%9E%E7%A6%BB%E5%AD%90%E5%8F%82%E6%95%B0%E7%9A%84%E4%BF%AE%E6%94%B9-6_hu7fd55b3733da80d698958bb81a4f4020_186715_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>再次运行run &ndash; autogrid</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2022 - 
+        
+        2023 叶宇浩随记博客
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.5.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">Table of contents</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#在mpl文件夹中找到ad4_parametersdat文件">在mpl文件夹中找到AD4_parameters.dat文件</a></li>
+    <li><a href="#先看下缺乏的情况">先看下缺乏的情况</a></li>
+    <li><a href="#报错的解决方案">报错的解决方案</a></li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

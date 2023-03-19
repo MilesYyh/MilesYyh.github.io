@@ -1,0 +1,2092 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='山东大生信课程'><title>山东大生信_生物数据库_note</title>
+
+<link rel='canonical' href='https://example.com/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='山东大生信_生物数据库_note'>
+<meta property='og:description' content='山东大生信课程'>
+<meta property='og:url' content='https://example.com/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/'>
+<meta property='og:site_name' content='叶宇浩随记博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='tutorials' /><meta property='article:published_time' content='2021-11-02T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-11-02T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="山东大生信_生物数据库_note">
+<meta name="twitter:description" content="山东大生信课程">
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>Back</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/bioinformatic/" style="background-color: #7816ff; color: #fff;">
+                生物信息学&amp;计算生物学
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/">山东大生信_生物数据库_note</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        山东大生信课程
+    </h3>
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Nov 02, 2021</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    5 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <blockquote>
+<p><strong>写在前面的话：这个笔记不过多深入知识，因为做入门有，大概知道什么时候该用哪个，以及现在有什么技术</strong></p>
+</blockquote>
+<p>教程地址：<a class="link" href="https://www.bilibili.com/video/BV13t411372E?spm_id_from=333.1007.top_right_bar_window_custom_collection.content.click"  target="_blank" rel="noopener"
+    >https://www.bilibili.com/video/BV13t411372E?spm_id_from=333.1007.top_right_bar_window_custom_collection.content.click</a></p>
+<p><strong>写在前面的话：这个笔记不过多深入知识，因为做入门有，大概知道什么时候该用哪个，以及现在有什么技术</strong></p>
+<h2 id="生物数据库">生物数据库</h2>
+<h3 id="pubmed的使用原核生物">PubMed的使用（原核生物）</h3>
+<p>PubMed 是拥有超过两百六十万生物医学文献的数据库。这些文献来源于
+MEDLINE，
+也就是生物医学文献数据库、生命科学领域学术杂志以及在线的专业书籍。他们大部分提供
+全文链接。注意，提供的是链接，你有没有权限通过这个链接打开或者下载全文另当别论。
+不管怎么说，看上去还不错。PubMed
+主页（<a class="link" href="http://www.ncbi.nlm.nih.gov/pubmed"  target="_blank" rel="noopener"
+    >http://www.ncbi.nlm.nih.gov/pubmed</a>）上有个搜
+索条。不管三七二十一，先把家说的 dUTPase
+敲到搜索条里，点搜索。找到了五百多条文
+献。每个文献有题目，作者，刊物，出版时间等等。如果列出的这些信息还不够，或者无法
+满足你的要求，你从页面上方设置每个文献是要显示内容、总结、摘要，还是其他。还可以
+控制每页显示几个文献，以及按照你期望的顺序进行排序</p>
+<p>如果找到的文献太多，一时看不完，可以把他们保存到本地。只要选中你要保存的文献，
+然后通过发送按钮，选择文件，再选择保存的内容以及顺序，最后点创建文件。这样你选中
+文章的信息就以纯文本文件的形式保存到本地电脑上了。</p>
+<p>Pubmed 提供文
+献的摘要和全文链接。这里有两个全文链接。其中一个链接的图标上有 free
+字样。Jim 很幸 运，这篇文章是 open access
+的，也就是免费阅读的。两个链接，第一个是期刊提供的全文 链接，第二个是
+PubMed 中心提供的全文链接。点其中一个链接，就可以在线浏览文献全文
+了，或者下载全文的 PDF 文件到本地。至此，JIM 总算找到了些许有用的信息</p>
+<p>回到 PUBMED
+搜索结果页面，在显示内容格式这个下拉菜单里，除了总结，摘要，还 有个叫
+MEDLINE 的项目。你可以把它简单的理解为数据库中文献记录的内部结构。每条
+文献都是以这样的内部结构存储在数据库中的。一篇文献的所以信息被分割成小节，每个小
+节都有自己的索引名，比如 TI 代表题目，AB 代表摘要，AU
+代表作者等等。这些由几个字 母组成的索引名是规定好的。</p>
+<p>了解了 MEDLINE
+结构，我们就可以在搜索条中通过引入索引名，来按照不同的规则
+搜索。比如搜索 Down 这个词。我们在 Down 的后面加上空格，中括号 AU（Down
+[AU]）， 就会返回所有作者名里有 Down
+这个词的文献。如果加上[TI]，则返回题目中有 Down 的 文献。中括号 AD
+是搜索发表单位。如果什么限制都没有，只写 Down 的话是在任意地方搜
+索。我们看到，引入不同索引名后，搜索到的文献数量是不相同的</p>
+<p>现在，我们的 Jim 已经学会了 PubMed
+的基本使用。他打算趁暑假回北京期间找个相关 的专家拜访一下。于是他在
+PubMed 上搜索，题目和摘要里有 dUTPase 的文献，而且文献的
+发表单位是北京的（dUTPase [TIAB] Beijing
+[AD]）。搜索后，找到了这四篇文章。 其中第二篇文章是研究 dUTPase
+晶体结构的，Jim 很感兴趣。点进去看一下，找到最后一位
+的作者。我们说，通常课题的主要负责人会以通讯作者的身份出现在作者列队的最后。那么，
+这个研究团队的主要负责人就是这位 Su XD，Su
+教授。他的单位是北京大学。之后的任务
+就可以交给度娘来完成了。度娘很快就找到了苏教授的地址和电话，而且连照片都有。Jim
+通过这些信息，成功的拜访了北京大学生命科学学院的苏晓东教授</p>
+<p>除了搜索条，我们还可以利用高级搜索工具更精确的查找。高级搜索可以无限的添加条
+件。比如发表日期从哪天到哪天，文章类型是 research article 还是
+review，语言是英语发表 的还是其他语言发表的等等。我们可以查找比如 2000
+年至今发表的，题目有 dUTPase 关键 词的，英语的，review
+文章。一共找到五篇，相信 Jim 同学看完这 5 篇文章之后，一定会对 dUPTase
+有一个很好的了解</p>
+<p>关于 PubMed
+还有几点要说明的。在搜索时，可以使用引号。引号里的词会被当作一个
+整体来看待，而不会被拆开。这个小技巧同样适用于度娘等网络搜索引擎。也可以使用逻辑词
+AND OR NOT。比如你可以规定，题目里有 dUPTase，并且题目里有
+bacteria，但是作者 里不要有 Smith（dUTPase [TI] AND bacteria [TI]
+NOT Smith [AU]）。此外，如
+果知名知姓，可以利用正确的名字缩写来提高搜索的准确度。还有非常关键的一点，每篇文
+章都有自己唯一的 PubMed
+ID（PMID）。通过这个号，可以直接找到某一篇文章。最后，不
+得不说的是，有的时候 PubMed 也帮不了你。比如，搜索 1995
+年以前的文献中排名十位以 后的作者是白费力气。搜索 1976
+年以前的文献是没有摘要的。搜索 1965 年以前的文献，就 别想了。关于 PubMed
+就给大家介绍到这里</p>
+<h3 id="一级核酸数据库genbank原核生物核酸序列">一级核酸数据库：GenBank原核生物核酸序列</h3>
+<p>看一级核酸数据库，他主要包括三大核酸数据库和基因组数据库。三大核
+酸数据库包括 NCBI 的 Genbank，EMBL 的 ENA 和
+DDBJ，它们共同构成国际核酸序列数据
+库。三大核酸数据库，美国一个，欧洲一个，亚洲一个。美国的 Genbank
+由美国国家生物 技术信息中心 NCBI 开发并负责维护。NCBI
+隶属于美国国立卫生研究院 NIH。欧洲核苷酸 序列数据集 ENA
+由欧洲分子生物学研究室 EMBL 开发并负责维护。亚洲的核酸数据库 DDBJ
+由位于日本静冈的日本国立遗传学研究所 NIG 开发并负责维护。Genbank，EMBL
+与 DDBJ 共同构成国际核酸序列数据库合作联盟 INSDC。通过
+INSDC，三大核酸数据库的信息每日
+相互交换，更新汇总。这使得他们几乎在任何时候都享有相同的数据</p>
+<p>我们以 NCBI 的 Genbank
+为例，教你如何解读一级核酸数据库。我们将分别浏览一个原
+核生物的基因和一个真核生物的基因。为此，请先跟我复习一下原核生物与真核生物基因的
+不同之处。原核生物基因组小，真核生物基因组大。原核生物基因密度高，1000
+个碱基里 就有 1 个基因，而真核生物基因密度低，比如人，要 10 万个碱基才有
+1 个基因。与此对应，
+原核生物编码区含量高，而真核生物低。此外，原核生物的基因是呈线性分布的，而真核生
+物的基因是非线性的，因为翻译蛋白质的外显子被内含子分隔开来。也就是真核生物的
+mRNA 要经历剪切的过程，剪切后的成熟 mRNA
+才能进行翻译。这是原核生物和真核生物
+基因的最大区别，即，原核生物没有内含子，真核生物有内含子。这个巨大的区别，将导致
+两种基因在数据库中不同的存储及注释方式</p>
+<p>我们首先来看一条原核生物的 DNA 序列，它是编码大肠杆菌 dUTPase 的基因，在
+Genbank 里的数据库编号是 X01714。从 NCBI
+的主页（<a class="link" href="http://www.ncbi.nlm.nih.gov/"  target="_blank" rel="noopener"
+    >http://www.ncbi.nlm.nih.gov/</a>）选择 Genbank 数据库。Nucleotide
+数据库就是 Genbank 数据库，然后在搜索条中直接写入这条序
+列对应的数据库编号 X01714，点击&quot;搜索&quot;。结果返回编号为 X01714 的序列在
+Genbank 中 详细记录。从这条记录的标题我们得知，dUTPase
+是脱氧尿苷焦磷酸酶，编码他的基因叫 dut
+基因，所属物种是大肠杆菌。下面是关于这个基因的详细注释，我们逐条浏览一下：</p>
+<ul>
+<li>
+<p>LOCUS
+这一行里包括基因座的名字，核酸序列长度，分子的类别，拓扑类型，原核生
+物的基因拓扑类型都是线性的，最后是更新日期</p>
+</li>
+<li>
+<p>DEFINITION 是这条序列的简短定义，也就是前面看到的标题</p>
+</li>
+<li>
+<p>ACCESSION
+就是在搜索条中输入的那个数据库编号，也叫做检索号，每条记录的检索
+号在数据库中是唯一且不变的。即使数据提交者改变了数据内容，Accession
+也不会变。 你会发现，这条记录里，Accession 和 Locus
+是一样的。这是因为这个基因在录入数据
+库之前并没有起名字，因此录入数据的时候便将检索号作为了基因的名字。但是有些基因，
+在录入数据库之前已经有了自己的名字，那么这些基因所对应的 Accession
+和 Locus 就 不一样了。你可以这样理解，Locus 是一个同学的真实姓名，而
+Accession 是这个同学
+的学号。同一个人在不同的学校里会有不同的学号，而名字只有一个。基因也是一样，同一
+个基因在不同的数据库中会有不同的检索号，而基因的名字只有一个</p>
+</li>
+<li>
+<p>Version 版本号和 Locus，Accession
+长得差不多。版本号的格式是&quot;检索号点上 一个数字&quot;。版本号于 1999 年 2
+月由三大数据库采纳使用。主要用于识别数据库中一条单一
+的特定核苷酸序列。在数据库中，如果某条序列发生了改变，即使是单碱基的改变，它的版
+本号都将增加，而它的 Accession 也就是检索号保持不变。比如，版本号由
+U12345.1 变 为 U12345.2，而检索号依然是 U12345。版本号后面还有个 GI
+号。GI 号与前面的版本号系
+统是平行运行的。当一条序列改变后，它将被赋予一个新的 GI
+号，同时它的版本号将增加</p>
+</li>
+<li>
+<p>KEYWORDS 提供能够大致描述该条目的几个关键词，可用于数据库搜索。</p>
+</li>
+<li>
+<p>SOURCE，基因序列所属物种的俗名。他下面还有一个子条目，ORGANISM，是对所属
+物种更详细的定义，包括他的科学分类</p>
+</li>
+<li>
+<p>REFERENCE
+是基因序列来源的科学文献。有时一条基因序列的不同片段可能来源于不
+同的文献，那样的话，就会有很多个 REFERENCE 条目出现。REFERENCE
+的子条目包括文 献的作者、题目和刊物。刊物下面还包括 PubMed ID
+作为其子条目</p>
+</li>
+<li>
+<p>COMMENT 是自由撰写的内容，比如致谢，或者是无法归入前面几项的内容</p>
+</li>
+<li>
+<p>FEATURES
+是非常重要的注释内容，它描述了核酸序列中各个已确定的片段区域，包含
+很多子条目，比如来源，启动子，核糖体结合位点等等</p>
+</li>
+<li>
+<p>promoter 列出了启动子的位置。细菌有两个启动子区，-35 区和-10 区。-35
+区位于第 286 个碱基到第 291 个碱基 ，-10 区位于第 310 个碱基到第 316
+个碱基</p>
+</li>
+<li>
+<p>misc_feature 列出了一些杂项，比如，这条说明了从第 322 个碱基到第 324
+个碱基 是一个推测的，但无实验证实的转录起始位置</p>
+</li>
+<li>
+<p>RBS 是核糖体结合位点的位置</p>
+</li>
+<li>
+<p>CDS，Coding Segment，编码区。对于原核生物来讲，CDS
+记录了一个开放阅读框，从 第 343 个碱基开始的起始密码子 ATG 到第 798
+个碱基结束的结束密码子 TAA。除了位置信
+息，还包括翻译产物的诸多信息。翻译产物蛋白的名字是
+dUTPase，这个编码区编码该蛋白 的第 1 到第 151
+个氨基酸。翻译的起始位置和翻译所使用的密码本，以及计算机使用翻译密
+码本根据核酸序列翻译出的蛋白质序列。需要强调的是，这不是生物自然翻译的，而是计算
+机翻译的。事实上，蛋白质数据库中的大多数蛋白质序列都是根据核酸序列由计算机根据翻译密码本自动翻译出来的。中间部分是翻译出的蛋白在各种蛋白质数据库中对应的检索号。
+通过这些检索号可以轻松的链接到其他数据库 （此外，X01714
+这条核酸序列还包含第二个&quot;潜在的&quot;基因，也就是计算机预测出来的
+基因。它编码的蛋白目前的数据库里没有详细记录，是个未知的蛋白。像这样，一条核酸序
+列包含多个基因的情况在 Genbank 里是很常见的）</p>
+</li>
+<li>
+<p>ORIGIN
+作为最后一个条目记录的是核酸序列，并以双斜线作为整条记录的结束符。至
+此整条记录就浏览完了</p>
+</li>
+<li>
+<p>有时你可能会想要保存这条序列，但是直接从这里拷贝，序列里既有空格，又有数字，
+不是纯序列，手动删除这些又很麻烦。这时，你可以在这条记录的标题下面找到一个叫做
+FASTA 的链接。点击他，你会获得 FASTA 格式的核酸序列。FASTA
+格式是最常用的序列书
+写格式，他由两部分组成，第一部分就是第一行，以大于号开始。大于号后面接序列的名称
+或注释。第二部分就是第二行以后的纯序列部分，这部分只能写序列，不能有其他内容，比
+如空格，注释，行号之类的都不能在序列部分出现。早期的 FASTA
+格式要求序列部分每行 60 个字母。但这个规定早已被打破，每行
+80，或每行 100，都可以</p>
+</li>
+<li>
+<p>标题下方，除了 FASTA 链接，还有一个图形化链接，点击可以看到 Features
+里的注
+释信息以图形的形式更直观的展示出来。可以看到这条序列包含的两个基因，他们的启动子
+的位置，核糖体结合位点的位置等。其中一条基因是编码 dUTPase 的 dut
+基因，另一个是编 码未知蛋白的潜在的通过计算预测出的基因</p>
+</li>
+<li>
+<p>如果想要保存这条记录，最好的方法是像保存 PubMed
+文献列表那样，点击发送链接，
+然后选择以纯文本文件的形式保存整条记录到本地电脑上</p>
+</li>
+</ul>
+<h3 id="一级核酸数据库genbank真核生物核酸序列">一级核酸数据库：GenBank真核生物核酸序列</h3>
+<p>真核生物的基因与原核生物不同，是非线性排列的，也
+就是基因里有外显子和内含子。因此真核生物核酸序列的数据库记录要要比原核生物复杂。
+有时需要几条记录拼凑在一起才能描述出一个完整的基因。我们先来看看编码人
+dUTPase 的成熟 mRNA 序列。成熟 mRNA
+是已经剪切掉内含子，只剩外显子的序列，所以这条成熟 mRNA
+序列和我们之前看到的原核生物的 DNA
+序列从拓扑结构上看是几乎一样的，都是线 性的。输入这条成熟 mRNA
+序列的检索号 U90223，搜索</p>
+<p>打开数据库记录，基本的注释内容和原核生物的差不多，这里只挑两点特别的地方说一
+下。大家看到 KEYWORDS
+后面只有一个点。这个点提示我们，数据库并不是完美的，所有
+数据库都存在数据不完整的问题。再有，JOURNAL
+后面我们看到是写的是未正式发表。但 事实上，这篇文章早在 1997
+年就已经发表在 JBC 上了。因此，忠言逆耳：别指望 Genbank
+或任何一个数据库能够百分百做到数据无误且实时更新</p>
+<p>Features 里的注释内容与原核生物的数据库记录相似，CDS 指出了从 63 到 821
+是一 段编码区，在这段编码区里基因是连续的，因为是经过剪切后的成熟
+mRNA，它将被翻译 成线粒体型 dUTPase 蛋白。下面/translation
+里给出的是计算机翻译出的该蛋白的序列</p>
+<p>在 Features 里还有两个新的条目之前没有见到过。sig_peptide 和
+mat_peptide。 sig_peptide，也就是 signal
+peptide，指出了编码信号肽的碱基的位置。信号肽决定了蛋
+白质的亚细胞定位，也就是蛋白质工作的地方。mat_peptide，也就是 mature
+peptide，指
+出了编码成熟肽链的碱基的位置。他从信号肽后面开始，到编码区结尾提前三个碱基结束。
+编码区一直到第 821 号碱基，而编码成熟蛋白的最后一个碱基是第 818
+号碱基，这中间差了 3
+个碱基，那最后的这三个碱基干嘛去了呢？编码区的最后三个碱基是终止密码子，不翻译。
+这条真核生物序列的 Genbank
+注释看起来和原核生物的差不多，这是因为我们很小心的挑 了一条成熟 mRNA
+的序列</p>
+<p>基因组里的 DNA 序列，是非线性分布的基因序列。我们仍然浏览编码人的
+dUTPase 的 dut 基因序列。输入检索号 AF018430，搜索</p>
+<p>这个检索号下的序列标题是&quot;人 dut 基因的第三号外显子&quot;。人的 dut
+基因肯定包含多 个外显子，而当前的这条 DNA
+序列里只包含了一个外显子。其他的外显子在别的数据库记 录里。从 SEGMENT
+处可以看到，人的 dut 基因序列被分成了 4 个片段，并且分别存储在 4
+条数据库记录中。也就是说，只有把四个片段全部凑在一起，才能拼凑出完整的基因。当前
+这条数据库记录是所有四个片段里的第二个。这个片段里只包含一个外显子，是第三号外显
+子。需要注意的是，一个片段可以只包含一个外显子，也可以包含不止一个外显子。另外，
+这个例子告诉我们，LOCUS 和 ACCESSION 是可以不相同的</p>
+<p>从 FEATURES 里可以找到这个序列片段在染色体上的具体位置。是在 15
+号染色体的长 臂上，位置在 15 到 21.1 条带之间</p>
+<p>GENE
+这部分指出了拼出完整基因所需的所有四个片段的检索号，以及具体的位置。也
+就是 AF018429 这条序列的 1 到 1735 号碱基，连上当前这条序列的 1 到 1177
+号碱基，连上 AF018431 这条序列的 1 到 45 号碱基，连上 AF018432
+这条序列的 658 到 732 号碱基和 884 到 954 号碱基，以及 1391 到 1447
+号碱基。后面给出了基因的名字，dut</p>
+<p>mRNA 给出了拼凑出上面基因的各个片段中外显子的位置。也就是说，GENE
+里的片段 拼在一起是完整的基因，mRNA
+里的片段拼在一起就等于完成了剪切的过程，相当于成熟
+mRNA。值得注意的是，剪接后形成的 mRNA
+有两种，其中一种比另一种在前端多了一个
+外显子。多的这一段将被翻译成定位线粒体的信号肽，从而翻译出线粒体型的蛋白质。而另
+一种没有信号肽的将形成细胞核型蛋白质</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 294; 
+			flex-basis: 706px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId25.png" data-size="459x156">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId25.png"
+			width="459"
+			height="156"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId25_hu7b9bb811104ba36549b9f59d53e52b15_37050_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId25_hu7b9bb811104ba36549b9f59d53e52b15_37050_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;1.9825699912510937in&rdquo;}</p>
+<p>上表清晰的列出了四个片段中所有外显子的位置。能够清楚的看到，线粒体型的比细胞
+核型的多了一个翻译信号肽的外显子，其他的翻译成熟肽段的外显子都是一样的。虽然信号
+肽最终也会被切掉，但是由此产生了两种亚细胞定位的蛋白质。有信号肽的会到线粒体中去，
+没有的将留在细胞核里</p>
+<p>最后 exon 条目明确的告诉我们，当前这条序列里 560 到 651 号碱基是 dut
+基因的第三 个外显子。至此，大家应该看得出来，解读真核生物的 DNA
+序列要比原核生物复杂得多。 但是，只要你熟知基因的结构和 Genbank
+的存储方式，这本天书不难看懂</p>
+<h3 id="基因组数据库-ensemble">基因组数据库 Ensemble</h3>
+<p>在查看人的整个基因组之前，需要先搞清楚几件事。人的基因组有 33
+亿个碱基分布在 23
+个染色体上。我们现在已经获得了人的全基因组序列。起初拿到手的就是 33
+亿个字母， 下一步面临的巨大挑战就是给它们添加注释，也就是做一个详细的
+FEATURES 表。全世界
+每时每刻关于人类基因及其功能都有新的发现。研究基因的方法五花八门，层出不穷，不可
+能全部学会，只能是用到哪学到哪</p>
+<p>我们从 Ensembl 数据库（<a class="link" href="http://www.ensembl.org"  target="_blank" rel="noopener"
+    >http://www.ensembl.org</a>）查看人的基因组。Ensembl
+是由欧洲 生物信息学研究所 EBI
+和英国桑格研究院合作开发的。它收入了各种动物的基因组，特别
+是那些离我们人类近的脊椎动物的基因组。这些基因组的注释都是通过配套开发的软件自动
+添加的。Ensembl
+主页左下角有人，老鼠，斑马鱼这三个点击率最高的基因组的快速链接。
+其中，人的基因组有两个。右边是 2009 年获得的基因组信息，左边是 2013
+年重新测序获得 的基因组信息。我们看右边这个最新的</p>
+<p>点击进入之后，我们点这个查看染色体，就可以看到人的所有染色体的图例。不知到大
+家还记不记得，之前看到的某些信息似乎和 15
+号染色体有点儿什么关系！没错，前面一直 研究的那个编码 dUPTase 的 dut
+基因就在 15 号染色体上。点一下 15 号染色体，在弹出窗口
+中选择染色体概要（chromosome summary）。这时我们会得到 15
+号染色体的一个一览图。里
+面包括编码蛋白的基因、非编码基因、假基因分别在染色体上不同区段内的含量，以及
+GC 百分比（红线），和卫星 DNA 百分比（黑线）。染色体统计表给出了 15
+号染色体的长度， 以及各种类型的基因的个数</p>
+<p>从 Genbank 我们了解到，dut 基因的第三号外显子位于 15 号染色体的长臂条带
+21.1 附 近。所以我们进一步进入这个条带看一下。点击条带
+21.1，选择区间链接。这时，这个区间
+内所有的基因就都被显示在一张图上。如果眼力好的话，可以从这个图谱上直接找到
+dut 基
+因，并以他为中心放大。如果找不到，也可以通过搜索条输入基因的名字进行查找</p>
+<p>在以 dut 基因为中心显示的放大图谱中，点击 dut
+或者对应的区域，在弹出的概况窗口 中选择 Ensemble
+数据库的检索号。之后就会出现dut基因在 Ensemble 数据库中的详细记录</p>
+<h3 id="微生物宏基因组数据库jcvi">微生物宏基因组数据库JCVI</h3>
+<p><a class="link" href="http://www.jcvi.org/"  target="_blank" rel="noopener"
+    >http://www.jcvi.org/</a></p>
+<p>微生物宏基因组数据库是非常有用的一级核酸数据库资源。说到微生物宏基因组学，不
+得不介绍的是美国基因组研究所 TIGR 和克莱格反特研究所
+JCVI。美国基因组研究所致力
+于微生物基因组的研究，也有部分植物基因组项目。它是克莱格·凡特研究所的一部分。自
+1995 年成立之初的两个基因组，至今已拥有超过 700
+个基因组，而且还将更多。TIGR 是 NCBI
+基因组资源的有力补充，因为它不仅拥有已完成测序的基因组，还有那些测序中的基
+因组信息。在植物基因组项目中可以找到拟南芥、玉米、苜蓿和柳树的基因组信息。在微生
+物与环境基因组目中，特别值得关注的是&quot;人类微生物组计划&quot;，HMP</p>
+<p>HMP 由美国 NIH 发起，由 4
+个四个测序中心共同完成，其中一个就是克莱格凡特学院。
+&ldquo;人类微生物组计划&quot;堪比&quot;人类基因组计划&rdquo;。我们目前认知的微生物不到
+1%，生活在我 们肠道中的微生物细胞，是人体细胞的 10
+倍。这些微生物基因组之和是人类基因组的 100
+倍。微生物影响并超越我们的生老病死，有一天人死了，但身体中的微生物却还活着。除了
+近年来少量的有关糖尿病等与肠道微生物的研究外，我们完全不清楚肠道微生物，呼吸道微
+生物，还有体表微生物等在人体内做了什么，他们的喜怒哀乐与我们的生老病死有什么关系。
+所以世界上诸多科学家都呼吁完成微生物组的研究计划。HMP
+就是其中之一。目前，HMP
+主要包括了人类鼻腔、口腔、皮肤、胃肠道和泌尿生殖道的宏基因组样本数据和分析流程</p>
+<p>从 JCVI
+主页（<a class="link" href="http://www.jcvi.org/"  target="_blank" rel="noopener"
+    >http://www.jcvi.org/</a>）的统计表中我们可以看到不同器官中有多少微生物
+基因组已被测序并被注释。点击下方的统计链接。可以得到 HMP
+中已研究的所有微生物基
+因组。这些微生物在人体中存在的位置，测序及注释是已完成还是在进行中。已完成的基因
+组后面会有三个链接</p>
+<ul>
+<li>
+<p>WGS 是全基因组鸟枪法测序项目数据库记录的链接</p>
+</li>
+<li>
+<p>SRA
+是高通量测序数据库记录的链接。这两个链接里记录的是测序的信息。相比之下对
+大家更为有意义的是</p>
+</li>
+<li>
+<p>ANNOTATION 链接里的内容，他列出了某个基因组在 Genbank
+中所有注释的链接。 比如微生物 Acinetobacter radioresistens SK82
+的基因组共分成 82 条序列记录在 Genbank 数据
+库中。通过前面章节的学习，解读这些序列并不困难</p>
+</li>
+</ul>
+<h3 id="二级核酸数据库">二级核酸数据库</h3>
+<p>二级核酸数据库包括的内容非常多。其中 NCBI
+下属的三个数据库经常会用到。他们是 RefSeq 数据库，dbEST 数据库和 Gene
+数据库。RefSeq 数据库，也叫参考序列数据库，是通
+过自动及人工精选出的非冗余数据库，包括基因组序列、转录序列和蛋白质序列。凡是叫
+ref
+什么的数据库都是非冗余数据库，就是已经帮你把重复的内容去除掉了。dbEST
+数据库， 也就是表达序列标签数据库，存储的是不同物种的表达序列标签。Gene
+数据库以基因为记 录对象为用户提供基因序列注释和检索服务，收录了来自 5300
+多个物种的 430 万条基因记录</p>
+<p>此外，非编码 RNA 数据库，提供非编码 RNA 的序列和功能信息。非编码 RNA
+不编码 蛋白质但在细胞中起调节作用。目前该数据库包含来源于 99
+种细菌，古细菌和真核生物的 3 万多条序列。microRNA 数据库主要存放已发表的
+microRNA 序列和注释。这个数据库可 以分析 microRNA 在基因组中的定位和挖掘
+microRNA 序列间的关系</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 236; 
+			flex-basis: 568px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId33.png" data-size="391x165">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId33.png"
+			width="391"
+			height="165"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId33_hu3dea386554982acaabe247a8d90abf7f_14927_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId33_hu3dea386554982acaabe247a8d90abf7f_14927_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.430555555555555in&rdquo;
+height=&ldquo;2.2916666666666665in&rdquo;}</p>
+<h3 id="一级蛋白质序列数据库蛋白质序列数据库uniprotkb">一级蛋白质序列数据库：蛋白质序列数据库UniProtKB</h3>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 149; 
+			flex-basis: 358px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId37.png" data-size="784x525">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId37.png"
+			width="784"
+			height="525"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId37_hu7b3f31bb5f71e18dff4a3bb947d07f4e_193057_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId37_hu7b3f31bb5f71e18dff4a3bb947d07f4e_193057_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo; height=&ldquo;3.90625in&rdquo;}</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 144; 
+			flex-basis: 345px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId40.png" data-size="834x579">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId40.png"
+			width="834"
+			height="579"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId40_hu44093e10daeef40680f5c5eb354017d4_290428_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId40_hu44093e10daeef40680f5c5eb354017d4_290428_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.049759405074366in&rdquo;}</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 165; 
+			flex-basis: 397px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId43.png" data-size="883x533">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId43.png"
+			width="883"
+			height="533"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId43_hu88285e163c8fd50f7a47ad3660c91941_236068_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId43_hu88285e163c8fd50f7a47ad3660c91941_236068_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.521139545056868in&rdquo;}</p>
+<h4 id="interaction">interaction</h4>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 141; 
+			flex-basis: 339px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId46.png" data-size="782x553">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId46.png"
+			width="782"
+			height="553"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId46_huc0e44a269f26b2a4139f6adc4af0c3be_182089_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId46_huc0e44a269f26b2a4139f6adc4af0c3be_182089_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.125106080489939in&rdquo;}</p>
+<h4 id="structure">structure</h4>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 147; 
+			flex-basis: 353px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId50.png" data-size="783x532">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId50.png"
+			width="783"
+			height="532"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId50_huf92cc742bbc40dbf9624db70209a4a19_291321_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId50_huf92cc742bbc40dbf9624db70209a4a19_291321_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.9633880139982502in&rdquo;}</p>
+<h4 id="family--domains">Family &amp; Domains</h4>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 153; 
+			flex-basis: 368px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId54.png" data-size="846x551">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId54.png"
+			width="846"
+			height="551"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId54_hu53dbd256b477aa231dbc84c95d25964a_232162_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId54_hu53dbd256b477aa231dbc84c95d25964a_232162_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.799250874890639in&rdquo;}</p>
+<h4 id="seq">Seq</h4>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 146; 
+			flex-basis: 352px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId58.png" data-size="804x547">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId58.png"
+			width="804"
+			height="547"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId58_hude94987550a077b55c501e1022e5ec03_365289_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId58_hude94987550a077b55c501e1022e5ec03_365289_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.96869750656168in&rdquo;}</p>
+<h4 id="cross-references">Cross-references</h4>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 148; 
+			flex-basis: 355px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId62.png" data-size="797x538">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId62.png"
+			width="797"
+			height="538"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId62_hu1f35d1c7f90c399f62493052069b0a47_318194_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId62_hu1f35d1c7f90c399f62493052069b0a47_318194_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.9376826334208226in&rdquo;}</p>
+<h4 id="publication">Publication</h4>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 141; 
+			flex-basis: 340px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId66.png" data-size="770x543">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId66.png"
+			width="770"
+			height="543"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId66_hu82cfe72c15b56b4280fd124cc8619551_409816_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId66_hu82cfe72c15b56b4280fd124cc8619551_409816_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.113636264216973in&rdquo;}</p>
+<h4 id="entry-information">Entry information</h4>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 153; 
+			flex-basis: 368px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId70.png" data-size="810x528">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId70.png"
+			width="810"
+			height="528"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId70_hub4ece46d80f4caf4b361b1c73fcb2a11_250765_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId70_hub4ece46d80f4caf4b361b1c73fcb2a11_250765_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.8024682852143483in&rdquo;}</p>
+<h3 id="miscellaneous">Miscellaneous</h3>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 144; 
+			flex-basis: 346px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId75.png" data-size="776x538">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId75.png"
+			width="776"
+			height="538"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId75_hua3981dd6002091e84470e88f7fa9ed41_257108_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId75_hua3981dd6002091e84470e88f7fa9ed41_257108_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.044243219597551in&rdquo;}</p>
+<h4 id="simillar-proteins">Simillar proteins</h4>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 144; 
+			flex-basis: 347px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId78.png" data-size="794x549">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId78.png"
+			width="794"
+			height="549"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId78_huce6d2cb2245059bbbbbf0be0265f5357_221470_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId78_huce6d2cb2245059bbbbbf0be0265f5357_221470_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.033374890638671in&rdquo;}</p>
+<h4 id="text纯文本数据库记录">Text纯文本数据库记录</h4>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 147; 
+			flex-basis: 354px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId82.png" data-size="830x562">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId82.png"
+			width="830"
+			height="562"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId82_hu29a0ce986578dbcd155c1bea79794f2f_349283_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId82_hu29a0ce986578dbcd155c1bea79794f2f_349283_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.949798775153106in&rdquo;}</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 176; 
+			flex-basis: 423px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId85.png" data-size="899x510">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId85.png"
+			width="899"
+			height="510"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId85_hu634aac1fb54ae4bf7f877876ca76592f_236367_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId85_hu634aac1fb54ae4bf7f877876ca76592f_236367_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.309232283464567in&rdquo;}</p>
+<h3 id="一级蛋白质数据库-蛋白质结构数据库pdb">一级蛋白质数据库 蛋白质结构数据库PDB</h3>
+<h4 id="蛋白质的基础结构概念">蛋白质的基础结构概念</h4>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 167; 
+			flex-basis: 401px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId90.png" data-size="799x478">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId90.png"
+			width="799"
+			height="478"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId90_hu193026a578d5a06c7921f0617e9d68c1_329934_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId90_hu193026a578d5a06c7921f0617e9d68c1_329934_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.4897779965004374in&rdquo;}</p>
+<h4 id="pdb库的概况">PDB库的概况</h4>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 167; 
+			flex-basis: 401px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId94.png" data-size="944x564">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId94.png"
+			width="944"
+			height="564"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId94_huad16fb63ef61e46ae03852775d4653af_391446_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId94_huad16fb63ef61e46ae03852775d4653af_391446_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.485168416447944in&rdquo;}</p>
+<p>在PubMed上查找的资料</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 173; 
+			flex-basis: 417px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId97.png" data-size="972x559">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId97.png"
+			width="972"
+			height="559"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId97_hu8d44f88278cd4b5232b849e045cd2778_516334_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId97_hu8d44f88278cd4b5232b849e045cd2778_516334_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.354765966754156in&rdquo;}</p>
+<h4 id="pdb库的使用">PDB库的使用</h4>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 139; 
+			flex-basis: 334px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId101.png" data-size="781x560">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId101.png"
+			width="781"
+			height="560"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId101_hu04ca687bcacb909e270b8ba3c7477326_443301_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId101_hu04ca687bcacb909e270b8ba3c7477326_443301_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.182671697287839in&rdquo;}</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 139; 
+			flex-basis: 334px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId104.png" data-size="804x577">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId104.png"
+			width="804"
+			height="577"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId104_hu8906818d0e0a9d1cf42d1fdf007157b4_293404_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId104_hu8906818d0e0a9d1cf42d1fdf007157b4_293404_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.186359361329834in&rdquo;}</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 141; 
+			flex-basis: 338px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId107.png" data-size="832x590">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId107.png"
+			width="832"
+			height="590"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId107_huc049383d678212ae4e8bd030859d418b_375812_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId107_huc049383d678212ae4e8bd030859d418b_375812_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.13661854768154in&rdquo;}</p>
+<h4 id="pdb文件的介绍">PDB文件的介绍</h4>
+<ul>
+<li>
+<p>HEADER : 分子类别 ， 日期， PDB ID</p>
+</li>
+<li>
+<p>TITLE : 结构的标题，一般就是相关文献的标题</p>
+</li>
+<li>
+<p>COMPD： 对各个分子的描述</p>
+</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li>如这里是由三条链构成的三聚体结构</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li>
+<p>SOURCE : 结构中包括的每一个分子的实验来源 （生物学 / 化学）</p>
+</li>
+<li>
+<p>KEYWDS： 用于数据库搜索的关键词</p>
+</li>
+<li>
+<p>EXPDTA: 测定结构所采用的实验方法</p>
+</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 186; 
+			flex-basis: 447px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId111.png" data-size="529x284">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId111.png"
+			width="529"
+			height="284"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId111_hu47ae86870b8c928c9fb00f7439d2007c_130039_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId111_hu47ae86870b8c928c9fb00f7439d2007c_130039_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.1316940069991253in&rdquo;}</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li>
+<p>AUTHOR: 结构测定者</p>
+</li>
+<li>
+<p>REVDAT: 历史上曾对该数据库记录进行过的修改</p>
+</li>
+<li>
+<p>JRNL：发表这个结构的文献</p>
+</li>
+<li>
+<p>REMARK: 无法归入其他部分的注释</p>
+</li>
+<li>
+<p>DBREF: 该蛋白质在蛋白质序列数据库看看里的检索号等信息</p>
+</li>
+<li>
+<p>SEQRES: 氨基酸序列</p>
+</li>
+<li>
+<p>MODRES:对标准残基上的修饰</p>
+</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 224; 
+			flex-basis: 538px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId114.png" data-size="871x388">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId114.png"
+			width="871"
+			height="388"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId114_hu85bd719956c78ae7e216fa1e1ceb968a_198638_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId114_hu85bd719956c78ae7e216fa1e1ceb968a_198638_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;2.598545494313211in&rdquo;}</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 169; 
+			flex-basis: 405px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId117.png" data-size="864x511">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId117.png"
+			width="864"
+			height="511"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId117_hudf5daecc97844704af3baa695a5d1f67_351704_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId117_hudf5daecc97844704af3baa695a5d1f67_351704_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.450038276465442in&rdquo;}</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li></li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li>LINK: 残基间的化学键，比如肽键，氢键，二硫键</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li>如 107号上的N 与 106号上的C 脱去一分子的水形成1.32A</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 166; 
+			flex-basis: 399px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId120.png" data-size="856x514">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId120.png"
+			width="856"
+			height="514"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId120_hu02a172b0f96a80c7b33cdc891d550fdb_254487_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId120_hu02a172b0f96a80c7b33cdc891d550fdb_254487_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.5027252843394576in&rdquo;}</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li></li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li>3D坐标部分</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li>
+<p>每一行是一个原子，如这是A链上的20号氨基酸PRO上的N原子，</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 161; 
+			flex-basis: 388px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId123.png" data-size="882x545">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId123.png"
+			width="882"
+			height="545"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId123_hudd4b9310c5eccd59c04a34f7109b6a24_475026_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId123_hudd4b9310c5eccd59c04a34f7109b6a24_475026_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.6044969378827645in&rdquo;}</p>
+</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 91; 
+			flex-basis: 218px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId126.png" data-size="446x489">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId126.png"
+			width="446"
+			height="489"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId126_hu471089d8a5a52a23914e65dad531e20a_175048_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId126_hu471089d8a5a52a23914e65dad531e20a_175048_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;6.395739282589676in&rdquo;}</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li></li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 191; 
+			flex-basis: 458px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId129.png" data-size="874x457">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId129.png"
+			width="874"
+			height="457"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId129_hu5f92e624d0d144e6385991b10cd2c790_206293_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId129_hu5f92e624d0d144e6385991b10cd2c790_206293_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.050152012248469in&rdquo;}</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li></li>
+</ul>
+<h4 id="pdb在线3d查看-jsmol">PDB在线3D查看 JSMOL</h4>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 165; 
+			flex-basis: 398px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId133.png" data-size="712x429">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId133.png"
+			width="712"
+			height="429"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId133_hu57ebbdbdfb5c37fc612950dce1a07fd8_154749_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId133_hu57ebbdbdfb5c37fc612950dce1a07fd8_154749_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.514746281714786in&rdquo;}</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 175; 
+			flex-basis: 420px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId136.png" data-size="637x364">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId136.png"
+			width="637"
+			height="364"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId136_hud0cf057f59a360f8c738034f8c9a4c38_135601_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId136_hud0cf057f59a360f8c738034f8c9a4c38_135601_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.3333333333333335in&rdquo;}</p>
+<h3 id="二级蛋白质数据库">二级蛋白质数据库</h3>
+<h4 id="pfam简述">Pfam简述</h4>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 175; 
+			flex-basis: 420px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId141.png" data-size="944x539">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId141.png"
+			width="944"
+			height="539"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId141_hu981cb0f11b692309c283bc84b08b3143_482237_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId141_hu981cb0f11b692309c283bc84b08b3143_482237_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.3306846019247596in&rdquo;}</p>
+<p>pfam上的SEARCH可以帮我们查找某条序列上有哪些结构域</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 179; 
+			flex-basis: 430px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId144.png" data-size="886x494">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId144.png"
+			width="886"
+			height="494"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId144_hu59e20422bb9058c2b952e4bc5ca91392_388590_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId144_hu59e20422bb9058c2b952e4bc5ca91392_388590_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.252445319335083in&rdquo;}</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 225; 
+			flex-basis: 540px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId147.png" data-size="878x390">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId147.png"
+			width="878"
+			height="390"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId147_hu9e2ffc665a02d47d80cdeddc10f963dd_294700_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId147_hu9e2ffc665a02d47d80cdeddc10f963dd_294700_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;2.5911154855643046in&rdquo;}</p>
+<p>Summary可以获得这个结构域的功能注释以及结构信息<br>
+Domin organisation
+可以看出在当前有多少蛋白质拥有TIR结构域以及结构域之间的关系Sturctures :
+会列出当前TIR结构域的蛋白质结构以及在UNIport中的链接</p>
+<h4 id="cath">CATH</h4>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 180; 
+			flex-basis: 434px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId151.png" data-size="908x502">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId151.png"
+			width="908"
+			height="502"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId151_hu90e69949c23af18856ed4949ae799d0e_388316_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId151_hu90e69949c23af18856ed4949ae799d0e_388316_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.225036089238845in&rdquo;}</p>
+<p>CATH分类代码</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 162; 
+			flex-basis: 390px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId154.png" data-size="855x525">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId154.png"
+			width="855"
+			height="525"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId154_huc71193c0ffe2b86d4b3b1a70131d33b5_318373_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId154_huc71193c0ffe2b86d4b3b1a70131d33b5_318373_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.581871172353456in&rdquo;}</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 139; 
+			flex-basis: 333px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId157.png" data-size="755x543">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId157.png"
+			width="755"
+			height="543"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId157_hu67ca1ffb99cd9911aa3e1af27859cafe_555866_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId157_hu67ca1ffb99cd9911aa3e1af27859cafe_555866_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.195364173228347in&rdquo;}</p>
+<h4 id="cath的使用">CATH的使用</h4>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 137; 
+			flex-basis: 329px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId161.png" data-size="770x561">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId161.png"
+			width="770"
+			height="561"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId161_hu362d17f13e803dfc8fd9fddf292154be_586121_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId161_hu362d17f13e803dfc8fd9fddf292154be_586121_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.249998906386701in&rdquo;}</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 146; 
+			flex-basis: 351px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId164.png" data-size="783x535">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId164.png"
+			width="783"
+			height="535"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId164_huf0f592a146e6878f82813f6db4d32ea5_276219_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId164_huf0f592a146e6878f82813f6db4d32ea5_276219_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.985738188976378in&rdquo;}</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 160; 
+			flex-basis: 385px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId167.png" data-size="784x488">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId167.png"
+			width="784"
+			height="488"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId167_hua4c886a1591b6f201643a70316e65148_225694_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId167_hua4c886a1591b6f201643a70316e65148_225694_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.630951443569554in&rdquo;}</p>
+<p>3H6X是三条链的</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 102; 
+			flex-basis: 244px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId170.png" data-size="596x584">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId170.png"
+			width="596"
+			height="584"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId170_hud40542fcaf253fcd1cfac1ff41b5e4c6_209608_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId170_hud40542fcaf253fcd1cfac1ff41b5e4c6_209608_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;5.715883639545057in&rdquo;}</p>
+<p>另外一个有趣的图<br>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 131; 
+			flex-basis: 316px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId173.png" data-size="763x579">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId173.png"
+			width="763"
+			height="579"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId173_huf498f9a7025972510ca01fd3318bba80_295182_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId173_huf498f9a7025972510ca01fd3318bba80_295182_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.42660542432196in&rdquo;}</p>
+<h4 id="scop2">SCOP2</h4>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 176; 
+			flex-basis: 424px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId177.png" data-size="969x548">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId177.png"
+			width="969"
+			height="548"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId177_huf0c372ff83951db856ca767845f1da8b_438076_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId177_huf0c372ff83951db856ca767845f1da8b_438076_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.298932633420822in&rdquo;}</p>
+<h4 id="scop2的使用">SCOP2的使用</h4>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 125; 
+			flex-basis: 302px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId181.png" data-size="724x575">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId181.png"
+			width="724"
+			height="575"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId181_hu9ca65c91bd98e6950d27d1484be67879_269457_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId181_hu9ca65c91bd98e6950d27d1484be67879_269457_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.632825896762904in&rdquo;}</p>
+<p>四层分类</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 124; 
+			flex-basis: 299px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId184.png" data-size="687x550">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId184.png"
+			width="687"
+			height="550"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId184_hu7a29e53cf19d68fca4d761414a838f99_216535_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId184_hu7a29e53cf19d68fca4d761414a838f99_216535_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.670062335958005in&rdquo;}</p>
+<h3 id="专用数据库">专用数据库</h3>
+<h4 id="kegg">KEGG</h4>
+<p>首先看个图（生物代谢图）</p>
+<p>每一个点就是一个化合物，每一条线就是一个生化反应</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 162; 
+			flex-basis: 391px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId189.png" data-size="919x564">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId189.png"
+			width="919"
+			height="564"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId189_huc861e88b6c3d09c57334c1a9a31d1f2f_696140_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId189_huc861e88b6c3d09c57334c1a9a31d1f2f_696140_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.5799781277340332in&rdquo;}</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 822; 
+			flex-basis: 1974px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId192.png" data-size="839x102">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId192.png"
+			width="839"
+			height="102"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId192_hu9740bcf052a4e09765b2880aea757a5d_170065_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId192_hu9740bcf052a4e09765b2880aea757a5d_170065_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;0.7091765091863517in&rdquo;}</p>
+<p>正式开始KEGG的介绍<br>
+以代谢通路来讲解<br>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 138; 
+			flex-basis: 332px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId195.png" data-size="797x575">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId195.png"
+			width="797"
+			height="575"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId195_hu2088f7d2d2bf6fbb9e7853b25670ba11_438786_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId195_hu2088f7d2d2bf6fbb9e7853b25670ba11_438786_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.208489720034995in&rdquo;}</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 118; 
+			flex-basis: 284px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId198.png" data-size="677x571">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId198.png"
+			width="677"
+			height="571"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId198_hub7bab61831f13fcf1fcc9e45967648d8_279534_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId198_hub7bab61831f13fcf1fcc9e45967648d8_279534_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.919989063867017in&rdquo;}</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 128; 
+			flex-basis: 308px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId201.png" data-size="748x582">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId201.png"
+			width="748"
+			height="582"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId201_hu802b39224725dc0fad6cf7d294b8bbb3_290878_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId201_hu802b39224725dc0fad6cf7d294b8bbb3_290878_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.53876968503937in&rdquo;}</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 149; 
+			flex-basis: 359px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId204.png" data-size="860x574">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId204.png"
+			width="860"
+			height="574"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId204_hu3a8ff737e4fcfbae68692611491351fb_543169_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId204_hu3a8ff737e4fcfbae68692611491351fb_543169_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.893409886264217in&rdquo;}</p>
+<p>放大看看<br>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 135; 
+			flex-basis: 324px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId207.png" data-size="773x572">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId207.png"
+			width="773"
+			height="572"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId207_hue26c2041adc3c3af5f33f476b09707f9_572167_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId207_hue26c2041adc3c3af5f33f476b09707f9_572167_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.316514654418198in&rdquo;}</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 134; 
+			flex-basis: 323px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId210.png" data-size="767x569">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId210.png"
+			width="767"
+			height="569"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId210_hu81657997034c5d8624a2d3fb47384473_267754_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId210_hu81657997034c5d8624a2d3fb47384473_267754_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.3274660979877515in&rdquo;}</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 128; 
+			flex-basis: 307px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId213.png" data-size="744x580">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId213.png"
+			width="744"
+			height="580"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId213_hu908547ce464e06d18bc513662a1c72b3_318492_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId213_hu908547ce464e06d18bc513662a1c72b3_318492_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.547490157480315in&rdquo;}</p>
+<p>接下来看下Organismal Systems</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 125; 
+			flex-basis: 300px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId216.png" data-size="720x575">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId216.png"
+			width="720"
+			height="575"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId216_hu6157c1feaaa2352ac2452fd554c995e9_300561_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId216_hu6157c1feaaa2352ac2452fd554c995e9_300561_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.6585640857392825in&rdquo;}</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 131; 
+			flex-basis: 315px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId219.png" data-size="762x580">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId219.png"
+			width="762"
+			height="580"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId219_hu03a791a7b271f0eee15ef7b22f0b3a4a_498162_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId219_hu03a791a7b271f0eee15ef7b22f0b3a4a_498162_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.440069991251094in&rdquo;}</p>
+<p>这是人的各种Toll样受体信号传导图</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 133; 
+			flex-basis: 319px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId222.png" data-size="778x584">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId222.png"
+			width="778"
+			height="584"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId222_hu7fde41c7b9c5583f841979a387cd7198_285185_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId222_hu7fde41c7b9c5583f841979a387cd7198_285185_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.378748906386702in&rdquo;}</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 111; 
+			flex-basis: 267px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId225.png" data-size="650x584">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId225.png"
+			width="650"
+			height="584"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId225_hu979d521657cb69568d0e9e6a4aa71128_262842_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId225_hu979d521657cb69568d0e9e6a4aa71128_262842_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;5.241024715660543in&rdquo;}</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 145; 
+			flex-basis: 348px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId228.png" data-size="841x579">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId228.png"
+			width="841"
+			height="579"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId228_hu0064dee5cad9ff55b71d1ed114983fdc_330356_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId228_hu0064dee5cad9ff55b71d1ed114983fdc_330356_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.016052055993001in&rdquo;}</p>
+<h4 id="omim-人类遗传病数据库">OMIM 人类遗传病数据库</h4>
+<p>简介<br>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 145; 
+			flex-basis: 349px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId232.png" data-size="794x545">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId232.png"
+			width="794"
+			height="545"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId232_hu1d4aedfa47ce8c59e8582e851a440227_356475_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId232_hu1d4aedfa47ce8c59e8582e851a440227_356475_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.003987314085739in&rdquo;}</p>
+<p>例子</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 140; 
+			flex-basis: 337px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId235.png" data-size="774x551">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId235.png"
+			width="774"
+			height="551"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId235_hu641832c3dd9dcae876fb1e522aab8ac2_219419_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId235_hu641832c3dd9dcae876fb1e522aab8ac2_219419_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.1526695100612425in&rdquo;}</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 138; 
+			flex-basis: 333px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId238.png" data-size="765x551">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId238.png"
+			width="765"
+			height="551"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId238_hu95de5e069efe9bfed2d291a1a9b86438_263554_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId238_hu95de5e069efe9bfed2d291a1a9b86438_263554_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.201524496937883in&rdquo;}</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 146; 
+			flex-basis: 351px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId241.png" data-size="815x556">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId241.png"
+			width="815"
+			height="556"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId241_hu10e40b93c511adcee43444e933e0b931_354853_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId241_hu10e40b93c511adcee43444e933e0b931_354853_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.979549431321085in&rdquo;}</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 145; 
+			flex-basis: 350px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId244.png" data-size="781x535">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId244.png"
+			width="781"
+			height="535"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId244_hu55681d2da3aca653afa1fd4c1972cc0b_295897_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId244_hu55681d2da3aca653afa1fd4c1972cc0b_295897_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.9959448818897636in&rdquo;}</p>
+<p>可以查看这个基因的全部信息</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 129; 
+			flex-basis: 310px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId247.png" data-size="755x583">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId247.png"
+			width="755"
+			height="583"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId247_hub2f384072b94372919d2ff9b48e4d19d_290107_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/media/rId247_hub2f384072b94372919d2ff9b48e4d19d_290107_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.5044149168853895in&rdquo;}</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/tutorials/">tutorials</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2022 - 
+        
+        2023 叶宇浩随记博客
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.5.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">Table of contents</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#生物数据库">生物数据库</a>
+      <ol>
+        <li><a href="#pubmed的使用原核生物">PubMed的使用（原核生物）</a></li>
+        <li><a href="#一级核酸数据库genbank原核生物核酸序列">一级核酸数据库：GenBank原核生物核酸序列</a></li>
+        <li><a href="#一级核酸数据库genbank真核生物核酸序列">一级核酸数据库：GenBank真核生物核酸序列</a></li>
+        <li><a href="#基因组数据库-ensemble">基因组数据库 Ensemble</a></li>
+        <li><a href="#微生物宏基因组数据库jcvi">微生物宏基因组数据库JCVI</a></li>
+        <li><a href="#二级核酸数据库">二级核酸数据库</a></li>
+        <li><a href="#一级蛋白质序列数据库蛋白质序列数据库uniprotkb">一级蛋白质序列数据库：蛋白质序列数据库UniProtKB</a>
+          <ol>
+            <li><a href="#interaction">interaction</a></li>
+            <li><a href="#structure">structure</a></li>
+            <li><a href="#family--domains">Family &amp; Domains</a></li>
+            <li><a href="#seq">Seq</a></li>
+            <li><a href="#cross-references">Cross-references</a></li>
+            <li><a href="#publication">Publication</a></li>
+            <li><a href="#entry-information">Entry information</a></li>
+          </ol>
+        </li>
+        <li><a href="#miscellaneous">Miscellaneous</a>
+          <ol>
+            <li><a href="#simillar-proteins">Simillar proteins</a></li>
+            <li><a href="#text纯文本数据库记录">Text纯文本数据库记录</a></li>
+          </ol>
+        </li>
+        <li><a href="#一级蛋白质数据库-蛋白质结构数据库pdb">一级蛋白质数据库 蛋白质结构数据库PDB</a>
+          <ol>
+            <li><a href="#蛋白质的基础结构概念">蛋白质的基础结构概念</a></li>
+            <li><a href="#pdb库的概况">PDB库的概况</a></li>
+            <li><a href="#pdb库的使用">PDB库的使用</a></li>
+            <li><a href="#pdb文件的介绍">PDB文件的介绍</a></li>
+            <li><a href="#pdb在线3d查看-jsmol">PDB在线3D查看 JSMOL</a></li>
+          </ol>
+        </li>
+        <li><a href="#二级蛋白质数据库">二级蛋白质数据库</a>
+          <ol>
+            <li><a href="#pfam简述">Pfam简述</a></li>
+            <li><a href="#cath">CATH</a></li>
+            <li><a href="#cath的使用">CATH的使用</a></li>
+            <li><a href="#scop2">SCOP2</a></li>
+            <li><a href="#scop2的使用">SCOP2的使用</a></li>
+          </ol>
+        </li>
+        <li><a href="#专用数据库">专用数据库</a>
+          <ol>
+            <li><a href="#kegg">KEGG</a></li>
+            <li><a href="#omim-人类遗传病数据库">OMIM 人类遗传病数据库</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

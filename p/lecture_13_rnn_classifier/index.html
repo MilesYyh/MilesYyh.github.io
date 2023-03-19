@@ -1,0 +1,2153 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='跟学的刘二老师pytorch'><title>Lecture_13_RNN_Classifier</title>
+
+<link rel='canonical' href='https://example.com/p/lecture_13_rnn_classifier/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='Lecture_13_RNN_Classifier'>
+<meta property='og:description' content='跟学的刘二老师pytorch'>
+<meta property='og:url' content='https://example.com/p/lecture_13_rnn_classifier/'>
+<meta property='og:site_name' content='叶宇浩随记博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='tutorials' /><meta property='article:tag' content='pytorch' /><meta property='article:published_time' content='2022-04-21T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2022-04-21T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="Lecture_13_RNN_Classifier">
+<meta name="twitter:description" content="跟学的刘二老师pytorch">
+    </head>
+    <body class="
+    article-page 
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        on-phone--column extended
+    
+">
+    
+        <aside class="sidebar left-sidebar sticky">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header class="site-info">
+        
+            
+            <figure class="site-avatar">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hub6b2d46d776162e2e8dcd667345276ca_41574_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+
+                
+            </figure>
+            
+        
+        
+        <h1 class="site-name"><a href="/">叶宇浩随记博客</a></h1>
+        <h2 class="site-description">始于rosetta</h2></header>
+
+    <ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/' target="_blank">
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>分类</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>检索</span>
+            </a>
+        </li>
+        
+
+        
+            <li id="dark-mode-toggle">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <span>Dark Mode</span>
+            </li>
+        
+    </ol>
+</aside>
+
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/deeplearning/" style="background-color: #0f1503; color: #fff;">
+                深度学习
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/lecture_13_rnn_classifier/">Lecture_13_RNN_Classifier</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        跟学的刘二老师pytorch
+    </h3>
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Apr 21, 2022</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    1 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <blockquote>
+<p>这是跟学刘二老师的的课程ppt，特地放这里用来随时随地看</p>
+</blockquote>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0001.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0001.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0001_huf165911cbfb8a524cdc0d6db65bdb2b3_442232_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0001_huf165911cbfb8a524cdc0d6db65bdb2b3_442232_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0002.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0002.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0002_huf165911cbfb8a524cdc0d6db65bdb2b3_1046218_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0002_huf165911cbfb8a524cdc0d6db65bdb2b3_1046218_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0003.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0003.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0003_huf165911cbfb8a524cdc0d6db65bdb2b3_935260_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0003_huf165911cbfb8a524cdc0d6db65bdb2b3_935260_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0004.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0004.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0004_huf165911cbfb8a524cdc0d6db65bdb2b3_704933_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0004_huf165911cbfb8a524cdc0d6db65bdb2b3_704933_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0005.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0005.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0005_huf165911cbfb8a524cdc0d6db65bdb2b3_781795_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0005_huf165911cbfb8a524cdc0d6db65bdb2b3_781795_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0006.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0006.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0006_huf165911cbfb8a524cdc0d6db65bdb2b3_787715_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0006_huf165911cbfb8a524cdc0d6db65bdb2b3_787715_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0007.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0007.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0007_huf165911cbfb8a524cdc0d6db65bdb2b3_1244817_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0007_huf165911cbfb8a524cdc0d6db65bdb2b3_1244817_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0008.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0008.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0008_huf165911cbfb8a524cdc0d6db65bdb2b3_1236898_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0008_huf165911cbfb8a524cdc0d6db65bdb2b3_1236898_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0009.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0009.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0009_huf165911cbfb8a524cdc0d6db65bdb2b3_1284454_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0009_huf165911cbfb8a524cdc0d6db65bdb2b3_1284454_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0010.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0010.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0010_huf165911cbfb8a524cdc0d6db65bdb2b3_1370665_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0010_huf165911cbfb8a524cdc0d6db65bdb2b3_1370665_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0011.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0011.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0011_huf165911cbfb8a524cdc0d6db65bdb2b3_1264518_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0011_huf165911cbfb8a524cdc0d6db65bdb2b3_1264518_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0012.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0012.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0012_huf165911cbfb8a524cdc0d6db65bdb2b3_1514446_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0012_huf165911cbfb8a524cdc0d6db65bdb2b3_1514446_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0013.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0013.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0013_huf165911cbfb8a524cdc0d6db65bdb2b3_1426445_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0013_huf165911cbfb8a524cdc0d6db65bdb2b3_1426445_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0014.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0014.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0014_huf165911cbfb8a524cdc0d6db65bdb2b3_1422405_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0014_huf165911cbfb8a524cdc0d6db65bdb2b3_1422405_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0015.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0015.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0015_huf165911cbfb8a524cdc0d6db65bdb2b3_966927_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0015_huf165911cbfb8a524cdc0d6db65bdb2b3_966927_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0016.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0016.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0016_huf165911cbfb8a524cdc0d6db65bdb2b3_1476921_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0016_huf165911cbfb8a524cdc0d6db65bdb2b3_1476921_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0017.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0017.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0017_huf165911cbfb8a524cdc0d6db65bdb2b3_1622828_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0017_huf165911cbfb8a524cdc0d6db65bdb2b3_1622828_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0018.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0018.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0018_huf165911cbfb8a524cdc0d6db65bdb2b3_1624192_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0018_huf165911cbfb8a524cdc0d6db65bdb2b3_1624192_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0019.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0019.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0019_huf165911cbfb8a524cdc0d6db65bdb2b3_1675157_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0019_huf165911cbfb8a524cdc0d6db65bdb2b3_1675157_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0020.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0020.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0020_huf165911cbfb8a524cdc0d6db65bdb2b3_1681856_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0020_huf165911cbfb8a524cdc0d6db65bdb2b3_1681856_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0021.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0021.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0021_huf165911cbfb8a524cdc0d6db65bdb2b3_1381074_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0021_huf165911cbfb8a524cdc0d6db65bdb2b3_1381074_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0022.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0022.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0022_huf165911cbfb8a524cdc0d6db65bdb2b3_1154718_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0022_huf165911cbfb8a524cdc0d6db65bdb2b3_1154718_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0023.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0023.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0023_huf165911cbfb8a524cdc0d6db65bdb2b3_1216989_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0023_huf165911cbfb8a524cdc0d6db65bdb2b3_1216989_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0024.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0024.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0024_huf165911cbfb8a524cdc0d6db65bdb2b3_1211389_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0024_huf165911cbfb8a524cdc0d6db65bdb2b3_1211389_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0025.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0025.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0025_huf165911cbfb8a524cdc0d6db65bdb2b3_969393_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0025_huf165911cbfb8a524cdc0d6db65bdb2b3_969393_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0026.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0026.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0026_huf165911cbfb8a524cdc0d6db65bdb2b3_988029_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0026_huf165911cbfb8a524cdc0d6db65bdb2b3_988029_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0027.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0027.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0027_huf165911cbfb8a524cdc0d6db65bdb2b3_1127857_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0027_huf165911cbfb8a524cdc0d6db65bdb2b3_1127857_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0028.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0028.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0028_huf165911cbfb8a524cdc0d6db65bdb2b3_1471351_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0028_huf165911cbfb8a524cdc0d6db65bdb2b3_1471351_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0029.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0029.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0029_huf165911cbfb8a524cdc0d6db65bdb2b3_1538718_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0029_huf165911cbfb8a524cdc0d6db65bdb2b3_1538718_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0030.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0030.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0030_huf165911cbfb8a524cdc0d6db65bdb2b3_1588846_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0030_huf165911cbfb8a524cdc0d6db65bdb2b3_1588846_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0031.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0031.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0031_huf165911cbfb8a524cdc0d6db65bdb2b3_1651742_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0031_huf165911cbfb8a524cdc0d6db65bdb2b3_1651742_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0032.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0032.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0032_huf165911cbfb8a524cdc0d6db65bdb2b3_1573222_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0032_huf165911cbfb8a524cdc0d6db65bdb2b3_1573222_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0033.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0033.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0033_huf165911cbfb8a524cdc0d6db65bdb2b3_566165_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0033_huf165911cbfb8a524cdc0d6db65bdb2b3_566165_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0034.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0034.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0034_huf165911cbfb8a524cdc0d6db65bdb2b3_616922_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0034_huf165911cbfb8a524cdc0d6db65bdb2b3_616922_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0035.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0035.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0035_huf165911cbfb8a524cdc0d6db65bdb2b3_662384_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0035_huf165911cbfb8a524cdc0d6db65bdb2b3_662384_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0036.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0036.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0036_huf165911cbfb8a524cdc0d6db65bdb2b3_747642_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0036_huf165911cbfb8a524cdc0d6db65bdb2b3_747642_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0037.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0037.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0037_huf165911cbfb8a524cdc0d6db65bdb2b3_741295_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0037_huf165911cbfb8a524cdc0d6db65bdb2b3_741295_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0038.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0038.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0038_huf165911cbfb8a524cdc0d6db65bdb2b3_782146_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0038_huf165911cbfb8a524cdc0d6db65bdb2b3_782146_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0039.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0039.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0039_huf165911cbfb8a524cdc0d6db65bdb2b3_824275_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0039_huf165911cbfb8a524cdc0d6db65bdb2b3_824275_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0040.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0040.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0040_huf165911cbfb8a524cdc0d6db65bdb2b3_863371_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0040_huf165911cbfb8a524cdc0d6db65bdb2b3_863371_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0041.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0041.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0041_huf165911cbfb8a524cdc0d6db65bdb2b3_904757_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0041_huf165911cbfb8a524cdc0d6db65bdb2b3_904757_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0042.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0042.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0042_huf165911cbfb8a524cdc0d6db65bdb2b3_904750_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0042_huf165911cbfb8a524cdc0d6db65bdb2b3_904750_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0043.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0043.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0043_huf165911cbfb8a524cdc0d6db65bdb2b3_945225_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0043_huf165911cbfb8a524cdc0d6db65bdb2b3_945225_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0044.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0044.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0044_huf165911cbfb8a524cdc0d6db65bdb2b3_984553_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0044_huf165911cbfb8a524cdc0d6db65bdb2b3_984553_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0045.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0045.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0045_huf165911cbfb8a524cdc0d6db65bdb2b3_1018781_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0045_huf165911cbfb8a524cdc0d6db65bdb2b3_1018781_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0046.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0046.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0046_huf165911cbfb8a524cdc0d6db65bdb2b3_1061983_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0046_huf165911cbfb8a524cdc0d6db65bdb2b3_1061983_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0047.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0047.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0047_huf165911cbfb8a524cdc0d6db65bdb2b3_1101775_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0047_huf165911cbfb8a524cdc0d6db65bdb2b3_1101775_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0048.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0048.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0048_huf165911cbfb8a524cdc0d6db65bdb2b3_1147557_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0048_huf165911cbfb8a524cdc0d6db65bdb2b3_1147557_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0049.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0049.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0049_huf165911cbfb8a524cdc0d6db65bdb2b3_913589_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0049_huf165911cbfb8a524cdc0d6db65bdb2b3_913589_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0050.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0050.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0050_huf165911cbfb8a524cdc0d6db65bdb2b3_1653743_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0050_huf165911cbfb8a524cdc0d6db65bdb2b3_1653743_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0051.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0051.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0051_huf165911cbfb8a524cdc0d6db65bdb2b3_1691529_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0051_huf165911cbfb8a524cdc0d6db65bdb2b3_1691529_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0052.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0052.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0052_huf165911cbfb8a524cdc0d6db65bdb2b3_1218428_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0052_huf165911cbfb8a524cdc0d6db65bdb2b3_1218428_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0053.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0053.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0053_huf165911cbfb8a524cdc0d6db65bdb2b3_1224320_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0053_huf165911cbfb8a524cdc0d6db65bdb2b3_1224320_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0054.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0054.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0054_huf165911cbfb8a524cdc0d6db65bdb2b3_1591256_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0054_huf165911cbfb8a524cdc0d6db65bdb2b3_1591256_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0055.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0055.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0055_huf165911cbfb8a524cdc0d6db65bdb2b3_1314744_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0055_huf165911cbfb8a524cdc0d6db65bdb2b3_1314744_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0056.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0056.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0056_huf165911cbfb8a524cdc0d6db65bdb2b3_1355522_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0056_huf165911cbfb8a524cdc0d6db65bdb2b3_1355522_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0057.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0057.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0057_huf165911cbfb8a524cdc0d6db65bdb2b3_1332432_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0057_huf165911cbfb8a524cdc0d6db65bdb2b3_1332432_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0058.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0058.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0058_huf165911cbfb8a524cdc0d6db65bdb2b3_1652637_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0058_huf165911cbfb8a524cdc0d6db65bdb2b3_1652637_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0059.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0059.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0059_huf165911cbfb8a524cdc0d6db65bdb2b3_1652785_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0059_huf165911cbfb8a524cdc0d6db65bdb2b3_1652785_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0060.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0060.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0060_huf165911cbfb8a524cdc0d6db65bdb2b3_1402897_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0060_huf165911cbfb8a524cdc0d6db65bdb2b3_1402897_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0061.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0061.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0061_huf165911cbfb8a524cdc0d6db65bdb2b3_1316231_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0061_huf165911cbfb8a524cdc0d6db65bdb2b3_1316231_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0062.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0062.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0062_huf165911cbfb8a524cdc0d6db65bdb2b3_1464671_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0062_huf165911cbfb8a524cdc0d6db65bdb2b3_1464671_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0063.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0063.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0063_huf165911cbfb8a524cdc0d6db65bdb2b3_1516755_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0063_huf165911cbfb8a524cdc0d6db65bdb2b3_1516755_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0064.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0064.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0064_huf165911cbfb8a524cdc0d6db65bdb2b3_1846196_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0064_huf165911cbfb8a524cdc0d6db65bdb2b3_1846196_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0065.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0065.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0065_huf165911cbfb8a524cdc0d6db65bdb2b3_1182786_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0065_huf165911cbfb8a524cdc0d6db65bdb2b3_1182786_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0066.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0066.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0066_huf165911cbfb8a524cdc0d6db65bdb2b3_1426411_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0066_huf165911cbfb8a524cdc0d6db65bdb2b3_1426411_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0067.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0067.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0067_huf165911cbfb8a524cdc0d6db65bdb2b3_1774747_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0067_huf165911cbfb8a524cdc0d6db65bdb2b3_1774747_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0068.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0068.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0068_huf165911cbfb8a524cdc0d6db65bdb2b3_1455632_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0068_huf165911cbfb8a524cdc0d6db65bdb2b3_1455632_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0069.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0069.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0069_huf165911cbfb8a524cdc0d6db65bdb2b3_1348566_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0069_huf165911cbfb8a524cdc0d6db65bdb2b3_1348566_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0070.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0070.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0070_huf165911cbfb8a524cdc0d6db65bdb2b3_778582_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0070_huf165911cbfb8a524cdc0d6db65bdb2b3_778582_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0071.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0071.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0071_huf165911cbfb8a524cdc0d6db65bdb2b3_862657_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0071_huf165911cbfb8a524cdc0d6db65bdb2b3_862657_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0072.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0072.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0072_huf165911cbfb8a524cdc0d6db65bdb2b3_1288097_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0072_huf165911cbfb8a524cdc0d6db65bdb2b3_1288097_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0073.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0073.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0073_huf165911cbfb8a524cdc0d6db65bdb2b3_1270278_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0073_huf165911cbfb8a524cdc0d6db65bdb2b3_1270278_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0074.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0074.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0074_huf165911cbfb8a524cdc0d6db65bdb2b3_1217344_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0074_huf165911cbfb8a524cdc0d6db65bdb2b3_1217344_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0075.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0075.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0075_huf165911cbfb8a524cdc0d6db65bdb2b3_1026809_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0075_huf165911cbfb8a524cdc0d6db65bdb2b3_1026809_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0076.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0076.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0076_huf165911cbfb8a524cdc0d6db65bdb2b3_1452919_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0076_huf165911cbfb8a524cdc0d6db65bdb2b3_1452919_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0077.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0077.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0077_huf165911cbfb8a524cdc0d6db65bdb2b3_1447467_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0077_huf165911cbfb8a524cdc0d6db65bdb2b3_1447467_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0078.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0078.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0078_huf165911cbfb8a524cdc0d6db65bdb2b3_1251326_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0078_huf165911cbfb8a524cdc0d6db65bdb2b3_1251326_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0079.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0079.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0079_huf165911cbfb8a524cdc0d6db65bdb2b3_1209174_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0079_huf165911cbfb8a524cdc0d6db65bdb2b3_1209174_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0080.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0080.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0080_huf165911cbfb8a524cdc0d6db65bdb2b3_1711185_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0080_huf165911cbfb8a524cdc0d6db65bdb2b3_1711185_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0081.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0081.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0081_huf165911cbfb8a524cdc0d6db65bdb2b3_1845926_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0081_huf165911cbfb8a524cdc0d6db65bdb2b3_1845926_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0082.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0082.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0082_huf165911cbfb8a524cdc0d6db65bdb2b3_1673035_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0082_huf165911cbfb8a524cdc0d6db65bdb2b3_1673035_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0083.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0083.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0083_huf165911cbfb8a524cdc0d6db65bdb2b3_1957903_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0083_huf165911cbfb8a524cdc0d6db65bdb2b3_1957903_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0084.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0084.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0084_huf165911cbfb8a524cdc0d6db65bdb2b3_1710430_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0084_huf165911cbfb8a524cdc0d6db65bdb2b3_1710430_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0085.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0085.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0085_huf165911cbfb8a524cdc0d6db65bdb2b3_1659496_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0085_huf165911cbfb8a524cdc0d6db65bdb2b3_1659496_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0086.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0086.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0086_huf165911cbfb8a524cdc0d6db65bdb2b3_1807829_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0086_huf165911cbfb8a524cdc0d6db65bdb2b3_1807829_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0087.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0087.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0087_huf165911cbfb8a524cdc0d6db65bdb2b3_1234924_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0087_huf165911cbfb8a524cdc0d6db65bdb2b3_1234924_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0088.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0088.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0088_huf165911cbfb8a524cdc0d6db65bdb2b3_1282215_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0088_huf165911cbfb8a524cdc0d6db65bdb2b3_1282215_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0089.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0089.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0089_huf165911cbfb8a524cdc0d6db65bdb2b3_1268001_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0089_huf165911cbfb8a524cdc0d6db65bdb2b3_1268001_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0090.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0090.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0090_huf165911cbfb8a524cdc0d6db65bdb2b3_1209125_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0090_huf165911cbfb8a524cdc0d6db65bdb2b3_1209125_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0091.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0091.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0091_huf165911cbfb8a524cdc0d6db65bdb2b3_1255571_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0091_huf165911cbfb8a524cdc0d6db65bdb2b3_1255571_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0092.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0092.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0092_huf165911cbfb8a524cdc0d6db65bdb2b3_695897_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0092_huf165911cbfb8a524cdc0d6db65bdb2b3_695897_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0093.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0093.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0093_huf165911cbfb8a524cdc0d6db65bdb2b3_1142845_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0093_huf165911cbfb8a524cdc0d6db65bdb2b3_1142845_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0094.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0094.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0094_huf165911cbfb8a524cdc0d6db65bdb2b3_1133753_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0094_huf165911cbfb8a524cdc0d6db65bdb2b3_1133753_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0095.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0095.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0095_huf165911cbfb8a524cdc0d6db65bdb2b3_1741749_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0095_huf165911cbfb8a524cdc0d6db65bdb2b3_1741749_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0096.jpg" data-size="4000x2250">
+		<img src="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0096.jpg"
+			width="4000"
+			height="2250"
+			srcset="/p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0096_huf165911cbfb8a524cdc0d6db65bdb2b3_447985_480x0_resize_q75_box.jpg 480w, /p/lecture_13_rnn_classifier/ilovepdf_pages-to-jpg/Lecture_13_RNN_Classifier_page-0096_huf165911cbfb8a524cdc0d6db65bdb2b3_447985_1024x0_resize_q75_box.jpg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/tutorials/">tutorials</a>
+        
+            <a href="/tags/pytorch/">pytorch</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">Related contents</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="">
+    <a href="/p/ppt_lecture_01_overview/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">ppt_Lecture_01_Overview</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/ppt_lecture_02_linear_model/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">ppt_Lecture_02_Linear_Model</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/ppt_lecture_03_gradient_descent/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">ppt_Lecture_03_Gradient_Descent</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/ppt_lecture_04_back_propagation/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">ppt_Lecture_04_Back_Propagation</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/ppt_lecture_05_linear_regression_with_pytorch/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">ppt_Lecture_05_Linear_Regression_with_PyTorch</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2022 - 
+        
+        2023 叶宇浩随记博客
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.5.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

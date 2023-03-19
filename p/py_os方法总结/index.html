@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='教程看的是这里的 https://www.runoob.com/python/os-file-methods.html
+os.access(path,mode) 用来检验权限模式 os.access() 方法使用当前的uid/gid尝试访问路径。大部分操作使用有效的 uid/gid, 因此运行环境可以在 suid/sgid 环境尝试
+参数
+path &amp;ndash; 要用来检测是否有访问权限的路径
+mode &amp;ndash; mode为F_OK，测试存在的路径，或者它可以是包含R_OK, W_OK和X_OK或者R_OK, W_OK和X_OK其中之一或者更多
+os.F_OK: 作为access()的mode参数，测试path是否存在 os.R_OK: 包含在access()的mode参数中 ， 测试path是否可读 os.W_OK 包含在access()的mode参数中 ， 测试path是否可写 os.X_OK 包含在access()的mode参数中 ，测试path是否可执行 code:
+import os #文件是否存在 os.access(&amp;#34;./os_test.txt&amp;#34;,mode=os.F_OK) result:
+True code:
+#文件是否可读 os.access(&amp;#34;./os_test.txt&amp;#34;,mode=os.R_OK) result:
+True code
+#文件是否可写 os.access(&amp;#34;./os_test.txt&amp;#34;,mode=os.W_OK) result:
+True code:
+#文件是否可执行 os.access(&amp;#34;./os_test.txt&amp;#34;,mode=os.X_OK) result:
+True os.chdir() os.chdir() 方法用于改变当前工作目录到指定的路径
+参数： path &amp;ndash; 要切换到的新路径 返回值 如果允许访问返回 True , 否则返回False code:
+#先看看看当前目录在哪里 os.getcwd() result:'><title>py_os方法总结</title>
+
+<link rel='canonical' href='https://example.com/p/py_os%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='py_os方法总结'>
+<meta property='og:description' content='教程看的是这里的 https://www.runoob.com/python/os-file-methods.html
+os.access(path,mode) 用来检验权限模式 os.access() 方法使用当前的uid/gid尝试访问路径。大部分操作使用有效的 uid/gid, 因此运行环境可以在 suid/sgid 环境尝试
+参数
+path &amp;ndash; 要用来检测是否有访问权限的路径
+mode &amp;ndash; mode为F_OK，测试存在的路径，或者它可以是包含R_OK, W_OK和X_OK或者R_OK, W_OK和X_OK其中之一或者更多
+os.F_OK: 作为access()的mode参数，测试path是否存在 os.R_OK: 包含在access()的mode参数中 ， 测试path是否可读 os.W_OK 包含在access()的mode参数中 ， 测试path是否可写 os.X_OK 包含在access()的mode参数中 ，测试path是否可执行 code:
+import os #文件是否存在 os.access(&amp;#34;./os_test.txt&amp;#34;,mode=os.F_OK) result:
+True code:
+#文件是否可读 os.access(&amp;#34;./os_test.txt&amp;#34;,mode=os.R_OK) result:
+True code
+#文件是否可写 os.access(&amp;#34;./os_test.txt&amp;#34;,mode=os.W_OK) result:
+True code:
+#文件是否可执行 os.access(&amp;#34;./os_test.txt&amp;#34;,mode=os.X_OK) result:
+True os.chdir() os.chdir() 方法用于改变当前工作目录到指定的路径
+参数： path &amp;ndash; 要切换到的新路径 返回值 如果允许访问返回 True , 否则返回False code:
+#先看看看当前目录在哪里 os.getcwd() result:'>
+<meta property='og:url' content='https://example.com/p/py_os%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/'>
+<meta property='og:site_name' content='叶宇浩随记博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='python' /><meta property='article:published_time' content='2022-02-25T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2022-02-25T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="py_os方法总结">
+<meta name="twitter:description" content="教程看的是这里的 https://www.runoob.com/python/os-file-methods.html
+os.access(path,mode) 用来检验权限模式 os.access() 方法使用当前的uid/gid尝试访问路径。大部分操作使用有效的 uid/gid, 因此运行环境可以在 suid/sgid 环境尝试
+参数
+path &amp;ndash; 要用来检测是否有访问权限的路径
+mode &amp;ndash; mode为F_OK，测试存在的路径，或者它可以是包含R_OK, W_OK和X_OK或者R_OK, W_OK和X_OK其中之一或者更多
+os.F_OK: 作为access()的mode参数，测试path是否存在 os.R_OK: 包含在access()的mode参数中 ， 测试path是否可读 os.W_OK 包含在access()的mode参数中 ， 测试path是否可写 os.X_OK 包含在access()的mode参数中 ，测试path是否可执行 code:
+import os #文件是否存在 os.access(&amp;#34;./os_test.txt&amp;#34;,mode=os.F_OK) result:
+True code:
+#文件是否可读 os.access(&amp;#34;./os_test.txt&amp;#34;,mode=os.R_OK) result:
+True code
+#文件是否可写 os.access(&amp;#34;./os_test.txt&amp;#34;,mode=os.W_OK) result:
+True code:
+#文件是否可执行 os.access(&amp;#34;./os_test.txt&amp;#34;,mode=os.X_OK) result:
+True os.chdir() os.chdir() 方法用于改变当前工作目录到指定的路径
+参数： path &amp;ndash; 要切换到的新路径 返回值 如果允许访问返回 True , 否则返回False code:
+#先看看看当前目录在哪里 os.getcwd() result:">
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>Back</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/code/" style="background-color: #fa1; color: #fff;">
+                编程
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/py_os%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/">py_os方法总结</a>
+    </h2>
+
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Feb 25, 2022</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    2 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <blockquote>
+<p>教程看的是这里的
+<a class="link" href="https://www.runoob.com/python/os-file-methods.html"  target="_blank" rel="noopener"
+    >https://www.runoob.com/python/os-file-methods.html</a></p>
+</blockquote>
+<h2 id="osaccesspathmode-用来检验权限模式">os.access(path,mode) 用来检验权限模式</h2>
+<p>os.access() 方法使用当前的uid/gid尝试访问路径。大部分操作使用有效的 uid/gid, 因此运行环境可以在 suid/sgid 环境尝试</p>
+<ul>
+<li>
+<p>参数</p>
+</li>
+<li>
+<p>path &ndash; 要用来检测是否有访问权限的路径</p>
+</li>
+<li>
+<p>mode &ndash; mode为F_OK，测试存在的路径，或者它可以是包含R_OK, W_OK和X_OK或者R_OK, W_OK和X_OK其中之一或者更多</p>
+<ul>
+<li>os.F_OK: 作为access()的mode参数，测试path是否存在</li>
+<li>os.R_OK: 包含在access()的mode参数中 ， 测试path是否可读</li>
+<li>os.W_OK 包含在access()的mode参数中 ， 测试path是否可写</li>
+<li>os.X_OK 包含在access()的mode参数中 ，测试path是否可执行</li>
+</ul>
+</li>
+</ul>
+<p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">os</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#文件是否存在</span>
+</span></span><span class="line"><span class="cl"><span class="n">os</span><span class="o">.</span><span class="n">access</span><span class="p">(</span><span class="s2">&#34;./os_test.txt&#34;</span><span class="p">,</span><span class="n">mode</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">F_OK</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kc">True</span>
+</span></span></code></pre></div><p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#文件是否可读</span>
+</span></span><span class="line"><span class="cl"><span class="n">os</span><span class="o">.</span><span class="n">access</span><span class="p">(</span><span class="s2">&#34;./os_test.txt&#34;</span><span class="p">,</span><span class="n">mode</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">R_OK</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kc">True</span>
+</span></span></code></pre></div><p>code</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#文件是否可写</span>
+</span></span><span class="line"><span class="cl"><span class="n">os</span><span class="o">.</span><span class="n">access</span><span class="p">(</span><span class="s2">&#34;./os_test.txt&#34;</span><span class="p">,</span><span class="n">mode</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">W_OK</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kc">True</span>
+</span></span></code></pre></div><p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#文件是否可执行</span>
+</span></span><span class="line"><span class="cl"><span class="n">os</span><span class="o">.</span><span class="n">access</span><span class="p">(</span><span class="s2">&#34;./os_test.txt&#34;</span><span class="p">,</span><span class="n">mode</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">X_OK</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kc">True</span>
+</span></span></code></pre></div><h2 id="oschdir">os.chdir()</h2>
+<p>os.chdir() 方法用于改变当前工作目录到指定的路径</p>
+<ul>
+<li>参数：
+<ul>
+<li>path &ndash; 要切换到的新路径</li>
+</ul>
+</li>
+<li>返回值
+<ul>
+<li>如果允许访问返回 True , 否则返回False</li>
+</ul>
+</li>
+</ul>
+<p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#先看看看当前目录在哪里</span>
+</span></span><span class="line"><span class="cl"><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="s1">&#39;F:</span><span class="se">\\</span><span class="s1">newjupyter</span><span class="se">\\</span><span class="s1">py进阶点&#39;</span>
+</span></span></code></pre></div><p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="s2">&#34;../3D-QSAR生物效应工具/&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="s1">&#39;F:</span><span class="se">\\</span><span class="s1">newjupyter</span><span class="se">\\</span><span class="s1">3D-QSAR生物效应工具&#39;</span>
+</span></span></code></pre></div><p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="s2">&#34;../py进阶点/&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><h2 id="oschflagspathflags">os.chflags(path,flags)</h2>
+<p>os.chflags() 方法用于设置路径的标记为数字标记。多个标记可以使用 OR 来组合起来;只支持在 Unix 下使用</p>
+<ul>
+<li>path &ndash; 文件名路径或目录路径</li>
+<li>flags &ndash; 可以是以下值
+<ul>
+<li>stat.UF_NODUMP: 非转储文件</li>
+<li>stat.UF_IMMUTABLE: 文件是只读的</li>
+<li>stat.UF_APPEND: 文件只能追加内容</li>
+<li>stat.UF_NOUNLINK: 文件不可删除 / 重命名</li>
+<li>stat.UF_OPAQUE: 目录不透明，需要通过联合堆栈查看</li>
+<li>stat.SF_ARCHIVED: 可存档文件(超级用户可设)</li>
+<li>stat.SF_IMMUTABLE: 文件是只读的(超级用户可设)</li>
+<li>stat.SF_APPEND: 文件只能追加内容(超级用户可设)</li>
+<li>stat.SF_NOUNLINK: 文件不可删除(超级用户可设)</li>
+<li>stat.SF_SNAPSHOT: 快照文件(超级用户可设)</li>
+</ul>
+</li>
+</ul>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 269; 
+			flex-basis: 646px"
+	>
+	<a href="/p/py_os%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/picture/py_os%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93.png" data-size="1304x484">
+		<img src="/p/py_os%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/picture/py_os%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93.png"
+			width="1304"
+			height="484"
+			srcset="/p/py_os%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/picture/py_os%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93_hu4b1ff353995b450fd871767d6eae9b8e_59668_480x0_resize_box_3.png 480w, /p/py_os%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/picture/py_os%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93_hu4b1ff353995b450fd871767d6eae9b8e_59668_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="oschmodpathmode">os.chmod(path,mode)</h2>
+<p>os.chmod() 方法用于更改文件或目录的权限</p>
+<ul>
+<li>path &ndash; 文件路径</li>
+<li>flags &ndash; 可用以下选项按位或操作生成， 目录的读权限表示可以获取目录里文件名列表， ，执行权限表示可以把工作目录切换到此目录 ，删除添加目录里的文件必须同时有写和执行权限 ，文件权限以用户id-&gt;组id-&gt;其它顺序检验,最先匹配的允许或禁止权限被应用。
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 107; 
+			flex-basis: 257px"
+	>
+	<a href="/p/py_os%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/picture/py_os%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93-1.png" data-size="1218x1136">
+		<img src="/p/py_os%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/picture/py_os%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93-1.png"
+			width="1218"
+			height="1136"
+			srcset="/p/py_os%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/picture/py_os%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93-1_huccee848cc22691dc94f143f6d36e1c71_328515_480x0_resize_box_3.png 480w, /p/py_os%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/picture/py_os%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93-1_huccee848cc22691dc94f143f6d36e1c71_328515_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 160; 
+			flex-basis: 384px"
+	>
+	<a href="/p/py_os%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/picture/py_os%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93-2.png" data-size="1386x866">
+		<img src="/p/py_os%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/picture/py_os%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93-2.png"
+			width="1386"
+			height="866"
+			srcset="/p/py_os%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/picture/py_os%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93-2_hu756d65982641e680f8a9561da9eba7dd_118220_480x0_resize_box_3.png 480w, /p/py_os%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/picture/py_os%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93-2_hu756d65982641e680f8a9561da9eba7dd_118220_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></li>
+</ul>
+<h2 id="oschownpathuidgid">os.chown(path,uid,gid)</h2>
+<p>os.chown() 方法用于更改文件所有者，如果不修改可以设置为 -1, 你需要超级用户权限来执行权限修改操作
+只支持在 Unix 下使用</p>
+<ul>
+<li>参数</li>
+<li>path &ndash; 设置权限的文件路径</li>
+<li>uid &ndash; 所属用户 ID</li>
+<li>gid &ndash; 所属用户组 ID</li>
+</ul>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 150; 
+			flex-basis: 361px"
+	>
+	<a href="/p/py_os%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/picture/py_os%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93-3.png" data-size="1416x940">
+		<img src="/p/py_os%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/picture/py_os%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93-3.png"
+			width="1416"
+			height="940"
+			srcset="/p/py_os%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/picture/py_os%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93-3_hu83ec02d1de7f7263bc608b43f08841ae_106538_480x0_resize_box_3.png 480w, /p/py_os%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/picture/py_os%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93-3_hu83ec02d1de7f7263bc608b43f08841ae_106538_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="oschrootpath">os.chroot(path)</h2>
+<p>os.chroot() 方法用于更改当前进程的根目录为指定的目录，使用该函数需要管理员权限</p>
+<blockquote>
+<p>感觉很多都是用不上的，所以后面的仅列出命名的作用，要用的时再去教程看</p>
+</blockquote>
+<h2 id="osclosefd">os.close(fd)</h2>
+<p>关闭文件描述符 fd</p>
+<h2 id="oscloserangefd_lowfd_high">os.closerange(fd_low,fd_high)</h2>
+<p>关闭所有文件描述符，从fd_low(包含)到fd_high(不包含)，错误会忽略</p>
+<h2 id="osdupfd">os.dup(fd)</h2>
+<p>复制文件描述符 fd</p>
+<h2 id="osdup2fdfd2">os.dup2(fd,fd2)</h2>
+<p>将一个文件描述符fd复制到另一个fd2</p>
+<h2 id="osfchdirfd">os.fchdir(fd)</h2>
+<p>通过文件描述符改变当前的工作目录</p>
+<h2 id="osfchmodfdmode">os.fchmod(fd,mode)</h2>
+<p>改变一个文件的访问权限，该文件由参数fd指定，参数mode是Unix下的文件访问权限</p>
+<h2 id="osfchownfduidgid">os.fchown(fd,uid,gid)</h2>
+<p>修改一个文件的所有权，这个函数修改一个文件的用户ID和用户组ID，该文件由文件描述符fd指定</p>
+<h2 id="osfdatasyncfd">os.fdatasync(fd)</h2>
+<p>强制将文件写入磁盘，该文件由文件描述符fd指定，但是不强制更新文件的状态信息</p>
+<h2 id="osfdopenfd">os.fdopen(fd)</h2>
+<p>通过文件描述符 fd 创建一个文件对象，并返回这个文件对象</p>
+<h2 id="osfpathconffd-name">os.fpathconf(fd, name)</h2>
+<p>返回一个打开的文件的系统配置信息。name为检索的系统配置的值，它也许是一个定义系统值的字符串，这些名字在很多标准中指定（POSIX.1, Unix 95, Unix 98, 和其它）</p>
+<h2 id="osfstatfd">os.fstat(fd)</h2>
+<p>返回文件描述符fd的状态，像stat()</p>
+<h2 id="osfstatvfsfd">os.fstatvfs(fd)</h2>
+<p>返回包含文件描述符fd的文件的文件系统信息，像statfs()</p>
+<h2 id="osfsyncfd">os.fsync(fd)</h2>
+<p>强制将文件描述符为fd的文件写入硬盘</p>
+<h2 id="ftruncatefdlength">ftruncate(fd,length)</h2>
+<p>裁剪文件描述符fd对应的文件，所以它最大不能超过文件大小</p>
+<h2 id="osgetcwd">os.getcwd()</h2>
+<p>返回当前工作目录</p>
+<h2 id="osgetcwdu">os.getcwdu()</h2>
+<p>返回一个当前工作目录的Unicode对象</p>
+<blockquote>
+<p>太多了，挑几个常用的出来</p>
+</blockquote>
+<h2 id="oslinksrcdst">os.link(src,dst)</h2>
+<p>os.link() 方法用于创建硬链接，名为参数 dst，指向参数 src。
+该方法对于创建一个已存在文件的拷贝是非常有用的。
+只支持在 Unix, Windows 下使用</p>
+<ul>
+<li>参数</li>
+<li>src  用于创建硬连接的源地址</li>
+<li>dst  用于创建硬连接的目标地址</li>
+</ul>
+<h2 id="oslistdirpath">os.listdir(path)</h2>
+<p>os.listdir() 方法用于返回指定的文件夹包含的文件或文件夹的名字的列表。</p>
+<p>它不包括 . 和 .. 即使它在文件夹中。</p>
+<p>只支持在 Unix, Windows 下使用。
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 90; 
+			flex-basis: 216px"
+	>
+	<a href="/p/py_os%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/picture/py_os%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93-4.png" data-size="1090x1206">
+		<img src="/p/py_os%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/picture/py_os%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93-4.png"
+			width="1090"
+			height="1206"
+			srcset="/p/py_os%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/picture/py_os%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93-4_huf7984ba09adff47a480ab952d12af9d4_131636_480x0_resize_box_3.png 480w, /p/py_os%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/picture/py_os%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93-4_huf7984ba09adff47a480ab952d12af9d4_131636_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="osremovepath">os.remove(path)</h2>
+<p>os.remove() 方法用于删除指定路径的文件。如果指定的路径是一个目录，将抛出OSError。</p>
+<p>删除目录则用 os.removedirs(path)</p>
+<p>在Unix, Windows中有效
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 69; 
+			flex-basis: 166px"
+	>
+	<a href="/p/py_os%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/picture/py_os%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93-5.png" data-size="908x1308">
+		<img src="/p/py_os%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/picture/py_os%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93-5.png"
+			width="908"
+			height="1308"
+			srcset="/p/py_os%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/picture/py_os%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93-5_hu8137cd717984ac92250e6c85b10be179_149635_480x0_resize_box_3.png 480w, /p/py_os%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/picture/py_os%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93-5_hu8137cd717984ac92250e6c85b10be179_149635_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="osrenamesrcdst">os.rename(src,dst)</h2>
+<p>os.rename() 方法用于命名文件或目录，从 src 到 dst,如果dst是一个存在的目录, 将抛出OSError</p>
+<p>修改目录名则用 os.renames(src,dst)
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 83; 
+			flex-basis: 200px"
+	>
+	<a href="/p/py_os%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/picture/py_os%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93-6.png" data-size="952x1140">
+		<img src="/p/py_os%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/picture/py_os%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93-6.png"
+			width="952"
+			height="1140"
+			srcset="/p/py_os%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/picture/py_os%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93-6_hu8f3a89cc7c914548105235bf7d970ca6_131128_480x0_resize_box_3.png 480w, /p/py_os%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/picture/py_os%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93-6_hu8f3a89cc7c914548105235bf7d970ca6_131128_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="osrmdirpath">os.rmdir(path)</h2>
+<p>os.rmdir() 方法用于删除指定路径的目录。仅当这文件夹是空的才可以, 否则, 抛出OSError</p>
+<p>注意是删除空目录</p>
+<h2 id="ospath模块">os.path()模块</h2>
+<p>os.path 模块主要用于获取文件的属性</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/python/">python</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2022 - 
+        
+        2023 叶宇浩随记博客
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.5.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">Table of contents</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#osaccesspathmode-用来检验权限模式">os.access(path,mode) 用来检验权限模式</a></li>
+    <li><a href="#oschdir">os.chdir()</a></li>
+    <li><a href="#oschflagspathflags">os.chflags(path,flags)</a></li>
+    <li><a href="#oschmodpathmode">os.chmod(path,mode)</a></li>
+    <li><a href="#oschownpathuidgid">os.chown(path,uid,gid)</a></li>
+    <li><a href="#oschrootpath">os.chroot(path)</a></li>
+    <li><a href="#osclosefd">os.close(fd)</a></li>
+    <li><a href="#oscloserangefd_lowfd_high">os.closerange(fd_low,fd_high)</a></li>
+    <li><a href="#osdupfd">os.dup(fd)</a></li>
+    <li><a href="#osdup2fdfd2">os.dup2(fd,fd2)</a></li>
+    <li><a href="#osfchdirfd">os.fchdir(fd)</a></li>
+    <li><a href="#osfchmodfdmode">os.fchmod(fd,mode)</a></li>
+    <li><a href="#osfchownfduidgid">os.fchown(fd,uid,gid)</a></li>
+    <li><a href="#osfdatasyncfd">os.fdatasync(fd)</a></li>
+    <li><a href="#osfdopenfd">os.fdopen(fd)</a></li>
+    <li><a href="#osfpathconffd-name">os.fpathconf(fd, name)</a></li>
+    <li><a href="#osfstatfd">os.fstat(fd)</a></li>
+    <li><a href="#osfstatvfsfd">os.fstatvfs(fd)</a></li>
+    <li><a href="#osfsyncfd">os.fsync(fd)</a></li>
+    <li><a href="#ftruncatefdlength">ftruncate(fd,length)</a></li>
+    <li><a href="#osgetcwd">os.getcwd()</a></li>
+    <li><a href="#osgetcwdu">os.getcwdu()</a></li>
+    <li><a href="#oslinksrcdst">os.link(src,dst)</a></li>
+    <li><a href="#oslistdirpath">os.listdir(path)</a></li>
+    <li><a href="#osremovepath">os.remove(path)</a></li>
+    <li><a href="#osrenamesrcdst">os.rename(src,dst)</a></li>
+    <li><a href="#osrmdirpath">os.rmdir(path)</a></li>
+    <li><a href="#ospath模块">os.path()模块</a></li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

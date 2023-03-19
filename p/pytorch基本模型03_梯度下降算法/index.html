@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='跟学的刘二老师pytorch'><title>pytorch基本模型03_梯度下降算法</title>
+
+<link rel='canonical' href='https://example.com/p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B03_%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E7%AE%97%E6%B3%95/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='pytorch基本模型03_梯度下降算法'>
+<meta property='og:description' content='跟学的刘二老师pytorch'>
+<meta property='og:url' content='https://example.com/p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B03_%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E7%AE%97%E6%B3%95/'>
+<meta property='og:site_name' content='叶宇浩随记博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='tutorials' /><meta property='article:tag' content='pytorch' /><meta property='article:published_time' content='2022-02-13T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2022-02-13T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="pytorch基本模型03_梯度下降算法">
+<meta name="twitter:description" content="跟学的刘二老师pytorch">
+    </head>
+    <body class="
+    article-page 
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        on-phone--column extended
+    
+">
+    
+        <aside class="sidebar left-sidebar sticky">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header class="site-info">
+        
+            
+            <figure class="site-avatar">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hub6b2d46d776162e2e8dcd667345276ca_41574_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+
+                
+            </figure>
+            
+        
+        
+        <h1 class="site-name"><a href="/">叶宇浩随记博客</a></h1>
+        <h2 class="site-description">始于rosetta</h2></header>
+
+    <ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/' target="_blank">
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>分类</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>检索</span>
+            </a>
+        </li>
+        
+
+        
+            <li id="dark-mode-toggle">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <span>Dark Mode</span>
+            </li>
+        
+    </ol>
+</aside>
+
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/deeplearning/" style="background-color: #0f1503; color: #fff;">
+                深度学习
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B03_%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E7%AE%97%E6%B3%95/">pytorch基本模型03_梯度下降算法</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        跟学的刘二老师pytorch
+    </h3>
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Feb 13, 2022</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    4 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <blockquote>
+<p>这是学习pytorch基本使用的记录（我记得看的是B站刘二老师的视频）</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">matplotlib</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">warnings</span>
+</span></span><span class="line"><span class="cl"><span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&#34;ignore&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&#34;font.sans-serif&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&#34;SimHei&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&#34;axes.unicode_minus&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">x_data</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">2.0</span><span class="p">,</span><span class="mf">3.0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">y_data</span> <span class="o">=</span> <span class="p">[</span><span class="mf">2.0</span><span class="p">,</span><span class="mf">4.0</span><span class="p">,</span><span class="mf">6.0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#初始化个权重值</span>
+</span></span><span class="line"><span class="cl"><span class="n">w</span> <span class="o">=</span> <span class="mf">1.0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#正向传播</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">w</span><span class="o">*</span><span class="n">x</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#代价</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">cost</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span><span class="n">ys</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cost</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span>  <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span><span class="n">ys</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">y_pred</span> <span class="o">=</span> <span class="n">forward</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">cost</span> <span class="o">+=</span> <span class="p">(</span><span class="n">y_pred</span><span class="o">-</span><span class="n">y</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">cost</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">xs</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#梯度求导部分</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">gradient</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span><span class="n">ys</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">grad</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span><span class="n">ys</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">grad</span> <span class="o">+=</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">w</span><span class="o">-</span><span class="n">y</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">grad</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">xs</span><span class="p">)</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;Predict (before training)&#34;</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="n">forward</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">cost_list</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cost_val</span> <span class="o">=</span> <span class="n">cost</span><span class="p">(</span><span class="n">x_data</span><span class="p">,</span><span class="n">y_data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cost_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cost_val</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">grad_val</span> <span class="o">=</span> <span class="n">gradient</span><span class="p">(</span><span class="n">x_data</span><span class="p">,</span><span class="n">y_data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">w</span><span class="o">-=</span> <span class="mf">0.01</span><span class="o">*</span><span class="n">grad_val</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;Epoch:&#34;</span><span class="p">,</span><span class="n">epoch</span><span class="p">,</span><span class="s2">&#34;w:&#34;</span><span class="p">,</span><span class="n">w</span><span class="p">,</span><span class="s2">&#34;loss=&#34;</span><span class="p">,</span><span class="n">cost_val</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;Predict (after training)&#34;</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="n">forward</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">Predict</span> <span class="p">(</span><span class="n">before</span> <span class="n">training</span><span class="p">)</span> <span class="mi">4</span> <span class="mf">7.999777758621207</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">0</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.9999496252874736</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">1.4405775547323328e-08</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">1</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.9999543269273095</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">1.1842187756547517e-08</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">2</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.9999585897474272</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">9.73480465527282e-09</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">3</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.999962454704334</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">8.002442084652284e-09</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">4</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.9999659589319294</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">6.578363057677792e-09</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">5</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.9999691360982828</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">5.407706805106763e-09</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">6</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.9999720167291097</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">4.445375336336258e-09</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">7</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.9999746285010596</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">3.654296098708337e-09</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">8</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.9999769965076273</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">3.0039938062398064e-09</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">9</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.9999791435002487</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">2.469416419574488e-09</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">10</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.9999810901068922</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">2.0299700487455895e-09</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">11</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.999982855030249</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">1.6687256009798603e-09</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">12</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.9999844552274257</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">1.371766609548254e-09</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">13</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.999985906072866</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">1.1276531204725252e-09</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">14</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.9999872215060652</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">9.269809829497494e-10</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">15</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.999988414165499</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">7.620195671191381e-10</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">16</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.9999894955100526</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">6.264139517215796e-10</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">17</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.9999904759291143</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">5.149401089318768e-10</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">18</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.999991364842397</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">4.233036557694424e-10</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">19</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.99999217079044</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">3.47974418527062e-10</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">20</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.9999929015166655</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">2.8605043756363944e-10</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">21</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.9999935640417768</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">2.351461730319416e-10</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">22</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.999994164731211</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">1.9330060517327963e-10</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">23</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.999994709356298</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">1.5890168858915366e-10</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">24</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.9999952031497101</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">1.3062425031741918e-10</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">25</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.9999956508557373</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">1.0737893928680942e-10</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">26</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.9999960567758686</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">8.8270260486003e-11</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">27</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.9999964248101207</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">7.256207723875048e-11</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">28</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.9999967584945095</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">5.964925247279011e-11</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">29</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.999997061035022</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">4.903433660737981e-11</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">30</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.99999733533842</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">4.030840399694845e-11</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">31</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.9999975840401674</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">3.313529956782591e-11</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">32</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.9999978095297517</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">2.7238688929053905e-11</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">33</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.9999980139736415</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">2.2391412909108122e-11</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">34</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.9999981993361016</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">1.8406736584033667e-11</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">35</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.9999983673980655</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">1.513115554895154e-11</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">36</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.999998519774246</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">1.243848235763325e-11</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">37</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.9999986579286497</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">1.0224985320645546e-11</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">38</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.9999987831886423</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">8.405392376989174e-12</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">39</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.9999988967577025</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">6.909606107972389e-12</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">40</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.9999989997269836</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">5.680003312816431e-12</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">41</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.9999990930857985</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">4.669215167726787e-12</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">42</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.999999177731124</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">3.83830238824482e-12</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">43</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.999999254476219</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">3.155255154808919e-12</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">44</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.9999993240584386</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">2.593759969699999e-12</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">45</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.9999993871463178</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">2.132185973933309e-12</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">46</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.9999994443459947</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">1.7527516336648503e-12</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">47</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.9999994962070353</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">1.440839742998853e-12</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">48</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.999999543227712</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">1.1844343058800304e-12</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">49</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.9999995858597923</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">9.736576414395159e-13</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">50</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.9999996245128784</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">8.003898544090114e-13</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">51</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.9999996595583431</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">6.579560331703111e-13</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">52</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.9999996913328977</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">5.408691012517321e-13</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">53</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.9999997201418271</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">4.4461844012431444e-13</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">54</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.9999997462619232</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">3.654961188144078e-13</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">55</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.9999997699441436</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">3.004540541517374e-13</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">56</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.9999997914160235</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">2.469865863254769e-13</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">57</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.9999998108838613</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">2.0303395115474217e-13</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">58</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.999999828534701</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">1.66902931698312e-13</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">59</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.9999998445381288</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">1.3720162774073653e-13</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">60</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.9999998590479036</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">1.1278583585515511e-13</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">61</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.9999998722034327</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">9.271496968522504e-14</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">62</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.9999998841311122</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">7.621582562121307e-14</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">63</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.9999998949455418</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">6.265279609927294e-14</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">64</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.9999999047506245</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">5.150338287212101e-14</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">65</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.9999999136405662</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">4.2338069819529135e-14</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">66</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.99999992170078</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">3.4803775193755746e-14</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">67</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.9999999290087072</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">2.8610250045883864e-14</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">68</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.9999999356345612</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">2.35188970786036e-14</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">69</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.9999999416420022</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">1.933357857240197e-14</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">70</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.9999999470887486</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">1.589306090862069e-14</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">71</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.999999952027132</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">1.3064802438933907e-14</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">72</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.9999999565045998</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">1.07398482121278e-14</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">73</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.9999999605641705</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">8.828632567944822e-15</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">74</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.9999999642448478</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">7.257528338097003e-15</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">75</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.9999999675819953</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">5.966010930476005e-15</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">76</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.9999999706076756</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">4.904326170453415e-15</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">77</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.9999999733509592</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">4.031574090228466e-15</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">78</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.999999975838203</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">3.3141330976503296e-15</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">79</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.999999978093304</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">2.724364694968737e-15</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">80</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.999999980137929</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">2.2395488742462455e-15</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">81</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.9999999819917222</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">1.841008718917265e-15</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">82</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.9999999836724949</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">1.5133909910880908e-15</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">83</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.9999999851963954</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">1.244074658107541e-15</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">84</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.999999986578065</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">1.022684637796773e-15</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">85</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.999999987830779</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">8.406922423772652e-16</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">86</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.999999988966573</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">6.9108637602094e-16</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">87</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.9999999899963594</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">5.681037357692236e-16</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">88</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.9999999909300326</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">4.670065162242399e-16</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">89</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.9999999917765627</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">3.839001026220015e-16</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">90</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.9999999925440834</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">3.1558296571823256e-16</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">91</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.999999993239969</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">2.594232242156015e-16</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">92</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.9999999938709052</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">2.132574242690705e-16</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">93</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.999999994442954</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">1.7530708297392726e-16</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">94</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.9999999949616116</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">1.4411020615022906e-16</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">95</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.9999999954318612</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">1.1846500119529846e-16</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">96</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.9999999958582209</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">9.738349457896592e-17</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">97</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.999999996244787</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">8.005355897435174e-17</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">98</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.9999999965952735</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">6.580758284957657e-17</span>
+</span></span><span class="line"><span class="cl"><span class="n">Epoch</span><span class="p">:</span> <span class="mi">99</span> <span class="n">w</span><span class="p">:</span> <span class="mf">1.999999996913048</span> <span class="n">loss</span><span class="o">=</span> <span class="mf">5.409676005437524e-17</span>
+</span></span><span class="line"><span class="cl"><span class="n">Predict</span> <span class="p">(</span><span class="n">after</span> <span class="n">training</span><span class="p">)</span> <span class="mi">4</span> <span class="mf">7.999999987652192</span>
+</span></span></code></pre></div><p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">),</span><span class="n">cost_list</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="s2">&#34;red&#34;</span><span class="p">,</span><span class="n">linewidth</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 129; 
+			flex-basis: 309px"
+	>
+	<a href="/p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B03_%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E7%AE%97%E6%B3%95/picture/3.%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E7%AE%97%E6%B3%95.png" data-size="1250x968">
+		<img src="/p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B03_%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E7%AE%97%E6%B3%95/picture/3.%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E7%AE%97%E6%B3%95.png"
+			width="1250"
+			height="968"
+			srcset="/p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B03_%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E7%AE%97%E6%B3%95/picture/3.%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E7%AE%97%E6%B3%95_hu2cce58a414ad4d2d434fc82cf2c84013_49419_480x0_resize_box_3.png 480w, /p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B03_%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E7%AE%97%E6%B3%95/picture/3.%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E7%AE%97%E6%B3%95_hu2cce58a414ad4d2d434fc82cf2c84013_49419_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">x_data</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">2.0</span><span class="p">,</span><span class="mf">3.0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">y_data</span> <span class="o">=</span> <span class="p">[</span><span class="mf">2.0</span><span class="p">,</span><span class="mf">4.0</span><span class="p">,</span><span class="mf">6.0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#初始化个权重值</span>
+</span></span><span class="line"><span class="cl"><span class="n">w</span> <span class="o">=</span> <span class="mf">1.0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#正向传播</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">w</span><span class="o">*</span><span class="n">x</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">loss</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">forward</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">(</span><span class="n">y_pred</span><span class="o">-</span><span class="n">y</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">gradient</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">w</span><span class="o">-</span><span class="n">y</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">loss_lost</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x_data</span><span class="p">,</span><span class="n">y_data</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">grad</span> <span class="o">=</span> <span class="n">gradient</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">w</span><span class="o">-=</span><span class="mf">0.01</span><span class="o">*</span><span class="n">grad</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#这里就算每次的epoch的</span>
+</span></span><span class="line"><span class="cl">    <span class="n">loss_lost</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">loss</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     print(&#34;epoch&#34;,epoch)</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">),</span><span class="n">loss_lost</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="s2">&#34;red&#34;</span><span class="p">,</span><span class="n">linewidth</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</span></span></code></pre></div><p>result
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 128; 
+			flex-basis: 308px"
+	>
+	<a href="/p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B03_%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E7%AE%97%E6%B3%95/picture/3.%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E7%AE%97%E6%B3%95-1.png" data-size="1212x944">
+		<img src="/p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B03_%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E7%AE%97%E6%B3%95/picture/3.%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E7%AE%97%E6%B3%95-1.png"
+			width="1212"
+			height="944"
+			srcset="/p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B03_%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E7%AE%97%E6%B3%95/picture/3.%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E7%AE%97%E6%B3%95-1_hu96bea9ed6787a836c4ffdc4c7828d882_35584_480x0_resize_box_3.png 480w, /p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B03_%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E7%AE%97%E6%B3%95/picture/3.%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E7%AE%97%E6%B3%95-1_hu96bea9ed6787a836c4ffdc4c7828d882_35584_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/tutorials/">tutorials</a>
+        
+            <a href="/tags/pytorch/">pytorch</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">Related contents</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="">
+    <a href="/p/lecture_13_rnn_classifier/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Lecture_13_RNN_Classifier</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/ppt_lecture_01_overview/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">ppt_Lecture_01_Overview</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/ppt_lecture_02_linear_model/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">ppt_Lecture_02_Linear_Model</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/ppt_lecture_03_gradient_descent/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">ppt_Lecture_03_Gradient_Descent</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/ppt_lecture_04_back_propagation/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">ppt_Lecture_04_Back_Propagation</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2022 - 
+        
+        2023 叶宇浩随记博客
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.5.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

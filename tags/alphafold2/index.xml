@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>AlphaFold2 on 叶宇浩随记博客</title>
+    <link>https://example.com/tags/alphafold2/</link>
+    <description>Recent content in AlphaFold2 on 叶宇浩随记博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 25 Aug 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://example.com/tags/alphafold2/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>De novo design of small beta barrel proteins</title>
+      <link>https://example.com/p/de-novo-design-of-small-beta-barrel-proteins/</link>
+      <pubDate>Thu, 25 Aug 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/de-novo-design-of-small-beta-barrel-proteins/</guid>
+      <description>Highly accurate protein structure prediction with AlphaFold
+link:https://www.nature.com/articles/s41586-021-03819-2</description>
+    </item>
+    
+  </channel>
+</rss>

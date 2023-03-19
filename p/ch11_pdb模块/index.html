@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='biopython官方教程学习笔记'><title>ch11_PDB模块</title>
+
+<link rel='canonical' href='https://example.com/p/ch11_pdb%E6%A8%A1%E5%9D%97/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='ch11_PDB模块'>
+<meta property='og:description' content='biopython官方教程学习笔记'>
+<meta property='og:url' content='https://example.com/p/ch11_pdb%E6%A8%A1%E5%9D%97/'>
+<meta property='og:site_name' content='叶宇浩随记博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='tutorials' /><meta property='article:published_time' content='2021-08-11T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-08-11T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="ch11_PDB模块">
+<meta name="twitter:description" content="biopython官方教程学习笔记">
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>Back</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/biopython/" style="background-color: #002be1; color: #fff;">
+                生物编程
+            </a>
+        
+            <a href="/categories/bioinformatic/" style="background-color: #7816ff; color: #fff;">
+                生物信息学&amp;计算生物学
+            </a>
+        
+            <a href="/categories/protein_structure/" style="background-color: #e2144a; color: #fff;">
+                蛋白结构
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/ch11_pdb%E6%A8%A1%E5%9D%97/">ch11_PDB模块</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        biopython官方教程学习笔记
+    </h3>
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Aug 11, 2021</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    8 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <p><strong>biopython官方地址：</strong><a class="link" href="https://biopython.org/"  target="_blank" rel="noopener"
+    ><strong>https://biopython.org/</strong></a></p>
+<p><strong>github地址：</strong><a class="link" href="https://github.com/biopython/biopython/blob/master/README.rst"  target="_blank" rel="noopener"
+    ><strong>https://github.com/biopython/biopython/blob/master/</strong></a></p>
+<p><strong>中文版教程：</strong><a class="link" href="https://biopython-cn.readthedocs.io/zh_CN/latest/cn/chr06.html"  target="_blank" rel="noopener"
+    ><strong>https://biopython-cn.readthedocs.io/zh_CN/latest/cn/chr06.html</strong></a></p>
+<p><strong>biopython包的说明（具体到每个模块了）：</strong><a class="link" href="https://www.osgeo.cn/biopython/Bio.HMM.DynamicProgramming.html"  target="_blank" rel="noopener"
+    ><strong>https://www.osgeo.cn/biopython/Bio.HMM.DynamicProgramming.html</strong></a></p>
+<p>Bio.PDB是Biopython中处理生物大分子晶体结构的模块。除了别的类之外，Bio.PDB包含PDBParser类，此类能够产生一个Structure对象，以一种较方便的方式获取文件中的原子数据。只是在处理PDB文件头所包含的信息时，该类有一定的局限性。</p>
+<h2 id="晶体结果文件的读与写">晶体结果文件的读与写</h2>
+<h3 id="读取pdb文件">读取PDB文件</h3>
+<p>首先，我们创建一个 PDBParser 对象：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio.PDB.PDBParser</span> <span class="kn">import</span> <span class="n">PDBParser</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">p</span> <span class="o">=</span> <span class="n">PDBParser</span><span class="p">(</span><span class="n">PERMISSIVE</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</span></span></code></pre></div><p>PERMISSIV 标签表示一些与PDB文件相关的问题会被忽略（注意某些原子和/或残基会丢失）。如果没有这个标签，则会在解析器运行期间有问题被检测到的时候生成一个 PDBConstructionException 标签。<br>
+接着通过 PDBParser 解析PDB文件，就产生了Structure对象（在此例子中，PDB文件为’pdb1fat.ent’，’1fat’是用户定义的结构名称）:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">structure_id</span> <span class="o">=</span> <span class="s2">&#34;1fat&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">filename</span> <span class="o">=</span> <span class="s2">&#34;pdb1fat.ent&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">s</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">get_structure</span><span class="p">(</span><span class="n">structure_id</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
+</span></span></code></pre></div><p>你可以从PDBParser对象中用 get_header 和 get_trailer 方法来提取PDB文件中的文件头和文件尾（简单的字符串列表）。然而许多PDB文件头包含不完整或错误的信息。许多错误在等价的mmCIF格式文件中得到修正。 <em>因此，如果你对文件头信息感兴趣，可以用下面即将讲到的 MMCIF2Dict 来提取信息，而不用处理PDB文件文件头。</em><br>
+现在澄清了，让我们回到解析PDB文件头这件事上。结构对象有个属性叫 header ，这是一个将头记录映射到其相应值的Python字典。<br>
+例子：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">resolution</span> <span class="o">=</span> <span class="n">structure</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="s1">&#39;resolution&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">keywords</span> <span class="o">=</span> <span class="n">structure</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="s1">&#39;keywords&#39;</span><span class="p">]</span>
+</span></span></code></pre></div><p>在这个字典中可用的关键字有 name 、 head 、 deposition_date 、 release_date 、 structure_method 、 resolution 、 structure_reference （映射到一个参考文献列表）、 journal_reference 、 author 、和 compound （映射到一个字典，其中包含结晶化合物的各种信息）。<br>
+没有创建 Structure 对象的时候，也可以创建这个字典，比如直接从PDB文件创建:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">header_dict</span> <span class="o">=</span> <span class="n">parse_pdb_header</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span></span></code></pre></div><h3 id="读取mmcif文件">读取mmCIF文件</h3>
+<p>与PDB文件的情形类似，先创建一个 MMCIFParser 对象：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio.PDB.MMCIFParser</span> <span class="kn">import</span> <span class="n">MMCIFParser</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">parser</span> <span class="o">=</span> <span class="n">MMCIFParser</span><span class="p">()</span>
+</span></span></code></pre></div><p>然后用这个解析器从mmCIF文件创建一个结构对象：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">structure</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">get_structure</span><span class="p">(</span><span class="s1">&#39;1fat&#39;</span><span class="p">,</span> <span class="s1">&#39;1fat.cif&#39;</span><span class="p">)</span>
+</span></span></code></pre></div><p>为了尽量少访问mmCIF文件，可以用 MMCIF2Dict 类创建一个Python字典来将所有mmCIF文件中各种标签映射到其对应的值上。若有多个值（像 _atom_site.Cartn_y 标签，储存的是所有原子的_y_坐标值），则这个标签映射到一个值列表。从mmCIF文件创建字典如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio.PDB.MMCIF2Dict</span> <span class="kn">import</span> <span class="n">MMCIF2Dict</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">mmcif_dict</span> <span class="o">=</span> <span class="n">MMCIF2Dict</span><span class="p">(</span><span class="s1">&#39;1FAT.cif&#39;</span><span class="p">)</span>
+</span></span></code></pre></div><p>例：从mmCIF文件获取溶剂含量:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">sc</span> <span class="o">=</span> <span class="n">mmcif_dict</span><span class="p">[</span><span class="s1">&#39;_exptl_crystal.density_percent_sol&#39;</span><span class="p">]</span>
+</span></span></code></pre></div><p>例：获取包含所有原子_y_坐标的列表:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">y_list</span> <span class="o">=</span> <span class="n">mmcif_dict</span><span class="p">[</span><span class="s1">&#39;_atom_site.Cartn_y&#39;</span><span class="p">]</span>
+</span></span></code></pre></div><h3 id="写pdb文件">写PDB文件</h3>
+<p>可以用PDBIO类实现。当然也可很方便地输出一个结构的特定部分<br>
+例子：保存一个结构</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">io</span> <span class="o">=</span> <span class="n">PDBIO</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">io</span><span class="o">.</span><span class="n">set_structure</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">io</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;out.pdb&#39;</span><span class="p">)</span>
+</span></span></code></pre></div><p>如果你想写出结构的一部分，可以用 Select 类（也在 PDBIO 中）来实现。 Select 有如下四种方法：</p>
+<ul>
+<li>accept_model(model)</li>
+<li>accept_chain(chain)</li>
+<li>accept_residue(residue)</li>
+<li>accept_atom(atom)&hellip;.01
+在默认情况下，每种方法的返回值都为1（表示model/chain/residue/atom被包含在输出结果中）。通过子类化 Select 和返回值0，你可以从输出中排除model、chain等。也许麻烦，但很强大。接下来的代码将只输出甘氨酸残基：0</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">GlySelect</span><span class="p">(</span><span class="n">Select</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>     <span class="k">def</span> <span class="nf">accept_residue</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">residue</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>         <span class="k">if</span> <span class="n">residue</span><span class="o">.</span><span class="n">get_name</span><span class="p">()</span><span class="o">==</span><span class="s1">&#39;GLY&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>             <span class="k">return</span> <span class="kc">True</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>         <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>             <span class="k">return</span> <span class="kc">False</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">io</span> <span class="o">=</span> <span class="n">PDBIO</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">io</span><span class="o">.</span><span class="n">set_structure</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">io</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;gly_only.pdb&#39;</span><span class="p">,</span> <span class="n">GlySelect</span><span class="p">())</span>
+</span></span></code></pre></div><p>如果这部分对你来说太复杂，那么 Dice 模块有一个很方便的 extract 函数，它可以输出一条链中起始和终止氨基酸残基之间的所有氨基酸残基。</p>
+<h2 id="结构的表示">结构的表示</h2>
+<p>一个 Structure 对象的整体布局遵循称为SMCRA（Structure/Model/Chain/Residue/Atom，结构/模型/链/残基/原子）的体系架构：</p>
+<ul>
+<li>结构由模型组成</li>
+<li>模型由多条链组成</li>
+<li>链由残基组成</li>
+<li>多个原子构成残基
+这是很多结构生物学家/生物信息学家看待结构的方法，也是处理结构的一种简单而有效的方法。在需要的时候加上额外的材料。一个 Structure 对象的UML图（暂时忘掉 Disordered 吧）如下图所示 。这样的数据结构不一定最适用于表示一个结构的生物大分子内容，但要很好地解释一个描述结构的文件中所呈现的数据（最典型的如PDB或MMCIF文件），这样的数据结构就是必要的了。如果这种层次结构不能表示一个结构文件的内容，那么可以相当确定是这个文件有错误或至少描述结构不够明确。一旦不能生成SMCRA数据结构，就有理由怀疑出了故障。因此，解析PDB文件可用于检测可能的故障。我们将在 小节给出关于这一点的一些例子。<br>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 106; 
+			flex-basis: 255px"
+	>
+	<a href="/p/ch11_pdb%E6%A8%A1%E5%9D%97/picture/ch11_PDB%E6%A8%A1%E5%9D%97.png" data-size="880x828">
+		<img src="/p/ch11_pdb%E6%A8%A1%E5%9D%97/picture/ch11_PDB%E6%A8%A1%E5%9D%97.png"
+			width="880"
+			height="828"
+			srcset="/p/ch11_pdb%E6%A8%A1%E5%9D%97/picture/ch11_PDB%E6%A8%A1%E5%9D%97_hucc72fef181021142c9d88c33a567673f_129793_480x0_resize_box_3.png 480w, /p/ch11_pdb%E6%A8%A1%E5%9D%97/picture/ch11_PDB%E6%A8%A1%E5%9D%97_hucc72fef181021142c9d88c33a567673f_129793_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+结构，模型，链，残基都是实体基类的子类。原子类仅仅（部分）实现了实体接口（因为原子类没有子类）。<br>
+对于每个实体子类，你可以用该子类的一个唯一标识符作为键来提取子类（比如，可以用原子名称作为键从残基对象中提取一个原子对象；用链的标识符作为键从域对象中提取链）。<br>
+紊乱原子和残基用DisorderedAtom和DisorderedResidue类来表示，二者都是DisorderedEntityWrapper基类的子类。它们隐藏了紊乱的复杂性，表现得与原子和残基对象无二。<br>
+一般地，一个实体子类（即原子，残基，链，模型）能通过标识符作为键来从父类（分别为残基，链，模型，结构）中提取。</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">child_entity</span> <span class="o">=</span> <span class="n">parent_entity</span><span class="p">[</span><span class="n">child_id</span><span class="p">]</span>
+</span></span></code></pre></div><p>你可以从一个父实体对象获得所有子实体的列表。需要注意的是，这个列表以一种特定的方式排列（例如根据在模型对象中链对象的链标识符来排序）。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">child_list</span> <span class="o">=</span> <span class="n">parent_entity</span><span class="o">.</span><span class="n">get_list</span><span class="p">()</span>
+</span></span></code></pre></div><p>你也可以从子类得到父类：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">parent_entity</span> <span class="o">=</span> <span class="n">child_entity</span><span class="o">.</span><span class="n">get_parent</span><span class="p">()</span>
+</span></span></code></pre></div><p>在SMCRA的所有层次水平，你还可以提取一个 <em>完整id</em> 。完整id是包含所有从顶层对象（结构）到当前对象的id的一个元组。一个残基对象的完整id可以这么得到：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">full_id</span> <span class="o">=</span> <span class="n">residue</span><span class="o">.</span><span class="n">get_full_id</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="n">full_id</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="s2">&#34;1abc&#34;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&#34;A&#34;</span><span class="p">,</span> <span class="p">(</span><span class="s2">&#34;&#34;</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="s2">&#34;A&#34;</span><span class="p">))</span>
+</span></span></code></pre></div><p>这对应于：</p>
+<ul>
+<li>id为”1abc”的结构</li>
+<li>id为0的模型</li>
+<li>id为”A”的链</li>
+<li>id为(” “, 10, “A”)的残基
+这个残基id表示该残基不是异质残基（也不是水分子），因为其异质值为空；而序列标识符为10，插入码为”A”。<br>
+要得到实体的id，用 get_id 方法即可：</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">entity</span><span class="o">.</span><span class="n">get_id</span><span class="p">()</span>
+</span></span></code></pre></div><p>可以用 has_id 方法来检查这个实体是否有子类具有给定id：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">entity</span><span class="o">.</span><span class="n">has_id</span><span class="p">(</span><span class="n">entity_id</span><span class="p">)</span>
+</span></span></code></pre></div><p>实体的长度等于其子类的个数：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">nr_children</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">entity</span><span class="p">)</span>
+</span></span></code></pre></div><p>对于从父实体得到的子实体，可以删除，重命名，添加等等，但这并不包含任何完整性检查（比如，有可能添加两个相同id的残基到同一条链上）。这就真的需要包含完整性检查的装饰类（Decorator）来完成了，但是如果你想使用原始接口的话可以查看源代码（Entity.py)。</p>
+<h3 id="结构">结构</h3>
+<p>结构对象是层次中的最高层。其id是用户指定的一个字符串。结构包含一系列子模型。大部分晶体结构（但不是全部）含有一个单一模型，但是NMR结构通常由若干模型构成。晶体结构中大部分子的乱序也能导致多个模型。</p>
+<h3 id="模型">模型</h3>
+<p>结构域对象的id是一个整数，源自该模型在所解析文件中的位置（自动从0开始）。晶体结构通常只有一个模型（id为0），而NMR文件通常含有多个模型。然而许多PDB解析器都假定只有一个结构域， Bio.PDB 中的 Structure 类就设计成能轻松处理含有不止一个模型的PDB文件。<br>
+举个例子，从一个结构对象中获取其第一个模型：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">first_model</span> <span class="o">=</span> <span class="n">structure</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span></span></code></pre></div><p>模型对象存储着子链的列表。</p>
+<h3 id="链">链</h3>
+<p>链对象的id来自PDB/mmCIF文件中的链标识符，是个单字符（通常是一个字母）。模型中的每个链都具有唯一的id。例如，从一个模型对象中取出标识符为“A”的链对象：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">chain_A</span> <span class="o">=</span> <span class="n">model</span><span class="p">[</span><span class="s2">&#34;A&#34;</span><span class="p">]</span>
+</span></span></code></pre></div><p>链对象储存着残基对象的列表</p>
+<h3 id="残基">残基</h3>
+<p>一个残基id是一个三元组：</p>
+<ul>
+<li><strong>异质域</strong> (hetfield)，即：采用这种体制的理由在 <a class="link" href="https://biopython-cn.readthedocs.io/zh_CN/latest/cn/chr11.html#sec-hetero-problems"  target="_blank" rel="noopener"
+    >11.4.1</a> 部分有叙述。
+<ul>
+<li>&lsquo;W&rsquo; 代表水分子</li>
+<li>&lsquo;H_&rsquo; 后面紧跟残基名称，代表其它异质残基（例如 &lsquo;H_GLC&rsquo; 表示一个葡萄糖分子）</li>
+<li>空值表示标准的氨基酸和核酸</li>
+</ul>
+</li>
+<li><strong>序列标识符</strong> （resseq），一个描述该残基在链上的位置的整数（如100）；</li>
+<li><strong>插入码</strong> （icode），一个字符串，如“A”。插入码有时用来保存某种特定的、想要的残基编号体制。一个Ser 80的插入突变（比如在Thr 80和Asn 81残基间插入）可能具有如下序列标识符和插入码：Thr 80 A, Ser 80 B, Asn 81。这样一来，残基编号体制保持与野生型结构一致。
+因此，上述的葡萄酸残基id就是 (’H_GLC’, 100, ’A’) 。如果异质标签和插入码为空，那么可以只使用序列标识符：</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># Full id</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">residue</span><span class="o">=</span><span class="n">chain</span><span class="p">[(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Shortcut id</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">residue</span><span class="o">=</span><span class="n">chain</span><span class="p">[</span><span class="mi">100</span><span class="p">]</span>
+</span></span></code></pre></div><p>异质标签的起因是许许多多的PDB文件使用相同的序列标识符表示一个氨基酸和一个异质残基或一个水分子，这会产生一个很明显的问题，如果不使用异质标签的话。<br>
+毫不奇怪，一个残基对象存储着一个子原子集，它还包含一个表示残基名称的字符串（如 “ASN”）和残基的片段标识符（这对X-PLOR的用户来说很熟悉，但是在SMCRA数据结构的构建中没用到）。<br>
+让我们来看一些例子。插入码为空的Asn 10具有残基id (’ ’, 10, ’ ’) ；Water 10，残基id (’W’, 10, ’ ’)；一个序列标识符为10的葡萄糖分子（名称为GLC的异质残基），残基id为 (’H_GLC’, 10, ’ ’) 。在这种情况下，三个残基（具有相同插入码和序列标识符）可以位于同一条链上，因为它们的残基id是不同的。<br>
+大多数情况下，hetflag和插入码均为空，如 (’ ’, 10, ’ ’) 。在这些情况下，序列标识符可以用作完整id的快捷方式：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># use full id</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">res10</span> <span class="o">=</span> <span class="n">chain</span><span class="p">[(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># use shortcut</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">res10</span> <span class="o">=</span> <span class="n">chain</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span>
+</span></span></code></pre></div><p>一个链对象中每个残基对象都应该具有唯一的id。但是对含紊乱原子的残基，要以一种特殊的方式来处理<br>
+一个残基对象还有大量其它方法：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">residue</span><span class="o">.</span><span class="n">get_resname</span><span class="p">()</span>       <span class="c1"># returns the residue name, e.g. &#34;ASN&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">residue</span><span class="o">.</span><span class="n">is_disordered</span><span class="p">()</span>     <span class="c1"># returns 1 if the residue has disordered atoms</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">residue</span><span class="o">.</span><span class="n">get_segid</span><span class="p">()</span>         <span class="c1"># returns the SEGID, e.g. &#34;CHN1&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">residue</span><span class="o">.</span><span class="n">has_id</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>        <span class="c1"># test if a residue has a certain atom</span>
+</span></span></code></pre></div><p>你可以用 is_aa(residue) 来检验一个残基对象是否为氨基酸</p>
+<h3 id="原子">原子</h3>
+<p>原子对象储存着所有与原子有关的数据，它没有子类。原子的id就是它的名称（如，“OG”代表Ser残基的侧链氧原子）。在残基中原子id必需是唯一的。此外，对于紊乱原子会产生异常，<br>
+原子id就是原子名称（如 ’CA’ ）。在实践中，原子名称是从PDB文件中原子名称去除所有空格而创建的。<br>
+但是在PDB文件中，空格可以是原子名称的一部分。通常，钙原子称为 ’CA..’ 是为了和Cα原子（叫做 ’.CA.’ ）区分开。在这种情况下，如果去掉空格就会产生问题（如统一个残基中的两个原子都叫做 ’CA’ ），所以保留空格。<br>
+在PDB文件中，一个原子名字由4个字符组成，通常头尾皆为空格。为了方便使用，空格通常可以去掉（在PDB文件中氨基酸的Cα原子标记为“.CA.”，点表示空格）。为了生成原子名称（然后是原子id），空格删掉了，除非会在一个残基中造成名字冲突（如两个原子对象有相同的名称和id）。对于后面这种情况，会尝试让原子名称包含空格。这种情况可能会发生在，比如残基包含名称为“.CA.”和“CA..”的原子，尽管这不怎么可能。<br>
+所存储的原子数据包括原子名称，原子坐标（如果有的话还包括标准差），B因子（包括各向异性B因子和可能存在的标准差），altloc标识符和完整的、包括空格的原子名称。较少用到的项如原子序号和原子电荷（有时在PDB文件中规定）也就没有存储。<br>
+为了处理原子坐标，可以用 ’Atom’ 对象的 transform 方法。用 set_coord 方法可以直接设定原子坐标。<br>
+一个Atom对象还有如下其它方法：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span><span class="o">.</span><span class="n">get_name</span><span class="p">()</span>       <span class="c1"># atom name (spaces stripped, e.g. &#34;CA&#34;)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span><span class="o">.</span><span class="n">get_id</span><span class="p">()</span>         <span class="c1"># id (equals atom name)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span><span class="o">.</span><span class="n">get_coord</span><span class="p">()</span>      <span class="c1"># atomic coordinates</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span><span class="o">.</span><span class="n">get_vector</span><span class="p">()</span>     <span class="c1"># atomic coordinates as Vector object</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span><span class="o">.</span><span class="n">get_bfactor</span><span class="p">()</span>    <span class="c1"># isotropic B factor</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span><span class="o">.</span><span class="n">get_occupancy</span><span class="p">()</span>  <span class="c1"># occupancy</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span><span class="o">.</span><span class="n">get_altloc</span><span class="p">()</span>     <span class="c1"># alternative location specifier</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span><span class="o">.</span><span class="n">get_sigatm</span><span class="p">()</span>     <span class="c1"># standard deviation of atomic parameters</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span><span class="o">.</span><span class="n">get_siguij</span><span class="p">()</span>     <span class="c1"># standard deviation of anisotropic B factor</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span><span class="o">.</span><span class="n">get_anisou</span><span class="p">()</span>     <span class="c1"># anisotropic B factor</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span><span class="o">.</span><span class="n">get_fullname</span><span class="p">()</span>   <span class="c1"># atom name (with spaces, e.g. &#34;.CA.&#34;)</span>
+</span></span></code></pre></div><p>siguij，各向异性B因子和sigatm Numpy阵列可以用来表示原子坐标.。<br>
+get_vector 方法会返回一个代表 Atom 对象坐标的 Vector 对象，可以对原子坐标进行向量运算。 Vector 实现了完整的三维向量运算、矩阵乘法（包括左乘和右乘）和一些高级的、与旋转相关的操作。<br>
+举个Bio.PDB的 Vector 模块功能的例子，假设你要查找Gly残基的Cβ原子的位置，如果存在的话。将Gly残基的N原子沿Cα-C化学键旋转-120度，能大致将其放在一个真正的Cβ原子的位置上。怎么做呢？就是下面这样使用 Vector 模块中的<code>rotaxis</code> 方法（能用来构造一个绕特定坐标轴的旋转）：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># get atom coordinates as vectors</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">n</span> <span class="o">=</span> <span class="n">residue</span><span class="p">[</span><span class="s1">&#39;N&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">get_vector</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">c</span> <span class="o">=</span> <span class="n">residue</span><span class="p">[</span><span class="s1">&#39;C&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">get_vector</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">ca</span> <span class="o">=</span> <span class="n">residue</span><span class="p">[</span><span class="s1">&#39;CA&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">get_vector</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># center at origin</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">n</span> <span class="o">=</span> <span class="n">n</span> <span class="o">-</span> <span class="n">ca</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">c</span> <span class="o">=</span> <span class="n">c</span> <span class="o">-</span> <span class="n">ca</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># find rotation matrix that rotates n</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># -120 degrees along the ca-c vector</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">rot</span> <span class="o">=</span> <span class="n">rotaxis</span><span class="p">(</span><span class="o">-</span><span class="n">pi</span> <span class="o">*</span> <span class="mf">120.0</span><span class="o">/</span><span class="mf">180.0</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># apply rotation to ca-n vector</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">cb_at_origin</span> <span class="o">=</span> <span class="n">n</span><span class="o">.</span><span class="n">left_multiply</span><span class="p">(</span><span class="n">rot</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># put on top of ca atom</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">cb</span> <span class="o">=</span> <span class="n">cb_at_origin</span><span class="o">+</span><span class="n">ca</span>
+</span></span></code></pre></div><p>这个例子展示了在原子数据上能进行一些相当不平凡的向量运算，这些运算会很有用。除了所有常用向量运算（叉积（用 * <em>），点积（用</em> ），角度， 取范数等）和上述提到的 rotaxis 函数，Vector 模块还有方法能旋转（ rotmat ）或反射（ refmat ）一个向量到另外一个向量上。</p>
+<h3 id="从结构中提取指定的atomresiduechainmodel">从结构中提取指定的Atom/Residue/Chain/Model</h3>
+<p>举些例子如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">model</span> <span class="o">=</span> <span class="n">structure</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">chain</span> <span class="o">=</span> <span class="n">model</span><span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">residue</span> <span class="o">=</span> <span class="n">chain</span><span class="p">[</span><span class="mi">100</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">atom</span> <span class="o">=</span> <span class="n">residue</span><span class="p">[</span><span class="s1">&#39;CA&#39;</span><span class="p">]</span>
+</span></span></code></pre></div><p>还可以用一个快捷方式：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">atom</span> <span class="o">=</span> <span class="n">structure</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;A&#39;</span><span class="p">][</span><span class="mi">100</span><span class="p">][</span><span class="s1">&#39;CA&#39;</span><span class="p">]</span>
+</span></span></code></pre></div><h2 id="紊乱">紊乱</h2>
+<p>Bio.PDB能够处理紊乱原子和点突变（比如Gly和Ala残基在相同位置上）<br>
+紊乱可以从两个角度来解决：原子和残基的角度。一般来说，我们尝试压缩所有由紊乱引起的复杂性。如果你仅仅想遍历所有Cα原子，那么你不必在意一些具有紊乱侧链的残基。另一方面，应该考虑在数据结构中完整地表示紊乱性。因此，紊乱原子或残基存储在特定的对象中，这些对象表现得就像毫无紊乱。这可以通过表示紊乱原子或残基的子集来完成。至于挑选哪个子集（例如使用Ser残基的哪两个紊乱OG侧链原子位置），由用户来决定</p>
+<h3 id="紊乱原子">紊乱原子</h3>
+<p>紊乱原子可以用普通的 Atom 对象来表示，但是所有表示相同物理原子的 Atom 对象都存储在一个 DisorderedAtom 对象中。 DisorderedAtom 对象中每个 Atom 对象都能用它的altloc标识符来唯一地索引。 DisorderedAtom 对象将所有未捕获方法的调用发送给选定的Atom对象，缺省对象是代表最高使用率的原子的那个。当然用户可以使用其altloc标识符来更改选定的 Atom 对象。以这种方式，原子紊乱就正确地表示出来而没有很多额外的复杂性。换言之，如果你对原子紊乱不感兴趣，你也不会被它困扰。<br>
+每个紊乱原子都有一个特征性的altloc标识符。你可以设定：一个 DisorderedAtom 对象表现得像与一个指定的altloc标识符相关的 Atom 对象</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">atom</span><span class="o">.</span><span class="n">disordered_select</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">)</span> <span class="c1"># select altloc A atom</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="n">atom</span><span class="o">.</span><span class="n">get_altloc</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;A&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">atom</span><span class="o">.</span><span class="n">disordered_select</span><span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">)</span> <span class="c1"># select altloc B atom</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="n">atom</span><span class="o">.</span><span class="n">get_altloc</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;B&#34;</span>
+</span></span></code></pre></div><h3 id="紊乱残基">紊乱残基</h3>
+<h4 id="普通例子">普通例子</h4>
+<p>最常见的例子是一个残基包含一个或多个紊乱原子。这显然可以通过用DisorderedAtom对象表示这些紊乱原子来解决，并将DisorderedAtom对象存储在一个Residue对象中，就像正常的Atom对象那样。通过将所有未捕获方法调用发送给其中一个Atom对象（被选定的Atom对象），DisorderedAtom对象表现完全像一个正常的原子对象（事实上这个原子有最高的使用率）。</p>
+<h4 id="点突变">点突变</h4>
+<p>个特殊的例子就是当紊乱是由点突变导致的时候，也就是说，在晶体结构中出现一条多肽的两或多个点突变。关于这一点，可以在PDB结构1EN2中找到一个例子。<br>
+既然这些残基属于不同的残基类型（举例说Ser 60 和Cys 60），那么它们不应该像通常情况一样存储在一个单一 Residue 对象中。这种情况下每个残基用一个 Residue 对象来表示，两种 Residue 对象都保存在一个单一 DisorderedResidue 对象中。<br>
+DisorderedResidue 对象将所有未捕获方法发送给选定的 Residue 对象（默认是所添加的最后一个 Residue 对象），因此表现得像一个正常的残基。在 DisorderedResidue 中每个 Residue 对象可通过残基名称来唯一标识。在上述例子中，残基Ser 60在 DisorderedResidue 对象中的id为“SER”，而残基Cys 60则是“CYS”。用户可以通过这个id选择在 DisorderedResidue 中的有效 Residue 对象。<br>
+例子：假设一个链在位置10有一个由Ser和Cys残基构成的点突变。确信这个链的残基10表现为Cys残基。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">residue</span> <span class="o">=</span> <span class="n">chain</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">residue</span><span class="o">.</span><span class="n">disordered_select</span><span class="p">(</span><span class="s1">&#39;CYS&#39;</span><span class="p">)</span>
+</span></span></code></pre></div><p>另外，通过使用 (Disordered)Residue 对象的 get_unpacked_list 方法，你能获得所有 Atom 对象的列表（也就是说，所有 DisorderedAtom 对象解包到它们各自的 Atom 对象</p>
+<h2 id="异质残基">异质残基</h2>
+<h3 id="相关问题">相关问题</h3>
+<p>关于异质残基的一个很普遍的问题是同一条链中的若干异质和非异质残基有同样的序列标识符（和插入码）。因此，要为每个异质残基生成唯一的id，水分子和其他异质残基应该以不同的方式来对待。<br>
+记住Residue残基有一个元组（hetfield, resseq, icode）作为id。hetfield值为空(“ ”)表示为氨基酸和核酸；为一个字符串，则表示水分子和其他异质残基。hetfield的内容将在下面解释。</p>
+<h3 id="heading"></h3>
+<p>水残基hetfiled &ldquo;W&rdquo;
+水残基的hetfield字符串由字母“W”构成。所以水分子的一个典型的残基id为(“W”, 1, “ ”)。</p>
+<h3 id="其他异质残基-hetfileld-h_">其他异质残基 hetfileld &ldquo;H_&rdquo;</h3>
+<p>其他异质残基的hetfield字符以“H_”起始，后接残基名称。一个葡萄糖分子，比如残基名称为“GLC”，则hetfield字符为“H_GLC”；它的残基id可以是(“H_GLC”, 1, “ ”)</p>
+<h2 id="浏览structure对象">浏览Structure对象</h2>
+<h3 id="解析pdb文件提取一些modelchinaresidue和atom对象">解析PDB文件，提取一些Model,China,Residue和Atom对象</h3>
+<p>模型上的一条链，一条链上的残基，残基上的原子</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio.PDB.PDBParser</span> <span class="kn">import</span> <span class="n">PDBParser</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">parser</span> <span class="o">=</span> <span class="n">PDBParser</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">structure</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">get_structure</span><span class="p">(</span><span class="s2">&#34;test&#34;</span><span class="p">,</span> <span class="s2">&#34;1fat.pdb&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">model</span> <span class="o">=</span> <span class="n">structure</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">chain</span> <span class="o">=</span> <span class="n">model</span><span class="p">[</span><span class="s2">&#34;A&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">residue</span> <span class="o">=</span> <span class="n">chain</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">atom</span> <span class="o">=</span> <span class="n">residue</span><span class="p">[</span><span class="s2">&#34;CA&#34;</span><span class="p">]</span>
+</span></span></code></pre></div><h3 id="迭代遍历一个结构中的所有原子">迭代遍历一个结构中的所有原子</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">p</span> <span class="o">=</span> <span class="n">PDBParser</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">structure</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">get_structure</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="s1">&#39;pdb1fat.ent&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">structure</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>     <span class="k">for</span> <span class="n">chain</span> <span class="ow">in</span> <span class="n">model</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>         <span class="k">for</span> <span class="n">residue</span> <span class="ow">in</span> <span class="n">chain</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>             <span class="k">for</span> <span class="n">atom</span> <span class="ow">in</span> <span class="n">residue</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>                 <span class="nb">print</span> <span class="n">atom</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span></code></pre></div><p>有个快捷方式可以遍历一个结构中所有原子：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">atoms</span> <span class="o">=</span> <span class="n">structure</span><span class="o">.</span><span class="n">get_atoms</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">atom</span> <span class="ow">in</span> <span class="n">atoms</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>     <span class="nb">print</span> <span class="n">atom</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span></code></pre></div><p>类似地，遍历一条链中的所有原子，可以这么做：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">atoms</span> <span class="o">=</span> <span class="n">chain</span><span class="o">.</span><span class="n">get_atoms</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">atom</span> <span class="ow">in</span> <span class="n">atoms</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>     <span class="nb">print</span> <span class="n">atom</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span></code></pre></div><h3 id="便利模型中的所有残基">便利模型中的所有残基</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">residues</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">get_residues</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">residue</span> <span class="ow">in</span> <span class="n">residues</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>     <span class="nb">print</span> <span class="n">residue</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span></code></pre></div><p>你也可以用 Selection.unfold_entities 函数来获取一个结构的所有残基：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">res_list</span> <span class="o">=</span> <span class="n">Selection</span><span class="o">.</span><span class="n">unfold_entities</span><span class="p">(</span><span class="n">structure</span><span class="p">,</span> <span class="s1">&#39;R&#39;</span><span class="p">)</span>
+</span></span></code></pre></div><p>或者获得链上的所有原子：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">atom_list</span> <span class="o">=</span> <span class="n">Selection</span><span class="o">.</span><span class="n">unfolf_entities</span><span class="p">(</span><span class="n">chain</span><span class="p">,</span><span class="s2">&#34;A&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><p>明显的是， A=atom, R=residue, C=chain, M=model, S=structure 。你可以用这种标记返回层次中的上层，如从一个 Atoms 列表得到（唯一的） Residue 或 Chain 父类的列表</p>
+<h3 id="从链中提取异质残基如resseq10的葡萄糖glc部分">从链中提取异质残基（如resseq10的葡萄糖（GLC）部分）</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">residue_id</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&#34;H_GLC&#34;</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="s2">&#34; &#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">residue</span> <span class="o">=</span> <span class="n">chain</span><span class="p">[</span><span class="n">residue_id</span><span class="p">]</span>
+</span></span></code></pre></div><h3 id="打印链中所有异质残基">打印链中所有异质残基</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">residue</span> <span class="ow">in</span> <span class="n">chain</span><span class="o">.</span><span class="n">get_list</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>    <span class="n">residue_id</span> <span class="o">=</span> <span class="n">residue</span><span class="o">.</span><span class="n">get_id</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>    <span class="n">hetfield</span> <span class="o">=</span> <span class="n">residue_id</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>    <span class="k">if</span> <span class="n">hetfield</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">==</span><span class="s2">&#34;H&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>        <span class="nb">print</span> <span class="n">residue_id</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span></code></pre></div><h3 id="输出一个结构分子中所有b因子大于50的ca原子的坐标">输出一个结构分子中所有B因子大于50的CA原子的坐标</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">structure</span><span class="o">.</span><span class="n">get_list</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>     <span class="k">for</span> <span class="n">chain</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">get_list</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>         <span class="k">for</span> <span class="n">residue</span> <span class="ow">in</span> <span class="n">chain</span><span class="o">.</span><span class="n">get_list</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>             <span class="k">if</span> <span class="n">residue</span><span class="o">.</span><span class="n">has_id</span><span class="p">(</span><span class="s2">&#34;CA&#34;</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>                 <span class="n">ca</span> <span class="o">=</span> <span class="n">residue</span><span class="p">[</span><span class="s2">&#34;CA&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>                 <span class="k">if</span> <span class="n">ca</span><span class="o">.</span><span class="n">get_bfactor</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mf">50.0</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>                     <span class="nb">print</span> <span class="n">ca</span><span class="o">.</span><span class="n">get_coord</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span></code></pre></div><h3 id="输出所有紊乱原子的残基">输出所有紊乱原子的残基</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">structure</span><span class="o">.</span><span class="n">get_list</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>     <span class="k">for</span> <span class="n">chain</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">get_list</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>         <span class="k">for</span> <span class="n">residue</span> <span class="ow">in</span> <span class="n">chain</span><span class="o">.</span><span class="n">get_list</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>             <span class="k">if</span> <span class="n">residue</span><span class="o">.</span><span class="n">is_disordered</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>                 <span class="n">resseq</span> <span class="o">=</span> <span class="n">residue</span><span class="o">.</span><span class="n">get_id</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>                 <span class="n">resname</span> <span class="o">=</span> <span class="n">residue</span><span class="o">.</span><span class="n">get_resname</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>                 <span class="n">model_id</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">get_id</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>                 <span class="n">chain_id</span> <span class="o">=</span> <span class="n">chain</span><span class="o">.</span><span class="n">get_id</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>                 <span class="nb">print</span> <span class="n">model_id</span><span class="p">,</span> <span class="n">chain_id</span><span class="p">,</span> <span class="n">resname</span><span class="p">,</span> <span class="n">resseq</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span></code></pre></div><h3 id="遍历所有紊乱原子并选取所有具有atloc-a的原子如果有的话">遍历所有紊乱原子，并选取所有具有atloc A的原子（如果有的话）</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">structure</span><span class="o">.</span><span class="n">get_list</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>     <span class="k">for</span> <span class="n">chain</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">get_list</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>         <span class="k">for</span> <span class="n">residue</span> <span class="ow">in</span> <span class="n">chain</span><span class="o">.</span><span class="n">get_list</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>             <span class="k">if</span> <span class="n">residue</span><span class="o">.</span><span class="n">is_disordered</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>                 <span class="k">for</span> <span class="n">atom</span> <span class="ow">in</span> <span class="n">residue</span><span class="o">.</span><span class="n">get_list</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>                     <span class="k">if</span> <span class="n">atom</span><span class="o">.</span><span class="n">is_disordered</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>                         <span class="k">if</span> <span class="n">atom</span><span class="o">.</span><span class="n">disordered_has_id</span><span class="p">(</span><span class="s2">&#34;A&#34;</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>                             <span class="n">atom</span><span class="o">.</span><span class="n">disordered_select</span><span class="p">(</span><span class="s2">&#34;A&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span></code></pre></div><h3 id="从structure对象中提取多肽">从structure对象中提取多肽</h3>
+<p>为了从一个结构中提取多肽，需要用 PolypeptideBuilder 从 Structure 构建一个 Polypeptide 对象的列表，如下所示</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">model_nr</span> <span class="o">=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">polypeptide_list</span> <span class="o">=</span> <span class="n">build_peptides</span><span class="p">(</span><span class="n">structure</span><span class="p">,</span> <span class="n">model_nr</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">polypeptide</span> <span class="ow">in</span> <span class="n">polypeptide_list</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>     <span class="nb">print</span> <span class="n">polypeptide</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span></code></pre></div><p>Polypeptide对象正是Residue对象的一个UserList，总是从单结构域（在此例中为模型1）中创建而来。你可以用所得 Polypeptide 对象来获取序列作为 Seq 对象，或获得Cα原子的列表。多肽可以通过一个C-N 化学键或一个Cα-Cα化学键距离标准来建立。<br>
+例子：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># Using C-N</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">ppb</span><span class="o">=</span><span class="n">PPBuilder</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">pp</span> <span class="ow">in</span> <span class="n">ppb</span><span class="o">.</span><span class="n">build_peptides</span><span class="p">(</span><span class="n">structure</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>     <span class="nb">print</span> <span class="n">pp</span><span class="o">.</span><span class="n">get_sequence</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Using CA-CA</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">ppb</span><span class="o">=</span><span class="n">CaPPBuilder</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">pp</span> <span class="ow">in</span> <span class="n">ppb</span><span class="o">.</span><span class="n">build_peptides</span><span class="p">(</span><span class="n">structure</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>     <span class="nb">print</span> <span class="n">pp</span><span class="o">.</span><span class="n">get_sequence</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span></code></pre></div><p>需要注意的是，上例中通过 PolypeptideBuilder 只考虑了结构的模型 0。尽管如此，还是可以用 PolypeptideBuilder 从 Model 和 Chain 对象创建 Polypeptide 对象。</p>
+<h3 id="获取结构序列">获取结构序列</h3>
+<p>要做的第一件事就是从结构中提取所有多肽（如上所述）。然后每条多肽的序列就容易从 Polypeptide 对象获得。该序列表示为一个Biopython Seq 对象，它的字母表由 ProteinAlphabet 对象来定义。<br>
+例子：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">seq</span> <span class="o">=</span> <span class="n">polypeptide</span><span class="o">.</span><span class="n">get_sequence</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="n">seq</span>
+</span></span><span class="line"><span class="cl"><span class="n">Seq</span><span class="p">(</span><span class="s1">&#39;SNVVE...&#39;</span><span class="p">,</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">Bio</span><span class="o">.</span><span class="n">Alphabet</span><span class="o">.</span><span class="n">ProteinAlphabet</span><span class="o">&gt;</span><span class="p">)</span>
+</span></span></code></pre></div><h3 id="分析结构">分析结构</h3>
+<h4 id="度量距离">度量距离</h4>
+<p>重载原子的减法运算来返回两个原子之间的距离。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># Get some atoms</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">ca1</span> <span class="o">=</span> <span class="n">residue1</span><span class="p">[</span><span class="s1">&#39;CA&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">ca2</span> <span class="o">=</span> <span class="n">residue2</span><span class="p">[</span><span class="s1">&#39;CA&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Simply subtract the atoms to get their distance</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">distance</span> <span class="o">=</span> <span class="n">ca1</span><span class="o">-</span><span class="n">ca2</span>
+</span></span></code></pre></div><h3 id="度量角度">度量角度</h3>
+<p>用原子坐标的向量表示，和vector模块中的calc_angle函数可以计算角度</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">vector1</span> <span class="o">=</span> <span class="n">atom1</span><span class="o">.</span><span class="n">get_vector</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">vector2</span> <span class="o">=</span> <span class="n">atom2</span><span class="o">.</span><span class="n">get_vector</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">vector3</span> <span class="o">=</span> <span class="n">atom3</span><span class="o">.</span><span class="n">get_vector</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">angle</span> <span class="o">=</span> <span class="n">calc_angle</span><span class="p">(</span><span class="n">vector1</span><span class="p">,</span> <span class="n">vector2</span><span class="p">,</span> <span class="n">vector3</span><span class="p">)</span>
+</span></span></code></pre></div><h3 id="度量扭转角">度量扭转角</h3>
+<p>用原子坐标的向量表示，然后用 Vector 模块中的 calc_dihedral 函数可以计算角度。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">vector1</span> <span class="o">=</span> <span class="n">atom1</span><span class="o">.</span><span class="n">get_vector</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">vector2</span> <span class="o">=</span> <span class="n">atom2</span><span class="o">.</span><span class="n">get_vector</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">vector3</span> <span class="o">=</span> <span class="n">atom3</span><span class="o">.</span><span class="n">get_vector</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">vector4</span> <span class="o">=</span> <span class="n">atom4</span><span class="o">.</span><span class="n">get_vector</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">angle</span> <span class="o">=</span> <span class="n">calc_dihedral</span><span class="p">(</span><span class="n">vector1</span><span class="p">,</span> <span class="n">vector2</span><span class="p">,</span> <span class="n">vector3</span><span class="p">,</span> <span class="n">vector4</span><span class="p">)</span>
+</span></span></code></pre></div><h4 id="确定原子-原子触点">确定原子-原子触点</h4>
+<p>用 NeighborSearch 来进行邻接查询。用C语言写的（使得运行很快）KD树模块（见 Bio.KDTree ）可以用来完成邻接查询。它也包含了一个快速方法来找出相距一定距离的所有点对。</p>
+<h4 id="叠加两个结构">叠加两个结构</h4>
+<p>可以用 Superimposer 对象将两个坐标集叠加。这个对象计算出旋转和平移矩阵，该矩阵旋转两个列表上相重叠的原子使其满足RMSD最小。当然这两个列表含有相同数目的原子。 Superimposer 对象也可以将旋转/平移应用在一列原子上。旋转和平移作为一个元组储存在 Superimposer 对象的 rotran 属性中（注意，旋转是右乘），RMSD储存在属性 rmsd 中。<br>
+Superimposer 使用的算法来自[ <a class="link" href="https://biopython-cn.readthedocs.io/zh_CN/latest/cn/chr23.html#golub1989"  target="_blank" rel="noopener"
+    >17</a> , Golub &amp; Van Loan]并使用了奇异值分解（这是通用 Bio.SVDSuperimposer 模块中实现了的）。<br>
+例子</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">sup</span> <span class="o">=</span> <span class="n">Superimposer</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Specify the atom lists</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># &#39;fixed&#39; and &#39;moving&#39; are lists of Atom objects</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># The moving atoms will be put on the fixed atoms</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">sup</span><span class="o">.</span><span class="n">set_atoms</span><span class="p">(</span><span class="n">fixed</span><span class="p">,</span> <span class="n">moving</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Print rotation/translation/rmsd</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="n">sup</span><span class="o">.</span><span class="n">rotran</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="n">sup</span><span class="o">.</span><span class="n">rms</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Apply rotation/translation to the moving atoms</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">sup</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">moving</span><span class="p">)</span>
+</span></span></code></pre></div><p>为了基于有效位点来叠加两个结构，用有效位点的原子来计算旋转/平移矩阵（如上所述），并应用到整个分子</p>
+<h4 id="双向映射两个相关结构的残基">双向映射两个相关结构的残基</h4>
+<p>首先，创建一个FASTA格式的比对文件，然后使用<code>StructureAlignment</code> 类。这个类也可以用来比对两个以上的结构</p>
+<h4 id="计算半球暴露">计算半球暴露</h4>
+<p>半球暴露（Half Sphere Exposure，HSE）是对溶剂暴露的一种新的二维度量。根本上，它计数了围绕一个残基，在其侧链方向上及反方向（在13 Å范围内）的Cα原子。尽管简单，它表现得比溶剂暴露的其它度量都要好<br>
+HSE有两种风味：HSEα和HSEβ。前者仅用到Cα原子的位置，而后者用到Cα和Cβ原子的位置。HSE度量是由 HSExposure 类来计算的，这个类也能计算触点数目。后一个类有方法能返回一个字典，该字典将一个<code>Residue</code> 对象映射到相应的HSEα,HSEβ和触点数目值。<br>
+例子</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">model</span> <span class="o">=</span> <span class="n">structure</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">hse</span> <span class="o">=</span> <span class="n">HSExposure</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Calculate HSEalpha</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">exp_ca</span> <span class="o">=</span> <span class="n">hse</span><span class="o">.</span><span class="n">calc_hs_exposure</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">option</span><span class="o">=</span><span class="s1">&#39;CA3&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Calculate HSEbeta</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">exp_cb</span><span class="o">=</span><span class="n">hse</span><span class="o">.</span><span class="n">calc_hs_exposure</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">option</span><span class="o">=</span><span class="s1">&#39;CB&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Calculate classical coordination number</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">exp_fs</span> <span class="o">=</span> <span class="n">hse</span><span class="o">.</span><span class="n">calc_fs_exposure</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Print HSEalpha for a residue</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="n">exp_ca</span><span class="p">[</span><span class="n">some_residue</span><span class="p">]</span>
+</span></span></code></pre></div><h4 id="确定二级结构">确定二级结构</h4>
+<p>为了这个功能，你需要安装DSSP（并获得一个对学术性使用免费的证书，参见 <a class="link" href="http://www.cmbi.kun.nl/gv/dssp/"  target="_blank" rel="noopener"
+    >http://www.cmbi.kun.nl/gv/dssp/</a> ）。然后用 DSSP 类，可以映射 Residue 对象到其二级结构上（和溶剂可及表面区域）。DSSP代码如下表所列表 。注意DSSP（程序及其相应的类）不能处理多个模型！<br>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 100; 
+			flex-basis: 240px"
+	>
+	<a href="/p/ch11_pdb%E6%A8%A1%E5%9D%97/picture/ch11_PDB%E6%A8%A1%E5%9D%97-1.png" data-size="398x398">
+		<img src="/p/ch11_pdb%E6%A8%A1%E5%9D%97/picture/ch11_PDB%E6%A8%A1%E5%9D%97-1.png"
+			width="398"
+			height="398"
+			srcset="/p/ch11_pdb%E6%A8%A1%E5%9D%97/picture/ch11_PDB%E6%A8%A1%E5%9D%97-1_hu9ebc2b29a38802176486d32bd03a0889_39656_480x0_resize_box_3.png 480w, /p/ch11_pdb%E6%A8%A1%E5%9D%97/picture/ch11_PDB%E6%A8%A1%E5%9D%97-1_hu9ebc2b29a38802176486d32bd03a0889_39656_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+DSSP 类也可以用来计算残基的溶剂可及表面</p>
+<h4 id="计算残基深度">计算残基深度</h4>
+<p>残基深度是残基原子到溶剂可及表面的平均距离。它是溶剂可及性的一种相当新颖和非常强大的参数化。为了这个功能，你需要安装Michel Sanner的 MSMS程序（ <a class="link" href="http://www.scripps.edu/pub/olson-web/people/sanner/html/msms_home.html"  target="_blank" rel="noopener"
+    >http://www.scripps.edu/pub/olson-web/people/sanner/html/msms_home.html</a> ）。然后使用 ResidueDepth 类。这个类像字典一样将 Residue 对象映射到相应的（残基深度，Cα深度）元组。Cα深度是残基的Cα原子到溶剂可及表面的距离<br>
+例子</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">model</span> <span class="o">=</span> <span class="n">structure</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">rd</span> <span class="o">=</span> <span class="n">ResidueDepth</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">pdb_file</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">residue_depth</span><span class="p">,</span> <span class="n">ca_depth</span><span class="o">=</span><span class="n">rd</span><span class="p">[</span><span class="n">some_residue</span><span class="p">]</span>
+</span></span></code></pre></div><p>你也可以以带有表面点的数值Python数组的形式获得分子表面本身（通过 get_surface 函数）。</p>
+<h2 id="pdb文件中的常见问题">PDB文件中的常见问题</h2>
+<p>众所周知，很多PDB文件包含语义错误（不是结构本身的错误，而是在PDB文件中的表示）。Bio.PDB可以有两种方式来处理这个问题。PDBParser对象能表现出两种方式：严格方式和宽容方式（默认方式）：<br>
+例子</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># Permissive parser</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">parser</span> <span class="o">=</span> <span class="n">PDBParser</span><span class="p">(</span><span class="n">PERMISSIVE</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">parser</span> <span class="o">=</span> <span class="n">PDBParser</span><span class="p">()</span> <span class="c1"># The same (default)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Strict parser</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">strict_parser</span> <span class="o">=</span> <span class="n">PDBParser</span><span class="p">(</span><span class="n">PERMISSIVE</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</span></span></code></pre></div><p>在宽容状态（默认），明显包含错误的PDB文件会被“纠正”（比如说一些残基或原子丢失）。这些错误包括：</p>
+<ul>
+<li>多个残基使用同一个标识符</li>
+<li>多个原子使用统一个标识符（考虑altloc识别符）
+这些错误暗示了PDB文件中确实存在错误（详情见 [<a class="link" href="https://biopython-cn.readthedocs.io/zh_CN/latest/cn/chr23.html#hamelryck2003a"  target="_blank" rel="noopener"
+    >18</a>, Hamelryck and Manderick, 2003] ）。在严格模式，带错的PDB文件会引发异常，这有助于发现PDB文件中的错误。<br>
+但是有些错误能自动修正。正常情况下，每个紊乱原子应该会有一个非空altloc标识符。可是很多结构没有遵循这个惯例，而在同一原子的两个紊乱位置存在一个空的和一个非空的标识符。这个错误会被以正确的方式自动解析。<br>
+有时候一个结构会有这样的情况：一部分残基属于A链，接下来一部分残基属于B链，然后又有一部分残基属于A链，也就是说，这种链是“断的”。这也能被自动正确解析</li>
+</ul>
+<h2 id="例子">例子</h2>
+<p>PDBParser/Structure类经过了将近800个结构（每个都属于不同的SCOP超家族）上的测试。测试总共耗时20分钟左右，或者说平均每个结构只需1.5秒。在一台1000 MHz的PC上只需10秒就可解析包含近64000个原子的大核糖体亚基（1FKK）的结构。<br>
+当不能建立明确的数据结构时会发生三类异常。在这三类异常中，可能的起因是PDB文件中一个本应修正的错误。这些情况下产生异常要比冒险地错误描述一个数据结构中的结构好得多。</p>
+<h3 id="重复残基">重复残基</h3>
+<p>一个结构包含在一条链中具有相同的序列标识符（resseq 3）和icode的两个氨基酸残基。仔细观察可以发现这条链包含残基：Thr A3, …, Gly A202, Leu A3, Glu A204。很明显第二个Leu A3应该是Leu A203。类似的情况也存在于结构1FFK（比如它包含残基Gly B64, Met B65, Glu B65, Thr B67，也就是说Glu B65应该是Glu B66）上。</p>
+<h3 id="重复原子">重复原子</h3>
+<p>结构1EJG含有在A链22位的一个Ser/Pro点突变。依次，Ser 22含一些紊乱原子。和期望的一样，所有属于 Ser 22的原子都有一个非空的altloc标识符（B或C）。所有Pro 22的原子都有altloc A，除了含空altloc的N原子。这会生成一个异常，因为一个点突变处属于两个残基的所有原子都应该有非空的altloc。结果这个原子很可能被Ser 和 Pro 22共用，而Ser22丢失了这个N原子。此外，这也点出了文件中的一个问题：这个N原子应该出现在Ser和Pro残基中，两种情形下都与合适的altloc标识符关联</p>
+<h3 id="自动纠正">自动纠正</h3>
+<p>一些错误相当普遍且能够在没有太大误解风险的情况下容易地纠正过来。这些错误列在下面</p>
+<h4 id="紊乱原子的空altloc">紊乱原子的空altloc</h4>
+<p>正常情况下，每个紊乱原子应该会有一个非空altloc标识符，可是很多结构没有遵循这个惯例，而是在同一原子的两个紊乱位置存在一个空的和一个非空的标识符。这个错误会被以正确的方式自动解析</p>
+<h4 id="断链">断链</h4>
+<p>有时候一个结构会有这样的情况：一部分残基属于A链，接下来一部分残基属于B链，然后又有一部分残基属于A链，也就是说，链是“断的”，这也能被正确的解析</p>
+<h3 id="致命错误">致命错误</h3>
+<p>有时候一个PDB文件不能被明确解释。这会产生异常并等待用户去修正这个PDB文件，而不是猜测和冒出错的风险。这些异常列在下面</p>
+<h4 id="重复残基-1">重复残基</h4>
+<p>在一条链上的所有残基都应该有一个唯一的id。该id基于下述生成：</p>
+<ul>
+<li>序列标识符（resseq）</li>
+<li>插入码（icode）</li>
+<li>hetfield字符（“W”代表水，“H_”后面的残基名称代表其他异质残基）</li>
+<li>发生点突变的残基的名称（在DisorderedResidue对象中存储Residue对象）
+如果这样还不能生成一个唯一的id，那么肯定是一些地方出了错，这时会生成一个异常。</li>
+</ul>
+<h4 id="重复原子-1">重复原子</h4>
+<p>一个残基上所有原子应该有一个唯一的id，这个id基于下述产生：</p>
+<ul>
+<li>原子名称（不带空格，否则会报错）</li>
+<li>altloc标识符
+如果这样还不能生成一个唯一的id，那么肯定是一些地方出了错，这时会生成一个异常。</li>
+</ul>
+<h2 id="访问protein-data-bank">访问Protein Data Bank</h2>
+<h3 id="使用retrieve_pdb_file从protein-data-bank下载结构">使用retrieve_pdb_file从Protein Data Bank下载结构</h3>
+<p>结构可以从PDB（Protein Data Bank）通过 PDBList 对象的 retrieve_pdb_file 方法下载。这种方法的要点是结构的PDB标识符。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">pdbl</span> <span class="o">=</span> <span class="n">PDBList</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">pdbl</span><span class="o">.</span><span class="n">retrieve_pdb_file</span><span class="p">(</span><span class="s1">&#39;1FAT&#39;</span><span class="p">)</span>
+</span></span></code></pre></div><p>PDBList 类也能用作命令行工具：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">python</span> <span class="n">PDBList</span><span class="o">.</span><span class="n">py</span> <span class="mi">1</span><span class="n">fat</span>
+</span></span></code></pre></div><p>下载的文件将以 pdb1fat.ent 为名保存在当前工作目录。注意 retrieve_pdb_file 方法还有个可选参数 pdir 用来指定一个特定的路径来保存所下载的PDB文件。<br>
+retrieve_pdb_file 方法还有其他选项可以指定下载所用的压缩格式（默认的 .Z 格式和 gunzip 格式）。另外，在创建 PDBList 对象时还可以指定PDB ftp站点。默认使用Worldwide Protein Data Bank（ <a class="link" href="ftp://ftp.wwpdb.org/pub/pdb/data/structures/divided/pdb/" >ftp://ftp.wwpdb.org/pub/pdb/data/structures/divided/pdb/</a> ）</p>
+<h3 id="下载全部pdb">下载全部pdb</h3>
+<p>下面的命令将会保存所有PDB文件至 /data/pdb 目录：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">python</span> <span class="n">PDBList</span><span class="o">.</span><span class="n">py</span> <span class="nb">all</span> <span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">pdb</span>
+</span></span><span class="line"><span class="cl"><span class="n">python</span> <span class="n">PDBList</span><span class="o">.</span><span class="n">py</span> <span class="nb">all</span> <span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">pdb</span> <span class="o">-</span><span class="n">d</span>
+</span></span></code></pre></div><p>在API中这个方法叫做 download_entire_pdb 。添加 -d 会在同一目录下保存所有文件。否则将分别保存至PDB风格的、与其PDB ID对应的子目录中。根据网速，完整的下载全部PDB文件大概需要2-4天。</p>
+<h3 id="保持本地的pdb拷贝的更新">保持本地的PDB拷贝的更新</h3>
+<p>这也能通过 PDBList 对象来完成。可以简单的创建一个 PDBList 对象（指定本地PDB拷贝的目录），然后调用 update_pdb 方法：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">pl</span> <span class="o">=</span> <span class="n">PDBList</span><span class="p">(</span><span class="n">pdb</span><span class="o">=</span><span class="s1">&#39;/data/pdb&#39;</span><span class="p">)</span> 
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">pl</span><span class="o">.</span><span class="n">update_pdb</span><span class="p">()</span> 
+</span></span></code></pre></div><p>当然还可以每周用 cronjob 实现本地拷贝自动更新。还可以指定PDB ftp站点（详见API文档）。<br>
+PDBList 有其他许多其它方法可供调用。 get_all_obsolete 方法可以获取所有已经废弃的PDB项的一个列表； changed_this_week 方法可以用于获得当前一周内新增加、修改或废弃的PDB项。更多 PDBList 的用法参见API文档</p>
+<h2 id="常见的问题">常见的问题</h2>
+<h3 id="是否支持分子图形的展示">是否支持分子图形的展示</h3>
+<p>不直接支持，很大程度上是因为已有相当多基于Python或Python-aware的解决方案，也可能会用到Bio.PDB。顺便说一下，我的选择是Pymol（我在Pymol中使用Bio.PDB非常成功，将来Bio.PDB中会有特定的PyMol模块）。基于Python或Python-aware的分子图形解决方案包括：</p>
+<ul>
+<li>PyMol: <a class="link" href="http://pymol.sourceforge.net/"  target="_blank" rel="noopener"
+    >http://pymol.sourceforge.net/</a></li>
+<li>Chimera: <a class="link" href="http://www.cgl.ucsf.edu/chimera/"  target="_blank" rel="noopener"
+    >http://www.cgl.ucsf.edu/chimera/</a></li>
+<li>PMV: <a class="link" href="http://www.scripps.edu/~sanner/python/"  target="_blank" rel="noopener"
+    >http://www.scripps.edu/~sanner/python/</a></li>
+<li>Coot: <a class="link" href="http://www.ysbl.york.ac.uk/~emsley/coot/"  target="_blank" rel="noopener"
+    >http://www.ysbl.york.ac.uk/~emsley/coot/</a></li>
+<li>CCP4mg: <a class="link" href="http://www.ysbl.york.ac.uk/~lizp/molgraphics.html"  target="_blank" rel="noopener"
+    >http://www.ysbl.york.ac.uk/~lizp/molgraphics.html</a></li>
+<li>mmLib: <a class="link" href="http://pymmlib.sourceforge.net/"  target="_blank" rel="noopener"
+    >http://pymmlib.sourceforge.net/</a></li>
+<li>VMD: <a class="link" href="http://www.ks.uiuc.edu/Research/vmd/"  target="_blank" rel="noopener"
+    >http://www.ks.uiuc.edu/Research/vmd/</a></li>
+<li>MMTK: <a class="link" href="http://starship.python.net/crew/hinsen/MMTK/"  target="_blank" rel="noopener"
+    >http://starship.python.net/crew/hinsen/MMTK/</a></li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/tutorials/">tutorials</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2022 - 
+        
+        2023 叶宇浩随记博客
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.5.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">Table of contents</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#晶体结果文件的读与写">晶体结果文件的读与写</a>
+      <ol>
+        <li><a href="#读取pdb文件">读取PDB文件</a></li>
+        <li><a href="#读取mmcif文件">读取mmCIF文件</a></li>
+        <li><a href="#写pdb文件">写PDB文件</a></li>
+      </ol>
+    </li>
+    <li><a href="#结构的表示">结构的表示</a>
+      <ol>
+        <li><a href="#结构">结构</a></li>
+        <li><a href="#模型">模型</a></li>
+        <li><a href="#链">链</a></li>
+        <li><a href="#残基">残基</a></li>
+        <li><a href="#原子">原子</a></li>
+        <li><a href="#从结构中提取指定的atomresiduechainmodel">从结构中提取指定的Atom/Residue/Chain/Model</a></li>
+      </ol>
+    </li>
+    <li><a href="#紊乱">紊乱</a>
+      <ol>
+        <li><a href="#紊乱原子">紊乱原子</a></li>
+        <li><a href="#紊乱残基">紊乱残基</a>
+          <ol>
+            <li><a href="#普通例子">普通例子</a></li>
+            <li><a href="#点突变">点突变</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#异质残基">异质残基</a>
+      <ol>
+        <li><a href="#相关问题">相关问题</a></li>
+        <li><a href="#heading"></a></li>
+        <li><a href="#其他异质残基-hetfileld-h_">其他异质残基 hetfileld &ldquo;H_&rdquo;</a></li>
+      </ol>
+    </li>
+    <li><a href="#浏览structure对象">浏览Structure对象</a>
+      <ol>
+        <li><a href="#解析pdb文件提取一些modelchinaresidue和atom对象">解析PDB文件，提取一些Model,China,Residue和Atom对象</a></li>
+        <li><a href="#迭代遍历一个结构中的所有原子">迭代遍历一个结构中的所有原子</a></li>
+        <li><a href="#便利模型中的所有残基">便利模型中的所有残基</a></li>
+        <li><a href="#从链中提取异质残基如resseq10的葡萄糖glc部分">从链中提取异质残基（如resseq10的葡萄糖（GLC）部分）</a></li>
+        <li><a href="#打印链中所有异质残基">打印链中所有异质残基</a></li>
+        <li><a href="#输出一个结构分子中所有b因子大于50的ca原子的坐标">输出一个结构分子中所有B因子大于50的CA原子的坐标</a></li>
+        <li><a href="#输出所有紊乱原子的残基">输出所有紊乱原子的残基</a></li>
+        <li><a href="#遍历所有紊乱原子并选取所有具有atloc-a的原子如果有的话">遍历所有紊乱原子，并选取所有具有atloc A的原子（如果有的话）</a></li>
+        <li><a href="#从structure对象中提取多肽">从structure对象中提取多肽</a></li>
+        <li><a href="#获取结构序列">获取结构序列</a></li>
+        <li><a href="#分析结构">分析结构</a>
+          <ol>
+            <li><a href="#度量距离">度量距离</a></li>
+          </ol>
+        </li>
+        <li><a href="#度量角度">度量角度</a></li>
+        <li><a href="#度量扭转角">度量扭转角</a>
+          <ol>
+            <li><a href="#确定原子-原子触点">确定原子-原子触点</a></li>
+            <li><a href="#叠加两个结构">叠加两个结构</a></li>
+            <li><a href="#双向映射两个相关结构的残基">双向映射两个相关结构的残基</a></li>
+            <li><a href="#计算半球暴露">计算半球暴露</a></li>
+            <li><a href="#确定二级结构">确定二级结构</a></li>
+            <li><a href="#计算残基深度">计算残基深度</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#pdb文件中的常见问题">PDB文件中的常见问题</a></li>
+    <li><a href="#例子">例子</a>
+      <ol>
+        <li><a href="#重复残基">重复残基</a></li>
+        <li><a href="#重复原子">重复原子</a></li>
+        <li><a href="#自动纠正">自动纠正</a>
+          <ol>
+            <li><a href="#紊乱原子的空altloc">紊乱原子的空altloc</a></li>
+            <li><a href="#断链">断链</a></li>
+          </ol>
+        </li>
+        <li><a href="#致命错误">致命错误</a>
+          <ol>
+            <li><a href="#重复残基-1">重复残基</a></li>
+            <li><a href="#重复原子-1">重复原子</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#访问protein-data-bank">访问Protein Data Bank</a>
+      <ol>
+        <li><a href="#使用retrieve_pdb_file从protein-data-bank下载结构">使用retrieve_pdb_file从Protein Data Bank下载结构</a></li>
+        <li><a href="#下载全部pdb">下载全部pdb</a></li>
+        <li><a href="#保持本地的pdb拷贝的更新">保持本地的PDB拷贝的更新</a></li>
+      </ol>
+    </li>
+    <li><a href="#常见的问题">常见的问题</a>
+      <ol>
+        <li><a href="#是否支持分子图形的展示">是否支持分子图形的展示</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

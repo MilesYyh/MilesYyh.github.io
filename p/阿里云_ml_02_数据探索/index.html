@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='机器学习基本流程'><title>阿里云_ML_02_数据探索</title>
+
+<link rel='canonical' href='https://example.com/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='阿里云_ML_02_数据探索'>
+<meta property='og:description' content='机器学习基本流程'>
+<meta property='og:url' content='https://example.com/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/'>
+<meta property='og:site_name' content='叶宇浩随记博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='python' /><meta property='article:tag' content='数据可视化' /><meta property='article:tag' content='sklearn' /><meta property='article:published_time' content='2022-12-24T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2022-12-24T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="阿里云_ML_02_数据探索">
+<meta name="twitter:description" content="机器学习基本流程">
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>Back</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/code/" style="background-color: #fa1; color: #fff;">
+                编程
+            </a>
+        
+            <a href="/categories/deeplearning/" style="background-color: #0f1503; color: #fff;">
+                深度学习
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/">阿里云_ML_02_数据探索</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        机器学习基本流程
+    </h3>
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Dec 24, 2022</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    2 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <blockquote>
+<p>这个post是自己去跟着阿里云天池上的机器学习的一个案例跟着敲了一遍代码，并且加了自己的理解，放到这里来随时回顾</p>
+</blockquote>
+<h2 id="读取数据">读取数据</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">warnings</span>
+</span></span><span class="line"><span class="cl"><span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&#34;ignore&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#scipy 是一个统计学习的库</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">train_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&#34;./zhengqi_train.txt&#34;</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s2">&#34;</span><span class="se">\t</span><span class="s2">&#34;</span><span class="p">,</span><span class="n">encoding</span><span class="o">=</span><span class="s2">&#34;utf-8&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">test_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&#34;./zhengqi_test.txt&#34;</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s2">&#34;</span><span class="se">\t</span><span class="s2">&#34;</span><span class="p">,</span><span class="n">encoding</span><span class="o">=</span><span class="s2">&#34;utf-8&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><h2 id="查看训练集特征变量信息">查看训练集特征变量信息</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">train_data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 298; 
+			flex-basis: 715px"
+	>
+	<a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2.png" data-size="1270x426">
+		<img src="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2.png"
+			width="1270"
+			height="426"
+			srcset="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2_hu0ef258b4f2ee748710e29f00a56fed97_73223_480x0_resize_box_3.png 480w, /p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2_hu0ef258b4f2ee748710e29f00a56fed97_73223_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">train_data</span><span class="o">.</span><span class="n">info</span>
+</span></span></code></pre></div><p>result
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 111; 
+			flex-basis: 268px"
+	>
+	<a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-1.png" data-size="1182x1058">
+		<img src="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-1.png"
+			width="1182"
+			height="1058"
+			srcset="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-1_hud5d9b5109d71d5212bf6723fc8ae9cfb_200366_480x0_resize_box_3.png 480w, /p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-1_hud5d9b5109d71d5212bf6723fc8ae9cfb_200366_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>此训练集数据共有2888个样本，数据中有V0-V37共计38个特征变量，变量类型都为数值类型，所有数据特征没有缺失值数据； 数据字段由于采用了脱敏处理，删除了特征数据的具体含义；target字段为标签变量</p>
+<p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">test_data</span><span class="o">.</span><span class="n">info</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 111; 
+			flex-basis: 267px"
+	>
+	<a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-2.png" data-size="1250x1120">
+		<img src="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-2.png"
+			width="1250"
+			height="1120"
+			srcset="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-2_hubbdf659091e7b4fab0da7304acfc066d_207168_480x0_resize_box_3.png 480w, /p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-2_hubbdf659091e7b4fab0da7304acfc066d_207168_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>测试集数据共有1925个样本，数据中有V0-V37共计38个特征变量，变量类型都为数值类型</p>
+<h2 id="查看数据统计信息">查看数据统计信息</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">train_data</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 225; 
+			flex-basis: 540px"
+	>
+	<a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-3.png" data-size="1278x568">
+		<img src="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-3.png"
+			width="1278"
+			height="568"
+			srcset="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-3_hud46d99f0fe757464cae54e6ad308f9ce_101249_480x0_resize_box_3.png 480w, /p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-3_hud46d99f0fe757464cae54e6ad308f9ce_101249_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">test_data</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 213; 
+			flex-basis: 512px"
+	>
+	<a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-4.png" data-size="1286x602">
+		<img src="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-4.png"
+			width="1286"
+			height="602"
+			srcset="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-4_hu680e4a4cbcdd495b500df9e50f2a6a2c_97706_480x0_resize_box_3.png 480w, /p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-4_hu680e4a4cbcdd495b500df9e50f2a6a2c_97706_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>上面数据显示了数据的统计信息，例如样本数，数据的均值mean，标准差std，最小值，最大值等</p>
+<h2 id="查看数据字段信息">查看数据字段信息</h2>
+<p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">train_data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 249; 
+			flex-basis: 597px"
+	>
+	<a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-5.png" data-size="1280x514">
+		<img src="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-5.png"
+			width="1280"
+			height="514"
+			srcset="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-5_hu24fc5055c2a11498f6e6a98ed0f7efd6_79670_480x0_resize_box_3.png 480w, /p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-5_hu24fc5055c2a11498f6e6a98ed0f7efd6_79670_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>上面显示训练集前5条数据的基本信息，可以看到数据都是浮点型数据，数据都是数值型连续型特征</p>
+<p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">test_data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 300; 
+			flex-basis: 722px"
+	>
+	<a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-6.png" data-size="1288x428">
+		<img src="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-6.png"
+			width="1288"
+			height="428"
+			srcset="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-6_hubf753442f0c386b6a6f8b2d12daeddcc_74051_480x0_resize_box_3.png 480w, /p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-6_hubf753442f0c386b6a6f8b2d12daeddcc_74051_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="画箱形图探索数据">画箱形图探索数据</h2>
+<p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#指定绘图对象的宽和高</span>
+</span></span><span class="line"><span class="cl"><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># orient：&#34;v&#34;|&#34;h&#34; 用于控制图像使水平还是竖直显示</span>
+</span></span><span class="line"><span class="cl"><span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">train_data</span><span class="p">[</span><span class="s2">&#34;V0&#34;</span><span class="p">],</span><span class="n">orient</span><span class="o">=</span><span class="s2">&#34;v&#34;</span><span class="p">,</span><span class="n">width</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+</span></span></code></pre></div><p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 67; 
+			flex-basis: 161px"
+	>
+	<a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-7.png" data-size="696x1032">
+		<img src="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-7.png"
+			width="696"
+			height="1032"
+			srcset="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-7_huc2b9237c4f4f36369556529f07e0049c_23083_480x0_resize_box_3.png 480w, /p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-7_huc2b9237c4f4f36369556529f07e0049c_23083_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>对于箱形图的分析：
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 155; 
+			flex-basis: 374px"
+	>
+	<a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-8.png" data-size="1048x672">
+		<img src="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-8.png"
+			width="1048"
+			height="672"
+			srcset="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-8_hu2ab3227ccaf0bc2814eed3d6b1a1663b_96357_480x0_resize_box_3.png 480w, /p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-8_hu2ab3227ccaf0bc2814eed3d6b1a1663b_96357_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#画箱式图</span>
+</span></span><span class="line"><span class="cl"><span class="n">columns</span> <span class="o">=</span> <span class="n">train_data</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()[:</span><span class="mi">39</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">40</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">38</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#13行3列的子图，然后i+1表示是其中的第几张</span>
+</span></span><span class="line"><span class="cl">    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="n">_</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">train_data</span><span class="p">[</span><span class="n">columns</span><span class="p">[</span><span class="n">_</span><span class="p">]],</span><span class="n">orient</span><span class="o">=</span><span class="s2">&#34;v&#34;</span><span class="p">,</span><span class="n">width</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="n">columns</span><span class="p">[</span><span class="n">_</span><span class="p">],</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</span></span></code></pre></div><p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 116; 
+			flex-basis: 280px"
+	>
+	<a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-9.png" data-size="1272x1090">
+		<img src="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-9.png"
+			width="1272"
+			height="1090"
+			srcset="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-9_hue1347a489f9dceb0655e1fcbb01247bf_114853_480x0_resize_box_3.png 480w, /p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-9_hue1347a489f9dceb0655e1fcbb01247bf_114853_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 97; 
+			flex-basis: 234px"
+	>
+	<a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-10.png" data-size="1244x1274">
+		<img src="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-10.png"
+			width="1244"
+			height="1274"
+			srcset="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-10_hu2246f8942f8867f20a2b576afd0571f7_152714_480x0_resize_box_3.png 480w, /p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-10_hu2246f8942f8867f20a2b576afd0571f7_152714_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="查看数据分布图">查看数据分布图</h2>
+<p>查看特征变量‘V0’的数据分布直方图，并绘制Q-Q图查看数据是否近似于正态分布
+code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#displot绘制直方图</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#fit=stats.norm 统计数据</span>
+</span></span><span class="line"><span class="cl"><span class="n">sns</span><span class="o">.</span><span class="n">distplot</span><span class="p">(</span><span class="n">train_data</span><span class="p">[</span><span class="s2">&#34;V0&#34;</span><span class="p">],</span><span class="n">fit</span><span class="o">=</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#stats.proplot 绘制Q-Q图</span>
+</span></span><span class="line"><span class="cl"><span class="n">res</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">probplot</span><span class="p">(</span><span class="n">train_data</span><span class="p">[</span><span class="s2">&#34;V0&#34;</span><span class="p">],</span><span class="n">plot</span><span class="o">=</span><span class="n">plt</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 182; 
+			flex-basis: 438px"
+	>
+	<a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-11.png" data-size="1272x696">
+		<img src="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-11.png"
+			width="1272"
+			height="696"
+			srcset="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-11_hu9de682443c0ea63ab3c44fb59ce48884_117611_480x0_resize_box_3.png 480w, /p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-11_hu9de682443c0ea63ab3c44fb59ce48884_117611_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+查看查看所有数据的直方图和Q-Q图，查看训练集的数据是否近似于正态分布</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#子图的数量</span>
+</span></span><span class="line"><span class="cl"><span class="n">train_cols</span> <span class="o">=</span> <span class="mi">6</span>
+</span></span><span class="line"><span class="cl"><span class="n">train_rows</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">train_data</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="n">train_cols</span><span class="p">,</span><span class="mi">4</span><span class="o">*</span><span class="n">train_rows</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">train_data</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">i</span><span class="o">+=</span><span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="n">train_rows</span><span class="p">,</span><span class="n">train_cols</span><span class="p">,</span><span class="n">i</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sns</span><span class="o">.</span><span class="n">distplot</span><span class="p">(</span><span class="n">train_data</span><span class="p">[</span><span class="n">col</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">    <span class="n">i</span><span class="o">+=</span><span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="n">train_rows</span><span class="p">,</span><span class="n">train_cols</span><span class="p">,</span><span class="n">i</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">reg</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">probplot</span><span class="p">(</span><span class="n">train_data</span><span class="p">[</span><span class="n">col</span><span class="p">],</span><span class="n">plot</span><span class="o">=</span><span class="n">plt</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 105; 
+			flex-basis: 252px"
+	>
+	<a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-12.png" data-size="1244x1182">
+		<img src="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-12.png"
+			width="1244"
+			height="1182"
+			srcset="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-12_hucd05a77c8865fcebcd6e60795add2d16_394232_480x0_resize_box_3.png 480w, /p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-12_hucd05a77c8865fcebcd6e60795add2d16_394232_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 91; 
+			flex-basis: 220px"
+	>
+	<a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-13.png" data-size="1278x1392">
+		<img src="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-13.png"
+			width="1278"
+			height="1392"
+			srcset="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-13_hu2f2172b1bf36f057acd0c948a126dac0_456496_480x0_resize_box_3.png 480w, /p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-13_hu2f2172b1bf36f057acd0c948a126dac0_456496_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>由上面的数据分布图信息可以看出，很多特征变量（如&rsquo;V1&rsquo;,&lsquo;V9&rsquo;,&lsquo;V24&rsquo;,&lsquo;V28&rsquo;等）的数据分布不是正态的，数据并不跟随对角线，后续可以使用数据变换对数据进行转换。</p>
+<p>对比同一特征变量‘V0’下，训练集数据和测试集数据的分布情况，查看数据分布是否一致</p>
+<p>kdeplot</p>
+<p>核密度估计是概率论上用来估计未知的密度函数，属于非参数检验，通过核密度估计图可以比较直观的看出样本数据本身的分布特征</p>
+<p>code</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="n">train_data</span><span class="p">[</span><span class="s2">&#34;V0&#34;</span><span class="p">],</span><span class="n">color</span><span class="o">=</span><span class="s2">&#34;Red&#34;</span><span class="p">,</span><span class="n">shade</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="n">test_data</span><span class="p">[</span><span class="s2">&#34;V0&#34;</span><span class="p">],</span><span class="n">color</span><span class="o">=</span><span class="s2">&#34;Blue&#34;</span><span class="p">,</span><span class="n">shade</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&#34;V0&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&#34;Frequency&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s2">&#34;train&#34;</span><span class="p">,</span><span class="s2">&#34;test&#34;</span><span class="p">])</span>
+</span></span></code></pre></div><p>result
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 172; 
+			flex-basis: 415px"
+	>
+	<a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-14.png" data-size="934x540">
+		<img src="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-14.png"
+			width="934"
+			height="540"
+			srcset="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-14_hu7994e5453023f9a8cd7c7fa611054877_60330_480x0_resize_box_3.png 480w, /p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-14_hu7994e5453023f9a8cd7c7fa611054877_60330_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+查看所有特征变量下，训练集数据和测试集数据的分布情况，分析并寻找出数据分布不一致的特征变量。</p>
+<p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">dist_col</span> <span class="o">=</span> <span class="mi">6</span>
+</span></span><span class="line"><span class="cl"><span class="n">dist_row</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">test_data</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="n">dist_col</span><span class="p">,</span><span class="mi">4</span><span class="o">*</span><span class="n">dist_row</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">i</span> <span class="o">=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">test_data</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="n">dist_row</span><span class="p">,</span><span class="n">dist_col</span><span class="p">,</span><span class="n">i</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="n">train_data</span><span class="p">[</span><span class="n">col</span><span class="p">],</span><span class="n">color</span><span class="o">=</span><span class="s2">&#34;Red&#34;</span><span class="p">,</span><span class="n">shade</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="n">test_data</span><span class="p">[</span><span class="n">col</span><span class="p">],</span><span class="n">color</span><span class="o">=</span><span class="s2">&#34;Blue&#34;</span><span class="p">,</span><span class="n">shade</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span> <span class="o">=</span> <span class="s2">&#34;Frequency&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ax</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s2">&#34;train&#34;</span><span class="p">,</span><span class="s2">&#34;test&#34;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">    <span class="n">i</span><span class="o">+=</span><span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</span></span></code></pre></div><p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 93; 
+			flex-basis: 224px"
+	>
+	<a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-15.png" data-size="1266x1356">
+		<img src="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-15.png"
+			width="1266"
+			height="1356"
+			srcset="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-15_hu5223f70e935f2104f671fed3e016daa0_474136_480x0_resize_box_3.png 480w, /p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-15_hu5223f70e935f2104f671fed3e016daa0_474136_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>由上图的数据分布可以看到特征&rsquo;V5&rsquo;,&lsquo;V9&rsquo;,&lsquo;V11&rsquo;,&lsquo;V17&rsquo;,&lsquo;V22&rsquo;,&lsquo;V28&rsquo; 训练集数据与测试集数据分布不一致，会导致模型泛化能力差，采用删除此类特征方法。</p>
+<p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">drop_colums</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;V5&#39;</span><span class="p">,</span><span class="s1">&#39;V9&#39;</span><span class="p">,</span><span class="s1">&#39;V11&#39;</span><span class="p">,</span><span class="s1">&#39;V17&#39;</span><span class="p">,</span><span class="s1">&#39;V22&#39;</span><span class="p">,</span><span class="s1">&#39;V28&#39;</span><span class="p">]</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 508; 
+			flex-basis: 1219px"
+	>
+	<a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-16.png" data-size="1250x246">
+		<img src="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-16.png"
+			width="1250"
+			height="246"
+			srcset="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-16_hudc39cf728679d5bf9e988aa4cadfc203_41466_480x0_resize_box_3.png 480w, /p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-16_hudc39cf728679d5bf9e988aa4cadfc203_41466_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="可视化线性回归关系">可视化线性回归关系</h2>
+<p>查看特征变量‘V0’与&rsquo;target&rsquo;变量的线性回归关系</p>
+<p>sns.regplot()绘图数据和线性回归模型拟合</p>
+<p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">fcols</span> <span class="o">=</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl"><span class="n">frows</span> <span class="o">=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#以字典的形式赋予直线和点的属性</span>
+</span></span><span class="line"><span class="cl"><span class="n">sns</span><span class="o">.</span><span class="n">regplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&#34;V0&#34;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s2">&#34;target&#34;</span><span class="p">,</span><span class="n">data</span><span class="o">=</span><span class="n">train_data</span><span class="p">,</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">scatter_kws</span><span class="o">=</span><span class="p">{</span><span class="s2">&#34;marker&#34;</span><span class="p">:</span><span class="s2">&#34;.&#34;</span><span class="p">,</span><span class="s2">&#34;s&#34;</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span><span class="s2">&#34;alpha&#34;</span><span class="p">:</span><span class="mf">0.3</span><span class="p">},</span>
+</span></span><span class="line"><span class="cl">            <span class="n">line_kws</span><span class="o">=</span><span class="p">{</span><span class="s2">&#34;color&#34;</span><span class="p">:</span><span class="s2">&#34;k&#34;</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&#34;V0&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&#34;target&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">sns</span><span class="o">.</span><span class="n">distplot</span><span class="p">(</span><span class="n">train_data</span><span class="p">[</span><span class="s2">&#34;V0&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&#34;V0&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 193; 
+			flex-basis: 463px"
+	>
+	<a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-17.png" data-size="1050x544">
+		<img src="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-17.png"
+			width="1050"
+			height="544"
+			srcset="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-17_hu1d23f5d47d47c67539e0a08697c00832_116016_480x0_resize_box_3.png 480w, /p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-17_hu1d23f5d47d47c67539e0a08697c00832_116016_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>查看所有特征变量与&rsquo;target&rsquo;变量的线性回归关系</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">fcols</span> <span class="o">=</span> <span class="mi">6</span>
+</span></span><span class="line"><span class="cl"><span class="n">frows</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">train_data</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#记得调整这个，否则图挤在一起</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="o">*</span><span class="n">fcols</span><span class="p">,</span><span class="mi">4</span><span class="o">*</span><span class="n">frows</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">train_data</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">i</span><span class="o">+=</span><span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="n">frows</span><span class="p">,</span><span class="n">fcols</span><span class="p">,</span><span class="n">i</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">regplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">col</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s2">&#34;target&#34;</span><span class="p">,</span><span class="n">data</span><span class="o">=</span><span class="n">train_data</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="n">scatter_kws</span><span class="o">=</span><span class="p">{</span><span class="s2">&#34;marker&#34;</span><span class="p">:</span><span class="s2">&#34;.&#34;</span><span class="p">,</span><span class="s2">&#34;s&#34;</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span><span class="s2">&#34;alpha&#34;</span><span class="p">:</span><span class="mf">0.3</span><span class="p">},</span>
+</span></span><span class="line"><span class="cl">               <span class="n">line_kws</span><span class="o">=</span><span class="p">{</span><span class="s2">&#34;color&#34;</span><span class="p">:</span><span class="s2">&#34;k&#34;</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&#34;target&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">i</span><span class="o">+=</span><span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="n">frows</span><span class="p">,</span><span class="n">fcols</span><span class="p">,</span><span class="n">i</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">distplot</span><span class="p">(</span><span class="n">train_data</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 132; 
+			flex-basis: 318px"
+	>
+	<a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-18.png" data-size="1252x944">
+		<img src="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-18.png"
+			width="1252"
+			height="944"
+			srcset="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-18_hu2fae564234e611d10872582831e333a2_579604_480x0_resize_box_3.png 480w, /p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-18_hu2fae564234e611d10872582831e333a2_579604_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 112; 
+			flex-basis: 269px"
+	>
+	<a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-19.png" data-size="1252x1116">
+		<img src="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-19.png"
+			width="1252"
+			height="1116"
+			srcset="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-19_hu95d5ee12745d1de177613d9e88425b39_636421_480x0_resize_box_3.png 480w, /p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-19_hu95d5ee12745d1de177613d9e88425b39_636421_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="查看特征变量的相关性">查看特征变量的相关性</h2>
+<p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">data_train1</span> <span class="o">=</span> <span class="n">train_data</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;V5&#39;</span><span class="p">,</span><span class="s1">&#39;V9&#39;</span><span class="p">,</span><span class="s1">&#39;V11&#39;</span><span class="p">,</span><span class="s1">&#39;V17&#39;</span><span class="p">,</span><span class="s1">&#39;V22&#39;</span><span class="p">,</span><span class="s1">&#39;V28&#39;</span><span class="p">],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#corr()可以自动计算相关性</span>
+</span></span><span class="line"><span class="cl"><span class="n">train_corr</span> <span class="o">=</span> <span class="n">data_train1</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">train_corr</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 85; 
+			flex-basis: 206px"
+	>
+	<a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-20.png" data-size="1296x1508">
+		<img src="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-20.png"
+			width="1296"
+			height="1508"
+			srcset="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-20_hube9099682ab357795a1576b235c2ae07_396054_480x0_resize_box_3.png 480w, /p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-20_hube9099682ab357795a1576b235c2ae07_396054_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#画出相关性热力图</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">16</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">train_corr</span><span class="p">,</span><span class="n">vmax</span><span class="o">=</span><span class="mf">.8</span><span class="p">,</span><span class="n">square</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 115; 
+			flex-basis: 276px"
+	>
+	<a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-21.png" data-size="1274x1104">
+		<img src="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-21.png"
+			width="1274"
+			height="1104"
+			srcset="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-21_hu83b2a7fe688f55fda9d754c68a7c2ac1_920095_480x0_resize_box_3.png 480w, /p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-21_hu83b2a7fe688f55fda9d754c68a7c2ac1_920095_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 找出相关程度</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">16</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">colnm</span> <span class="o">=</span> <span class="n">data_train1</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">mcorr</span> <span class="o">=</span> <span class="n">data_train1</span><span class="p">[</span><span class="n">colnm</span><span class="p">]</span><span class="o">.</span><span class="n">corr</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">&#34;spearman&#34;</span><span class="p">)</span><span class="c1">#相关系数矩阵，即给出了任意两个变量之间的相关系数</span>
+</span></span><span class="line"><span class="cl"><span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">mcorr</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">bool</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">mask</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">triu_indices_from</span><span class="p">(</span><span class="n">mask</span><span class="p">)]</span> <span class="o">=</span> <span class="kc">True</span><span class="c1"># 角分线右侧为True</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#sns.diverging_palette 生成一个调色板</span>
+</span></span><span class="line"><span class="cl"><span class="n">cmap</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">diverging_palette</span><span class="p">(</span><span class="mi">220</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="n">as_cmap</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">g</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">mcorr</span><span class="p">,</span><span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">,</span><span class="n">square</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">fmt</span><span class="o">=</span><span class="s2">&#34;0.2f&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 115; 
+			flex-basis: 276px"
+	>
+	<a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-22.png" data-size="1278x1110">
+		<img src="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-22.png"
+			width="1278"
+			height="1110"
+			srcset="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-22_hua8a1db5381c1b72cccab5dfa0bff9fc6_480776_480x0_resize_box_3.png 480w, /p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-22_hua8a1db5381c1b72cccab5dfa0bff9fc6_480776_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+上图为所有特征变量和target变量两两之间的相关系数，由此可以看出各个特征变量V0-V37之间的相关性以及特征变量V0-V37与target的相关性。</p>
+<h2 id="查找出特征变量和target变量相关系数大于05的特征变量">查找出特征变量和target变量相关系数大于0.5的特征变量</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#寻找K个最相关的特征信息</span>
+</span></span><span class="line"><span class="cl"><span class="n">k</span> <span class="o">=</span> <span class="mi">10</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#nlargest()可以返回多个最大值</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#的第一个参数就是截取的行数。第二个参数就是依据的列名。</span>
+</span></span><span class="line"><span class="cl"><span class="n">cols</span> <span class="o">=</span> <span class="n">train_corr</span><span class="o">.</span><span class="n">nlargest</span><span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="s2">&#34;target&#34;</span><span class="p">)[</span><span class="s2">&#34;target&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">index</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">train_data</span><span class="p">[</span><span class="n">cols</span><span class="p">]</span><span class="o">.</span><span class="n">corr</span><span class="p">(),</span><span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">square</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 114; 
+			flex-basis: 274px"
+	>
+	<a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-23.png" data-size="1010x882">
+		<img src="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-23.png"
+			width="1010"
+			height="882"
+			srcset="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-23_hu7b187b157f958855e26f46f45d56846e_149996_480x0_resize_box_3.png 480w, /p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-23_hu7b187b157f958855e26f46f45d56846e_149996_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">train_data</span><span class="o">.</span><span class="n">corr</span><span class="p">()[</span><span class="s2">&#34;target&#34;</span><span class="p">]</span><span class="o">&gt;</span><span class="mf">0.5</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 36; 
+			flex-basis: 88px"
+	>
+	<a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-24.png" data-size="408x1108">
+		<img src="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-24.png"
+			width="408"
+			height="1108"
+			srcset="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-24_hu52b0ffa2630f346b66f31bb2b9c9852a_92670_480x0_resize_box_3.png 480w, /p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-24_hu52b0ffa2630f346b66f31bb2b9c9852a_92670_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">threshold</span> <span class="o">=</span> <span class="mf">0.5</span>
+</span></span><span class="line"><span class="cl"><span class="n">corrmat</span> <span class="o">=</span> <span class="n">train_data</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#corrmat.index[abs(corrmat[&#34;target&#34;])&gt;threshold] 可以使得大于0.5的特征名出来</span>
+</span></span><span class="line"><span class="cl"><span class="n">top_corr_feaature</span> <span class="o">=</span> <span class="n">corrmat</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="nb">abs</span><span class="p">(</span><span class="n">corrmat</span><span class="p">[</span><span class="s2">&#34;target&#34;</span><span class="p">])</span><span class="o">&gt;</span><span class="n">threshold</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">g</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">train_data</span><span class="p">[</span><span class="n">top_corr_feaature</span><span class="p">]</span><span class="o">.</span><span class="n">corr</span><span class="p">(),</span><span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s2">&#34;RdYlGn&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 97; 
+			flex-basis: 233px"
+	>
+	<a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-25.png" data-size="902x928">
+		<img src="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-25.png"
+			width="902"
+			height="928"
+			srcset="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-25_huf452df2c2f6882f6aff2edeb3d53bff0_215412_480x0_resize_box_3.png 480w, /p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-25_huf452df2c2f6882f6aff2edeb3d53bff0_215412_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">threshold</span> <span class="o">=</span> <span class="mf">0.5</span>
+</span></span><span class="line"><span class="cl"><span class="n">corr_matrix</span> <span class="o">=</span> <span class="n">data_train1</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">drop_col</span> <span class="o">=</span> <span class="n">corr_matrix</span><span class="p">[</span><span class="n">corr_matrix</span><span class="p">[</span><span class="s2">&#34;target&#34;</span><span class="p">]</span><span class="o">&lt;</span><span class="n">threshold</span><span class="p">]</span><span class="o">.</span><span class="n">index</span>
+</span></span><span class="line"><span class="cl"><span class="n">drop_col</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 909; 
+			flex-basis: 2182px"
+	>
+	<a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-26.png" data-size="1146x126">
+		<img src="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-26.png"
+			width="1146"
+			height="126"
+			srcset="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-26_hu9b49be817475f74223205641542c8f0a_19801_480x0_resize_box_3.png 480w, /p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/picture/02%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-26_hu9b49be817475f74223205641542c8f0a_19801_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>由于&rsquo;V14&rsquo;, &lsquo;V21&rsquo;, &lsquo;V25&rsquo;, &lsquo;V26&rsquo;, &lsquo;V32&rsquo;, &lsquo;V33&rsquo;, &lsquo;V34&rsquo;特征的相关系数值小于0.5，故认为这些特征与最终的预测target值不相关，删除这些特征变量；</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/python/">python</a>
+        
+            <a href="/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/">数据可视化</a>
+        
+            <a href="/tags/sklearn/">sklearn</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">Related contents</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="">
+    <a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">阿里云_ML_03_特征工程</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_04_%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">阿里云_ML_04_模型训练</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_05_%E6%A8%A1%E5%9E%8B%E9%AA%8C%E8%AF%81/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">阿里云_ML_05_模型验证</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81cross-validation/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">sklearn中的交叉验证Cross-Validation</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/sklearn.preprocessing.standardscaler%E6%95%B0%E6%8D%AE%E6%A0%87%E5%87%86%E5%8C%96/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">sklearn.preprocessing.StandardScaler数据标准化</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2022 - 
+        
+        2023 叶宇浩随记博客
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.5.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">Table of contents</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#读取数据">读取数据</a></li>
+    <li><a href="#查看训练集特征变量信息">查看训练集特征变量信息</a></li>
+    <li><a href="#查看数据统计信息">查看数据统计信息</a></li>
+    <li><a href="#查看数据字段信息">查看数据字段信息</a></li>
+    <li><a href="#画箱形图探索数据">画箱形图探索数据</a></li>
+    <li><a href="#查看数据分布图">查看数据分布图</a></li>
+    <li><a href="#可视化线性回归关系">可视化线性回归关系</a></li>
+    <li><a href="#查看特征变量的相关性">查看特征变量的相关性</a></li>
+    <li><a href="#查找出特征变量和target变量相关系数大于05的特征变量">查找出特征变量和target变量相关系数大于0.5的特征变量</a></li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

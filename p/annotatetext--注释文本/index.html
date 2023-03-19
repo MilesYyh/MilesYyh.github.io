@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='图片细节美化'><title>annotate(),text()--注释文本</title>
+
+<link rel='canonical' href='https://example.com/p/annotatetext--%E6%B3%A8%E9%87%8A%E6%96%87%E6%9C%AC/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='annotate(),text()--注释文本'>
+<meta property='og:description' content='图片细节美化'>
+<meta property='og:url' content='https://example.com/p/annotatetext--%E6%B3%A8%E9%87%8A%E6%96%87%E6%9C%AC/'>
+<meta property='og:site_name' content='叶宇浩随记博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='python' /><meta property='article:tag' content='数据可视化' /><meta property='article:published_time' content='2022-05-06T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2022-05-06T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="annotate(),text()--注释文本">
+<meta name="twitter:description" content="图片细节美化">
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>Back</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/code/" style="background-color: #fa1; color: #fff;">
+                编程
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/annotatetext--%E6%B3%A8%E9%87%8A%E6%96%87%E6%9C%AC/">annotate(),text()--注释文本</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        图片细节美化
+    </h3>
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">May 06, 2022</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    1 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <blockquote>
+<p>第一个学的python的包就是matplotlib，特地整理了去年的学习笔记</p>
+</blockquote>
+<p>作用：在图中带有指向型文本注释信息，突显细节</p>
+<h2 id="matplotlibpyplotannotate">matplotlib.pyplot.annotate()</h2>
+<p>参数说明：</p>
+<ul>
+<li>s : string 内容</li>
+<li>xy : (float,float) 箭头点所在的坐标位置</li>
+<li>xytext : s内容所在的坐标位置</li>
+<li>weight : str/int 设置字体线型，其中字符串从小到大可选项有{&lsquo;ultralight&rsquo;, &rsquo;light&rsquo;, &rsquo;normal&rsquo;, &lsquo;regular&rsquo;, &lsquo;book&rsquo;, &lsquo;medium&rsquo;, &lsquo;roman&rsquo;, &lsquo;semibold&rsquo;, &lsquo;demibold&rsquo;, &lsquo;demi&rsquo;, &lsquo;bold&rsquo;, &lsquo;heavy&rsquo;, &rsquo;extra bold&rsquo;, &lsquo;black&rsquo;}</li>
+<li>color ： str/tuple 设置字体颜色，单个字符候选项{&lsquo;b&rsquo;, &lsquo;g&rsquo;, &lsquo;r&rsquo;, &lsquo;c&rsquo;, &rsquo;m&rsquo;, &lsquo;y&rsquo;, &lsquo;k&rsquo;, &lsquo;w&rsquo;}，也可以&rsquo;black&rsquo;,&lsquo;red&rsquo;等，tuple时用[0,1]之间的浮点型数据，RGB或者RGBA, 如: (0.1, 0.2, 0.5)、(0.1, 0.2, 0.5, 0.3)等</li>
+<li>arrowprops : dict 设置指向箭头的参数，字典中key值有①arrowstyle：设置箭头的样式，其value候选项如&rsquo;-&gt;&rsquo;,&rsquo;|-|&rsquo;,&rsquo;-|&gt;&rsquo;,也可以用字符串&rsquo;simple&rsquo;,&lsquo;fancy&rsquo; ; ②connectionstyle：设置箭头的形状，为直线或者曲线，候选项有&rsquo;arc3&rsquo;,&lsquo;arc&rsquo;,&lsquo;angle&rsquo;,&lsquo;angle3&rsquo;，可以防止箭头被曲线内容遮挡; ③color：设置箭头颜色，见前面的color参数</li>
+<li>bbox: dict
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 132; 
+			flex-basis: 316px"
+	>
+	<a href="/p/annotatetext--%E6%B3%A8%E9%87%8A%E6%96%87%E6%9C%AC/picture/annotate%28%29,text%28%29--%E6%B3%A8%E9%87%8A%E6%96%87%E6%9C%AC.png" data-size="1386x1050">
+		<img src="/p/annotatetext--%E6%B3%A8%E9%87%8A%E6%96%87%E6%9C%AC/picture/annotate%28%29,text%28%29--%E6%B3%A8%E9%87%8A%E6%96%87%E6%9C%AC.png"
+			width="1386"
+			height="1050"
+			srcset="/p/annotatetext--%E6%B3%A8%E9%87%8A%E6%96%87%E6%9C%AC/picture/annotate%28%29,text%28%29--%E6%B3%A8%E9%87%8A%E6%96%87%E6%9C%AC_hu64f2388f05487c6b933ec9f40e1bebe3_474381_480x0_resize_box_3.png 480w, /p/annotatetext--%E6%B3%A8%E9%87%8A%E6%96%87%E6%9C%AC/picture/annotate%28%29,text%28%29--%E6%B3%A8%E9%87%8A%E6%96%87%E6%9C%AC_hu64f2388f05487c6b933ec9f40e1bebe3_474381_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></li>
+</ul>
+<p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">warnings</span>
+</span></span><span class="line"><span class="cl"><span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&#34;ignore&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">200</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s2">&#34;-.&#34;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s2">&#34;purple&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&#34;font.sans-serif&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&#34;SimHei&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="n">s</span><span class="o">=</span><span class="s2">&#34;这是测试&#34;</span><span class="p">,</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">3</span><span class="p">)),</span><span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="o">-</span><span class="mf">0.5</span><span class="p">),</span><span class="n">weight</span><span class="o">=</span><span class="s2">&#34;heavy&#34;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s2">&#34;red&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">             <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">arrowstyle</span><span class="o">=</span><span class="s2">&#34;-|&gt;&#34;</span><span class="p">,</span><span class="n">connectionstyle</span><span class="o">=</span><span class="s2">&#34;arc3&#34;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s2">&#34;blue&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">             <span class="n">bbox</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">boxstyle</span><span class="o">=</span><span class="s2">&#34;round,pad=0.5&#34;</span><span class="p">,</span><span class="n">fc</span><span class="o">=</span><span class="s2">&#34;green&#34;</span><span class="p">,</span><span class="n">ec</span><span class="o">=</span><span class="s2">&#34;k&#34;</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 172; 
+			flex-basis: 414px"
+	>
+	<a href="/p/annotatetext--%E6%B3%A8%E9%87%8A%E6%96%87%E6%9C%AC/picture/annotate%28%29,text%28%29--%E6%B3%A8%E9%87%8A%E6%96%87%E6%9C%AC-1.png" data-size="884x512">
+		<img src="/p/annotatetext--%E6%B3%A8%E9%87%8A%E6%96%87%E6%9C%AC/picture/annotate%28%29,text%28%29--%E6%B3%A8%E9%87%8A%E6%96%87%E6%9C%AC-1.png"
+			width="884"
+			height="512"
+			srcset="/p/annotatetext--%E6%B3%A8%E9%87%8A%E6%96%87%E6%9C%AC/picture/annotate%28%29,text%28%29--%E6%B3%A8%E9%87%8A%E6%96%87%E6%9C%AC-1_hu933ddca626346d2a8acdff09ba08aee6_63704_480x0_resize_box_3.png 480w, /p/annotatetext--%E6%B3%A8%E9%87%8A%E6%96%87%E6%9C%AC/picture/annotate%28%29,text%28%29--%E6%B3%A8%E9%87%8A%E6%96%87%E6%9C%AC-1_hu933ddca626346d2a8acdff09ba08aee6_63704_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">warnings</span>
+</span></span><span class="line"><span class="cl"><span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&#34;ignore&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">200</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s2">&#34;-.&#34;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s2">&#34;purple&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&#34;font.sans-serif&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&#34;SimHei&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="n">s</span><span class="o">=</span><span class="s2">&#34;这是测试&#34;</span><span class="p">,</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">3</span><span class="p">)),</span><span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="o">-</span><span class="mf">0.5</span><span class="p">),</span><span class="n">weight</span><span class="o">=</span><span class="s2">&#34;heavy&#34;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s2">&#34;red&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">             <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">arrowstyle</span><span class="o">=</span><span class="s2">&#34;|-|&#34;</span><span class="p">,</span><span class="n">connectionstyle</span><span class="o">=</span><span class="s2">&#34;arc3&#34;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s2">&#34;blue&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">             <span class="n">bbox</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">boxstyle</span><span class="o">=</span><span class="s2">&#34;round,pad=0.5&#34;</span><span class="p">,</span><span class="n">fc</span><span class="o">=</span><span class="s2">&#34;green&#34;</span><span class="p">,</span><span class="n">ec</span><span class="o">=</span><span class="s2">&#34;k&#34;</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 182; 
+			flex-basis: 437px"
+	>
+	<a href="/p/annotatetext--%E6%B3%A8%E9%87%8A%E6%96%87%E6%9C%AC/picture/annotate%28%29,text%28%29--%E6%B3%A8%E9%87%8A%E6%96%87%E6%9C%AC-2.png" data-size="918x504">
+		<img src="/p/annotatetext--%E6%B3%A8%E9%87%8A%E6%96%87%E6%9C%AC/picture/annotate%28%29,text%28%29--%E6%B3%A8%E9%87%8A%E6%96%87%E6%9C%AC-2.png"
+			width="918"
+			height="504"
+			srcset="/p/annotatetext--%E6%B3%A8%E9%87%8A%E6%96%87%E6%9C%AC/picture/annotate%28%29,text%28%29--%E6%B3%A8%E9%87%8A%E6%96%87%E6%9C%AC-2_hu8ad1d950514b161468fd9917ee528464_65153_480x0_resize_box_3.png 480w, /p/annotatetext--%E6%B3%A8%E9%87%8A%E6%96%87%E6%9C%AC/picture/annotate%28%29,text%28%29--%E6%B3%A8%E9%87%8A%E6%96%87%E6%9C%AC-2_hu8ad1d950514b161468fd9917ee528464_65153_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="matplotlibpyplottext">matplotlib.pyplot.text()</h2>
+<p>无指向型的注释文本 matplotlib.pyplot.text()函数，即只会在图中添加注释内容而无指向箭头。</p>
+<ul>
+<li>用法同annotate</li>
+<li>x,y代表注释内容位置</li>
+<li>s代表注释文本内容</li>
+<li>family设置字体，自带的可选项有{&lsquo;serif&rsquo;, &lsquo;sans-serif&rsquo;, &lsquo;cursive&rsquo;, &lsquo;fantasy&rsquo;, &lsquo;monospace&rsquo;}</li>
+<li>fontsize字体大小</li>
+<li>style设置字体样式，可选项{&rsquo;normal&rsquo;, &lsquo;italic&rsquo;(斜体), &lsquo;oblique&rsquo;(也是斜体)}</li>
+</ul>
+<p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">warnings</span>
+</span></span><span class="line"><span class="cl"><span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&#34;ignore&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">200</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s2">&#34;-.&#34;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s2">&#34;purple&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="s2">&#34;这是一个测试&#34;</span><span class="p">,</span><span class="n">family</span><span class="o">=</span><span class="s2">&#34;sans-serif&#34;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span><span class="n">style</span><span class="o">=</span><span class="s2">&#34;italic&#34;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s2">&#34;red&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 162; 
+			flex-basis: 389px"
+	>
+	<a href="/p/annotatetext--%E6%B3%A8%E9%87%8A%E6%96%87%E6%9C%AC/picture/annotate%28%29,text%28%29--%E6%B3%A8%E9%87%8A%E6%96%87%E6%9C%AC-4.png" data-size="802x494">
+		<img src="/p/annotatetext--%E6%B3%A8%E9%87%8A%E6%96%87%E6%9C%AC/picture/annotate%28%29,text%28%29--%E6%B3%A8%E9%87%8A%E6%96%87%E6%9C%AC-4.png"
+			width="802"
+			height="494"
+			srcset="/p/annotatetext--%E6%B3%A8%E9%87%8A%E6%96%87%E6%9C%AC/picture/annotate%28%29,text%28%29--%E6%B3%A8%E9%87%8A%E6%96%87%E6%9C%AC-4_hub7b74d428a5983ed111ff528bc26b5fe_59839_480x0_resize_box_3.png 480w, /p/annotatetext--%E6%B3%A8%E9%87%8A%E6%96%87%E6%9C%AC/picture/annotate%28%29,text%28%29--%E6%B3%A8%E9%87%8A%E6%96%87%E6%9C%AC-4_hub7b74d428a5983ed111ff528bc26b5fe_59839_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/python/">python</a>
+        
+            <a href="/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/">数据可视化</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">Related contents</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="">
+    <a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">阿里云_ML_02_数据探索</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">阿里云_ML_03_特征工程</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_04_%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">阿里云_ML_04_模型训练</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_05_%E6%A8%A1%E5%9E%8B%E9%AA%8C%E8%AF%81/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">阿里云_ML_05_模型验证</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/sns.boxplot%E7%AE%80%E5%8D%95%E7%94%A8%E6%B3%95/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">sns.boxplot()简单用法</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2022 - 
+        
+        2023 叶宇浩随记博客
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.5.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">Table of contents</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#matplotlibpyplotannotate">matplotlib.pyplot.annotate()</a></li>
+    <li><a href="#matplotlibpyplottext">matplotlib.pyplot.text()</a></li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

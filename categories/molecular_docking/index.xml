@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>分子对接 on 叶宇浩随记博客</title>
+    <link>https://example.com/categories/molecular_docking/</link>
+    <description>Recent content in 分子对接 on 叶宇浩随记博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 12 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://example.com/categories/molecular_docking/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>《蛋白质结构预测实验指南》</title>
+      <link>https://example.com/p/%E8%9B%8B%E7%99%BD%E8%B4%A8%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B%E5%AE%9E%E9%AA%8C%E6%8C%87%E5%8D%97/</link>
+      <pubDate>Sun, 12 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E8%9B%8B%E7%99%BD%E8%B4%A8%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B%E5%AE%9E%E9%AA%8C%E6%8C%87%E5%8D%97/</guid>
+      <description> </description>
+    </item>
+    
+    <item>
+      <title>window AutoDock学习笔记</title>
+      <link>https://example.com/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Fri, 08 Apr 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/window-autodock%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid>
+      <description>整理了下 win AutoDock的学习记录（主要方便自己看），看的是blibli和其他网址上别人的做法，因为是很久之前学的，所以暂时没找到链接（找到了再放上来）
+对接的完整步骤 修改默认工作目录 工作目录下要有adt.bat/autodock4.exe/autogrid4.exe 以及所要进行对接的受体和配体
+导入受体pdb File&amp;mdash;read Mol &amp;ndash;选择 （小红点代表水分子，要去除）
+去除受体的水分子 Edit &amp;ndash; delete water
+受体加氢 Edit &amp;ndash; Hydro &amp;ndash; add 选为受体 Grid &amp;ndash; Macro &amp;ndash; choose &amp;ndash; 选择 会生成一个受体pdbqt
+导入配体 同上
+加氢 同上
+选为配体 Ligand &amp;ndash; input &amp;ndash;choose
+检查下它的扭转键和中心 ligand &amp;ndash; Torsion Tree -Detect Root ligand &amp;ndash; Torsion Tree -Choose Torsion 红色的是不可以被扭转的，绿色的是可以被扭转的
+接下来导出为配体的pdbqt ligand &amp;ndash; output &amp;ndash; save as pdbqt (完成后记得删除DM中的对象)
+准备对接 导入受体 ： Grid &amp;ndash; Macromolecule &amp;ndash; open &amp;ndash;选择 导入配体： Grid &amp;ndash; Set Map Types &amp;ndash; open ligand &amp;ndash;选择 准备盒子运行的大小： Grid &amp;ndash; Grid Box &amp;ndash; 调整盒子大小（包裹核心位点或者整个protein） 将配体从box中取出 勾去掉后，不要关闭那个GUI，右键拖出小分子，拖出后将勾打上</description>
+    </item>
+    
+    <item>
+      <title>AD4_parameters金属离子参数的修改</title>
+      <link>https://example.com/p/ad4_parameters%E9%87%91%E5%B1%9E%E7%A6%BB%E5%AD%90%E5%8F%82%E6%95%B0%E7%9A%84%E4%BF%AE%E6%94%B9/</link>
+      <pubDate>Thu, 07 Apr 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/ad4_parameters%E9%87%91%E5%B1%9E%E7%A6%BB%E5%AD%90%E5%8F%82%E6%95%B0%E7%9A%84%E4%BF%AE%E6%94%B9/</guid>
+      <description>整理了下 win AutoDock的学习记录（主要方便自己看），看的是blibli和其他网址上别人的做法，因为是很久之前学的，所以暂时没找到链接（找到了再放上来）
+在mpl文件夹中找到AD4_parameters.dat文件 并放置到工作目录下
+先看下缺乏的情况 顺便提下，在从RCSB PDB中下载pdb时 在下面可以看到一些详情；如什么东西在什么链
+去除相关链（可以直接在pymol中操作）
+命令行：remove chain B (C/D)
+去除水分子： A &amp;ndash; remove water
+如有小分子配体则删除 （怎么看是不是小分子配体呢？在seq 不是连续拼接上的，就是小分子配体；金属离子不要去除）
+File &amp;ndash; export Molecule &amp;ndash; pdb
+在ADT中导入刚才pymol生成的pdb，因为在pymol中去过水了，所以直接加氢就好了
+将NI.pdb 选为受体生成pdbqt 可以看出系统会自动提醒这个离子没有电荷（因为AD4_parameters.dat中没有这个金属离子的参数）
+然后就可以一波操作（如Grid导入受体/配体/确认对接box的大小）运行autogrid/autodock， 此时会有报错的内容： 报错的解决方案 修改AD4_parameters.dat的离子内容（去网上找一份比较齐全的，然后复制过去） 一定要记得修改gpf/dpf的文件 gpf（盒子的那个文件） / dpf是docking时生成那个文件
+在开头新增一行 paramter_file AD4_parameters.dat # force field default paramter_file 再次运行run &amp;ndash; autogrid</description>
+    </item>
+    
+    <item>
+      <title>用PYMOL给蛋白质小分子添加标签</title>
+      <link>https://example.com/p/%E7%94%A8pymol%E7%BB%99%E8%9B%8B%E7%99%BD%E8%B4%A8%E5%B0%8F%E5%88%86%E5%AD%90%E6%B7%BB%E5%8A%A0%E6%A0%87%E7%AD%BE/</link>
+      <pubDate>Thu, 07 Apr 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E7%94%A8pymol%E7%BB%99%E8%9B%8B%E7%99%BD%E8%B4%A8%E5%B0%8F%E5%88%86%E5%AD%90%E6%B7%BB%E5%8A%A0%E6%A0%87%E7%AD%BE/</guid>
+      <description>整理了下 win AutoDock的学习记录（主要方便自己看），看的是blibli和其他网址上别人的做法，因为是很久之前学的，所以暂时没找到链接（找到了再放上来）
+导入 对接结果pdbqt 和 小分子配体的pdbqt PYMOL 背景改成白色
+Display &amp;ndash; Background &amp;ndash; White
+选一个和对接位点比较远的残基（即和对接位点不太相关的残基）
+选中残基 &amp;ndash; 鼠标右键 &amp;ndash; edit label 将其名字改为我们想要告诉别人的残基名字 同理再来一个
+将右下角的3-Button 的模式改为Editing
+Ctrl 就可以拖动标签了
+后面还想修改，先把3-Button改回Viewing模式
+如果想删除标签，去点击sele的L &amp;ndash; clear</description>
+    </item>
+    
+    <item>
+      <title>用R语言png函数输出高分辨率的图片</title>
+      <link>https://example.com/p/%E7%94%A8r%E8%AF%AD%E8%A8%80png%E5%87%BD%E6%95%B0%E8%BE%93%E5%87%BA%E9%AB%98%E5%88%86%E8%BE%A8%E7%8E%87%E7%9A%84%E5%9B%BE%E7%89%87/</link>
+      <pubDate>Thu, 07 Apr 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E7%94%A8r%E8%AF%AD%E8%A8%80png%E5%87%BD%E6%95%B0%E8%BE%93%E5%87%BA%E9%AB%98%E5%88%86%E8%BE%A8%E7%8E%87%E7%9A%84%E5%9B%BE%E7%89%87/</guid>
+      <description> 整理了下 win AutoDock的学习记录（主要方便自己看），看的是blibli和其他网址上别人的做法，因为是很久之前学的，所以暂时没找到链接（找到了再放上来）
+引言 scale()数据标准化、中心化处理 使用heatmap画热图函数 heapmap(a)
+使用png函数绘制 首先 查看下R的工作目录 getwd()
+png(filename= &amp;ldquo;HEATMAP.png&amp;rdquo;,width = 1700, height = 1500, units = &amp;ldquo;px&amp;rdquo;, bg=&amp;ldquo;white&amp;rdquo;,res = 300) 参数值自己调整
+heapmap(a)
+dev.off() 这就画完了，但是要看看数据是否完整被画出来，再进行png（）命令中的参数进行调整
+记得关闭Rstudio </description>
+    </item>
+    
+    <item>
+      <title>知道活性中心坐标后怎么确定grid box</title>
+      <link>https://example.com/p/%E7%9F%A5%E9%81%93%E6%B4%BB%E6%80%A7%E4%B8%AD%E5%BF%83%E5%9D%90%E6%A0%87%E5%90%8E%E6%80%8E%E4%B9%88%E7%A1%AE%E5%AE%9Agrid-box/</link>
+      <pubDate>Thu, 07 Apr 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E7%9F%A5%E9%81%93%E6%B4%BB%E6%80%A7%E4%B8%AD%E5%BF%83%E5%9D%90%E6%A0%87%E5%90%8E%E6%80%8E%E4%B9%88%E7%A1%AE%E5%AE%9Agrid-box/</guid>
+      <description> 整理了下 win AutoDock的学习记录（主要方便自己看），看的是blibli和其他网址上别人的做法，因为是很久之前学的，所以暂时没找到链接（找到了再放上来）
+Gird &amp;ndash; Grid box &amp;ndash; View &amp;ndash; show box as lines View中还有去掉中心坐标以及修改箱子尺寸的 通过某种软件知道了蛋白质的活性中心后，把这个box尽可能地锁定到那里去 在那个软件中知道了两个 参考点，然后简单运算到 ADT地坐标系上 找原子法： 找到活性中心的一个残基 这就可以看到原子了 注意要输入全称才会锁定上 这就蹦到这了 肉眼法 肉眼观察，自行调整到那里,如果不好看的话，可以调整蛋白模型的表现形式 </description>
+    </item>
+    
+  </channel>
+</rss>

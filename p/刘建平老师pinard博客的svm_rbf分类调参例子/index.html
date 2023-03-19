@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='刘老师的博客内容'><title>刘建平老师Pinard博客的SVM_RBF分类调参例子</title>
+
+<link rel='canonical' href='https://example.com/p/%E5%88%98%E5%BB%BA%E5%B9%B3%E8%80%81%E5%B8%88pinard%E5%8D%9A%E5%AE%A2%E7%9A%84svm_rbf%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E4%BE%8B%E5%AD%90/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='刘建平老师Pinard博客的SVM_RBF分类调参例子'>
+<meta property='og:description' content='刘老师的博客内容'>
+<meta property='og:url' content='https://example.com/p/%E5%88%98%E5%BB%BA%E5%B9%B3%E8%80%81%E5%B8%88pinard%E5%8D%9A%E5%AE%A2%E7%9A%84svm_rbf%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E4%BE%8B%E5%AD%90/'>
+<meta property='og:site_name' content='叶宇浩随记博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='python' /><meta property='article:tag' content='sklearn' /><meta property='article:published_time' content='2021-09-17T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-09-17T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="刘建平老师Pinard博客的SVM_RBF分类调参例子">
+<meta name="twitter:description" content="刘老师的博客内容">
+    </head>
+    <body class="
+    article-page 
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        on-phone--column extended
+    
+">
+    
+        <aside class="sidebar left-sidebar sticky">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header class="site-info">
+        
+            
+            <figure class="site-avatar">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hub6b2d46d776162e2e8dcd667345276ca_41574_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+
+                
+            </figure>
+            
+        
+        
+        <h1 class="site-name"><a href="/">叶宇浩随记博客</a></h1>
+        <h2 class="site-description">始于rosetta</h2></header>
+
+    <ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/' target="_blank">
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>分类</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>检索</span>
+            </a>
+        </li>
+        
+
+        
+            <li id="dark-mode-toggle">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <span>Dark Mode</span>
+            </li>
+        
+    </ol>
+</aside>
+
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/code/" style="background-color: #fa1; color: #fff;">
+                编程
+            </a>
+        
+            <a href="/categories/deeplearning/" style="background-color: #0f1503; color: #fff;">
+                深度学习
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/%E5%88%98%E5%BB%BA%E5%B9%B3%E8%80%81%E5%B8%88pinard%E5%8D%9A%E5%AE%A2%E7%9A%84svm_rbf%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E4%BE%8B%E5%AD%90/">刘建平老师Pinard博客的SVM_RBF分类调参例子</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        刘老师的博客内容
+    </h3>
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Sep 17, 2021</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    2 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">warnings</span>
+</span></span><span class="line"><span class="cl"><span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&#34;ignore&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">matplotlib</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</span></span><span class="line"><span class="cl"><span class="n">matplotlib</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">&#34;ggplot&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&#34;font.sans-serif&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&#34;SimHei&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&#34;axes.unicode_minus&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">datasets</span><span class="p">,</span><span class="n">svm</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVC</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_moons</span><span class="p">,</span><span class="n">make_circles</span><span class="p">,</span><span class="n">make_classification</span>
+</span></span></code></pre></div><p>生成一些随机数据来让我们后面去分类，为了数据难一点，我们加入了一些噪音。生成数据的同时把数据归一化</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#make_circles生成月亮形数据</span>
+</span></span><span class="line"><span class="cl"><span class="n">X</span><span class="p">,</span><span class="n">y</span> <span class="o">=</span> <span class="n">make_circles</span><span class="p">(</span><span class="n">noise</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span><span class="n">factor</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span><span class="n">random_state</span><span class="o">=</span><span class="mi">22</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#从sklearn.preprocessing导入StandardScaler归一化处理</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
+</span></span><span class="line"><span class="cl"><span class="n">X</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</span></span></code></pre></div><p>我们先看看我的数据是什么样子的，这里做一次可视化如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">matplotlib.colors</span> <span class="kn">import</span> <span class="n">ListedColormap</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># matplotlib.colors模块用于将颜色或数字参数转换为RGBA或RGB。</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#此模块用于将数字映射到颜色或以一维颜色数组(也称为colormap)进行颜色规格转换。</span>
+</span></span><span class="line"><span class="cl"><span class="n">cm</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">RdBu</span>
+</span></span><span class="line"><span class="cl"><span class="n">cm_bright</span> <span class="o">=</span> <span class="n">ListedColormap</span><span class="p">([</span><span class="s2">&#34;#FF0000&#34;</span><span class="p">,</span><span class="s2">&#34;#0000FF&#34;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&#34;Input data&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span><span class="n">X</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span><span class="n">c</span><span class="o">=</span><span class="n">y</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="n">cm_bright</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(())</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(())</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#会自动调整子图参数，使之填充整个图像区域</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 150; 
+			flex-basis: 361px"
+	>
+	<a href="/p/%E5%88%98%E5%BB%BA%E5%B9%B3%E8%80%81%E5%B8%88pinard%E5%8D%9A%E5%AE%A2%E7%9A%84svm_rbf%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E4%BE%8B%E5%AD%90/picture/%E4%B8%80%E4%B8%AASVM_RBF%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E7%9A%84%E4%BE%8B%E5%AD%90.png" data-size="710x472">
+		<img src="/p/%E5%88%98%E5%BB%BA%E5%B9%B3%E8%80%81%E5%B8%88pinard%E5%8D%9A%E5%AE%A2%E7%9A%84svm_rbf%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E4%BE%8B%E5%AD%90/picture/%E4%B8%80%E4%B8%AASVM_RBF%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E7%9A%84%E4%BE%8B%E5%AD%90.png"
+			width="710"
+			height="472"
+			srcset="/p/%E5%88%98%E5%BB%BA%E5%B9%B3%E8%80%81%E5%B8%88pinard%E5%8D%9A%E5%AE%A2%E7%9A%84svm_rbf%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E4%BE%8B%E5%AD%90/picture/%E4%B8%80%E4%B8%AASVM_RBF%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E7%9A%84%E4%BE%8B%E5%AD%90_hu2b38fd902bfeed31a65acef62bbb39a7_46451_480x0_resize_box_3.png 480w, /p/%E5%88%98%E5%BB%BA%E5%B9%B3%E8%80%81%E5%B8%88pinard%E5%8D%9A%E5%AE%A2%E7%9A%84svm_rbf%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E4%BE%8B%E5%AD%90/picture/%E4%B8%80%E4%B8%AASVM_RBF%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E7%9A%84%E4%BE%8B%E5%AD%90_hu2b38fd902bfeed31a65acef62bbb39a7_46451_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+好了，现在我们要对这个数据集进行SVM RBF分类了，分类时我们使用了网格搜索，在C=(0.1,1,10)和gamma=(1, 0.1, 0.01)形成的9种情况中选择最好的超参数，我们用了4折交叉验证。这里只是一个例子，实际运用中，你可能需要更多的参数组合来进行调参。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">GridSearchCV</span>\
+</span></span><span class="line"><span class="cl"><span class="c1">#param_grid是以字典形式的</span>
+</span></span><span class="line"><span class="cl"><span class="n">grid</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">SVC</span><span class="p">(),</span><span class="n">param_grid</span><span class="o">=</span><span class="p">{</span><span class="s2">&#34;C&#34;</span><span class="p">:[</span><span class="mf">0.1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">],</span><span class="s2">&#34;gamma&#34;</span><span class="p">:[</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.01</span><span class="p">]},</span><span class="n">cv</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">grid</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;The best parameters are </span><span class="si">%s</span><span class="s2"> with a score of </span><span class="si">%0.2f</span><span class="s2">&#34;</span> <span class="o">%</span> <span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">best_params_</span><span class="p">,</span><span class="n">grid</span><span class="o">.</span><span class="n">best_score_</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">The</span> <span class="n">best</span> <span class="n">parameters</span> <span class="n">are</span> <span class="p">{</span><span class="s1">&#39;C&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="s1">&#39;gamma&#39;</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">}</span> <span class="k">with</span> <span class="n">a</span> <span class="n">score</span> <span class="n">of</span> <span class="mf">0.91</span>
+</span></span></code></pre></div><p>最终的输出如下：
+The best parameters are {&lsquo;C&rsquo;: 10, &lsquo;gamma&rsquo;: 0.1} with a score of 0.91</p>
+<p>也就是说，通过网格搜索，在我们给定的9组超参数中，C=10， Gamma=0.1 分数最高，这就是我们最终的参数候选。</p>
+<p>到这里，我们的调参举例就结束了。不过我们可以看看我们的普通的SVM分类后的可视化。这里我们把这9种组合各个训练后，通过对网格里的点预测来标色，观察分类的效果图。代码如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">X</span><span class="p">[:</span><span class="mi">4</span><span class="p">]</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 437; 
+			flex-basis: 1051px"
+	>
+	<a href="/p/%E5%88%98%E5%BB%BA%E5%B9%B3%E8%80%81%E5%B8%88pinard%E5%8D%9A%E5%AE%A2%E7%9A%84svm_rbf%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E4%BE%8B%E5%AD%90/picture/%E4%B8%80%E4%B8%AASVM_RBF%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E7%9A%84%E4%BE%8B%E5%AD%90-1.png" data-size="508x116">
+		<img src="/p/%E5%88%98%E5%BB%BA%E5%B9%B3%E8%80%81%E5%B8%88pinard%E5%8D%9A%E5%AE%A2%E7%9A%84svm_rbf%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E4%BE%8B%E5%AD%90/picture/%E4%B8%80%E4%B8%AASVM_RBF%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E7%9A%84%E4%BE%8B%E5%AD%90-1.png"
+			width="508"
+			height="116"
+			srcset="/p/%E5%88%98%E5%BB%BA%E5%B9%B3%E8%80%81%E5%B8%88pinard%E5%8D%9A%E5%AE%A2%E7%9A%84svm_rbf%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E4%BE%8B%E5%AD%90/picture/%E4%B8%80%E4%B8%AASVM_RBF%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E7%9A%84%E4%BE%8B%E5%AD%90-1_hu8142c06cec42368d5cb4e91711aad6be_20154_480x0_resize_box_3.png 480w, /p/%E5%88%98%E5%BB%BA%E5%B9%B3%E8%80%81%E5%B8%88pinard%E5%8D%9A%E5%AE%A2%E7%9A%84svm_rbf%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E4%BE%8B%E5%AD%90/picture/%E4%B8%80%E4%B8%AASVM_RBF%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E7%9A%84%E4%BE%8B%E5%AD%90-1_hu8142c06cec42368d5cb4e91711aad6be_20154_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">y</span><span class="p">[:</span><span class="mi">4</span><span class="p">]</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">int64</span><span class="p">)</span>
+</span></span></code></pre></div><p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">x_min</span><span class="p">,</span><span class="n">x_max</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span><span class="n">X</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#这里的y其实是x2</span>
+</span></span><span class="line"><span class="cl"><span class="n">y_min</span><span class="p">,</span><span class="n">y_max</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span><span class="n">X</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="n">xx</span><span class="p">,</span><span class="n">yy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">x_min</span><span class="p">,</span><span class="n">x_max</span><span class="p">,</span><span class="mf">0.02</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">y_min</span><span class="p">,</span><span class="n">y_max</span><span class="p">,</span><span class="mf">0.02</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">xx</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">yy</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="mi">100</span><span class="p">,)</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="mi">309</span><span class="p">,</span> <span class="mi">336</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="mi">309</span><span class="p">,</span> <span class="mi">336</span><span class="p">)</span>
+</span></span></code></pre></div><p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">clf</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="n">gamma</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">#xx和yy矩阵都变成两个一维数组，然后到np.c_[] 函数组合成一个二维数组</span>
+</span></span><span class="line"><span class="cl"><span class="n">Z</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">xx</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span><span class="n">yy</span><span class="o">.</span><span class="n">ravel</span><span class="p">()])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Put the result into a color plot</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">Z</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">Z</span><span class="o">=</span> <span class="n">Z</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">xx</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">Z</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">xx</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="p">(</span><span class="mi">103824</span><span class="p">,)</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="mi">309</span><span class="p">,</span> <span class="mi">336</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="mi">103824</span><span class="p">,)</span>  
+</span></span></code></pre></div><p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#记得用（）包起来</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">C</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">((</span><span class="mf">0.1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">)):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">j</span><span class="p">,</span><span class="n">gamma</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.01</span><span class="p">)):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="n">clf</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="n">C</span><span class="p">,</span><span class="n">gamma</span><span class="o">=</span><span class="n">gamma</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">#xx和yy矩阵都变成两个一维数组，然后到np.c_[] 函数组合成一个二维数组</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Z</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">xx</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span><span class="n">yy</span><span class="o">.</span><span class="n">ravel</span><span class="p">()])</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># Put the result into a color plot</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Z</span> <span class="o">=</span> <span class="n">Z</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">xx</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="c1">#SVM的核函数使得数据变成了三维的</span>
+</span></span><span class="line"><span class="cl">        <span class="n">plt</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">coolwarm</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="c1"># Plot also the training points</span>
+</span></span><span class="line"><span class="cl">        <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span><span class="n">X</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span><span class="n">c</span><span class="o">=</span><span class="n">y</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">coolwarm</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="n">xx</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span><span class="n">xx</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">        <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="n">yy</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span><span class="n">yy</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">        <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(())</span>
+</span></span><span class="line"><span class="cl">        <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(())</span>
+</span></span><span class="line"><span class="cl">        <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&#34;gamma&#34;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">gamma</span><span class="p">)</span><span class="o">+</span><span class="s2">&#34;C=&#34;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">C</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 144; 
+			flex-basis: 345px"
+	>
+	<a href="/p/%E5%88%98%E5%BB%BA%E5%B9%B3%E8%80%81%E5%B8%88pinard%E5%8D%9A%E5%AE%A2%E7%9A%84svm_rbf%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E4%BE%8B%E5%AD%90/picture/%E4%B8%80%E4%B8%AASVM_RBF%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E7%9A%84%E4%BE%8B%E5%AD%90-2.png" data-size="576x400">
+		<img src="/p/%E5%88%98%E5%BB%BA%E5%B9%B3%E8%80%81%E5%B8%88pinard%E5%8D%9A%E5%AE%A2%E7%9A%84svm_rbf%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E4%BE%8B%E5%AD%90/picture/%E4%B8%80%E4%B8%AASVM_RBF%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E7%9A%84%E4%BE%8B%E5%AD%90-2.png"
+			width="576"
+			height="400"
+			srcset="/p/%E5%88%98%E5%BB%BA%E5%B9%B3%E8%80%81%E5%B8%88pinard%E5%8D%9A%E5%AE%A2%E7%9A%84svm_rbf%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E4%BE%8B%E5%AD%90/picture/%E4%B8%80%E4%B8%AASVM_RBF%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E7%9A%84%E4%BE%8B%E5%AD%90-2_hu689179693fec10860a844326760caaf0_39882_480x0_resize_box_3.png 480w, /p/%E5%88%98%E5%BB%BA%E5%B9%B3%E8%80%81%E5%B8%88pinard%E5%8D%9A%E5%AE%A2%E7%9A%84svm_rbf%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E4%BE%8B%E5%AD%90/picture/%E4%B8%80%E4%B8%AASVM_RBF%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E7%9A%84%E4%BE%8B%E5%AD%90-2_hu689179693fec10860a844326760caaf0_39882_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 165; 
+			flex-basis: 397px"
+	>
+	<a href="/p/%E5%88%98%E5%BB%BA%E5%B9%B3%E8%80%81%E5%B8%88pinard%E5%8D%9A%E5%AE%A2%E7%9A%84svm_rbf%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E4%BE%8B%E5%AD%90/picture/%E4%B8%80%E4%B8%AASVM_RBF%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E7%9A%84%E4%BE%8B%E5%AD%90-3.png" data-size="672x406">
+		<img src="/p/%E5%88%98%E5%BB%BA%E5%B9%B3%E8%80%81%E5%B8%88pinard%E5%8D%9A%E5%AE%A2%E7%9A%84svm_rbf%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E4%BE%8B%E5%AD%90/picture/%E4%B8%80%E4%B8%AASVM_RBF%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E7%9A%84%E4%BE%8B%E5%AD%90-3.png"
+			width="672"
+			height="406"
+			srcset="/p/%E5%88%98%E5%BB%BA%E5%B9%B3%E8%80%81%E5%B8%88pinard%E5%8D%9A%E5%AE%A2%E7%9A%84svm_rbf%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E4%BE%8B%E5%AD%90/picture/%E4%B8%80%E4%B8%AASVM_RBF%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E7%9A%84%E4%BE%8B%E5%AD%90-3_hufeffc2965b95e1aff00a99a3a9c2aa3e_45538_480x0_resize_box_3.png 480w, /p/%E5%88%98%E5%BB%BA%E5%B9%B3%E8%80%81%E5%B8%88pinard%E5%8D%9A%E5%AE%A2%E7%9A%84svm_rbf%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E4%BE%8B%E5%AD%90/picture/%E4%B8%80%E4%B8%AASVM_RBF%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E7%9A%84%E4%BE%8B%E5%AD%90-3_hufeffc2965b95e1aff00a99a3a9c2aa3e_45538_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 147; 
+			flex-basis: 354px"
+	>
+	<a href="/p/%E5%88%98%E5%BB%BA%E5%B9%B3%E8%80%81%E5%B8%88pinard%E5%8D%9A%E5%AE%A2%E7%9A%84svm_rbf%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E4%BE%8B%E5%AD%90/picture/%E4%B8%80%E4%B8%AASVM_RBF%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E7%9A%84%E4%BE%8B%E5%AD%90-4.png" data-size="644x436">
+		<img src="/p/%E5%88%98%E5%BB%BA%E5%B9%B3%E8%80%81%E5%B8%88pinard%E5%8D%9A%E5%AE%A2%E7%9A%84svm_rbf%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E4%BE%8B%E5%AD%90/picture/%E4%B8%80%E4%B8%AASVM_RBF%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E7%9A%84%E4%BE%8B%E5%AD%90-4.png"
+			width="644"
+			height="436"
+			srcset="/p/%E5%88%98%E5%BB%BA%E5%B9%B3%E8%80%81%E5%B8%88pinard%E5%8D%9A%E5%AE%A2%E7%9A%84svm_rbf%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E4%BE%8B%E5%AD%90/picture/%E4%B8%80%E4%B8%AASVM_RBF%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E7%9A%84%E4%BE%8B%E5%AD%90-4_hu84db0006d6f4dc71475e04245c13f01f_43921_480x0_resize_box_3.png 480w, /p/%E5%88%98%E5%BB%BA%E5%B9%B3%E8%80%81%E5%B8%88pinard%E5%8D%9A%E5%AE%A2%E7%9A%84svm_rbf%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E4%BE%8B%E5%AD%90/picture/%E4%B8%80%E4%B8%AASVM_RBF%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E7%9A%84%E4%BE%8B%E5%AD%90-4_hu84db0006d6f4dc71475e04245c13f01f_43921_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 160; 
+			flex-basis: 384px"
+	>
+	<a href="/p/%E5%88%98%E5%BB%BA%E5%B9%B3%E8%80%81%E5%B8%88pinard%E5%8D%9A%E5%AE%A2%E7%9A%84svm_rbf%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E4%BE%8B%E5%AD%90/picture/%E4%B8%80%E4%B8%AASVM_RBF%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E7%9A%84%E4%BE%8B%E5%AD%90-5.png" data-size="590x368">
+		<img src="/p/%E5%88%98%E5%BB%BA%E5%B9%B3%E8%80%81%E5%B8%88pinard%E5%8D%9A%E5%AE%A2%E7%9A%84svm_rbf%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E4%BE%8B%E5%AD%90/picture/%E4%B8%80%E4%B8%AASVM_RBF%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E7%9A%84%E4%BE%8B%E5%AD%90-5.png"
+			width="590"
+			height="368"
+			srcset="/p/%E5%88%98%E5%BB%BA%E5%B9%B3%E8%80%81%E5%B8%88pinard%E5%8D%9A%E5%AE%A2%E7%9A%84svm_rbf%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E4%BE%8B%E5%AD%90/picture/%E4%B8%80%E4%B8%AASVM_RBF%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E7%9A%84%E4%BE%8B%E5%AD%90-5_hufe0fc6db80626ebdef1101a7869095cc_37076_480x0_resize_box_3.png 480w, /p/%E5%88%98%E5%BB%BA%E5%B9%B3%E8%80%81%E5%B8%88pinard%E5%8D%9A%E5%AE%A2%E7%9A%84svm_rbf%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E4%BE%8B%E5%AD%90/picture/%E4%B8%80%E4%B8%AASVM_RBF%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E7%9A%84%E4%BE%8B%E5%AD%90-5_hufe0fc6db80626ebdef1101a7869095cc_37076_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 161; 
+			flex-basis: 388px"
+	>
+	<a href="/p/%E5%88%98%E5%BB%BA%E5%B9%B3%E8%80%81%E5%B8%88pinard%E5%8D%9A%E5%AE%A2%E7%9A%84svm_rbf%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E4%BE%8B%E5%AD%90/picture/%E4%B8%80%E4%B8%AASVM_RBF%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E7%9A%84%E4%BE%8B%E5%AD%90-6.png" data-size="540x334">
+		<img src="/p/%E5%88%98%E5%BB%BA%E5%B9%B3%E8%80%81%E5%B8%88pinard%E5%8D%9A%E5%AE%A2%E7%9A%84svm_rbf%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E4%BE%8B%E5%AD%90/picture/%E4%B8%80%E4%B8%AASVM_RBF%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E7%9A%84%E4%BE%8B%E5%AD%90-6.png"
+			width="540"
+			height="334"
+			srcset="/p/%E5%88%98%E5%BB%BA%E5%B9%B3%E8%80%81%E5%B8%88pinard%E5%8D%9A%E5%AE%A2%E7%9A%84svm_rbf%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E4%BE%8B%E5%AD%90/picture/%E4%B8%80%E4%B8%AASVM_RBF%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E7%9A%84%E4%BE%8B%E5%AD%90-6_hu51eecb1febe1f66d16623d54ce5faca0_36985_480x0_resize_box_3.png 480w, /p/%E5%88%98%E5%BB%BA%E5%B9%B3%E8%80%81%E5%B8%88pinard%E5%8D%9A%E5%AE%A2%E7%9A%84svm_rbf%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E4%BE%8B%E5%AD%90/picture/%E4%B8%80%E4%B8%AASVM_RBF%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E7%9A%84%E4%BE%8B%E5%AD%90-6_hu51eecb1febe1f66d16623d54ce5faca0_36985_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 155; 
+			flex-basis: 373px"
+	>
+	<a href="/p/%E5%88%98%E5%BB%BA%E5%B9%B3%E8%80%81%E5%B8%88pinard%E5%8D%9A%E5%AE%A2%E7%9A%84svm_rbf%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E4%BE%8B%E5%AD%90/picture/%E4%B8%80%E4%B8%AASVM_RBF%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E7%9A%84%E4%BE%8B%E5%AD%90-7.png" data-size="576x370">
+		<img src="/p/%E5%88%98%E5%BB%BA%E5%B9%B3%E8%80%81%E5%B8%88pinard%E5%8D%9A%E5%AE%A2%E7%9A%84svm_rbf%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E4%BE%8B%E5%AD%90/picture/%E4%B8%80%E4%B8%AASVM_RBF%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E7%9A%84%E4%BE%8B%E5%AD%90-7.png"
+			width="576"
+			height="370"
+			srcset="/p/%E5%88%98%E5%BB%BA%E5%B9%B3%E8%80%81%E5%B8%88pinard%E5%8D%9A%E5%AE%A2%E7%9A%84svm_rbf%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E4%BE%8B%E5%AD%90/picture/%E4%B8%80%E4%B8%AASVM_RBF%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E7%9A%84%E4%BE%8B%E5%AD%90-7_huef2ed54c98a6394b3e3dd85f0e5674c4_40428_480x0_resize_box_3.png 480w, /p/%E5%88%98%E5%BB%BA%E5%B9%B3%E8%80%81%E5%B8%88pinard%E5%8D%9A%E5%AE%A2%E7%9A%84svm_rbf%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E4%BE%8B%E5%AD%90/picture/%E4%B8%80%E4%B8%AASVM_RBF%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E7%9A%84%E4%BE%8B%E5%AD%90-7_huef2ed54c98a6394b3e3dd85f0e5674c4_40428_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 147; 
+			flex-basis: 353px"
+	>
+	<a href="/p/%E5%88%98%E5%BB%BA%E5%B9%B3%E8%80%81%E5%B8%88pinard%E5%8D%9A%E5%AE%A2%E7%9A%84svm_rbf%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E4%BE%8B%E5%AD%90/picture/%E4%B8%80%E4%B8%AASVM_RBF%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E7%9A%84%E4%BE%8B%E5%AD%90-8.png" data-size="568x386">
+		<img src="/p/%E5%88%98%E5%BB%BA%E5%B9%B3%E8%80%81%E5%B8%88pinard%E5%8D%9A%E5%AE%A2%E7%9A%84svm_rbf%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E4%BE%8B%E5%AD%90/picture/%E4%B8%80%E4%B8%AASVM_RBF%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E7%9A%84%E4%BE%8B%E5%AD%90-8.png"
+			width="568"
+			height="386"
+			srcset="/p/%E5%88%98%E5%BB%BA%E5%B9%B3%E8%80%81%E5%B8%88pinard%E5%8D%9A%E5%AE%A2%E7%9A%84svm_rbf%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E4%BE%8B%E5%AD%90/picture/%E4%B8%80%E4%B8%AASVM_RBF%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E7%9A%84%E4%BE%8B%E5%AD%90-8_huee90a43ac00c6b855d5bc7910151be4c_41302_480x0_resize_box_3.png 480w, /p/%E5%88%98%E5%BB%BA%E5%B9%B3%E8%80%81%E5%B8%88pinard%E5%8D%9A%E5%AE%A2%E7%9A%84svm_rbf%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E4%BE%8B%E5%AD%90/picture/%E4%B8%80%E4%B8%AASVM_RBF%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E7%9A%84%E4%BE%8B%E5%AD%90-8_huee90a43ac00c6b855d5bc7910151be4c_41302_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 157; 
+			flex-basis: 377px"
+	>
+	<a href="/p/%E5%88%98%E5%BB%BA%E5%B9%B3%E8%80%81%E5%B8%88pinard%E5%8D%9A%E5%AE%A2%E7%9A%84svm_rbf%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E4%BE%8B%E5%AD%90/picture/%E4%B8%80%E4%B8%AASVM_RBF%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E7%9A%84%E4%BE%8B%E5%AD%90-9.png" data-size="664x422">
+		<img src="/p/%E5%88%98%E5%BB%BA%E5%B9%B3%E8%80%81%E5%B8%88pinard%E5%8D%9A%E5%AE%A2%E7%9A%84svm_rbf%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E4%BE%8B%E5%AD%90/picture/%E4%B8%80%E4%B8%AASVM_RBF%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E7%9A%84%E4%BE%8B%E5%AD%90-9.png"
+			width="664"
+			height="422"
+			srcset="/p/%E5%88%98%E5%BB%BA%E5%B9%B3%E8%80%81%E5%B8%88pinard%E5%8D%9A%E5%AE%A2%E7%9A%84svm_rbf%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E4%BE%8B%E5%AD%90/picture/%E4%B8%80%E4%B8%AASVM_RBF%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E7%9A%84%E4%BE%8B%E5%AD%90-9_hu7053737e7222f92d836ec006fb3ed6e9_43446_480x0_resize_box_3.png 480w, /p/%E5%88%98%E5%BB%BA%E5%B9%B3%E8%80%81%E5%B8%88pinard%E5%8D%9A%E5%AE%A2%E7%9A%84svm_rbf%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E4%BE%8B%E5%AD%90/picture/%E4%B8%80%E4%B8%AASVM_RBF%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E7%9A%84%E4%BE%8B%E5%AD%90-9_hu7053737e7222f92d836ec006fb3ed6e9_43446_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 151; 
+			flex-basis: 364px"
+	>
+	<a href="/p/%E5%88%98%E5%BB%BA%E5%B9%B3%E8%80%81%E5%B8%88pinard%E5%8D%9A%E5%AE%A2%E7%9A%84svm_rbf%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E4%BE%8B%E5%AD%90/picture/%E4%B8%80%E4%B8%AASVM_RBF%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E7%9A%84%E4%BE%8B%E5%AD%90-10.png" data-size="628x414">
+		<img src="/p/%E5%88%98%E5%BB%BA%E5%B9%B3%E8%80%81%E5%B8%88pinard%E5%8D%9A%E5%AE%A2%E7%9A%84svm_rbf%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E4%BE%8B%E5%AD%90/picture/%E4%B8%80%E4%B8%AASVM_RBF%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E7%9A%84%E4%BE%8B%E5%AD%90-10.png"
+			width="628"
+			height="414"
+			srcset="/p/%E5%88%98%E5%BB%BA%E5%B9%B3%E8%80%81%E5%B8%88pinard%E5%8D%9A%E5%AE%A2%E7%9A%84svm_rbf%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E4%BE%8B%E5%AD%90/picture/%E4%B8%80%E4%B8%AASVM_RBF%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E7%9A%84%E4%BE%8B%E5%AD%90-10_hucec9409f6c00e07b61f4310244d52cce_46498_480x0_resize_box_3.png 480w, /p/%E5%88%98%E5%BB%BA%E5%B9%B3%E8%80%81%E5%B8%88pinard%E5%8D%9A%E5%AE%A2%E7%9A%84svm_rbf%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E4%BE%8B%E5%AD%90/picture/%E4%B8%80%E4%B8%AASVM_RBF%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E7%9A%84%E4%BE%8B%E5%AD%90-10_hucec9409f6c00e07b61f4310244d52cce_46498_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>以上就是SVM RBF调参的一些总结.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"></code></pre></div>
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/python/">python</a>
+        
+            <a href="/tags/sklearn/">sklearn</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">Related contents</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="">
+    <a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">阿里云_ML_02_数据探索</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">阿里云_ML_03_特征工程</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_04_%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">阿里云_ML_04_模型训练</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_05_%E6%A8%A1%E5%9E%8B%E9%AA%8C%E8%AF%81/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">阿里云_ML_05_模型验证</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81cross-validation/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">sklearn中的交叉验证Cross-Validation</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2022 - 
+        
+        2023 叶宇浩随记博客
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.5.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

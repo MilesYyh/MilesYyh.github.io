@@ -1,0 +1,3200 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='山东大生信课程'><title>山东大生信_蛋白结构预测_note</title>
+
+<link rel='canonical' href='https://example.com/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='山东大生信_蛋白结构预测_note'>
+<meta property='og:description' content='山东大生信课程'>
+<meta property='og:url' content='https://example.com/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/'>
+<meta property='og:site_name' content='叶宇浩随记博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='tutorials' /><meta property='article:published_time' content='2021-10-29T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-10-29T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="山东大生信_蛋白结构预测_note">
+<meta name="twitter:description" content="山东大生信课程">
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>Back</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/bioinformatic/" style="background-color: #7816ff; color: #fff;">
+                生物信息学&amp;计算生物学
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/">山东大生信_蛋白结构预测_note</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        山东大生信课程
+    </h3>
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Oct 29, 2021</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    8 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <blockquote>
+<p><strong>写在前面的话：这个笔记不过多深入知识，因为做入门有，大概知道什么时候该用哪个，以及现在有什么技术</strong></p>
+</blockquote>
+<blockquote>
+<p>蛋白质结构预测</p>
+</blockquote>
+<h2 id="蛋白质的结构">蛋白质的结构</h2>
+<p>你将洞悉一个蛋白质到
+底长什么样子（蛋白质三维结构），它和它的闺蜜手拉手拍合影的样子（蛋白质和蛋白质分
+子对接），它嘴巴里塞满食物的样子（蛋白质和小分子分子对接），以及它在你身体里活动的
+样子（分子动力学模拟)</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 426px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId20.png" data-size="923x519">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId20.png"
+			width="923"
+			height="519"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId20_hu9201e289801aa2c3e3942043dfbb4588_440733_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId20_hu9201e289801aa2c3e3942043dfbb4588_440733_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<ul>
+<li>一级结构也就是氨基酸序列，</li>
+<li>二 级结构是周期性的结构构象，比如α螺旋β折叠等</li>
+<li>三 级结构是整条多肽链的三维空间结构</li>
+<li>四级结构是几 个蛋白质分子形成的复合体结构，比如三聚体，四聚体等
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 176; 
+			flex-basis: 424px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId23.png" data-size="937x530">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId23.png"
+			width="937"
+			height="530"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId23_hu47c9dbb98746cc7e0cf1e68931cc76f5_412465_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId23_hu47c9dbb98746cc7e0cf1e68931cc76f5_412465_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>蛋白质是由氨基酸组成的，前一个氨基酸的羧基和后一个氨基酸的氨基脱去一分子的水，缩合形成的肽键。肽键将氨基酸连接起来形成肽链。成熟的肽链
+并不是一根松散的毛线，它要经过折叠变成一个线团，即，形成空间立体结构。拥有了空间立体结之后，蛋白质才能上岗工作。</li>
+</ul>
+<h3 id="蛋白质的二级结构">蛋白质的二级结构</h3>
+<h4 id="dssp指认">DSSP指认</h4>
+<p>蛋白质经过折叠后会形成规则的片段，这些规则的片段构成了蛋白质的二级结构单元
+（图
+1）。三种常见的二级结构单元包括螺旋、β折叠、和转角。螺旋中最常见的就是α螺旋，
+但不只有α螺旋，还有其他的螺旋，比如 3 转角螺旋，5
+转角螺旋等。β折叠由平行排列的β
+折片组成。这些折片在序列上可能相隔很远，但是在空间结构上并排在一起，彼此间形成氢
+键。除了螺旋和折叠外，蛋白质结构中还存在大量的无规律松散结构
+coil。如果这些无规律 的肽链突然发生了急转弯，这个转弯结构就叫做β转角</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 184; 
+			flex-basis: 442px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId27.png" data-size="573x311">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId27.png"
+			width="573"
+			height="311"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId27_hufb3aecae1ce612a2a4ec8eb9faa39955_128820_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId27_hufb3aecae1ce612a2a4ec8eb9faa39955_128820_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>蛋白质的二级结构经常用图形来形象的描述。比如黄色的箭头代表对应的氨基酸
+具有β折片结构。波浪线代表螺旋结构，小鼓包是转角。此外，以字母形式书写的二级结构
+序列能够更加精准的描述。其中，E 代表β折叠，H 代表α螺旋，T
+代表转角。没有写任何字 母的地方是松散的 coil 结构</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 185; 
+			flex-basis: 444px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId30.png" data-size="749x404">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId30.png"
+			width="749"
+			height="404"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId30_hu6602a0f5cdd60181ad39aa05e5a32bd6_174192_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId30_hu6602a0f5cdd60181ad39aa05e5a32bd6_174192_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>研究人员根据
+DSSP，也就是蛋白质二级结构定义词典，将三级结构里的二级结构单元指认出来的</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 178; 
+			flex-basis: 429px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId33.png" data-size="905x506">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId33.png"
+			width="905"
+			height="506"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId33_hua388e887d208a7118bbe2e44db70530b_207031_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId33_hua388e887d208a7118bbe2e44db70530b_207031_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>然后再按照规定的格式，记录下蛋白质中每个氨基酸处于哪种二级结构单元。这样一
+个记录蛋白质二级结构信息的文件叫做 DSSP 文件。蛋白质结构数据库 PDB
+中的每一个蛋 白质三级结构都有自己对应的 DSSP 文件。DSSP
+文件里不同字母所代表的不同二级结构单 元和 PDB 里面的记录方式是统一的</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 141; 
+			flex-basis: 339px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId36.png" data-size="765x541">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId36.png"
+			width="765"
+			height="541"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId36_huf928a06957ba4414835ed3b38d19ba86_398407_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId36_huf928a06957ba4414835ed3b38d19ba86_398407_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+DSSP 的主页上，Introduction 部分有一个 Web server
+链接，这个链接很容易让人误以为
+可以通过它预测某条氨基酸序列的二级结构。这是不对的。DSSP 网站的 Web
+Server 可以指 认蛋白质结构文件，也就是 PDB
+文件中的二级结构，并创建出相应的 DSSP 文件。提交的 PDB
+文件可以是用实验方法刚刚解析出来，还没有提交 PDB
+数据库的蛋白质三级结构，也
+可以是用计算方法预测出来的蛋白质三级结构模型。总之，输入值必须是三级结构，而不是
+一级的氨基酸序列（PDB ID 必须是小写的）<br>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 138; 
+			flex-basis: 331px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId39.png" data-size="726x526">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId39.png"
+			width="726"
+			height="526"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId39_hu3bb5133e170c0eba1156a463ce5270e1_379205_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId39_hu3bb5133e170c0eba1156a463ce5270e1_379205_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h4 id="pdb获取">PDB获取</h4>
+<p>从 序列图形化部分可以看到二级结构对应在一级结构上的图形化表示</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 135; 
+			flex-basis: 324px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId43.png" data-size="732x541">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId43.png"
+			width="732"
+			height="541"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId43_hu7b28ae92ab8986c58497001838dab07e_270094_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId43_hu7b28ae92ab8986c58497001838dab07e_270094_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 124; 
+			flex-basis: 299px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId46.png" data-size="708x567">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId46.png"
+			width="708"
+			height="567"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId46_hubab6d2b83b344b211736b7b45f81b8e7_292115_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId46_hubab6d2b83b344b211736b7b45f81b8e7_292115_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>点击左侧的&quot;View Sequence &amp; DSSP
+Image&quot;可以获得直观的一级结构对二级结构的序列表示（图 2）。图 2 中的
+序列有两行，上面的一行是一级结构，下面的是二级结构。这个页面看上去很不错，序列
+10 个字母一间隔，50
+个字母一行，而且不同的二级结构还对应不同的字母颜色。但是在接
+下来的分析研究工作中，我们往往需要的是像氨基酸序列那样的 FASTA
+格式的二级结构序 列。非常遗憾的是， PDB 里没有现成的针对某一个蛋白质的
+FASTA 格式二级结构序列下载链接。&ldquo;Download FASTA File&quot;链接只能下载 FASTA
+格式的一级结构序列，也就是氨基酸序列<br>
+此外，PDB
+数据库中有一个叫做&quot;ss.txt&quot;的文件：<a class="link" href="http://www.rcsb.org/pdb/files/ss.txt.gz"  target="_blank" rel="noopener"
+    >http://www.rcsb.org/pdb/files/ss.txt.gz</a>
+(压缩文件 30.6M)。这个文件里面有 PDB 所有蛋白质结构的一级和二级结构的
+FASTA 格式 序列。</p>
+<p><a class="link" href="http://www.rcsb.org/pdb/files/ss.txt.gz"  target="_blank" rel="noopener"
+    >http://www.rcsb.org/pdb/files/ss.txt.gz</a></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 167; 
+			flex-basis: 402px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId50.png" data-size="836x499">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId50.png"
+			width="836"
+			height="499"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId50_hua3c0c3ee2967cededbd612da14fd146b_390076_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId50_hua3c0c3ee2967cededbd612da14fd146b_390076_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h4 id="软件预测">软件预测</h4>
+<p>但是，已知空间 结构的蛋白质在 PDB 数据库里毕竟只有 10
+万多个。然而，UniprotKB 数据库里却有几百万
+条蛋白质序列。也就是说，绝大多数蛋白质的空间结构还都未知。这些蛋白质的二级结构又
+如何知晓呢？这，就需要用计算机软件来预测蛋白质的二级结构。预测的结果和真实情况会
+有一定出入，究竟差多少，取决于预测软件的准确度。可以预测蛋白质二级结构的软件很多，
+而且都可以在线使用<br>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 229; 
+			flex-basis: 550px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId54.png" data-size="555x242">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId54.png"
+			width="555"
+			height="242"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId54_hu3694295aec4f0a6a70fb42c239852c59_35171_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId54_hu3694295aec4f0a6a70fb42c239852c59_35171_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+以 PSIPRED 为例，PSIPRED
+（<a class="link" href="http://bioinf.cs.ucl.ac.uk/psipred"  target="_blank" rel="noopener"
+    >http://bioinf.cs.ucl.ac.uk/psipred</a>）是一个蛋白质序列分析平台，它不仅可以预测二级结构，
+还有很多其他分析功能，比如预测三级结构</p>
+<p>选择第一个&quot;PSIPRED&quot;工具，即，预测蛋白
+质二级结构的工具。输入的氨基酸序列（见附件 psipred.fasta）在 PDB
+数据库中已有对应的 空间结构（PDB
+ID：3CIG），因此二级结构也是已知的。之所以输入这样一条序列，是为
+了将预测结构和真实结构进行比较，从而评估一下软件的预测准确度如何。预测一般需要
+30
+分钟。可在线等待结果，也可以查收结果邮件。需要注意的是，像大多数在线软件一样，
+PSIPRED 不支持免费的商业邮箱，比如 hotmail 或者 QQ
+邮箱等。此外，最好给预测任务起 个名字。最后，点击&quot;Predict&rdquo;。</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 132; 
+			flex-basis: 319px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId58.png" data-size="710x534">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId58.png"
+			width="710"
+			height="534"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId58_hu4dfe460212fce2b045939dc9d5e778fd_324271_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId58_hu4dfe460212fce2b045939dc9d5e778fd_324271_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>预测结果页面 Summary 标签下的内容所示，，粉红色的位置是α螺旋出现的位置，
+黄色的是β折片，没有底色的是松散的 coil
+结构。如果预测出有错乱的结构也会被标出。目
+前的二级结构预测软件，都只能预测出α螺旋和β折片，对其他不常见的二级结构单元并不进
+行预测</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 191; 
+			flex-basis: 459px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId61.png" data-size="559x292">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId61.png"
+			width="559"
+			height="292"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId61_hu9c0d0a7a95d37bc5c817bb39de0b2b12_130855_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId61_hu9c0d0a7a95d37bc5c817bb39de0b2b12_130855_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>结果页面中，PSIPRED 标签下有全面的结果描述。描述一共有四行，最下面是
+一级结构序列，往上是二级结构序列，再往上是二级结构图形化的描述，最上面的柱状图反
+应的是每个位置预测的可信度</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 137; 
+			flex-basis: 330px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId64.png" data-size="711x517">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId64.png"
+			width="711"
+			height="517"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId64_hu3bb16761a1f353d1bcf50a2f4a40e16a_256193_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId64_hu3bb16761a1f353d1bcf50a2f4a40e16a_256193_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+从结果页面的 Download
+标签下可以下载纯文本格式的结果文件。纯文本格式的结果更
+利于下一步分析加工<br>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 135; 
+			flex-basis: 325px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId67.png" data-size="713x525">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId67.png"
+			width="713"
+			height="525"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId67_hu63c82726f437f153de135162cc317276_312930_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId67_hu63c82726f437f153de135162cc317276_312930_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.295230752405949in&rdquo;}</p>
+<p>把 PSIPRED 预测结果和 DSSP 里的真实二级结构放在一起（图 6）。绿色的
+是预测结果，粉色的是真实结构。可以看到图 6
+中显示出的这部分结果里，绝大多数α螺旋和β折片，也就是 H 和
+E，都被正确的预测出来了，只有少数几个短的β折片没有被预测出
+来，准确度超过 90%</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 184; 
+			flex-basis: 443px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId70.png" data-size="528x286">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId70.png"
+			width="528"
+			height="286"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId70_hu3b78e2ba3fbad264426e6c2cee3d99ea_204946_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId70_hu3b78e2ba3fbad264426e6c2cee3d99ea_204946_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.1597222222222223in&rdquo;}</p>
+<h3 id="蛋白质的三级结构">蛋白质的三级结构</h3>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 158; 
+			flex-basis: 380px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId75.png" data-size="816x515">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId75.png"
+			width="816"
+			height="515"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId75_hudd5ec19780a910b5057637529a7d2787_358263_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId75_hudd5ec19780a910b5057637529a7d2787_358263_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.6815758967629044in&rdquo;}</p>
+<p>无法结晶的蛋白质，可以利用核磁共振法在
+液体环境中进行结构测定。但是核磁共振法只能用于质量小于 70
+千道尔顿的分子，大约对 应 200 个氨基酸的长度<br>
+除此之外，还有一些不太常用的方法也可以测定分子的三维空间结构，比如冷冻电子显微镜技术（Cyro-Electron
+Microscopy）。无论用什么方法测定的空间结构， 都要提交到 PDB
+数据库。所以我们获取蛋白质三级结构最直接的办法就是去 PDB 搜索<br>
+<a class="link" href="http://www.rcsb.org/"  target="_blank" rel="noopener"
+    >http://www.rcsb.org/</a><br>
+从 PDB 首页的搜索条里，可以通过搜索 PDB ID、分子名称、作者姓名等
+关键词来查找蛋白质三级结构<br>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 172; 
+			flex-basis: 413px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId79.png" data-size="857x497">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId79.png"
+			width="857"
+			height="497"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId79_hu97732127ee12abe82ed5c6a34acbb9e2_413824_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId79_hu97732127ee12abe82ed5c6a34acbb9e2_413824_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.382924321959755in&rdquo;}</p>
+<p>此外，利用高级搜索工具，可以通过序列相似性搜索获得与
+输入序列在序列水平上相似的蛋白质的三级结构。搜索方法选
+BLAST，输入序列（示 例文件：pdb_search.fasta），点击&quot;Result
+Count&quot;。此次搜索一共找到 108 个在序列水平上和
+输入序列相似的蛋白质。点击链接&quot;108 PDB Entities&quot;。</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 138; 
+			flex-basis: 331px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId82.png" data-size="719x521">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId82.png"
+			width="719"
+			height="521"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId82_hu8a3413714cd7c852226ee6261fefeb7c_255658_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId82_hu8a3413714cd7c852226ee6261fefeb7c_255658_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.22693460192476in&rdquo;}</p>
+<p>搜索结果中，排在第一位结构是人的 dUTPase 蛋白的三维结构，PDB ID 为
+2HQU。这个结构所对应的序列与输入序列中黄色片段之间的一致度是
+100%。输入的序列中蓝
+色区域是信号肽。信号肽在蛋白质到达亚细胞定位之后就被切掉了，所以解析的成熟蛋白质
+结构里不会有这一段。此外，成熟肽段 N
+端的一小部分，由于实验技术等原因，也没有被 解析出来，这在 PDB
+结构中是很常见的。有时，在序列中间也会有未解析出的断口。甚至
+有时，为了得到稳定的晶体状态，需要突变个别的氨基酸或者删除一截肽段。这些技术手段
+都会使得结构中的序列和蛋白质本身的序列有所差别<br>
+复习：PDB
+文件是通过记录蛋白质中每一个氨基酸上的每一个原子的三维坐标来存储
+空间结构信息的。这些原子坐标可以被三维可视化软件读取。三维可视化软件能够创建一个
+三维空间，然后根据原子坐标以及原子的大小把原子展示在空间内，并根据原子间的距离给
+它们连上化学键。这样一个立体的蛋白质结构就呈现在眼前了。</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 134; 
+			flex-basis: 322px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId85.png" data-size="701x522">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId85.png"
+			width="701"
+			height="522"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId85_hu1008d15122c23bd1b853fdfc56d073ea_427909_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId85_hu1008d15122c23bd1b853fdfc56d073ea_427909_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.343793744531934in&rdquo;}</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 164; 
+			flex-basis: 394px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId88.png" data-size="868x528">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId88.png"
+			width="868"
+			height="528"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId88_hu3f00c127a491573459b5136109bb3af1_451187_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId88_hu3f00c127a491573459b5136109bb3af1_451187_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.548386920384952in&rdquo;}</p>
+<h4 id="三级结构可视化软件vmd">三级结构可视化软件VMD</h4>
+<p>强 大 的 免 费蛋 白 质 三 维结 构可 视 化软 件， VMD
+（<a class="link" href="http://www.ks.uiuc.edu/Research/vmd"  target="_blank" rel="noopener"
+    >http://www.ks.uiuc.edu/Research/vmd</a>）；VMD 的安装也极其简单。不需
+要预装任何语言环境，完全图形化安装过程，绝对可以轻松搞定</p>
+<ul>
+<li>VMD 打开后， 会弹出三个窗口：VMD Main（主窗口），VMD
+Display（显示窗口），和命令窗口</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 197; 
+			flex-basis: 473px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId92.png" data-size="422x214">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId92.png"
+			width="422"
+			height="214"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId92_hubab2db5fa310d06572820400870eac6c_51993_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId92_hubab2db5fa310d06572820400870eac6c_51993_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;2.9581353893263342in&rdquo;}</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li>
+<p>打开一个蛋白质结构</p>
+<ul>
+<li>
+<p>主窗口中点 File -- New Molecule</p>
+</li>
+<li>
+<p>弹出新窗口 Molecule File Browser（文件读取窗口）</p>
+</li>
+<li>
+<p>文件读取窗口中点 Browse 自动打开 VMD 安装目录</p>
+</li>
+<li>
+<p>进入 proteins 文件夹</p>
+</li>
+<li>
+<p>选择 VMD 自带的演示结构 bpti.pdb文件读取窗口 中点 Load</p>
+</li>
+<li>
+<p>显示窗口出现蛋白质结构</p>
+</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 163; 
+			flex-basis: 391px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId95.png" data-size="519x318">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId95.png"
+			width="519"
+			height="318"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId95_huaf76047f367669fdaa4eaf9fe362e8c5_145656_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId95_huaf76047f367669fdaa4eaf9fe362e8c5_145656_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.5741808836395452in&rdquo;}</li>
+</ul>
+</li>
+<li>
+<p>VMD 读取了 PDB 文件中的原子坐标，把每一个原子以细线的形 式展示在 3D
+空间中。不 同的原子对应的细线颜 色不同；碳原子是青色
+的，氮原子是蓝色的， 氧原子是红色的，氢原 子是白色的，还有少量
+黄色的硫原子</p>
+</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 119; 
+			flex-basis: 287px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId98.png" data-size="403x337">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId98.png"
+			width="403"
+			height="337"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId98_huac0d6cd051135eee6ba9826d07e769d3_60471_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId98_huac0d6cd051135eee6ba9826d07e769d3_60471_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.597222222222222in&rdquo;
+height=&ldquo;4.680555555555555in&rdquo;}</li>
+</ul>
+<p>主窗口上的 Mouse 菜单里可以切换鼠标模式<br>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 300; 
+			flex-basis: 722px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId101.png" data-size="355x118">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId101.png"
+			width="355"
+			height="118"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId101_hu06c7d6a92864ce7b8adab2dc26ca6381_43662_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId101_hu06c7d6a92864ce7b8adab2dc26ca6381_43662_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;4.930555555555555in&rdquo;
+height=&ldquo;1.6388888888888888in&rdquo;}</p>
+<ul>
+<li>如何改变蛋白质结构的外观</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li>
+<p>有关外观的设置在主窗口中的 Graphic 菜单下的 Representation 窗
+口里（图 1）。一个
+Representation（显示状态）由三个元素构成。第一个元素是用什么
+样式（Style）显示，当前使用的样式是以细线显示原子（Lines）。第二个元素是用什么
+颜色（Color）显示，当前使用的颜色是按原子名定义的不同颜色（Name）。最后一个元素
+是要显示什么内容（Selection），当前显示的内容是所有原子（all）。这三个元素分别
+在 Representation 窗口里的 Draw style 标签下的 Drawing Method
+下拉条、 Coloring Method 下拉条和 Selected Atoms 输入框里进行设置</p>
+<ul>
+<li>
+<p>Drawing Method 下拉条：Lines 以细线显示原子。CPK 以不同大小的球
+来显示原子，原子间的连线是相应的化学键，比如碳与碳之间的共价键，硫与硫之间的二硫
+键等。NewCartoon
+只显示蛋白质的碳骨架（backbone），并形象的展示出不同的二级结
+构。每一种 Drawing Method 都可以再进一步设置显示效 果。比如对于
+CPK，可以调整原子球的大小（Sphere Scale）、
+改变化学键的粗细（Bond Radius）、以及设置更高或更低
+的分辨率（Sphere/Bond Resolution）</p>
+</li>
+<li>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 126; 
+			flex-basis: 303px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId104.png" data-size="453x358">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId104.png"
+			width="453"
+			height="358"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId104_huf1808fd4200ca47c2d07e3953b1c0992_163653_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId104_huf1808fd4200ca47c2d07e3953b1c0992_163653_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+</li>
+<li>
+<p>Coloring Method 下拉条，Name 颜色方案是一种原子一种颜色，常见的
+比如碳原子青色、氧原子红色、氮原子蓝色、硫原子黄色。在
+NewCartoon 显示样式下， 只有碳骨架被现实出来，再配以 Name
+颜色方案，整个结构都是青色的。Secondary Structure
+颜色方案可以为不同的二级结构赋予不同的颜色，常见的比如α螺旋紫色、β折
+片黄色、转角青色、松散 coil 结构白色。颜色方案 Res Type
+根据氨基酸类型的不同赋予
+不同的颜色，比如非极性氨基酸白色、极性带正电荷的氨基酸（碱性的氨基酸）蓝色、极性
+带负电荷的氨基酸（酸性的氨基酸）红色、极性不带电荷的氨基酸绿色。这种颜色方案适合
+在显示氨基酸侧链的 Drawing Method 下观看，比如 CPK
+样式。颜色方案 ResName 为 20 种氨基酸设置了 20 种不同的颜色</p>
+</li>
+<li>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 268; 
+			flex-basis: 643px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId107.png" data-size="464x173">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId107.png"
+			width="464"
+			height="173"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId107_hu6c19b8172a5233cfbf107a02d531721a_66114_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId107_hu6c19b8172a5233cfbf107a02d531721a_66114_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>    ```</p>
+</li>
+<li>
+<p>Selected Atoms 输入框：输入框里输入需要显示
+的内容，比如，写&quot;all&quot;代表显示所有原子，也就是整个
+蛋白质、写&quot;backbone&quot;代表显示碳骨架。输入框里允许
+输入的关键词和语法在 Selections 标签下有详细定义。
+可以写Singlewords里面单个的单词，也可以写Keyword 和 Value
+组成的词组，还可以利用逻辑词&quot;and/or/not&quot;
+把多个单词和词组串成句子</p>
+<ul>
+<li>
+<p>点击 Reset 清空输入框里的内容Keyword 里双 击 ResNameValue
+里双击 ALA（输入框里出现&quot;ResName ALA&quot;）点击
+Apply。显示名字为 Alanine 的氨基酸上的原
+子，即显示所有丙氨酸。配合Drawing Method设置为CPK， Coloring
+Method 设置为 ResName</p>
+</li>
+<li>
+<p>点击 Reset 清空输入框里的内容Keyword 里双 击 ResidValue
+里双击 1点击 Apply。显示第一个氨基 酸。利用这个 Keyword 和
+Value 组合可以根据残基的编号
+选择某个或某一段氨基酸，比如，想要显示第 1 到第 10 个氨
+基酸，可以直接在输入框里输入&quot;resid 1 to 10&quot;，回车。
+此时显示的就是前 10 个氨基酸</p>
+</li>
+<li>
+<p>Draw style 标签下，Drawing Method 设置为
+NewCartoon，Coloring Method 设置为 Secondary
+StructureSelections 标签下，点击 Reset 清空输入
+框里的内容Singlewords 里面双击 alpha_helix点 击&quot;or&quot;
+Singlewords 里面双击 beta_sheet（输入 框里出现&quot;alpha_helix
+or beta_sheet&quot;）点击 Apply。 通过逻辑词显示出所有的α helix
+和β sheet</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 34; 
+			flex-basis: 83px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId110.png" data-size="203x586">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId110.png"
+			width="203"
+			height="586"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId110_hu4410d1158662f8a81fc11b98622601b6_40219_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId110_hu4410d1158662f8a81fc11b98622601b6_40219_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;2.8194444444444446in&rdquo;
+height=&ldquo;8.13888888888889in&rdquo;}</p>
+<ul>
+<li>
+<p>设置多个 representations（简称 rep），也就是将多个显示状态的试试
+效果叠加在一起</p>
+<ul>
+<li>
+<p>设置第一个 rep：当前处于编辑状态下的 rep 背景色为浅绿色。设置
+Drawing Method 为 NewCartoon，Coloring Method 为 Secondary
+Structure，Selected Atoms 为&quot;all&quot;</p>
+</li>
+<li>
+<p>创建第二个 rep：点击 Create
+Rep。点击后，复制产生了和第一个一摸一样的第二 个
+rep。浅绿色背景自动跳转到第二个 rep，即目前第二个 rep
+处于可编辑状态。设置 Drawing Method 为 cpk，Coloring Method 为
+colorid，并选择选&quot;1 red&quot;（红色）， Selected Atoms 为&quot;resname
+PRO&quot;，回车</p>
+</li>
+<li>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 183; 
+			flex-basis: 440px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId113.png" data-size="558x304">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId113.png"
+			width="558"
+			height="304"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId113_hue8354ce8cca2dc75e646bc06cf54fe54_108546_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId113_hue8354ce8cca2dc75e646bc06cf54fe54_108546_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+</li>
+<li>
+<p>创建第三个 rep：点击 Create Rep；设置 Drawing Method 为
+Surface，Coloring Method 为 colorid，并选择选&quot;8
+white&quot;（白色），Selected Atoms
+为&quot;all&quot;，回车，此时，可以看到填满肉的蛋白质，也就是蛋白质的外表面</p>
+</li>
+<li>
+<p>继续设置 Coloring Method 右侧的 Material（材质）为
+Transparent（透明材质）。 如果显卡支持，可以打开 GLSL
+显示模式：主窗口中点 Display--Rendermode选中 GLSL。 GLSL
+打开后的 Transparent Surface 变得更加柔美了</p>
+</li>
+</ul>
+</li>
+<li>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 220; 
+			flex-basis: 529px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId116.png" data-size="642x291">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId116.png"
+			width="642"
+			height="291"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId116_hu4800ea7a5ba0d3c9105db2af487ddb6e_128485_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId116_hu4800ea7a5ba0d3c9105db2af487ddb6e_128485_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;2.644080271216098in&rdquo;}</p>
+<ul>
+<li>
+<p>可以双击某一个 rep，比如双击第三个
+rep，将其暂时隐藏，等需要的时候再双击它取消隐藏</p>
+</li>
+<li>
+<p>可 以 保 存 当 前 所 有 的
+representations（注意保存的是显示状态，而不是结构）：主窗口中点击
+File -- Save Visualization State -- 保存在桌面上，起名叫
+mystate.vmd。接下来关闭 VMD 再重 新打开。这次我们不需要 Load
+蛋白质结构，分别设置三个 rep，我们只需要直接载入刚刚保 存 的
+mystate.vmd， 即 可 恢 复 刚 刚 的 显 示 状 态 ： 主 窗 口 中 点
+击 File -- Load Visualization State -- 找到并打开
+mystate.vmd。这时，之前保存的显示状态就自 动显示出来了</p>
+</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 238; 
+			flex-basis: 572px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId119.png" data-size="603x253">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId119.png"
+			width="603"
+			height="253"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId119_hubd99c05e6d2b5308b28dda217fcdb717_126030_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId119_hubd99c05e6d2b5308b28dda217fcdb717_126030_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;2.447484689413823in&rdquo;}</li>
+</ul>
+</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li>调换背景颜色</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 339; 
+			flex-basis: 814px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId122.png" data-size="648x191">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId122.png"
+			width="648"
+			height="191"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId122_huffcf21b7ac40e2342e8b02a19d11486b_88229_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId122_huffcf21b7ac40e2342e8b02a19d11486b_88229_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;1.7193919510061242in&rdquo;}</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li>
+<p>显示Label</p>
+<ul>
+<li><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 257; 
+			flex-basis: 618px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId125.png" data-size="590x229">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId125.png"
+			width="590"
+			height="229"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId125_hu0a3805ba883cd0dc5d26abe9df490438_93612_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId125_hu0a3805ba883cd0dc5d26abe9df490438_93612_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;2.2641240157480316in&rdquo;}</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li></li>
+</ul>
+</li>
+</ul>
+<pre><code>```{=html}
+&lt;!-- --&gt;
+```
+-   把鼠标模式设置为 Lable 模式，让它标记原子。此时，鼠标 变为十字
+    。接下来在显示窗口中，要标记哪个原子就在哪里点一下。点击后出现文本显
+    示的氨基酸名字、氨基酸序号以及被点击的原子的名字
+</code></pre>
+<ul>
+<li>
+<p>调整 Lable</p>
+<ul>
+<li>改变字体颜色</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 259; 
+			flex-basis: 623px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId128.png" data-size="496x191">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId128.png"
+			width="496"
+			height="191"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId128_hub96380e41c6274d455b909c7358006ba_82275_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId128_hub96380e41c6274d455b909c7358006ba_82275_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;2.2463035870516186in&rdquo;}</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li>改变显示位置和内容：</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li>
+<p>主窗口中点击 GraphicsLables弹出 Lable 窗 口- - Properties
+标签下 -- 选中要调整的 Lable按住鼠标左键在 Offset 坐标系内移动
+来改变 Lable 的位置写入 Format 来改变 Lable 的内容。默认 Format
+为：%R（氨基
+酸名字）%d（氨基酸序号）:%a（原子名字）。比如，只想显示氨基酸名字和编号，删掉&quot;:%a&quot;
+这部分代表原子信息的代码即可</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 238; 
+			flex-basis: 571px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId131.png" data-size="486x204">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId131.png"
+			width="486"
+			height="204"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId131_hu499fdb10893f180fe7d50098b849d4f6_56358_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId131_hu499fdb10893f180fe7d50098b849d4f6_56358_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;2.448558617672791in&rdquo;}</p>
+</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li>改变字体大小/粗细</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 236; 
+			flex-basis: 568px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId134.png" data-size="481x203">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId134.png"
+			width="481"
+			height="203"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId134_hubf64f514700ef39e2d2b407654165d26_56667_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId134_hubf64f514700ef39e2d2b407654165d26_56667_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;2.461884295713036in&rdquo;}</li>
+</ul>
+</li>
+<li>
+<p>保存图片</p>
+</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li>可以用主窗口下的 File -- Render -- 弹出 File Render Controls
+窗口。File Render Controls 窗口里可以选择多种图片导 出方式</li>
+</ul>
+<h3 id="计算方法预测三级结构">计算方法预测三级结构</h3>
+<h4 id="常见的方法">常见的方法</h4>
+<p>预测蛋白质的三级结构，常用的方法有从头计算法（ab
+initio），同源建模法（homolog
+modeling），穿线法（threading）和综合法（ensemble
+method）。一般的蛋白质都能用这几种
+方法之一预测出三级结构，但也不排除特殊情况</p>
+<h4 id="同源建模法-swiss-model">同源建模法 SWISS-MODEL</h4>
+<p><a class="link" href="http://swissmodel.expasy.org"  target="_blank" rel="noopener"
+    >http://swissmodel.expasy.org</a><br>
+能帮助完成上述步骤中从模板选取到创建序列比对，再到计算模型，以及最后的质量评估
+的全部过程。你需要做的只是：输入目标序列，点 Build
+Model（创建模型），大约 三到五分钟之后就会返回结果<br>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 167; 
+			flex-basis: 402px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId141.png" data-size="929x554">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId141.png"
+			width="929"
+			height="554"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId141_hu086dcf8d8ab1c5fbb5bad73041cfbf55_297971_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId141_hu086dcf8d8ab1c5fbb5bad73041cfbf55_297971_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.478650481189851in&rdquo;}</p>
+<p>结果页面：<br>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 178; 
+			flex-basis: 429px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId144.png" data-size="1012x566">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId144.png"
+			width="1012"
+			height="566"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId144_hu2889e86364666e637e79cbbc20682d76_392107_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId144_hu2889e86364666e637e79cbbc20682d76_392107_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.262516404199475in&rdquo;}</p>
+<p>从结果页面里可以看到，SWISS-MODEL 挑选了 PDB ID 为 IFYV
+的结构作为模板，它 和我们输入的目标序列之间的一致度是 36.18%，大于
+30%，满足同源建模的基本条件。结
+果中还给出了目标序列和模板序列之间的序列比对。点击 中的下拉箭头，可
+以下载预测模型的 PDB
+文件。从序列比对和概览图上都可以看到，模板序列较目标序列短
+了一点，即，模板序列没有能覆盖目标序列两端的部分，所以模型两端的质量并不高，但是
+模型整体的质量按照 SWISS-MODEL 自己的评估是合格的。这一点可以通过 QMEAN
+打分 获知。</p>
+<p>如果目标序列与模板序列一致度极高，那么同源建模法是最准确的方法，如果
+一致度如果达到 30%，那么模型的准确度就可以达到
+80%，模型可以用于寻找功能位点以及 推测功能关系等。如果一致度达到
+50%，模型准确度就可以达到 95%，可以根据模型设计定
+点突变实验，甚至可以做晶体结构置换，也就是辅助完成真实结构的测定。如果一致度达到
+70%以上的话，我们基本就可以认为预测模型完全代表了真实结构，并可以用它进行虚拟筛
+选、分子对接、药物设计等结构功能研究</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 126; 
+			flex-basis: 302px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId147.png" data-size="507x402">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId147.png"
+			width="507"
+			height="402"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId147_hu5afc2457ab982520e6240fdd416f0ce8_201423_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId147_hu5afc2457ab982520e6240fdd416f0ce8_201423_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.625246062992126in&rdquo;}</p>
+<p>预测蛋白质三级结构的首选方法是同源建模法（homolog
+modeling），该方法基于原理：
+相似的氨基酸序列对应着相似的蛋白质结构。比如三个蛋白质，它们在序列水平上十分相似，
+解析出的结构也十分相似。第四个蛋白质的序列和前面三个也高度相似，那么就可以比着前
+三个结构的样子&quot;画&quot;出第四个的样子。所以同源建模法的关键就是找到一个好的模板。好
+的模板要求，在序列水平上模板（template）要与目标（target）蛋白质具有超过
+30%的一致 度。同源建模法操作流程如下</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 185; 
+			flex-basis: 445px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId150.png" data-size="470x253">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId150.png"
+			width="470"
+			height="253"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId150_hu3335b213ac215fc7ea48e945b6727b0e_65300_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId150_hu3335b213ac215fc7ea48e945b6727b0e_65300_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.1400699912510937in&rdquo;}</p>
+<ul>
+<li>确定模板</li>
+<li>找到与目标蛋白质同源的已知蛋白质结构作为模版（目标序列与模版序
+列间的一致度要≥30%）</li>
+<li>序列比对</li>
+<li>为目标序列与模板序列创建序列对比。模板可以选取多个，通过做多序
+列比对，各取所长，让模板序列中与目标序列相似的片段尽可能多的覆盖整个目标序列，同</li>
+<li>计算模型</li>
+<li>通过序列比对，将目标序列里的氨基酸替换到模板结构里对应的氨基酸
+所在的空间位置上。这一步通过同源建模软件来实现</li>
+<li>质量评估</li>
+<li>同源建模软件输出结构模型后还需要进行质量评估，并根据评估结果更
+换模板或修正序列比对，重新构建模型，再次评估。重复这个过程，直至模型质量合格为止</li>
+</ul>
+<p>但是，&ldquo;序列越相似，结构越相似&quot;也有例外情况，虽然这种情况极其罕见，但是我们的一个研究结果发现，两个蛋白质在序列水平上高度相似，但它们的晶体结构却告诉我们，两个蛋白质的结构并没有像序列比对里那样一一对应，完全一致，而是发生了一个字母的错位；这一个字母的错位导致二者最后一个折片的结束方向发生了
+60 度角的扭转，进而使得之后的 C
+端残基的空间位置发生了改变，并因此导致了两者功能的差异。这种情况
+下，如果我们按照传统同源建模法以其中一个为模板预测另一个的结构的话，是无法预测出
+正确的结果的。好在这种情况极其罕见，但既然存在，就需要敲响警钟，为这一传统方法的
+改进提出新的目标<br>
+虽然同源建模法是蛋白质三级结构预测的首选方法，但是对于那些找不到&quot;好&quot;模板的
+蛋白质，此方法并不适用<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 219; 
+			flex-basis: 526px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId153.png" data-size="963x439">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId153.png"
+			width="963"
+			height="439"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId153_hu9e9abb4fc8f8e7a26c6df5a4541eb480_367753_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId153_hu9e9abb4fc8f8e7a26c6df5a4541eb480_367753_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;2.6592246281714784in&rdquo;}</p>
+<h4 id="穿线法-i-tasser">穿线法 I-TASSER</h4>
+<h5 id="前言">前言</h5>
+<p>对于那些找不到合适模板（一致度大 于
+30%的模板）的蛋白质，此方法并不适用。这种情况下可以尝试穿线法（threading）。穿
+线法基于的原理是：不相似的氨基酸序列也可以对应着相似的蛋白质结构<br>
+而具有同一结构拓扑的蛋白质，序列水平上有相似的，也有不相似的</p>
+<p>看穿到哪个结构
+里最舒服，哪个结构就可以作为预测的模板，并根据最舒服的穿法，构建出最终模型。那怎
+么知道穿的舒服不舒服呢？通过能量方程。穿的舒服，能量就低，穿的不舒服，能量就高。
+这和我们穿衣服一样。穿上一件不合身的衣服，你肯定老在那扭啊扭的不得劲，这老动换能
+量就高啊！要是穿上件合身的，那就能待住不动了，这能量不就降下来了。穿线法就是通过
+计算目标序列穿到每一个已知结构中的每一种穿法下的能量，找到能量最低的那种穿法以及
+所穿的结构，然后把目标序列中的氨基酸替换到模板结构里来构建结构模型的，显然这种方法的计算量较同源建模法要大得多，因此预测需要耗费更久的时间</p>
+<h5 id="i-tasser-的介绍">I-TASSER 的介绍</h5>
+<p><a class="link" href="https://zhanggroup.org//I-TASSER/"  target="_blank" rel="noopener"
+    >https://zhanggroup.org//I-TASSER/</a></p>
+<p>这个预测系统在 CASP 第 7 到第 11 届蛋白质结构预测比赛 中都名列第一。CASP
+全称是蛋白质结构生物信息预测国际竞赛。两年一届。每次比赛，参
+与者们会对一组即将公开的结构进行预测。再将预测模型和真实结构进行比较，看谁预测的
+最准。咱们中国上海交大电子信息与电器工程学院的沈红斌教授的研究组在
+CASP11 中取得 了第三名。这是中国代表队截至目前取得的最好成绩</p>
+<h5 id="i-tasser的使用">I-TASSER的使用</h5>
+<p>张阳教授的 I-TASSER 可以在线提交预测任务（图
+3），不需要提前下载安装。提交氨基
+酸序列进行预测前需注册获得用户名密码，注册是完全免费的。再给任务起个名字。最后点
+Run I-TASSER<br>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 176; 
+			flex-basis: 423px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId160.png" data-size="975x552">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId160.png"
+			width="975"
+			height="552"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId160_hue48cc441a30778cbcce198f6dd975632_313736_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId160_hue48cc441a30778cbcce198f6dd975632_313736_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.3025634295713036in&rdquo;}</p>
+<p>通过点击 Queue
+链接，可以查看当前的所有任务进程，从图中的任务列表里可以看出，穿线法需要
+的时间确实比同源建模法多得多，提交的这条示例序列需要计算大约 35
+个小时。这里请注意，一个用户或一个 IP 地址一次只能提交一个任务<br>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 164; 
+			flex-basis: 394px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId163.png" data-size="946x575">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId163.png"
+			width="946"
+			height="575"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId163_huf93b8fb4c6ed87ccf25f8b9a4c7b5ec0_327645_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId163_huf93b8fb4c6ed87ccf25f8b9a4c7b5ec0_327645_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.5456299212598426in&rdquo;}</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 174; 
+			flex-basis: 419px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId166.png" data-size="1008x577">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId166.png"
+			width="1008"
+			height="577"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId166_hudd3ee603a548b7bb3f371d2f5850cffa_406431_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId166_hudd3ee603a548b7bb3f371d2f5850cffa_406431_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.3391196412948383in&rdquo;}</p>
+<p>此外，还可以通过搜索链接，搜索任务号找到任务，或者搜索账号找到账号下所有的任
+务，或者通过搜索序列查找<br>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 188; 
+			flex-basis: 451px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId169.png" data-size="1005x534">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId169.png"
+			width="1005"
+			height="534"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId169_hud9e22999c6325c350eeb23ae33ed470b_291875_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId169_hud9e22999c6325c350eeb23ae33ed470b_291875_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.099502405949256in&rdquo;}</p>
+<p>ITASSER 预测出了 5 个模型，点击任务号 以查看具体信息</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 236; 
+			flex-basis: 567px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId172.png" data-size="738x312">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId172.png"
+			width="738"
+			height="312"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId172_hu85f8d6929c96d85eed7ccd8c6bf2d275_140038_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId172_hu85f8d6929c96d85eed7ccd8c6bf2d275_140038_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;2.466124234470691in&rdquo;}</p>
+<p>I-TASSER 除 了预测出了三级 结构，同时还预测除了二级结构和残基 可溶性</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 190; 
+			flex-basis: 457px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId175.png" data-size="1005x527">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId175.png"
+			width="1005"
+			height="527"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId175_huc22c5324462505ceeae7a6a7b210873a_324411_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId175_huc22c5324462505ceeae7a6a7b210873a_324411_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.0588713910761154in&rdquo;}</p>
+<p>构建模型所 使用的模板及序列比对。 这些模板和序列别对不
+是通过序列相似性创建 的，而是用穿线法穿出 来的<br>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 425px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId178.png" data-size="1033x583">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId178.png"
+			width="1033"
+			height="583"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId178_hu46e2f7c518da9a18d8b026cadc1d11d8_563177_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId178_hu46e2f7c518da9a18d8b026cadc1d11d8_563177_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.2921905074365703in&rdquo;}</p>
+<p>ITASSER 给出了多个预测模型。这些模型根据 ITASSER 自带的质量评估系数
+C-score 排序。C-score 从负 5 到正 2，分值越高模型越可信。除了 C-Score，
+排名第一的模型还给出 了一个 TM-Score，这也是 评价模型质量的系数。
+TM-socre &gt;0.5 说明模型 具有正确的结构拓扑，可 信；&lt;0.17 说明模型属于
+随机模型，不可信。挑选 到合格的模型后，点击 download model 下载模型 的
+PDB 文件</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 183; 
+			flex-basis: 440px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId181.png" data-size="1046x570">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId181.png"
+			width="1046"
+			height="570"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId181_huf5421ddb3fcd01b6d50314a0263e9384_608849_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId181_huf5421ddb3fcd01b6d50314a0263e9384_608849_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.1787762467191603in&rdquo;}</p>
+<p>此外，I-TASSER 还为预测了该蛋白质的功能，它把排名第一的模型和 PDB 中
+的结构进行了比较，把跟模型最相似的 PDB
+结构找了出来。这样就可以通过这些已知结构 的功能他推测模型的功能了</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 184; 
+			flex-basis: 442px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId184.png" data-size="1026x556">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId184.png"
+			width="1026"
+			height="556"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId184_hu2261d24350ea76b01cc82afcec879bde_523061_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId184_hu2261d24350ea76b01cc82afcec879bde_523061_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.161142825896763in&rdquo;}</p>
+<p>I-TASSER
+还预测出了模型可能结合的配体以及具体的配体结合位点。并给出了可能的功能<br>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 182; 
+			flex-basis: 438px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId187.png" data-size="1035x566">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId187.png"
+			width="1035"
+			height="566"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId187_hu6e845ddbf1b4379409ff645be2bb4ce5_450043_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId187_hu6e845ddbf1b4379409ff645be2bb4ce5_450043_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.1900153105861766in&rdquo;}</p>
+<h4 id="从头计算法quark">从头计算法QUARK</h4>
+<p>但是也有一些特殊的蛋白，穿线 法也解决不了。这种蛋白质，尽管可以用
+ITASSER 做出模型，但如果看一下模型的质量评
+估系数，都不合格。这时我们就得采取其他方法。可以尝试从头计算法（ab
+initio）<br>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 207; 
+			flex-basis: 498px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId192.png" data-size="990x477">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId192.png"
+			width="990"
+			height="477"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId192_hu78d667428f2c9707344a5b388e4a9d0c_271455_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId192_hu78d667428f2c9707344a5b388e4a9d0c_271455_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;2.810605861767279in&rdquo;}</p>
+<p>也就说，当 一个蛋白质被翻译出来之后，它上面的
+氨基酸排列顺序就已经决定了这个蛋白 质长什么样子。一个蛋白子所应该具有
+的天然模样就是它的氨基酸序列所能摆出的自由能最低的
+pose，因为能量低意味着稳定和持
+久。所以从头计算法会模拟肽段在三维空间内所有可能的存在姿态，并计算每一个姿态下的
+自由能，最终给出自由能最低的那个姿态作为预测结果</p>
+<h5 id="quark的介绍">QUARK的介绍</h5>
+<p><a class="link" href="https://zhanggroup.org/QUARK/"  target="_blank" rel="noopener"
+    >https://zhanggroup.org/QUARK/</a></p>
+<p>注意，QUARK 只能为长度在 200 个氨基酸以内的蛋白质预测结
+构。输入序列和用户信息。QUARK 需要单独注册，ITASSER
+的账号在这里不通用。QUARK 需要很长的计算时间，大约需要 2
+天以上才能计算出结果<br>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 181; 
+			flex-basis: 436px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId196.png" data-size="1029x566">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId196.png"
+			width="1029"
+			height="566"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId196_hu72994092dc6e78c4f15f704f4b554d56_521472_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId196_hu72994092dc6e78c4f15f704f4b554d56_521472_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.208616579177603in&rdquo;}</p>
+<p>结果页面里，QUARK 会给出排名前十的预测模型，根据每个模型的 TM-score
+可以查 看模型是否合格可用</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 136; 
+			flex-basis: 328px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId199.png" data-size="743x543">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId199.png"
+			width="743"
+			height="543"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId199_hud39f2e22d201bf31c7b07a09d5670eb9_238724_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId199_hud39f2e22d201bf31c7b07a09d5670eb9_238724_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.2631222659667545in&rdquo;}</p>
+<h4 id="综合法robetta">综合法ROBETTA</h4>
+<p><a class="link" href="http://robetta.bakerlab.org/"  target="_blank" rel="noopener"
+    >http://robetta.bakerlab.org/</a></p>
+<p>综合法（ensemble method）。
+综合法综合了前三种方法，将氨基酸序列分段，情况不同的片段采用不同的方法预测;ROBETTA
+是一款使用综合预测三级结构的软件，它综合了同源建模法和从头计算法两
+种方法。能找到模板的区域用同源建模法，找不到的区域用从头计算法<br>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 192; 
+			flex-basis: 460px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId205.png" data-size="941x490">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId205.png"
+			width="941"
+			height="490"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId205_huce03d508c744cfa13b8ea30482a07527_341021_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId205_huce03d508c744cfa13b8ea30482a07527_341021_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.0375481189851268in&rdquo;}</p>
+<p>ROBETTA
+需要的等待的时间是四种方法里最长的，首先任务要排队，至少要排两个小
+时。排队排上之后，还要等几个小时，才会出现分析页面。分析页面里，输入的氨基酸序列
+被分成了几段，比如前两段适合用从头计算法预测，后两段适合用同源建模法预测。
+之后，点击分段链接，逐段进行预测。每一段的预测时间都不短。同源建模法预测的，需要
+几个小时到几天的时间，从头计算法预测的，需要几天到几周的时间，这取决于目标序列的
+预测&quot;难易&quot;程度</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 173; 
+			flex-basis: 416px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId208.png" data-size="953x549">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId208.png"
+			width="953"
+			height="549"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId208_huda47a46bd4091956a44340b4f90abe58_336194_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId208_huda47a46bd4091956a44340b4f90abe58_336194_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.3604396325459316in&rdquo;}</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 178; 
+			flex-basis: 428px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId211.png" data-size="990x555">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId211.png"
+			width="990"
+			height="555"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId211_hu16468c80359c049efb0ac64b0d40fb1d_417351_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId211_hu16468c80359c049efb0ac64b0d40fb1d_417351_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.270201224846894in&rdquo;}</p>
+<h4 id="到底用谁">到底用谁</h4>
+<p>要预测一个蛋白质的三级结构，首先看能不能 找到一致度大于等于
+30%的模板，如果能，用 Swiss-model，又快又准。如果不能，再看能 否舒用
+I-TASSER
+预测出合格的模型。如果能，搞定。如果不能，再看氨基酸序列的长度是 否小于
+200，如果小于 200，用 QUARK。如果大于 200，用 ROBETTA！如果，ROBETTA
+也做不出质量合格的模型，那说明蛋白质太特殊了，现有的软件都不适用。</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 198; 
+			flex-basis: 475px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId215.png" data-size="1002x506">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId215.png"
+			width="1002"
+			height="506"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId215_hud68ada88e8ad8088a6eec0848cca30eb_251320_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId215_hud68ada88e8ad8088a6eec0848cca30eb_251320_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;2.945774278215223in&rdquo;}</p>
+<h3 id="模型质量评估">模型质量评估</h3>
+<p>模型质量评估软件并不比较预
+测模型跟真实结构之间的差别大小，而是从空间几何学、立体化学和能量分布三方面评估一
+个模型的自身合理性<br>
+大多数预测软件都自带模型质量评估系数，比如 I-TASSER 有
+C-score，Swiss-Model 有 QMEAN score，QUARK 有 TM-score
+等；这些系数可以一定程度上反应模型的质量，
+但不能完全反应。至少要有三个评估体系都认为模型可靠，模型才真的可靠。这就需要借助
+第三方的评估软件<br>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 169; 
+			flex-basis: 406px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId220.png" data-size="950x561">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId220.png"
+			width="950"
+			height="561"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId220_hu51fe0af99cc613846afc9d2dc4715111_449409_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId220_hu51fe0af99cc613846afc9d2dc4715111_449409_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.4447364391951005in&rdquo;}</p>
+<h5 id="saves">SAVES</h5>
+<p><a class="link" href="https://saves.mbi.ucla.edu/"  target="_blank" rel="noopener"
+    >https://saves.mbi.ucla.edu/</a></p>
+<p>Verify3D 会根据模型质量，返回一个 3D-1Dscore。只有超过 80%的残基拥有大
+于 0.2 的 3D/1D score，才能被认为是质量合格的模型。从 3D-1Dscore
+分布图上可以查看，
+模型中哪些位置分值比较低，然后针对这些低质量区域进一步修正<br>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 168; 
+			flex-basis: 405px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId224.png" data-size="947x561">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId224.png"
+			width="947"
+			height="561"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId224_hube2dd6be482209bf36e93edda95b8551_312793_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId224_hube2dd6be482209bf36e93edda95b8551_312793_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.455648512685914in&rdquo;}</p>
+<p>PROCHECK 可以做出模型结构的拉氏图。拉氏图检查 Cα的两面角是否合理。
+合格的模型超过
+90%的残基都应该位于红色的允许区域和正黄色的额外允许区域内。落到其
+他区域的残基应当被查看并修正</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 171; 
+			flex-basis: 411px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId227.png" data-size="1001x584">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId227.png"
+			width="1001"
+			height="584"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId227_hu64c6b3aaae571905dd7ae11a32e4101b_407282_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId227_hu64c6b3aaae571905dd7ae11a32e4101b_407282_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.40326334208224in&rdquo;}</p>
+<h5 id="proq">ProQ</h5>
+<p><a class="link" href="https://www.sbc.su.se/"  target="_blank" rel="noopener"
+    >https://www.sbc.su.se/</a><br>
+它的 评估结果十分明确，LGscore 和 MaxSub
+两个值所处范围直接对应模型的好坏<br>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 144; 
+			flex-basis: 347px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId232.png" data-size="845x584">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId232.png"
+			width="845"
+			height="584"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId232_hufccc8893724b2584584662ccf10d6e30_296388_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId232_hufccc8893724b2584584662ccf10d6e30_296388_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.0315573053368325in&rdquo;}</p>
+<h5 id="modfold">ModFOLD</h5>
+<p><a class="link" href="https://www.reading.ac.uk/bioinf/ModFOLD/ModFOLD8_form.html"  target="_blank" rel="noopener"
+    >https://www.reading.ac.uk/bioinf/ModFOLD/ModFOLD8_form.html</a><br>
+ModFOLD 通过 P-value，给出模型的可信度,但是 ModFOLD
+较其他几种方法，评估需要较长的时间。其他的都是立等可取，ModFold 需
+要半个小时。而且一个 email 地址一次只能提交一个任务.<br>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 183; 
+			flex-basis: 441px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId237.png" data-size="1028x559">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId237.png"
+			width="1028"
+			height="559"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId237_hufb418b6af6b7676ffd4f3b57f9247fe3_421062_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId237_hufb418b6af6b7676ffd4f3b57f9247fe3_421062_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.172016622922135in&rdquo;}</p>
+<h3 id="三级结构的比对">三级结构的比对</h3>
+<p>蛋白质三级结构的比对不同于序列比对，它是针对蛋白质三维空间结构的相似性进行比
+较，是蛋白质结构分析的重要手段之一。结构比对可用于探索蛋白质进化及同源关系、改进
+序列比对的精度、改进蛋白质结构预测工具、为蛋白质结构分类提供依据，以及帮助了解蛋
+白质功能等。结构比对的结果可以用很多种参数来衡量，最常用的是 root mean
+squared deviations (RMSD)。如果两个结构的 RMSD 为 0
+埃，那么就认为它们结构一致，可以完全重 合。一般来说，RMSD 小于 3
+埃时，认为两个结构相似</p>
+<h4 id="superpose叠合">SuperPose叠合</h4>
+<p>SuperPose
+是一款在线蛋白质结构叠合软件（<a class="link" href="http://wishart.biology.ualberta.ca/SuperPose/"  target="_blank" rel="noopener"
+    >http://wishart.biology.ualberta.ca/SuperPose/</a>），
+可以将两个结构比对在一起，并给出两者之间的 RMSD。以课程附件中的 A.pdb 和
+B.pdb 为 例，分别上传，提交</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 179; 
+			flex-basis: 431px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId243.png" data-size="527x293">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId243.png"
+			width="527"
+			height="293"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId243_hue10867c5c9bcf98c93045b7c0eafdf19_153567_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId243_hue10867c5c9bcf98c93045b7c0eafdf19_153567_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.2431999125109363in&rdquo;}</p>
+<p>结果页面里，3D 可视插件需要 java 支持。弹出窗口问是否加载所有模型，选择
+yes。3D 窗口里可以看到红绿两个蛋白，即蛋白 A 和蛋白
+B，被叠合在一起了。蛋白 A 和蛋 白 B
+整体的结构还是比较相似的，但局部仍有差异。点击 RMSD Report
+可以查看两者间具 体的 RMSD 值<br>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 149; 
+			flex-basis: 357px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId246.png" data-size="617x414">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId246.png"
+			width="617"
+			height="414"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId246_hua51c0a35b08753cc06e348b017cad93e_133018_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId246_hua51c0a35b08753cc06e348b017cad93e_133018_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.914099956255468in&rdquo;}</p>
+<p>RMSD Report 显示，如果考虑所有原子的话，整体结构两者间的 RMSD 是 5.55
+埃，如果只考虑碳骨架的话，整体结构两者间的 RMSD 是 5.08 埃。通过 RMSD
+值，我们可 以认为这两个蛋白质结构比较相似，但不是特别相似</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 187; 
+			flex-basis: 450px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId249.png" data-size="649x346">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId249.png"
+			width="649"
+			height="346"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId249_hub2364e042e3fc57b23436a2e28560b00_181515_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId249_hub2364e042e3fc57b23436a2e28560b00_181515_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.109912510936133in&rdquo;}</p>
+<p>在叠合的结果中，蛋白 B 没有移动位置，只有蛋白 A
+移动了位置。所以只需要把移动 后的蛋白 A 的 PDB
+文件保存下来，再与原始的蛋白 B 的 PDB 文件同时用可视软件，比如
+VMD，打开，就可以进一步分析叠合后的结果了</p>
+<h4 id="spdbv选择叠合">SPDBV选择叠合</h4>
+<p>SPDBV 是一款拥有强大结构分析功能的绿色软件，无需安装，下载后直接运行即可
+（<a class="link" href="http://spdbv.vital-it.ch/"  target="_blank" rel="noopener"
+    >http://spdbv.vital-it.ch/</a>）</p>
+<p>SDPBV 有分子查看器的功能，也是一个蛋白质同源建模
+平台，同时它还能为两个结构进行整体智能叠合，或者进行选择性叠合。课程附件中的
+C.pdb 和 D.pdb 这两个蛋白除了一个 loop
+区域结构不同之外，其他区域的结构都是完全相同的。
+如果我们想要把相同的结构分毫不差的叠合起来，以看清楚不同区域的差别的话，就需要用
+到选择性叠合</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 178; 
+			flex-basis: 429px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId254.png" data-size="594x332">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId254.png"
+			width="594"
+			height="332"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId254_hub2436857292f7826d8332633beef75cd_119518_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId254_hub2436857292f7826d8332633beef75cd_119518_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.2603805774278216in&rdquo;}</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 181; 
+			flex-basis: 434px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId257.png" data-size="654x361">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId257.png"
+			width="654"
+			height="361"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId257_hu553fd7bf2831ea4deee8bf6dd0af6505_91694_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId257_hu553fd7bf2831ea4deee8bf6dd0af6505_91694_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.2199278215223095in&rdquo;}</p>
+<p>两个蛋白叠合在一起了，但是 Magic Fit 考虑的是整体结构，所以 CD
+两个蛋白中完全 相同的结构部分并没有被严丝合缝的重合在一起<br>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 264; 
+			flex-basis: 633px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId260.png" data-size="697x264">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId260.png"
+			width="697"
+			height="264"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId260_hubfb92925afb6de888395bc772021d936_132211_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId260_hubfb92925afb6de888395bc772021d936_132211_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;2.209468503937008in&rdquo;}</p>
+<p>尝试选择性叠合：<br>
+首先需要选中参与叠合的氨基酸，也就是结构完全相同的这部分氨基酸（图
+2）。结构 不同的这块不参与叠合的过程，但是会随着叠合同步移动<br>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 142; 
+			flex-basis: 341px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId263.png" data-size="697x490">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId263.png"
+			width="697"
+			height="490"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId263_hua8ca5f58a2626e6cebc034ba0e14b03e_164524_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId263_hua8ca5f58a2626e6cebc034ba0e14b03e_164524_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.10090769903762in&rdquo;}</p>
+<h3 id="蛋白质分子表面性质">蛋白质分子表面性质</h3>
+<h4 id="vmd创建psf文件">VMD创建PSF文件</h4>
+<p>蛋白质分子表面性质是蛋白质结构的重要研究内容之一，对了解蛋白质的功能至关重要。
+蛋白质的表面性质包括表面性状、表面电荷分布、表面残基可溶性等。表面性状可以用
+VMD 的 Surface 这种 Representation
+表示，电荷分布和可溶性分布同样也可以用 VMD 计算并标识 出来<br>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 82; 
+			flex-basis: 198px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId268.png" data-size="559x675">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId268.png"
+			width="559"
+			height="675"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId268_hu8420d4773dd9a004b217b9cca0629f73_180649_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId268_hu8420d4773dd9a004b217b9cca0629f73_180649_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;7.043827646544182in&rdquo;}</p>
+<h4 id="apbs计算表面电荷分布">APBS计算表面电荷分布</h4>
+<ul>
+<li>1.载入PDB文件</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 383; 
+			flex-basis: 921px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId272.png" data-size="572x149">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId272.png"
+			width="572"
+			height="149"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId272_hu4dc2f902a0aa3a515b99d844f2b64aa3_29913_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId272_hu4dc2f902a0aa3a515b99d844f2b64aa3_29913_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;1.5195220909886265in&rdquo;}</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li>2.载入 PSF 文件</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 114; 
+			flex-basis: 274px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId275.png" data-size="657x574">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId275.png"
+			width="657"
+			height="574"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId275_hu7cdcfbe3a38bc91167cfabb9fc0c1696_153695_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId275_hu7cdcfbe3a38bc91167cfabb9fc0c1696_153695_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;5.096397637795276in&rdquo;}</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li>3.设置 APBS 插件</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 97; 
+			flex-basis: 234px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId278.png" data-size="596x611">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId278.png"
+			width="596"
+			height="611"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId278_hudeb8553476551a24b37837c8dd50c9b7_147945_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId278_hudeb8553476551a24b37837c8dd50c9b7_147945_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;5.980144356955381in&rdquo;}</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li>4.计算电荷分布</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 307; 
+			flex-basis: 737px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId281.png" data-size="581x189">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId281.png"
+			width="581"
+			height="189"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId281_hu5c1b44c661c75c78dc53878ff0a87b9a_72356_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId281_hu5c1b44c661c75c78dc53878ff0a87b9a_72356_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;1.8975896762904636in&rdquo;}</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li>5.查看计算后新生成文件</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 264; 
+			flex-basis: 634px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId284.png" data-size="600x227">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId284.png"
+			width="600"
+			height="227"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId284_hu1fb3af2d11f96e2a273f1f4e791f17da_82799_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId284_hu1fb3af2d11f96e2a273f1f4e791f17da_82799_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;2.2069433508311462in&rdquo;}</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li>6.加载文件</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 128; 
+			flex-basis: 309px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId287.png" data-size="583x452">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId287.png"
+			width="583"
+			height="452"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId287_hu9414c41b9f3d7c6a6c10c93781f8c863_102440_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId287_hu9414c41b9f3d7c6a6c10c93781f8c863_102440_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.5225842082239724in&rdquo;}</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li>7.显示电荷分布</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 780; 
+			flex-basis: 1872px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId290.png" data-size="554x71">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId290.png"
+			width="554"
+			height="71"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId290_hu99b679f7a93b843d0021aefd1cf2418a_14507_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId290_hu99b679f7a93b843d0021aefd1cf2418a_14507_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;0.7475929571303587in&rdquo;}</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 82; 
+			flex-basis: 196px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId293.png" data-size="609x742">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId293.png"
+			width="609"
+			height="742"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId293_hu1a0b3064b1561621cdfd1984bd512c30_217567_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId293_hu1a0b3064b1561621cdfd1984bd512c30_217567_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;7.107279090113736in&rdquo;}</p>
+</li>
+</ul>
+<h3 id="蛋白质四级结构">蛋白质四级结构</h3>
+<p>蛋白质四级结构是独立的三级结构单元聚集形成的复合物，其中每个独立三级结构称为
+亚基，也称为单体（monomer）。含两个亚基的蛋白质称为二聚体（dimer），比如图中
+Toll 样受体 3 的两个单体聚集在一起形成二聚体识别病原双链 RNA
+的结构。再有比如血红蛋白
+的四聚体结构（tetramer）和热休克蛋白的六聚体结构（hexamer）</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 373; 
+			flex-basis: 895px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId298.png" data-size="567x152">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId298.png"
+			width="567"
+			height="152"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId298_hu294f36946989080b037d49e5e0350378_111427_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId298_hu294f36946989080b037d49e5e0350378_111427_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;1.5637849956255467in&rdquo;}</p>
+<p>如果蛋白质三级结构异常聚集，形成了不该形成的四级结构，就会导致疾病的发生。比
+如诱发神经系统退行性病变的淀粉样蛋白 A
+蛋白，是蛋白质序列相同但四级结构不
+同而诱发疾病的典型代表。阿尔茨海默症在发生过程中会出现 A 蛋白。A
+蛋白是由特殊水 解酶对其前体蛋白的水解作用产生的。A
+蛋白有两种构象，一种为螺旋且可溶，存在于健康 的个体脑组织中，这类 A
+蛋白为单体没有四级结构。另一种构象为片层，且是多个 A 蛋白
+聚集形成的链间片层，这类 A
+蛋白不溶，并且出现在阿尔茨海默症患者的脑组织中。诱发 A
+蛋白从可溶螺旋转变成不溶片层聚集体的机制目前尚不清楚，但已被广泛证实，这种构象的
+转变是阿尔茨海默症的重要诱因</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 262; 
+			flex-basis: 629px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId301.png" data-size="425x162">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId301.png"
+			width="425"
+			height="162"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId301_hu0b8d70da96fa8d9c081e7702f630f054_77922_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId301_hu0b8d70da96fa8d9c081e7702f630f054_77922_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;2.2235290901137357in&rdquo;}</p>
+<p>在研究蛋白质结构功能时，可通过实验方法获得它们的四级结构。实验方法主
+要是采用 X
+射线衍射法。这种方法可以获得复合体的真实结构，但是技术难度较大，主要
+是因为复合体很难获取并成功结晶。此外还有冷冻电子显微镜技术，但这种方法不能像
+X
+射线衍射法像那样获得精准的真实结构。它只能捕获类似影子的外形轮廓，之后，再根据已
+有的同源蛋白质晶体结构对影子中的单体进行同源建模，再把模型嵌入到影子里，以此建出
+复合体的模型</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 242; 
+			flex-basis: 582px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId304.png" data-size="561x231">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId304.png"
+			width="561"
+			height="231"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId304_hub45e502c6c42df1c556c48ff2b1d03fc_123493_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId304_hub45e502c6c42df1c556c48ff2b1d03fc_123493_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;2.4019597550306213in&rdquo;}</p>
+<p>目前通过试验方法获得的四级结构都可以从 PDB
+数据库中找到。此外，还有专门的蛋 白质相互作用关系数据库。比如，DIP
+数据库，专门用于存储实验方法测定的蛋白 质之间的相互作用。BioGRID
+数据库主要收集模式生物物种中涉及的蛋白质间相互作用。 STRING
+数据库除了实验方法测定的蛋白质间相互作用外，还储存已发表的用计算方法预测
+的蛋白质间相互作用</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 246; 
+			flex-basis: 591px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId307.png" data-size="557x226">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId307.png"
+			width="557"
+			height="226"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId307_huce8b719bc82546001f0e05a997322834_124394_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId307_huce8b719bc82546001f0e05a997322834_124394_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;2.366846019247594in&rdquo;}</p>
+<h3 id="蛋白质-蛋白质分子对接">蛋白质-蛋白质分子对接</h3>
+<p>除了实验方法和从数据库中获取，还可以通过计算机预测蛋白质的四级结构。这种预测
+技术叫分子对接（molecule docking）<br>
+Docking 一词原意指船停泊进船坞，在生物信息学领域 docking
+是指一个分子结合到另一个分子上。目前有很多做分子对接的软件，这些软
+件的基本思路都是尝试分子间所有可能的结合方式，并根据结合后能量的高低给每种结合方
+式打分、排名。分子结合后，能量越低说明这种结合方式越稳定。软件在对接的过程中会考
+虑以下因素：1）形状互补，2）亲疏水性，3）表面电荷分布</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 201; 
+			flex-basis: 482px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId311.png" data-size="366x182">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId311.png"
+			width="366"
+			height="182"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId311_hu9e8c6362a7be2006ebd5d08e926b4912_57129_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId311_hu9e8c6362a7be2006ebd5d08e926b4912_57129_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.083333333333333in&rdquo;
+height=&ldquo;2.5277777777777777in&rdquo;}分子对接分为蛋白质和蛋白质之间的分子对接以及蛋白质和小分子之间的分子对接。蛋
+白质和蛋白质之间的分子对接又分为两种不同的方法，即刚性对接（Rigid
+Docking）和柔性 对接（Flexible
+Docking)。刚性对接是指对接过程中蛋白质是硬的，外形不可变，柔性对接
+则反之。刚性对接实际上是一种近似计算。因为蛋白质在机体环境中是软的，他的表面是在
+微小移动中保持着动态平衡。但是要在对接过程中考虑到这个实际情况则需要庞大的计算量，
+所以能够模拟蛋白质真实状态的柔性对接软件非常少，且都是收费的软件。目前可用的大多
+数免费软件都是刚性对接软件</p>
+<p>蛋白质和蛋白质之间的刚性对接软件常用的有
+ZDOCK（<a class="link" href="http://zdock.umassmed.edu/"  target="_blank" rel="noopener"
+    >http://zdock.umassmed.edu/</a>） 和
+GRAMM-X（<a class="link" href="http://vakser.bioinformatics.ku.edu/resources/gramm/grammx"  target="_blank" rel="noopener"
+    >http://vakser.bioinformatics.ku.edu/resources/gramm/grammx</a>），这两个都是免
+费的刚性对接软件。HadDock（<a class="link" href="http://haddock.chem.uu.nl/"  target="_blank" rel="noopener"
+    >http://haddock.chem.uu.nl/</a>）可以做蛋白质局部柔性对接，但
+需要和开发者联系以获取免费的使用权限。这些软件的输出值都是根据能量高低排序的多个
+对接模型，能量低者排名靠前。至于选取哪个模型作为最终结果需要综合考虑各种因素，并非一定选取排名第一的模型。下面以
+ZDOCK 为例，来演示蛋白质-蛋白质间的刚性对接。 ZDOCK
+是一个全自动的在线对接工具</p>
+<h4 id="常用对接软件zdock">常用对接软件ZDOCK</h4>
+<ul>
+<li>第一步，上传要对接的两个蛋白质结构： ZdockA.pdb 和
+ZdockB.pdb（见富文
+本中的附件）。接下来输入邮箱。注意邮箱必须输入，否则无法提交。对接需要大约
+30 分钟， 完成结果链接会发送至填写的邮箱。最后的点击提交</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 209; 
+			flex-basis: 501px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId317.png" data-size="550x263">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId317.png"
+			width="550"
+			height="263"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId317_hud8c784f9522a37e0ed7b564d9346832d_119389_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId317_hud8c784f9522a37e0ed7b564d9346832d_119389_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;2.7893930446194224in&rdquo;}</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li>第二步，选择或者排除残基参与蛋白质相互作用。比如，从发表文献中已知
+732 号赖氨酸是参与蛋白质相互作用的重要氨基酸，此时则需要在&quot;Select
+Binding Site Residues&rdquo; 窗口里选中 732 号氨基酸。点击提交BePISA</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 212; 
+			flex-basis: 510px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId320.png" data-size="542x255">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId320.png"
+			width="542"
+			height="255"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId320_hud52e5479836315d49e80e277f19c11fa_119254_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId320_hud52e5479836315d49e80e277f19c11fa_119254_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;2.7444641294838146in&rdquo;}</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li>第三步，确认选择无误后，点
+ok。半小时后你的结果会显示在页面下方提供的网址中</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 202; 
+			flex-basis: 485px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId323.png" data-size="538x266">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId323.png"
+			width="538"
+			height="266"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId323_hu5ec6100245cdc3ae31539039d496739c_125648_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId323_hu5ec6100245cdc3ae31539039d496739c_125648_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;2.8841382327209097in&rdquo;}</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li>对接结果中，ZdockA.pdb，也就是 receptor
+的位置没有改变，ZdockB.pdb，也就 是 ligand 产生了 500
+个可能的对接状态，点&quot;Top 10 Predictions&quot;可下载排名前十的对接结
+果。或者从输入框里输入数字以选择下载排名第几的对接结果。如果要下载更多或者全部
+500 个，需要运行页面上的 JAVA 插件。一个对接结果模型对应一个 PDB
+文件，每个 PDB 文件里都包含两条链，分别对应 receptor 和
+ligand。综合考虑了各种因素之后，我们最终挑
+选了排名第一的对接模型。接下来就可以对这个预测出来的复合体结构进行各种分析了</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 201; 
+			flex-basis: 483px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId326.png" data-size="564x280">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId326.png"
+			width="564"
+			height="280"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId326_hu725786b3df00ab3f00037de937b4615b_172655_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId326_hu725786b3df00ab3f00037de937b4615b_172655_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;2.895980971128609in&rdquo;}</li>
+</ul>
+<h3 id="蛋白质-小分子分子对接">蛋白质-小分子分子对接</h3>
+<h4 id="autodock">AutoDock</h4>
+<h4 id="相互作用面分析-pdbepisa">相互作用面分析 PDBePISA</h4>
+<p>用 ZDOCK
+软件预测出两个蛋白质最有可能的结合方式之后，还需要对预测的对接结
+果进行进一步分析。PDBePISA（<a class="link" href="http://www.ebi.ac.uk/pdbe/pisa/"  target="_blank" rel="noopener"
+    >http://www.ebi.ac.uk/pdbe/pisa/</a>）能够在线分析蛋白质复合
+体中的相互作用面</p>
+<ul>
+<li>1.打开 PDBePISA 主页，点击&quot;Launch PDBePisa&quot;，启动在线分析网页</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 207; 
+			flex-basis: 499px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId333.png" data-size="653x314">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId333.png"
+			width="653"
+			height="314"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId333_hua3a4b08bc4891cecbf7665920af31c6d_152723_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId333_hua3a4b08bc4891cecbf7665920af31c6d_152723_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;2.805002187226597in&rdquo;}</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li>2.输入网页上上，可以输入 PDBID
+查看现有复合体结构的相互作用面，也可以点 &ldquo;Coordinate
+file&rdquo;，上传本地的复合体结构。本地的复合体结构既可以是下载到本地的
+PDB 数据库里的结构，也可以是通过预测软件，如
+ZDOCK，预测出的结构。点击&quot;选择文件&quot;，
+选取课程附件中的&quot;complex.pdb&quot;，即上一节课 ZDOCK
+预测结果中，排名第一的复合体结
+构。选取正确文件后，点击&quot;Upload&quot;上传文件</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 181; 
+			flex-basis: 436px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId336.png" data-size="649x357">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId336.png"
+			width="649"
+			height="357"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId336_hu198e35140b32a172e4d723b7ef6ad867_217700_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId336_hu198e35140b32a172e4d723b7ef6ad867_217700_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.2087817147856517in&rdquo;}</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li>3.上传成功后，点击&quot;Interfaces&quot;查看相互作用面情况</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 151; 
+			flex-basis: 362px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId339.png" data-size="633x419">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId339.png"
+			width="633"
+			height="419"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId339_hu7a1eacc8b42844b81380e649991b84d1_189089_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId339_hu7a1eacc8b42844b81380e649991b84d1_189089_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.8612423447069117in&rdquo;}</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li>4.接合面列表（Interface
+List）里可以查看到蛋白质相互作用面的面积大小（Interface Area， A
+2），以及该种对接方式下的自由能高低（ΔiG
+kcal/mol）。自由能越低，说明结构越稳定。通
+常小于零的自由能才对应一个有意义的对接结果。如果自由能比较高，说明对接软件没有找
+到合适的对接状态，这可能是软件的预测能力所限，但更可能是这两个蛋白质在天然环境中
+不擅长结合在一起，或蛋白质三级结构有误。如要查看具体的结合位点，点击&quot;Details&quot;来
+查看更多信息</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 196; 
+			flex-basis: 471px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId342.png" data-size="670x341">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId342.png"
+			width="670"
+			height="341"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId342_hub81d038cbe035afa10ea7c885d115e00_133205_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId342_hub81d038cbe035afa10ea7c885d115e00_133205_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;2.968905293088364in&rdquo;}</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li>5.&ldquo;interfacing
+residues&quot;列表里给出了以下信息：（1）两个蛋白质中所有参与相互作用
+的残基，（2）这些残疾参与的化学键，比如氢键（H）、盐键（S）、二硫键（D）和共价键（C），
+（3）这些残基埋入相互作用面中的面积比，竖线越多，说明埋入的面积所占比率越大。从
+表中得知，732 号赖氨酸参与了相互作用并形成氢键。从氢键列表（Hydrogen
+Bonds）中可
+以查看相互作用面上形成的所有氢键，以及形成氢键的原子和化学键的键长。如果有其他化
+学键形成的话，也会有相应的列表出现</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 184; 
+			flex-basis: 442px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId345.png" data-size="647x351">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId345.png"
+			width="647"
+			height="351"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId345_hu0ac9f33d0451fd0c9452e2d7596abf98_258310_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId345_hu0ac9f33d0451fd0c9452e2d7596abf98_258310_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.1646052055993in&rdquo;}</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li>6.页面上还提供了 Jmol 插件，以图形化显示出相互作用面和作用面上的残基</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 226; 
+			flex-basis: 542px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId348.png" data-size="649x287">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId348.png"
+			width="649"
+			height="287"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId348_hu78f816bc986c8452536b7e359f30a1c1_172879_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId348_hu78f816bc986c8452536b7e359f30a1c1_172879_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;2.5796095800524936in&rdquo;}</li>
+</ul>
+<h3 id="虚拟筛选-和反向对接">虚拟筛选 和反向对接</h3>
+<h4 id="虚拟筛选的概念virtual-screening-vs">虚拟筛选的概念（Virtual screening VS）</h4>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 163; 
+			flex-basis: 391px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId353.png" data-size="918x563">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId353.png"
+			width="918"
+			height="563"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId353_huc42a139f786da7b0729ed5ac6dd00a41_264373_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId353_huc42a139f786da7b0729ed5ac6dd00a41_264373_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.577522965879265in&rdquo;}</p>
+<p>说白就是使用计算机预测出哪些小分子与蛋白质结合最后，再买来这些小分子做实验验证</p>
+<h4 id="zinc">ZINC</h4>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 163; 
+			flex-basis: 393px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId357.png" data-size="874x533">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId357.png"
+			width="874"
+			height="533"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId357_hue108b30812cd3da0c19702a585aa269f_471644_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId357_hue108b30812cd3da0c19702a585aa269f_471644_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.5573982939632547in&rdquo;}</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 174; 
+			flex-basis: 418px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId360.png" data-size="914x524">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId360.png"
+			width="914"
+			height="524"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId360_hu227f4643ceab798d26c5ace499c85e56_393830_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId360_hu227f4643ceab798d26c5ace499c85e56_393830_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.3442738407699037in&rdquo;}</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 190; 
+			flex-basis: 458px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId363.png" data-size="911x477">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId363.png"
+			width="911"
+			height="477"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId363_huc9d4eaf7540fbfcb134ef3d9115c3eae_273077_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId363_huc9d4eaf7540fbfcb134ef3d9115c3eae_273077_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.0543350831146108in&rdquo;}</p>
+<h4 id="zinc的使用例子">ZINC的使用例子</h4>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 175; 
+			flex-basis: 421px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId367.png" data-size="921x524">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId367.png"
+			width="921"
+			height="524"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId367_hucfd19e3438a8561a8467c041beb99810_427806_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId367_hucfd19e3438a8561a8467c041beb99810_427806_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.318856080489939in&rdquo;}</p>
+<p>比如说我想知道某个蛋白除了能和苯甲酸结合外，还想知道还能和哪些结合；比如给出的结果文件中会含有全部的小分子配体，就是说结果是全部放在一起的，所以需要去写个程序分离出来<br>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 180; 
+			flex-basis: 432px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId370.png" data-size="972x540">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId370.png"
+			width="972"
+			height="540"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId370_hu7180d33ac71ce8ff3d2cd4679f2481ff_272616_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId370_hu7180d33ac71ce8ff3d2cd4679f2481ff_272616_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.2407403762029747in&rdquo;}</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 165; 
+			flex-basis: 397px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId373.png" data-size="884x534">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId373.png"
+			width="884"
+			height="534"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId373_hue61b357db3a7df4d9bb5f04f1903971c_230491_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId373_hue61b357db3a7df4d9bb5f04f1903971c_230491_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.5237554680664918in&rdquo;}</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 192; 
+			flex-basis: 462px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId376.png" data-size="950x493">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId376.png"
+			width="950"
+			height="493"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId376_huba091eabd2e310982923c45c0248aed0_468973_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId376_huba091eabd2e310982923c45c0248aed0_468973_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.0271926946631673in&rdquo;}</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 164; 
+			flex-basis: 393px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId379.png" data-size="904x551">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId379.png"
+			width="904"
+			height="551"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId379_hu51cb0233994f472de542d969d3261f7a_551772_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId379_hu51cb0233994f472de542d969d3261f7a_551772_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.55549321959755in&rdquo;}</p>
+<h4 id="autodock-vina可以进行虚拟筛选">autodock vina可以进行虚拟筛选</h4>
+<p>看官方的教程</p>
+<h4 id="反向对接-target-fishing">反向对接 (Target Fishing)</h4>
+<h5 id="基本介绍">基本介绍</h5>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 172; 
+			flex-basis: 413px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId384.png" data-size="945x548">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId384.png"
+			width="945"
+			height="548"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId384_hub598aa44cb082dbf7dfa600defc55a92_277595_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId384_hub598aa44cb082dbf7dfa600defc55a92_277595_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.3827154418197725in&rdquo;}</p>
+<h5 id="靶标数据库scpdb">靶标数据库scPDB</h5>
+<p>是画好了grid box的数据库</p>
+<p><a class="link" href="http://bioinfo-pharma.u-strasbg.fr/scPDB/"  target="_blank" rel="noopener"
+    >http://bioinfo-pharma.u-strasbg.fr/scPDB/</a></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 175; 
+			flex-basis: 421px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId389.png" data-size="890x507">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId389.png"
+			width="890"
+			height="507"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId389_hud77099cc951310da0290425625307157_273517_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId389_hud77099cc951310da0290425625307157_273517_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.3230336832895886in&rdquo;}</p>
+<h3 id="分子动力学模拟">分子动力学模拟</h3>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 181; 
+			flex-basis: 435px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId395.png" data-size="888x489">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId395.png"
+			width="888"
+			height="489"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId395_hu3082683438605e1f8d2a94d4fee3f171_341322_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId395_hu3082683438605e1f8d2a94d4fee3f171_341322_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.2122747156605422in&rdquo;}</p>
+<p>NAMD<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 166; 
+			flex-basis: 398px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId398.png" data-size="901x542">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId398.png"
+			width="901"
+			height="542"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId398_huc527525f67574bfe1e56e75eef462b5f_511852_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId398_huc527525f67574bfe1e56e75eef462b5f_511852_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.5090638670166228in&rdquo;}</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 171; 
+			flex-basis: 412px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId401.png" data-size="913x531">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId401.png"
+			width="913"
+			height="531"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId401_hufb765c23b60abbae3852953161061fdb_556702_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId401_hufb765c23b60abbae3852953161061fdb_556702_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.392660761154856in&rdquo;}</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 170; 
+			flex-basis: 408px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId404.png" data-size="922x542">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId404.png"
+			width="922"
+			height="542"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId404_hua1db040ac337917ac4e913a487931c74_395223_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/media/rId404_hua1db040ac337917ac4e913a487931c74_395223_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.4291393263342083in&rdquo;}</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/tutorials/">tutorials</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2022 - 
+        
+        2023 叶宇浩随记博客
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.5.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">Table of contents</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#蛋白质的结构">蛋白质的结构</a>
+      <ol>
+        <li><a href="#蛋白质的二级结构">蛋白质的二级结构</a>
+          <ol>
+            <li><a href="#dssp指认">DSSP指认</a></li>
+            <li><a href="#pdb获取">PDB获取</a></li>
+            <li><a href="#软件预测">软件预测</a></li>
+          </ol>
+        </li>
+        <li><a href="#蛋白质的三级结构">蛋白质的三级结构</a>
+          <ol>
+            <li><a href="#三级结构可视化软件vmd">三级结构可视化软件VMD</a></li>
+          </ol>
+        </li>
+        <li><a href="#计算方法预测三级结构">计算方法预测三级结构</a>
+          <ol>
+            <li><a href="#常见的方法">常见的方法</a></li>
+            <li><a href="#同源建模法-swiss-model">同源建模法 SWISS-MODEL</a></li>
+            <li><a href="#穿线法-i-tasser">穿线法 I-TASSER</a></li>
+            <li><a href="#从头计算法quark">从头计算法QUARK</a></li>
+            <li><a href="#综合法robetta">综合法ROBETTA</a></li>
+            <li><a href="#到底用谁">到底用谁</a></li>
+          </ol>
+        </li>
+        <li><a href="#模型质量评估">模型质量评估</a>
+          <ol>
+            <li></li>
+          </ol>
+        </li>
+        <li><a href="#三级结构的比对">三级结构的比对</a>
+          <ol>
+            <li><a href="#superpose叠合">SuperPose叠合</a></li>
+            <li><a href="#spdbv选择叠合">SPDBV选择叠合</a></li>
+          </ol>
+        </li>
+        <li><a href="#蛋白质分子表面性质">蛋白质分子表面性质</a>
+          <ol>
+            <li><a href="#vmd创建psf文件">VMD创建PSF文件</a></li>
+            <li><a href="#apbs计算表面电荷分布">APBS计算表面电荷分布</a></li>
+          </ol>
+        </li>
+        <li><a href="#蛋白质四级结构">蛋白质四级结构</a></li>
+        <li><a href="#蛋白质-蛋白质分子对接">蛋白质-蛋白质分子对接</a>
+          <ol>
+            <li><a href="#常用对接软件zdock">常用对接软件ZDOCK</a></li>
+          </ol>
+        </li>
+        <li><a href="#蛋白质-小分子分子对接">蛋白质-小分子分子对接</a>
+          <ol>
+            <li><a href="#autodock">AutoDock</a></li>
+            <li><a href="#相互作用面分析-pdbepisa">相互作用面分析 PDBePISA</a></li>
+          </ol>
+        </li>
+        <li><a href="#虚拟筛选-和反向对接">虚拟筛选 和反向对接</a>
+          <ol>
+            <li><a href="#虚拟筛选的概念virtual-screening-vs">虚拟筛选的概念（Virtual screening VS）</a></li>
+            <li><a href="#zinc">ZINC</a></li>
+            <li><a href="#zinc的使用例子">ZINC的使用例子</a></li>
+            <li><a href="#autodock-vina可以进行虚拟筛选">autodock vina可以进行虚拟筛选</a></li>
+            <li><a href="#反向对接-target-fishing">反向对接 (Target Fishing)</a></li>
+          </ol>
+        </li>
+        <li><a href="#分子动力学模拟">分子动力学模拟</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

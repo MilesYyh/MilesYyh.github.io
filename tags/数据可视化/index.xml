@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>数据可视化 on 叶宇浩随记博客</title>
+    <link>https://example.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/</link>
+    <description>Recent content in 数据可视化 on 叶宇浩随记博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 24 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://example.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>阿里云_ML_02_数据探索</title>
+      <link>https://example.com/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/</link>
+      <pubDate>Sat, 24 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/</guid>
+      <description>这个post是自己去跟着阿里云天池上的机器学习的一个案例跟着敲了一遍代码，并且加了自己的理解，放到这里来随时回顾
+读取数据 import pandas as pd import numpy as np import matplotlib.pyplot as plt import warnings warnings.filterwarnings(&amp;#34;ignore&amp;#34;) import seaborn as sns #scipy 是一个统计学习的库 from scipy import stats train_data = pd.read_csv(&amp;#34;./zhengqi_train.txt&amp;#34;,sep=&amp;#34;\t&amp;#34;,encoding=&amp;#34;utf-8&amp;#34;) test_data = pd.read_csv(&amp;#34;./zhengqi_test.txt&amp;#34;,sep=&amp;#34;\t&amp;#34;,encoding=&amp;#34;utf-8&amp;#34;) 查看训练集特征变量信息 train_data.head() result: code:
+train_data.info result 此训练集数据共有2888个样本，数据中有V0-V37共计38个特征变量，变量类型都为数值类型，所有数据特征没有缺失值数据； 数据字段由于采用了脱敏处理，删除了特征数据的具体含义；target字段为标签变量
+code:
+test_data.info result: 测试集数据共有1925个样本，数据中有V0-V37共计38个特征变量，变量类型都为数值类型
+查看数据统计信息 train_data.describe() result: code:
+test_data.describe() result: 上面数据显示了数据的统计信息，例如样本数，数据的均值mean，标准差std，最小值，最大值等
+查看数据字段信息 code:
+train_data.head() result: 上面显示训练集前5条数据的基本信息，可以看到数据都是浮点型数据，数据都是数值型连续型特征
+code:
+test_data.head() result: 画箱形图探索数据 code:
+#指定绘图对象的宽和高 fig = plt.figure(figsize=(4,8)) # orient：&amp;#34;v&amp;#34;|&amp;#34;h&amp;#34; 用于控制图像使水平还是竖直显示 sns.</description>
+    </item>
+    
+    <item>
+      <title>阿里云_ML_03_特征工程</title>
+      <link>https://example.com/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/</link>
+      <pubDate>Sat, 24 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/</guid>
+      <description>这个post是自己去跟着阿里云天池上的机器学习的一个案例跟着敲了一遍代码，并且加了自己的理解，放到这里来随时回顾
+import pandas as pd import numpy as np import matplotlib.pyplot as plt import seaborn as sns import warnings warnings.filterwarnings(&amp;#34;ignore&amp;#34;) #从scipy中导入stats统计函数 from scipy import stats plt.rcParams[&amp;#34;font.sans-serif&amp;#34;] = &amp;#34;SimHei&amp;#34; plt.rcParams[&amp;#34;axes.unicode_minus&amp;#34;] = False train_data = pd.read_csv(&amp;#34;./zhengqi_train.txt&amp;#34;,sep=&amp;#34;\t&amp;#34;,encoding=&amp;#34;utf-8&amp;#34;) test_data = pd.read_csv(&amp;#34;./zhengqi_test.txt&amp;#34;,sep=&amp;#34;\t&amp;#34;,encoding=&amp;#34;utf-8&amp;#34;) train_data.describe() result: 异常值分析 plt.figure(figsize=(18,10)) #x传入的每一列的特征值（数值），labels传入的是每个特征值的名字即列名 就是图中的x轴的名字 plt.boxplot(x=train_data.values,labels=train_data.columns) plt.hlines([7.5,-7.5],0,40,colors=&amp;#34;r&amp;#34;) plt.show() result: 删除异常值 train_data = train_data[train_data[&amp;#34;V9&amp;#34;]&amp;gt;-7.5] train_data.describe() result: code:
+train_data.head() result: 最大最小值归一化 code:
+from sklearn import preprocessing feature_columns = [col for col in train_data.columns if col not in [&amp;#34;target&amp;#34;]] #注意MinScaler传入的是每一列的数据 min_max_scaler = preprocessing.</description>
+    </item>
+    
+    <item>
+      <title>阿里云_ML_04_模型训练</title>
+      <link>https://example.com/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_04_%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83/</link>
+      <pubDate>Sat, 24 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_04_%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83/</guid>
+      <description>这个post是自己去跟着阿里云天池上的机器学习的一个案例跟着敲了一遍代码，并且加了自己的理解，放到这里来随时回顾
+import pandas as pd import numpy as np import matplotlib.pyplot as plt import seaborn as sns import warnings warnings.filterwarnings(&amp;#34;ignore&amp;#34;) from scipy import stats %matplotlib inline 读取数据 train_data = pd.read_csv(&amp;#34;./zhengqi_train.txt&amp;#34;,sep=&amp;#34;\t&amp;#34;,encoding=&amp;#34;utf-8&amp;#34;) test_data = pd.read_csv(&amp;#34;./zhengqi_test.txt&amp;#34;,sep=&amp;#34;\t&amp;#34;,encoding=&amp;#34;utf-8&amp;#34;) train_data.describe() result: 异常值分析 其实就是画给box图看离散的点
+plt.figure(figsize=(18,10)) plt.boxplot(x=train_data.values,labels=train_data.columns) plt.hlines([-7.5,7.5],0,40,colors=&amp;#34;Blue&amp;#34;) plt.show() result: 删除异常值 train_data = train_data[train_data[&amp;#34;V9&amp;#34;]&amp;gt;-7.5] train_data.describe() result: code:
+test_data.describe() result: 最大值最小值归一化处理 from sklearn import preprocessing features_columns = [col for col in train_data.columns if col not in [&amp;#34;target&amp;#34;]] min_max_scaler = preprocessing.</description>
+    </item>
+    
+    <item>
+      <title>阿里云_ML_05_模型验证</title>
+      <link>https://example.com/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_05_%E6%A8%A1%E5%9E%8B%E9%AA%8C%E8%AF%81/</link>
+      <pubDate>Sat, 24 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_05_%E6%A8%A1%E5%9E%8B%E9%AA%8C%E8%AF%81/</guid>
+      <description>这个post是自己去跟着阿里云天池上的机器学习的一个案例跟着敲了一遍代码，并且加了自己的理解，放到这里来随时回顾
+过拟合与欠拟合的问题 获取并绘制数据集 import numpy as np import matplotlib.pyplot as plt import pandas as pd np.random.seed(22) x = np.random.uniform(-3.0,3.0,size=100) X = x.reshape(-1,1)#-1表示系统自动计算行 #np.random.normal()产生正态分布的数 y = 0.5 * x**2 + x + 2 + np.random.normal(0,1,size=100) plt.scatter(x,y) plt.show() result: 使用线性回归拟合数据 from sklearn.linear_model import LinearRegression lin_reg = LinearRegression() lin_reg.fit(X,y) lin_reg.score(X,y)#score返回的是准确率 result:
+0.4340452690750729 准确率为 0.434，比较低，直线拟合数据的程度较低
+使用均方误差判断拟合程度 from sklearn.metrics import mean_squared_error y_predict = lin_reg.predict(X) mean_squared_error(y_predict,y) result:
+2.7365298290204287 绘制拟合效果 plt.scatter(x,y) plt.plot(np.sort(x),y_predict[np.argsort(x)],color=&amp;#34;red&amp;#34;) plt.show() result: 使用多项式回归拟合:
+封装Pipeline管道 #Pipeline封装算法流 from sklearn.</description>
+    </item>
+    
+    <item>
+      <title>sns.boxplot()简单用法</title>
+      <link>https://example.com/p/sns.boxplot%E7%AE%80%E5%8D%95%E7%94%A8%E6%B3%95/</link>
+      <pubDate>Thu, 12 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/sns.boxplot%E7%AE%80%E5%8D%95%E7%94%A8%E6%B3%95/</guid>
+      <description>第一个学的python的包就是matplotlib，特地整理了去年的学习笔记
+箱形图（Box-plot）：
+又称为盒须图、盒式图或箱线图，是一种用作显示一组数据分散情况资料的统计图。它能显示出一组数据的最大值、最小值、中位数及上下四分位数
+参数如下：
+seaborn.boxplot(x=None, y=None, hue=None, data=None, order=None, hue_order=None, orient=None, color=None, palette=None, saturation=0.75, width=0.8, dodge=True, fliersize=5, linewidth=None, whis=1.5, notch=False, ax=None, **kwargs)
+x，y：dataframe中的列名（str）或者矢量数据
+data：dataframe或者数组
+hue（str）：dataframe的列名，按照列名中的值分类形成分类的条形图
+palette：调色板，控制图像的色调
+order, hue_order (lists of strings)：用于控制条形图的顺序
+orient：“v”|“h” 用于控制图像使水平还是竖直显示（这通常是从输入变量的dtype推断出来的，此参数一般当不传入x、y，只传入data的时候使用）
+fliersize：float，用于指示离群值观察的标记大小
+whis： 确定离群值的上下界（IQR超过低和高四分位数的比例），此范围之外的点将被识别为异常值。IQR指的是上下四分位的差值。
+width： float，控制箱型图的宽度
+箱型图的作用：
+1.直观明了地识别数据批中的异常值 其实箱线图判断异常值的标准以四分位数和四分位距为基础，四分位数具有一定的耐抗性，多达25%的数据可以变得任意远而不会很大地扰动四分位数，所以异常值不会影响箱形图的数据形状，箱线图识别异常值的结果比较客观。由此可见，箱型图在识别异常值方面有一定的优越性。
+2.利用箱型图判断数据批的偏态和尾重 对于标准正态分布的样本，只有极少值为异常值。异常值越多说明尾部越重，自由度越小（即自由变动的量的个数）；而偏态表示偏离程度，异常值集中在较小值一侧，则分布呈左偏态；异常值集中在较大值一侧，则分布呈右偏态。 code:
+#使用iris数据集作为例子 import numpy as np import pandas as pd import seaborn as sns import matplotlib.pyplot as plt import warnings warnings.filterwarnings(&amp;#34;ignore&amp;#34;) from sklearn.datasets import load_iris plt.rcParams[&amp;#34;font.sans-serif&amp;#34;] = &amp;#34;SimHei&amp;#34; data = pd.</description>
+    </item>
+    
+    <item>
+      <title>sns.kdeplot()核密度估计图</title>
+      <link>https://example.com/p/sns.kdeplot%E6%A0%B8%E5%AF%86%E5%BA%A6%E4%BC%B0%E8%AE%A1%E5%9B%BE/</link>
+      <pubDate>Thu, 12 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/sns.kdeplot%E6%A0%B8%E5%AF%86%E5%BA%A6%E4%BC%B0%E8%AE%A1%E5%9B%BE/</guid>
+      <description> 第一个学的python的包就是matplotlib，特地整理了去年的学习笔记
+核密度估计是概率论上用来估计未知的密度函数，属于非参数检验，通过核密度估计图可以比较直观的看出样本数据本身的分布特征
+参数如下： sns.kdeplot(data,data2=None,shade=False,vertical=False,kernel=&amp;lsquo;gau&amp;rsquo;,bw=&amp;lsquo;scott&amp;rsquo;,gridsize=100,cut=3,clip=None,legend=True,cumulative=False,shade_lowest=True,cbar=False, cbar_ax=None, cbar_kws=None, ax=None, *kwargs)
+主要用来绘制特征变量y值的分布，看看数据符合哪种分布 用的地方不多，了解为主，不需要深入研究
+code
+import numpy as np import matplotlib.pyplot as plt import seaborn as sns import pandas as pd sns.set() x = np.random.randn(100) plt.plot(x)#这样是无法看出分布 sns.kdeplot(x) result code:
+#cumulative ：是否绘制累积分布 sns.kdeplot(x,cumulative=True) result: code:
+#shade：若为True，则在kde曲线下面的区域中进行阴影处理，color控制曲线及阴影的颜色 sns.kdeplot(x,shade=True,color=&amp;#34;g&amp;#34;) result: vertical：表示以X轴进行绘制还是以Y轴进行绘制
+code:
+#y轴画图 import warnings warnings.filterwarnings(&amp;#34;ignore&amp;#34;) sns.kdeplot(x,vertical=True) result: 二元kde图像，很少使用，稍微了解一下即可
+code:
+#x,y y = np.random.randn(100) sns.kdeplot(x,y) code:
+#cbar:参数位True，则会添加一个颜色棒（颜色棒在二元kde图像中才有） sns.kdeplot(x,y,shade=True,cbar=True) </description>
+    </item>
+    
+    <item>
+      <title>sns.regplot()的用法</title>
+      <link>https://example.com/p/sns.regplot%E7%9A%84%E7%94%A8%E6%B3%95/</link>
+      <pubDate>Thu, 12 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/sns.regplot%E7%9A%84%E7%94%A8%E6%B3%95/</guid>
+      <description>第一个学的python的包就是matplotlib，特地整理了去年的学习笔记
+sns.regplot()：绘图数据和线性回归模型拟合
+参数 seaborn.regplot(x, y, data=None, x_estimator=None, x_bins=None, x_ci=&amp;lsquo;ci&amp;rsquo;, scatter=True, fit_reg=True, ci=95, n_boot=1000, units=None, order=1, logistic=False, lowess=False, robust=False, logx=False, x_partial=None, y_partial=None, truncate=False, dropna=True, x_jitter=None, y_jitter=None, label=None, color=None, marker=&amp;lsquo;o&amp;rsquo;, scatter_kws=None, line_kws=None, ax=None)
+参数说明
+x,y：就是x,y轴的值
+data：x,y所属的df
+x_estimator：将此函数应用于x的每个唯一值并绘制结果估计值。当x是离散变量时，这很有用。如果给定x_ci，则此估计值将自举并绘制置信区间
+x_bins：将x分成多少段
+code:
+#使用定义为numpy数组的两个变量绘制；使用不同的颜色 import numpy as np import seaborn as sns mean,cov = [4,6],[(1.5,.7),(.7,1)] x,y = np.random.multivariate_normal(mean,cov,88).T sns.regplot(x=x,y=y,color=&amp;#34;g&amp;#34;) result: code:
+#使用pd.Series的两个变量绘制；使用不同的标记 import pandas as pd x,y = pd.Series(x,name=&amp;#34;x_var&amp;#34;),pd.Series(y,name=&amp;#34;y_var&amp;#34;) sns.regplot(x=x,y=y,marker=&amp;#34;+&amp;#34;) result: code:
+#使用68%的置信区间，这与估计的标准误差相对应: sns.regplot(x,y,ci=68) result: code:</description>
+    </item>
+    
+    <item>
+      <title>stats.proplot(QQ图）</title>
+      <link>https://example.com/p/stats.proplotqq%E5%9B%BE/</link>
+      <pubDate>Thu, 12 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/stats.proplotqq%E5%9B%BE/</guid>
+      <description>第一个学的python的包就是matplotlib，特地整理了去年的学习笔记
+这是一种检验样本数据概率分布(例如正态分布)的方法。 使用方法如下：
+code:
+import matplotlib.pyplot as plt from scipy import stats fig = plt.figure() res = stats.probplot(train[&amp;#34;SalePrice&amp;#34;], plot=plt) #默认检测是正态分布 plt.show() ![](picture/stats.proplot(QQ图）.png)
+红色线条表示正态分布，蓝色线条表示样本数据，蓝色越接近红色参考线，说明越符合预期分布（这是是正态分布）
+q-q 图是通过比较数据和正态分布的分位数是否相等来判断数据是不是符合正态分布</description>
+    </item>
+    
+    <item>
+      <title>pseaborn.heatmap绘制热图</title>
+      <link>https://example.com/p/pseaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE/</link>
+      <pubDate>Wed, 11 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/pseaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE/</guid>
+      <description>第一个学的python的包就是matplotlib，特地整理了去年的学习笔记
+code：
+import numpy as np import seaborn as sns import matplotlib.pyplot as plt #随机创建10行12列的数组，定义一个子图宽高为9和6，应用到热力图中 np.random.seed(22) sns.set() uniform_data = np.random.randn(10,12) f,ax = plt.subplots(figsize=(16,10)) ax = sns.heatmap(uniform_data) plt.show() result: code:
+#现在在上图的基础上改变一下色彩图的上下界 ax = sns.heatmap(uniform_data,vmin=0,vmax=1) #和上图对比就会发现色彩图的上下界更明确了 result: 使用发散色图绘制以0为中心的数据的热力图 这里使用的是np.random.randn()函数，和上面的np.random.rand()函数不一样的。因为这个函数可以返回一个或一组服从标准正态分布的随机样本值，上面的np.random.rand()函数返回一个或一组服从0~1均匀分布的随机样本值，随机样本取值范围是[0,1)，不包括1
+code:
+uniform_data = np.random.randn(10,12) f,ax = plt.subplots(figsize=(9,6)) ax = sns.heatmap(uniform_data,center=0) plt.show() result: 为行和列加上有意义的标签,使用sns.load_dataset(&amp;ldquo;flights&amp;rdquo;)自带的数据集，数据集的部分截图如下,共143行数据: code:
+flights = sns.load_dataset(&amp;#34;flights&amp;#34;) 接着使用了一个特别高效的函数pivot()，该函数有三个参数(index,columns,values)，第一个参数index是指新表的索引，第二个参数columns是新表的列名，第三个参数values是指新表中的值，看效果就比较明确了
+flights = flights.pivot(&amp;#34;month&amp;#34;,&amp;#34;year&amp;#34;,&amp;#34;passengers&amp;#34;) flights 由表可以看出第一个参数就是行标，第二个参数是列标，第三个参数是表中的值。 显示一下热力图 code:
+ax = sns.heatmap(flights) plt.show() result: 使用整型格式的数值为每个单元格注释
+heatmap中的参数annot为True时，为每个单元格写入数据值。如果数组具有与数据相同的形状，则使用它来注释热力图而不是原始数据。参数fmt是指添加注释时要使用的字符串格式代码 code:</description>
+    </item>
+    
+    <item>
+      <title>seaborn.diverging_palette发散调色板</title>
+      <link>https://example.com/p/seaborn.diverging_palette%E5%8F%91%E6%95%A3%E8%B0%83%E8%89%B2%E6%9D%BF/</link>
+      <pubDate>Wed, 11 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/seaborn.diverging_palette%E5%8F%91%E6%95%A3%E8%B0%83%E8%89%B2%E6%9D%BF/</guid>
+      <description>第一个学的python的包就是matplotlib，特地整理了去年的学习笔记
+seaborn.diverging_palette(h_neg, h_pos, s=75, l=50, sep=10, n=6, center=&amp;lsquo;light&amp;rsquo;, as_cmap=False)
+在两个 HUSL 颜色直接建立一个发散调色板。
+如果您在使用 IPython notebook，您还可以通过 choose_diverging_palette() 函数交互式选择调色板。
+参数：h_neg, h_pos：float in [0, 359]
+图的正负范围的锚定色调
+s：[0, 100] 范围内的浮点数，可选
+图的两个范围的锚定饱和度
+l：[0, 100] 范围内的浮点数，可选
+图的两个范围的锚定亮度
+n：int，可选
+调色板中的颜色数（如果为not，返回一个colormap）
+center：{“light”, “dark”}, 可选
+调色板中心为亮或暗
+as_cmap：bool, 可选
+如果为 true，返回一个 matplotlib colormap 而不是一个颜色列表。
+返回值：palette or cmap：seaborn color palette or matplotlib colormap
+类似列表的颜色对象的 RGB 元组，或者可以将连续值映射到颜色的 colormap 对象，具体取决于 as_cmap 参数的值。
+另外
+创建具有暗值的连续调色板。创建具有亮值的连续调色板
+code
+#生成一个蓝白红调色板 import seaborn as sns sns.palplot(sns.diverging_palette(240,10,n=9)) result: code:</description>
+    </item>
+    
+    <item>
+      <title>sns.distplot()用法</title>
+      <link>https://example.com/p/sns.distplot%E7%94%A8%E6%B3%95/</link>
+      <pubDate>Wed, 11 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/sns.distplot%E7%94%A8%E6%B3%95/</guid>
+      <description>第一个学的python的包就是matplotlib，特地整理了去年的学习笔记
+sns.distplot()集合了matplotlib的hist()于sns.kdeplot()功能，增了rugplot分布观测显示与理由scipy库fit拟合参数分布的新颖用途
+参数如下 sns.distplot(a, bins=None, hist=True, kde=True, rug=False, fit=None, hist_kws=None, kde_kws=None, rug_kws=None, fit_kws=None, color=None, vertical=False, norm_hist=False, axlabel=None, label=None, ax=None)
+直方图：先分箱，然后计算每个分箱频数的数据分布，
+和条形图的区别，条形图有空隙，直方图没有，条形图一般用于类别特征，直方图一般用于数字特征（连续型） 多用于y值和数字（连续型）特征的分布画图
+code:
+import matplotlib.pyplot as plt import numpy as np import pandas as pd import seaborn as sns sns.set() #切换到sns的默认运行配置 x = np.random.randn(100) sns.distplot(x) result: code:
+sns.displot(x) 通过hist和kde参数调节是否显示直方图及核密度估计(默认hist,kde均为True)
+import warnings warnings.filterwarnings(&amp;#34;ignore&amp;#34;) fig,axes = plt.subplots(1,3)#创建一个1行三列的图片 sns.displot(x,ax=axes[0]) sns.distplot(x,hist=False,ax=axes[1])#不显示直方图 sns.distplot(x,kde=False,ax=axes[2])#不显示核密度 bins：int或list，控制直方图的划分
+#bins fig,axes = plt.subplots(1,2) sns.distplot(x,kde=False,bins=20,ax=axes[0])#分成20个区间 ##以0,1,2,3为分割点，形成区间[0,1],[1,2],[2,3]，区间外的值不计入 sns.distplot(x,kde=False,bins=[x for x in range(4)],ax=axes[1]) code:</description>
+    </item>
+    
+    <item>
+      <title>matplotlib.pyplot_contourf 绘制等高线</title>
+      <link>https://example.com/p/matplotlib.pyplot_contourf-%E7%BB%98%E5%88%B6%E7%AD%89%E9%AB%98%E7%BA%BF/</link>
+      <pubDate>Tue, 10 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/matplotlib.pyplot_contourf-%E7%BB%98%E5%88%B6%E7%AD%89%E9%AB%98%E7%BA%BF/</guid>
+      <description>第一个学的python的包就是matplotlib，特地整理了去年的学习笔记
+import matplotlib.pyplot as plt matplotlib.pyplot.contourf([X,Y],Z) 是来绘制等高线的，contour和contourf都是画三维等高线图的，不同点在于contour() 是绘制轮廓线，contourf()会填充轮廓。
+在传入X,Y时会先进np.meshgrid生成坐标 X,Y对应的网格数据以及此网格对应的高度值，因此我们调用np.meshgrid(x,y)把x,y值转换成网格数据 重要参数说明：
+X,Y为数组，是在Z中的坐标值 当 X,Y,Z 都是 2 维数组时，它们的形状必须相同。如果都是 1 维数组时，len(X)是 Z 的列数， 而 len(Y) 是 Z 中的行数。（例如，经由创建numpy.meshgrid()）
+Z：类似矩阵
+确定轮廓线/区域的数量和位置 其实就是X,Y的函数高度值
+c 这里在机器学习中一般会传入y，即输出的类别，因为Colormap用于将数据值（浮点数）从间隔转 换为相应Colormap表示的RGBA颜色。用于将数据缩放到间隔中看 。
+无论contour还是contourf，都是绘制三维图，其中前两个参数x和y为两个等长一维数组，第三个参数z为二维数组（表示平面点xi,yi映射的函数值）。
+正是由于contourf可以填充等高线之间的空隙颜色，呈现出区域的分划状，所以很多分类机器学习模型的可视化常会借助其展现。
+code:
+import numpy as np import pandas as pd import matplotlib.pyplot as plt def height(x,y): return(1-x/2+x**5+y**3)*np.exp(-x**2-y**2) x = np.linspace(0, 3, 256) y = np.linspace(0, 3, 256) X,Y = np.meshgrid(x,y)#把X，Y传入网格中 X.shape=256,256 Y.shape=256,256 print(X.shape) result:
+(256, 256) code:</description>
+    </item>
+    
+    <item>
+      <title>plt_plot&#43;plt_subplot&#43;plt_subplots区别</title>
+      <link>https://example.com/p/plt_plot-plt_subplot-plt_subplots%E5%8C%BA%E5%88%AB/</link>
+      <pubDate>Tue, 10 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/plt_plot-plt_subplot-plt_subplots%E5%8C%BA%E5%88%AB/</guid>
+      <description> 第一个学的python的包就是matplotlib，特地整理了去年的学习笔记
+import matplotlib.pyplot as plt plt.plot() fig.add_subplot plt.subplot plt.subplots </description>
+    </item>
+    
+    <item>
+      <title>plt.gca()坐标轴移动</title>
+      <link>https://example.com/p/plt.gca%E5%9D%90%E6%A0%87%E8%BD%B4%E7%A7%BB%E5%8A%A8/</link>
+      <pubDate>Tue, 10 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/plt.gca%E5%9D%90%E6%A0%87%E8%BD%B4%E7%A7%BB%E5%8A%A8/</guid>
+      <description> 第一个学的python的包就是matplotlib，特地整理了去年的学习笔记
+import numpy as np import matplotlib.pyplot as plt import torch import torch.nn.functional as F x = torch.linspace(-10,10,60) y = torch.sigmoid(x) ax = plt.gca() #将最上方的边框颜色置为none ax.spines[&amp;#34;top&amp;#34;].set_color(&amp;#34;none&amp;#34;) #右边的边框颜色置为none ax.spines[&amp;#34;right&amp;#34;].set_color(&amp;#34;none&amp;#34;) #要移动底部x轴，所以要先锁定x轴 ax.xaxis.set_ticks_position(&amp;#34;bottom&amp;#34;) #data表示按数值挪动，其后数字代表挪动到Y轴的刻度值 ax.spines[&amp;#34;bottom&amp;#34;].set_position((&amp;#34;data&amp;#34;,0)) # #同上 ax.yaxis.set_ticks_position(&amp;#34;left&amp;#34;) #同上 ax.spines[&amp;#34;left&amp;#34;].set_position((&amp;#34;data&amp;#34;,0)) plt.plot(x.numpy(),y.numpy()) plt.show() </description>
+    </item>
+    
+    <item>
+      <title>Axes.set_xscale()函数用于设置x轴比例</title>
+      <link>https://example.com/p/axes.set_xscale%E5%87%BD%E6%95%B0%E7%94%A8%E4%BA%8E%E8%AE%BE%E7%BD%AEx%E8%BD%B4%E6%AF%94%E4%BE%8B/</link>
+      <pubDate>Mon, 09 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/axes.set_xscale%E5%87%BD%E6%95%B0%E7%94%A8%E4%BA%8E%E8%AE%BE%E7%BD%AEx%E8%BD%B4%E6%AF%94%E4%BE%8B/</guid>
+      <description>第一个学的python的包就是matplotlib，特地整理了去年的学习笔记
+matplotlib库的axiss模块中的Axes.set_xscale()函数用于设置x轴比例
+用法： Axes.set_xscale(self, value, **kwargs)
+参数：此方法接受以下参数。
+value:此参数是要应用的轴比例类型。
+**kwargs:有不同的关键字参数可以接受，并且取决于规模
+以下示例说明了matplotlib.axes中的matplotlib.axes.Axes.set_xscale()函数：
+实例1 #实例1 import matplotlib.pyplot as plt import numpy as np from matplotlib.ticker import EngFormatter#使用工程工程符号标记刻度线 val = np.random.RandomState(19680801) xs = np.logspace(1,9,100) ys = (0.8 + 4 * val.uniform(size=100)) * np.log10(xs)**2 fig,ax0 = plt.subplots() ax0.set_xscale(&amp;#34;log&amp;#34;) formatter0 = EngFormatter(unit=&amp;#34;Hz&amp;#34;) ax0.xaxis.set_major_formatter(formatter0) ax0.plot(xs,ys) ax0.set_xlabel(&amp;#34;Frequency&amp;#34;) fig.suptitle(&amp;#34;%matplotlib.axes.Axes.set_xscale() \ function Example\n&amp;#34;,fontweight=&amp;#34;bold&amp;#34;) plt.show() 实例2 #实例2 import numpy as np import matplotlib.pyplot as plt import warnings warnings.filterwarnings(&amp;#34;ignore&amp;#34;) fig,ax4 = plt.</description>
+    </item>
+    
+    <item>
+      <title>Matplotlib.colors.ListedColormap</title>
+      <link>https://example.com/p/matplotlib.colors.listedcolormap/</link>
+      <pubDate>Mon, 09 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/matplotlib.colors.listedcolormap/</guid>
+      <description>第一个学的python的包就是matplotlib，特地整理了去年的学习笔记
+matplotlib.colors.ListedColormap类属于matplotlib.colors模块。 matplotlib.colors模块用于将颜色或数字参数转换为RGBA或RGB。此模块用于将数字映射到颜色或以一维颜色数组(也称为colormap)进行颜色规格转换。
+matplotlib.colors.ListedColormap类用于从颜色列表创建colarmap对象。这对于直接索引到颜色表中很有用，也可以用于为法线贴图创建特殊的颜色表
+用法： class matplotlib.colors.ListedColormap(colors, name=’from_list’, N=None)
+参数：
+颜色：它是Matplotlib颜色规格的数组或列表，或等于N x 3或N x 4浮点数组(N rgb或rgba值) 名称：它是一个可选参数，它接受一个字符串来标识颜色图。 N:它是一个可选参数，它接受表示映射中条目数的整数值。它的默认值为“无”，其中颜色列表中的每个元素都有一个颜色表条目。如果N小于len(colors)，则列表将在N处截断，而如果N大于len，则列表将重复进行扩展。
+该类的方法： 1)reversed()：这用于创建Colormap的反向实例。
+用法： reversed(self, name=None)
+参数：
+name:它是一个可选参数，表示反转的颜色图的名称。如果将其设置为“无”，则名称将为父色图的名称+ “_r”。
+返回值：它返回颜色图的反向实例
+实例1 import matplotlib.pyplot as plt import numpy as np import matplotlib.colors a = np.linspace(-3,3) A,B = np.meshgrid(a,a) X = np.exp(-(A**2 + B**2)) figure, (axes1,axes2) = plt.subplots(ncols=2) colors = [&amp;#34;green&amp;#34;,&amp;#34;orange&amp;#34;,&amp;#34;gold&amp;#34;,&amp;#34;blue&amp;#34;,&amp;#34;k&amp;#34;,&amp;#34;#550011&amp;#34;,&amp;#34;purple&amp;#34;,&amp;#34;red&amp;#34;] axes1.set_title(&amp;#34;color list&amp;#34;) contour = axes1.contourf(A,B,X,colors=colors) axes2.set_title(&amp;#34;white colormap&amp;#34;) cmap = matplotlib.colors.ListedColormap(colors) contour = axes2.contourf(A,B,X,cmap=cmap) figure.</description>
+    </item>
+    
+    <item>
+      <title>对matplotlib.cm.RdYlBu()的理解</title>
+      <link>https://example.com/p/%E5%AF%B9matplotlib.cm.rdylbu%E7%9A%84%E7%90%86%E8%A7%A3/</link>
+      <pubDate>Sat, 07 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E5%AF%B9matplotlib.cm.rdylbu%E7%9A%84%E7%90%86%E8%A7%A3/</guid>
+      <description>、
+第一个学的python的包就是matplotlib，特地整理了去年的学习笔记
+matplotlib.cm matplotlib.cm是matplotlib库中内置的色彩映射函数
+matplotlib.cm.色彩即对[数据集]应用[色彩] https://matplotlib.org/stable/api/cm_api.html
+内置色彩映射的列表 </description>
+    </item>
+    
+    <item>
+      <title>annotate(),text()--注释文本</title>
+      <link>https://example.com/p/annotatetext--%E6%B3%A8%E9%87%8A%E6%96%87%E6%9C%AC/</link>
+      <pubDate>Fri, 06 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/annotatetext--%E6%B3%A8%E9%87%8A%E6%96%87%E6%9C%AC/</guid>
+      <description>第一个学的python的包就是matplotlib，特地整理了去年的学习笔记
+作用：在图中带有指向型文本注释信息，突显细节
+matplotlib.pyplot.annotate() 参数说明：
+s : string 内容 xy : (float,float) 箭头点所在的坐标位置 xytext : s内容所在的坐标位置 weight : str/int 设置字体线型，其中字符串从小到大可选项有{&amp;lsquo;ultralight&amp;rsquo;, &amp;rsquo;light&amp;rsquo;, &amp;rsquo;normal&amp;rsquo;, &amp;lsquo;regular&amp;rsquo;, &amp;lsquo;book&amp;rsquo;, &amp;lsquo;medium&amp;rsquo;, &amp;lsquo;roman&amp;rsquo;, &amp;lsquo;semibold&amp;rsquo;, &amp;lsquo;demibold&amp;rsquo;, &amp;lsquo;demi&amp;rsquo;, &amp;lsquo;bold&amp;rsquo;, &amp;lsquo;heavy&amp;rsquo;, &amp;rsquo;extra bold&amp;rsquo;, &amp;lsquo;black&amp;rsquo;} color ： str/tuple 设置字体颜色，单个字符候选项{&amp;lsquo;b&amp;rsquo;, &amp;lsquo;g&amp;rsquo;, &amp;lsquo;r&amp;rsquo;, &amp;lsquo;c&amp;rsquo;, &amp;rsquo;m&amp;rsquo;, &amp;lsquo;y&amp;rsquo;, &amp;lsquo;k&amp;rsquo;, &amp;lsquo;w&amp;rsquo;}，也可以&amp;rsquo;black&amp;rsquo;,&amp;lsquo;red&amp;rsquo;等，tuple时用[0,1]之间的浮点型数据，RGB或者RGBA, 如: (0.1, 0.2, 0.5)、(0.1, 0.2, 0.5, 0.3)等 arrowprops : dict 设置指向箭头的参数，字典中key值有①arrowstyle：设置箭头的样式，其value候选项如&amp;rsquo;-&amp;gt;&amp;rsquo;,&amp;rsquo;|-|&amp;rsquo;,&amp;rsquo;-|&amp;gt;&amp;rsquo;,也可以用字符串&amp;rsquo;simple&amp;rsquo;,&amp;lsquo;fancy&amp;rsquo; ; ②connectionstyle：设置箭头的形状，为直线或者曲线，候选项有&amp;rsquo;arc3&amp;rsquo;,&amp;lsquo;arc&amp;rsquo;,&amp;lsquo;angle&amp;rsquo;,&amp;lsquo;angle3&amp;rsquo;，可以防止箭头被曲线内容遮挡; ③color：设置箭头颜色，见前面的color参数 bbox: dict code:
+import matplotlib.pyplot as plt import numpy as np import warnings warnings.</description>
+    </item>
+    
+    <item>
+      <title>画图风格定义为ggplot</title>
+      <link>https://example.com/p/%E7%94%BB%E5%9B%BE%E9%A3%8E%E6%A0%BC%E5%AE%9A%E4%B9%89%E4%B8%BAggplot/</link>
+      <pubDate>Fri, 06 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E7%94%BB%E5%9B%BE%E9%A3%8E%E6%A0%BC%E5%AE%9A%E4%B9%89%E4%B8%BAggplot/</guid>
+      <description> 第一个学的python的包就是matplotlib，特地整理了去年的学习笔记
+import matplotlib.pyplot as plt import matplotlib #用style定义 matplotlib.style.use(&amp;#34;ggplot&amp;#34;) </description>
+    </item>
+    
+    <item>
+      <title>配置图形参数</title>
+      <link>https://example.com/p/%E9%85%8D%E7%BD%AE%E5%9B%BE%E5%BD%A2%E5%8F%82%E6%95%B0/</link>
+      <pubDate>Fri, 06 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E9%85%8D%E7%BD%AE%E5%9B%BE%E5%BD%A2%E5%8F%82%E6%95%B0/</guid>
+      <description> 第一个学的python的包就是matplotlib，特地整理了去年的学习笔记
+配置图形参数 使用面向对象的绘图接口时会创建figure和axes对象。figure实例可以看成是一个能够容纳各种坐标轴、图形、文字和标签的容器，axes是一个带有刻度和标签的矩形，最终会包含所有可视化的图形元素
+import matplotlib.pyplot as plt import matplotlib as mpl import numpy as np import pandas as pd plt.style.use(&amp;#34;seaborn-whitegrid&amp;#34;) fig = plt.figure() ax = plt.axes() 调整图形：线条的颜色和风格 自定义线条的颜色可以设置plot()方法中的color属性。可以使用标准颜色名称，如‘blue’、’red‘等，也可以使用缩写颜色代码（rgbcmyk） 自定义线条的风格可以设置plot()方法中的linestyle属性。可以使用标准风格名称，如‘solid’、‘dashed’、‘dashdot’和‘dotted’，也可以使用简写形式，如‘-’、‘–’、‘-.’或者‘:‘
+x = np.linspace(0,10,100) plt.plot(x,np.sin(x-0),color=&amp;#34;blue&amp;#34;, linestyle=&amp;#34;solid&amp;#34;) plt.plot(x,np.cos(x-1),color=&amp;#34;g&amp;#34;,linestyle=&amp;#34;dashdot&amp;#34;) #更加简洁的方式，将linestyle和color编码结合起来，作为plt.plot()函数的一个非关键参数使用 plt.plot(x,x-3,&amp;#34;--r&amp;#34;) plt.show() 调整图形：坐标上下限——axis()方法 荐使用plt.axis()方法。通过传入[xmin, xmax, ymin, ymax]对应的值，plt.axis()方法可以让你用一行代码设置x和y的限值
+#设置x轴和y轴的限值 plt.plot(x,np.sin(x)) plt.axis([-1,11,-1.5,1.5]) #按照图形的内容自动收紧坐标轴，不留空白区域 plt.axis(&amp;#34;tight&amp;#34;) #让x轴和y轴单位长度相等，即分辨率相等 plt.axis(&amp;#34;equal&amp;#34;) 设置图形的标签 #简单设置方法 plt.title(&amp;#34;A Sine Curve&amp;#34;) plt.xlabel(&amp;#34;X&amp;#34;) plt.ylabel(&amp;#34;sin(x)&amp;#34;) #当单个坐标轴上显示多条线时，创建图例显示每条线是很有效的方法。Matplotlib内置了一个简单快速的方法——plt.legend() #在plt.plot()方法中显示设置label参数，配合plt.legend()函数可以方便的制作图例 plt.plot(x,np.sin(x),&amp;#34;-g&amp;#34;,label=&amp;#34;sin(x)&amp;#34;) plt.plot(x,np.cos(x),&amp;#34;:b&amp;#34;,label=&amp;#34;cos(x)&amp;#34;) plt.axis(&amp;#34;equal&amp;#34;) plt.legend() plt.title(&amp;#34;triangle function curve&amp;#34;) plt.show() </description>
+    </item>
+    
+    <item>
+      <title>Python绘制3D图形：Axes3D数据读写</title>
+      <link>https://example.com/p/python%E7%BB%98%E5%88%B63d%E5%9B%BE%E5%BD%A2axes3d%E6%95%B0%E6%8D%AE%E8%AF%BB%E5%86%99/</link>
+      <pubDate>Sun, 10 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/python%E7%BB%98%E5%88%B63d%E5%9B%BE%E5%BD%A2axes3d%E6%95%B0%E6%8D%AE%E8%AF%BB%E5%86%99/</guid>
+      <description>第一个学的python的包就是matplotlib，特地整理了去年的学习笔记
+D图形绘制需要（x,y,z)三组值，下面通过numpy和Axes3D函数会议3D图形。
+其中Axes3D是mpl_toolkits.mplot3d中的一个绘图函数，mpl_toolkits.mplot3d
+是Matplotlib里面专门用来画三维图的工具包
+#导入 # from mpl_toolkits.mplot3d import * from mpl_toolkits.mplot3d import Axes3D import numpy as np import matplotlib.pyplot as plt #建立画布，生成数据 fig = plt.figure() ax = Axes3D(fig) x = np.arange(-8,8,0.25) y = np.arange(-8,8,0.25) #生成x、y轴数据 x,y = np.meshgrid(x,y) r = np.sqrt(x**2+y**2) #生成z值 z = np.sin(r)/r #绘图 ax.plot_surface(x,y,z,rstride=1,cstride=1) ax.contourf(x,y,z,zdir=&amp;#34;z&amp;#34;,offset=-2) plt.show() 折线图 code:
+import matplotlib as mpl from mpl_toolkits.mplot3d import Axes3D import numpy as np import matplotlib.pyplot as plt mpl.rcParams[&amp;#34;legend.fontsize&amp;#34;] = 10 fig = plt.</description>
+    </item>
+    
+  </channel>
+</rss>

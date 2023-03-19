@@ -1,0 +1,1363 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>python on 叶宇浩随记博客</title>
+    <link>https://example.com/tags/python/</link>
+    <description>Recent content in python on 叶宇浩随记博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 24 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://example.com/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>阿里云_ML_02_数据探索</title>
+      <link>https://example.com/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/</link>
+      <pubDate>Sat, 24 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/</guid>
+      <description>这个post是自己去跟着阿里云天池上的机器学习的一个案例跟着敲了一遍代码，并且加了自己的理解，放到这里来随时回顾
+读取数据 import pandas as pd import numpy as np import matplotlib.pyplot as plt import warnings warnings.filterwarnings(&amp;#34;ignore&amp;#34;) import seaborn as sns #scipy 是一个统计学习的库 from scipy import stats train_data = pd.read_csv(&amp;#34;./zhengqi_train.txt&amp;#34;,sep=&amp;#34;\t&amp;#34;,encoding=&amp;#34;utf-8&amp;#34;) test_data = pd.read_csv(&amp;#34;./zhengqi_test.txt&amp;#34;,sep=&amp;#34;\t&amp;#34;,encoding=&amp;#34;utf-8&amp;#34;) 查看训练集特征变量信息 train_data.head() result: code:
+train_data.info result 此训练集数据共有2888个样本，数据中有V0-V37共计38个特征变量，变量类型都为数值类型，所有数据特征没有缺失值数据； 数据字段由于采用了脱敏处理，删除了特征数据的具体含义；target字段为标签变量
+code:
+test_data.info result: 测试集数据共有1925个样本，数据中有V0-V37共计38个特征变量，变量类型都为数值类型
+查看数据统计信息 train_data.describe() result: code:
+test_data.describe() result: 上面数据显示了数据的统计信息，例如样本数，数据的均值mean，标准差std，最小值，最大值等
+查看数据字段信息 code:
+train_data.head() result: 上面显示训练集前5条数据的基本信息，可以看到数据都是浮点型数据，数据都是数值型连续型特征
+code:
+test_data.head() result: 画箱形图探索数据 code:
+#指定绘图对象的宽和高 fig = plt.figure(figsize=(4,8)) # orient：&amp;#34;v&amp;#34;|&amp;#34;h&amp;#34; 用于控制图像使水平还是竖直显示 sns.</description>
+    </item>
+    
+    <item>
+      <title>阿里云_ML_03_特征工程</title>
+      <link>https://example.com/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/</link>
+      <pubDate>Sat, 24 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/</guid>
+      <description>这个post是自己去跟着阿里云天池上的机器学习的一个案例跟着敲了一遍代码，并且加了自己的理解，放到这里来随时回顾
+import pandas as pd import numpy as np import matplotlib.pyplot as plt import seaborn as sns import warnings warnings.filterwarnings(&amp;#34;ignore&amp;#34;) #从scipy中导入stats统计函数 from scipy import stats plt.rcParams[&amp;#34;font.sans-serif&amp;#34;] = &amp;#34;SimHei&amp;#34; plt.rcParams[&amp;#34;axes.unicode_minus&amp;#34;] = False train_data = pd.read_csv(&amp;#34;./zhengqi_train.txt&amp;#34;,sep=&amp;#34;\t&amp;#34;,encoding=&amp;#34;utf-8&amp;#34;) test_data = pd.read_csv(&amp;#34;./zhengqi_test.txt&amp;#34;,sep=&amp;#34;\t&amp;#34;,encoding=&amp;#34;utf-8&amp;#34;) train_data.describe() result: 异常值分析 plt.figure(figsize=(18,10)) #x传入的每一列的特征值（数值），labels传入的是每个特征值的名字即列名 就是图中的x轴的名字 plt.boxplot(x=train_data.values,labels=train_data.columns) plt.hlines([7.5,-7.5],0,40,colors=&amp;#34;r&amp;#34;) plt.show() result: 删除异常值 train_data = train_data[train_data[&amp;#34;V9&amp;#34;]&amp;gt;-7.5] train_data.describe() result: code:
+train_data.head() result: 最大最小值归一化 code:
+from sklearn import preprocessing feature_columns = [col for col in train_data.columns if col not in [&amp;#34;target&amp;#34;]] #注意MinScaler传入的是每一列的数据 min_max_scaler = preprocessing.</description>
+    </item>
+    
+    <item>
+      <title>阿里云_ML_04_模型训练</title>
+      <link>https://example.com/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_04_%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83/</link>
+      <pubDate>Sat, 24 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_04_%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83/</guid>
+      <description>这个post是自己去跟着阿里云天池上的机器学习的一个案例跟着敲了一遍代码，并且加了自己的理解，放到这里来随时回顾
+import pandas as pd import numpy as np import matplotlib.pyplot as plt import seaborn as sns import warnings warnings.filterwarnings(&amp;#34;ignore&amp;#34;) from scipy import stats %matplotlib inline 读取数据 train_data = pd.read_csv(&amp;#34;./zhengqi_train.txt&amp;#34;,sep=&amp;#34;\t&amp;#34;,encoding=&amp;#34;utf-8&amp;#34;) test_data = pd.read_csv(&amp;#34;./zhengqi_test.txt&amp;#34;,sep=&amp;#34;\t&amp;#34;,encoding=&amp;#34;utf-8&amp;#34;) train_data.describe() result: 异常值分析 其实就是画给box图看离散的点
+plt.figure(figsize=(18,10)) plt.boxplot(x=train_data.values,labels=train_data.columns) plt.hlines([-7.5,7.5],0,40,colors=&amp;#34;Blue&amp;#34;) plt.show() result: 删除异常值 train_data = train_data[train_data[&amp;#34;V9&amp;#34;]&amp;gt;-7.5] train_data.describe() result: code:
+test_data.describe() result: 最大值最小值归一化处理 from sklearn import preprocessing features_columns = [col for col in train_data.columns if col not in [&amp;#34;target&amp;#34;]] min_max_scaler = preprocessing.</description>
+    </item>
+    
+    <item>
+      <title>阿里云_ML_05_模型验证</title>
+      <link>https://example.com/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_05_%E6%A8%A1%E5%9E%8B%E9%AA%8C%E8%AF%81/</link>
+      <pubDate>Sat, 24 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_05_%E6%A8%A1%E5%9E%8B%E9%AA%8C%E8%AF%81/</guid>
+      <description>这个post是自己去跟着阿里云天池上的机器学习的一个案例跟着敲了一遍代码，并且加了自己的理解，放到这里来随时回顾
+过拟合与欠拟合的问题 获取并绘制数据集 import numpy as np import matplotlib.pyplot as plt import pandas as pd np.random.seed(22) x = np.random.uniform(-3.0,3.0,size=100) X = x.reshape(-1,1)#-1表示系统自动计算行 #np.random.normal()产生正态分布的数 y = 0.5 * x**2 + x + 2 + np.random.normal(0,1,size=100) plt.scatter(x,y) plt.show() result: 使用线性回归拟合数据 from sklearn.linear_model import LinearRegression lin_reg = LinearRegression() lin_reg.fit(X,y) lin_reg.score(X,y)#score返回的是准确率 result:
+0.4340452690750729 准确率为 0.434，比较低，直线拟合数据的程度较低
+使用均方误差判断拟合程度 from sklearn.metrics import mean_squared_error y_predict = lin_reg.predict(X) mean_squared_error(y_predict,y) result:
+2.7365298290204287 绘制拟合效果 plt.scatter(x,y) plt.plot(np.sort(x),y_predict[np.argsort(x)],color=&amp;#34;red&amp;#34;) plt.show() result: 使用多项式回归拟合:
+封装Pipeline管道 #Pipeline封装算法流 from sklearn.</description>
+    </item>
+    
+    <item>
+      <title>sklearn中的交叉验证Cross-Validation</title>
+      <link>https://example.com/p/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81cross-validation/</link>
+      <pubDate>Fri, 16 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81cross-validation/</guid>
+      <description>sklearn是利用python进行机器学习中一个非常全面和好用的第三方库，用过的都说好。今天主要记录一下sklearn中关于交叉验证的各种用法，主要是对sklearn官方文档 https://scikit-learn.org/stable/modules/cross_validation.html
+import numpy as np from sklearn.model_selection import train_test_split from sklearn.datasets import load_iris from sklearn import svm iris = load_iris() iris.data.shape,iris.target.shape result:
+((150, 4), (150,)) train_test_split 对数据集进行快速打乱（分为训练集和测试集）, 这里相当于对数据集进行了shuffle后按照给定的test_size进行数据集划分
+这里是按照6:4对训练集测试集进行划分 X_train,X_test,y_train,y_test = train_test_split(iris.data,iris.target,test_size=.4,random_state=22)
+code:
+X_train.shape,y_train.shape result:
+((90, 4), (90,)) code:
+iris.data[:5] result: code:
+X_train[:5] result: code:
+clf = svm.SVC(kernel=&amp;#34;linear&amp;#34;,C=1) clf.fit(X_train,y_train) result:
+SVC(C=1, kernel=&amp;#39;linear&amp;#39;) clf.score(X_test,y_test) result:
+0.9833333333333333 cross_val_score 对数据集进行指定次数的交叉验证并为每次验证效果评测 其中，score 默认是以 scoring=&amp;lsquo;f1_macro’进行评测的，余外针对分类或回归还有： 这需要from　sklearn import metrics ,通过在cross_val_score 指定参数来设定评测标准； 当cv 指定为int 类型时，默认使用KFold 或StratifiedKFold 进行数据集打乱，下面会对KFold 和StratifiedKFold 进行介绍</description>
+    </item>
+    
+    <item>
+      <title>sklearn.preprocessing.StandardScaler数据标准化</title>
+      <link>https://example.com/p/sklearn.preprocessing.standardscaler%E6%95%B0%E6%8D%AE%E6%A0%87%E5%87%86%E5%8C%96/</link>
+      <pubDate>Mon, 08 Aug 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/sklearn.preprocessing.standardscaler%E6%95%B0%E6%8D%AE%E6%A0%87%E5%87%86%E5%8C%96/</guid>
+      <description>sklearn.preprocessing.StandardScaler数据标准化 如果某个特征的方差远大于其它特征的方差，那么它将会在算法学习中占据主导位置，导致我们的学习器不能像我们期望的那样，去学习其他的特征，这将导致最后的模型收敛速度慢甚至不收敛，因此我们需要对这样的特征数据进行标准化/归一化
+StandarScaler 标准化数据通过减去均值然后除以方差（或标准差），这种数据标准化方法经过处理后数据符合标准正态分布，即均值为0，标准差为1，转化函数为：x =(x - 𝜇)/𝜎
+import numpy as np from sklearn.preprocessing import StandardScaler &amp;#34;&amp;#34;&amp;#34; scale_ : 缩放比列，同时也是标准差 mean_ : 每个特征的平均值 var_ : 每个特征的方差 n_samples_seen_ : 样本数量 &amp;#34;&amp;#34;&amp;#34; x = np.array(range(1,10)).reshape(-1,1) ss = StandardScaler() ss.fit(X=x) print(x) print(ss.n_samples_seen_) print(ss.mean_) print(ss.var_) print(ss.scale_) print(&amp;#34;标准化后的数据：&amp;#34;) y = ss.fit_transform(x) print(y) result: </description>
+    </item>
+    
+    <item>
+      <title>sns.boxplot()简单用法</title>
+      <link>https://example.com/p/sns.boxplot%E7%AE%80%E5%8D%95%E7%94%A8%E6%B3%95/</link>
+      <pubDate>Thu, 12 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/sns.boxplot%E7%AE%80%E5%8D%95%E7%94%A8%E6%B3%95/</guid>
+      <description>第一个学的python的包就是matplotlib，特地整理了去年的学习笔记
+箱形图（Box-plot）：
+又称为盒须图、盒式图或箱线图，是一种用作显示一组数据分散情况资料的统计图。它能显示出一组数据的最大值、最小值、中位数及上下四分位数
+参数如下：
+seaborn.boxplot(x=None, y=None, hue=None, data=None, order=None, hue_order=None, orient=None, color=None, palette=None, saturation=0.75, width=0.8, dodge=True, fliersize=5, linewidth=None, whis=1.5, notch=False, ax=None, **kwargs)
+x，y：dataframe中的列名（str）或者矢量数据
+data：dataframe或者数组
+hue（str）：dataframe的列名，按照列名中的值分类形成分类的条形图
+palette：调色板，控制图像的色调
+order, hue_order (lists of strings)：用于控制条形图的顺序
+orient：“v”|“h” 用于控制图像使水平还是竖直显示（这通常是从输入变量的dtype推断出来的，此参数一般当不传入x、y，只传入data的时候使用）
+fliersize：float，用于指示离群值观察的标记大小
+whis： 确定离群值的上下界（IQR超过低和高四分位数的比例），此范围之外的点将被识别为异常值。IQR指的是上下四分位的差值。
+width： float，控制箱型图的宽度
+箱型图的作用：
+1.直观明了地识别数据批中的异常值 其实箱线图判断异常值的标准以四分位数和四分位距为基础，四分位数具有一定的耐抗性，多达25%的数据可以变得任意远而不会很大地扰动四分位数，所以异常值不会影响箱形图的数据形状，箱线图识别异常值的结果比较客观。由此可见，箱型图在识别异常值方面有一定的优越性。
+2.利用箱型图判断数据批的偏态和尾重 对于标准正态分布的样本，只有极少值为异常值。异常值越多说明尾部越重，自由度越小（即自由变动的量的个数）；而偏态表示偏离程度，异常值集中在较小值一侧，则分布呈左偏态；异常值集中在较大值一侧，则分布呈右偏态。 code:
+#使用iris数据集作为例子 import numpy as np import pandas as pd import seaborn as sns import matplotlib.pyplot as plt import warnings warnings.filterwarnings(&amp;#34;ignore&amp;#34;) from sklearn.datasets import load_iris plt.rcParams[&amp;#34;font.sans-serif&amp;#34;] = &amp;#34;SimHei&amp;#34; data = pd.</description>
+    </item>
+    
+    <item>
+      <title>sns.kdeplot()核密度估计图</title>
+      <link>https://example.com/p/sns.kdeplot%E6%A0%B8%E5%AF%86%E5%BA%A6%E4%BC%B0%E8%AE%A1%E5%9B%BE/</link>
+      <pubDate>Thu, 12 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/sns.kdeplot%E6%A0%B8%E5%AF%86%E5%BA%A6%E4%BC%B0%E8%AE%A1%E5%9B%BE/</guid>
+      <description> 第一个学的python的包就是matplotlib，特地整理了去年的学习笔记
+核密度估计是概率论上用来估计未知的密度函数，属于非参数检验，通过核密度估计图可以比较直观的看出样本数据本身的分布特征
+参数如下： sns.kdeplot(data,data2=None,shade=False,vertical=False,kernel=&amp;lsquo;gau&amp;rsquo;,bw=&amp;lsquo;scott&amp;rsquo;,gridsize=100,cut=3,clip=None,legend=True,cumulative=False,shade_lowest=True,cbar=False, cbar_ax=None, cbar_kws=None, ax=None, *kwargs)
+主要用来绘制特征变量y值的分布，看看数据符合哪种分布 用的地方不多，了解为主，不需要深入研究
+code
+import numpy as np import matplotlib.pyplot as plt import seaborn as sns import pandas as pd sns.set() x = np.random.randn(100) plt.plot(x)#这样是无法看出分布 sns.kdeplot(x) result code:
+#cumulative ：是否绘制累积分布 sns.kdeplot(x,cumulative=True) result: code:
+#shade：若为True，则在kde曲线下面的区域中进行阴影处理，color控制曲线及阴影的颜色 sns.kdeplot(x,shade=True,color=&amp;#34;g&amp;#34;) result: vertical：表示以X轴进行绘制还是以Y轴进行绘制
+code:
+#y轴画图 import warnings warnings.filterwarnings(&amp;#34;ignore&amp;#34;) sns.kdeplot(x,vertical=True) result: 二元kde图像，很少使用，稍微了解一下即可
+code:
+#x,y y = np.random.randn(100) sns.kdeplot(x,y) code:
+#cbar:参数位True，则会添加一个颜色棒（颜色棒在二元kde图像中才有） sns.kdeplot(x,y,shade=True,cbar=True) </description>
+    </item>
+    
+    <item>
+      <title>sns.regplot()的用法</title>
+      <link>https://example.com/p/sns.regplot%E7%9A%84%E7%94%A8%E6%B3%95/</link>
+      <pubDate>Thu, 12 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/sns.regplot%E7%9A%84%E7%94%A8%E6%B3%95/</guid>
+      <description>第一个学的python的包就是matplotlib，特地整理了去年的学习笔记
+sns.regplot()：绘图数据和线性回归模型拟合
+参数 seaborn.regplot(x, y, data=None, x_estimator=None, x_bins=None, x_ci=&amp;lsquo;ci&amp;rsquo;, scatter=True, fit_reg=True, ci=95, n_boot=1000, units=None, order=1, logistic=False, lowess=False, robust=False, logx=False, x_partial=None, y_partial=None, truncate=False, dropna=True, x_jitter=None, y_jitter=None, label=None, color=None, marker=&amp;lsquo;o&amp;rsquo;, scatter_kws=None, line_kws=None, ax=None)
+参数说明
+x,y：就是x,y轴的值
+data：x,y所属的df
+x_estimator：将此函数应用于x的每个唯一值并绘制结果估计值。当x是离散变量时，这很有用。如果给定x_ci，则此估计值将自举并绘制置信区间
+x_bins：将x分成多少段
+code:
+#使用定义为numpy数组的两个变量绘制；使用不同的颜色 import numpy as np import seaborn as sns mean,cov = [4,6],[(1.5,.7),(.7,1)] x,y = np.random.multivariate_normal(mean,cov,88).T sns.regplot(x=x,y=y,color=&amp;#34;g&amp;#34;) result: code:
+#使用pd.Series的两个变量绘制；使用不同的标记 import pandas as pd x,y = pd.Series(x,name=&amp;#34;x_var&amp;#34;),pd.Series(y,name=&amp;#34;y_var&amp;#34;) sns.regplot(x=x,y=y,marker=&amp;#34;+&amp;#34;) result: code:
+#使用68%的置信区间，这与估计的标准误差相对应: sns.regplot(x,y,ci=68) result: code:</description>
+    </item>
+    
+    <item>
+      <title>stats.proplot(QQ图）</title>
+      <link>https://example.com/p/stats.proplotqq%E5%9B%BE/</link>
+      <pubDate>Thu, 12 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/stats.proplotqq%E5%9B%BE/</guid>
+      <description>第一个学的python的包就是matplotlib，特地整理了去年的学习笔记
+这是一种检验样本数据概率分布(例如正态分布)的方法。 使用方法如下：
+code:
+import matplotlib.pyplot as plt from scipy import stats fig = plt.figure() res = stats.probplot(train[&amp;#34;SalePrice&amp;#34;], plot=plt) #默认检测是正态分布 plt.show() ![](picture/stats.proplot(QQ图）.png)
+红色线条表示正态分布，蓝色线条表示样本数据，蓝色越接近红色参考线，说明越符合预期分布（这是是正态分布）
+q-q 图是通过比较数据和正态分布的分位数是否相等来判断数据是不是符合正态分布</description>
+    </item>
+    
+    <item>
+      <title>pseaborn.heatmap绘制热图</title>
+      <link>https://example.com/p/pseaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE/</link>
+      <pubDate>Wed, 11 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/pseaborn.heatmap%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE/</guid>
+      <description>第一个学的python的包就是matplotlib，特地整理了去年的学习笔记
+code：
+import numpy as np import seaborn as sns import matplotlib.pyplot as plt #随机创建10行12列的数组，定义一个子图宽高为9和6，应用到热力图中 np.random.seed(22) sns.set() uniform_data = np.random.randn(10,12) f,ax = plt.subplots(figsize=(16,10)) ax = sns.heatmap(uniform_data) plt.show() result: code:
+#现在在上图的基础上改变一下色彩图的上下界 ax = sns.heatmap(uniform_data,vmin=0,vmax=1) #和上图对比就会发现色彩图的上下界更明确了 result: 使用发散色图绘制以0为中心的数据的热力图 这里使用的是np.random.randn()函数，和上面的np.random.rand()函数不一样的。因为这个函数可以返回一个或一组服从标准正态分布的随机样本值，上面的np.random.rand()函数返回一个或一组服从0~1均匀分布的随机样本值，随机样本取值范围是[0,1)，不包括1
+code:
+uniform_data = np.random.randn(10,12) f,ax = plt.subplots(figsize=(9,6)) ax = sns.heatmap(uniform_data,center=0) plt.show() result: 为行和列加上有意义的标签,使用sns.load_dataset(&amp;ldquo;flights&amp;rdquo;)自带的数据集，数据集的部分截图如下,共143行数据: code:
+flights = sns.load_dataset(&amp;#34;flights&amp;#34;) 接着使用了一个特别高效的函数pivot()，该函数有三个参数(index,columns,values)，第一个参数index是指新表的索引，第二个参数columns是新表的列名，第三个参数values是指新表中的值，看效果就比较明确了
+flights = flights.pivot(&amp;#34;month&amp;#34;,&amp;#34;year&amp;#34;,&amp;#34;passengers&amp;#34;) flights 由表可以看出第一个参数就是行标，第二个参数是列标，第三个参数是表中的值。 显示一下热力图 code:
+ax = sns.heatmap(flights) plt.show() result: 使用整型格式的数值为每个单元格注释
+heatmap中的参数annot为True时，为每个单元格写入数据值。如果数组具有与数据相同的形状，则使用它来注释热力图而不是原始数据。参数fmt是指添加注释时要使用的字符串格式代码 code:</description>
+    </item>
+    
+    <item>
+      <title>seaborn.diverging_palette发散调色板</title>
+      <link>https://example.com/p/seaborn.diverging_palette%E5%8F%91%E6%95%A3%E8%B0%83%E8%89%B2%E6%9D%BF/</link>
+      <pubDate>Wed, 11 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/seaborn.diverging_palette%E5%8F%91%E6%95%A3%E8%B0%83%E8%89%B2%E6%9D%BF/</guid>
+      <description>第一个学的python的包就是matplotlib，特地整理了去年的学习笔记
+seaborn.diverging_palette(h_neg, h_pos, s=75, l=50, sep=10, n=6, center=&amp;lsquo;light&amp;rsquo;, as_cmap=False)
+在两个 HUSL 颜色直接建立一个发散调色板。
+如果您在使用 IPython notebook，您还可以通过 choose_diverging_palette() 函数交互式选择调色板。
+参数：h_neg, h_pos：float in [0, 359]
+图的正负范围的锚定色调
+s：[0, 100] 范围内的浮点数，可选
+图的两个范围的锚定饱和度
+l：[0, 100] 范围内的浮点数，可选
+图的两个范围的锚定亮度
+n：int，可选
+调色板中的颜色数（如果为not，返回一个colormap）
+center：{“light”, “dark”}, 可选
+调色板中心为亮或暗
+as_cmap：bool, 可选
+如果为 true，返回一个 matplotlib colormap 而不是一个颜色列表。
+返回值：palette or cmap：seaborn color palette or matplotlib colormap
+类似列表的颜色对象的 RGB 元组，或者可以将连续值映射到颜色的 colormap 对象，具体取决于 as_cmap 参数的值。
+另外
+创建具有暗值的连续调色板。创建具有亮值的连续调色板
+code
+#生成一个蓝白红调色板 import seaborn as sns sns.palplot(sns.diverging_palette(240,10,n=9)) result: code:</description>
+    </item>
+    
+    <item>
+      <title>sns.distplot()用法</title>
+      <link>https://example.com/p/sns.distplot%E7%94%A8%E6%B3%95/</link>
+      <pubDate>Wed, 11 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/sns.distplot%E7%94%A8%E6%B3%95/</guid>
+      <description>第一个学的python的包就是matplotlib，特地整理了去年的学习笔记
+sns.distplot()集合了matplotlib的hist()于sns.kdeplot()功能，增了rugplot分布观测显示与理由scipy库fit拟合参数分布的新颖用途
+参数如下 sns.distplot(a, bins=None, hist=True, kde=True, rug=False, fit=None, hist_kws=None, kde_kws=None, rug_kws=None, fit_kws=None, color=None, vertical=False, norm_hist=False, axlabel=None, label=None, ax=None)
+直方图：先分箱，然后计算每个分箱频数的数据分布，
+和条形图的区别，条形图有空隙，直方图没有，条形图一般用于类别特征，直方图一般用于数字特征（连续型） 多用于y值和数字（连续型）特征的分布画图
+code:
+import matplotlib.pyplot as plt import numpy as np import pandas as pd import seaborn as sns sns.set() #切换到sns的默认运行配置 x = np.random.randn(100) sns.distplot(x) result: code:
+sns.displot(x) 通过hist和kde参数调节是否显示直方图及核密度估计(默认hist,kde均为True)
+import warnings warnings.filterwarnings(&amp;#34;ignore&amp;#34;) fig,axes = plt.subplots(1,3)#创建一个1行三列的图片 sns.displot(x,ax=axes[0]) sns.distplot(x,hist=False,ax=axes[1])#不显示直方图 sns.distplot(x,kde=False,ax=axes[2])#不显示核密度 bins：int或list，控制直方图的划分
+#bins fig,axes = plt.subplots(1,2) sns.distplot(x,kde=False,bins=20,ax=axes[0])#分成20个区间 ##以0,1,2,3为分割点，形成区间[0,1],[1,2],[2,3]，区间外的值不计入 sns.distplot(x,kde=False,bins=[x for x in range(4)],ax=axes[1]) code:</description>
+    </item>
+    
+    <item>
+      <title>matplotlib.pyplot_contourf 绘制等高线</title>
+      <link>https://example.com/p/matplotlib.pyplot_contourf-%E7%BB%98%E5%88%B6%E7%AD%89%E9%AB%98%E7%BA%BF/</link>
+      <pubDate>Tue, 10 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/matplotlib.pyplot_contourf-%E7%BB%98%E5%88%B6%E7%AD%89%E9%AB%98%E7%BA%BF/</guid>
+      <description>第一个学的python的包就是matplotlib，特地整理了去年的学习笔记
+import matplotlib.pyplot as plt matplotlib.pyplot.contourf([X,Y],Z) 是来绘制等高线的，contour和contourf都是画三维等高线图的，不同点在于contour() 是绘制轮廓线，contourf()会填充轮廓。
+在传入X,Y时会先进np.meshgrid生成坐标 X,Y对应的网格数据以及此网格对应的高度值，因此我们调用np.meshgrid(x,y)把x,y值转换成网格数据 重要参数说明：
+X,Y为数组，是在Z中的坐标值 当 X,Y,Z 都是 2 维数组时，它们的形状必须相同。如果都是 1 维数组时，len(X)是 Z 的列数， 而 len(Y) 是 Z 中的行数。（例如，经由创建numpy.meshgrid()）
+Z：类似矩阵
+确定轮廓线/区域的数量和位置 其实就是X,Y的函数高度值
+c 这里在机器学习中一般会传入y，即输出的类别，因为Colormap用于将数据值（浮点数）从间隔转 换为相应Colormap表示的RGBA颜色。用于将数据缩放到间隔中看 。
+无论contour还是contourf，都是绘制三维图，其中前两个参数x和y为两个等长一维数组，第三个参数z为二维数组（表示平面点xi,yi映射的函数值）。
+正是由于contourf可以填充等高线之间的空隙颜色，呈现出区域的分划状，所以很多分类机器学习模型的可视化常会借助其展现。
+code:
+import numpy as np import pandas as pd import matplotlib.pyplot as plt def height(x,y): return(1-x/2+x**5+y**3)*np.exp(-x**2-y**2) x = np.linspace(0, 3, 256) y = np.linspace(0, 3, 256) X,Y = np.meshgrid(x,y)#把X，Y传入网格中 X.shape=256,256 Y.shape=256,256 print(X.shape) result:
+(256, 256) code:</description>
+    </item>
+    
+    <item>
+      <title>plt_plot&#43;plt_subplot&#43;plt_subplots区别</title>
+      <link>https://example.com/p/plt_plot-plt_subplot-plt_subplots%E5%8C%BA%E5%88%AB/</link>
+      <pubDate>Tue, 10 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/plt_plot-plt_subplot-plt_subplots%E5%8C%BA%E5%88%AB/</guid>
+      <description> 第一个学的python的包就是matplotlib，特地整理了去年的学习笔记
+import matplotlib.pyplot as plt plt.plot() fig.add_subplot plt.subplot plt.subplots </description>
+    </item>
+    
+    <item>
+      <title>plt.gca()坐标轴移动</title>
+      <link>https://example.com/p/plt.gca%E5%9D%90%E6%A0%87%E8%BD%B4%E7%A7%BB%E5%8A%A8/</link>
+      <pubDate>Tue, 10 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/plt.gca%E5%9D%90%E6%A0%87%E8%BD%B4%E7%A7%BB%E5%8A%A8/</guid>
+      <description> 第一个学的python的包就是matplotlib，特地整理了去年的学习笔记
+import numpy as np import matplotlib.pyplot as plt import torch import torch.nn.functional as F x = torch.linspace(-10,10,60) y = torch.sigmoid(x) ax = plt.gca() #将最上方的边框颜色置为none ax.spines[&amp;#34;top&amp;#34;].set_color(&amp;#34;none&amp;#34;) #右边的边框颜色置为none ax.spines[&amp;#34;right&amp;#34;].set_color(&amp;#34;none&amp;#34;) #要移动底部x轴，所以要先锁定x轴 ax.xaxis.set_ticks_position(&amp;#34;bottom&amp;#34;) #data表示按数值挪动，其后数字代表挪动到Y轴的刻度值 ax.spines[&amp;#34;bottom&amp;#34;].set_position((&amp;#34;data&amp;#34;,0)) # #同上 ax.yaxis.set_ticks_position(&amp;#34;left&amp;#34;) #同上 ax.spines[&amp;#34;left&amp;#34;].set_position((&amp;#34;data&amp;#34;,0)) plt.plot(x.numpy(),y.numpy()) plt.show() </description>
+    </item>
+    
+    <item>
+      <title>Axes.set_xscale()函数用于设置x轴比例</title>
+      <link>https://example.com/p/axes.set_xscale%E5%87%BD%E6%95%B0%E7%94%A8%E4%BA%8E%E8%AE%BE%E7%BD%AEx%E8%BD%B4%E6%AF%94%E4%BE%8B/</link>
+      <pubDate>Mon, 09 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/axes.set_xscale%E5%87%BD%E6%95%B0%E7%94%A8%E4%BA%8E%E8%AE%BE%E7%BD%AEx%E8%BD%B4%E6%AF%94%E4%BE%8B/</guid>
+      <description>第一个学的python的包就是matplotlib，特地整理了去年的学习笔记
+matplotlib库的axiss模块中的Axes.set_xscale()函数用于设置x轴比例
+用法： Axes.set_xscale(self, value, **kwargs)
+参数：此方法接受以下参数。
+value:此参数是要应用的轴比例类型。
+**kwargs:有不同的关键字参数可以接受，并且取决于规模
+以下示例说明了matplotlib.axes中的matplotlib.axes.Axes.set_xscale()函数：
+实例1 #实例1 import matplotlib.pyplot as plt import numpy as np from matplotlib.ticker import EngFormatter#使用工程工程符号标记刻度线 val = np.random.RandomState(19680801) xs = np.logspace(1,9,100) ys = (0.8 + 4 * val.uniform(size=100)) * np.log10(xs)**2 fig,ax0 = plt.subplots() ax0.set_xscale(&amp;#34;log&amp;#34;) formatter0 = EngFormatter(unit=&amp;#34;Hz&amp;#34;) ax0.xaxis.set_major_formatter(formatter0) ax0.plot(xs,ys) ax0.set_xlabel(&amp;#34;Frequency&amp;#34;) fig.suptitle(&amp;#34;%matplotlib.axes.Axes.set_xscale() \ function Example\n&amp;#34;,fontweight=&amp;#34;bold&amp;#34;) plt.show() 实例2 #实例2 import numpy as np import matplotlib.pyplot as plt import warnings warnings.filterwarnings(&amp;#34;ignore&amp;#34;) fig,ax4 = plt.</description>
+    </item>
+    
+    <item>
+      <title>Matplotlib.colors.ListedColormap</title>
+      <link>https://example.com/p/matplotlib.colors.listedcolormap/</link>
+      <pubDate>Mon, 09 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/matplotlib.colors.listedcolormap/</guid>
+      <description>第一个学的python的包就是matplotlib，特地整理了去年的学习笔记
+matplotlib.colors.ListedColormap类属于matplotlib.colors模块。 matplotlib.colors模块用于将颜色或数字参数转换为RGBA或RGB。此模块用于将数字映射到颜色或以一维颜色数组(也称为colormap)进行颜色规格转换。
+matplotlib.colors.ListedColormap类用于从颜色列表创建colarmap对象。这对于直接索引到颜色表中很有用，也可以用于为法线贴图创建特殊的颜色表
+用法： class matplotlib.colors.ListedColormap(colors, name=’from_list’, N=None)
+参数：
+颜色：它是Matplotlib颜色规格的数组或列表，或等于N x 3或N x 4浮点数组(N rgb或rgba值) 名称：它是一个可选参数，它接受一个字符串来标识颜色图。 N:它是一个可选参数，它接受表示映射中条目数的整数值。它的默认值为“无”，其中颜色列表中的每个元素都有一个颜色表条目。如果N小于len(colors)，则列表将在N处截断，而如果N大于len，则列表将重复进行扩展。
+该类的方法： 1)reversed()：这用于创建Colormap的反向实例。
+用法： reversed(self, name=None)
+参数：
+name:它是一个可选参数，表示反转的颜色图的名称。如果将其设置为“无”，则名称将为父色图的名称+ “_r”。
+返回值：它返回颜色图的反向实例
+实例1 import matplotlib.pyplot as plt import numpy as np import matplotlib.colors a = np.linspace(-3,3) A,B = np.meshgrid(a,a) X = np.exp(-(A**2 + B**2)) figure, (axes1,axes2) = plt.subplots(ncols=2) colors = [&amp;#34;green&amp;#34;,&amp;#34;orange&amp;#34;,&amp;#34;gold&amp;#34;,&amp;#34;blue&amp;#34;,&amp;#34;k&amp;#34;,&amp;#34;#550011&amp;#34;,&amp;#34;purple&amp;#34;,&amp;#34;red&amp;#34;] axes1.set_title(&amp;#34;color list&amp;#34;) contour = axes1.contourf(A,B,X,colors=colors) axes2.set_title(&amp;#34;white colormap&amp;#34;) cmap = matplotlib.colors.ListedColormap(colors) contour = axes2.contourf(A,B,X,cmap=cmap) figure.</description>
+    </item>
+    
+    <item>
+      <title>对matplotlib.cm.RdYlBu()的理解</title>
+      <link>https://example.com/p/%E5%AF%B9matplotlib.cm.rdylbu%E7%9A%84%E7%90%86%E8%A7%A3/</link>
+      <pubDate>Sat, 07 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E5%AF%B9matplotlib.cm.rdylbu%E7%9A%84%E7%90%86%E8%A7%A3/</guid>
+      <description>、
+第一个学的python的包就是matplotlib，特地整理了去年的学习笔记
+matplotlib.cm matplotlib.cm是matplotlib库中内置的色彩映射函数
+matplotlib.cm.色彩即对[数据集]应用[色彩] https://matplotlib.org/stable/api/cm_api.html
+内置色彩映射的列表 </description>
+    </item>
+    
+    <item>
+      <title>annotate(),text()--注释文本</title>
+      <link>https://example.com/p/annotatetext--%E6%B3%A8%E9%87%8A%E6%96%87%E6%9C%AC/</link>
+      <pubDate>Fri, 06 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/annotatetext--%E6%B3%A8%E9%87%8A%E6%96%87%E6%9C%AC/</guid>
+      <description>第一个学的python的包就是matplotlib，特地整理了去年的学习笔记
+作用：在图中带有指向型文本注释信息，突显细节
+matplotlib.pyplot.annotate() 参数说明：
+s : string 内容 xy : (float,float) 箭头点所在的坐标位置 xytext : s内容所在的坐标位置 weight : str/int 设置字体线型，其中字符串从小到大可选项有{&amp;lsquo;ultralight&amp;rsquo;, &amp;rsquo;light&amp;rsquo;, &amp;rsquo;normal&amp;rsquo;, &amp;lsquo;regular&amp;rsquo;, &amp;lsquo;book&amp;rsquo;, &amp;lsquo;medium&amp;rsquo;, &amp;lsquo;roman&amp;rsquo;, &amp;lsquo;semibold&amp;rsquo;, &amp;lsquo;demibold&amp;rsquo;, &amp;lsquo;demi&amp;rsquo;, &amp;lsquo;bold&amp;rsquo;, &amp;lsquo;heavy&amp;rsquo;, &amp;rsquo;extra bold&amp;rsquo;, &amp;lsquo;black&amp;rsquo;} color ： str/tuple 设置字体颜色，单个字符候选项{&amp;lsquo;b&amp;rsquo;, &amp;lsquo;g&amp;rsquo;, &amp;lsquo;r&amp;rsquo;, &amp;lsquo;c&amp;rsquo;, &amp;rsquo;m&amp;rsquo;, &amp;lsquo;y&amp;rsquo;, &amp;lsquo;k&amp;rsquo;, &amp;lsquo;w&amp;rsquo;}，也可以&amp;rsquo;black&amp;rsquo;,&amp;lsquo;red&amp;rsquo;等，tuple时用[0,1]之间的浮点型数据，RGB或者RGBA, 如: (0.1, 0.2, 0.5)、(0.1, 0.2, 0.5, 0.3)等 arrowprops : dict 设置指向箭头的参数，字典中key值有①arrowstyle：设置箭头的样式，其value候选项如&amp;rsquo;-&amp;gt;&amp;rsquo;,&amp;rsquo;|-|&amp;rsquo;,&amp;rsquo;-|&amp;gt;&amp;rsquo;,也可以用字符串&amp;rsquo;simple&amp;rsquo;,&amp;lsquo;fancy&amp;rsquo; ; ②connectionstyle：设置箭头的形状，为直线或者曲线，候选项有&amp;rsquo;arc3&amp;rsquo;,&amp;lsquo;arc&amp;rsquo;,&amp;lsquo;angle&amp;rsquo;,&amp;lsquo;angle3&amp;rsquo;，可以防止箭头被曲线内容遮挡; ③color：设置箭头颜色，见前面的color参数 bbox: dict code:
+import matplotlib.pyplot as plt import numpy as np import warnings warnings.</description>
+    </item>
+    
+    <item>
+      <title>画图风格定义为ggplot</title>
+      <link>https://example.com/p/%E7%94%BB%E5%9B%BE%E9%A3%8E%E6%A0%BC%E5%AE%9A%E4%B9%89%E4%B8%BAggplot/</link>
+      <pubDate>Fri, 06 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E7%94%BB%E5%9B%BE%E9%A3%8E%E6%A0%BC%E5%AE%9A%E4%B9%89%E4%B8%BAggplot/</guid>
+      <description> 第一个学的python的包就是matplotlib，特地整理了去年的学习笔记
+import matplotlib.pyplot as plt import matplotlib #用style定义 matplotlib.style.use(&amp;#34;ggplot&amp;#34;) </description>
+    </item>
+    
+    <item>
+      <title>配置图形参数</title>
+      <link>https://example.com/p/%E9%85%8D%E7%BD%AE%E5%9B%BE%E5%BD%A2%E5%8F%82%E6%95%B0/</link>
+      <pubDate>Fri, 06 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E9%85%8D%E7%BD%AE%E5%9B%BE%E5%BD%A2%E5%8F%82%E6%95%B0/</guid>
+      <description> 第一个学的python的包就是matplotlib，特地整理了去年的学习笔记
+配置图形参数 使用面向对象的绘图接口时会创建figure和axes对象。figure实例可以看成是一个能够容纳各种坐标轴、图形、文字和标签的容器，axes是一个带有刻度和标签的矩形，最终会包含所有可视化的图形元素
+import matplotlib.pyplot as plt import matplotlib as mpl import numpy as np import pandas as pd plt.style.use(&amp;#34;seaborn-whitegrid&amp;#34;) fig = plt.figure() ax = plt.axes() 调整图形：线条的颜色和风格 自定义线条的颜色可以设置plot()方法中的color属性。可以使用标准颜色名称，如‘blue’、’red‘等，也可以使用缩写颜色代码（rgbcmyk） 自定义线条的风格可以设置plot()方法中的linestyle属性。可以使用标准风格名称，如‘solid’、‘dashed’、‘dashdot’和‘dotted’，也可以使用简写形式，如‘-’、‘–’、‘-.’或者‘:‘
+x = np.linspace(0,10,100) plt.plot(x,np.sin(x-0),color=&amp;#34;blue&amp;#34;, linestyle=&amp;#34;solid&amp;#34;) plt.plot(x,np.cos(x-1),color=&amp;#34;g&amp;#34;,linestyle=&amp;#34;dashdot&amp;#34;) #更加简洁的方式，将linestyle和color编码结合起来，作为plt.plot()函数的一个非关键参数使用 plt.plot(x,x-3,&amp;#34;--r&amp;#34;) plt.show() 调整图形：坐标上下限——axis()方法 荐使用plt.axis()方法。通过传入[xmin, xmax, ymin, ymax]对应的值，plt.axis()方法可以让你用一行代码设置x和y的限值
+#设置x轴和y轴的限值 plt.plot(x,np.sin(x)) plt.axis([-1,11,-1.5,1.5]) #按照图形的内容自动收紧坐标轴，不留空白区域 plt.axis(&amp;#34;tight&amp;#34;) #让x轴和y轴单位长度相等，即分辨率相等 plt.axis(&amp;#34;equal&amp;#34;) 设置图形的标签 #简单设置方法 plt.title(&amp;#34;A Sine Curve&amp;#34;) plt.xlabel(&amp;#34;X&amp;#34;) plt.ylabel(&amp;#34;sin(x)&amp;#34;) #当单个坐标轴上显示多条线时，创建图例显示每条线是很有效的方法。Matplotlib内置了一个简单快速的方法——plt.legend() #在plt.plot()方法中显示设置label参数，配合plt.legend()函数可以方便的制作图例 plt.plot(x,np.sin(x),&amp;#34;-g&amp;#34;,label=&amp;#34;sin(x)&amp;#34;) plt.plot(x,np.cos(x),&amp;#34;:b&amp;#34;,label=&amp;#34;cos(x)&amp;#34;) plt.axis(&amp;#34;equal&amp;#34;) plt.legend() plt.title(&amp;#34;triangle function curve&amp;#34;) plt.show() </description>
+    </item>
+    
+    <item>
+      <title>Sklearn.metrics机器学习各种评价指标</title>
+      <link>https://example.com/p/sklearn.metrics%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%90%84%E7%A7%8D%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87/</link>
+      <pubDate>Tue, 19 Apr 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/sklearn.metrics%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%90%84%E7%A7%8D%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87/</guid>
+      <description>这是Python sklearn机器学习各种评价指标——sklearn.metrics简介及应用示例 （文中图片来源于知乎，但是因为是很久之前的图片，今天整理起来找不到原作者的知乎账号了）
+补充，找到了，但是记错了，不是知乎。。
+https://scikit-learn.org/stable/modules/classes.html https://www.cnblogs.com/mindy-snail/p/12445973.html # 有两种方式导入： #方式一： from sklearn.metrics import mean_squared_error from sklearn.metrics import r2_score # 此时的调用方式直接调用即可 mean_squared_error(y_test,y_pred) #方式二： from sklearn import metrics #此时的调用方式 metrics.mean_squared_error(y_test,y_pred) 来看scikit-learn.metrics里各种指标简介
+回归指标 1.explained_variance_score(y_true, y_pred, sample_weight=None, multioutput=‘uniform_average’)：回归方差(反应自变量与因变量之间的相关程度) 2.mean_absolute_error(y_true,y_pred,sample_weight=None,multioutput=‘uniform_average’)：平均绝对误差 3.mean_squared_error(y_true, y_pred, sample_weight=None, multioutput=‘uniform_average’)：均方差 4.median_absolute_error(y_true, y_pred) 中值绝对误差 5.r2_score(y_true, y_pred,sample_weight=None,multioutput=‘uniform_average’) ：R平方值 分类指标 1.accuracy_score(y_true,y_pred):精度 2.auc(x,y,reorder=False):ROC曲线下的面积;较大的AUC代表了较好的performance 3.average_precision_score(y_true, y_score, average=‘macro’, sample_weight=None):根据预测得分计算平均精度(AP) 4.brief_score_loss(y_true, y_prob, sample_weight=None, pos_label=None):The smaller the Brier score, the better. 5.confusion_matrix(y_true, y_pred, labels=None, sample_weight=None):通过计算混淆矩阵来评估分类的准确性 返回混淆矩阵 6.f1_score(y_true, y_pred, labels=None, pos_label=1, average=‘binary’, sample_weight=None):F1值 7.</description>
+    </item>
+    
+    <item>
+      <title>startwiths&amp;endswith()判断开头&amp;结尾 </title>
+      <link>https://example.com/p/startwithsendswith%E5%88%A4%E6%96%AD%E5%BC%80%E5%A4%B4%E7%BB%93%E5%B0%BE/</link>
+      <pubDate>Tue, 19 Apr 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/startwithsendswith%E5%88%A4%E6%96%AD%E5%BC%80%E5%A4%B4%E7%BB%93%E5%B0%BE/</guid>
+      <description> str.startswith(substr,start,end) 判断substr是否在str中开头 ,当然了可以指定从str哪里开始检索 str.endswith(substr,start,end) 判断substr是否在str中结尾,当然了可以指定从str哪里开始检索 code:
+str_long = &amp;#34;This is a test now&amp;#34; str_long.startswith(&amp;#34;This&amp;#34;) result:
+True code:
+str_long.startswith(&amp;#34;This&amp;#34;,5,9) result:
+Flase code:
+str_long.endswith(&amp;#34;now&amp;#34;) result:
+True code:
+str_long.endswith(&amp;#34;test&amp;#34;,0,14) result:
+True </description>
+    </item>
+    
+    <item>
+      <title>用scikit-learn进行LDA降维</title>
+      <link>https://example.com/p/%E7%94%A8scikit-learn%E8%BF%9B%E8%A1%8Clda%E9%99%8D%E7%BB%B4/</link>
+      <pubDate>Mon, 07 Mar 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E7%94%A8scikit-learn%E8%BF%9B%E8%A1%8Clda%E9%99%8D%E7%BB%B4/</guid>
+      <description>我们首先生成三类三维特征的数据，代码如下：
+import numpy as np import matplotlib.pyplot as plt from mpl_toolkits.mplot3d import Axes3D from sklearn.datasets import make_classification X,y = make_classification(n_samples=1000,n_features=3,n_redundant=0, n_classes=3,n_informative=2,n_clusters_per_class=1,class_sep=0.5, random_state=22) fig = plt.figure(figsize=(15,8)) ax = Axes3D(fig,rect=[0,0,1,1],elev=30,azim=20) ax.scatter(X[:,0],X[:,1],X[:,2],marker=&amp;#34;o&amp;#34;,c=y) 首先我们看看使用PCA降维到二维的情况，注意PCA无法使用类别信息来降维
+from sklearn.decomposition import PCA pca = PCA(n_components=2) pca.fit(X) print(pca.explained_variance_ratio_) print(pca.explained_variance_) X_nex = pca.transform(X) plt.scatter(X_nex[:,0],X_nex[:,1],marker=&amp;#34;o&amp;#34;,c=y) plt.show() result: 由于PCA没有利用类别信息，我们可以看到降维后，样本特征和类别的信息关联几乎完全丢失。
+现在我们再看看使用LDA的效果
+from sklearn.discriminant_analysis import LinearDiscriminantAnalysis lda = LinearDiscriminantAnalysis(n_components=2) lda.fit(X,y) X_new = lda.transform(X) plt.scatter(X_new[:,0],X_new[:,1],marker=&amp;#34;o&amp;#34;,c=y) plt.show() result: 可以看出降维后样本特征和类别信息之间的关系得以保留。
+一般来说，如果我们的数据是有类别标签的，那么优先选择LDA去尝试降维；当然也可以使用PCA做很小幅度的降维去消去噪声，然后再使用LDA降维。如果没有类别标签，那么肯定PCA是最先考虑的一个选择了。</description>
+    </item>
+    
+    <item>
+      <title>用scikit-learn学习主成分分析(PCA)</title>
+      <link>https://example.com/p/%E7%94%A8scikit-learn%E5%AD%A6%E4%B9%A0%E4%B8%BB%E6%88%90%E5%88%86%E5%88%86%E6%9E%90pca/</link>
+      <pubDate>Sat, 05 Mar 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E7%94%A8scikit-learn%E5%AD%A6%E4%B9%A0%E4%B8%BB%E6%88%90%E5%88%86%E5%88%86%E6%9E%90pca/</guid>
+      <description>import numpy as np import pandas as pd import matplotlib import matplotlib.pyplot as plt import warnings warnings.filterwarnings(&amp;#34;ignore&amp;#34;) # matplotlib.style.use(&amp;#34;ggplot&amp;#34;) #这个用来绘制三维图 from mpl_toolkits.mplot3d import Axes3D # from sklearn.datasets.samples_generator import make_blobs from sklearn.datasets import make_blobs # X为样本特征，Y为样本簇类别， 共1000个样本，每个样本3个特征，共4个簇 X,y = make_blobs(n_samples=10000,n_features=3,centers=[[3,3,3],[0,0,0],[1,1,1],[2,2,2]], cluster_std=[0.2,0.1,0.2,0.2],random_state=22) fig = plt.figure(figsize=(15,5))#之所以要这样是为了传给Axes3D一个画布 ax = Axes3D(fig,rect=[0,0,1,1],elev=30,azim=20) plt.scatter(X[:,0],X[:,1],X[:,2],marker=&amp;#34;o&amp;#34;) result: 我们先不降维，只对数据进行投影，看看投影后的三个维度的方差分布，代码如下：
+from sklearn.decomposition import PCA pca = PCA(n_components=3) pca.fit(X) print(pca.explained_variance_) print(pca.explained_variance_ratio_) result:
+[3.78352072 0.03342374 0.03210098] [0.98297637 0.00868364 0.00833998] 投影后第一个特征占了绝大多数的主成分比例。
+现在我们来进行降维，从三维降到2维，代码如下：
+pca = PCA(n_components=2) pca.</description>
+    </item>
+    
+    <item>
+      <title>用scikit-learn研究局部线性嵌入(LLE)</title>
+      <link>https://example.com/p/%E7%94%A8scikit-learn%E7%A0%94%E7%A9%B6%E5%B1%80%E9%83%A8%E7%BA%BF%E6%80%A7%E5%B5%8C%E5%85%A5lle/</link>
+      <pubDate>Sat, 05 Mar 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E7%94%A8scikit-learn%E7%A0%94%E7%A9%B6%E5%B1%80%E9%83%A8%E7%BA%BF%E6%80%A7%E5%B5%8C%E5%85%A5lle/</guid>
+      <description>LLE用于降维可视化实践
+下面我们用一个具体的例子来使用scikit-learn进行LLE降维并可视化。
+import numpy as np import pandas as pd import matplotlib.pyplot as plt from mpl_toolkits.mplot3d import Axes3D #manifold是用来导入LLE from sklearn import manifold,datasets from sklearn.utils import check_random_state 我们接着生成随机数据，由于LLE必须要基于流形不能闭合，因此我们生成了一个缺一个口的三维球体。生成数据并可视化的代码如下：
+n_samples = 500 #check_random_state 的作用是 Turn seed into a np.random.RandomState instance random_state = check_random_state(0) print(random_state) result:
+RandomState(MT19937) #作用体现在这里了 p = random_state.rand(n_samples)*(2*np.pi-0.55) t = random_state.rand(n_samples)*np.pi print(p,t) result: # 让球体不闭合，符合流形定义 indices = ((t &amp;lt; (np.pi - (np.pi / 8))) &amp;amp; (t &amp;gt; ((np.pi / 8)))) colors = p[indices] x, y, z = np.</description>
+    </item>
+    
+    <item>
+      <title>Python中的itertools.product</title>
+      <link>https://example.com/p/python%E4%B8%AD%E7%9A%84itertools.product/</link>
+      <pubDate>Wed, 02 Mar 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/python%E4%B8%AD%E7%9A%84itertools.product/</guid>
+      <description>itertools包中的方法product 函数
+product(A, B)函数，返回A、B中的元素的笛卡尔积的元组
+code:
+from itertools import product A = [1,2,3,4] B = [5,6,7,8] list(product(A,B)) result:
+[(1, 5), (1, 6), (1, 7), (1, 8), (2, 5), (2, 6), (2, 7), (2, 8), (3, 5), (3, 6), (3, 7), (3, 8), (4, 5), (4, 6), (4, 7), (4, 8)] 可以看出返回的是A和B中每一个元素的元组组合
+就是说它会将A中的第一个元素与B中的每一个元素构成一个元组组合，以此类推下去</description>
+    </item>
+    
+    <item>
+      <title>py_os方法总结</title>
+      <link>https://example.com/p/py_os%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/</link>
+      <pubDate>Fri, 25 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/py_os%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/</guid>
+      <description>教程看的是这里的 https://www.runoob.com/python/os-file-methods.html
+os.access(path,mode) 用来检验权限模式 os.access() 方法使用当前的uid/gid尝试访问路径。大部分操作使用有效的 uid/gid, 因此运行环境可以在 suid/sgid 环境尝试
+参数
+path &amp;ndash; 要用来检测是否有访问权限的路径
+mode &amp;ndash; mode为F_OK，测试存在的路径，或者它可以是包含R_OK, W_OK和X_OK或者R_OK, W_OK和X_OK其中之一或者更多
+os.F_OK: 作为access()的mode参数，测试path是否存在 os.R_OK: 包含在access()的mode参数中 ， 测试path是否可读 os.W_OK 包含在access()的mode参数中 ， 测试path是否可写 os.X_OK 包含在access()的mode参数中 ，测试path是否可执行 code:
+import os #文件是否存在 os.access(&amp;#34;./os_test.txt&amp;#34;,mode=os.F_OK) result:
+True code:
+#文件是否可读 os.access(&amp;#34;./os_test.txt&amp;#34;,mode=os.R_OK) result:
+True code
+#文件是否可写 os.access(&amp;#34;./os_test.txt&amp;#34;,mode=os.W_OK) result:
+True code:
+#文件是否可执行 os.access(&amp;#34;./os_test.txt&amp;#34;,mode=os.X_OK) result:
+True os.chdir() os.chdir() 方法用于改变当前工作目录到指定的路径
+参数： path &amp;ndash; 要切换到的新路径 返回值 如果允许访问返回 True , 否则返回False code:
+#先看看看当前目录在哪里 os.getcwd() result:</description>
+    </item>
+    
+    <item>
+      <title>py_占位符运用</title>
+      <link>https://example.com/p/py_%E5%8D%A0%E4%BD%8D%E7%AC%A6%E8%BF%90%E7%94%A8/</link>
+      <pubDate>Fri, 11 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/py_%E5%8D%A0%E4%BD%8D%E7%AC%A6%E8%BF%90%E7%94%A8/</guid>
+      <description>这里来学习一下Python中的_Underscore的用处 总的来说可以提高编码效率,教程原文：https://www.datacamp.com/community/tutorials/role-underscore-python
+存储作用 Python automatically stores the value of the last expression in the interpreter to a particular variable called &amp;ldquo;_.&amp;rdquo; You can also assign these value to another variable if you want.
+简单来说就是存储上一次未指定变量名字的结果，并且可以通过变量赋值 占位作用 Ignoring Values Underscore() is also used to ignore the values. If you don&amp;rsquo;t want to use specific values while unpacking, just assign that value to underscore().
+Ignoring means assigning the values to special variable underscore().</description>
+    </item>
+    
+    <item>
+      <title>sklearn.datasets中的几个函数make_moons,make_circles,make_classification</title>
+      <link>https://example.com/p/sklearn.datasets%E4%B8%AD%E7%9A%84%E5%87%A0%E4%B8%AA%E5%87%BD%E6%95%B0make_moonsmake_circlesmake_classification/</link>
+      <pubDate>Sun, 06 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/sklearn.datasets%E4%B8%AD%E7%9A%84%E5%87%A0%E4%B8%AA%E5%87%BD%E6%95%B0make_moonsmake_circlesmake_classification/</guid>
+      <description>make_moons() sklearn.datasets.make_moons(n_samples=100, shuffle=True, noise=None, random_state=None)
+制作月亮型数据
+重要参数：n_samples：设置样本数量、noise:设置噪声、random_state：设置随机参数（嘿嘿，无所谓，随便设），我们主要讲参数noise
+from sklearn.datasets import make_moons import matplotlib.pyplot as plt # plt.style.use(&amp;#34;seaborn-whitegrid&amp;#34;) a,b = make_moons(noise=0) plt.scatter(a[:,0],a[:,1],c=b) result: ![](picture/sklearn.datasets中的几个函数make_moons,%20make_circles(,make_classification.png)
+#将noise设置为0.1 a,b = make_moons(noise=0.1) plt.scatter(a[:,0],a[:,1],c=b) #发现这个noise设置的越大，那么噪声就越大 result: make_circles() sklearn.datasets.make_circles(n_samples=100, shuffle=True, noise=None, random_state=None, factor=0.8)
+重要参数：n_samples：设置样本数量、noise:设置噪声、factor：0 &amp;lt; double &amp;lt; 1 默认值0.8，内外圆之间的比例因子、random_state：设置随机参数（嘿嘿，无所谓，随便设），我们主要讲参数noise、factor
+from sklearn.datasets import make_circles #将moise设置为0，factor设置为0.1 a,b = make_circles(noise=0,factor=0.1) plt.scatter(a[:,0],a[:,1],c=b) result: code:
+#将noise设置为0.1，factor设置为0.5 a,b = make_circles(noise=0.1,factor=0.5) plt.scatter(a[:,0],a[:,1],c=b) #发现这个noise设置的越大，那么噪声就越大，factor设置的越大，两个环就越近 result: make_classfication sklearn.datasets.make_classification(n_samples=100, n_features=20, n_informative=2, n_redundant=2, n_repeated=0, n_classes=2, n_clusters_per_class=2, weights=None, flip_y=0.01, class_sep=1.</description>
+    </item>
+    
+    <item>
+      <title>metrics.accuracy_score()计算分类的准确率</title>
+      <link>https://example.com/p/metrics.accuracy_score%E8%AE%A1%E7%AE%97%E5%88%86%E7%B1%BB%E7%9A%84%E5%87%86%E7%A1%AE%E7%8E%87/</link>
+      <pubDate>Fri, 28 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/metrics.accuracy_score%E8%AE%A1%E7%AE%97%E5%88%86%E7%B1%BB%E7%9A%84%E5%87%86%E7%A1%AE%E7%8E%87/</guid>
+      <description>sklearn中提供了计算准确率的accurccy_score函数 from sklearn import metrics metrics.accuracy_score? 输入参数：
+y_true：真是标签。二分类和多分类情况下是一列，多标签情况下是标签的索引。
+y_pred：预测标签。二分类和多分类情况下是一列，多标签情况下是标签的索引。
+normalize:bool, optional (default=True)，如果是false，正确分类的样本的数目(int)；如果为true，返回正确分类的样本的比例，必须严格匹配真实数据集中的label，才为1，否则为0。
+sample_weight：array-like of shape (n_samples,), default=None。Sample weights.
+输出：
+如果normalize == True,返回正确分类的样本的比例，否则返回正确分类的样本的数目(int)</description>
+    </item>
+    
+    <item>
+      <title>yield的作用</title>
+      <link>https://example.com/p/yield%E7%9A%84%E4%BD%9C%E7%94%A8/</link>
+      <pubDate>Tue, 25 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/yield%E7%9A%84%E4%BD%9C%E7%94%A8/</guid>
+      <description>简介 python中，yield关键字的作用：1、将一个函数修改为生成器，利用生成器可以有效地节约系统资源，避免不必要的内存占用；2、用于定义上下文管理器；3、协程；4、配合from形成yield from用于消费子生成器并传递消息。
+常见的情况 生成器 生成器函数（generation function） 和 生成器（generation） 生成器函数是一种特殊的函数，它的函数内部含有yield表达式，调用它会返回一个特殊的迭代器，称生成器。
+具体情况 def foo(): print(&amp;#34;starting&amp;#34;) yield g = foo() g #&amp;lt;generator object foo at 0x000001B77CB6C350&amp;gt; #没有任何输出。这是因为有yield，函数并没有被执行。只是将foo()指向了g。 #函数2 def foo(): print(&amp;#34;starting&amp;#34;) yield 1 print(&amp;#34;ending&amp;#34;) g = foo() g #&amp;lt;generator object foo at 0x000001B77CB6C820&amp;gt; print(next(g)) #starting #1 print(next(g)) #ending #--------------------------------------------------------------------------- #StopIteration Traceback (most recent call last) #~\AppData\Local\Temp/ipykernel_22044/2604396719.py in &amp;lt;module&amp;gt; #----&amp;gt; 1 print(next(g)) #StopIteration: 运行：输出了starting和1，并没有输出ending，这是因为next(g)只调用了一次，运行到了yield就返回了，print函数打印了返回值：1。这个时候函数停止了，等待下一次的next(g)调用。 迭代器是一个对象，这种对象每次只能调取一个数据元素。对迭代器不断调用 next() 方法（将迭代起变量放入next()中当参数），则可以依次获取下一个元素；当迭代器中没有元素时，调用 next() 方法会抛出 StopIteration（停止迭代） 异常。迭代器的 iter() 方法返回迭代器自身；因此迭代器也是可迭代的。 运行：接着上面的，第二个next(g)运行，报错是因为遍历结束了，无yield了。解决方法就是在最好加一个yield。</description>
+    </item>
+    
+    <item>
+      <title>collections的namedtuple命名元组知识</title>
+      <link>https://example.com/p/collections%E7%9A%84namedtuple%E5%91%BD%E5%90%8D%E5%85%83%E7%BB%84%E7%9F%A5%E8%AF%86/</link>
+      <pubDate>Sat, 22 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/collections%E7%9A%84namedtuple%E5%91%BD%E5%90%8D%E5%85%83%E7%BB%84%E7%9F%A5%E8%AF%86/</guid>
+      <description>collections的namedtuple使用 元组中的元素值是不能被更改的，由于元组不像字典那样可以为内部的元素命名，因此我们并不知道元组内的元素所表达的意义，在访问元组的时候也只能通过索引访问其中的元素。 于是Python标准库collections引入了namedtuple函数，它可以创建一个和元组类似但更为强大的类型——具名元组（namedtuple），也就是构造一个带字段名的元组
+基础语法 #导入 from collections import namedtuple #创建一个namedtuple对象 collections.namedtuple(typename=&amp;#34;&amp;#34;, field_names=[&amp;#34;&amp;#34;], *, verbose=False, rename=False, module=None) 参数说明 1.typename: 创建的元组名称，实际上是赋予对象类名，看后面的例子就知道了
+2.field_names:新创建的元组中的元素名称，可以类比与字典的key，这就是为什么可以通过键值去命名元组创建新或者取出已有元素的原因了 ；可以[&amp;ldquo;key1&amp;rdquo;,&amp;ldquo;key2&amp;rdquo;]或者空格隔开的形式&amp;quot;key1 key2&amp;quot;
+3.rename:为True时，不能不能包含有非Python标识符、Python中的关键字以及重复的name，如果有则会默认重命名成_index的形式，如&amp;quot;def abc&amp;quot;变成&amp;quot;_0 abc&amp;quot;
+简单的用法 1.创建好后可以通过实例化，直接传值
+2.可以通过index或者key访问value
+3.fields:可以访问指定namedtuple的所有键值名
+4.make：可以以list的方式赋值，与1略不同
+5.asdict:可以将namedtuple转为字典对象
+具体例子 code:
+#创建一个namedtuple对象,并实例化 tmp = namedtuple(&amp;#34;test&amp;#34;,[&amp;#34;id&amp;#34;,&amp;#34;name&amp;#34;,&amp;#34;word&amp;#34;]) #直接赋值 tmp1 = tmp(&amp;#34;0&amp;#34;,&amp;#34;yeyuhao&amp;#34;,&amp;#34;hahaha&amp;#34;) #make赋值 tmp2 = tmp._make([&amp;#34;1&amp;#34;,&amp;#34;miles&amp;#34;,&amp;#34;hehehe&amp;#34;]) print(tmp1) print(tmp2) print(&amp;#34;---------分割线-------------&amp;#34;) #index取值 print(tmp1[1]) #key取值 print(tmp1.name) #fileds返回所有key print(tmp1._fields)#不用加（） #转字典 print(tmp2._asdict()) result:
+test(id=&amp;#39;0&amp;#39;, name=&amp;#39;yeyuhao&amp;#39;, word=&amp;#39;hahaha&amp;#39;) test(id=&amp;#39;1&amp;#39;, name=&amp;#39;miles&amp;#39;, word=&amp;#39;hehehe&amp;#39;) ---------分割线------------- yeyuhao yeyuhao (&amp;#39;id&amp;#39;, &amp;#39;name&amp;#39;, &amp;#39;word&amp;#39;) {&amp;#39;id&amp;#39;: &amp;#39;1&amp;#39;, &amp;#39;name&amp;#39;: &amp;#39;miles&amp;#39;, &amp;#39;word&amp;#39;: &amp;#39;hehehe&amp;#39;} </description>
+    </item>
+    
+    <item>
+      <title>collection.Counter()计数的使用</title>
+      <link>https://example.com/p/collection.counter%E8%AE%A1%E6%95%B0%E7%9A%84%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Fri, 21 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/collection.counter%E8%AE%A1%E6%95%B0%E7%9A%84%E4%BD%BF%E7%94%A8/</guid>
+      <description>collection.Counter()的方法，可以将传入的对象的出现次数返回来，
+Counter() 以字典的形式返回，数：出现次数 Counter().items() 以元组的形式返回，按数在传入的顺序中的顺序 （数：出现次数） Counter().keys() 以list的整体返回，数 Counter().values() 以list的整体返回，出现次数 code:
+from collections import Counter list_test = [2,7,4,5,6,0,6,6,6,4] Counter(list_test) result:
+Counter({2: 1, 7: 1, 4: 2, 5: 1, 6: 4, 0: 1}) code:
+Counter(list_test).items() result:
+dict_items([(2, 1), (7, 1), (4, 2), (5, 1), (6, 4), (0, 1)]) code:
+Counter(list_test)[6] result:
+4 code:
+Counter(list_test).keys() result:
+dict_keys([2, 7, 4, 5, 6, 0]) code:
+Counter(list_test).values() result:
+dict_values([1, 1, 2, 1, 4, 1]) </description>
+    </item>
+    
+    <item>
+      <title>argparse参数个性化的用法整理</title>
+      <link>https://example.com/p/argparse%E5%8F%82%E6%95%B0%E4%B8%AA%E6%80%A7%E5%8C%96%E7%9A%84%E7%94%A8%E6%B3%95%E6%95%B4%E7%90%86/</link>
+      <pubDate>Thu, 20 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/argparse%E5%8F%82%E6%95%B0%E4%B8%AA%E6%80%A7%E5%8C%96%E7%9A%84%E7%94%A8%E6%B3%95%E6%95%B4%E7%90%86/</guid>
+      <description>整理 下关于 argparse的用法，主要用于参数提示
+#coding=utf-8 import argparse from ast import Store, parse from cgi import test from email import parser from itertools import count from pydoc import describe from ssl import ALERT_DESCRIPTION_UNEXPECTED_MESSAGE from this import s from tokenize import group from turtle import Turtle import turtle from numpy import False_ 使用前要实例化一个ArgumentParser对象
+parser = argparse.ArgumentParser(description=&amp;#34;这是ArugementParser中的description&amp;#34;) parser.parse_args() 这上面当你运行
+python test.py -h 注意要加上-h参数，就是出现主要的decsription中的str
+parser = argparse.ArgumentParser() parser.add_argument(&amp;#34;test&amp;#34;) args = parser.parse_args() print(&amp;#34;输出的内容是%s&amp;#34; % args.test) 这个其实就是添加了cmd中一个位置，将获取到的值存入到test这个变量中 要取变量的值先通过parse_args()获取到args对象</description>
+    </item>
+    
+    <item>
+      <title>Python对axis的理解</title>
+      <link>https://example.com/p/python%E5%AF%B9axis%E7%9A%84%E7%90%86%E8%A7%A3/</link>
+      <pubDate>Tue, 18 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/python%E5%AF%B9axis%E7%9A%84%E7%90%86%E8%A7%A3/</guid>
+      <description>千万不要用行和列的思维去想axis，因为行和列是没有方向的，这样想会在遇到不同的例子时感到困惑。
+二维的理解 轴用来为超过一维的数组定义的属性，二维数据拥有两个轴：第0轴沿着行的垂直往下，第1轴沿着列的方向水平延伸。 注意看，官方对于0和1的解释是轴，也就是坐标轴。而坐标轴是有方向的，所以千万不要用行和列的思维去想axis，因为行和列是没有方向的，这样想会在遇到不同的例子时感到困惑。
+根据官方的说法，1表示横轴，方向从左到右；0表示纵轴，方向从上到下。当axis=1时，数组的变化是横向的，而体现出来的是列的增加或者减少。
+其实axis的重点在于方向，而不是行和列。具体到各种用法而言也是如此。当axis=1时，如果是求平均，那么是从左到右横向求平均；如果是拼接，那么也是左右横向拼接；如果是drop，那么也是横向发生变化，体现为列的减少。
+当考虑了方向，即axis=1为横向，axis=0为纵向，而不是行和列，那么所有的例子就都统一了。
+code:
+import numpy as np a = np.array([[1,2,3],[4,5,6]]) a result:
+array([[1, 2, 3], [4, 5, 6]]) code:
+a.sum(axis=0) result:
+array([5, 7, 9]) code:
+a.sum(axis=1) result:
+array([ 6, 15]) code:
+a.sum(axis=-1) result:
+array([ 6, 15]) 高维的理解 这里解释一下三维，更高维也就都能理解了 地址：https://www.jianshu.com/p/93317c0dca6a
+什么意思呢？就是比如：
+当axis=0时，此时就时要找除了第一个下标，其他下标相同的放在一起，比如a000、a100、a200这个为一组，a001、a101、a201为一组&amp;hellip;. 最终为(4，5) 当axis=1时，此时就时要找除了第二个下标，其他下标相同的放在一起，比如a000、a010、a020、a030 这个为一组，a001、a011、a021、a031为一组&amp;hellip;.（3，5）
+当axis=-1（即为2时，解释下-1是什么，是找到最近的一个数，因为我们这里的下标就只有axxx，三位即0，1，2所以-1即为axis=2 a000,a001,a002,a003为一组。。。。 (3,4) image.png 总的来说就是 先分组处理，再根据要求合并</description>
+    </item>
+    
+    <item>
+      <title>pprint.pformat数据读写</title>
+      <link>https://example.com/p/pprint.pformat%E6%95%B0%E6%8D%AE%E8%AF%BB%E5%86%99/</link>
+      <pubDate>Sat, 15 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/pprint.pformat%E6%95%B0%E6%8D%AE%E8%AF%BB%E5%86%99/</guid>
+      <description>pprint.pprint和 pprint.pformat 实现数据读写功能 pprint模块中使用的格式化可以按照一种格式正确的显示数据, 这种格式即可被解析器解析, 又很易读. 输出保存在一个单行内, 但如果有必要, 在分割多行数据时也可使用缩进表示.
+Python 的 pprint.pformat() 函数会以字符串形式，返回列表或字典中的内容。可以将其保存为一个 py 文件，以便将来读取使用
+具体例子 pprint的美化 code:
+#导入包 import pprint data_test = { &amp;#34;a&amp;#34;:{&amp;#34;1&amp;#34;:&amp;#34;dsad&amp;#34;,&amp;#34;2&amp;#34;:&amp;#34;hehehee&amp;#34;}, &amp;#34;b&amp;#34;:{&amp;#34;3&amp;#34;:&amp;#34;fdsff&amp;#34;,&amp;#34;4&amp;#34;:&amp;#34;rtdfd&amp;#34;,&amp;#39;f&amp;#39;: &amp;#39;F&amp;#39;, &amp;#39;g&amp;#39;: &amp;#39;G&amp;#39;, &amp;#39;h&amp;#39;: &amp;#39;H&amp;#39;}, &amp;#34;c&amp;#34;:{&amp;#39;e&amp;#39;: &amp;#39;E&amp;#39;, &amp;#39;f&amp;#39;: &amp;#39;F&amp;#39;, &amp;#39;g&amp;#39;: &amp;#39;G&amp;#39;, &amp;#39;h&amp;#39;: &amp;#39;H&amp;#39;,&amp;#39;i&amp;#39;: &amp;#39;I&amp;#39;, &amp;#39;j&amp;#39;: &amp;#39;J&amp;#39;, &amp;#39;k&amp;#39;: &amp;#39;K&amp;#39;, &amp;#39;l&amp;#39;: &amp;#39;L&amp;#39;} } print(data_test) print(&amp;#34;美化后&amp;#34;) #当元素超过大于等于8，才会真正展现pprint的美化用处 #具体来说就是每个行占据一个元素对象全部数据或者竖列展示 pprint.pprint(data_test) result:
+{&amp;#39;a&amp;#39;: {&amp;#39;1&amp;#39;: &amp;#39;dsad&amp;#39;, &amp;#39;2&amp;#39;: &amp;#39;hehehee&amp;#39;}, &amp;#39;b&amp;#39;: {&amp;#39;3&amp;#39;: &amp;#39;fdsff&amp;#39;, &amp;#39;4&amp;#39;: &amp;#39;rtdfd&amp;#39;, &amp;#39;f&amp;#39;: &amp;#39;F&amp;#39;, &amp;#39;g&amp;#39;: &amp;#39;G&amp;#39;, &amp;#39;h&amp;#39;: &amp;#39;H&amp;#39;}, &amp;#39;c&amp;#39;: {&amp;#39;e&amp;#39;: &amp;#39;E&amp;#39;, &amp;#39;f&amp;#39;: &amp;#39;F&amp;#39;, &amp;#39;g&amp;#39;: &amp;#39;G&amp;#39;, &amp;#39;h&amp;#39;: &amp;#39;H&amp;#39;, &amp;#39;i&amp;#39;: &amp;#39;I&amp;#39;, &amp;#39;j&amp;#39;: &amp;#39;J&amp;#39;, &amp;#39;k&amp;#39;: &amp;#39;K&amp;#39;, &amp;#39;l&amp;#39;: &amp;#39;L&amp;#39;}} 美化后 {&amp;#39;a&amp;#39;: {&amp;#39;1&amp;#39;: &amp;#39;dsad&amp;#39;, &amp;#39;2&amp;#39;: &amp;#39;hehehee&amp;#39;}, &amp;#39;b&amp;#39;: {&amp;#39;3&amp;#39;: &amp;#39;fdsff&amp;#39;, &amp;#39;4&amp;#39;: &amp;#39;rtdfd&amp;#39;, &amp;#39;f&amp;#39;: &amp;#39;F&amp;#39;, &amp;#39;g&amp;#39;: &amp;#39;G&amp;#39;, &amp;#39;h&amp;#39;: &amp;#39;H&amp;#39;}, &amp;#39;c&amp;#39;: {&amp;#39;e&amp;#39;: &amp;#39;E&amp;#39;, &amp;#39;f&amp;#39;: &amp;#39;F&amp;#39;, &amp;#39;g&amp;#39;: &amp;#39;G&amp;#39;, &amp;#39;h&amp;#39;: &amp;#39;H&amp;#39;, &amp;#39;i&amp;#39;: &amp;#39;I&amp;#39;, &amp;#39;j&amp;#39;: &amp;#39;J&amp;#39;, &amp;#39;k&amp;#39;: &amp;#39;K&amp;#39;, &amp;#39;l&amp;#39;: &amp;#39;L&amp;#39;}} ppformat保存作用 code</description>
+    </item>
+    
+    <item>
+      <title>Anaconda创建env环境</title>
+      <link>https://example.com/p/anaconda%E5%88%9B%E5%BB%BAenv%E7%8E%AF%E5%A2%83/</link>
+      <pubDate>Mon, 10 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/anaconda%E5%88%9B%E5%BB%BAenv%E7%8E%AF%E5%A2%83/</guid>
+      <description>这里记录下anaconda常用的命名
+1.创建虚拟环境
+conda create -n 虚拟环境env的名字 python=X.X(可选)
+或者同时安装一些包
+conda create -n 虚拟环境env的名字 numpy pandas(等包名) python=X.X(可选)
+2.激活虚拟环境
+Linux: source activate env名字
+Window: activate env名字
+3.退出虚拟环境
+Linux: source deactivate env名字
+Window：deactivate env名字
+4.删除虚拟环境
+删除整个环境
+conda remove -n env名字 &amp;ndash;all
+删除环境中的某个包
+conda remove -n env名字 包名
+5.其他
+查看安装了哪些包
+conda list
+安装包
+conda install
+查看当前存在哪些env
+conda env list
+检查更新当前conda
+conda update conda</description>
+    </item>
+    
+    <item>
+      <title>使用Image在notebook中展示图片</title>
+      <link>https://example.com/p/%E4%BD%BF%E7%94%A8image%E5%9C%A8notebook%E4%B8%AD%E5%B1%95%E7%A4%BA%E5%9B%BE%E7%89%87/</link>
+      <pubDate>Thu, 06 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E4%BD%BF%E7%94%A8image%E5%9C%A8notebook%E4%B8%AD%E5%B1%95%E7%A4%BA%E5%9B%BE%E7%89%87/</guid>
+      <description>#从Ipython.display 导入 Image from IPython.display import Image Image(&amp;#34;./47ce630c275ddfe89fa3c49ffaa767ce.jpg&amp;#34;) 可以使用个循环去封装，但是此时Image前记得加上display 即写成display(Image())</description>
+    </item>
+    
+    <item>
+      <title>到底什么是句柄</title>
+      <link>https://example.com/p/%E5%88%B0%E5%BA%95%E4%BB%80%E4%B9%88%E6%98%AF%E5%8F%A5%E6%9F%84/</link>
+      <pubDate>Thu, 06 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E5%88%B0%E5%BA%95%E4%BB%80%E4%B9%88%E6%98%AF%E5%8F%A5%E6%9F%84/</guid>
+      <description>一般说来，你可以把句柄想象成一个对文本信息的“封装”。 相比普通文本信息，使用句柄至少有两个好处：
+对于以不同方式存储的信息，句柄提供了一个标准的处理方法。这些文本信息可能来自文件、内存中的一个字符串、命令行指令的输出或者来自于远程网站信息，但是句柄提供了一种通用的方式处理这些不同格式和来源的文本信息。 句柄可以依次读取文本信息，而不是一次读取所有信息。这点在处理超大文件时尤为有用，因为一次载入一个大文件可能会占去你所有的内存。 不论是从文件读取文本信息还是将文本信息写入文件，句柄都能胜任。在读取文件时，常用的函数有 read() 和 readline() , 前者可以通过句柄读取所有文本信息，而后者则每次读取一行；对于文本信息的写入，则通常使用 write() 函数。 句柄最常见的使用就是从文件读取信息，这可以通过Python内置函数 open 来完成。 下面示例中，我们打开一个指向文件 m_cold.fasta （可通过网址 http://biopython.org/DIST/docs/tutorial/examples/m_cold.fasta 获取）的句柄：
+&amp;gt;&amp;gt;&amp;gt; handle = open(&amp;#34;m_cold.fasta&amp;#34;, &amp;#34;r&amp;#34;) &amp;gt;&amp;gt;&amp;gt; handle.readline() &amp;#34;&amp;gt;gi|8332116|gb|BE037100.1|BE037100 MP14H09 MP Mesembryanthemum ...\n&amp;#34; Biopython中句柄常用来向解析器（parsers）传递信息。比如说，自Biopython1.54版本后， Bio.SeqIO 和 Bio.AlignIO 模块中的主要函数都可以使用文件名来代替句柄使用：
+from Bio import SeqIO for record in SeqIO.parse(&amp;#34;m_cold.fasta&amp;#34;, &amp;#34;fasta&amp;#34;): print record.id, len(record) 在比较早的BioPython版本中，必须使用句柄：
+from Bio import SeqIO handle = open(&amp;#34;m_cold.fasta&amp;#34;, &amp;#34;r&amp;#34;) for record in SeqIO.parse(handle, &amp;#34;fasta&amp;#34;): print record.id, len(record) handle.close() 这种操作方式仍有其用武之地，比如在解析一个gzip压缩的FASTA文件中：
+import gzip from Bio import SeqIO handle = gzip.</description>
+    </item>
+    
+    <item>
+      <title>if__name__==___main___的作用</title>
+      <link>https://example.com/p/if__name_____main___%E7%9A%84%E4%BD%9C%E7%94%A8/</link>
+      <pubDate>Sun, 02 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/if__name_____main___%E7%9A%84%E4%BD%9C%E7%94%A8/</guid>
+      <description> </description>
+    </item>
+    
+    <item>
+      <title>numpy基础练习13_Statistics</title>
+      <link>https://example.com/p/numpy%E5%9F%BA%E7%A1%80%E7%BB%83%E4%B9%A013_statistics/</link>
+      <pubDate>Tue, 21 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/numpy%E5%9F%BA%E7%A1%80%E7%BB%83%E4%B9%A013_statistics/</guid>
+      <description>这是为了熟悉并加强numpy而找来做的练习，来源：https://github.com/fengdu78/Data-Science-Notes/tree/master/2.numpy/numpy_exercises
+__author__ = &amp;#34;kyubyong. kbpark.linguist@gmail.com&amp;#34; import numpy as np np.__version__ &amp;#39;1.11.3&amp;#39; Order statistics Q1. Return the minimum value of x along the second axis.
+x = np.arange(4).reshape((2, 2)) print(&amp;#34;x=\n&amp;#34;, x) print(&amp;#34;ans=\n&amp;#34;, np.amin(x, 1)) x= [[0 1] [2 3]] ans= [0 2] Q2. Return the maximum value of x along the second axis. Reduce the second axis to the dimension with size one.
+x = np.arange(4).reshape((2, 2)) print(&amp;#34;x=\n&amp;#34;, x) print(&amp;#34;ans=\n&amp;#34;, np.</description>
+    </item>
+    
+    <item>
+      <title>numpy基础练习12_Soring, searching, and counting</title>
+      <link>https://example.com/p/numpy%E5%9F%BA%E7%A1%80%E7%BB%83%E4%B9%A012_soring-searching-and-counting/</link>
+      <pubDate>Mon, 20 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/numpy%E5%9F%BA%E7%A1%80%E7%BB%83%E4%B9%A012_soring-searching-and-counting/</guid>
+      <description>这是为了熟悉并加强numpy而找来做的练习，来源：https://github.com/fengdu78/Data-Science-Notes/tree/master/2.numpy/numpy_exercises
+import numpy as np np.__version__ &amp;#39;1.11.2&amp;#39; author = &amp;#39;kyubyong. longinglove@nate.com&amp;#39; Sorting Q1. Sort x along the second axis.
+x = np.array([[1,4],[3,1]]) out = np.sort(x, axis=1) x.sort(axis=1) assert np.array_equal(out, x) print out [[1 4] [1 3]] Q2. Sort pairs of surnames and first names and return their indices. (first by surname, then by name).
+surnames = (&amp;#39;Hertz&amp;#39;, &amp;#39;Galilei&amp;#39;, &amp;#39;Hertz&amp;#39;) first_names = (&amp;#39;Heinrich&amp;#39;, &amp;#39;Galileo&amp;#39;, &amp;#39;Gustav&amp;#39;) print np.lexsort((first_names, surnames)) [1 2 0] Q3.</description>
+    </item>
+    
+    <item>
+      <title>numpy基础练习10_Random Sampling</title>
+      <link>https://example.com/p/numpy%E5%9F%BA%E7%A1%80%E7%BB%83%E4%B9%A010_random-sampling/</link>
+      <pubDate>Sun, 19 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/numpy%E5%9F%BA%E7%A1%80%E7%BB%83%E4%B9%A010_random-sampling/</guid>
+      <description>这是为了熟悉并加强numpy而找来做的练习，来源：https://github.com/fengdu78/Data-Science-Notes/tree/master/2.numpy/numpy_exercises
+import numpy as np np.__version__ &amp;#39;1.11.2&amp;#39; __author__ = &amp;#39;kyubyong. longinglove@nate.com&amp;#39; Simple random data Q1. Create an array of shape (3, 2) and populate it with random samples from a uniform distribution over [0, 1).
+np.random.rand(3, 2) # Or np.random.random((3,2)) array([[ 0.13879034, 0.71300174], [ 0.08121322, 0.00393554], [ 0.02349471, 0.56677474]]) Q2. Create an array of shape (1000, 1000) and populate it with random samples from a standard normal distribution. And verify that the mean and standard deviation is close enough to 0 and 1 repectively.</description>
+    </item>
+    
+    <item>
+      <title>numpy基础练习11_Set routines</title>
+      <link>https://example.com/p/numpy%E5%9F%BA%E7%A1%80%E7%BB%83%E4%B9%A011_set-routines/</link>
+      <pubDate>Sun, 19 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/numpy%E5%9F%BA%E7%A1%80%E7%BB%83%E4%B9%A011_set-routines/</guid>
+      <description>这是为了熟悉并加强numpy而找来做的练习，来源：https://github.com/fengdu78/Data-Science-Notes/tree/master/2.numpy/numpy_exercises
+import numpy as np np.__version__ &amp;#39;1.11.2&amp;#39; author = &amp;#39;kyubyong. longinglove@nate.com&amp;#39; Making proper sets Q1. Get unique elements and reconstruction indices from x. And reconstruct x.
+x = np.array([1, 2, 6, 4, 2, 3, 2]) out, indices = np.unique(x, return_inverse=True) print &amp;#34;unique elements =&amp;#34;, out print &amp;#34;reconstruction indices =&amp;#34;, indices print &amp;#34;reconstructed =&amp;#34;, out[indices] unique elements = [1 2 3 4 6] reconstruction indices = [0 1 4 3 1 2 1] reconstructed = [1 2 6 4 2 3 2] Boolean operations Q2.</description>
+    </item>
+    
+    <item>
+      <title>numpy基础练习9_Mathematical functions</title>
+      <link>https://example.com/p/numpy%E5%9F%BA%E7%A1%80%E7%BB%83%E4%B9%A09_mathematical-functions/</link>
+      <pubDate>Sun, 19 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/numpy%E5%9F%BA%E7%A1%80%E7%BB%83%E4%B9%A09_mathematical-functions/</guid>
+      <description>这是为了熟悉并加强numpy而找来做的练习，来源：https://github.com/fengdu78/Data-Science-Notes/tree/master/2.numpy/numpy_exercises
+import numpy as np np.__version__ &amp;#39;1.11.2&amp;#39; __author__ = &amp;#34;kyubyong. kbpark.linguist@gmail.com. https://github.com/kyubyong&amp;#34; Trigonometric functions Q1. Calculate sine, cosine, and tangent of x, element-wise.
+x = np.array([0., 1., 30, 90]) print &amp;#34;sine:&amp;#34;, np.sin(x) print &amp;#34;cosine:&amp;#34;, np.cos(x) print &amp;#34;tangent:&amp;#34;, np.tan(x) sine: [ 0. 0.84147098 -0.98803162 0.89399666] cosine: [ 1. 0.54030231 0.15425145 -0.44807362] tangent: [ 0. 1.55740772 -6.4053312 -1.99520041] Q2. Calculate inverse sine, inverse cosine, and inverse tangent of x, element-wise.
+x = np.</description>
+    </item>
+    
+    <item>
+      <title>numpy基础练习7_number</title>
+      <link>https://example.com/p/numpy%E5%9F%BA%E7%A1%80%E7%BB%83%E4%B9%A07_number/</link>
+      <pubDate>Sat, 18 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/numpy%E5%9F%BA%E7%A1%80%E7%BB%83%E4%B9%A07_number/</guid>
+      <description>这是为了熟悉并加强numpy而找来做的练习，来源：https://github.com/fengdu78/Data-Science-Notes/tree/master/2.numpy/numpy_exercises
+from __future__ import print_function import numpy as np import matplotlib.pyplot as plt %matplotlib inline from datetime import date date.today() datetime.date(2017, 11, 2) author = &amp;#34;kyubyong. https://github.com/Kyubyong/numpy_exercises&amp;#34; np.__version__ &amp;#39;1.13.1&amp;#39; Complex Numbers Q1. Return the angle of a in radian.
+a = 1+1j output = np.angle(a, deg=False) print(output) 0.785398163397 Q2. Return the real part and imaginary part of a.
+a = np.array([1+2j, 3+4j, 5+6j]) real = a.real imag = a.imag print(&amp;#34;real part=&amp;#34;, real) print(&amp;#34;imaginary part=&amp;#34;, imag) real part= [ 1.</description>
+    </item>
+    
+    <item>
+      <title>numpy基础练习8_Logic functions</title>
+      <link>https://example.com/p/numpy%E5%9F%BA%E7%A1%80%E7%BB%83%E4%B9%A08_logic-functions/</link>
+      <pubDate>Sat, 18 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/numpy%E5%9F%BA%E7%A1%80%E7%BB%83%E4%B9%A08_logic-functions/</guid>
+      <description>这是为了熟悉并加强numpy而找来做的练习，来源：https://github.com/fengdu78/Data-Science-Notes/tree/master/2.numpy/numpy_exercises
+import numpy as np np.__version__ &amp;#39;1.11.2&amp;#39; Truth value testing Q1. Let x be an arbitrary array. Return True if none of the elements of x is zero. Remind that 0 evaluates to False in python.
+x = np.array([1,2,3]) print np.all(x) x = np.array([1,0,3]) print np.all(x) True False Q2. Let x be an arbitrary array. Return True if any of the elements of x is non-zero.
+x = np.array([1,0,0]) print np.</description>
+    </item>
+    
+    <item>
+      <title>python中的append和expend</title>
+      <link>https://example.com/p/python%E4%B8%AD%E7%9A%84append%E5%92%8Cexpend/</link>
+      <pubDate>Sat, 18 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/python%E4%B8%AD%E7%9A%84append%E5%92%8Cexpend/</guid>
+      <description>code:
+test = [1,2,3,4] test_go = [6,6,6] test.append(test_go) test result:
+[1, 2, 3, 4, [6, 6, 6]] code:
+len(test) result:
+5 可以看出append(a)，会将a作为一个大整体传入
+code:
+test = [1,2,3,4] test_go = [6,6,6] test.extend(test_go) test result:
+[1, 2, 3, 4, 6, 6, 6] code:
+len(test) result:
+7 但是，可以看出extend(a)，会将a中的一个一个元素去取出融合到要extend的对象中</description>
+    </item>
+    
+    <item>
+      <title>numpy基础练习6_Linear algebra</title>
+      <link>https://example.com/p/numpy%E5%9F%BA%E7%A1%80%E7%BB%83%E4%B9%A06_linear-algebra/</link>
+      <pubDate>Fri, 17 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/numpy%E5%9F%BA%E7%A1%80%E7%BB%83%E4%B9%A06_linear-algebra/</guid>
+      <description>这是为了熟悉并加强numpy而找来做的练习，来源：https://github.com/fengdu78/Data-Science-Notes/tree/master/2.numpy/numpy_exercises
+import numpy as np np.__version__ &amp;#39;1.11.2&amp;#39; Matrix and vector products Q1. Predict the results of the following code.
+x = [1,2] y = [[4, 1], [2, 2]] print np.dot(x, y) print np.dot(y, x) print np.matmul(x, y) print np.inner(x, y) print np.inner(y, x) [8 5] [6 6] [8 5] [6 6] [6 6] Q2. Predict the results of the following code.
+x = [[1, 0], [0, 1]] y = [[4, 1], [2, 2], [1, 1]] print np.</description>
+    </item>
+    
+    <item>
+      <title>numpy基础练习5_Input and Output</title>
+      <link>https://example.com/p/numpy%E5%9F%BA%E7%A1%80%E7%BB%83%E4%B9%A05_input-and-output/</link>
+      <pubDate>Thu, 16 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/numpy%E5%9F%BA%E7%A1%80%E7%BB%83%E4%B9%A05_input-and-output/</guid>
+      <description>这是为了熟悉并加强numpy而找来做的练习，来源：https://github.com/fengdu78/Data-Science-Notes/tree/master/2.numpy/numpy_exercises
+from __future__ import print_function import numpy as np author = &amp;#34;kyubyong. https://github.com/Kyubyong/numpy_exercises&amp;#34; np.__version__ &amp;#39;1.12.0&amp;#39; from datetime import date print(date.today()) 2017-04-01 NumPy binary files (NPY, NPZ) Q1. Save x into temp.npy and load it.
+x = np.arange(10) np.save(&amp;#39;temp.npy&amp;#39;, x) # Actually you can omit the extension. If so, it will be added automatically. # Check if there exists the &amp;#39;temp.npy&amp;#39; file. import os if os.path.exists(&amp;#39;temp.npy&amp;#39;): x2 = np.load(&amp;#39;temp.npy&amp;#39;) print(np.array_equal(x, x2)) True Q2.</description>
+    </item>
+    
+    <item>
+      <title>numpy基础练习4_info</title>
+      <link>https://example.com/p/numpy%E5%9F%BA%E7%A1%80%E7%BB%83%E4%B9%A04_info/</link>
+      <pubDate>Wed, 15 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/numpy%E5%9F%BA%E7%A1%80%E7%BB%83%E4%B9%A04_info/</guid>
+      <description>这是为了熟悉并加强numpy而找来做的练习，来源：https://github.com/fengdu78/Data-Science-Notes/tree/master/2.numpy/numpy_exercises
+import numpy as np np.__version__ &amp;#39;1.11.2&amp;#39; Q1. Search for docstrings of the numpy functions on linear algebra.
+np.lookfor(&amp;#39;linear algebra&amp;#39;) Search results for &amp;#39;linear algebra&amp;#39; ----------------------------------- numpy.linalg.solve Solve a linear matrix equation, or system of linear scalar equations. numpy.poly Find the coefficients of a polynomial with the given sequence of roots. numpy.restoredot Restore `dot`, `vdot`, and `innerproduct` to the default non-BLAS numpy.linalg.eig Compute the eigenvalues and right eigenvectors of a square array.</description>
+    </item>
+    
+    <item>
+      <title>numpy基础练习3_String</title>
+      <link>https://example.com/p/numpy%E5%9F%BA%E7%A1%80%E7%BB%83%E4%B9%A03_string/</link>
+      <pubDate>Tue, 14 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/numpy%E5%9F%BA%E7%A1%80%E7%BB%83%E4%B9%A03_string/</guid>
+      <description>这是为了熟悉并加强numpy而找来做的练习，来源：https://github.com/fengdu78/Data-Science-Notes/tree/master/2.numpy/numpy_exercises
+String operations from __future__ import print_function import numpy as np author = &amp;#34;kyubyong. https://github.com/Kyubyong/numpy_exercises&amp;#34; np.__version__ &amp;#39;1.11.3&amp;#39; Q1. Concatenate x1 and x2.
+x1 = np.array([&amp;#39;Hello&amp;#39;, &amp;#39;Say&amp;#39;], dtype=np.str) x2 = np.array([&amp;#39; world&amp;#39;, &amp;#39; something&amp;#39;], dtype=np.str) out = np.char.add(x1, x2) print(out) [&amp;#39;Hello world&amp;#39; &amp;#39;Say something&amp;#39;] Q2. Repeat x three time element-wise.
+x = np.array([&amp;#39;Hello &amp;#39;, &amp;#39;Say &amp;#39;], dtype=np.str) out = np.char.multiply(x, 3) print(out) [&amp;#39;Hello Hello Hello &amp;#39; &amp;#39;Say Say Say &amp;#39;] Q3-1.</description>
+    </item>
+    
+    <item>
+      <title>numpy基础练习2_Array manipulation routines</title>
+      <link>https://example.com/p/numpy%E5%9F%BA%E7%A1%80%E7%BB%83%E4%B9%A02_array-manipulation-routines/</link>
+      <pubDate>Mon, 13 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/numpy%E5%9F%BA%E7%A1%80%E7%BB%83%E4%B9%A02_array-manipulation-routines/</guid>
+      <description>这是为了熟悉并加强numpy而找来做的练习，来源：https://github.com/fengdu78/Data-Science-Notes/tree/master/2.numpy/numpy_exercises
+import numpy as np np.__version__ &amp;#39;1.11.2&amp;#39; Q1. Let x be a ndarray [10, 10, 3] with all elements set to one. Reshape x so that the size of the second dimension equals 150.
+x = np.ones([10, 10, 3]) out = np.reshape(x, [-1, 150]) print out assert np.allclose(out, np.ones([10, 10, 3]).reshape([-1, 150])) [[ 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1.</description>
+    </item>
+    
+    <item>
+      <title>numpy基础练习1_Array creation routines</title>
+      <link>https://example.com/p/numpy%E5%9F%BA%E7%A1%80%E7%BB%83%E4%B9%A01_array-creation-routines/</link>
+      <pubDate>Sun, 12 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/numpy%E5%9F%BA%E7%A1%80%E7%BB%83%E4%B9%A01_array-creation-routines/</guid>
+      <description>这是为了熟悉并加强numpy而找来做的练习，来源：https://github.com/fengdu78/Data-Science-Notes/tree/master/2.numpy/numpy_exercises
+Ones and zeros import numpy as np Create a new array of 2*2 integers, without initializing entries.
+np.empty([2,2], int) array([[0, 0], [0, 0]]) Let X = np.array([1,2,3], [4,5,6], np.int32).
+Create a new array with the same shape and type as X.
+X = np.array([[1,2,3], [4,5,6]], np.int32) np.empty_like(X) array([[1, 2, 3], [4, 5, 6]]) Create a 3-D array with ones on the diagonal and zeros elsewhere.
+np.eye(3) array([[ 1., 0.</description>
+    </item>
+    
+    <item>
+      <title>100道numpy练习</title>
+      <link>https://example.com/p/100%E9%81%93numpy%E7%BB%83%E4%B9%A0/</link>
+      <pubDate>Sat, 11 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/100%E9%81%93numpy%E7%BB%83%E4%B9%A0/</guid>
+      <description>这是为了熟悉并加强numpy而找来做的练习，来源：https://github.com/rougier/numpy-100
+100 numpy exercises with hint This is a collection of exercises that have been collected in the numpy mailing list, on stack overflow and in the numpy documentation. The goal of this collection is to offer a quick reference for both old and new users but also to provide a set of exercises for those who teach.
+If you find an error or think you&amp;rsquo;ve a better way to solve some of them, feel free to open an issue at https://github.</description>
+    </item>
+    
+    <item>
+      <title>刘建平老师Pinard博客的XGBoost类库代码学习记录</title>
+      <link>https://example.com/p/%E5%88%98%E5%BB%BA%E5%B9%B3%E8%80%81%E5%B8%88pinard%E5%8D%9A%E5%AE%A2%E7%9A%84xgboost%E7%B1%BB%E5%BA%93%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</link>
+      <pubDate>Fri, 10 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E5%88%98%E5%BB%BA%E5%B9%B3%E8%80%81%E5%B8%88pinard%E5%8D%9A%E5%AE%A2%E7%9A%84xgboost%E7%B1%BB%E5%BA%93%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</guid>
+      <description>原生XGBoost需要先把数据集按输入特征部分，输出部分分开，然后放到一个DMatrix数据结构里面，这个DMatrix我们不需要关心里面的细节，使用我们的训练集X和y初始化即可。
+import pandas as pd import numpy as np import matplotlib import matplotlib.pyplot as plt matplotlib.style.use(&amp;#34;ggplot&amp;#34;) plt.rcParams[&amp;#34;font.sans-serif&amp;#34;] = &amp;#34;SimHei&amp;#34; plt.rcParams[&amp;#34;axes.unicode_minus&amp;#34;] = False plt.rcParams[&amp;#34;figure.figsize&amp;#34;] = (15,5) import xgboost as xgb from sklearn.model_selection import GridSearchCV from sklearn.model_selection import train_test_split # from sklearn.datasets.samples_generator import make_classification from sklearn.datasets import make_classification # X为样本特征，y为样本类别输出， 共10000个样本，每个样本20个特征，输出有2个类别，没有冗余特征，每个类别一个簇 X,y = make_classification(n_samples=10000,n_features=20,n_classes=2, n_clusters_per_class=1,n_redundant=0,flip_y=0.1) #flip_y 随机分配的样本的比例，增大会加大噪声，加大分类难度 X_train,X_test,y_train,y_test = train_test_split(X,y,random_state=22) dtrain = xgb.DMatrix(X_train,y_train) dtest = xgb.DMatrix(X_test,y_test) 上面的代码中，我们随机初始化了一个二分类的数据集，然后分成了训练集和验证集。使用训练集和验证集分别初始化了一个DMatrix，有了DMatrix，就可以做训练和预测了。简单的示例代码如下：
+# param = {&amp;#39;max_depth&amp;#39;:5, &amp;#39;eta&amp;#39;:0.5, &amp;#39;verbosity&amp;#39;:1, &amp;#39;objective&amp;#39;:&amp;#39;binary:logistic&amp;#39;} param = {&amp;#34;max_depth&amp;#34;:5,&amp;#34;eta&amp;#34;:0.</description>
+    </item>
+    
+    <item>
+      <title>刘建平老师Pinard博客的AdaBoostClassifier代码学习记录</title>
+      <link>https://example.com/p/%E5%88%98%E5%BB%BA%E5%B9%B3%E8%80%81%E5%B8%88pinard%E5%8D%9A%E5%AE%A2%E7%9A%84adaboostclassifier%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</link>
+      <pubDate>Sun, 05 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E5%88%98%E5%BB%BA%E5%B9%B3%E8%80%81%E5%B8%88pinard%E5%8D%9A%E5%AE%A2%E7%9A%84adaboostclassifier%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</guid>
+      <description>import numpy as np import pandas as pd import matplotlib.pyplot as plt import matplotlib # matplotlib.style.use(&amp;#34;ggplot&amp;#34;) matplotlib.line_width = 5000 matplotlib.max_columns = 60 plt.rcParams[&amp;#34;font.sans-serif&amp;#34;] = &amp;#34;SimHei&amp;#34; plt.rcParams[&amp;#34;axes.unicode_minus&amp;#34;] = False import warnings warnings.filterwarnings(&amp;#34;ignore&amp;#34;) from sklearn.ensemble import AdaBoostClassifier from sklearn.tree import DecisionTreeClassifier #用make_gaussian_quantiles生成分组多维正态分布的数据 from sklearn.datasets import make_gaussian_quantiles 接着我们生成一些随机数据来做二元分类
+#生成一些随机数据按位数分为两类，500个样本，2个样本特征，协方差系数为2 X1, y1 = make_gaussian_quantiles(cov=2.0,n_samples=500,n_features=2, n_classes=2,random_state=23) #生成的两个样本特征均值都为3 X2, y2 = make_gaussian_quantiles(cov=1.5,n_samples=400,n_features=2,n_classes=2, random_state=23,mean=(3,3)) X1[:5],y1[:5],X2[:5],y2[:5] result: #合并两组数据 #记得用一个()装 X = np.concatenate((X1,X2)) y = np.concatenate((y1,y2)) X[:5],y[:5] result: 我们通过可视化看看我们的分类数据，它有两个特征，两个输出类别，用颜色区别</description>
+    </item>
+    
+    <item>
+      <title>刘建平老师Pinard博客的sklearnGBDT代码学习记录</title>
+      <link>https://example.com/p/%E5%88%98%E5%BB%BA%E5%B9%B3%E8%80%81%E5%B8%88pinard%E5%8D%9A%E5%AE%A2%E7%9A%84sklearngbdt%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</link>
+      <pubDate>Sun, 05 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E5%88%98%E5%BB%BA%E5%B9%B3%E8%80%81%E5%B8%88pinard%E5%8D%9A%E5%AE%A2%E7%9A%84sklearngbdt%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</guid>
+      <description>import pandas as pd import numpy as np import matplotlib.pyplot as plt import matplotlib matplotlib.style.use(&amp;#34;ggplot&amp;#34;) plt.rcParams[&amp;#34;font.sans-serif&amp;#34;] = &amp;#34;SimHei&amp;#34; plt.rcParams[&amp;#34;axes.unicode_minus&amp;#34;] = False from sklearn.ensemble import GradientBoostingClassifier # from sklearn import cross_validation, metrics cross_validation 换成了 cross_val_score from sklearn.model_selection import GridSearchCV,cross_val_score from sklearn import metrics 接着，我们把解压的数据用下面的代码载入，顺便看看数据的类别分布。
+train = pd.read_csv(&amp;#34;./train_modified.csv&amp;#34;) train result: code:
+target = &amp;#34;Disbursed&amp;#34; IDcol = &amp;#34;ID&amp;#34; train[&amp;#34;Disbursed&amp;#34;].value_counts() # 可以看到类别输出如下，也就是类别0的占大多数。 result: 现在我们得到我们的训练集。最后一列Disbursed是分类输出。前面的所有列（不考虑ID列）都是样本特征 code:
+x_columns = [x for x in train.columns if x not in [target,IDcol]] X = train[x_columns] y = train[&amp;#34;Disbursed&amp;#34;] X.</description>
+    </item>
+    
+    <item>
+      <title>刘建平老师Pinard博客的随机森林代码学习记录</title>
+      <link>https://example.com/p/%E5%88%98%E5%BB%BA%E5%B9%B3%E8%80%81%E5%B8%88pinard%E5%8D%9A%E5%AE%A2%E7%9A%84%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</link>
+      <pubDate>Sun, 05 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E5%88%98%E5%BB%BA%E5%B9%B3%E8%80%81%E5%B8%88pinard%E5%8D%9A%E5%AE%A2%E7%9A%84%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</guid>
+      <description># 导包 import numpy as np import pandas as pd import matplotlib.pyplot as plt plt.rcParams[&amp;#34;font.sans-serif&amp;#34;] = [&amp;#34;SimHei&amp;#34;] plt.rcParams[&amp;#34;axes.unicode_minus&amp;#34;] = False import warnings warnings.filterwarnings(&amp;#34;ignore&amp;#34;) #从集成中导入RF from sklearn.ensemble import RandomForestClassifier #导入网格调参 # from sklearn.grid_search import GridSearchCV 旧版的sklearn from sklearn.model_selection import GridSearchCV # from sklearn import cross_validation,metrics 旧版写法 from sklearn.model_selection import cross_validate from sklearn import metrics #数据 train = pd.read_csv(&amp;#34;./train_modified.csv&amp;#34;) train result: code:
+target = &amp;#34;Disbursed&amp;#34;#Disbursed的值就是二元分类的输出 IDcol = &amp;#34;ID&amp;#34; train[&amp;#34;Disbursed&amp;#34;].value_counts()#查看类别的数量 result:
+0 19680 1 320 Name: Disbursed, dtype: int64 可以看到类别输出如上，也就是类别0的占大多数。</description>
+    </item>
+    
+    <item>
+      <title>数据集的创建make_classification的参数详情</title>
+      <link>https://example.com/p/%E6%95%B0%E6%8D%AE%E9%9B%86%E7%9A%84%E5%88%9B%E5%BB%BAmake_classification%E7%9A%84%E5%8F%82%E6%95%B0%E8%AF%A6%E6%83%85/</link>
+      <pubDate>Sat, 27 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E6%95%B0%E6%8D%AE%E9%9B%86%E7%9A%84%E5%88%9B%E5%BB%BAmake_classification%E7%9A%84%E5%8F%82%E6%95%B0%E8%AF%A6%E6%83%85/</guid>
+      <description>这里来记录下make_classification的参数详情 import numpy as np import pandas as pd import warnings warnings.filterwarnings(&amp;#34;ignore&amp;#34;) import matplotlib.pyplot as plt from sklearn.datasets import make_classification from sklearn.model_selection import train_test_split X,y = make_classification(n_samples=1000,#1000个样本 n_features=2,#两个特征，方便画图 n_informative=2,#信息特征(有用特征) n_redundant=0,#冗余特征，它是信息特征的线性组合 n_repeated=0,#重复特征 n_classes=2,#分类特征 random_state=None, n_clusters_per_class=2,#每个类别两簇 shuffle=True, class_sep=1,#将每个簇分隔开来，较大的值将使分类任务更加容易 shift = 10, scale = 3, flip_y = 0)#无噪声 #训练集与测试集分割函数 x_train,x_test,y_train,y_test = train_test_split(X,y,test_size=0.2,random_state=22) data = np.concatenate((X,y.reshape(1000,1)),axis=1) x0 = [] x1 = [] y0 = [] y1 = [] for d in data: if d[2]==0: x0.</description>
+    </item>
+    
+    <item>
+      <title>机器学习算法的随机数据生成</title>
+      <link>https://example.com/p/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95%E7%9A%84%E9%9A%8F%E6%9C%BA%E6%95%B0%E6%8D%AE%E7%94%9F%E6%88%90/</link>
+      <pubDate>Sat, 27 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95%E7%9A%84%E9%9A%8F%E6%9C%BA%E6%95%B0%E6%8D%AE%E7%94%9F%E6%88%90/</guid>
+      <description>numpy生成 import numpy as np np.random.rand(2,2,2) result: np.random.randn(3,2) result: #只需要在randn上每个生成的值x上做变换σx+μ即可 2*np.random.randn(3,2) + 1 result: np.random.randint(3,6,[2,3,4]) result: np.random.random_integers(3,6,[2,3,4]) result: np.random.random_sample([2,2]) result: #如果是其他区间[a,b),可以加以转换(b - a) * random_sample([size]) + a (5-2)*np.random.random_sample([3]) + 2 result: 回归模型随机数据 这里我们使用make_regression生成回归模型数据。几个关键参数有n_samples（生成样本数）， n_features（样本特征数），noise（样本随机噪音）和coef（是否返回回归系数）。例子代码如下：
+import matplotlib.pyplot as plt from sklearn.datasets import make_regression #X为样本特征，y为样本输出， coef为回归系数，共1000个样本，每个样本1个特征 X,y,coef = make_regression(n_samples=1000,n_features=1,noise=10,coef=True) plt.scatter(X,y,color=&amp;#34;black&amp;#34;) #看来coef是不包含bias print(coef) plt.plot(X,X*coef,color=&amp;#34;blue&amp;#34;,linewidth=3) plt.xticks(()) plt.yticks(()) plt.show() result: 分类模型随机数据 这里我们用make_classification生成三元分类模型数据。几个关键参数有n_samples（生成样本数）， n_features（样本特征数）， n_redundant（冗余特征数）和n_classes（输出的类别数），例子代码如下
+from sklearn.datasets import make_classification # X1为样本特征，Y1为样本类别输出， 共400个样本，每个样本2个特征，输出有3个类别，没有冗余特征，每个类别一个簇 X1,Y1 = make_classification(n_samples=400,n_classes=3,n_clusters_per_class=1,n_features=2,n_redundant=0) plt.scatter(X1[:,0],X1[:,1],marker=&amp;#34;o&amp;#34;,c=Y1) plt.</description>
+    </item>
+    
+    <item>
+      <title>WZU_集成学习算法代码学习记录</title>
+      <link>https://example.com/p/wzu_%E9%9B%86%E6%88%90%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</link>
+      <pubDate>Fri, 19 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/wzu_%E9%9B%86%E6%88%90%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</guid>
+      <description>机器学习练习8 集成学习 课程完整代码：https://github.com/fengdu78/WZU-machine-learning-course
+代码修改并注释：黄海广，haiguang2000@wzu.edu.cn
+import warnings warnings.filterwarnings(&amp;#34;ignore&amp;#34;) import pandas as pd from sklearn.model_selection import train_test_split 生成数据 生成12000行的数据，训练集和测试集按照3:1划分
+from sklearn.datasets import make_hastie_10_2 data, target = make_hastie_10_2() X_train, X_test, y_train, y_test = train_test_split(data, target, random_state=123) X_train.shape, X_test.shape result:
+((9000, 10), (3000, 10)) 模型对比 对比六大模型，都使用默认参数，因为数据是
+from sklearn.linear_model import LogisticRegression from sklearn.ensemble import RandomForestClassifier from sklearn.ensemble import AdaBoostClassifier from sklearn.ensemble import GradientBoostingClassifier from xgboost import XGBClassifier from lightgbm import LGBMClassifier from sklearn.model_selection import cross_val_score import time clf1 = LogisticRegression() clf2 = RandomForestClassifier() clf3 = AdaBoostClassifier() clf4 = GradientBoostingClassifier() clf5 = XGBClassifier() clf6 = LGBMClassifier() for clf, label in zip([clf1, clf2, clf3, clf4, clf5, clf6], [ &amp;#39;Logistic Regression&amp;#39;, &amp;#39;Random Forest&amp;#39;, &amp;#39;AdaBoost&amp;#39;, &amp;#39;GBDT&amp;#39;, &amp;#39;XGBoost&amp;#39;, &amp;#39;LightGBM&amp;#39; ]): start = time.</description>
+    </item>
+    
+    <item>
+      <title>WZU_scikit_learn_代码学习记录</title>
+      <link>https://example.com/p/wzu_scikit_learn_%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</link>
+      <pubDate>Thu, 30 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/wzu_scikit_learn_%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</guid>
+      <description>机器学习练习 5 Scikit-learn的介绍
+整理编译：黄海广 haiguang2000@wzu.edu.cn,光城
+在本节教程中将会绘制几个图形，于是我们激活matplotlib,使得在notebook中显示内联图。
+%matplotlib inline import matplotlib.pyplot as plt 为什么要出这个教程？ scikit-learn 提供最先进的机器学习算法。 但是，这些算法不能直接用于原始数据。 原始数据需要事先进行预处理。 因此，除了机器学习算法之外，scikit-learn还提供了一套预处理方法。此外，scikit-learn 提供用于流水线化这些估计器的连接器(即转换器，回归器，分类器，聚类器等)。
+在本教程中,将介绍scikit-learn 函数集，允许流水线估计器、评估这些流水线、使用超参数优化调整这些流水线以及创建复杂的预处理步骤。
+基本用例：训练和测试分类器 对于第一个示例，我们将在数据集上训练和测试一个分类器。 我们将使用此示例来回忆scikit-learn的API。
+我们将使用digits数据集，这是一个手写数字的数据集。
+from sklearn.datasets import load_digits X, y = load_digits(return_X_y=True) X.shape result:
+(1797, 64) X中的每行包含64个图像像素的强度。 对于X中的每个样本，我们得到表示所写数字对应的y。
+plt.imshow(X[0].reshape(8, 8), cmap=&amp;#39;gray&amp;#39;);# 下面完成灰度图的绘制 # 灰度显示图像 plt.axis(&amp;#39;off&amp;#39;)# 关闭坐标轴 print(&amp;#39;The digit in the image is {}&amp;#39;.format(y[0]))# 格式化打印 result:
+在机器学习中，我们应该通过在不同的数据集上进行训练和测试来评估我们的模型。train_test_split 是一个用于将数据拆分为两个独立数据集的效用函数。stratify参数可强制将训练和测试数据集的类分布与整个数据集的类分布相同。
+code:
+y result:
+array([0, 1, 2, ..., 8, 9, 8]) code:
+from sklearn.</description>
+    </item>
+    
+    <item>
+      <title>my_decisionTree_code</title>
+      <link>https://example.com/p/my_decisiontree_code/</link>
+      <pubDate>Wed, 22 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/my_decisiontree_code/</guid>
+      <description>这是WZU老师搭配的决策树的code，自己略作修改
+1．分类决策树模型是表示基于特征对实例进行分类的树形结构。决策树可以转换成一个if-then规则的集合，也可以看作是定义在特征空间划分上的类的条件概率分布。
+2．决策树学习旨在构建一个与训练数据拟合很好，并且复杂度小的决策树。因为从可能的决策树中直接选取最优决策树是NP完全问题。现实中采用启发式方法学习次优的决策树。
+决策树学习算法包括3部分：特征选择、树的生成和树的剪枝。常用的算法有ID3、 C4.5和CART。
+3．特征选择的目的在于选取对训练数据能够分类的特征。特征选择的关键是其准则。常用的准则自己去MD中看
+4．决策树的生成。通常使用信息增益最大、信息增益比最大或基尼指数最小作为特征选择的准则。决策树的生成往往通过计算信息增益或其他指标，从根结点开始，递归地产生决策树。这相当于用信息增益或其他准则不断地选取局部最优的特征，或将训练集分割为能够基本正确分类的子集。
+5．决策树的剪枝。由于生成的决策树存在过拟合问题，需要对它进行剪枝，以简化学到的决策树。决策树的剪枝，往往从已生成的树上剪掉一些叶结点或叶结点以上的子树，并将其父结点或根结点作为新的叶结点，从而简化生成的决策树。
+#导库 import numpy as np import pandas as pd import math from sklearn import tree import matplotlib.pyplot as plt import warnings warnings.filterwarnings(&amp;#34;ignore&amp;#34;) plt.rcParams[&amp;#34;font.sans-serif&amp;#34;] = [&amp;#34;SimHei&amp;#34;] plt.rcParams[&amp;#34;axes.unicode_minus&amp;#34;] = False #原始数据 def create_data(): datasets = [[&amp;#39;青年&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;一般&amp;#39;, &amp;#39;否&amp;#39;], [&amp;#39;青年&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;好&amp;#39;, &amp;#39;否&amp;#39;], [&amp;#39;青年&amp;#39;, &amp;#39;是&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;好&amp;#39;, &amp;#39;是&amp;#39;], [&amp;#39;青年&amp;#39;, &amp;#39;是&amp;#39;, &amp;#39;是&amp;#39;, &amp;#39;一般&amp;#39;, &amp;#39;是&amp;#39;], [&amp;#39;青年&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;一般&amp;#39;, &amp;#39;否&amp;#39;], [&amp;#39;中年&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;一般&amp;#39;, &amp;#39;否&amp;#39;], [&amp;#39;中年&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;好&amp;#39;, &amp;#39;否&amp;#39;], [&amp;#39;中年&amp;#39;, &amp;#39;是&amp;#39;, &amp;#39;是&amp;#39;, &amp;#39;好&amp;#39;, &amp;#39;是&amp;#39;], [&amp;#39;中年&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;是&amp;#39;, &amp;#39;非常好&amp;#39;, &amp;#39;是&amp;#39;], [&amp;#39;中年&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;是&amp;#39;, &amp;#39;非常好&amp;#39;, &amp;#39;是&amp;#39;], [&amp;#39;老年&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;是&amp;#39;, &amp;#39;非常好&amp;#39;, &amp;#39;是&amp;#39;], [&amp;#39;老年&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;是&amp;#39;, &amp;#39;好&amp;#39;, &amp;#39;是&amp;#39;], [&amp;#39;老年&amp;#39;, &amp;#39;是&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;好&amp;#39;, &amp;#39;是&amp;#39;], [&amp;#39;老年&amp;#39;, &amp;#39;是&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;非常好&amp;#39;, &amp;#39;是&amp;#39;], [&amp;#39;老年&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;一般&amp;#39;, &amp;#39;否&amp;#39;], ] labels = [u&amp;#39;年龄&amp;#39;, u&amp;#39;有工作&amp;#39;, u&amp;#39;有自己的房子&amp;#39;, u&amp;#39;信贷情况&amp;#39;, u&amp;#39;类别&amp;#39;] # 返回数据集和每个维度的名称 return datasets, labels datasets,label = create_data() train_data = pd.</description>
+    </item>
+    
+    <item>
+      <title>WZU_DecisionTree</title>
+      <link>https://example.com/p/wzu_decisiontree/</link>
+      <pubDate>Mon, 20 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/wzu_decisiontree/</guid>
+      <description>这里是一个限制决策树层数为4的DecisionTreeClassifier例子。
+#1.导入相关库 from itertools import product#用来相互交叉乘即笛卡尔积 import numpy as np import matplotlib.pyplot as plt from sklearn import datasets from sklearn.tree import DecisionTreeClassifier #2.导入数据 iris = datasets.load_iris()#仍然是使用鸢尾花 X = iris.data[:,[0,2]] X result: code:
+y = iris.target#标签 y result: #使用算法训练模型 iris_decision_tree = DecisionTreeClassifier(max_depth=4) iris_decision_tree.fit(X,y) result:
+DecisionTreeClassifier(max_depth=4) #可视化数据 x_min,x_max = X[:,0].min() - 1, X[:,0].max() + 1#z这个处理是为了调整坐标轴 y_min,y_max = X[:,1].min() - 1, X[:,1].max() + 1 #注意分类图中的x和y #创建坐标轴 xx,yy = np.meshgrid(np.arange(x_min,x_max,0.1),np.arange(y_min,y_max,0.1)) #预测 Z = iris_decision_tree.</description>
+    </item>
+    
+    <item>
+      <title>刘建平老师Pinard博客的SVM_RBF分类调参例子</title>
+      <link>https://example.com/p/%E5%88%98%E5%BB%BA%E5%B9%B3%E8%80%81%E5%B8%88pinard%E5%8D%9A%E5%AE%A2%E7%9A%84svm_rbf%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E4%BE%8B%E5%AD%90/</link>
+      <pubDate>Fri, 17 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E5%88%98%E5%BB%BA%E5%B9%B3%E8%80%81%E5%B8%88pinard%E5%8D%9A%E5%AE%A2%E7%9A%84svm_rbf%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E4%BE%8B%E5%AD%90/</guid>
+      <description>import numpy as np import pandas as pd import warnings warnings.filterwarnings(&amp;#34;ignore&amp;#34;) import matplotlib import matplotlib.pyplot as plt matplotlib.style.use(&amp;#34;ggplot&amp;#34;) plt.rcParams[&amp;#34;font.sans-serif&amp;#34;] = &amp;#34;SimHei&amp;#34; plt.rcParams[&amp;#34;axes.unicode_minus&amp;#34;] = False from sklearn import datasets,svm from sklearn.svm import SVC from sklearn.datasets import make_moons,make_circles,make_classification 生成一些随机数据来让我们后面去分类，为了数据难一点，我们加入了一些噪音。生成数据的同时把数据归一化
+#make_circles生成月亮形数据 X,y = make_circles(noise=0.2,factor=0.5,random_state=22) #从sklearn.preprocessing导入StandardScaler归一化处理 from sklearn.preprocessing import StandardScaler X = StandardScaler().fit_transform(X) 我们先看看我的数据是什么样子的，这里做一次可视化如下：
+from matplotlib.colors import ListedColormap # matplotlib.colors模块用于将颜色或数字参数转换为RGBA或RGB。 #此模块用于将数字映射到颜色或以一维颜色数组(也称为colormap)进行颜色规格转换。 cm = plt.cm.RdBu cm_bright = ListedColormap([&amp;#34;#FF0000&amp;#34;,&amp;#34;#0000FF&amp;#34;]) ax = plt.subplot() ax.set_title(&amp;#34;Input data&amp;#34;) ax.scatter(X[:,0],X[:,1],c=y,cmap=cm_bright) ax.set_xticks(()) ax.</description>
+    </item>
+    
+    <item>
+      <title>WZU_KNN代码学习记录</title>
+      <link>https://example.com/p/wzu_knn%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</link>
+      <pubDate>Tue, 14 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/wzu_knn%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</guid>
+      <description>机器学习练习6 KNN算法 代码修改并注释：黄海广，haiguang2000@wzu.edu.cn
+1．$k$近邻法是基本且简单的分类与回归方法。$k$近邻法的基本做法是：对给定的训练实例点和输入实例点，首先确定输入实例点的$k$个最近邻训练实例点，然后利用这$k$个训练实例点的类的多数来预测输入实例点的类。
+2．$k$近邻模型对应于基于训练数据集对特征空间的一个划分。$k$近邻法中，当训练集、距离度量、$k$值及分类决策规则确定后，其结果唯一确定。
+3．$k$近邻法三要素：距离度量、$k$值的选择和分类决策规则。常用的距离度量是欧氏距离及更一般的pL距离。$k$值小时，$k$近邻模型更复杂；$k$值大时，$k$近邻模型更简单。$k$值的选择反映了对近似误差与估计误差之间的权衡，通常由交叉验证选择最优的$k$。
+常用的分类决策规则是多数表决，对应于经验风险最小化。
+4．$k$近邻法的实现需要考虑如何快速搜索k个最近邻点。kd树是一种便于对k维空间中的数据进行快速检索的数据结构。kd树是二叉树，表示对$k$维空间的一个划分，其每个结点对应于$k$维空间划分中的一个超矩形区域。利用kd树可以省去对大部分数据点的搜索， 从而减少搜索的计算量。
+距离度量 在机器学习算法中，我们经常需要计算样本之间的相似度，通常的做法是计算样本之间的距离。
+设$x$和$y$为两个向量，求它们之间的距离。
+这里用Numpy实现，设和为ndarray &amp;lt;numpy.ndarray&amp;gt;，它们的shape都是(N,)
+$d$为所求的距离，是个浮点数（float）。
+import numpy as np #注意：运行代码时候需要导入NumPy库 欧氏距离(Euclidean distance) 欧几里得度量(euclidean metric)(也称欧氏距离)是一个通常采用的距离定义，指在$m$维空间中两个点之间的真实距离，或者向量的自然长度(即该点到原点的距离)。在二维和三维空间中的欧氏距离就是两点之间的实际距离。
+距离公式：
+$$ d\left( x,y \right) = \sqrt{\sum_{i}^{}(x_{i} - y_{i})^{2}} $$ 代码实现：
+def euclidean(x, y): return np.sqrt(np.sum((x - y)**2)) 曼哈顿距离(Manhattan distance) 想象你在城市道路里，要从一个十字路口开车到另外一个十字路口，驾驶距离是两点间的直线距离吗？显然不是，除非你能穿越大楼。实际驾驶距离就是这个“曼哈顿距离”。而这也是曼哈顿距离名称的来源，曼哈顿距离也称为城市街区距离(City Block distance)。
+距离公式：
+$$ d(x,y) = \sum_{i}^{}|x_{i} - y_{i}| $$ 代码实现：
+def manhattan(x, y): return np.sum(np.abs(x - y)) 切比雪夫距离(Chebyshev distance) 在数学中，切比雪夫距离(Chebyshev distance)或是L∞度量，是向量空间中的一种度量，二个点之间的距离定义是其各坐标数值差绝对值的最大值。以数学的观点来看，切比雪夫距离是由一致范数(uniform norm)(或称为上确界范数)所衍生的度量，也是超凸度量(injective metric space)的一种。</description>
+    </item>
+    
+    <item>
+      <title>刘建平老师Pinard博客的KNN算法例子</title>
+      <link>https://example.com/p/%E5%88%98%E5%BB%BA%E5%B9%B3%E8%80%81%E5%B8%88pinard%E5%8D%9A%E5%AE%A2%E7%9A%84knn%E7%AE%97%E6%B3%95%E4%BE%8B%E5%AD%90/</link>
+      <pubDate>Tue, 14 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E5%88%98%E5%BB%BA%E5%B9%B3%E8%80%81%E5%B8%88pinard%E5%8D%9A%E5%AE%A2%E7%9A%84knn%E7%AE%97%E6%B3%95%E4%BE%8B%E5%AD%90/</guid>
+      <description>这是刘建平Pinard老师博客上KNN的例子，略做了修改,https://www.cnblogs.com/nolonely/p/6980160.html
+%matplotlib inline import numpy as np import pandas as pd import matplotlib.pyplot as plt # from sklearn.datasets.samples_generator import make_classification from sklearn.datasets._samples_generator import make_classification 这里再讲下sklearn.datasets._sample_generator(旧写法sklearn.datasets.sample_generator) 是用来生成数据集的：可以用来分类任务，可以用来回归任务，可以用来聚类任务，用于流形学习的，用于因子分解任务的,用于分类任务和聚类任务的：这些函数产生样本特征向量矩阵以及对应的类别标签集合
+make_blobs：多类单标签数据集，为每个类分配一个或多个正太分布的点集
+make_classification：多类单标签数据集，为每个类分配一个或多个正太分布的点集，提供了为数据添加噪声的方式，包括维度相关性，无效特征以及冗余特征等
+make_gaussian-quantiles：将一个单高斯分布的点集划分为两个数量均等的点集，作为两类
+make_hastie-10-2：产生一个相似的二元分类数据集，有10个维度
+make_circle和make_moom产生二维二元分类数据集来测试某些算法的性能，可以为数据集添加噪声，可以为二元分类器产生一些球形判决界面的数据,X为样本特征，Y为样本类别输出， 共1000个样本，每个样本2个特征，输出有3个类别，没有冗余特征，每个类别一个簇
+code:
+#n_samples 样本数 n_features特征数 n_classes样本y即类别数 n_clusters_per_class 每个类别的簇数 (质心) 暂时没搞懂这个簇数有什么影响 X, Y = make_classification(n_samples=1000, n_features=2, n_redundant=0, n_clusters_per_class=1, n_classes=3) X[:10] result: code:
+Y[:10] result:
+array([1, 0, 1, 2, 1, 1, 2, 1, 2, 0]) code:
+plt.scatter(X[:, 0], X[:, 1], marker=&amp;#39;o&amp;#39;, c=Y) #参数c就是color，赋值为可迭代参数对象，长度与x，y相同，根据值的不同使得（x,y）参数对表现为不同的颜色。 # 简单地说，按x,y值其中某一个值来区分颜色就好，比如上边想按照y值来区分，所以直接c=y就可以了， #这里就是根据类取划分颜色 plt.</description>
+    </item>
+    
+    <item>
+      <title>my_KNN_code</title>
+      <link>https://example.com/p/my_knn_code/</link>
+      <pubDate>Sun, 12 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/my_knn_code/</guid>
+      <description>这里是用sklearn的KDtree来实现WZU对应的纯手写的那一部分，因为纯手写太麻烦了，不过里面提到的排序的思路值得一学！！ 顺便说一下，WZU的KNN的那个KD绘图，我还没看
+import numpy as np import pandas as pd import matplotlib.pyplot as plt from sklearn import neighbors #sklearn中的knn是有kd树和限定半径近邻，我们这里用的是kd树 from matplotlib.colors import ListedColormap#方便可视化时，使得相同的类颜色一致 在这次数据中没有意义了 import random from time import process_time#获取当前的时间 import warnings warnings.filterwarnings(&amp;#34;ignore&amp;#34;) plt.rcParams[&amp;#34;font.sans-serif&amp;#34;] = [&amp;#34;SimHei&amp;#34;] plt.rcParams[&amp;#34;axes.unicode_minus&amp;#34;] = False 在次之前先让我们看看md中数据来熟悉sklearn中KDtree的使用
+from sklearn import neighbors data_md = [(2,3), (5,7), (9,6), (4,5), (6,4), (7,2) ] data_md_tree = neighbors.KDTree(data_md) #Get data and node arrays. data_md_tree.get_arrays() #Arrays for storing tree data, index, node data and node bounds.</description>
+    </item>
+    
+    <item>
+      <title>myNBcode</title>
+      <link>https://example.com/p/mynbcode/</link>
+      <pubDate>Sat, 11 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/mynbcode/</guid>
+      <description>copy过来的，略作修改
+1．朴素贝叶斯法是典型的生成学习方法。生成方法由训练数据学习联合概率分布 $P(X,Y)$，然后求得后验概率分布$P(Y|X)$。具体来说，利用训练数据学习$P(X|Y)$和$P(Y)$的估计，得到联合概率分布：
+$$P(X,Y)＝P(Y)P(X|Y)$$
+概率估计方法可以是极大似然估计或贝叶斯估计。
+2．朴素贝叶斯法的基本假设是条件独立性，
+$$\begin{aligned} P(X&amp;amp;=x | Y=c_{k} )=P\left(X^{(1)}=x^{(1)}, \cdots, X^{(n)}=x^{(n)} | Y=c_{k}\right) \ &amp;amp;=\prod_{j=1}^{n} P\left(X^{(j)}=x^{(j)} | Y=c_{k}\right) \end{aligned}$$
+这是一个较强的假设。由于这一假设，模型包含的条件概率的数量大为减少，朴素贝叶斯法的学习与预测大为简化。因而朴素贝叶斯法高效，且易于实现。其缺点是分类的性能不一定很高。
+3．朴素贝叶斯法利用贝叶斯定理与学到的联合概率模型进行分类预测。
+$$P(Y | X)=\frac{P(X, Y)}{P(X)}=\frac{P(Y) P(X | Y)}{\sum_{Y} P(Y) P(X | Y)}$$
+将输入$x$分到后验概率最大的类$y$。
+$$y=\arg \max {c{k}} P\left(Y=c_{k}\right) \prod_{j=1}^{n} P\left(X_{j}=x^{(j)} | Y=c_{k}\right)$$
+后验概率最大等价于0-1损失函数时的期望风险最小化。（可能会用到拉普拉斯平滑）
+模型：
+高斯模型 多项式模型 伯努利模型 自定义一组数据用来看看 import numpy as np import pandas as pd import math from collections import Counter #这里用的是sklearn上自带的数据集Iris 鸢尾花 #https://www.cnblogs.com/nolonely/p/6980160.html #http://scikit-learn.org/stable/auto_examples/datasets/plot_iris_dataset.html from sklearn.datasets import load_iris #从model_selection模块中导入train_test_split划分数据用 from sklearn.</description>
+    </item>
+    
+    <item>
+      <title>mylogicRegresscode</title>
+      <link>https://example.com/p/mylogicregresscode/</link>
+      <pubDate>Tue, 07 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/mylogicregresscode/</guid>
+      <description>这次来练习下逻辑回归,感觉过程和线性回归很类似，只是加了个sigmoid函数,dataset分别是ex2data1.txt / ex2data2.txt
+dataset1 在训练的初始阶段，我们将要构建一个逻辑回归模型来预测，某个学生是否被大学录取。设想你是大学相关部分的管理者，想通过申请学生两次测试的评分，来决定他们是否被录取。现在你拥有之前申请学生的可以用于训练逻辑回归的训练样本集。对于每一个训练样本，你有他们两次测试的评分和最后是被录取的结果。为了完成这个预测任务，我们准备构建一个可以基于两次测试评分来评估录取可能性的分类模型。上面的话是copy过来的
+分析数据 import numpy as np import pandas as pd import matplotlib.pyplot as plt import seaborn as sns sns.set_style(&amp;#39;white&amp;#39;) import warnings warnings.filterwarnings(&amp;#39;ignore&amp;#39;) #为了美观，当然是不影响结果的前提下 plt.rcParams[&amp;#39;font.sans-serif&amp;#39;]=[&amp;#39;SimHei&amp;#39;] #正常显示中文 plt.rcParams[&amp;#39;axes.unicode_minus&amp;#39;]=False #正常显示非负号 dataset1 = pd.read_csv(&amp;#39;./ex2data1.txt&amp;#39;,header=None,names=[&amp;#39;Exam1&amp;#39;,&amp;#39;Exam2&amp;#39;,&amp;#39;Admitted&amp;#39;]) dataset1.head() result: code:
+dataset1.describe() result: code:
+dataset1.shape result:
+(100, 3) code:
+dataset1.isnull().sum() result:
+Exam1 0 Exam2 0 Admitted 0 dtype: int64 #可视化下数据 f,axes = plt.subplots(figsize=(9,9)) dataset1_corr = dataset1.corr() print(dataset1_corr) sns.heatmap(dataset1_corr,annot=True) plt.xticks(range(len(dataset1_corr.columns)),dataset1_corr.columns) plt.yticks(range(len(dataset1_corr.columns)),dataset1_corr.columns) plt.show() result: f,axes = plt.</description>
+    </item>
+    
+    <item>
+      <title>WZU_决策树算法代码学习记录</title>
+      <link>https://example.com/p/wzu_%E5%86%B3%E7%AD%96%E6%A0%91%E7%AE%97%E6%B3%95%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</link>
+      <pubDate>Tue, 07 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/wzu_%E5%86%B3%E7%AD%96%E6%A0%91%E7%AE%97%E6%B3%95%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</guid>
+      <description>机器学习练习7 决策树 代码修改并注释：黄海广，haiguang2000@wzu.edu.cn
+1．分类决策树模型是表示基于特征对实例进行分类的树形结构。决策树可以转换成一个if-then规则的集合，也可以看作是定义在特征空间划分上的类的条件概率分布。
+2．决策树学习旨在构建一个与训练数据拟合很好，并且复杂度小的决策树。因为从可能的决策树中直接选取最优决策树是NP完全问题。现实中采用启发式方法学习次优的决策树。
+决策树学习算法包括3部分：特征选择、树的生成和树的剪枝。常用的算法有ID3、 C4.5和CART。
+3．特征选择的目的在于选取对训练数据能够分类的特征。特征选择的关键是其准则。常用的准则如下：
+（1）样本集合$D$对特征$A$的信息增益（ID3）
+$$g(D, A)=H(D)-H(D|A)$$
+$$H(D)=-\sum_{k=1}^{K} \frac{\left|C_{k}\right|}{|D|} \log {2} \frac{\left|C{k}\right|}{|D|}$$
+$$H(D | A)=\sum_{i=1}^{n} \frac{\left|D_{i}\right|}{|D|} H\left(D_{i}\right)$$
+其中，$H(D)$是数据集$D$的熵，$H(D_i)$是数据集$D_i$的熵，$H(D|A)$是数据集$D$对特征$A$的条件熵。	$D_i$是$D$中特征$A$取第$i$个值的样本子集，$C_k$是$D$中属于第$k$类的样本子集。$n$是特征$A$取 值的个数，$K$是类的个数。
+（2）样本集合$D$对特征$A$的信息增益比（C4.5）
+$$g_{R}(D, A)=\frac{g(D, A)}{H(D)}$$
+其中，$g(D,A)$是信息增益，$H(D)$是数据集$D$的熵。
+（3）样本集合$D$的基尼指数（CART）
+$$\operatorname{Gini}(D)=1-\sum_{k=1}^{K}\left(\frac{\left|C_{k}\right|}{|D|}\right)^{2}$$
+特征$A$条件下集合$D$的基尼指数：
+$$\operatorname{Gini}(D, A)=\frac{\left|D_{1}\right|}{|D|} \operatorname{Gini}\left(D_{1}\right)+\frac{\left|D_{2}\right|}{|D|} \operatorname{Gini}\left(D_{2}\right)$$
+4．决策树的生成。通常使用信息增益最大、信息增益比最大或基尼指数最小作为特征选择的准则。决策树的生成往往通过计算信息增益或其他指标，从根结点开始，递归地产生决策树。这相当于用信息增益或其他准则不断地选取局部最优的特征，或将训练集分割为能够基本正确分类的子集。
+5．决策树的剪枝。由于生成的决策树存在过拟合问题，需要对它进行剪枝，以简化学到的决策树。决策树的剪枝，往往从已生成的树上剪掉一些叶结点或叶结点以上的子树，并将其父结点或根结点作为新的叶结点，从而简化生成的决策树。
+import numpy as np import pandas as pd import math from math import log 创建数据 def create_data(): datasets = [[&amp;#39;青年&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;一般&amp;#39;, &amp;#39;否&amp;#39;], [&amp;#39;青年&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;好&amp;#39;, &amp;#39;否&amp;#39;], [&amp;#39;青年&amp;#39;, &amp;#39;是&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;好&amp;#39;, &amp;#39;是&amp;#39;], [&amp;#39;青年&amp;#39;, &amp;#39;是&amp;#39;, &amp;#39;是&amp;#39;, &amp;#39;一般&amp;#39;, &amp;#39;是&amp;#39;], [&amp;#39;青年&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;一般&amp;#39;, &amp;#39;否&amp;#39;], [&amp;#39;中年&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;一般&amp;#39;, &amp;#39;否&amp;#39;], [&amp;#39;中年&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;好&amp;#39;, &amp;#39;否&amp;#39;], [&amp;#39;中年&amp;#39;, &amp;#39;是&amp;#39;, &amp;#39;是&amp;#39;, &amp;#39;好&amp;#39;, &amp;#39;是&amp;#39;], [&amp;#39;中年&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;是&amp;#39;, &amp;#39;非常好&amp;#39;, &amp;#39;是&amp;#39;], [&amp;#39;中年&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;是&amp;#39;, &amp;#39;非常好&amp;#39;, &amp;#39;是&amp;#39;], [&amp;#39;老年&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;是&amp;#39;, &amp;#39;非常好&amp;#39;, &amp;#39;是&amp;#39;], [&amp;#39;老年&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;是&amp;#39;, &amp;#39;好&amp;#39;, &amp;#39;是&amp;#39;], [&amp;#39;老年&amp;#39;, &amp;#39;是&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;好&amp;#39;, &amp;#39;是&amp;#39;], [&amp;#39;老年&amp;#39;, &amp;#39;是&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;非常好&amp;#39;, &amp;#39;是&amp;#39;], [&amp;#39;老年&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;一般&amp;#39;, &amp;#39;否&amp;#39;], ] labels = [u&amp;#39;年龄&amp;#39;, u&amp;#39;有工作&amp;#39;, u&amp;#39;有自己的房子&amp;#39;, u&amp;#39;信贷情况&amp;#39;, u&amp;#39;类别&amp;#39;] # 返回数据集和每个维度的名称 return datasets, labels datasets, labels = create_data() train_data = pd.</description>
+    </item>
+    
+    <item>
+      <title>WZU_逻辑回归代码学习记录</title>
+      <link>https://example.com/p/wzu_%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</link>
+      <pubDate>Tue, 07 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/wzu_%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</guid>
+      <description>机器学习练习 3 - 逻辑回归
+在这一次练习中，我们将要实现逻辑回归并且应用到一个分类任务。我们还将通过将正则化加入训练算法，来提高算法的鲁棒性，并用更复杂的情形来测试它。
+代码修改并注释：黄海广，haiguang2000@wzu.edu.cn
+逻辑回归 在训练的初始阶段，我们将要构建一个逻辑回归模型来预测，某个学生是否被大学录取。设想你是大学相关部分的管理者，想通过申请学生两次测试的评分，来决定他们是否被录取。现在你拥有之前申请学生的可以用于训练逻辑回归的训练样本集。对于每一个训练样本，你有他们两次测试的评分和最后是被录取的结果。为了完成这个预测任务，我们准备构建一个可以基于两次测试评分来评估录取可能性的分类模型。
+让我们从检查数据开始。
+import numpy as np import pandas as pd import matplotlib.pyplot as plt path = &amp;#39;ex2data1.txt&amp;#39; data = pd.read_csv(path, header=None, names=[&amp;#39;Exam 1&amp;#39;, &amp;#39;Exam 2&amp;#39;, &amp;#39;Admitted&amp;#39;]) data.head() result: code:
+data.shape result:
+(100, 3) 让我们创建两个分数的散点图，并使用颜色编码来可视化，如果样本是正的（被接纳）或负的（未被接纳）。
+positive = data[data[&amp;#39;Admitted&amp;#39;].isin([1])] negative = data[data[&amp;#39;Admitted&amp;#39;].isin([0])] fig, ax = plt.subplots(figsize=(12, 8)) ax.scatter(positive[&amp;#39;Exam 1&amp;#39;], positive[&amp;#39;Exam 2&amp;#39;], s=50, c=&amp;#39;b&amp;#39;, marker=&amp;#39;o&amp;#39;, label=&amp;#39;Admitted&amp;#39;) ax.scatter(negative[&amp;#39;Exam 1&amp;#39;], negative[&amp;#39;Exam 2&amp;#39;], s=50, c=&amp;#39;r&amp;#39;, marker=&amp;#39;x&amp;#39;, label=&amp;#39;Not Admitted&amp;#39;) ax.legend() ax.</description>
+    </item>
+    
+    <item>
+      <title>myRegressioncode1</title>
+      <link>https://example.com/p/myregressioncode1/</link>
+      <pubDate>Wed, 01 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/myregressioncode1/</guid>
+      <description>这是针对吴恩达老师课程的线性回归的课后练习 dataset:regress_data1.csv/regress_data2.csv
+采用手写算法，初期不调用sklearn库
+收集数据 数据由外部提供
+分析数据 import pandas as pd import numpy as np import matplotlib.pyplot as plt dataset1 = pd.read_csv(&amp;#34;./regress_data1.csv&amp;#34;) print(dataset1.head()) print(dataset1.describe()) result: 可以看出只有一个特征属于单变量的线性回归
+#可视化数据 plt.rcParams[&amp;#39;font.sans-serif&amp;#39;]=[&amp;#39;SimHei&amp;#39;]#显示中文 plt.rcParams[&amp;#39;axes.unicode_minus&amp;#39;]=False#显示负号 dataset1.plot(kind=&amp;#39;scatter&amp;#39;,x=&amp;#39;人口&amp;#39;,y=&amp;#39;收益&amp;#39;,figsize=(12,8)) plt.xlabel(&amp;#39;人口&amp;#39;,fontsize=18) plt.ylabel(&amp;#39;收益&amp;#39;,fontsize=18)#可以添加rotationx=0使得收益转为来 plt.show() result: 处理数据 #插入一列恒为1的列 dataset1.insert(0,&amp;#39;Ones&amp;#39;,1)#在第零列插入列名为Ones，值为1 的一列 dataset1 result: #分开特征和目标 X = dataset1.iloc[:,:2] Y = dataset1.iloc[:,2] print(X.head()) print(Y.head()) print(Y.shape) result: code:
+X.shape result:
+(97, 2) 训练算法 #编写cost函数，方便起见写成np数组，并初始化w和alpha X = np.matrix(X.values) Y = np.matrix(Y.values).T w = np.matrix(np.array([0,0]))#因为从dataset1中可以看出只有两个特征，所以初始化w为（1，2）的0矩阵就好了 print(X.shape,Y.shape,w.shape)#注意矩阵的数据的行列 result:
+(97, 2) (97, 1) (1, 2) 参数$w$为特征函数的代价函数 $$J\left( w \right)=\frac{1}{2m}\sum\limits_{i=1}^{m}{{{\left( {{h}}\left( {{x}^{(i)}} \right)-{{y}^{(i)}} \right)}^{2}}}$$ 其中：$${{h}}\left( x \right)={{w}^{T}}X={{w }{0}}{{x}{0}}+{{w }{1}}{{x}{1}}+{{w }{2}}{{x}{2}}+&amp;hellip;+{{w }{n}}{{x}{n}}$$ code:</description>
+    </item>
+    
+    <item>
+      <title>myRegressioncode2</title>
+      <link>https://example.com/p/myregressioncode2/</link>
+      <pubDate>Wed, 01 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/myregressioncode2/</guid>
+      <description>这次练习采用sklearn来实现预测,dataset：ToyotaCorolla,这里不详细探究调参，后期返回来再摸索参数对训练的影响,date 2021/10/1
+收集数据 分析数据 import numpy as np import pandas as pd import seaborn as sns import matplotlib.pyplot as plt sns.set_style(&amp;#39;white&amp;#39;) dataset = pd.read_csv(&amp;#39;ToyotaCorolla.csv&amp;#39;) dataset.head()#最好加上（）输出的结构结构比较好看 result: dataset.describe() result: code:
+len(dataset)#dataset.count()也行 result:
+1436 code:
+dataset.isnull().sum()#数据样本看来不用做null的处理了，没有null值~~~太好了 result: code:
+#采用和seaborn可视化数据,用一下热图吧 #首先，先看看相关性 dataset_corr = dataset.corr() print(dataset_corr.shape) #corr是pandas的函数之一，计算列与列之间的相关系数，返回相关系数矩阵，相关系数的取值范围为[-1, 1],当接近1时，表示两者具有强烈的正相关性，比如‘s’和‘x’；当接近-1时，表示有强烈的的负相关性，比如‘s’和‘c’，而若值接近0，则表示相关性很低. f,axes = plt.subplots(figsize=(10,10)) sns.heatmap(dataset_corr,annot=True,fmt=&amp;#39;.3f&amp;#39;) length = dataset_corr.columns plt.yticks(range(len(length)),dataset_corr.columns) plt.xticks(range(len(length)),dataset_corr.columns) plt.show() result: code:
+dataset_corr = dataset.corr() length = dataset_corr.columns print(length) result: 由上面的热图可以看出price和Age、KM呈负相关系数较大，和HP、Weight呈正相关的系数较大;注意热图中没有显示FuelType的数据，因为它是文本数据
+画个线性的图看看 f,axes = plt.subplots(2,2,figsize=(14,8)) #负相关的两个 sns.</description>
+    </item>
+    
+    <item>
+      <title>WZU_线性回归代码学习记录</title>
+      <link>https://example.com/p/wzu_%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</link>
+      <pubDate>Wed, 01 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/wzu_%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</guid>
+      <description>机器学习练习 - 线性回归 代码修改并注释：黄海广，haiguang2000@wzu.edu.cn
+单变量线性回归 import numpy as np import pandas as pd import matplotlib.pyplot as plt import matplotlib.pyplot as plt plt.rcParams[&amp;#39;font.sans-serif&amp;#39;]=[&amp;#39;SimHei&amp;#39;] #用来正常显示中文标签 plt.rcParams[&amp;#39;axes.unicode_minus&amp;#39;]=False #用来正常显示负号 path = &amp;#39;data/regress_data1.csv&amp;#39; data = pd.read_csv(path) data.head() result: code:
+data.describe() result: 看下数据长什么样子
+code:
+data.plot(kind=&amp;#39;scatter&amp;#39;, x=&amp;#39;人口&amp;#39;, y=&amp;#39;收益&amp;#39;, figsize=(12,8)) plt.xlabel(&amp;#39;人口&amp;#39;, fontsize=18) plt.ylabel(&amp;#39;收益&amp;#39;, rotation=0, fontsize=18) plt.show() result: 现在让我们使用梯度下降来实现线性回归，以最小化代价函数。
+首先，我们将创建一个以参数$w$为特征函数的代价函数 $$J\left( w \right)=\frac{1}{2m}\sum\limits_{i=1}^{m}{{{\left( {{h}}\left( {{x}^{(i)}} \right)-{{y}^{(i)}} \right)}^{2}}}$$ 其中：$${{h}}\left( x \right)={{w}^{T}}X={{w }{0}}{{x}{0}}+{{w }{1}}{{x}{1}}+{{w }{2}}{{x}{2}}+&amp;hellip;+{{w }{n}}{{x}{n}}$$ code:
+def computeCost(X, y, w): inner = np.</description>
+    </item>
+    
+    <item>
+      <title>用scikit-learn和pandas学习Ridge回归</title>
+      <link>https://example.com/p/%E7%94%A8scikit-learn%E5%92%8Cpandas%E5%AD%A6%E4%B9%A0ridge%E5%9B%9E%E5%BD%92/</link>
+      <pubDate>Wed, 01 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E7%94%A8scikit-learn%E5%92%8Cpandas%E5%AD%A6%E4%B9%A0ridge%E5%9B%9E%E5%BD%92/</guid>
+      <description>数据读取与训练集测试集划分 import pandas as pd import numpy as np import matplotlib import matplotlib.pyplot as plt import warnings warnings.filterwarnings(&amp;#34;ignore&amp;#34;) matplotlib.style.use(&amp;#34;ggplot&amp;#34;) from sklearn.linear_model import LinearRegression from sklearn import datasets data = pd.read_csv(&amp;#34;./CCPP/Folds5x2_pp.csv&amp;#34;) data.head() result: code:
+from sklearn.model_selection import train_test_split X_train,X_test,y_train,y_test = train_test_split(X,y,random_state=22) print(X_train.shape) print(X_test.shape) print(y_train.shape) print(y_test.shape) result:
+(7176, 4) (2392, 4) (7176, 1) (2392, 1) 用sklearn运行Ridge回归 要运行Ridge回归，我们必须要指定超参数α。你也许会问：“我也不知道超参数是多少啊？” 我也不知道，那么我们随机指定一个(比如1)，后面我们会讲到用交叉验证从多个输入超参数α中快速选择最优超参数的办法。
+from sklearn.linear_model import Ridge ridge = Ridge(alpha=1) ridge.fit(X_train,y_train) result:
+Ridge(alpha=1) code:
+print(ridge.intercept_) print(ridge.coef_) result:</description>
+    </item>
+    
+    <item>
+      <title>用scikit-learn和pandas学习线性回归</title>
+      <link>https://example.com/p/%E7%94%A8scikit-learn%E5%92%8Cpandas%E5%AD%A6%E4%B9%A0%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/</link>
+      <pubDate>Wed, 01 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E7%94%A8scikit-learn%E5%92%8Cpandas%E5%AD%A6%E4%B9%A0%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/</guid>
+      <description>pandas来读取数据 import pandas as pd import numpy as np import matplotlib import matplotlib.pyplot as plt matplotlib.style.use(&amp;#34;ggplot&amp;#34;) plt.rcParams[&amp;#34;font.sans-serif&amp;#34;] = &amp;#34;SimHei&amp;#34; plt.rcParams[&amp;#34;axes.unicode_minus&amp;#34;] = False from sklearn import datasets,linear_model import warnings warnings.filterwarnings(&amp;#34;ignore&amp;#34;) data = pd.read_csv(&amp;#34;./CCPP/Folds5x2_pp.csv&amp;#34;) data.head() result: 准备运行算法的数据 data.shape result:
+(9568, 5) 结果是(9568, 5)。说明我们有9568个样本，每个样本有5列。
+现在我们开始准备样本特征X，我们用AT， V，AP和RH这4个列作为样本特征。
+code:
+X = data[[&amp;#34;AT&amp;#34;,&amp;#34;V&amp;#34;,&amp;#34;AP&amp;#34;,&amp;#34;RH&amp;#34;]] X.head() result: code:
+y = data[[&amp;#34;PE&amp;#34;]] y.head result: 划分训练集和测试集 from sklearn.model_selection import train_test_split X_train,X_test,y_train,y_test = train_test_split(X,y,random_state=1) print(X_train.shape) print(X_test.shape) print(y_train.shape) print(y_test.shape) #可以看到75%的样本数据被作为训练集，25%的样本被作为测试集。 result: 运行scikit-learn的线性模型 scikit-learn的线性回归算法使用的是最小二乘法来实现的。</description>
+    </item>
+    
+    <item>
+      <title>py_basic_Q91-100</title>
+      <link>https://example.com/p/py_basic_q91-100/</link>
+      <pubDate>Mon, 14 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/py_basic_q91-100/</guid>
+      <description>这是为了加强Python基础，在Github上找来的练习，地址：https://github.com/darkprinx/break-the-ice-with-python
+Question 91 Question Please write a program which accepts a string from console and print it in reverse order.
+**Example:
+If the following string is given as input to the program:***
+rise to vote sir
+Then, the output of the program should be:
+ris etov ot esir
+Hints Use list[::-1] to iterate a list in a reverse order.
+Solutions:
+a = input() #逆序输出直接设定步长就好了 #运用切片的步长即可 -1 print(a[::-1]) rise to vote sir ris etov ot esir Question 92 Question Please write a program which accepts a string from console and print the characters that have even indexes.</description>
+    </item>
+    
+    <item>
+      <title>py_basic_Q81-90</title>
+      <link>https://example.com/p/py_basic_q81-90/</link>
+      <pubDate>Sun, 13 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/py_basic_q81-90/</guid>
+      <description>这是为了加强Python基础，在Github上找来的练习，地址：https://github.com/darkprinx/break-the-ice-with-python
+Question 81 Question By using list comprehension, please write a program to print the list after removing numbers which are divisible by 5 and 7 in [12,24,35,70,88,120,155].
+Hints Use list comprehension to delete a bunch of element from a list.
+Solutions:
+[ i for i in [12,24,35,70,88,120,155] if i%(5*7)!=0] [12, 24, 88, 120, 155] Question 82 Question By using list comprehension, please write a program to print the list after removing the 0th, 2nd, 4th,6th numbers in [12,24,35,70,88,120,155].</description>
+    </item>
+    
+    <item>
+      <title>py_basic_Q71-80</title>
+      <link>https://example.com/p/py_basic_q71-80/</link>
+      <pubDate>Sat, 12 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/py_basic_q71-80/</guid>
+      <description>这是为了加强Python基础，在Github上找来的练习，地址：https://github.com/darkprinx/break-the-ice-with-python
+Question 71 Question Please write a program to output a random number, which is divisible by 5 and 7, between 10 and 150 inclusive using random module and list comprehension.
+Hints Use random.choice() to a random element from a list.
+Solutions:
+import random result = [ i for i in range(10,151) if i%(5*7)==0] random.choice(result) 105 Question 72 Question Please write a program to generate a list with 5 random numbers between 100 and 200 inclusive.</description>
+    </item>
+    
+    <item>
+      <title>py_basic_Q61-70</title>
+      <link>https://example.com/p/py_basic_q61-70/</link>
+      <pubDate>Fri, 11 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/py_basic_q61-70/</guid>
+      <description>这是为了加强Python基础，在Github上找来的练习，地址：https://github.com/darkprinx/break-the-ice-with-python
+Question 61 Question The Fibonacci Sequence is computed based on the following formula:
+$f(n)=0$ if n=0
+$f(n)=1$ if n=1
+$f(n)=f(n-1)+f(n-2)$ if n&amp;gt;1
+Please write a program to compute the value of f(n) with a given n input by console.
+**_Example:
+If the following n is given as input to the program:_**
+7
+Then, the output of the program should be:
+13
+In case of input data being supplied to the question, it should be assumed to be a console input.</description>
+    </item>
+    
+    <item>
+      <title>py_basic_Q51-60</title>
+      <link>https://example.com/p/py_basic_q51-60/</link>
+      <pubDate>Thu, 10 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/py_basic_q51-60/</guid>
+      <description>这是为了加强Python基础，在Github上找来的练习，地址：https://github.com/darkprinx/break-the-ice-with-python
+Question 51 Question Write a function to compute 5/0 and use try/except to catch the exceptions.
+Hints Use try/except to catch exceptions.
+Solutions:
+#首先要知道错误的类型 def Q51(): return 5/0 Q51() # ZeroDivisionError 可以看到是这个wrong类型 --------------------------------------------------------------------------- ZeroDivisionError Traceback (most recent call last) &amp;lt;ipython-input-2-1c67e02e3140&amp;gt; in &amp;lt;module&amp;gt; 2 def Q51(): 3 return 5/0 ----&amp;gt; 4 Q51() &amp;lt;ipython-input-2-1c67e02e3140&amp;gt; in Q51() 1 #首先要知道错误的类型 2 def Q51(): ----&amp;gt; 3 return 5/0 4 Q51() ZeroDivisionError: division by zero #try/except捕获异常 def Q51(): return 5/0 try: Q51() #except 后面可以指定错误类型 / 也可以不指定，则捕获全部类型 except ZeroDivisionError as ZD: print(&amp;#34;不能除于零！&amp;#34;) except: print(&amp;#34;唔知道！&amp;#34;) 不能除于零！ Question 52 Question Define a custom exception class which takes a string message as attribute.</description>
+    </item>
+    
+    <item>
+      <title>py_basic_Q41-50</title>
+      <link>https://example.com/p/py_basic_q41-50/</link>
+      <pubDate>Wed, 09 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/py_basic_q41-50/</guid>
+      <description>这是为了加强Python基础，在Github上找来的练习，地址：https://github.com/darkprinx/break-the-ice-with-python
+Question 41 Question: Write a program which can map() to make a list whose elements are square of elements in [1,2,3,4,5,6,7,8,9,10].
+Hints: Use map() to generate a list.Use lambda to define anonymous functions.
+Solutions:
+#温习下map的使用，传入方法和可迭代对象 liss = [1,2,3,4,5,6,7,8,9,10] print(list(map(lambda i:i**2,liss))) [1, 4, 9, 16, 25, 36, 49, 64, 81, 100] Question 42 Question: Write a program which can map() and filter() to make a list whose elements are square of even number in [1,2,3,4,5,6,7,8,9,10].</description>
+    </item>
+    
+    <item>
+      <title>python基础整理</title>
+      <link>https://example.com/p/python%E5%9F%BA%E7%A1%80%E6%95%B4%E7%90%86/</link>
+      <pubDate>Fri, 05 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/python%E5%9F%BA%E7%A1%80%E6%95%B4%E7%90%86/</guid>
+      <description>这是看完pythond的书后，再过一遍基础知识的post，原文地址：https://github.com/fengdu78/Data-Science-Notes/tree/master/1.python-basic 本章是python语言的基础部分，也是后续内容的基础。
+Python数据类型 1.1 字符串 在Python中用引号引起来的字符集称之为字符串，比如：&amp;lsquo;hello&amp;rsquo;、&amp;ldquo;my Python&amp;rdquo;、&amp;ldquo;2+3&amp;quot;等都是字符串
+Python中字符串中使用的引号可以是单引号、双引号跟三引号
+print (&amp;#39;hello world!&amp;#39;) hello world! c = &amp;#39;It is a &amp;#34;dog&amp;#34;!&amp;#39; print (c) It is a &amp;#34;dog&amp;#34;! c1= &amp;#34;It&amp;#39;s a dog!&amp;#34; print (c1) It&amp;#39;s a dog! c2 = &amp;#34;&amp;#34;&amp;#34;hello world !&amp;#34;&amp;#34;&amp;#34; print (c2) hello world ! 转义字符&amp;rsquo;&#39; 转义字符\可以转义很多字符，比如\n表示换行，\t表示制表符，字符\本身也要转义，所以\表示的字符就是\
+print (&amp;#39;It\&amp;#39;s a dog!&amp;#39;) print (&amp;#34;hello world!\nhello Python!&amp;#34;) print (&amp;#39;\\\t\\&amp;#39;) It&amp;#39;s a dog! hello world! hello Python! \	\ 原样输出引号内字符串可以使用在引号前加r
+print (r&amp;#39;\\\t\\&amp;#39;) \\\t\\ 子字符串及运算 s = &amp;#39;Python&amp;#39; print( &amp;#39;Py&amp;#39; in s) print( &amp;#39;py&amp;#39; in s) True False 取子字符串有两种方法，使用[]索引或者切片运算法[:]，这两个方法使用面非常广</description>
+    </item>
+    
+    <item>
+      <title>python基础_1</title>
+      <link>https://example.com/p/python%E5%9F%BA%E7%A1%80_1/</link>
+      <pubDate>Thu, 04 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/python%E5%9F%BA%E7%A1%80_1/</guid>
+      <description>这是看完pythond的书后，再过一遍基础知识的post，原文地址：https://github.com/fengdu78/Data-Science-Notes/tree/master/1.python-basic
+print name = input(&amp;#34;What is your name?&amp;#34;) print(&amp;#34;Hello &amp;#34;+name ) # 或者print(&amp;#34;Hello&amp;#34;,name ),print中逗号分隔直接将字符串用空格分隔，若用+号连接，并且想留空格，则在前一字符串留空格即可 What is your name?Mike Hello Mike 输入输出 username=input(&amp;#34;username:&amp;#34;) password=input(&amp;#34;password:&amp;#34;) print(username,password) username:111 password:666 111 666 格式输入输出 # 第一种方法 name=input(&amp;#34;Name:&amp;#34;) age=input(&amp;#34;age:&amp;#34;) job=input(&amp;#34;job:&amp;#34;) info=&amp;#39;&amp;#39;&amp;#39;---------info of ---------&amp;#39;&amp;#39;&amp;#39; + &amp;#39;&amp;#39;&amp;#39; Name:&amp;#39;&amp;#39;&amp;#39;+name+&amp;#39;&amp;#39;&amp;#39; Age:&amp;#39;&amp;#39;&amp;#39;+age+&amp;#39;&amp;#39;&amp;#39; Job:&amp;#39;&amp;#39;&amp;#39;+job print(info) Name:Mike age:28 job:worker ---------info of --------- Name:Mike Age:28 Job:worker # 第二种方法 name=input(&amp;#34;Name:&amp;#34;) age=int(input(&amp;#34;age:&amp;#34;)) #如果不用int()就会报错(虽然输入为数字，但是print(type(age))为str型)，因为python如果不强制类型转化，就会默认字符型 job=input(&amp;#34;job:&amp;#34;) info=&amp;#39;&amp;#39;&amp;#39;---------info of --------- Name:%s Age:%d Job:%s&amp;#39;&amp;#39;&amp;#39;%(name,age,job) print(info) Name:Mike age:28 job:worker ---------info of --------- Name:Mike Age:28 Job:worker # 第三种方法 name=input(&amp;#34;Name:&amp;#34;) age=int(input(&amp;#34;age:&amp;#34;)) #如果不用int()就会报错(虽然输入为数字，但是print(type(age))为str型)，因为python如果不强制类型转化，就会默认字符型 job=input(&amp;#34;job:&amp;#34;) info=&amp;#39;&amp;#39;&amp;#39;---------info of --------- Name:{_name} Age:{_age} Job:{_job}&amp;#39;&amp;#39;&amp;#39;.</description>
+    </item>
+    
+    <item>
+      <title>python基础_2</title>
+      <link>https://example.com/p/python%E5%9F%BA%E7%A1%80_2/</link>
+      <pubDate>Thu, 04 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/python%E5%9F%BA%E7%A1%80_2/</guid>
+      <description>这是看完pythond的书后，再过一遍基础知识的post，原文地址：https://github.com/fengdu78/Data-Science-Notes/tree/master/1.python-basic
+编码变换 # utf-8与gbk互相转化需要通过Unicode作为中介 s=&amp;#34;我爱北京天安门&amp;#34; # 默认编码为Unicode print(s.encode(&amp;#34;gbk&amp;#34;)) # Unicode可直接转化为gbk b&amp;#39;\xce\xd2\xb0\xae\xb1\xb1\xbe\xa9\xcc\xec\xb0\xb2\xc3\xc5&amp;#39; print(s.encode(&amp;#34;utf-8&amp;#34;)) # Unicode可直接转化为utf-8 b&amp;#39;\xe6\x88\x91\xe7\x88\xb1\xe5\x8c\x97\xe4\xba\xac\xe5\xa4\xa9\xe5\xae\x89\xe9\x97\xa8&amp;#39; print(s.encode(&amp;#34;utf-8&amp;#34;).decode(&amp;#34;utf-8&amp;#34;).encode(&amp;#34;gb2312&amp;#34;)) # 此时s.encode(&amp;#34;utf-8&amp;#34;)即转为utf-8了，然后转为gb2312，则需要先告诉Unicode你原先的编码是什么，即s.encode(&amp;#34;utf-8&amp;#34;).decode(&amp;#34;utf-8&amp;#34;),再对其进行编码为gb2312，即最终为s.encode(&amp;#34;utf-8&amp;#34;).decode(&amp;#34;utf-8&amp;#34;).encode(&amp;#34;gb2312&amp;#34;) b&amp;#39;\xce\xd2\xb0\xae\xb1\xb1\xbe\xa9\xcc\xec\xb0\xb2\xc3\xc5&amp;#39; 文件 f=open(&amp;#39;ly.txt&amp;#39;,&amp;#39;r&amp;#39;,encoding=&amp;#39;utf-8&amp;#39;) # 文件句柄 &amp;#39;w&amp;#39;为创建文件，之前的数据就没了 data=f.read() print(data) f.close() ��������������������我爱中华 f=open(&amp;#39;test&amp;#39;,&amp;#39;a&amp;#39;,encoding=&amp;#39;utf-8&amp;#39;) # 文件句柄 &amp;#39;a&amp;#39;为追加文件 append f.write(&amp;#34;\n阿斯达所，\n天安门上太阳升&amp;#34;) f.close() f = open(&amp;#39;ly.txt&amp;#39;, &amp;#39;r&amp;#39;, encoding=&amp;#39;utf-8&amp;#39;) # 文件句柄 for i in range(5): print(f.readline().strip()) # strip()去掉空格和回车 for line in f.readlines(): print(line.strip()) # 到第十行不打印 for index, line in enumerate(f.readlines()): if index == 9: print(&amp;#39;----我是分隔符-----&amp;#39;) continue print(line.strip()) # 到第十行不打印 count = 0 for line in f: if count == 9: print(&amp;#39;----我是分隔符-----&amp;#39;) count += 1 continue print(line.</description>
+    </item>
+    
+    <item>
+      <title>Python绘制3D图形：Axes3D数据读写</title>
+      <link>https://example.com/p/python%E7%BB%98%E5%88%B63d%E5%9B%BE%E5%BD%A2axes3d%E6%95%B0%E6%8D%AE%E8%AF%BB%E5%86%99/</link>
+      <pubDate>Sun, 10 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/python%E7%BB%98%E5%88%B63d%E5%9B%BE%E5%BD%A2axes3d%E6%95%B0%E6%8D%AE%E8%AF%BB%E5%86%99/</guid>
+      <description>第一个学的python的包就是matplotlib，特地整理了去年的学习笔记
+D图形绘制需要（x,y,z)三组值，下面通过numpy和Axes3D函数会议3D图形。
+其中Axes3D是mpl_toolkits.mplot3d中的一个绘图函数，mpl_toolkits.mplot3d
+是Matplotlib里面专门用来画三维图的工具包
+#导入 # from mpl_toolkits.mplot3d import * from mpl_toolkits.mplot3d import Axes3D import numpy as np import matplotlib.pyplot as plt #建立画布，生成数据 fig = plt.figure() ax = Axes3D(fig) x = np.arange(-8,8,0.25) y = np.arange(-8,8,0.25) #生成x、y轴数据 x,y = np.meshgrid(x,y) r = np.sqrt(x**2+y**2) #生成z值 z = np.sin(r)/r #绘图 ax.plot_surface(x,y,z,rstride=1,cstride=1) ax.contourf(x,y,z,zdir=&amp;#34;z&amp;#34;,offset=-2) plt.show() 折线图 code:
+import matplotlib as mpl from mpl_toolkits.mplot3d import Axes3D import numpy as np import matplotlib.pyplot as plt mpl.rcParams[&amp;#34;legend.fontsize&amp;#34;] = 10 fig = plt.</description>
+    </item>
+    
+  </channel>
+</rss>

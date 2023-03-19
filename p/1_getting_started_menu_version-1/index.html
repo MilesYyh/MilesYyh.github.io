@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Chimera官方的教程跟学'><title>1_Getting_Started_Menu_Version-1</title>
+
+<link rel='canonical' href='https://example.com/p/1_getting_started_menu_version-1/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='1_Getting_Started_Menu_Version-1'>
+<meta property='og:description' content='Chimera官方的教程跟学'>
+<meta property='og:url' content='https://example.com/p/1_getting_started_menu_version-1/'>
+<meta property='og:site_name' content='叶宇浩随记博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='tutorials' /><meta property='article:published_time' content='2021-06-12T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-06-12T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="1_Getting_Started_Menu_Version-1">
+<meta name="twitter:description" content="Chimera官方的教程跟学">
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>Back</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/chimera/" style="background-color: #9e8a16; color: #fff;">
+                Chimera
+            </a>
+        
+            <a href="/categories/protein_structure/" style="background-color: #e2144a; color: #fff;">
+                蛋白结构
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/1_getting_started_menu_version-1/">1_Getting_Started_Menu_Version-1</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        Chimera官方的教程跟学
+    </h3>
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Jun 12, 2021</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    2 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <h1 id="part-1manipulation-selection-and-chains">Part 1:Manipulation, Selection, and Chains</h1>
+<h2 id="fetch获取结构文件">Fetch:获取结构文件</h2>
+<p>顶部菜单栏menu选择
+这里获取<strong>1zik</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">File</span><span class="o">...</span> <span class="n">Fetch</span> <span class="n">by</span> <span class="n">ID</span><span class="o">...</span> 
+</span></span></code></pre></div><p>会弹出下图右边的那个窗口，选择对应的数据库database,输入对应的结构ID即可
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 172; 
+			flex-basis: 415px"
+	>
+	<a href="/p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-1.png" data-size="1816x1050">
+		<img src="/p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-1.png"
+			width="1816"
+			height="1050"
+			srcset="/p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-1_hua964e2dfe23390efc773b43bc2fe4a98_307993_480x0_resize_box_3.png 480w, /p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-1_hua964e2dfe23390efc773b43bc2fe4a98_307993_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="action-改变结构展现的形式">Action: 改变结构展现的形式</h2>
+<p>Cihmrea默认读取结构后，展现为ribbon带状，tan棕黄色
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 164; 
+			flex-basis: 395px"
+	>
+	<a href="/p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-2.png" data-size="1226x744">
+		<img src="/p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-2.png"
+			width="1226"
+			height="744"
+			srcset="/p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-2_hucd1379604b80e76ea4097fc11191cbcd_284131_480x0_resize_box_3.png 480w, /p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-2_hucd1379604b80e76ea4097fc11191cbcd_284131_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+可以通过 顶部action 选择展现其他形式
+(&hellip; 代表空格，即需要点击鼠标才会出现后面的选项)</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">Actions</span><span class="o">...</span> <span class="n">Atoms</span><span class="o">/</span><span class="n">Bonds</span><span class="o">...</span> <span class="n">show</span>
+</span></span></code></pre></div><p>选择原子模式看看，从右图的结果可以看出，同PyMOL一样，结构的展现形式都是叠加上去的，即上一个展示形式仍然存在
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 234; 
+			flex-basis: 562px"
+	>
+	<a href="/p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-3.png" data-size="2410x1028">
+		<img src="/p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-3.png"
+			width="2410"
+			height="1028"
+			srcset="/p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-3_hubd4724b7dd1416621344f0d24060e471_597403_480x0_resize_box_3.png 480w, /p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-3_hubd4724b7dd1416621344f0d24060e471_597403_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>注意下，不同的原子（主要是杂原子（非C原子））展现的颜色也不一样，即byelement</p>
+<ul>
+<li>O原子：红色</li>
+<li>N原子：蓝色
+更多的，如下图片所示</li>
+</ul>
+<blockquote>
+<p>图片原来源[^2] ,经过处理
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 187; 
+			flex-basis: 448px"
+	>
+	<a href="/p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-4.png" data-size="1870x1000">
+		<img src="/p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-4.png"
+			width="1870"
+			height="1000"
+			srcset="/p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-4_hu9a36348a4156e6bd2b09ce105233fdfe_444065_480x0_resize_box_3.png 480w, /p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-4_hu9a36348a4156e6bd2b09ce105233fdfe_444065_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+</blockquote>
+<p>恢复ribbon带状的展现形式</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">Actions</span><span class="o">...</span> <span class="n">Ribbon</span><span class="o">...</span> <span class="n">hide</span>
+</span></span><span class="line"><span class="cl"><span class="n">Actions</span><span class="o">...</span> <span class="n">Ribbon</span><span class="o">...</span> <span class="n">show</span>
+</span></span></code></pre></div><p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 207; 
+			flex-basis: 497px"
+	>
+	<a href="/p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version.png" data-size="1668x804">
+		<img src="/p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version.png"
+			width="1668"
+			height="804"
+			srcset="/p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version_hu865c366d87a79580d7f37e81e28cb9e6_384419_480x0_resize_box_3.png 480w, /p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version_hu865c366d87a79580d7f37e81e28cb9e6_384419_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="鼠标的基本操作和属性">鼠标的基本操作和属性</h2>
+<h3 id="默认的鼠标设置下">默认的鼠标设置下</h3>
+<ul>
+<li>左键旋转</li>
+<li>滑轮  XY方向上放大缩小</li>
+<li>右键  放大缩小 （需要长按）</li>
+</ul>
+<blockquote>
+<p>我觉得滑轮和右键没啥区别</p>
+</blockquote>
+<h3 id="调整">调整</h3>
+<p>如果需要其他鼠标设置可以去顶部menu菜单栏自行调整</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">Favorites</span><span class="o">...</span> <span class="n">Preferences</span> <span class="p">[</span><span class="n">category</span><span class="p">]</span> <span class="n">Mouse</span>
+</span></span></code></pre></div><p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 98; 
+			flex-basis: 236px"
+	>
+	<a href="/p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-6.png" data-size="760x772">
+		<img src="/p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-6.png"
+			width="760"
+			height="772"
+			srcset="/p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-6_hu69db7b9829e4125b7d88f3c146c20a4b_103116_480x0_resize_box_3.png 480w, /p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-6_hu69db7b9829e4125b7d88f3c146c20a4b_103116_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<blockquote>
+<p>还是比较喜欢默认的，所以其他模式的没研究过</p>
+</blockquote>
+<h3 id="鼠标接触蛋白的作用">鼠标接触蛋白的作用</h3>
+<h4 id="显示残基的信息">显示残基的信息</h4>
+<p>格式为：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">res</span><span class="o">-</span><span class="n">name</span><span class="err">  </span><span class="n">res</span><span class="o">-</span><span class="n">num</span><span class="o">.</span><span class="n">chain</span><span class="err">  </span><span class="n">atom</span><span class="o">-</span><span class="n">name</span>
+</span></span></code></pre></div><blockquote>
+<p>方便展示，我重新加上了atom/bond的形式，下面的图上半部分是这个蛋白的pdb文件，下面是对应AA在Chimera鼠标轻触显示的信息（以11号的GLU谷氨酸，E，为例子）</p>
+</blockquote>
+<ul>
+<li>轻触的是键时,结果的格式是：</li>
+<li>氨基酸名字 位置.链  原子-原子(互相连接的两个原子)  距离
+如图中结果说明，这个蛋白A链11号上的位置是谷氨酸，这个氨基酸Ca与Cb成键的距离为1.520A</li>
+<li>轻触的是的单个原子时，结果的格式是：</li>
+<li>氨基酸名字  位置.链  所选原子名称
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 181; 
+			flex-basis: 436px"
+	>
+	<a href="/p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-7.png" data-size="1728x950">
+		<img src="/p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-7.png"
+			width="1728"
+			height="950"
+			srcset="/p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-7_huaaf37c4e35e12f0e0202e82bc2e0f350_752558_480x0_resize_box_3.png 480w, /p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-7_huaaf37c4e35e12f0e0202e82bc2e0f350_752558_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></li>
+</ul>
+<h3 id="鼠标多选aa">鼠标多选AA</h3>
+<ul>
+<li>Ctrl + 单击
+这能选中单个AA</li>
+<li>Shift + Ctrl + 单击
+可以连续追加选中多个AA</li>
+<li>补充 （keyboard -  up）
+但是实际上，这样选的可能还不是完整的整个AA，可能是其AA上的某个原子元素，可以通过键盘的方向键（上），选中整个AA（即这样可以通过单个原子或者元素，选到整个氨基酸）
+等同于menu的</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">Select</span><span class="o">...</span> <span class="n">Broaden</span>
+</span></span></code></pre></div><h2 id="side-view---从上帝视觉看整个蛋白">Side View :  从上帝视觉看整个蛋白</h2>
+<h3 id="启动side-view">启动Side View</h3>
+<p>顶部菜单栏menu</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">Favorites</span><span class="o">...</span> <span class="n">Side</span> <span class="n">View</span>
+</span></span></code></pre></div><p>然后可以通过移动这个小框（图中红色部分）快速调整视角，在主窗口中移动蛋白的结构时，Side View也会跟着显示，可以将其理解为一个主窗口的小窗
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 194; 
+			flex-basis: 467px"
+	>
+	<a href="/p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-8.png" data-size="2644x1356">
+		<img src="/p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-8.png"
+			width="2644"
+			height="1356"
+			srcset="/p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-8_hu81ac60fc3cee42001634fe022c8f8a6e_1324952_480x0_resize_box_3.png 480w, /p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-8_hu81ac60fc3cee42001634fe022c8f8a6e_1324952_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="select-快速选中同一类型的原子--color-修改颜色">Select: 快速选中同一类型的原子 &amp; Color 修改颜色</h2>
+<h3 id="选中同一类aa">选中同一类AA</h3>
+<p>如果想要选中同一个蛋白中全部某种类型的氨基酸，可以通过select直接选择(以赖氨酸为例)</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">Select</span><span class="o">...</span> <span class="n">Residue</span><span class="o">...</span> <span class="n">LYS</span>
+</span></span></code></pre></div><p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 211; 
+			flex-basis: 506px"
+	>
+	<a href="/p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-9.png" data-size="1790x848">
+		<img src="/p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-9.png"
+			width="1790"
+			height="848"
+			srcset="/p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-9_hua6a95e0b9089dde7d633fc5fdcf48e8d_587643_480x0_resize_box_3.png 480w, /p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-9_hua6a95e0b9089dde7d633fc5fdcf48e8d_587643_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<blockquote>
+<p>有显示绿色荧光样的AA，表示被选中了</p>
+</blockquote>
+<h3 id="部分选中与全部选中的区别">部分选中与全部选中的区别</h3>
+<h4 id="部分选中">部分选中</h4>
+<p>只有部分的AA被选中时，Chimera右下角的图标会显示绿色，那么所有工具的作用效果就是针对这些选中的AA
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 1388; 
+			flex-basis: 3331px"
+	>
+	<a href="/p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-11.png" data-size="1888x136">
+		<img src="/p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-11.png"
+			width="1888"
+			height="136"
+			srcset="/p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-11_hue21308cf7d3f043c9be8e519cf7f6288_28603_480x0_resize_box_3.png 480w, /p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-11_hue21308cf7d3f043c9be8e519cf7f6288_28603_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h4 id="全部选中-整个蛋白整体都被选择">全部选中 （整个蛋白整体都被选择）</h4>
+<p>上面的那个图标会显示未绿色，且后续的作用对象（比如color）针对的是整个蛋白（chimrea默认是全部选中）</p>
+<h2 id="select-的补充">select 的补充</h2>
+<p>可以看到select 的菜单可以选择很多模式
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 109; 
+			flex-basis: 263px"
+	>
+	<a href="/p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-12.png" data-size="1026x934">
+		<img src="/p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-12.png"
+			width="1026"
+			height="934"
+			srcset="/p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-12_hu930b5e5de443c0ded706e5d72480b234_337451_480x0_resize_box_3.png 480w, /p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-12_hu930b5e5de443c0ded706e5d72480b234_337451_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="例子">例子</h3>
+<h4 id="选中指定的链修改颜色">选中指定的链，修改颜色,</h4>
+<p>顶部menu
+(先讲之前选中的东西取消了，主窗口，Ctrl + 鼠标选择空白处)</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">Select</span><span class="o">...</span> <span class="n">Chain</span><span class="o">...</span> <span class="n">B</span>
+</span></span><span class="line"><span class="cl"><span class="n">Actions</span><span class="o">...</span> <span class="n">Color</span><span class="o">...</span> <span class="n">cyan</span>  
+</span></span><span class="line"><span class="cl"><span class="n">Actions</span><span class="o">...</span> <span class="n">Ribbon</span><span class="o">...</span> <span class="n">hide</span>
+</span></span></code></pre></div><blockquote>
+<p>选中了了B链，修改了其颜色为cyan，并且将其带状的展现形式hide了
+（可以看出actions操作是针对选中部分的，如果没有，默认为整体对象）
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 105; 
+			flex-basis: 253px"
+	>
+	<a href="/p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-13.png" data-size="1784x1686">
+		<img src="/p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-13.png"
+			width="1784"
+			height="1686"
+			srcset="/p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-13_hu3ec7f4bd5ff1c73fa99f8360abf8c166_553382_480x0_resize_box_3.png 480w, /p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-13_hu3ec7f4bd5ff1c73fa99f8360abf8c166_553382_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+</blockquote>
+<h4 id="选中水分子将其隐藏起来">选中水分子，将其隐藏起来</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">Select</span><span class="o">...</span> <span class="n">Structure</span><span class="o">...</span> <span class="n">solvent</span>
+</span></span><span class="line"><span class="cl"><span class="n">Actions</span><span class="o">...</span> <span class="n">Atoms</span><span class="o">/</span><span class="n">Bonds</span><span class="o">...</span> <span class="n">hide</span>
+</span></span></code></pre></div><p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 221; 
+			flex-basis: 532px"
+	>
+	<a href="/p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-14.png" data-size="1482x668">
+		<img src="/p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-14.png"
+			width="1482"
+			height="668"
+			srcset="/p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-14_hu33eb2539c8fdf44d8a7df60c2fcce5dd_423387_480x0_resize_box_3.png 480w, /p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-14_hu33eb2539c8fdf44d8a7df60c2fcce5dd_423387_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<blockquote>
+<p>可以看到水分子和上面选择的B链都被hide起来了 （这里可以看出chimera的select mode是默认的append的，就是叠加形式，如果上一步的selection的部分没有被clean，则会追加到下一部分的selection）
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 125; 
+			flex-basis: 301px"
+	>
+	<a href="/p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-15.png" data-size="1704x1358">
+		<img src="/p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-15.png"
+			width="1704"
+			height="1358"
+			srcset="/p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-15_huac3ccee097b6f1282feda7f19fd703cc_354622_480x0_resize_box_3.png 480w, /p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-15_huac3ccee097b6f1282feda7f19fd703cc_354622_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+</blockquote>
+<h4 id="选中指定的元素修改展示形式">选中指定的元素，修改展示形式</h4>
+<p>顶部菜单栏</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">Select</span><span class="o">...</span> <span class="n">Chemistry</span><span class="o">...</span> <span class="n">element</span><span class="o">...</span> <span class="n">N</span>
+</span></span><span class="line"><span class="cl"><span class="n">Actions</span><span class="o">...</span> <span class="n">Atoms</span><span class="o">/</span><span class="n">Bonds</span><span class="o">...</span> <span class="n">sphere</span>
+</span></span></code></pre></div><p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 232; 
+			flex-basis: 557px"
+	>
+	<a href="/p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-17.png" data-size="1534x660">
+		<img src="/p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-17.png"
+			width="1534"
+			height="660"
+			srcset="/p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-17_hu37861180a9fbdfde86fc3f022429b715_386134_480x0_resize_box_3.png 480w, /p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-17_hu37861180a9fbdfde86fc3f022429b715_386134_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<blockquote>
+<p>可以看出，这里选择了所有的N元素，将其展示为sphere模式，其实上面被我们隐藏了的那一条链的N元素也展示为了sphere，只是上面被我们隐藏了，所有没展示在主窗口中，不要忘记了，追加被selected
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 156; 
+			flex-basis: 375px"
+	>
+	<a href="/p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-16.png" data-size="1748x1118">
+		<img src="/p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-16.png"
+			width="1748"
+			height="1118"
+			srcset="/p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-16_huc57d9325bc4a185fe8ef6e4780d769c0_480745_480x0_resize_box_3.png 480w, /p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-16_huc57d9325bc4a185fe8ef6e4780d769c0_480745_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+</blockquote>
+<h4 id="清除select恢复选中整体修改整体的展现形式">清除select，恢复选中整体，修改整体的展现形式</h4>
+<p>顶部菜单栏</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">Select</span><span class="o">...</span> <span class="n">Clear</span> <span class="n">Selection</span> 
+</span></span><span class="line"><span class="cl"><span class="c1">## 也可以在主窗口 Ctrl + 鼠标左键点击空白处 </span>
+</span></span><span class="line"><span class="cl"><span class="n">Actions</span><span class="o">...</span> <span class="n">Atoms</span><span class="o">/</span><span class="n">Bonds</span><span class="o">...</span> <span class="n">stick</span>
+</span></span></code></pre></div><h4 id="action-atombonds-show-没有作用">Action Atom/Bonds show 没有作用</h4>
+<p>重新select 对象即可</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">Select</span><span class="o">...</span> <span class="n">Structure</span><span class="o">...</span> <span class="n">protein</span>
+</span></span></code></pre></div><h2 id="color修改颜色">Color:修改颜色</h2>
+<p>顶部菜单栏</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">Select</span><span class="o">...</span> <span class="n">Residue</span><span class="o">...</span> <span class="n">LYS</span>
+</span></span><span class="line"><span class="cl"><span class="n">Actions</span><span class="o">...</span> <span class="n">Color</span><span class="o">...</span> <span class="n">hot</span> <span class="n">pink</span>
+</span></span></code></pre></div><p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 201; 
+			flex-basis: 484px"
+	>
+	<a href="/p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-10.png" data-size="1376x682">
+		<img src="/p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-10.png"
+			width="1376"
+			height="682"
+			srcset="/p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-10_hu12a7014c0ab98b6d028e5873b439099b_269237_480x0_resize_box_3.png 480w, /p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-10_hu12a7014c0ab98b6d028e5873b439099b_269237_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<blockquote>
+<p>可以看到上面被选择的全部赖氨酸都变成了粉红色（其中旁边红色的小点是水分子）</p>
+</blockquote>
+<h3 id="color-更多颜色的选择以及为特定的展现形式给予不同的色彩">color 更多颜色的选择，以及为特定的展现形式给予不同的色彩</h3>
+<p>（以选中全部的谷氨酸为例）
+顶部的menu</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">Select</span><span class="o">...</span> <span class="n">Residue</span><span class="o">...</span> <span class="n">GLU</span>
+</span></span><span class="line"><span class="cl"><span class="n">Actions</span><span class="o">...</span> <span class="n">Color</span><span class="o">...</span> <span class="nb">all</span> <span class="n">options</span>
+</span></span></code></pre></div><p>接着可以在出现的color窗口的coloring applies to 指定展现为什么形式时，为对应的颜色
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 199; 
+			flex-basis: 478px"
+	>
+	<a href="/p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-19.png" data-size="1754x880">
+		<img src="/p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-19.png"
+			width="1754"
+			height="880"
+			srcset="/p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-19_hu4f665ea956636b3e2772392a49c2ac53_632616_480x0_resize_box_3.png 480w, /p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-19_hu4f665ea956636b3e2772392a49c2ac53_632616_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+这里选择atoms/bonds 为蓝色
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 101; 
+			flex-basis: 243px"
+	>
+	<a href="/p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-20.png" data-size="1902x1876">
+		<img src="/p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-20.png"
+			width="1902"
+			height="1876"
+			srcset="/p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-20_hude6d553994c3a992ef6b31ea289adf3a_729864_480x0_resize_box_3.png 480w, /p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-20_hude6d553994c3a992ef6b31ea289adf3a_729864_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<blockquote>
+<p>实际上，这里就是选择了GLU谷氨酸，并且当且展现出Atoms/Bonds的形式时，这些Atoms/Bonds为蓝色，可以看到它们的ribbon还是tan的颜色</p>
+</blockquote>
+<p>如果想不受展现形式的限制（即不管什么展现形式都是同一个颜色）的话，在coloring applies to 时选择all of the above 即可</p>
+<h2 id="sequence-快速选择序列区域">Sequence: 快速选择序列区域</h2>
+<h3 id="打开sequences-窗口">打开sequences 窗口</h3>
+<p>顶部menu</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">Favorites</span><span class="o">...</span> <span class="n">Sequence</span>
+</span></span></code></pre></div><p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 114; 
+			flex-basis: 275px"
+	>
+	<a href="/p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-18.png" data-size="738x642">
+		<img src="/p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-18.png"
+			width="738"
+			height="642"
+			srcset="/p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-18_hu18d087d91871a81ad961c255d673d8b3_138810_480x0_resize_box_3.png 480w, /p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-18_hu18d087d91871a81ad961c255d673d8b3_138810_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="拖拉使用">拖拉使用</h3>
+<ul>
+<li>长按鼠标左键拖拉选择单个或者一个连续的区域</li>
+<li>如果想选择多个单位点或者不连续的区域
+<em>长按鼠标左键+shift 即可选择</em></li>
+</ul>
+<h2 id="lable-展示标签">lable: 展示标签</h2>
+<h3 id="2d3d-标签的区别">2D/3D 标签的区别</h3>
+<p>在Chimera中有2d和3d label之分（PyMOL没有），那么3D的和2D的标签有什么区别呢</p>
+<ul>
+<li>根据官方说明[^3]可以看出，2D标签更加时候作图和movie，因为它可以加注释信息等，并且位置是固定的，不会随着蛋白的旋转而发生改变
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 427; 
+			flex-basis: 1024px"
+	>
+	<a href="/p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-21.png" data-size="1862x436">
+		<img src="/p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-21.png"
+			width="1862"
+			height="436"
+			srcset="/p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-21_hua72a2c009e77c8dba575567f8d276541_274137_480x0_resize_box_3.png 480w, /p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-21_hua72a2c009e77c8dba575567f8d276541_274137_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></li>
+<li>3D的label会随着结构的旋转而跟着变动</li>
+</ul>
+<h3 id="调整label的大小">调整label的大小</h3>
+<p>顶部menu</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">Favorites</span><span class="o">...</span> <span class="n">Preference</span> 
+</span></span></code></pre></div><p>新弹出的Preference窗口</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">Category</span><span class="o">...</span> <span class="n">Label</span>
+</span></span></code></pre></div><p>可能可以选择的字体大小有限制，但是可以自己输入大小
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 205; 
+			flex-basis: 492px"
+	>
+	<a href="/p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-22.png" data-size="804x392">
+		<img src="/p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-22.png"
+			width="804"
+			height="392"
+			srcset="/p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-22_hu9e0c21b9ffa905952752e5c867aefba9_56016_480x0_resize_box_3.png 480w, /p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-22_hu9e0c21b9ffa905952752e5c867aefba9_56016_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+调整即可</p>
+<h3 id="添加3d-label">添加3D label</h3>
+<p>随便选中几个AA，然后展示它们的label name
+顶部menu</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">Actions</span><span class="o">...</span> <span class="n">Label</span><span class="o">...</span> <span class="n">residue</span><span class="o">...</span> <span class="n">name</span> <span class="o">+</span> <span class="n">specifier</span>
+</span></span></code></pre></div><p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 101; 
+			flex-basis: 243px"
+	>
+	<a href="/p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-24.png" data-size="1902x1876">
+		<img src="/p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-24.png"
+			width="1902"
+			height="1876"
+			srcset="/p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-24_hube457d2b5d2fa4010245be88bf3024c6_974793_480x0_resize_box_3.png 480w, /p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-24_hube457d2b5d2fa4010245be88bf3024c6_974793_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<blockquote>
+<p>可以看到这里展示出了 AA-name position.chain</p>
+</blockquote>
+<p>为了更加focus在这些label的residue上，只展示它们的stick结构
+顶部menu
+broaden是为了确保选中到整个完整的AA，而不是某些原子</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">Select</span><span class="o">...</span> <span class="n">Broaden</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">Actions</span><span class="o">...</span> <span class="n">Atoms</span><span class="o">/</span><span class="n">Bonds</span><span class="o">...</span> <span class="n">show</span> <span class="n">only</span>
+</span></span></code></pre></div><p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 101; 
+			flex-basis: 243px"
+	>
+	<a href="/p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-25.png" data-size="1902x1876">
+		<img src="/p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-25.png"
+			width="1902"
+			height="1876"
+			srcset="/p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-25_huc0a0659d2984a730afd58593ef9f3a3a_838833_480x0_resize_box_3.png 480w, /p/1_getting_started_menu_version-1/picture/Getting_Started_Menu_Version-25_huc0a0659d2984a730afd58593ef9f3a3a_838833_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<blockquote>
+<p>确实更加能突出这几个AA了</p>
+</blockquote>
+<h2 id="model-panelchimera的对象">Model Panel:Chimera的对象</h2>
+<p>顶部menu</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"></code></pre></div><p>会打开名为Model Pandel 新的窗口</p>
+<ul>
+<li>model ID number
+对象ID，其实这里我觉得相当于是每个object，就是每个导入的蛋白结构或者选择的部分都会赋予一个ID</li>
+<li>model color
+在主窗口展示的颜色</li>
+<li><strong>A</strong>(ctive) - whether <a class="link" href="https://www.cgl.ucsf.edu/chimera/current/docs/UsersGuide/mouse.html#activedef"  target="_blank" rel="noopener"
+    >activated for motion</a>
+如果A✅了，则这个model可以被调整；如果不想的话，可以将A取消✅，这个很有用，因为取消后，我发现这个model就固定住了</li>
+<li><strong>S</strong>(hown) - whether display-enabled
+是否在主窗口展示</li>
+<li>model name
+<figure 
+	>
+	<a href="/picture/1.Getting_Started_Menu_Version%20-1.png" >
+		<img src="/picture/1.Getting_Started_Menu_Version%20-1.png"
+			
+			
+			
+			loading="lazy"
+			>
+	</a>
+	
+</figure></li>
+</ul>
+<blockquote>
+<p>就是说Model Panel 是一个总的控制板</p>
+</blockquote>
+<h2 id="学习来源">学习来源：</h2>
+<p>1.https://www.cgl.ucsf.edu/chimera/current/docs/UsersGuide/frametut.html
+2.https://www.cgl.ucsf.edu/chimera/current/docs/UsersGuide/colortables.html#byelement
+3.https://www.cgl.ucsf.edu/chimera/current/docs/UsersGuide/frametut.html</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/tutorials/">tutorials</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2022 - 
+        
+        2023 叶宇浩随记博客
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.5.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">Table of contents</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#fetch获取结构文件">Fetch:获取结构文件</a></li>
+    <li><a href="#action-改变结构展现的形式">Action: 改变结构展现的形式</a></li>
+    <li><a href="#鼠标的基本操作和属性">鼠标的基本操作和属性</a>
+      <ol>
+        <li><a href="#默认的鼠标设置下">默认的鼠标设置下</a></li>
+        <li><a href="#调整">调整</a></li>
+        <li><a href="#鼠标接触蛋白的作用">鼠标接触蛋白的作用</a>
+          <ol>
+            <li><a href="#显示残基的信息">显示残基的信息</a></li>
+          </ol>
+        </li>
+        <li><a href="#鼠标多选aa">鼠标多选AA</a></li>
+      </ol>
+    </li>
+    <li><a href="#side-view---从上帝视觉看整个蛋白">Side View :  从上帝视觉看整个蛋白</a>
+      <ol>
+        <li><a href="#启动side-view">启动Side View</a></li>
+      </ol>
+    </li>
+    <li><a href="#select-快速选中同一类型的原子--color-修改颜色">Select: 快速选中同一类型的原子 &amp; Color 修改颜色</a>
+      <ol>
+        <li><a href="#选中同一类aa">选中同一类AA</a></li>
+        <li><a href="#部分选中与全部选中的区别">部分选中与全部选中的区别</a>
+          <ol>
+            <li><a href="#部分选中">部分选中</a></li>
+            <li><a href="#全部选中-整个蛋白整体都被选择">全部选中 （整个蛋白整体都被选择）</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#select-的补充">select 的补充</a>
+      <ol>
+        <li><a href="#例子">例子</a>
+          <ol>
+            <li><a href="#选中指定的链修改颜色">选中指定的链，修改颜色,</a></li>
+            <li><a href="#选中水分子将其隐藏起来">选中水分子，将其隐藏起来</a></li>
+            <li><a href="#选中指定的元素修改展示形式">选中指定的元素，修改展示形式</a></li>
+            <li><a href="#清除select恢复选中整体修改整体的展现形式">清除select，恢复选中整体，修改整体的展现形式</a></li>
+            <li><a href="#action-atombonds-show-没有作用">Action Atom/Bonds show 没有作用</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#color修改颜色">Color:修改颜色</a>
+      <ol>
+        <li><a href="#color-更多颜色的选择以及为特定的展现形式给予不同的色彩">color 更多颜色的选择，以及为特定的展现形式给予不同的色彩</a></li>
+      </ol>
+    </li>
+    <li><a href="#sequence-快速选择序列区域">Sequence: 快速选择序列区域</a>
+      <ol>
+        <li><a href="#打开sequences-窗口">打开sequences 窗口</a></li>
+        <li><a href="#拖拉使用">拖拉使用</a></li>
+      </ol>
+    </li>
+    <li><a href="#lable-展示标签">lable: 展示标签</a>
+      <ol>
+        <li><a href="#2d3d-标签的区别">2D/3D 标签的区别</a></li>
+        <li><a href="#调整label的大小">调整label的大小</a></li>
+        <li><a href="#添加3d-label">添加3D label</a></li>
+      </ol>
+    </li>
+    <li><a href="#model-panelchimera的对象">Model Panel:Chimera的对象</a></li>
+    <li><a href="#学习来源">学习来源：</a></li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

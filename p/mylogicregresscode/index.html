@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='机器学习--逻辑回归代码'><title>mylogicRegresscode</title>
+
+<link rel='canonical' href='https://example.com/p/mylogicregresscode/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='mylogicRegresscode'>
+<meta property='og:description' content='机器学习--逻辑回归代码'>
+<meta property='og:url' content='https://example.com/p/mylogicregresscode/'>
+<meta property='og:site_name' content='叶宇浩随记博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='python' /><meta property='article:tag' content='sklearn' /><meta property='article:published_time' content='2021-09-07T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-09-07T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="mylogicRegresscode">
+<meta name="twitter:description" content="机器学习--逻辑回归代码">
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>Back</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/code/" style="background-color: #fa1; color: #fff;">
+                编程
+            </a>
+        
+            <a href="/categories/deeplearning/" style="background-color: #0f1503; color: #fff;">
+                深度学习
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/mylogicregresscode/">mylogicRegresscode</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        机器学习--逻辑回归代码
+    </h3>
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Sep 07, 2021</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    4 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <blockquote>
+<p>这次来练习下逻辑回归,感觉过程和线性回归很类似，只是加了个sigmoid函数,dataset分别是ex2data1.txt /  ex2data2.txt</p>
+</blockquote>
+<h2 id="dataset1">dataset1</h2>
+<p>在训练的初始阶段，我们将要构建一个逻辑回归模型来预测，某个学生是否被大学录取。设想你是大学相关部分的管理者，想通过申请学生两次测试的评分，来决定他们是否被录取。现在你拥有之前申请学生的可以用于训练逻辑回归的训练样本集。对于每一个训练样本，你有他们两次测试的评分和最后是被录取的结果。为了完成这个预测任务，我们准备构建一个可以基于两次测试评分来评估录取可能性的分类模型。上面的话是copy过来的</p>
+<h3 id="分析数据">分析数据</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+</span></span><span class="line"><span class="cl"><span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">warnings</span> 
+</span></span><span class="line"><span class="cl"><span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>   <span class="c1">#为了美观，当然是不影响结果的前提下</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;font.sans-serif&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;SimHei&#39;</span><span class="p">]</span> <span class="c1">#正常显示中文</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;axes.unicode_minus&#39;</span><span class="p">]</span><span class="o">=</span><span class="kc">False</span> <span class="c1">#正常显示非负号</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">dataset1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./ex2data1.txt&#39;</span><span class="p">,</span><span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Exam1&#39;</span><span class="p">,</span><span class="s1">&#39;Exam2&#39;</span><span class="p">,</span><span class="s1">&#39;Admitted&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="n">dataset1</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 165; 
+			flex-basis: 396px"
+	>
+	<a href="/p/mylogicregresscode/picture/mylogicRegresscode.png" data-size="446x270">
+		<img src="/p/mylogicregresscode/picture/mylogicRegresscode.png"
+			width="446"
+			height="270"
+			srcset="/p/mylogicregresscode/picture/mylogicRegresscode_hu5b0dfdf2fd2c7c0c05d39438f1651e6b_25862_480x0_resize_box_3.png 480w, /p/mylogicregresscode/picture/mylogicRegresscode_hu5b0dfdf2fd2c7c0c05d39438f1651e6b_25862_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">dataset1</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 114; 
+			flex-basis: 275px"
+	>
+	<a href="/p/mylogicregresscode/picture/mylogicRegresscode-1.png" data-size="454x396">
+		<img src="/p/mylogicregresscode/picture/mylogicRegresscode-1.png"
+			width="454"
+			height="396"
+			srcset="/p/mylogicregresscode/picture/mylogicRegresscode-1_hu827edd74f166daeab0c804495ab2ab7c_44929_480x0_resize_box_3.png 480w, /p/mylogicregresscode/picture/mylogicRegresscode-1_hu827edd74f166daeab0c804495ab2ab7c_44929_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">dataset1</span><span class="o">.</span><span class="n">shape</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+</span></span></code></pre></div><p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">dataset1</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">Exam1</span>       <span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="n">Exam2</span>       <span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="n">Admitted</span>    <span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="n">dtype</span><span class="p">:</span> <span class="n">int64</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#可视化下数据</span>
+</span></span><span class="line"><span class="cl"><span class="n">f</span><span class="p">,</span><span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mi">9</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">dataset1_corr</span> <span class="o">=</span> <span class="n">dataset1</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">dataset1_corr</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">dataset1_corr</span><span class="p">,</span><span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">dataset1_corr</span><span class="o">.</span><span class="n">columns</span><span class="p">)),</span><span class="n">dataset1_corr</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">dataset1_corr</span><span class="o">.</span><span class="n">columns</span><span class="p">)),</span><span class="n">dataset1_corr</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 85; 
+			flex-basis: 205px"
+	>
+	<a href="/p/mylogicregresscode/picture/mylogicRegresscode-2.png" data-size="832x974">
+		<img src="/p/mylogicregresscode/picture/mylogicRegresscode-2.png"
+			width="832"
+			height="974"
+			srcset="/p/mylogicregresscode/picture/mylogicRegresscode-2_hubad80e2f6e925dc6d0f09094e78140e9_55187_480x0_resize_box_3.png 480w, /p/mylogicregresscode/picture/mylogicRegresscode-2_hubad80e2f6e925dc6d0f09094e78140e9_55187_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">f</span><span class="p">,</span><span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#最终纳取为1即正，0为未被录取</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#录取和未录取的分开</span>
+</span></span><span class="line"><span class="cl"><span class="n">yes_admitted</span> <span class="o">=</span> <span class="n">dataset1</span><span class="p">[</span><span class="n">dataset1</span><span class="p">[</span><span class="s1">&#39;Admitted&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="mi">1</span><span class="p">])]</span>
+</span></span><span class="line"><span class="cl"><span class="n">no_admitted</span> <span class="o">=</span> <span class="n">dataset1</span><span class="p">[</span><span class="n">dataset1</span><span class="p">[</span><span class="s1">&#39;Admitted&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="mi">0</span><span class="p">])]</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># axes.scatter(yes_admitted[&#39;Exam1&#39;],</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#            yes_admitted[&#39;Exam2&#39;],</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#            s=50,</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#            c=&#39;b&#39;,</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#            marker=&#39;o&#39;,</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#            label=&#39;Admitted&#39;)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># axes.scatter(no_admitted[&#39;Exam1&#39;],</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#            no_admitted[&#39;Exam2&#39;],</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#            s=50,</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#            c=&#39;r&#39;,</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#            marker=&#39;x&#39;,</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#            label=&#39;Not Admitted&#39;)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#被录取的数据</span>
+</span></span><span class="line"><span class="cl"><span class="n">axes</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">yes_admitted</span><span class="p">[</span><span class="s1">&#39;Exam1&#39;</span><span class="p">],</span><span class="n">yes_admitted</span><span class="p">[</span><span class="s1">&#39;Exam2&#39;</span><span class="p">],</span><span class="n">c</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Admitted&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#未被录取的</span>
+</span></span><span class="line"><span class="cl"><span class="n">axes</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">no_admitted</span><span class="p">[</span><span class="s1">&#39;Exam1&#39;</span><span class="p">],</span><span class="n">no_admitted</span><span class="p">[</span><span class="s1">&#39;Exam2&#39;</span><span class="p">],</span><span class="n">c</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="n">marker</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;unAdmitted&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">axes</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">axes</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Exam1&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">axes</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Exam2&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 159; 
+			flex-basis: 383px"
+	>
+	<a href="/p/mylogicregresscode/picture/mylogicRegresscode-4.png" data-size="1222x764">
+		<img src="/p/mylogicregresscode/picture/mylogicRegresscode-4.png"
+			width="1222"
+			height="764"
+			srcset="/p/mylogicregresscode/picture/mylogicRegresscode-4_hu5e250b22ec157aa5e418bb113bd056a1_65123_480x0_resize_box_3.png 480w, /p/mylogicregresscode/picture/mylogicRegresscode-4_hu5e250b22ec157aa5e418bb113bd056a1_65123_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#可以看出是有一条比较理想的决策边界的</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">yes_admitted</span> <span class="o">=</span> <span class="n">dataset1</span><span class="p">[</span><span class="n">dataset1</span><span class="p">[</span><span class="s1">&#39;Admitted&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="mi">1</span><span class="p">])]</span>
+</span></span><span class="line"><span class="cl"><span class="n">yes_admitted</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 128; 
+			flex-basis: 308px"
+	>
+	<a href="/p/mylogicregresscode/picture/mylogicRegresscode-5.png" data-size="388x302">
+		<img src="/p/mylogicregresscode/picture/mylogicRegresscode-5.png"
+			width="388"
+			height="302"
+			srcset="/p/mylogicregresscode/picture/mylogicRegresscode-5_huf9f9f608794e9cbf220545d5d275f340_24211_480x0_resize_box_3.png 480w, /p/mylogicregresscode/picture/mylogicRegresscode-5_huf9f9f608794e9cbf220545d5d275f340_24211_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="处理数据">处理数据</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">dataset1</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="s2">&#34;Ones&#34;</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="c1">#参数：第几列，新列名，新列值</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#提取特征</span>
+</span></span><span class="line"><span class="cl"><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">dataset1</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span><span class="c1">#记得由dataframe转为np数组</span>
+</span></span><span class="line"><span class="cl"><span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">dataset1</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">3</span><span class="p">:]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#初始化权重)</span>
+</span></span><span class="line"><span class="cl"><span class="n">W</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span><span class="n">Y</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span><span class="n">W</span><span class="o">.</span><span class="n">shape</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 注意下数据的维度，可以这样理解：因为W是要和X矩阵相乘的，所以行列符合a*b b*c 而X和Y是要相减的，所以符合行相等，而且Y必然只有一列</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="p">((</span><span class="mi">100</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,))</span>
+</span></span></code></pre></div><h3 id="算法">算法</h3>
+<h4 id="采用sklearn看看先">采用sklearn看看先</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">slearn1_logis</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">penalty</span><span class="o">=</span><span class="s1">&#39;l2&#39;</span><span class="p">,</span><span class="n">C</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span><span class="c1">#加个l2正则化Redge，正则化系数为1.0</span>
+</span></span><span class="line"><span class="cl"><span class="n">slearn1_logis</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">LogisticRegression</span><span class="p">()</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">slearn1_logis</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="mf">0.89</span>
+</span></span></code></pre></div><blockquote>
+<p>接下来手写</p>
+</blockquote>
+<h2 id="sigmoid-函数">Sigmoid 函数</h2>
+<p>$g$ 代表一个常用的逻辑函数（logistic function）为$S$形函数（Sigmoid function），公式为： $$g\left( z \right)=\frac{1}{1+{{e}^{-z}}}$$
+合起来，我们得到逻辑回归模型的假设函数：
+$${{h}}\left( x \right)=\frac{1}{1+{{e}^{-{{w }^{T}}x}}}$$
+code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">Sigmoid</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#检查是否有定义错Sigmoid</span>
+</span></span><span class="line"><span class="cl"><span class="n">nums</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="n">step</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="c1">#等差数列</span>
+</span></span><span class="line"><span class="cl"><span class="n">f</span><span class="p">,</span><span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">axes</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">nums</span><span class="p">,</span><span class="n">Sigmoid</span><span class="p">(</span><span class="n">nums</span><span class="p">),</span><span class="n">c</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 159; 
+			flex-basis: 382px"
+	>
+	<a href="/p/mylogicregresscode/picture/mylogicRegresscode-6.png" data-size="1182x742">
+		<img src="/p/mylogicregresscode/picture/mylogicRegresscode-6.png"
+			width="1182"
+			height="742"
+			srcset="/p/mylogicregresscode/picture/mylogicRegresscode-6_hu74588dd61bfd4b76d3adfbab4346bd83_34364_480x0_resize_box_3.png 480w, /p/mylogicregresscode/picture/mylogicRegresscode-6_hu74588dd61bfd4b76d3adfbab4346bd83_34364_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<strong>代价函数：
+$J\left(w\right)=-\frac{1}{m}\sum\limits_{i=1}^{m}{({{y}^{(i)}}\log \left( {h}\left( {{x}^{(i)}} \right) \right)+\left( 1-{{y}^{(i)}} \right)\log \left( 1-{h}\left( {{x}^{(i)}} \right) \right))}$</strong>
+code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#定义代价函数</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">cost</span><span class="p">(</span><span class="n">W</span><span class="p">,</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">X</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="c1">#记得转为np矩阵,方便后面使用multiply</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Y</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">Y</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">W</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">W</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">first_part</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">Sigmoid</span><span class="p">(</span><span class="n">X</span><span class="o">*</span><span class="n">W</span><span class="o">.</span><span class="n">T</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl">    <span class="n">second_part</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">Y</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">Sigmoid</span><span class="p">(</span><span class="n">X</span><span class="o">*</span><span class="n">W</span><span class="o">.</span><span class="n">T</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">first_part</span><span class="o">+</span><span class="n">second_part</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">))</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">cost</span><span class="p">(</span><span class="n">W</span><span class="p">,</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="mf">0.6931471805599453</span>
+</span></span></code></pre></div><h2 id="gradient-descent梯度下降">gradient descent(梯度下降)</h2>
+<ul>
+<li>这是批量梯度下降（batch gradient descent）</li>
+<li>转化为向量化计算： $\frac{1}{m} X^T( Sigmoid(XW) - y )$
+$$\frac{\partial J\left( w  \right)}{\partial {{w }<em>{j}}}=\frac{1}{m}\sum\limits</em>{i=1}^{m}{({{h}}\left( {{x}^{(i)}} \right)-{{y}^{(i)}})x_{_{j}}^{(i)}}$$</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">W</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span><span class="c1">#ravel变成一维即1*3</span>
+</span></span><span class="line"><span class="cl"><span class="n">W</span><span class="o">.</span><span class="n">shape</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="p">(</span><span class="mi">3</span><span class="p">,)</span>
+</span></span></code></pre></div><p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#定义BDG</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">BDG</span><span class="p">(</span><span class="n">W</span><span class="p">,</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">X</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="c1">#记得转为np矩阵,方便后面使用multiply</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Y</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">Y</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">W</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">W</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="n">param</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">W</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">    <span class="n">grad</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">param</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">error</span> <span class="o">=</span> <span class="n">Sigmoid</span><span class="p">(</span><span class="n">X</span><span class="o">*</span><span class="n">W</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">-</span><span class="n">Y</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">param</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">grad</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">error</span><span class="p">,</span><span class="n">X</span><span class="p">[:,</span><span class="n">i</span><span class="p">]))</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">grad</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">BDG</span><span class="p">(</span><span class="n">W</span><span class="p">,</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">array</span><span class="p">([</span> <span class="o">-</span><span class="mf">0.1</span>       <span class="p">,</span> <span class="o">-</span><span class="mf">12.00921659</span><span class="p">,</span> <span class="o">-</span><span class="mf">11.26284221</span><span class="p">])</span>
+</span></span></code></pre></div><p>注意，我们实际上没有在这个函数中执行梯度下降，我们仅仅在计算一个梯度步长。在练习中，
+一个称为“fminunc”的Octave函数是用来优化函数来计算成本和梯度参数。由于我们使用Python，
+我们可以用SciPy的“optimize”命名空间来做同样的事情。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#采用ciPy&#39;s truncated newton（TNC）实现寻找最优参数。用这个时传入func和fprime的函数的w要在前面</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">scipy.optimize</span> <span class="k">as</span> <span class="nn">opt</span>
+</span></span><span class="line"><span class="cl"><span class="n">result</span> <span class="o">=</span> <span class="n">opt</span><span class="o">.</span><span class="n">fmin_tnc</span><span class="p">(</span><span class="n">func</span><span class="o">=</span><span class="n">cost</span><span class="p">,</span><span class="n">x0</span><span class="o">=</span><span class="n">W</span><span class="p">,</span><span class="n">fprime</span><span class="o">=</span><span class="n">BDG</span><span class="p">,</span><span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#要把</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#func：优化的目标函数</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># x0：初值</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># fprime：提供优化函数func的梯度函数，不然优化函数func必须返回函数值和梯度，或者设置approx_grad=True</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># approx_grad :如果设置为True，会给出近似梯度</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># args：元组，是传递给优化函数的参数</span>
+</span></span><span class="line"><span class="cl"><span class="n">result</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="p">(</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">25.16131863</span><span class="p">,</span>   <span class="mf">0.20623159</span><span class="p">,</span>   <span class="mf">0.20147149</span><span class="p">]),</span> <span class="mi">36</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span></span></code></pre></div><p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">25.16131863</span><span class="p">,</span>   <span class="mf">0.20623159</span><span class="p">,</span>   <span class="mf">0.20147149</span><span class="p">])</span>
+</span></span></code></pre></div><p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">cost</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="mf">0.20349770158947458</span>
+</span></span></code></pre></div><p>接下来，我们需要编写一个函数，用我们所学的参数w来为数据集X输出预测。然后，我们可以使用这个函数来给我们的分类器的训练精度打分。
+逻辑回归模型的假设函数：
+$${{h}}\left( x \right)=\frac{1}{1+{{e}^{-{{w }^{T}}X}}}$$
+当${{h}}$大于等于0.5时，预测 y=1</p>
+<p>当${{h}}$小于0.5时，预测 y=0 。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#定义预测函数</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="n">W</span><span class="p">,</span><span class="n">X</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">probability</span> <span class="o">=</span> <span class="n">Sigmoid</span><span class="p">(</span><span class="n">X</span><span class="o">*</span><span class="n">W</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">[</span><span class="mi">1</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;=</span><span class="mf">0.5</span> <span class="k">else</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">probability</span><span class="p">]</span><span class="c1">#注意这种写法</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#使用预测函数预测原视数据，评估准确性</span>
+</span></span><span class="line"><span class="cl"><span class="n">w_new</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="c1">#用函数前记得把数据变成矩阵</span>
+</span></span><span class="line"><span class="cl"><span class="n">predictions</span> <span class="o">=</span> <span class="n">predict</span><span class="p">(</span><span class="n">w_new</span><span class="p">,</span><span class="n">X</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">correct</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">1</span> <span class="k">if</span> <span class="p">((</span><span class="n">a</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">b</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">a</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">b</span> <span class="o">==</span> <span class="mi">0</span><span class="p">))</span> <span class="k">else</span> <span class="mi">0</span> <span class="k">for</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">predictions</span><span class="p">,</span><span class="n">Y</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#zip函数会将不同行的数据装成新的一行，再换行，装下列</span>
+</span></span><span class="line"><span class="cl"><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">accuracy</span> <span class="o">=</span> <span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span><span class="n">correct</span><span class="p">))</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">correct</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#map的语法https://www.runoob.com/python/python-func-map.html,第一个参数为方法，第二个为可迭代的对象</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;accuracy:</span><span class="si">{0}</span><span class="s2">%&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">accuracy</span><span class="p">))</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">accuracy</span><span class="p">:</span><span class="mi">89</span><span class="o">%</span>
+</span></span></code></pre></div><p>准确性达到了89，还不错的样子,和sklearn的结果一致</p>
+<h2 id="dataset2">dataset2：</h2>
+<p>在训练的第二部分，我们将要通过加入正则项提升逻辑回归算法。如果你对正则化有点眼生，或者喜欢这一节的方程的背景，
+请参考在&quot;exercises&quot;文件夹中的&quot;ex2.pdf&quot;。简而言之，正则化是成本函数中的一个术语，它使算法更倾向于“更简单”的模型
+（在这种情况下，模型将更小的系数）。这个理论助于减少过拟合，提高模型的泛化能力。这样，我们开始吧。
+设想你是工厂的生产主管，你有一些芯片在两次测试中的测试结果。对于这两次测试，你想决定是否芯片要被接受或抛弃。
+为了帮助你做出艰难的决定，你拥有过去芯片的测试数据集，从其中你可以构建一个逻辑回归模型。</p>
+<h3 id="数据">数据</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">dataset2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&#34;./ex2data2.txt&#34;</span><span class="p">,</span><span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;TT1&#39;</span><span class="p">,</span><span class="s1">&#39;TT2&#39;</span><span class="p">,</span><span class="s1">&#39;Accepted&#39;</span><span class="p">])</span><span class="c1">#注意数据的第一行是不是标题，不是的话记得header=None，再赋予列名</span>
+</span></span><span class="line"><span class="cl"><span class="n">dataset2</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 141; 
+			flex-basis: 339px"
+	>
+	<a href="/p/mylogicregresscode/picture/mylogicRegresscode-7.png" data-size="390x276">
+		<img src="/p/mylogicregresscode/picture/mylogicRegresscode-7.png"
+			width="390"
+			height="276"
+			srcset="/p/mylogicregresscode/picture/mylogicRegresscode-7_hu34508713666b71e1957561e24dd7c013_22917_480x0_resize_box_3.png 480w, /p/mylogicregresscode/picture/mylogicRegresscode-7_hu34508713666b71e1957561e24dd7c013_22917_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">dataset2</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 118; 
+			flex-basis: 283px"
+	>
+	<a href="/p/mylogicregresscode/picture/mylogicRegresscode-8.png" data-size="480x406">
+		<img src="/p/mylogicregresscode/picture/mylogicRegresscode-8.png"
+			width="480"
+			height="406"
+			srcset="/p/mylogicregresscode/picture/mylogicRegresscode-8_hu612df787d057a3a4f35f3448cfa94a85_43382_480x0_resize_box_3.png 480w, /p/mylogicregresscode/picture/mylogicRegresscode-8_hu612df787d057a3a4f35f3448cfa94a85_43382_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">dataset2</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 156; 
+			flex-basis: 375px"
+	>
+	<a href="/p/mylogicregresscode/picture/mylogicRegresscode-9.png" data-size="194x124">
+		<img src="/p/mylogicregresscode/picture/mylogicRegresscode-9.png"
+			width="194"
+			height="124"
+			srcset="/p/mylogicregresscode/picture/mylogicRegresscode-9_huca55642d8d49d8b1f6e27c551f6d5aa4_6559_480x0_resize_box_3.png 480w, /p/mylogicregresscode/picture/mylogicRegresscode-9_huca55642d8d49d8b1f6e27c551f6d5aa4_6559_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">y_accept</span> <span class="o">=</span> <span class="n">dataset2</span><span class="p">[</span><span class="n">dataset2</span><span class="p">[</span><span class="s1">&#39;Accepted&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="mi">1</span><span class="p">])]</span>
+</span></span><span class="line"><span class="cl"><span class="n">n_accept</span> <span class="o">=</span> <span class="n">dataset2</span><span class="p">[</span><span class="n">dataset2</span><span class="p">[</span><span class="s1">&#39;Accepted&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="mi">0</span><span class="p">])]</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># y_accept.head</span>
+</span></span><span class="line"><span class="cl"><span class="n">f</span><span class="p">,</span><span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">axes</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">y_accept</span><span class="p">[</span><span class="s1">&#39;TT1&#39;</span><span class="p">],</span><span class="n">y_accept</span><span class="p">[</span><span class="s1">&#39;TT2&#39;</span><span class="p">],</span><span class="n">c</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Accepted&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">axes</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">n_accept</span><span class="p">[</span><span class="s1">&#39;TT1&#39;</span><span class="p">],</span><span class="n">n_accept</span><span class="p">[</span><span class="s1">&#39;TT2&#39;</span><span class="p">],</span><span class="n">c</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;UnAccepted&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">axes</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">axes</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&#34;TT1&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">axes</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&#34;TT2&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 150; 
+			flex-basis: 360px"
+	>
+	<a href="/p/mylogicregresscode/picture/mylogicRegresscode-10.png" data-size="1180x786">
+		<img src="/p/mylogicregresscode/picture/mylogicRegresscode-10.png"
+			width="1180"
+			height="786"
+			srcset="/p/mylogicregresscode/picture/mylogicRegresscode-10_hu3db460e855bbc9cae5cc6a87e388484d_73172_480x0_resize_box_3.png 480w, /p/mylogicregresscode/picture/mylogicRegresscode-10_hu3db460e855bbc9cae5cc6a87e388484d_73172_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+可以看出决策边界也挺明显的，不过感觉上会出现过拟合的问题，所以加个L2正则化即Ridge
+这个数据看起来可比前一次的复杂得多。特别地，你会注意到其中没有线性决策界限，来良好的分开两类数据。一个方法是用像逻辑回归这样的线性技术来构造从原始特征的多项式中得到的特征。可以考虑创建一组多项式特征入手。</p>
+<p>这里构造多项式特征当时没看懂</p>
+<p>其实就是：由上面那个图我们可以得出绝对没有办法通过线性函数去拟合，所以只能通过非线性去拟合，就要用到多项式特征化了</p>
+<p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#假设degree=5看看</span>
+</span></span><span class="line"><span class="cl"><span class="n">degree</span> <span class="o">=</span> <span class="mi">5</span>
+</span></span><span class="line"><span class="cl"><span class="n">X2_1</span> <span class="o">=</span> <span class="n">dataset2</span><span class="p">[</span><span class="s1">&#39;TT1&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">X2_2</span> <span class="o">=</span> <span class="n">dataset2</span><span class="p">[</span><span class="s1">&#39;TT2&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">dataset2</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="s1">&#39;One&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#多项式处理</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">degree</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">i</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">dataset2</span><span class="p">[</span><span class="s1">&#39;F&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">j</span><span class="p">)]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">X2_1</span><span class="p">,</span><span class="n">i</span><span class="o">-</span><span class="n">j</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">X2_2</span><span class="p">,</span><span class="n">j</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#pandas的drop函数是删除数据，默认为axis=0，即删除行数据；axis=1删除指定的列数据</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># inplace是否在原对象基础上进行修改;inplace = True：不创建新的对象，直接对原始对象进行修改；</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># inplace = False：对数据进行修改，创建并返回新的对象承载其修改结果。</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">dataset2</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;TT1&#39;</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">dataset2</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;TT2&#39;</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">dataset2</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 446; 
+			flex-basis: 1071px"
+	>
+	<a href="/p/mylogicregresscode/picture/mylogicRegresscode-11.png" data-size="1286x288">
+		<img src="/p/mylogicregresscode/picture/mylogicRegresscode-11.png"
+			width="1286"
+			height="288"
+			srcset="/p/mylogicregresscode/picture/mylogicRegresscode-11_hu2c7cd7fde74d8b13dc1b018161b7a735_59118_480x0_resize_box_3.png 480w, /p/mylogicregresscode/picture/mylogicRegresscode-11_hu2c7cd7fde74d8b13dc1b018161b7a735_59118_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<blockquote>
+<p>算法修改</p>
+</blockquote>
+<h3 id="regularized-cost正则化代价函数">regularized cost（正则化代价函数）</h3>
+<p>$$J\left( w \right)=\frac{1}{m}\sum\limits_{i=1}^{m}{[-{{y}^{(i)}}\log \left( {{h}}\left( {{x}^{(i)}} \right) \right)-\left( 1-{{y}^{(i)}} \right)\log \left( 1-{{h}}\left( {{x}^{(i)}} \right) \right)]}+\frac{\lambda }{2m}\sum\limits_{j=1}^{n}{w _{j}^{2}}$$</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># a是学习率</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">COSTreg</span><span class="p">(</span><span class="n">W</span><span class="p">,</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">,</span><span class="n">a</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 记得转为np矩阵,方便后面使用multiply</span>
+</span></span><span class="line"><span class="cl">    <span class="n">W</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">W</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">Y</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="n">first_part</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="o">-</span><span class="n">Y</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">Sigmoid</span><span class="p">(</span><span class="n">X</span><span class="o">*</span><span class="n">W</span><span class="o">.</span><span class="n">T</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl">    <span class="n">second_part</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">Y</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">Sigmoid</span><span class="p">(</span><span class="n">X</span><span class="o">*</span><span class="n">W</span><span class="o">.</span><span class="n">T</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl">    <span class="n">W_2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">W</span><span class="p">[:,</span><span class="mi">1</span><span class="p">:</span><span class="n">W</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span><span class="mi">2</span><span class="p">)</span><span class="c1">#这里有点没弄明白为什么是1:W.shape[1]，不要第一列？还是说因为第一列是W0即偏差，单独拿出来了？</span>
+</span></span><span class="line"><span class="cl">    <span class="n">reg_part</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)))</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">W_2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">result</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">first_part</span> <span class="o">+</span> <span class="n">second_part</span><span class="p">))</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="o">+</span> <span class="n">reg_part</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">result</span>
+</span></span><span class="line"><span class="cl">                              
+</span></span></code></pre></div><p>如果我们要使用梯度下降法令这个代价函数最小化，因为我们未对${{w }_{0}}$ 进行正则化，所以梯度下降算法将分两种情形：
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 201; 
+			flex-basis: 483px"
+	>
+	<a href="/p/mylogicregresscode/picture/mylogicRegresscode-12.png" data-size="596x296">
+		<img src="/p/mylogicregresscode/picture/mylogicRegresscode-12.png"
+			width="596"
+			height="296"
+			srcset="/p/mylogicregresscode/picture/mylogicRegresscode-12_hu7f0808ae699b6ffe0337a3f7c38cb1e2_26023_480x0_resize_box_3.png 480w, /p/mylogicregresscode/picture/mylogicRegresscode-12_hu7f0808ae699b6ffe0337a3f7c38cb1e2_26023_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>对上面的算法中 j=1,2,&hellip;,n 时的更新式子进行调整可得：
+${{w }<em>{j}}:={{w }</em>{j}}(1-a\frac{\lambda }{m})-a\frac{1}{m}\sum\limits_{i=1}^{m}{({{h}<em>{w }}\left( {{x}^{(i)}} \right)-{{y}^{(i)}})x</em>{j}^{(i)}}$</p>
+<p>所以上面的代价函数是可以的</p>
+<p>在此之前，先看看np的ravel</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">arr</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">array</span><span class="p">([[</span> <span class="mi">0</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span>  <span class="mi">2</span><span class="p">,</span>  <span class="mi">3</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">       <span class="p">[</span> <span class="mi">4</span><span class="p">,</span>  <span class="mi">5</span><span class="p">,</span>  <span class="mi">6</span><span class="p">,</span>  <span class="mi">7</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">       <span class="p">[</span> <span class="mi">8</span><span class="p">,</span>  <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">]])</span>
+</span></span></code></pre></div><p>code</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">arr_ravel</span> <span class="o">=</span> <span class="n">arr</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">arr_ravel</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">array</span><span class="p">([</span> <span class="mi">0</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span>  <span class="mi">2</span><span class="p">,</span>  <span class="mi">3</span><span class="p">,</span>  <span class="mi">4</span><span class="p">,</span>  <span class="mi">5</span><span class="p">,</span>  <span class="mi">6</span><span class="p">,</span>  <span class="mi">7</span><span class="p">,</span>  <span class="mi">8</span><span class="p">,</span>  <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">])</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">arr_ravel</span><span class="o">.</span><span class="n">shape</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="p">(</span><span class="mi">12</span><span class="p">,)</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">arr_ravel</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="mi">12</span>
+</span></span></code></pre></div><p>其实就是将数组全部数据放在了同一行中，所以变成了一维的，比如(m,n)      -&gt;  (1,m*n)</p>
+<p>如果我们要使用梯度下降法令这个代价函数最小化，因为我们未对${{w }_{0}}$ 进行正则化，所以梯度下降算法将分两种情形：
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 255; 
+			flex-basis: 613px"
+	>
+	<a href="/p/mylogicregresscode/picture/mylogicRegresscode-13.png" data-size="772x302">
+		<img src="/p/mylogicregresscode/picture/mylogicRegresscode-13.png"
+			width="772"
+			height="302"
+			srcset="/p/mylogicregresscode/picture/mylogicRegresscode-13_hu543ad1e0b888889a5a797b44ad21449f_27169_480x0_resize_box_3.png 480w, /p/mylogicregresscode/picture/mylogicRegresscode-13_hu543ad1e0b888889a5a797b44ad21449f_27169_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>对上面的算法中 j=1,2,&hellip;,n 时的更新式子进行调整可得：</p>
+<p>${{w }<em>{j}}:={{w }</em>{j}}(1-a\frac{\lambda }{m})-a\frac{1}{m}\sum\limits_{i=1}^{m}{({{h}<em>{w }}\left( {{x}^{(i)}} \right)-{{y}^{(i)}})x</em>{j}^{(i)}}$</p>
+<p>所以上面的代价函数是可以的</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">BGDreg</span><span class="p">(</span><span class="n">W</span><span class="p">,</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">,</span><span class="n">a</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 记得转为np矩阵,方便后面使用multiply</span>
+</span></span><span class="line"><span class="cl">    <span class="n">W</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">W</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">Y</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="n">param</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">W</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="c1">#这个是针对求和的那个x的</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">param</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">grad</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">param</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">error</span> <span class="o">=</span> <span class="n">Sigmoid</span><span class="p">(</span><span class="n">X</span><span class="o">*</span><span class="n">W</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">-</span><span class="n">Y</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1">#注意理解这个循环了，它是针对每个特征的w的</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">param</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">term</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">error</span><span class="p">,</span><span class="n">X</span><span class="p">[:,</span><span class="n">i</span><span class="p">])</span><span class="c1">#求和的那部分</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">i</span><span class="o">==</span><span class="mi">0</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">            <span class="n">grad</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">term</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">grad</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">term</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">))</span> <span class="o">+</span> <span class="p">((</span><span class="n">a</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">))</span><span class="o">*</span><span class="n">W</span><span class="p">[:,</span><span class="n">i</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">            
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">grad</span>
+</span></span><span class="line"><span class="cl">            
+</span></span></code></pre></div><p>回顾下现在的dataset2长什么样</p>
+<p>dataset2我们前面多项式处理了</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">dataset2</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 453; 
+			flex-basis: 1088px"
+	>
+	<a href="/p/mylogicregresscode/picture/mylogicRegresscode-14.png" data-size="1234x272">
+		<img src="/p/mylogicregresscode/picture/mylogicRegresscode-14.png"
+			width="1234"
+			height="272"
+			srcset="/p/mylogicregresscode/picture/mylogicRegresscode-14_hu2cd20fa28fb079f6b3f7b872cd55c148_58629_480x0_resize_box_3.png 480w, /p/mylogicregresscode/picture/mylogicRegresscode-14_hu2cd20fa28fb079f6b3f7b872cd55c148_58629_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#初始化变量</span>
+</span></span><span class="line"><span class="cl"><span class="n">columns</span> <span class="o">=</span> <span class="n">dataset2</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="c1">#获取特征数即行数</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#特征分离</span>
+</span></span><span class="line"><span class="cl"><span class="n">X2</span> <span class="o">=</span> <span class="n">dataset2</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">1</span><span class="p">:</span><span class="n">columns</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">Y2</span> <span class="o">=</span> <span class="n">dataset2</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#转化为np数组</span>
+</span></span><span class="line"><span class="cl"><span class="n">X2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">X2</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">Y2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">Y2</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#初始化W2，考虑了One的</span>
+</span></span><span class="line"><span class="cl"><span class="n">W2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#初始化学习率</span>
+</span></span><span class="line"><span class="cl"><span class="n">a</span> <span class="o">=</span> <span class="mi">1</span>
+</span></span></code></pre></div><p>现在，让我们尝试调用新的默认为0的$w$的正则化函数，以确保计算工作正常。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">COSTreg</span><span class="p">(</span><span class="n">W2</span><span class="p">,</span><span class="n">X2</span><span class="p">,</span><span class="n">Y2</span><span class="p">,</span><span class="n">a</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"> <span class="mf">0.6931471805599454</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">BGDreg</span><span class="p">(</span><span class="n">W2</span><span class="p">,</span><span class="n">X2</span><span class="p">,</span><span class="n">Y2</span><span class="p">,</span><span class="n">a</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 578; 
+			flex-basis: 1388px"
+	>
+	<a href="/p/mylogicregresscode/picture/mylogicRegresscode-15.png" data-size="972x168">
+		<img src="/p/mylogicregresscode/picture/mylogicRegresscode-15.png"
+			width="972"
+			height="168"
+			srcset="/p/mylogicregresscode/picture/mylogicRegresscode-15_hube1e9faea2b9bfe831083e6f8845190e_21894_480x0_resize_box_3.png 480w, /p/mylogicregresscode/picture/mylogicRegresscode-15_hube1e9faea2b9bfe831083e6f8845190e_21894_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="优化函数处理">优化函数处理</h3>
+<p>采用ciPy&rsquo;s truncated newton（TNC）实现寻找最优参数。用这个时传入func和fprime的函数的w要在前面</p>
+<p>要把</p>
+<p>func：优化的目标函数</p>
+<p>x0：初值</p>
+<p>fprime：提供优化函数func的梯度函数，不然优化函数func必须返回函数值和梯度，或者设置approx_grad=True</p>
+<p>approx_grad :如果设置为True，会给出近似梯度</p>
+<p>args：元组，是传递给优化函数的参数</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">scipy.optimize</span> <span class="k">as</span> <span class="nn">opt</span>
+</span></span><span class="line"><span class="cl"><span class="n">result2</span> <span class="o">=</span> <span class="n">opt</span><span class="o">.</span><span class="n">fmin_tnc</span><span class="p">(</span><span class="n">func</span><span class="o">=</span><span class="n">COSTreg</span><span class="p">,</span><span class="n">x0</span><span class="o">=</span><span class="n">W2</span><span class="p">,</span><span class="n">fprime</span><span class="o">=</span><span class="n">BGDreg</span><span class="p">,</span><span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">X2</span><span class="p">,</span><span class="n">Y2</span><span class="p">,</span><span class="n">a</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">result2</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 154; 
+			flex-basis: 370px"
+	>
+	<a href="/p/mylogicregresscode/picture/mylogicRegresscode-16.png" data-size="1190x770">
+		<img src="/p/mylogicregresscode/picture/mylogicRegresscode-16.png"
+			width="1190"
+			height="770"
+			srcset="/p/mylogicregresscode/picture/mylogicRegresscode-16_hu036d1c2a3738293488cd51eb09fbd822_36005_480x0_resize_box_3.png 480w, /p/mylogicregresscode/picture/mylogicRegresscode-16_hu036d1c2a3738293488cd51eb09fbd822_36005_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><strong>这里再提一嘴scipy的优化，其实本质上就是一种算法的训练了，得到了最优的W2</strong></p>
+<p>同样看看准确率，可以采用dataset1的预测函数</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">COSTreg</span><span class="p">(</span><span class="n">result2</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">X2</span><span class="p">,</span><span class="n">Y2</span><span class="p">,</span><span class="n">a</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="mf">0.6226824388287262</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">W2_WIN</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">result2</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="c1">#同样记得转化为矩阵</span>
+</span></span><span class="line"><span class="cl"><span class="n">prediction2</span> <span class="o">=</span> <span class="n">predict</span><span class="p">(</span><span class="n">W2_WIN</span><span class="p">,</span><span class="n">X2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">correct2</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">1</span> <span class="k">if</span> <span class="p">((</span><span class="n">a</span><span class="o">==</span><span class="mi">1</span> <span class="ow">and</span> <span class="n">b</span><span class="o">==</span><span class="mi">1</span><span class="p">)</span> <span class="ow">or</span><span class="p">(</span><span class="n">a</span><span class="o">==</span><span class="mi">0</span> <span class="ow">and</span> <span class="n">b</span><span class="o">==</span><span class="mi">0</span><span class="p">))</span> <span class="k">else</span> <span class="mi">0</span> <span class="k">for</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">prediction2</span><span class="p">,</span><span class="n">Y2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#zip函数会将不同行的数据装成新的一行，再换行，装下列</span>
+</span></span><span class="line"><span class="cl"><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#把correct2相加，0相加还是为0，所以不影响准确率的判断</span>
+</span></span><span class="line"><span class="cl"><span class="n">accuracy2</span> <span class="o">=</span> <span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span><span class="n">correct2</span><span class="p">))</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">correct2</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;accuracy2:</span><span class="si">{0}</span><span class="s1">%&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">accuracy2</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#准确率略低</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">accuracy2</span><span class="p">:</span><span class="mi">78</span><span class="o">%</span>
+</span></span></code></pre></div><p>看下sklearn的结果</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 导入模型</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+</span></span><span class="line"><span class="cl"><span class="n">model2</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">penalty</span><span class="o">=</span><span class="s1">&#39;l2&#39;</span><span class="p">,</span><span class="n">C</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 训练数据</span>
+</span></span><span class="line"><span class="cl"><span class="n">model2</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X2</span><span class="p">,</span><span class="n">Y2</span><span class="o">.</span><span class="n">ravel</span><span class="p">())</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">LogisticRegression</span><span class="p">()</span>
+</span></span></code></pre></div><p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">model2</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X2</span><span class="p">,</span><span class="n">Y2</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="mf">0.6610169491525424</span>
+</span></span></code></pre></div><p>准确率明显比我们之前写的低，可能是参数的问题，毕竟没有指定的话使用的参数值是默认的，可以后期进行调整</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/python/">python</a>
+        
+            <a href="/tags/sklearn/">sklearn</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">Related contents</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="">
+    <a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">阿里云_ML_02_数据探索</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">阿里云_ML_03_特征工程</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_04_%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">阿里云_ML_04_模型训练</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_05_%E6%A8%A1%E5%9E%8B%E9%AA%8C%E8%AF%81/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">阿里云_ML_05_模型验证</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81cross-validation/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">sklearn中的交叉验证Cross-Validation</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2022 - 
+        
+        2023 叶宇浩随记博客
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.5.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">Table of contents</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#dataset1">dataset1</a>
+      <ol>
+        <li><a href="#分析数据">分析数据</a></li>
+        <li><a href="#处理数据">处理数据</a></li>
+        <li><a href="#算法">算法</a>
+          <ol>
+            <li><a href="#采用sklearn看看先">采用sklearn看看先</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#sigmoid-函数">Sigmoid 函数</a></li>
+    <li><a href="#gradient-descent梯度下降">gradient descent(梯度下降)</a></li>
+    <li><a href="#dataset2">dataset2：</a>
+      <ol>
+        <li><a href="#数据">数据</a></li>
+        <li><a href="#regularized-cost正则化代价函数">regularized cost（正则化代价函数）</a></li>
+        <li><a href="#优化函数处理">优化函数处理</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

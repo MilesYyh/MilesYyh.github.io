@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='机器学习基本流程'><title>阿里云_ML_03_特征工程</title>
+
+<link rel='canonical' href='https://example.com/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='阿里云_ML_03_特征工程'>
+<meta property='og:description' content='机器学习基本流程'>
+<meta property='og:url' content='https://example.com/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/'>
+<meta property='og:site_name' content='叶宇浩随记博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='python' /><meta property='article:tag' content='数据可视化' /><meta property='article:tag' content='sklearn' /><meta property='article:published_time' content='2022-12-24T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2022-12-24T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="阿里云_ML_03_特征工程">
+<meta name="twitter:description" content="机器学习基本流程">
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>Back</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/code/" style="background-color: #fa1; color: #fff;">
+                编程
+            </a>
+        
+            <a href="/categories/deeplearning/" style="background-color: #0f1503; color: #fff;">
+                深度学习
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/">阿里云_ML_03_特征工程</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        机器学习基本流程
+    </h3>
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Dec 24, 2022</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    3 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <blockquote>
+<p>这个post是自己去跟着阿里云天池上的机器学习的一个案例跟着敲了一遍代码，并且加了自己的理解，放到这里来随时回顾</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">warnings</span>
+</span></span><span class="line"><span class="cl"><span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&#34;ignore&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#从scipy中导入stats统计函数</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&#34;font.sans-serif&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&#34;SimHei&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&#34;axes.unicode_minus&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">train_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&#34;./zhengqi_train.txt&#34;</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s2">&#34;</span><span class="se">\t</span><span class="s2">&#34;</span><span class="p">,</span><span class="n">encoding</span><span class="o">=</span><span class="s2">&#34;utf-8&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">test_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&#34;./zhengqi_test.txt&#34;</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s2">&#34;</span><span class="se">\t</span><span class="s2">&#34;</span><span class="p">,</span><span class="n">encoding</span><span class="o">=</span><span class="s2">&#34;utf-8&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">train_data</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 272; 
+			flex-basis: 652px"
+	>
+	<a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B.png" data-size="1284x472">
+		<img src="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B.png"
+			width="1284"
+			height="472"
+			srcset="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B_hu98217ab767e5046b2dc75b4549276dea_88501_480x0_resize_box_3.png 480w, /p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B_hu98217ab767e5046b2dc75b4549276dea_88501_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="异常值分析">异常值分析</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#x传入的每一列的特征值（数值），labels传入的是每个特征值的名字即列名 就是图中的x轴的名字</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">train_data</span><span class="o">.</span><span class="n">values</span><span class="p">,</span><span class="n">labels</span><span class="o">=</span><span class="n">train_data</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">hlines</span><span class="p">([</span><span class="mf">7.5</span><span class="p">,</span><span class="o">-</span><span class="mf">7.5</span><span class="p">],</span><span class="mi">0</span><span class="p">,</span><span class="mi">40</span><span class="p">,</span><span class="n">colors</span><span class="o">=</span><span class="s2">&#34;r&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 425px"
+	>
+	<a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-1.png" data-size="1260x710">
+		<img src="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-1.png"
+			width="1260"
+			height="710"
+			srcset="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-1_hu028d4bcc6e7dbe297e99b9d704ff6771_120914_480x0_resize_box_3.png 480w, /p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-1_hu028d4bcc6e7dbe297e99b9d704ff6771_120914_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="删除异常值">删除异常值</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">train_data</span> <span class="o">=</span> <span class="n">train_data</span><span class="p">[</span><span class="n">train_data</span><span class="p">[</span><span class="s2">&#34;V9&#34;</span><span class="p">]</span><span class="o">&gt;-</span><span class="mf">7.5</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">train_data</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 278; 
+			flex-basis: 667px"
+	>
+	<a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-2.png" data-size="1280x460">
+		<img src="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-2.png"
+			width="1280"
+			height="460"
+			srcset="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-2_hu1bcd657f99f00682332542765d1d6370_88590_480x0_resize_box_3.png 480w, /p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-2_hu1bcd657f99f00682332542765d1d6370_88590_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">train_data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 396; 
+			flex-basis: 952px"
+	>
+	<a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-3.png" data-size="1302x328">
+		<img src="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-3.png"
+			width="1302"
+			height="328"
+			srcset="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-3_hu3969f4d99ccff1ce0811d81d233c46ed_65520_480x0_resize_box_3.png 480w, /p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-3_hu3969f4d99ccff1ce0811d81d233c46ed_65520_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="最大最小值归一化">最大最小值归一化</h2>
+<p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">preprocessing</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">feature_columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">train_data</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">col</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&#34;target&#34;</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#注意MinScaler传入的是每一列的数据</span>
+</span></span><span class="line"><span class="cl"><span class="n">min_max_scaler</span> <span class="o">=</span> <span class="n">preprocessing</span><span class="o">.</span><span class="n">MinMaxScaler</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">min_max_scaler</span> <span class="o">=</span> <span class="n">min_max_scaler</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_data</span><span class="p">[</span><span class="n">feature_columns</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="n">train_data_scaler</span> <span class="o">=</span> <span class="n">min_max_scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">train_data</span><span class="p">[</span><span class="n">feature_columns</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="n">test_data_scaler</span> <span class="o">=</span> <span class="n">min_max_scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">test_data</span><span class="p">[</span><span class="n">feature_columns</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="n">test_data_scaler</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 294; 
+			flex-basis: 706px"
+	>
+	<a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-4.png" data-size="1060x360">
+		<img src="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-4.png"
+			width="1060"
+			height="360"
+			srcset="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-4_hu6122ef97682b434645114cfef739beb8_72228_480x0_resize_box_3.png 480w, /p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-4_hu6122ef97682b434645114cfef739beb8_72228_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">train_data_scaler</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">train_data_scaler</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">test_data_scaler</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">test_data_scaler</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">train_data_scaler</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">feature_columns</span>
+</span></span><span class="line"><span class="cl"><span class="n">test_data_scaler</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">feature_columns</span>
+</span></span><span class="line"><span class="cl"><span class="n">train_data_scaler</span><span class="p">[</span><span class="s2">&#34;target&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="n">train_data</span><span class="p">[</span><span class="s2">&#34;target&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># test_data_scaler[&#34;target&#34;] = test_data[&#34;target&#34;]</span>
+</span></span><span class="line"><span class="cl"><span class="n">train_data_scaler</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 401; 
+			flex-basis: 962px"
+	>
+	<a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-5.png" data-size="1292x322">
+		<img src="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-5.png"
+			width="1292"
+			height="322"
+			srcset="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-5_hu3fefb5aa43041b08b49519f9cd462e92_69919_480x0_resize_box_3.png 480w, /p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-5_hu3fefb5aa43041b08b49519f9cd462e92_69919_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">test_data_scaler</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 415; 
+			flex-basis: 996px"
+	>
+	<a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-6.png" data-size="1304x314">
+		<img src="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-6.png"
+			width="1304"
+			height="314"
+			srcset="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-6_hu32b3ecefc3ab9ac137a1d156893055fa_69034_480x0_resize_box_3.png 480w, /p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-6_hu32b3ecefc3ab9ac137a1d156893055fa_69034_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="查看训练集数据和测试集数据分布情况">查看训练集数据和测试集数据分布情况</h2>
+<p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">cols</span> <span class="o">=</span> <span class="mi">6</span>
+</span></span><span class="line"><span class="cl"><span class="n">rows</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">test_data_scaler</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="n">cols</span><span class="p">,</span><span class="mi">4</span><span class="o">*</span><span class="n">rows</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">col</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">test_data_scaler</span><span class="o">.</span><span class="n">columns</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="n">rows</span><span class="p">,</span><span class="n">cols</span><span class="p">,</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="n">train_data_scaler</span><span class="p">[</span><span class="n">col</span><span class="p">],</span><span class="n">color</span><span class="o">=</span><span class="s2">&#34;Red&#34;</span><span class="p">,</span><span class="n">shade</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="n">test_data_scaler</span><span class="p">[</span><span class="n">col</span><span class="p">],</span><span class="n">color</span><span class="o">=</span><span class="s2">&#34;Blue&#34;</span><span class="p">,</span><span class="n">shade</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&#34;Frequency&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ax</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s2">&#34;train&#34;</span><span class="p">,</span><span class="s2">&#34;test&#34;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 93; 
+			flex-basis: 224px"
+	>
+	<a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-7.png" data-size="1304x1396">
+		<img src="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-7.png"
+			width="1304"
+			height="1396"
+			srcset="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-7_hu2fa8c85b81e64fc71f4ca94dbf816a4c_482087_480x0_resize_box_3.png 480w, /p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-7_hu2fa8c85b81e64fc71f4ca94dbf816a4c_482087_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>查看特征&rsquo;V5&rsquo;, &lsquo;V17&rsquo;, &lsquo;V28&rsquo;, &lsquo;V22&rsquo;, &lsquo;V11&rsquo;, &lsquo;V9&rsquo;数据的数据分布</p>
+<p>这几个特征下，训练集的数据和测试集的数据分布不一致，会影响模型的泛化能力，故删除这些特征</p>
+<h2 id="特征相关性">特征相关性</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">16</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">colmns</span> <span class="o">=</span> <span class="n">train_data_scaler</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">mcorr</span> <span class="o">=</span> <span class="n">train_data_scaler</span><span class="p">[</span><span class="n">colmns</span><span class="p">]</span><span class="o">.</span><span class="n">corr</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">&#34;spearman&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">mcorr</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">bool</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">mask</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">tril_indices_from</span><span class="p">(</span><span class="n">mask</span><span class="p">)]</span> <span class="o">=</span> <span class="kc">True</span>
+</span></span><span class="line"><span class="cl"><span class="n">cmap</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">diverging_palette</span><span class="p">(</span><span class="mi">220</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="n">as_cmap</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">mcorr</span><span class="p">,</span><span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">,</span><span class="n">square</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">fmt</span><span class="o">=</span><span class="s2">&#34;0.2f&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 113; 
+			flex-basis: 272px"
+	>
+	<a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-8.png" data-size="1256x1106">
+		<img src="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-8.png"
+			width="1256"
+			height="1106"
+			srcset="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-8_hu95955486d0eabbc054da800c7563289f_525775_480x0_resize_box_3.png 480w, /p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-8_hu95955486d0eabbc054da800c7563289f_525775_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>这前面的跟02数据探索的没啥区别，接下来的才是区别</p>
+<h2 id="特征降维">特征降维</h2>
+<h3 id="相关性分析">相关性分析</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#target的相关</span>
+</span></span><span class="line"><span class="cl"><span class="n">mcorr</span> <span class="o">=</span> <span class="n">mcorr</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">numerical_corr</span> <span class="o">=</span> <span class="n">mcorr</span><span class="p">[</span><span class="n">mcorr</span><span class="p">[</span><span class="s2">&#34;target&#34;</span><span class="p">]</span><span class="o">&gt;=</span><span class="mf">0.1</span><span class="p">][</span><span class="s2">&#34;target&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">numerical_corr</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#获取相关性排名在前面的数据的  相关性</span>
+</span></span><span class="line"><span class="cl"><span class="n">index0</span> <span class="o">=</span> <span class="n">numerical_corr</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">index</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">train_data_scaler</span><span class="p">[</span><span class="n">index0</span><span class="p">]</span><span class="o">.</span><span class="n">corr</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">&#34;spearman&#34;</span><span class="p">))</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 268; 
+			flex-basis: 644px"
+	>
+	<a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-9.png" data-size="1434x534">
+		<img src="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-9.png"
+			width="1434"
+			height="534"
+			srcset="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-9_hu59b37c5ad20a1d4ac78f7b6ae7034a88_71640_480x0_resize_box_3.png 480w, /p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-9_hu59b37c5ad20a1d4ac78f7b6ae7034a88_71640_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 229; 
+			flex-basis: 549px"
+	>
+	<a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-10.png" data-size="1200x524">
+		<img src="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-10.png"
+			width="1200"
+			height="524"
+			srcset="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-10_hu43b21dcd345aa03e604a5141af142261_161337_480x0_resize_box_3.png 480w, /p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-10_hu43b21dcd345aa03e604a5141af142261_161337_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="相关性初筛">相关性初筛</h2>
+<p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">feature_corr</span> <span class="o">=</span> <span class="n">numerical_corr</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">feature_corr</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;features_and_target&#34;</span><span class="p">,</span><span class="s2">&#34;corr&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#筛选出相关性大于0.3的特征</span>
+</span></span><span class="line"><span class="cl"><span class="n">feature_corr_select</span> <span class="o">=</span> <span class="n">feature_corr</span><span class="p">[</span><span class="n">feature_corr</span><span class="p">[</span><span class="s2">&#34;corr&#34;</span><span class="p">]</span><span class="o">&gt;</span><span class="mf">0.3</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">feature_corr_select</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">select_feature</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">feature_corr_select</span><span class="p">[</span><span class="s2">&#34;features_and_target&#34;</span><span class="p">]</span> <span class="k">if</span> <span class="n">col</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&#34;target&#34;</span><span class="p">]]</span> 
+</span></span><span class="line"><span class="cl"><span class="n">new_train_data_corr_select</span> <span class="o">=</span> <span class="n">train_data_scaler</span><span class="p">[</span><span class="n">select_feature</span><span class="o">+</span><span class="p">[</span><span class="s2">&#34;target&#34;</span><span class="p">]]</span><span class="c1">#注意可以直接这样相加</span>
+</span></span><span class="line"><span class="cl"><span class="n">new_test_data_corr_select</span> <span class="o">=</span> <span class="n">test_data_scaler</span><span class="p">[</span><span class="n">select_feature</span><span class="p">]</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 124; 
+			flex-basis: 298px"
+	>
+	<a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-11.png" data-size="558x448">
+		<img src="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-11.png"
+			width="558"
+			height="448"
+			srcset="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-11_huc9095066dc6e41258ccb10c0b1b4333e_58056_480x0_resize_box_3.png 480w, /p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-11_huc9095066dc6e41258ccb10c0b1b4333e_58056_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="多重线性分析">多重线性分析</h2>
+<p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#多重共线性方差膨胀因子</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">statsmodels.stats.outliers_influence</span> <span class="kn">import</span> <span class="n">variance_inflation_factor</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#多重共线性</span>
+</span></span><span class="line"><span class="cl"><span class="n">new_numerical</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;V0&#39;</span><span class="p">,</span> <span class="s1">&#39;V2&#39;</span><span class="p">,</span> <span class="s1">&#39;V3&#39;</span><span class="p">,</span> <span class="s1">&#39;V4&#39;</span><span class="p">,</span> <span class="s1">&#39;V5&#39;</span><span class="p">,</span> <span class="s1">&#39;V6&#39;</span><span class="p">,</span> <span class="s1">&#39;V10&#39;</span><span class="p">,</span><span class="s1">&#39;V11&#39;</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">                         <span class="s1">&#39;V13&#39;</span><span class="p">,</span> <span class="s1">&#39;V15&#39;</span><span class="p">,</span> <span class="s1">&#39;V16&#39;</span><span class="p">,</span> <span class="s1">&#39;V18&#39;</span><span class="p">,</span> <span class="s1">&#39;V19&#39;</span><span class="p">,</span> <span class="s1">&#39;V20&#39;</span><span class="p">,</span> <span class="s1">&#39;V22&#39;</span><span class="p">,</span><span class="s1">&#39;V24&#39;</span><span class="p">,</span><span class="s1">&#39;V30&#39;</span><span class="p">,</span> <span class="s1">&#39;V31&#39;</span><span class="p">,</span> <span class="s1">&#39;V37&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">train_data_scaler</span><span class="p">[</span><span class="n">new_numerical</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="n">VIF_list</span><span class="o">=</span><span class="p">[</span><span class="n">variance_inflation_factor</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])]</span>
+</span></span><span class="line"><span class="cl"><span class="n">VIF_list</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 66; 
+			flex-basis: 160px"
+	>
+	<a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-12.png" data-size="362x542">
+		<img src="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-12.png"
+			width="362"
+			height="542"
+			srcset="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-12_huc63a8f6f5b12ae63825f8de3ef510a0c_69562_480x0_resize_box_3.png 480w, /p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-12_huc63a8f6f5b12ae63825f8de3ef510a0c_69562_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="pca去除多重共线性-降维">PCA去除多重共线性 降维</h2>
+<p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">PCA</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#PCA降维 保持90%的信息</span>
+</span></span><span class="line"><span class="cl"><span class="n">pca</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#注意直接用了fit_transform 就相当于fit和transform了</span>
+</span></span><span class="line"><span class="cl"><span class="n">new_train_pca_90</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">train_data_scaler</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="n">new_test_pca_90</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">test_data_scaler</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">new_train_pca_90</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">new_train_pca_90</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">new_test_pca_90</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">new_test_pca_90</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">new_test_pca_90</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">new_test_pca_90</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">new_train_pca_90</span><span class="p">[</span><span class="s2">&#34;target&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="n">train_data_scaler</span><span class="p">[</span><span class="s2">&#34;target&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">new_train_pca_90</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 248; 
+			flex-basis: 596px"
+	>
+	<a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-13.png" data-size="1298x522">
+		<img src="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-13.png"
+			width="1298"
+			height="522"
+			srcset="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-13_hu3bfda0ec504a7c22b626af026d75b248_116094_480x0_resize_box_3.png 480w, /p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-13_hu3bfda0ec504a7c22b626af026d75b248_116094_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">train_data_scaler</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 291; 
+			flex-basis: 700px"
+	>
+	<a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-14.png" data-size="1308x448">
+		<img src="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-14.png"
+			width="1308"
+			height="448"
+			srcset="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-14_hud453692e853555ff899c8ee80ff15c9f_81200_480x0_resize_box_3.png 480w, /p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-14_hud453692e853555ff899c8ee80ff15c9f_81200_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">pca</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mf">0.95</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#注意直接用了fit_transform 就相当于fit和transform了</span>
+</span></span><span class="line"><span class="cl"><span class="n">new_train_pca_16</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">train_data_scaler</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="n">new_test_pca_16</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">test_data_scaler</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">new_train_pca_16</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">new_train_pca_16</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">new_test_pca_16</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">new_test_pca_16</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">new_test_pca_16</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">new_test_pca_16</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">new_train_pca_16</span><span class="p">[</span><span class="s2">&#34;target&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="n">train_data_scaler</span><span class="p">[</span><span class="s2">&#34;target&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">new_train_pca_16</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 232; 
+			flex-basis: 559px"
+	>
+	<a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-15.png" data-size="1300x558">
+		<img src="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-15.png"
+			width="1300"
+			height="558"
+			srcset="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-15_hu1a5b1ff4fbf80a72cd53af32c9d854e6_120479_480x0_resize_box_3.png 480w, /p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-15_hu1a5b1ff4fbf80a72cd53af32c9d854e6_120479_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="线性回归">线性回归</h2>
+<h3 id="导入相关库">导入相关库</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span> <span class="c1">#线性回归</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">KNeighborsRegressor</span> <span class="c1">#K近邻回归</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeClassifier</span>   <span class="c1">#决策树回归</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestRegressor</span> <span class="c1">#随机森林回归</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVR</span> <span class="c1">#支持向量回归</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">lightgbm</span> <span class="k">as</span> <span class="nn">lgb</span> <span class="c1">#lightGB模型</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span>
+</span></span></code></pre></div><h2 id="切分训练数据和线下验证数据">切分训练数据和线下验证数据</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 采用pca的0.95的数据</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#填充下NAN值</span>
+</span></span><span class="line"><span class="cl"><span class="n">new_train_pca_16</span> <span class="o">=</span> <span class="n">new_train_pca_16</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">train</span> <span class="o">=</span> <span class="n">new_train_pca_16</span><span class="p">[</span><span class="n">new_test_pca_16</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span><span class="c1">#这一步好像没有什么用</span>
+</span></span><span class="line"><span class="cl"><span class="n">target</span> <span class="o">=</span> <span class="n">new_train_pca_16</span><span class="p">[</span><span class="s2">&#34;target&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#训练数据0.8，验证0.2</span>
+</span></span><span class="line"><span class="cl"><span class="n">train_data</span><span class="p">,</span><span class="n">test_data</span><span class="p">,</span><span class="n">train_target</span><span class="p">,</span><span class="n">test_target</span><span class="o">=</span><span class="n">train_test_split</span><span class="p">(</span><span class="n">train</span><span class="p">,</span><span class="n">target</span><span class="p">,</span><span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span><span class="n">random_state</span><span class="o">=</span><span class="mi">22</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">train_data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 370; 
+			flex-basis: 890px"
+	>
+	<a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-16.png" data-size="1276x344">
+		<img src="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-16.png"
+			width="1276"
+			height="344"
+			srcset="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-16_hu9ce361ea36d68b98a8ee4182bbe23010_70450_480x0_resize_box_3.png 480w, /p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-16_hu9ce361ea36d68b98a8ee4182bbe23010_70450_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="多元线性回归模型">多元线性回归模型</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#这里逻辑就是用训练集来训练模型参数，然后这些参数去得出验证集的结果，</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#再与实际的结果作比较，得出score</span>
+</span></span><span class="line"><span class="cl"><span class="n">clf</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_data</span><span class="p">,</span><span class="n">train_target</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">score</span> <span class="o">=</span>  <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">test_target</span><span class="p">,</span><span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">test_data</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;LinearRegression:  &#34;</span><span class="p">,</span><span class="n">score</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">LinearRegression</span><span class="p">:</span>   <span class="mf">0.37000386014473896</span>
+</span></span></code></pre></div><p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">train_score</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl"><span class="n">test_score</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#给予不同的数据量，查看模型的学习效果</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">train_data</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">lin_reg</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">lin_reg</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_data</span><span class="p">[:</span><span class="n">i</span><span class="p">],</span><span class="n">train_target</span><span class="p">[:</span><span class="n">i</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#查看模型的预测情况：两种</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#模型基于训练数据集预测的情况(可以理解为模型拟合训练数据集的情况)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#模型基于测试数据集预测的情况</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#次处用第一种</span>
+</span></span><span class="line"><span class="cl">    <span class="n">y_train_predict</span> <span class="o">=</span> <span class="n">lin_reg</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">train_data</span><span class="p">[:</span><span class="n">i</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">    <span class="n">train_score</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">train_target</span><span class="p">[:</span><span class="n">i</span><span class="p">],</span><span class="n">y_train_predict</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="n">y_test_predict</span> <span class="o">=</span> <span class="n">lin_reg</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">test_data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">test_score</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test_predict</span><span class="p">,</span><span class="n">test_target</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#一个点一个score对应    </span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">train_score</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">)],</span><span class="n">train_score</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s2">&#34;train&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">test_score</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">)],</span><span class="n">test_score</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s2">&#34;test&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 164; 
+			flex-basis: 393px"
+	>
+	<a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-17.png" data-size="656x400">
+		<img src="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-17.png"
+			width="656"
+			height="400"
+			srcset="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-17_hu8f53ed05f05fc21fe700dae170a397d3_22923_480x0_resize_box_3.png 480w, /p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-17_hu8f53ed05f05fc21fe700dae170a397d3_22923_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#可以将上面这个封装成一个方法去调用</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">plot_learning_curve</span><span class="p">(</span><span class="n">algo</span><span class="p">,</span><span class="n">X_train</span><span class="p">,</span><span class="n">X_test</span><span class="p">,</span><span class="n">y_train</span><span class="p">,</span><span class="n">y_test</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;绘制学习曲线：只需要传入算法(或实例对象)、X_train、X_test、y_train、y_test&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;当使用该函数时传入算法，该算法的变量要进行实例化，如：PolynomialRegression(degree=2)，变量 degree 要进
+</span></span></span><span class="line"><span class="cl"><span class="s2">    行实例化&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">train_score</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">    <span class="n">test_score</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">algo</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">[:</span><span class="n">i</span><span class="p">],</span><span class="n">y_train</span><span class="p">[:</span><span class="n">i</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="n">y_train_predict</span> <span class="o">=</span> <span class="n">algo</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_train</span><span class="p">[:</span><span class="n">i</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">        <span class="n">train_score</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_train_predict</span><span class="p">,</span><span class="n">y_train</span><span class="p">[:</span><span class="n">i</span><span class="p">]))</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="n">y_test_predict</span> <span class="o">=</span> <span class="n">algo</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">test_score</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test_predict</span><span class="p">,</span><span class="n">y_test</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">train_score</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">)],</span><span class="n">train_score</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s2">&#34;train&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">test_score</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">)],</span><span class="n">test_score</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s2">&#34;test&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    
+</span></span></code></pre></div><h2 id="k近邻回归">K近邻回归</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">20</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">clf</span> <span class="o">=</span> <span class="n">KNeighborsRegressor</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="n">i</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_data</span><span class="p">,</span><span class="n">train_target</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">score</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">test_data</span><span class="p">),</span><span class="n">test_target</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;KNeighborsRegressor:   &#34;</span><span class="p">,</span><span class="n">score</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 134; 
+			flex-basis: 323px"
+	>
+	<a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-19.png" data-size="644x478">
+		<img src="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-19.png"
+			width="644"
+			height="478"
+			srcset="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-19_hua7d001d91afb9db9f1e43b054e60b189_135073_480x0_resize_box_3.png 480w, /p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-19_hua7d001d91afb9db9f1e43b054e60b189_135073_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">plot_learning_curve</span><span class="p">(</span><span class="n">KNeighborsRegressor</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span> <span class="p">,</span> <span class="n">train_data</span><span class="p">,</span> <span class="n">test_data</span><span class="p">,</span> <span class="n">train_target</span><span class="p">,</span> <span class="n">test_target</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 159; 
+			flex-basis: 383px"
+	>
+	<a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-21.png" data-size="652x408">
+		<img src="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-21.png"
+			width="652"
+			height="408"
+			srcset="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-21_hu5c8dfd54cabef1c1688411e1b5750be3_39579_480x0_resize_box_3.png 480w, /p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-21_hu5c8dfd54cabef1c1688411e1b5750be3_39579_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="决策树回归">决策树回归</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeRegressor</span>
+</span></span><span class="line"><span class="cl"><span class="n">clf</span> <span class="o">=</span> <span class="n">DecisionTreeRegressor</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_data</span><span class="p">,</span><span class="n">train_target</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">score</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">test_data</span><span class="p">),</span><span class="n">test_target</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;DecisionTreeRegressor:   &#34;</span><span class="p">,</span><span class="n">score</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">DecisionTreeRegressor</span><span class="p">:</span>    <span class="mf">0.6178948252595156</span>
+</span></span></code></pre></div><p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">plot_learning_curve</span><span class="p">(</span><span class="n">DecisionTreeRegressor</span><span class="p">(),</span><span class="n">train_data</span><span class="p">,</span><span class="n">test_data</span><span class="p">,</span><span class="n">train_target</span><span class="p">,</span><span class="n">test_target</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 167; 
+			flex-basis: 402px"
+	>
+	<a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-22.png" data-size="684x408">
+		<img src="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-22.png"
+			width="684"
+			height="408"
+			srcset="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-22_hu524aeff5d84a880d600a4d46eb993ed2_43998_480x0_resize_box_3.png 480w, /p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-22_hu524aeff5d84a880d600a4d46eb993ed2_43998_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="随机森林回归">随机森林回归</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">clf</span> <span class="o">=</span> <span class="n">RandomForestRegressor</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_data</span><span class="p">,</span><span class="n">train_target</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">score</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">test_target</span><span class="p">,</span><span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">test_data</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;随机森林：      &#34;</span><span class="p">,</span><span class="n">score</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">随机森林</span><span class="err">：</span>       <span class="mf">0.31464010194169545</span>
+</span></span></code></pre></div><p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">plot_learning_curve</span><span class="p">(</span><span class="n">RandomForestRegressor</span><span class="p">(),</span><span class="n">train_data</span><span class="p">,</span><span class="n">test_data</span><span class="p">,</span><span class="n">train_target</span><span class="p">,</span><span class="n">test_target</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 153; 
+			flex-basis: 368px"
+	>
+	<a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-23.png" data-size="658x428">
+		<img src="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-23.png"
+			width="658"
+			height="428"
+			srcset="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-23_hue6c67c961ea0d1aa82d948cc998bc9ad_38278_480x0_resize_box_3.png 480w, /p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-23_hue6c67c961ea0d1aa82d948cc998bc9ad_38278_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="提升树回归--gradient-boosting">提升树回归  Gradient Boosting</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">GradientBoostingRegressor</span>
+</span></span><span class="line"><span class="cl"><span class="n">myGBR</span> <span class="o">=</span> <span class="n">GradientBoostingRegressor</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span><span class="n">criterion</span><span class="o">=</span><span class="s2">&#34;friedman_mse&#34;</span><span class="p">,</span><span class="n">init</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                                 <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.03</span><span class="p">,</span><span class="n">loss</span><span class="o">=</span><span class="s2">&#34;huber&#34;</span><span class="p">,</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                                 <span class="n">max_features</span><span class="o">=</span><span class="s2">&#34;sqrt&#34;</span><span class="p">,</span><span class="n">max_leaf_nodes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                                 <span class="n">min_impurity_decrease</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span><span class="n">random_state</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                                 <span class="n">subsample</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">myGBR</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_data</span><span class="p">,</span><span class="n">train_target</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">score</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">test_target</span><span class="p">,</span><span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">test_data</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">score</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="mf">0.31464010194169545</span>
+</span></span></code></pre></div><p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">plot_learning_curve</span><span class="p">(</span><span class="n">myGBR</span><span class="p">,</span><span class="n">train_data</span><span class="p">,</span><span class="n">test_data</span><span class="p">,</span><span class="n">train_target</span><span class="p">,</span><span class="n">test_target</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 161; 
+			flex-basis: 387px"
+	>
+	<a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-24.png" data-size="636x394">
+		<img src="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-24.png"
+			width="636"
+			height="394"
+			srcset="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-24_hu1c892a827b5732da3970538fc19e3c91_41678_480x0_resize_box_3.png 480w, /p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/picture/03%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-24_hu1c892a827b5732da3970538fc19e3c91_41678_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/python/">python</a>
+        
+            <a href="/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/">数据可视化</a>
+        
+            <a href="/tags/sklearn/">sklearn</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">Related contents</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="">
+    <a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">阿里云_ML_02_数据探索</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_04_%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">阿里云_ML_04_模型训练</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_05_%E6%A8%A1%E5%9E%8B%E9%AA%8C%E8%AF%81/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">阿里云_ML_05_模型验证</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81cross-validation/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">sklearn中的交叉验证Cross-Validation</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/sklearn.preprocessing.standardscaler%E6%95%B0%E6%8D%AE%E6%A0%87%E5%87%86%E5%8C%96/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">sklearn.preprocessing.StandardScaler数据标准化</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2022 - 
+        
+        2023 叶宇浩随记博客
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.5.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">Table of contents</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#异常值分析">异常值分析</a></li>
+    <li><a href="#删除异常值">删除异常值</a></li>
+    <li><a href="#最大最小值归一化">最大最小值归一化</a></li>
+    <li><a href="#查看训练集数据和测试集数据分布情况">查看训练集数据和测试集数据分布情况</a></li>
+    <li><a href="#特征相关性">特征相关性</a></li>
+    <li><a href="#特征降维">特征降维</a>
+      <ol>
+        <li><a href="#相关性分析">相关性分析</a></li>
+      </ol>
+    </li>
+    <li><a href="#相关性初筛">相关性初筛</a></li>
+    <li><a href="#多重线性分析">多重线性分析</a></li>
+    <li><a href="#pca去除多重共线性-降维">PCA去除多重共线性 降维</a></li>
+    <li><a href="#线性回归">线性回归</a>
+      <ol>
+        <li><a href="#导入相关库">导入相关库</a></li>
+      </ol>
+    </li>
+    <li><a href="#切分训练数据和线下验证数据">切分训练数据和线下验证数据</a></li>
+    <li><a href="#多元线性回归模型">多元线性回归模型</a></li>
+    <li><a href="#k近邻回归">K近邻回归</a></li>
+    <li><a href="#决策树回归">决策树回归</a></li>
+    <li><a href="#随机森林回归">随机森林回归</a></li>
+    <li><a href="#提升树回归--gradient-boosting">提升树回归  Gradient Boosting</a></li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>tips on 叶宇浩随记博客</title>
+    <link>https://example.com/tags/tips/</link>
+    <description>Recent content in tips on 叶宇浩随记博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 29 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://example.com/tags/tips/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>我的算法学习导航页</title>
+      <link>https://example.com/p/%E6%88%91%E7%9A%84%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E5%AF%BC%E8%88%AA%E9%A1%B5/</link>
+      <pubDate>Thu, 29 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E6%88%91%E7%9A%84%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E5%AF%BC%E8%88%AA%E9%A1%B5/</guid>
+      <description> 为什么写这一页？因为中间换电脑忘记把之前关于机器学习和深度学习的个人笔记复制到新的电脑上了，旧laptop被我格式化。属于是无语了，所以特写此页做导航页，方便自己检索知识
+机器学习 基础知识：
+吴恩达老师的课程 李航老师的统计学习方法 （已学完） 简博士的机器学习课程（学完了当时更新到的知识） 小康老师的机器学习课程（这个实际讲解的李航老师的那本书，当时是靠这个理解的） 刘老师的博客（常用！）： https://www.cnblogs.com/pinard/ 框架方面只学了个sklearn，通过代码实践学习 深度学习 李宏毅老师的课程 （已学完） pytorch 基础课程 小土堆 （已学完） 李沐老师的动手深度学习（已学完） 因为自己笔记全删除了（很痛心），所以找来两个很好的笔记分享（常用）：
+https://github.com/ShusenTang/Dive-into-DL-PyTorch （本地安装运行会形成一个知识网页） https://blog.csdn.net/weixin_42306148/article/details/123754540?spm=1001.2014.3001.5501 </description>
+    </item>
+    
+    <item>
+      <title>蛋白结构图片美化</title>
+      <link>https://example.com/p/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96/</link>
+      <pubDate>Thu, 20 Oct 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96/</guid>
+      <description>这是我在别人的基础上，然后自行调整了很多细节信息，较为满意的结构图片的展示，特写此post来记录分享（take an example），当然了，能帮到大家也是一件极好的事 （主要用的都是cmd的命令，所以本记录不适合零基础）
+载入蛋白结构 这里我使用的是PDB code 4MDS
+load 4MDS 去除水分子和配体 这一步根据自己的需要去做 （其实做不做都无所谓）
+去水 去水（蛋白主体旁边的红点其实就是水分子）
+remove solvent 展示序列信息 set seq_view,1 可以看到这里有三个配体，名字分别为23H，DMS
+去除配体结构 resn 后面的名字 （23H，DMS）根据自己研究蛋白的配体名字来修改
+remove resn 23H remove resn DMS 复制主要参数 这里的参数来源于参考资料[^1]，我略作了修改
+select resn HOH remove sele select hydrophobic, (resn ala+gly+val+ile+leu+phe+met) show sticks, (hydrophobic and (!name c+n+o)) color yelloworange, hydrophobic select hydrophilic, !hydrophobic and (!name c+n+o) show sticks, hydrophilic color lightblue, hydrophilic color white, bb. color oxygen, elem o color nitrogen, elem N color sulfur, elem S set ray_trace_mode,3 set stick_radius, 0.</description>
+    </item>
+    
+    <item>
+      <title>PyMOL蛋白结美化参数(整合)</title>
+      <link>https://example.com/p/pymol%E8%9B%8B%E7%99%BD%E7%BB%93%E7%BE%8E%E5%8C%96%E5%8F%82%E6%95%B0%E6%95%B4%E5%90%88/</link>
+      <pubDate>Wed, 12 Oct 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/pymol%E8%9B%8B%E7%99%BD%E7%BB%93%E7%BE%8E%E5%8C%96%E5%8F%82%E6%95%B0%E6%95%B4%E5%90%88/</guid>
+      <description>PyMOL的功能十分强大，特别是命令行的参数，它可以对蛋白结构的细节展示进行许多调整，方便使用，这里集合一些参数，直接复制进pymol的cmd即可（本post会持续更新）
+PyMOL-wiki PyMOL官网本身有gallery（https://pymolwiki.org/index.php/Gallery），这里会有一堆大佬去上传自己的展示参数，只不过，我发现似乎有点少 下面的大部分是转载的[^学习来源2],当然了，用到自己的结构上时，可以自行参数调整，比如不喜欢侧链的信息，就可以自行hide起来，自行修改color等
+细节侧链美漫风 参数
+reinitialize select resn HOH remove sele select hydrophobic, (resn ala+gly+val+ile+leu+phe+met) show sticks, (hydrophobic and (!name c+n+o)) color yelloworange, hydrophobic select hydrophilic, !hydrophobic and (!name c+n+o) show sticks, hydrophilic color lightblue, hydrophilic color white, bb. color oxygen, elem o color nitrogen, elem N color sulfur, elem S set ray_trace_mode,3 set stick_radius, 0.4 set cartoon_loop_radius, 0.4 set cartoon_oval_width, 0.4 set cartoon_rect_width, 0.4 set fog,0 bg_color white set valence, 0 set ray_shadow, 0 zoom orient ray 图片展示（take PDB code:7f52，删除了水分子，图片背景实际上是白色的，放在word中会更明显） 个人很喜欢这个风格，不过我经常会将其他的侧链信息都隐藏起来，从而突出某些位点的sticks</description>
+    </item>
+    
+  </channel>
+</rss>

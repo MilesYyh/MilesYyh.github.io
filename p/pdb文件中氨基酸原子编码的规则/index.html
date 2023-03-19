@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='弄明白PDB文件中重原子编号的规则'><title>PDB文件中氨基酸原子编码的规则</title>
+
+<link rel='canonical' href='https://example.com/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='PDB文件中氨基酸原子编码的规则'>
+<meta property='og:description' content='弄明白PDB文件中重原子编号的规则'>
+<meta property='og:url' content='https://example.com/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/'>
+<meta property='og:site_name' content='叶宇浩随记博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='structure' /><meta property='article:published_time' content='2022-05-07T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2022-05-07T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="PDB文件中氨基酸原子编码的规则">
+<meta name="twitter:description" content="弄明白PDB文件中重原子编号的规则">
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>Back</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/protein_structure/" style="background-color: #e2144a; color: #fff;">
+                蛋白结构
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/">PDB文件中氨基酸原子编码的规则</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        弄明白PDB文件中重原子编号的规则
+    </h3>
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">May 07, 2022</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    2 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <blockquote>
+<p>我发现一直好像对PDB文件中氨基酸的原子编码规则不是很清楚，然后我去看了网上的帖子，发现都好像有点不太对，故整理此post来弄懂</p>
+</blockquote>
+<h2 id="氨基酸的结构通式">氨基酸的结构通式</h2>
+<p><strong>注意哪个是α原子</strong>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 85; 
+			flex-basis: 204px"
+	>
+	<a href="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%8E%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E5%BC%8F%E7%9A%84%E5%85%B3%E7%B3%BB-2.png" data-size="306x360">
+		<img src="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%8E%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E5%BC%8F%E7%9A%84%E5%85%B3%E7%B3%BB-2.png"
+			width="306"
+			height="360"
+			srcset="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%8E%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E5%BC%8F%E7%9A%84%E5%85%B3%E7%B3%BB-2_hu66cbd74cbaf0571953cb8afb5ef5d498_61901_480x0_resize_box_3.png 480w, /p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%8E%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E5%BC%8F%E7%9A%84%E5%85%B3%E7%B3%BB-2_hu66cbd74cbaf0571953cb8afb5ef5d498_61901_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="pdb文件中原子编码具体的命令规则">PDB文件中原子编码具体的命令规则</h2>
+<h3 id="规则">规则</h3>
+<blockquote>
+<p>基于PyMOL 和 PDB文件</p>
+</blockquote>
+<ul>
+<li>氨基(NH)和羧基上(CO)的所有原子都采用本名，C, N, O, H，如果一个氨基酸的侧链基团也出现了氨基和羧基，侧链基团R上的氨基和羧基上的原子信息不是采用的本名，否则无法与主链的肽基区分开</li>
+<li>侧链基团上的氨基和羧基的原子也采用下面提到的规则</li>
+<li>首先α-C被命名为CA，注意生物学上哪个C才能被定义为CA原子，另外，PDB文件中会显示，但是PyMOL中有时候不会显示出CA的标签，其后的C按照成键关系逐级递推，名字后缀依次为 B-G-D-E-Z-H（此为希腊字母表顺序：α(A)，β(B)，γ(G)，δ(D)，ε(E)，ζ(Z)，η(H)……）</li>
+<li>注意这个”成键逐级递推“的意思，例如，当一个CD，下面的直接相连的节点若是非H原子，且含有多个其他原子（比如含有两个C），则这多个原子都是隶属于CE的，为了区分要加上不同的数字编号(从1开始)（CE1,CE2）</li>
+<li>对于氢原子，命名采用“H+所连上级原子后缀(如有数字也要带上)+数字编号”形式
+<ul>
+<li>对于处于与”中间CX(X代表任意字母or数字)原子“相连氢原子，且成键上一级的原子不是成环的，数字编号是从”2“开始的</li>
+<li>若成键的上一个原子处于中间C，且这个C一端是H原子，另一端是其他原子，则这个H原子不用写数字，另一端的那个非H原子形成下一个节点的H原子数字编号从1开始</li>
+<li>若成键的上一级注意处于环结构中时，因为成键的上一级所属的逐级的字母是同一个字母（环的原子，加上逐级递增的原则），为了区分，H的数字编号是从”1“开始的</li>
+<li>CA相连的一个H原子就不用加上最后的数字编号</li>
+<li>若成键的上一个原子是最后一个原子，对于处于上末尾的H原子（存在多个H原子时）的数字编号是从1开始的</li>
+<li>处于最后末端的H原子（只存在一个H原子时），不管上一级成键的原子是否在环结构中，不用加数字编号，因为就它一个</li>
+</ul>
+</li>
+<li>本质就是标号法，注意H上的那些数字都是为了区分，不同的H才加上去的描述</li>
+</ul>
+<h3 id="例子">例子</h3>
+<h4 id="不含环的氨基酸">不含环的氨基酸</h4>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 181; 
+			flex-basis: 435px"
+	>
+	<a href="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99.png" data-size="1776x978">
+		<img src="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99.png"
+			width="1776"
+			height="978"
+			srcset="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99_hua882dbe154b100bd25e32787eedac46d_331548_480x0_resize_box_3.png 480w, /p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99_hua882dbe154b100bd25e32787eedac46d_331548_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 163; 
+			flex-basis: 393px"
+	>
+	<a href="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/Q_AA_illustration.jpeg" data-size="1952x1191">
+		<img src="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/Q_AA_illustration.jpeg"
+			width="1952"
+			height="1191"
+			srcset="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/Q_AA_illustration_hube2bb0e0f8ad4c3b4e53f5e7e4126346_812596_480x0_resize_q75_box.jpeg 480w, /p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/Q_AA_illustration_hube2bb0e0f8ad4c3b4e53f5e7e4126346_812596_1024x0_resize_q75_box.jpeg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+按照上面这张图的的绿色线条的箭头方向前进 进行说明</p>
+<ul>
+<li>第一处的C、O是位于羧基上（非侧链）的，所以直接写出C、O原子即可</li>
+<li>第二处的N、H是位于氨基上（非侧链）的，所以直接写出所有原子N、H即可</li>
+<li>HA 右侧其实是CA，前面规则了CA在PyMOL的标签中是不会显示出来的，则这个HA的H原子是与CA相连，所以直接写HA即可</li>
+<li>第三处的C，根据逐级递推，这个C写作CB，与它相连的两个H，又因为CB是处于中间的C原子，所以两个H原子写作HB2、HB3</li>
+<li>第四处CG同理</li>
+<li>第五处CD同理，只是下面成键相连的不是H原子了</li>
+<li>第六处的氧原子0E1和第七处的氮原子NE2，因为它成键的上一级是CD，且是本身是氧原子，不是H原子，故按照逐级递推的原则，分别写作OE、NE，但是又因为他们两个成键的都是CD，所以加上个序号，分别为OE1,NE2</li>
+<li>第八处和第九处的H原子，成键相连的上一级为NE2，且是H原子，不用逐级递推，又位于侧链的末端所以，写作HE21,HE22 (E2是上一级的编号)
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 164; 
+			flex-basis: 394px"
+	>
+	<a href="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/Q_AA_notebook.jpeg" data-size="2122x1290">
+		<img src="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/Q_AA_notebook.jpeg"
+			width="2122"
+			height="1290"
+			srcset="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/Q_AA_notebook_hubd7f88d7f2590b99bb8ff43d83f875e9_1795399_480x0_resize_q75_box.jpeg 480w, /p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/Q_AA_notebook_hubd7f88d7f2590b99bb8ff43d83f875e9_1795399_1024x0_resize_q75_box.jpeg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></li>
+</ul>
+<h4 id="含环的氨基酸">含环的氨基酸</h4>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 176; 
+			flex-basis: 423px"
+	>
+	<a href="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%8E%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E5%BC%8F%E7%9A%84%E5%85%B3%E7%B3%BB-1.png" data-size="1762x998">
+		<img src="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%8E%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E5%BC%8F%E7%9A%84%E5%85%B3%E7%B3%BB-1.png"
+			width="1762"
+			height="998"
+			srcset="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%8E%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E5%BC%8F%E7%9A%84%E5%85%B3%E7%B3%BB-1_huf5a263cecf4624567943fa15a279db1c_380315_480x0_resize_box_3.png 480w, /p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%8E%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E5%BC%8F%E7%9A%84%E5%85%B3%E7%B3%BB-1_huf5a263cecf4624567943fa15a279db1c_380315_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<strong>注意逐级递增，特别是那个苯环中的CE1和CE2、（字母的编号是按逐级的顺序来的），HE1和HE2以及最后的HH</strong></p>
+<blockquote>
+<p>最后附上20种氨基酸的相关信息 （下面的信息部分来自于学习来源3作者提供的excel表格）</p>
+</blockquote>
+<h2 id="丙氨酸">丙氨酸</h2>
+<ul>
+<li>英文
+Alanine</li>
+<li>简写
+ALA - A</li>
+<li>SMILES</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">C</span><span class="p">[</span><span class="n">C</span><span class="nd">@H</span><span class="p">](</span><span class="n">N</span><span class="p">)</span><span class="n">C</span><span class="p">(</span><span class="n">O</span><span class="p">)</span><span class="o">=</span><span class="n">O</span>
+</span></span></code></pre></div><ul>
+<li>结构
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 174; 
+			flex-basis: 419px"
+	>
+	<a href="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-2.png" data-size="1712x980">
+		<img src="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-2.png"
+			width="1712"
+			height="980"
+			srcset="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-2_hu764ff412251b1eedc0b76dc4f0108e0e_282975_480x0_resize_box_3.png 480w, /p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-2_hu764ff412251b1eedc0b76dc4f0108e0e_282975_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></li>
+</ul>
+<h2 id="异亮氨酸">异亮氨酸</h2>
+<ul>
+<li>英文
+Isoleucine</li>
+<li>简写
+ILE - I</li>
+<li>SMILES</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">CC</span><span class="p">[</span><span class="n">C</span><span class="nd">@H</span><span class="p">](</span><span class="n">C</span><span class="p">)[</span><span class="n">C</span><span class="nd">@H</span><span class="p">](</span><span class="n">N</span><span class="p">)</span><span class="n">C</span><span class="p">(</span><span class="n">O</span><span class="p">)</span><span class="o">=</span><span class="n">O</span>
+</span></span></code></pre></div><ul>
+<li>结构式
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 154; 
+			flex-basis: 370px"
+	>
+	<a href="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-3.png" data-size="1474x956">
+		<img src="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-3.png"
+			width="1474"
+			height="956"
+			srcset="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-3_hu1fe9241dd4e22d94f79bfa6c8cbcfc61_333217_480x0_resize_box_3.png 480w, /p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-3_hu1fe9241dd4e22d94f79bfa6c8cbcfc61_333217_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></li>
+</ul>
+<h2 id="亮氨酸">亮氨酸</h2>
+<ul>
+<li>英文
+Leucine</li>
+<li>简写
+LEU-L</li>
+<li>SMILES</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">CC</span><span class="p">(</span><span class="n">C</span><span class="p">)</span><span class="n">C</span><span class="p">[</span><span class="n">C</span><span class="nd">@H</span><span class="p">](</span><span class="n">N</span><span class="p">)</span><span class="n">C</span><span class="p">(</span><span class="n">O</span><span class="p">)</span><span class="o">=</span><span class="n">O</span>
+</span></span></code></pre></div><ul>
+<li>结构式
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 157; 
+			flex-basis: 376px"
+	>
+	<a href="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-4.png" data-size="1448x922">
+		<img src="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-4.png"
+			width="1448"
+			height="922"
+			srcset="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-4_hufe107379a9498c9887ad64a538d8a425_380537_480x0_resize_box_3.png 480w, /p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-4_hufe107379a9498c9887ad64a538d8a425_380537_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></li>
+</ul>
+<h2 id="缬氨酸">缬氨酸</h2>
+<ul>
+<li>英文
+Valine</li>
+<li>简写
+VAL - V</li>
+<li>SMILES</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">CC</span><span class="p">(</span><span class="n">C</span><span class="p">)[</span><span class="n">C</span><span class="nd">@H</span><span class="p">](</span><span class="n">N</span><span class="p">)</span><span class="n">C</span><span class="p">(</span><span class="n">O</span><span class="p">)</span><span class="o">=</span><span class="n">O</span>
+</span></span></code></pre></div><ul>
+<li>结构式
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 172; 
+			flex-basis: 414px"
+	>
+	<a href="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-5.png" data-size="1508x874">
+		<img src="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-5.png"
+			width="1508"
+			height="874"
+			srcset="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-5_huc62af91d9a6e0a9688152f4283123693_329075_480x0_resize_box_3.png 480w, /p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-5_huc62af91d9a6e0a9688152f4283123693_329075_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></li>
+</ul>
+<h2 id="甲硫氨酸">甲硫氨酸</h2>
+<ul>
+<li>英文
+Methionine</li>
+<li>简写
+MET - M</li>
+<li>SMILES</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">O</span><span class="o">=</span><span class="n">C</span><span class="p">(</span><span class="n">O</span><span class="p">)[</span><span class="n">C</span><span class="o">@</span><span class="nd">@H</span><span class="p">](</span><span class="n">N</span><span class="p">)</span><span class="n">CCSC</span>
+</span></span></code></pre></div><ul>
+<li>结构式
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 171; 
+			flex-basis: 410px"
+	>
+	<a href="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-6.png" data-size="1478x864">
+		<img src="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-6.png"
+			width="1478"
+			height="864"
+			srcset="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-6_hu519d1bfaaddb24391f50d1808b71037d_175279_480x0_resize_box_3.png 480w, /p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-6_hu519d1bfaaddb24391f50d1808b71037d_175279_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></li>
+</ul>
+<h2 id="苯丙氨酸">苯丙氨酸</h2>
+<ul>
+<li>英文
+Phenylalanine</li>
+<li>简写
+PHE - F</li>
+<li>SMILES</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">O</span><span class="o">=</span><span class="n">C</span><span class="p">(</span><span class="n">O</span><span class="p">)[</span><span class="n">C</span><span class="o">@</span><span class="nd">@H</span><span class="p">](</span><span class="n">N</span><span class="p">)</span><span class="n">CC1</span><span class="o">=</span><span class="n">CC</span><span class="o">=</span><span class="n">CC</span><span class="o">=</span><span class="n">C1</span>
+</span></span></code></pre></div><ul>
+<li>结构式
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 194; 
+			flex-basis: 465px"
+	>
+	<a href="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-7.png" data-size="1824x940">
+		<img src="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-7.png"
+			width="1824"
+			height="940"
+			srcset="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-7_hua89b5d506d7efe4637f70e54e0596daa_379530_480x0_resize_box_3.png 480w, /p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-7_hua89b5d506d7efe4637f70e54e0596daa_379530_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></li>
+</ul>
+<h2 id="色氨酸">色氨酸</h2>
+<ul>
+<li>英文
+Tryptophan</li>
+<li>简写
+TRP - W</li>
+<li>SMILES</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">O</span><span class="o">=</span><span class="n">C</span><span class="p">(</span><span class="n">O</span><span class="p">)[</span><span class="n">C</span><span class="o">@</span><span class="nd">@H</span><span class="p">](</span><span class="n">N</span><span class="p">)</span><span class="n">CC1</span><span class="o">=</span><span class="n">CNC2</span><span class="o">=</span><span class="n">CC</span><span class="o">=</span><span class="n">CC</span><span class="o">=</span><span class="n">C12</span>
+</span></span></code></pre></div><ul>
+<li>结构式
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 187; 
+			flex-basis: 450px"
+	>
+	<a href="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-8.png" data-size="1866x994">
+		<img src="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-8.png"
+			width="1866"
+			height="994"
+			srcset="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-8_hufe078db3fac09c26e70f97f88c86b701_505246_480x0_resize_box_3.png 480w, /p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-8_hufe078db3fac09c26e70f97f88c86b701_505246_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></li>
+</ul>
+<h2 id="酪氨酸">酪氨酸</h2>
+<ul>
+<li>英文
+Tyrosine</li>
+<li>简写
+TYR - Y</li>
+<li>SMILES</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">O</span><span class="o">=</span><span class="n">C</span><span class="p">(</span><span class="n">O</span><span class="p">)[</span><span class="n">C</span><span class="nd">@H</span><span class="p">](</span><span class="n">CC1</span><span class="o">=</span><span class="n">CC</span><span class="o">=</span><span class="n">C</span><span class="p">(</span><span class="n">O</span><span class="p">)</span><span class="n">C</span><span class="o">=</span><span class="n">C1</span><span class="p">)</span><span class="n">N</span>
+</span></span></code></pre></div><ul>
+<li>结构式
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 200; 
+			flex-basis: 480px"
+	>
+	<a href="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-9.png" data-size="1956x978">
+		<img src="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-9.png"
+			width="1956"
+			height="978"
+			srcset="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-9_hu3c3fe1d09fde19479465402b86dc731b_338558_480x0_resize_box_3.png 480w, /p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-9_hu3c3fe1d09fde19479465402b86dc731b_338558_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></li>
+</ul>
+<h2 id="天冬酰胺">天冬酰胺</h2>
+<ul>
+<li>英文
+Asparagine</li>
+<li>简写
+ASN - N</li>
+<li>SMILES</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">O</span><span class="o">=</span><span class="n">C</span><span class="p">(</span><span class="n">O</span><span class="p">)[</span><span class="n">C</span><span class="nd">@H</span><span class="p">](</span><span class="n">CC</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="o">=</span><span class="n">O</span><span class="p">)</span><span class="n">N</span>
+</span></span></code></pre></div><ul>
+<li>结构式
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 209; 
+			flex-basis: 501px"
+	>
+	<a href="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-10.png" data-size="1844x882">
+		<img src="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-10.png"
+			width="1844"
+			height="882"
+			srcset="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-10_hua38b46f25a06b27218afd27882fcba14_269523_480x0_resize_box_3.png 480w, /p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-10_hua38b46f25a06b27218afd27882fcba14_269523_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></li>
+</ul>
+<h2 id="半胱氨酸">半胱氨酸</h2>
+<ul>
+<li>英文
+Cysteine</li>
+<li>简写
+CYS - C</li>
+<li>SMILES</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">O</span><span class="o">=</span><span class="n">C</span><span class="p">(</span><span class="n">O</span><span class="p">)[</span><span class="n">C</span><span class="nd">@H</span><span class="p">](</span><span class="n">CS</span><span class="p">)</span><span class="n">N</span>
+</span></span></code></pre></div><ul>
+<li>结构式
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 188; 
+			flex-basis: 451px"
+	>
+	<a href="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-11.png" data-size="1894x1006">
+		<img src="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-11.png"
+			width="1894"
+			height="1006"
+			srcset="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-11_hu9c555dc45a8f69ac077ff6f0f96d8603_335285_480x0_resize_box_3.png 480w, /p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-11_hu9c555dc45a8f69ac077ff6f0f96d8603_335285_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></li>
+</ul>
+<h2 id="谷氨酰胺">谷氨酰胺</h2>
+<ul>
+<li>英文
+Glutamine</li>
+<li>简写
+GLN - Q</li>
+<li>SMILES</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">O</span><span class="o">=</span><span class="n">C</span><span class="p">(</span><span class="n">O</span><span class="p">)[</span><span class="n">C</span><span class="nd">@H</span><span class="p">](</span><span class="n">CCC</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="o">=</span><span class="n">O</span><span class="p">)</span><span class="n">N</span>
+</span></span></code></pre></div><ul>
+<li>结构式
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 181; 
+			flex-basis: 436px"
+	>
+	<a href="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-12.png" data-size="1870x1028">
+		<img src="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-12.png"
+			width="1870"
+			height="1028"
+			srcset="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-12_hu676475cb92b4a230459c66537b1956ff_482061_480x0_resize_box_3.png 480w, /p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-12_hu676475cb92b4a230459c66537b1956ff_482061_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></li>
+</ul>
+<h2 id="丝氨酸">丝氨酸</h2>
+<ul>
+<li>英文
+Serine</li>
+<li>简写
+SER - S</li>
+<li>SMILES</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">O</span><span class="o">=</span><span class="n">C</span><span class="p">(</span><span class="n">O</span><span class="p">)[</span><span class="n">C</span><span class="nd">@H</span><span class="p">](</span><span class="n">CO</span><span class="p">)</span><span class="n">N</span>
+</span></span></code></pre></div><ul>
+<li>结构式
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 425px"
+	>
+	<a href="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-13.png" data-size="1874x1058">
+		<img src="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-13.png"
+			width="1874"
+			height="1058"
+			srcset="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-13_hue411a4007f16965b988e7a2c63a6cda1_396626_480x0_resize_box_3.png 480w, /p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-13_hue411a4007f16965b988e7a2c63a6cda1_396626_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></li>
+</ul>
+<h2 id="苏氨酸">苏氨酸</h2>
+<ul>
+<li>英文
+Threonine</li>
+<li>简写
+THR - T</li>
+<li>SMILES</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">O</span><span class="o">=</span><span class="n">C</span><span class="p">(</span><span class="n">O</span><span class="p">)[</span><span class="n">C</span><span class="nd">@H</span><span class="p">]([</span><span class="n">C</span><span class="nd">@H</span><span class="p">](</span><span class="n">O</span><span class="p">)</span><span class="n">C</span><span class="p">)</span><span class="n">N</span>
+</span></span></code></pre></div><ul>
+<li>结构式
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 150; 
+			flex-basis: 361px"
+	>
+	<a href="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-14.png" data-size="1616x1072">
+		<img src="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-14.png"
+			width="1616"
+			height="1072"
+			srcset="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-14_hu6115da69220813206a137bbf0cb24976_420855_480x0_resize_box_3.png 480w, /p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-14_hu6115da69220813206a137bbf0cb24976_420855_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></li>
+</ul>
+<h2 id="精氨酸">精氨酸</h2>
+<ul>
+<li>英文
+Arginine</li>
+<li>简写
+ARG - R</li>
+<li>SMILES</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">O</span><span class="o">=</span><span class="n">C</span><span class="p">(</span><span class="n">O</span><span class="p">)[</span><span class="n">C</span><span class="nd">@H</span><span class="p">](</span><span class="n">CCCNC</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="o">=</span><span class="n">N</span><span class="p">)</span><span class="n">N</span>
+</span></span></code></pre></div><ul>
+<li>结构式
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 194; 
+			flex-basis: 465px"
+	>
+	<a href="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-15.png" data-size="1996x1028">
+		<img src="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-15.png"
+			width="1996"
+			height="1028"
+			srcset="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-15_hud0167c5d9807fdc8f014520991cfbab2_315954_480x0_resize_box_3.png 480w, /p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-15_hud0167c5d9807fdc8f014520991cfbab2_315954_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></li>
+</ul>
+<h2 id="组氨酸">组氨酸</h2>
+<ul>
+<li>英文
+Histidine</li>
+<li>简写
+HIS - H</li>
+<li>SMILES</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">O</span><span class="o">=</span><span class="n">C</span><span class="p">(</span><span class="n">O</span><span class="p">)[</span><span class="n">C</span><span class="nd">@H</span><span class="p">](</span><span class="n">CC1</span><span class="o">=</span><span class="n">CNC</span><span class="o">=</span><span class="n">N1</span><span class="p">)</span><span class="n">N</span>
+</span></span></code></pre></div><ul>
+<li>结构式
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 191; 
+			flex-basis: 458px"
+	>
+	<a href="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-16.png" data-size="1904x996">
+		<img src="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-16.png"
+			width="1904"
+			height="996"
+			srcset="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-16_hu14e5f53ed38f76aa14b2323ea00856dc_352892_480x0_resize_box_3.png 480w, /p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-16_hu14e5f53ed38f76aa14b2323ea00856dc_352892_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></li>
+</ul>
+<h2 id="赖氨酸">赖氨酸</h2>
+<ul>
+<li>英文
+Lysine</li>
+<li>简写
+LYS - K</li>
+<li>SMILES</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">O</span><span class="o">=</span><span class="n">C</span><span class="p">([</span><span class="n">C</span><span class="o">@</span><span class="nd">@H</span><span class="p">](</span><span class="n">N</span><span class="p">)</span><span class="n">CCCCN</span><span class="p">)</span><span class="n">O</span>
+</span></span></code></pre></div><ul>
+<li>结构式
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 190; 
+			flex-basis: 456px"
+	>
+	<a href="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-17.png" data-size="1882x990">
+		<img src="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-17.png"
+			width="1882"
+			height="990"
+			srcset="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-17_hu2032611f696c17fd96b9f5131b7d38c6_276192_480x0_resize_box_3.png 480w, /p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-17_hu2032611f696c17fd96b9f5131b7d38c6_276192_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></li>
+</ul>
+<h2 id="天冬氨酸">天冬氨酸</h2>
+<ul>
+<li>英文
+Aspartic acid</li>
+<li>简写
+ASP - D</li>
+<li>SMILES</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">O</span><span class="o">=</span><span class="n">C</span><span class="p">(</span><span class="n">O</span><span class="p">)[</span><span class="n">C</span><span class="nd">@H</span><span class="p">](</span><span class="n">CC</span><span class="p">(</span><span class="n">O</span><span class="p">)</span><span class="o">=</span><span class="n">O</span><span class="p">)</span><span class="n">N</span>
+</span></span></code></pre></div><ul>
+<li>结构式
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 189; 
+			flex-basis: 455px"
+	>
+	<a href="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-18.png" data-size="1912x1008">
+		<img src="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-18.png"
+			width="1912"
+			height="1008"
+			srcset="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-18_hu08d0a25557b76edff70a5c8a945203d4_293684_480x0_resize_box_3.png 480w, /p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-18_hu08d0a25557b76edff70a5c8a945203d4_293684_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></li>
+</ul>
+<h2 id="谷氨酸">谷氨酸</h2>
+<ul>
+<li>英文
+Glutamic acid</li>
+<li>简写
+GLU - E</li>
+<li>SMILES</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">O</span><span class="o">=</span><span class="n">C</span><span class="p">(</span><span class="n">O</span><span class="p">)[</span><span class="n">C</span><span class="nd">@H</span><span class="p">](</span><span class="n">CCC</span><span class="p">(</span><span class="n">O</span><span class="p">)</span><span class="o">=</span><span class="n">O</span><span class="p">)</span><span class="n">N</span>
+</span></span></code></pre></div><ul>
+<li>结构式
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 184; 
+			flex-basis: 443px"
+	>
+	<a href="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-19.png" data-size="1656x896">
+		<img src="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-19.png"
+			width="1656"
+			height="896"
+			srcset="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-19_hu24291fb6068b2ae11c401b13f40b145c_256267_480x0_resize_box_3.png 480w, /p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-19_hu24291fb6068b2ae11c401b13f40b145c_256267_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></li>
+</ul>
+<h2 id="甘氨酸">甘氨酸</h2>
+<ul>
+<li>英文
+Glycine</li>
+<li>简写
+GLY - G</li>
+<li>SMILES</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">O</span><span class="o">=</span><span class="n">C</span><span class="p">(</span><span class="n">O</span><span class="p">)</span><span class="n">CN</span>
+</span></span></code></pre></div><ul>
+<li>结构式
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 222; 
+			flex-basis: 532px"
+	>
+	<a href="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-20.png" data-size="1874x844">
+		<img src="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-20.png"
+			width="1874"
+			height="844"
+			srcset="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-20_hue5292264a9cf1df467ceafc68c1b7802_250783_480x0_resize_box_3.png 480w, /p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-20_hue5292264a9cf1df467ceafc68c1b7802_250783_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></li>
+</ul>
+<h2 id="脯氨酸">脯氨酸</h2>
+<ul>
+<li>英文
+Proline</li>
+<li>简写
+PRO - P</li>
+<li>SMILES</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">O</span><span class="o">=</span><span class="n">C</span><span class="p">([</span><span class="n">C</span><span class="o">@</span><span class="nd">@H</span><span class="p">]</span><span class="mi">1</span><span class="n">CCCN1</span><span class="p">)</span><span class="n">O</span>
+</span></span></code></pre></div><ul>
+<li>结构式
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 168; 
+			flex-basis: 403px"
+	>
+	<a href="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-21.png" data-size="1812x1078">
+		<img src="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-21.png"
+			width="1812"
+			height="1078"
+			srcset="/p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-21_hu6e43cecc6ca9488f839b0d72ec8411dc_433125_480x0_resize_box_3.png 480w, /p/pdb%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99/picture/PDB%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B0%A8%E5%9F%BA%E9%85%B8%E5%8E%9F%E5%AD%90%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%84%E5%88%99-21_hu6e43cecc6ca9488f839b0d72ec8411dc_433125_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></li>
+</ul>
+<blockquote>
+<p>注意下，因为每个氨基酸的3D结构都是在整个蛋白中抽出来展示的，此时氨基酸是残基了，所以不想2d结构式那样是一个真正完整的氨基酸（比如COOH已经形成了肽键）</p>
+</blockquote>
+<h2 id="学习来源">学习来源</h2>
+<p>前面两个帖子感觉上都有问题，反正我自己去PDB文件和PyMOL中显示的似乎规则匹配不上，当然不排除是软件或者PDB文件格式变化过</p>
+<p>1.https://wap.sciencenet.cn/blog-3387981-1118283.html?mobile=1
+2.https://cloud.tencent.com/developer/article/2026465
+3.https://zhuanlan.zhihu.com/p/420481239</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/structure/">structure</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2022 - 
+        
+        2023 叶宇浩随记博客
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.5.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">Table of contents</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#氨基酸的结构通式">氨基酸的结构通式</a></li>
+    <li><a href="#pdb文件中原子编码具体的命令规则">PDB文件中原子编码具体的命令规则</a>
+      <ol>
+        <li><a href="#规则">规则</a></li>
+        <li><a href="#例子">例子</a>
+          <ol>
+            <li><a href="#不含环的氨基酸">不含环的氨基酸</a></li>
+            <li><a href="#含环的氨基酸">含环的氨基酸</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#丙氨酸">丙氨酸</a></li>
+    <li><a href="#异亮氨酸">异亮氨酸</a></li>
+    <li><a href="#亮氨酸">亮氨酸</a></li>
+    <li><a href="#缬氨酸">缬氨酸</a></li>
+    <li><a href="#甲硫氨酸">甲硫氨酸</a></li>
+    <li><a href="#苯丙氨酸">苯丙氨酸</a></li>
+    <li><a href="#色氨酸">色氨酸</a></li>
+    <li><a href="#酪氨酸">酪氨酸</a></li>
+    <li><a href="#天冬酰胺">天冬酰胺</a></li>
+    <li><a href="#半胱氨酸">半胱氨酸</a></li>
+    <li><a href="#谷氨酰胺">谷氨酰胺</a></li>
+    <li><a href="#丝氨酸">丝氨酸</a></li>
+    <li><a href="#苏氨酸">苏氨酸</a></li>
+    <li><a href="#精氨酸">精氨酸</a></li>
+    <li><a href="#组氨酸">组氨酸</a></li>
+    <li><a href="#赖氨酸">赖氨酸</a></li>
+    <li><a href="#天冬氨酸">天冬氨酸</a></li>
+    <li><a href="#谷氨酸">谷氨酸</a></li>
+    <li><a href="#甘氨酸">甘氨酸</a></li>
+    <li><a href="#脯氨酸">脯氨酸</a></li>
+    <li><a href="#学习来源">学习来源</a></li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

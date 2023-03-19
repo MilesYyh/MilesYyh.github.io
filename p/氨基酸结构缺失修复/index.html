@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='蛋白结构氨基酸缺失和原子缺失修复的方法'><title>氨基酸结构缺失修复</title>
+
+<link rel='canonical' href='https://example.com/p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='氨基酸结构缺失修复'>
+<meta property='og:description' content='蛋白结构氨基酸缺失和原子缺失修复的方法'>
+<meta property='og:url' content='https://example.com/p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/'>
+<meta property='og:site_name' content='叶宇浩随记博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='structure' /><meta property='article:published_time' content='2023-03-11T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2023-03-11T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="氨基酸结构缺失修复">
+<meta name="twitter:description" content="蛋白结构氨基酸缺失和原子缺失修复的方法">
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>Back</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/protein_structure/" style="background-color: #e2144a; color: #fff;">
+                蛋白结构
+            </a>
+        
+            <a href="/categories/chimera/" style="background-color: #9e8a16; color: #fff;">
+                Chimera
+            </a>
+        
+            <a href="/categories/pymol/" style="background-color: #6a43e5; color: #fff;">
+                PyMOL
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/">氨基酸结构缺失修复</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        蛋白结构氨基酸缺失和原子缺失修复的方法
+    </h3>
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Mar 11, 2023</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    1 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <h2 id="说明">说明</h2>
+<p>之前从PDB数据库上下载某个基因的野生型结构时，发生存在AA缺失的现象，即某些位点上的AA没有，碰巧这个缺失的位点在突变的范围内，位点的缺失在PyMOL中表现为<strong>断点</strong>，看了下PDB文件 (从PDB数据库上下载下来的原文件) 的missing信息 (只有从PDB数据库上下载的结构文件才会有missing字段，像结构预测的软件是没有的)，确实是缺失的（避免是因为PyMOL不能识别导致）</p>
+<blockquote>
+<p>位点在377上缺失
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 253; 
+			flex-basis: 607px"
+	>
+	<a href="/p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/picture/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D-1.png" data-size="2262x894">
+		<img src="/p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/picture/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D-1.png"
+			width="2262"
+			height="894"
+			srcset="/p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/picture/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D-1_hub6debeba917d94946d4a18a68e742cf9_399175_480x0_resize_box_3.png 480w, /p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/picture/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D-1_hub6debeba917d94946d4a18a68e742cf9_399175_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+</blockquote>
+<p>紧接着，使用trRosetta预测了野生型的蛋白结构，发现在使用gmx pdb2gmx 时发现这个新的结构文件上原子缺失了（并不等同于上面的氨基酸缺失），如下报错：
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 423; 
+			flex-basis: 1016px"
+	>
+	<a href="/p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/picture/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D-2.png" data-size="1542x364">
+		<img src="/p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/picture/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D-2.png"
+			width="1542"
+			height="364"
+			srcset="/p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/picture/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D-2_hu62ef20855870d6514bfc2209df738a7b_163902_480x0_resize_box_3.png 480w, /p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/picture/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D-2_hu62ef20855870d6514bfc2209df738a7b_163902_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+也就是说gmx发现这个蛋白结构文件23位点的色氨酸Trp缺失了CH2的原子信息（注意可能还存在其他原子的缺失，只是Tyr-23的缺失在前面，所以先报错了）</p>
+<blockquote>
+<p>遂记录下解决办法，针对AA缺失和原子缺失的修复方法</p>
+</blockquote>
+<h2 id="氨基酸缺失">氨基酸缺失</h2>
+<h3 id="chimera-modeller填补">Chimera-modeller填补</h3>
+<blockquote>
+<p>注意了，<strong>这里一定是要用PDB数据库上下载下来的结构文件，因为只有PDB上的结构文件</strong>，有足够多的补充信息， 比如上面在Vscode中展示的missing字段</p>
+</blockquote>
+<h4 id="导入结构文件只显示蛋白主体">导入结构文件，只显示蛋白主体</h4>
+<p>command-line中输入</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#导入文件</span>
+</span></span><span class="line"><span class="cl"><span class="nb">open</span> <span class="n">蛋白的IDcode</span><span class="p">(</span><span class="n">PDB数据库的</span><span class="p">)</span>
+</span></span></code></pre></div><p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 135; 
+			flex-basis: 325px"
+	>
+	<a href="/p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/picture/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D-9.png" data-size="1726x1272">
+		<img src="/p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/picture/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D-9.png"
+			width="1726"
+			height="1272"
+			srcset="/p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/picture/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D-9_hu8accfa2086ae2e40552bd646e1de3982_266220_480x0_resize_box_3.png 480w, /p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/picture/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D-9_hu8accfa2086ae2e40552bd646e1de3982_266220_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<blockquote>
+<p>可以看到这些377 residue确实是缺失的，断点线处</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#只展示蛋白主体，因为PDB上还含有配体、水分子等信息，这里巧用的chimera的内置的key-word</span>
+</span></span><span class="line"><span class="cl"><span class="n">delete</span> <span class="o">~</span><span class="n">protein</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#确保删除了配体</span>
+</span></span><span class="line"><span class="cl"><span class="n">delete</span> <span class="n">ligand</span>
+</span></span></code></pre></div><p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 283; 
+			flex-basis: 680px"
+	>
+	<a href="/p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/picture/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D-10.png" data-size="2314x816">
+		<img src="/p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/picture/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D-10.png"
+			width="2314"
+			height="816"
+			srcset="/p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/picture/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D-10_hu9cd96e6a14329aaa23e189ba0eaef930_704737_480x0_resize_box_3.png 480w, /p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/picture/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D-10_hu9cd96e6a14329aaa23e189ba0eaef930_704737_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<blockquote>
+<p>注意下，这里delete后的那些stick展现的残基实际上是这个蛋白的活性位点，chimera会默认突出显示</p>
+</blockquote>
+<h4 id="使用model-loops">使用Model Loops</h4>
+<p>顶部menu</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">Tools</span><span class="o">...</span> <span class="n">Structure</span> <span class="n">Editing</span><span class="o">...</span> <span class="n">Model</span><span class="o">/</span><span class="n">Refine</span> <span class="n">Loops</span>
+</span></span></code></pre></div><p>调整参数（主要调整这几个）：</p>
+<ul>
+<li>Model/remodel : 看自己的缺失位置去确定</li>
+<li>Number of models to generate: 生成的结果数</li>
+<li>Modeller license key: 这个key可以自己去modeller申请，免费的，MODELIRANJE</li>
+</ul>
+<blockquote>
+<p>实际上这里用到的是Modeller同源建模
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 176; 
+			flex-basis: 423px"
+	>
+	<a href="/p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/picture/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D-15.png" data-size="1894x1074">
+		<img src="/p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/picture/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D-15.png"
+			width="1894"
+			height="1074"
+			srcset="/p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/picture/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D-15_huc96957cdd9651c056464f036712f0805_906834_480x0_resize_box_3.png 480w, /p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/picture/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D-15_huc96957cdd9651c056464f036712f0805_906834_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+</blockquote>
+<blockquote>
+<p>等待结果即可，chiemra主窗口的左下角可以看进度（不过这里使用的云端的Modeller的程序，当然了可以指定自己本地的Modeller）
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 1270; 
+			flex-basis: 3049px"
+	>
+	<a href="/p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/picture/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D-14.png" data-size="1550x122">
+		<img src="/p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/picture/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D-14.png"
+			width="1550"
+			height="122"
+			srcset="/p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/picture/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D-14_hu14bfb6c0c505f5bbfe31671af1855256_29131_480x0_resize_box_3.png 480w, /p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/picture/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D-14_hu14bfb6c0c505f5bbfe31671af1855256_29131_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 1062; 
+			flex-basis: 2549px"
+	>
+	<a href="/p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/picture/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D-17.png" data-size="1402x132">
+		<img src="/p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/picture/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D-17.png"
+			width="1402"
+			height="132"
+			srcset="/p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/picture/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D-17_hu2553553d155f8771618130a1891ec7fb_32925_480x0_resize_box_3.png 480w, /p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/picture/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D-17_hu2553553d155f8771618130a1891ec7fb_32925_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+</blockquote>
+<h4 id="保存最优结构pdb">保存最优结构pdb</h4>
+<p>运行完Modeller，Chimera会自动将结构比对在主窗口中
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 199; 
+			flex-basis: 478px"
+	>
+	<a href="/p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/picture/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D-18.png" data-size="2778x1394">
+		<img src="/p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/picture/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D-18.png"
+			width="2778"
+			height="1394"
+			srcset="/p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/picture/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D-18_huea6c7ae929e80b6d18148382b2e20bae_1718974_480x0_resize_box_3.png 480w, /p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/picture/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D-18_huea6c7ae929e80b6d18148382b2e20bae_1718974_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+这里保存#1.1的结果</p>
+<ul>
+<li>单击Modeller Results中的#1.1
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 232; 
+			flex-basis: 558px"
+	>
+	<a href="/p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/picture/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D-19.png" data-size="2458x1056">
+		<img src="/p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/picture/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D-19.png"
+			width="2458"
+			height="1056"
+			srcset="/p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/picture/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D-19_hu90262a248ad4a77b03b9d60854f793a5_857068_480x0_resize_box_3.png 480w, /p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/picture/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D-19_hu90262a248ad4a77b03b9d60854f793a5_857068_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></li>
+</ul>
+<blockquote>
+<p>在点击Modeller Results中不同的结构时，chimera会自动比对这个结构和原来的结构，并且此时主窗口和model都会只展示（选择）他们两个，其他则被暂时hide了起来</p>
+</blockquote>
+<ul>
+<li>保存为PDB文件
+顶部menu</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">File</span><span class="o">...</span> <span class="n">Save</span> <span class="n">PDB</span><span class="o">...</span>
+</span></span></code></pre></div><p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 163; 
+			flex-basis: 392px"
+	>
+	<a href="/p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/picture/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D-20.png" data-size="1780x1088">
+		<img src="/p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/picture/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D-20.png"
+			width="1780"
+			height="1088"
+			srcset="/p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/picture/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D-20_hu1c541ac6e55c2442a1a2ee3471d744d7_580328_480x0_resize_box_3.png 480w, /p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/picture/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D-20_hu1c541ac6e55c2442a1a2ee3471d744d7_580328_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<blockquote>
+<p>注意，在Save models的选项中，选择自己想要保存的结果即可，比如这里的#1.1就是377位点上被补全后的氨基酸+整个其他位点的整体蛋白了，所以可以不用选择自己导入的那个结构文件了
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 182; 
+			flex-basis: 438px"
+	>
+	<a href="/p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/picture/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D-21.png" data-size="2360x1292">
+		<img src="/p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/picture/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D-21.png"
+			width="2360"
+			height="1292"
+			srcset="/p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/picture/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D-21_hua527197267cb9cd1950927d015902655_978938_480x0_resize_box_3.png 480w, /p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/picture/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D-21_hua527197267cb9cd1950927d015902655_978938_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+确实补充上了</p>
+</blockquote>
+<h3 id="手动复制位点pdb信息到文件">手动复制位点PDB信息到文件</h3>
+<blockquote>
+<p>这个方法有个前提，就是，能同时找到同一个类型的蛋白，比如说A和B两个蛋白，他们实际上是同一个蛋白（不要在乎这里的名字A、B），（假设）A是通过X-ray的方法得到的结构信息，它缺失的位点信息是1-39，B是通过NMR的方法得到的结构信息，它缺失的位点信息是532-543，那么我想补全A的话，可以通过B的1-39的PDB坐标复制到A的文件中
+这个产生的结果，相对其他办法，比较麻烦，而且误差会比较大，但是也很有用</p>
+</blockquote>
+<h4 id="align操作">align操作</h4>
+<p>因为A和B是不同的文件（即他们的坐标位置不一样，A.pdb 和B.pdb的坐标信息不是一回事），所以需要通过使用PyMOL的align去将他们对齐先，可以保证他们的坐标尽量一致</p>
+<blockquote>
+<p>A和B可以提前将结构中含有的配体和水分子都去除,然后再用PyMOL保存问新的pdb文件，用于下面的分析
+pymol-cmd</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">align</span> <span class="n">A</span><span class="p">,</span><span class="n">B_</span>
+</span></span></code></pre></div><p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 114; 
+			flex-basis: 273px"
+	>
+	<a href="/p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/picture/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D-22.png" data-size="1720x1508">
+		<img src="/p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/picture/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D-22.png"
+			width="1720"
+			height="1508"
+			srcset="/p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/picture/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D-22_hu8d984168b67c8652e09d694ebdd8f714_413321_480x0_resize_box_3.png 480w, /p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/picture/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D-22_hu8d984168b67c8652e09d694ebdd8f714_413321_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<strong>将B保存为一个新的PDB文件（这个新的B，坐标和A是差不多的）</strong></p>
+<blockquote>
+<p>注意在PyMOL中导出新的B的结构文件时，要选择B！！
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 108; 
+			flex-basis: 259px"
+	>
+	<a href="/p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/picture/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D-23.png" data-size="772x714">
+		<img src="/p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/picture/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D-23.png"
+			width="772"
+			height="714"
+			srcset="/p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/picture/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D-23_hue51fe7c2b7b0cd1ab8bc9e7bee0bfb8d_70773_480x0_resize_box_3.png 480w, /p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/picture/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D-23_hue51fe7c2b7b0cd1ab8bc9e7bee0bfb8d_70773_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+</blockquote>
+<p><strong>这个方法不太行，因为我发现两个PDB的坐标还是不相似的，即没办法保证同时在一个坐标系中，那么，copy另一个的AA的坐标到另一个上是行不通的</strong></p>
+<h2 id="原子缺失">原子缺失</h2>
+<h3 id="swiss-pdbviewer-一键修复">Swiss-PdbViewer 一键修复</h3>
+<blockquote>
+<p>现在似乎不能在mac上运行了</p>
+</blockquote>
+<h4 id="输入文件">输入文件</h4>
+<p>使用spbbviewer打开结构文件时会，自动补全缺失的原子信息，并且软件会给予提示
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 200; 
+			flex-basis: 480px"
+	>
+	<a href="/p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/picture/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D-3.png" data-size="2318x1158">
+		<img src="/p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/picture/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D-3.png"
+			width="2318"
+			height="1158"
+			srcset="/p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/picture/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D-3_hu634f1bfd6f63699e63ff18a72adaa6b3_1914583_480x0_resize_box_3.png 480w, /p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/picture/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D-3_hu634f1bfd6f63699e63ff18a72adaa6b3_1914583_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<blockquote>
+<p>可以看到23位点上的色氨酸上的CH2原子补充上去了</p>
+</blockquote>
+<h4 id="另存文件">另存文件</h4>
+<p>将pdbviewer中的结构文件输出，得到了一个原子信息被补全的结构文件，可以用这个文件去进行其他的分析了
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 150; 
+			flex-basis: 361px"
+	>
+	<a href="/p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/picture/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D-4.png" data-size="1672x1110">
+		<img src="/p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/picture/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D-4.png"
+			width="1672"
+			height="1110"
+			srcset="/p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/picture/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D-4_hu7db898960e5efb6d8019bb0d6cd1f982_1181430_480x0_resize_box_3.png 480w, /p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/picture/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D-4_hu7db898960e5efb6d8019bb0d6cd1f982_1181430_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<blockquote>
+<p>pdbviewer很方便，它能一键将所有缺失的原子信息都能补全</p>
+</blockquote>
+<h3 id="pymol手动突变">PyMOL手动突变</h3>
+<h4 id="输入结构文件">输入结构文件</h4>
+<p>pymol-cmd输入以下的命令</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">cd</span> <span class="n">目录</span>
+</span></span><span class="line"><span class="cl"><span class="n">load</span> <span class="n">结构文件</span>
+</span></span></code></pre></div><h4 id="使用pymol突变">使用PyMOL突变</h4>
+<ul>
+<li>PyMOL 顶部menu</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">Wizard</span><span class="o">...</span> <span class="n">Mutagenesis</span><span class="o">...</span> <span class="n">Protein</span>
+</span></span></code></pre></div><ul>
+<li>鼠标左击目标氨基酸 （一定要选中，没选中则后续操作无效，而且这是针对Mutagenesis出现后去选中的）
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 237; 
+			flex-basis: 570px"
+	>
+	<a href="/p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/picture/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D-7.png" data-size="1726x726">
+		<img src="/p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/picture/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D-7.png"
+			width="1726"
+			height="726"
+			srcset="/p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/picture/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D-7_hu739fb17ed5b7f1c84a69f27f3b8c2312_83160_480x0_resize_box_3.png 480w, /p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/picture/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D-7_hu739fb17ed5b7f1c84a69f27f3b8c2312_83160_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></li>
+<li>右下角Mutagenesis</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">No</span> <span class="n">Mutation</span><span class="o">...</span> <span class="n">第一行</span><span class="o">...</span> <span class="n">选择对应的氨基酸</span>
+</span></span><span class="line"><span class="cl"><span class="n">Apply</span>
+</span></span><span class="line"><span class="cl"><span class="n">Done</span>
+</span></span></code></pre></div><p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 157; 
+			flex-basis: 376px"
+	>
+	<a href="/p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/picture/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D-6.png" data-size="1850x1178">
+		<img src="/p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/picture/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D-6.png"
+			width="1850"
+			height="1178"
+			srcset="/p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/picture/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D-6_hu552dd31bdb3fa4085d5c8e73bc6082fe_361037_480x0_resize_box_3.png 480w, /p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/picture/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D-6_hu552dd31bdb3fa4085d5c8e73bc6082fe_361037_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<ul>
+<li>输出新的结构文件即可</li>
+</ul>
+<blockquote>
+<p>为了方便做比较，这里展示了下没有使用PyMOL突变时的结构单元（以23TYR为例）和突变后的情况，可以看出CH2已经加上去了
+比较麻烦的是当结构中有多个AA的原子缺失时，需要每个单独去突变，比较费时间，还是spdbviewer好用点</p>
+</blockquote>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 162; 
+			flex-basis: 390px"
+	>
+	<a href="/p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/picture/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D-8.png" data-size="2088x1282">
+		<img src="/p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/picture/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D-8.png"
+			width="2088"
+			height="1282"
+			srcset="/p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/picture/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D-8_hu04f8c4bd0fbbc35963908618bd4174fc_826998_480x0_resize_box_3.png 480w, /p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/picture/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D-8_hu04f8c4bd0fbbc35963908618bd4174fc_826998_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="参考资料">参考资料</h2>
+<p>1.https://www.bilibili.com/video/BV1jo4y167Qh/?spm_id_from=333.999.0.0&amp;vd_source=3379790417bee9bda9515122763010b6
+2.https://spdbv.unil.ch/</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/structure/">structure</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2022 - 
+        
+        2023 叶宇浩随记博客
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.5.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">Table of contents</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#说明">说明</a></li>
+    <li><a href="#氨基酸缺失">氨基酸缺失</a>
+      <ol>
+        <li><a href="#chimera-modeller填补">Chimera-modeller填补</a>
+          <ol>
+            <li><a href="#导入结构文件只显示蛋白主体">导入结构文件，只显示蛋白主体</a></li>
+            <li><a href="#使用model-loops">使用Model Loops</a></li>
+            <li><a href="#保存最优结构pdb">保存最优结构pdb</a></li>
+          </ol>
+        </li>
+        <li><a href="#手动复制位点pdb信息到文件">手动复制位点PDB信息到文件</a>
+          <ol>
+            <li><a href="#align操作">align操作</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#原子缺失">原子缺失</a>
+      <ol>
+        <li><a href="#swiss-pdbviewer-一键修复">Swiss-PdbViewer 一键修复</a>
+          <ol>
+            <li><a href="#输入文件">输入文件</a></li>
+            <li><a href="#另存文件">另存文件</a></li>
+          </ol>
+        </li>
+        <li><a href="#pymol手动突变">PyMOL手动突变</a>
+          <ol>
+            <li><a href="#输入结构文件">输入结构文件</a></li>
+            <li><a href="#使用pymol突变">使用PyMOL突变</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#参考资料">参考资料</a></li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

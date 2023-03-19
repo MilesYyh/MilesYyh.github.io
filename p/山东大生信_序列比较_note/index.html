@@ -1,0 +1,3378 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='山东大生信课程'><title>山东大生信_序列比较_note</title>
+
+<link rel='canonical' href='https://example.com/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='山东大生信_序列比较_note'>
+<meta property='og:description' content='山东大生信课程'>
+<meta property='og:url' content='https://example.com/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/'>
+<meta property='og:site_name' content='叶宇浩随记博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='tutorials' /><meta property='article:published_time' content='2021-11-03T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-11-03T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="山东大生信_序列比较_note">
+<meta name="twitter:description" content="山东大生信课程">
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>Back</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/bioinformatic/" style="background-color: #7816ff; color: #fff;">
+                生物信息学&amp;计算生物学
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/">山东大生信_序列比较_note</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        山东大生信课程
+    </h3>
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Nov 03, 2021</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    7 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <blockquote>
+<p><strong>写在前面的话：这个笔记不过多深入知识，因为做入门有，大概知道什么时候该用哪个，以及现在有什么技术</strong></p>
+</blockquote>
+<h2 id="序列比较">序列比较</h2>
+<h3 id="基础概念">基础概念</h3>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 176; 
+			flex-basis: 422px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId20.png" data-size="1052x597">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId20.png"
+			width="1052"
+			height="597"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId20_hu914cfb3fd8dba8a9d0354ccdd8ddf0e9_436893_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId20_hu914cfb3fd8dba8a9d0354ccdd8ddf0e9_436893_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.3103608923884513in&rdquo;}</p>
+<h3 id="序列相似性">序列相似性</h3>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 180; 
+			flex-basis: 433px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId24.png" data-size="1043x577">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId24.png"
+			width="1043"
+			height="577"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId24_hu2304dd40f08e1413ee49865b6c7aea51_737224_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId24_hu2304dd40f08e1413ee49865b6c7aea51_737224_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.227069116360455in&rdquo;}</p>
+<p>相似的序列说明可能来自同一祖先而且可能具有相似的结构和功能</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 175; 
+			flex-basis: 421px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId27.png" data-size="1020x581">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId27.png"
+			width="1020"
+			height="581"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId27_hu79433b4d3f5c464107a889a632550411_515278_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId27_hu79433b4d3f5c464107a889a632550411_515278_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.3227121609798775in&rdquo;}</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 173; 
+			flex-basis: 416px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId30.png" data-size="1028x592">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId30.png"
+			width="1028"
+			height="592"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId30_hu61690681e201d20319a5718a3644afc4_361534_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId30_hu61690681e201d20319a5718a3644afc4_361534_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.3592727471566053in&rdquo;}</p>
+<p>例子的一致度为：50%；</p>
+<h3 id="替换计分矩阵">替换计分矩阵</h3>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 170; 
+			flex-basis: 408px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId34.png" data-size="944x554">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId34.png"
+			width="944"
+			height="554"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId34_hu33b8ca097259eb569b2f864b888ec2e6_253068_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId34_hu33b8ca097259eb569b2f864b888ec2e6_253068_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.4233748906386703in&rdquo;}</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 168; 
+			flex-basis: 403px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId37.png" data-size="1021x607">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId37.png"
+			width="1021"
+			height="607"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId37_hucf5ecca2f2e6626d18021e34c95c5fc4_466895_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId37_hucf5ecca2f2e6626d18021e34c95c5fc4_466895_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.468004155730534in&rdquo;}</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 176; 
+			flex-basis: 424px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId40.png" data-size="1026x580">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId40.png"
+			width="1026"
+			height="580"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId40_hu2a66fc615e76a6382ead3be44abe6a6a_540098_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId40_hu2a66fc615e76a6382ead3be44abe6a6a_540098_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.2975951443569556in&rdquo;}</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 172; 
+			flex-basis: 413px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId43.png" data-size="1009x585">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId43.png"
+			width="1009"
+			height="585"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId43_hu0de259c28c5180a5f7f1971acff53b60_239147_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId43_hu0de259c28c5180a5f7f1971acff53b60_239147_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.382060367454068in&rdquo;}</p>
+<p>PAM后面的数体现的是序列差异度，而BLOSUM后面的数字体现的是相似性</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 160; 
+			flex-basis: 384px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId46.png" data-size="834x521">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId46.png"
+			width="834"
+			height="521"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId46_hu6223c23177f5ab0b66c0deb7c2aea26d_148748_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId46_hu6223c23177f5ab0b66c0deb7c2aea26d_148748_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.6440846456692912in&rdquo;}</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 188; 
+			flex-basis: 453px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId49.png" data-size="1011x535">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId49.png"
+			width="1011"
+			height="535"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId49_huf05c163fa9c6221f0f9feb221bf7d445_273682_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId49_huf05c163fa9c6221f0f9feb221bf7d445_273682_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.0868766404199475in&rdquo;}</p>
+<p>其他两种蛋白质序列比对的替换计分矩阵<br>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 247; 
+			flex-basis: 594px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId52.png" data-size="964x389">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId52.png"
+			width="964"
+			height="389"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId52_hu69017719d6b2a6655e143c6982dffb46_415842_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId52_hu69017719d6b2a6655e143c6982dffb46_415842_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;2.353906386701662in&rdquo;}</p>
+<p>那现在来解决下前面遗留的相似度问题：</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 169; 
+			flex-basis: 406px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId55.png" data-size="986x582">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId55.png"
+			width="986"
+			height="582"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId55_hu9c02f20429f12256b4f59678aec19218_305895_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId55_hu9c02f20429f12256b4f59678aec19218_305895_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.4432042869641295in&rdquo;}</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 171; 
+			flex-basis: 410px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId58.png" data-size="1012x591">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId58.png"
+			width="1012"
+			height="591"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId58_hud834786c0d6f175f6aad409f733854bd_259772_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId58_hud834786c0d6f175f6aad409f733854bd_259772_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.406619641294838in&rdquo;}</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 165; 
+			flex-basis: 397px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId61.png" data-size="958x578">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId61.png"
+			width="958"
+			height="578"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId61_hue3c8e5d0ddbb77beff6c33fd5f5adb2b_310124_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId61_hue3c8e5d0ddbb77beff6c33fd5f5adb2b_310124_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.5194849081364827in&rdquo;}</p>
+<p>（2+1）:代表两对相同的，一对相似的<br>
+那么问题来了，两个序列的长度不相同怎么办呢？</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 166; 
+			flex-basis: 399px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId64.png" data-size="939x564">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId64.png"
+			width="939"
+			height="564"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId64_hu12a4fa4db12a3606c4daaae028a83d24_309906_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId64_hu12a4fa4db12a3606c4daaae028a83d24_309906_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.5037270341207347in&rdquo;}</p>
+<p>先学习下两个序列的比较方法</p>
+<h3 id="序列两两比较的方法">序列两两比较的方法</h3>
+<h4 id="打点法">打点法</h4>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 193; 
+			flex-basis: 463px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId68.png" data-size="971x503">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId68.png"
+			width="971"
+			height="503"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId68_hua8d70c77c4f4b86bb07176ffdf043a98_80874_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId68_hua8d70c77c4f4b86bb07176ffdf043a98_80874_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.021797900262467in&rdquo;}</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 185; 
+			flex-basis: 445px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId71.png" data-size="982x529">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId71.png"
+			width="982"
+			height="529"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId71_hub80a9c4545cc91fc3c345b35580adfab_61788_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId71_hub80a9c4545cc91fc3c345b35580adfab_61788_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.142396106736658in&rdquo;}</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 156; 
+			flex-basis: 376px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId74.png" data-size="678x432">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId74.png"
+			width="678"
+			height="432"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId74_huedde639a7e32f1cab17cd071dd4f9c01_97434_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId74_huedde639a7e32f1cab17cd071dd4f9c01_97434_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.716813210848644in&rdquo;}</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 173; 
+			flex-basis: 415px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId77.png" data-size="966x558">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId77.png"
+			width="966"
+			height="558"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId77_hu4345df2cdef6769c89e04c0ae618fc13_323534_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId77_hu4345df2cdef6769c89e04c0ae618fc13_323534_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.3695647419072614in&rdquo;}</p>
+<h4 id="打点法在线软件">打点法在线软件</h4>
+<p>Dotlet [<a class="link" href="http://myhits.isb-sib.ch/cgi-bin/dotlet"  target="_blank" rel="noopener"
+    >http://myhits.isb-sib.ch/cgi-bin/dotlet</a>]</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 174; 
+			flex-basis: 419px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId82.png" data-size="985x563">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId82.png"
+			width="985"
+			height="563"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId82_hu12b40e68711428deff29758554890460_169512_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId82_hu12b40e68711428deff29758554890460_169512_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.3341786964129483in&rdquo;}</p>
+<p>Input中复制序列进去</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 189; 
+			flex-basis: 454px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId85.png" data-size="771x407">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId85.png"
+			width="771"
+			height="407"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId85_hu0e73d7e604f366335534e95e9380c38f_189273_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId85_hu0e73d7e604f366335534e95e9380c38f_189273_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.0793339895013125in&rdquo;}</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 164; 
+			flex-basis: 394px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId88.png" data-size="833x507">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId88.png"
+			width="833"
+			height="507"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId88_hueb31945cd627e44d94da9acc05d09e7f_378045_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId88_hueb31945cd627e44d94da9acc05d09e7f_378045_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.550419947506562in&rdquo;}</p>
+<p>如果选其他的， 比如选择 15，那就是一次比较 15 个字母，也就是看 15
+个字母长度的序列整体的相似度如 何来确定打不打点。注意这里不是比较完前 15
+个字母，然后再从第 16 个字母开始比较后面 的 15 个字母，而是第 1 次比较第
+1 到第 15 个字母，然后再比较第 2 到第 16 个字母，再是 第 3 到第 17
+个字母，依次类推；</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 175; 
+			flex-basis: 421px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId91.png" data-size="566x322">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId91.png"
+			width="566"
+			height="322"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId91_hu2cc2d2902ff91227668f6ce5c8dbe1be_146446_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId91_hu2cc2d2902ff91227668f6ce5c8dbe1be_146446_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.3186100174978126in&rdquo;}</p>
+<p>注意默认的颜色方案是在越相
+似的地方打的点的颜色越浅，越不相似的地方颜色越深；<br>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 143; 
+			flex-basis: 343px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId94.png" data-size="611x427">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId94.png"
+			width="611"
+			height="427"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId94_huda883441a94710c03e0452a64b2ab713_159988_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId94_huda883441a94710c03e0452a64b2ab713_159988_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.076650262467192in&rdquo;}</p>
+<p>这里我们可以通过调整灰度条，来屏蔽大多数低分值的点，让他们统统变成黑色背景，
+并且强化高分值的点，让他们以纯白色突出显示出来</p>
+<p>接下来打点两条独立的序列<br>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 165; 
+			flex-basis: 397px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId97.png" data-size="578x349">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId97.png"
+			width="578"
+			height="349"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId97_hu944432fc582f95233eb7a268a7f6c3a3_104621_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId97_hu944432fc582f95233eb7a268a7f6c3a3_104621_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.522202537182852in&rdquo;}</p>
+<p>这时我们看到除去主对角线外，还有很多条对角线（图
+4）。说明序列中存在串联重复
+序列。前面我们讲过，半个矩阵范围内，数数包括主对角线在内，有多少条等距平行线，就
+说明重复了多少次，最短的平行线就是一个重复单元<br>
+接下来使用串联重复序列<br>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 133; 
+			flex-basis: 320px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId100.png" data-size="607x455">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId100.png"
+			width="607"
+			height="455"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId100_hufcaa2017eeb56fe9d75f9c28f51b5e89_161671_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId100_hufcaa2017eeb56fe9d75f9c28f51b5e89_161671_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.3725973315835525in&rdquo;}</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 163; 
+			flex-basis: 392px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId103.png" data-size="646x395">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId103.png"
+			width="646"
+			height="395"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId103_hu9175b322b19513473dcc7474185b25c6_150736_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId103_hu9175b322b19513473dcc7474185b25c6_150736_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.5668208661417324in&rdquo;}</p>
+<h4 id="序列比对法">序列比对法</h4>
+<p>但是用打点法只能让你大致了解两条序列是否相似，无
+法定量的描述。如果想要精确地知道两条序列到底有多相似，就需要使用序列比对法<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 150; 
+			flex-basis: 360px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId107.png" data-size="888x591">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId107.png"
+			width="888"
+			height="591"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId107_hu26b23d03b15e171d6346f38d6f85ee74_394349_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId107_hu26b23d03b15e171d6346f38d6f85ee74_394349_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.8823195538057744in&rdquo;}</p>
+<p>就是通过插入空位，让上下两
+行中尽可能多的一致的和相似的字符对在一起。这不是随便摆摆看看就能完成的，需要使用
+专门的序列比对算法</p>
+<h4 id="双序列全局比对以及算法">双序列全局比对以及算法</h4>
+<p>有替换积分矩阵以确定不同字母间的相似度得分，以及空位罚分,空位
+罚分就是当字母对空位的时候应该得几分。我们还是希望一致或相似的字母尽可能的对在一
+起，字母对空位的情况和不相似的字母对在一起的情况一样，都不是我们希望的，还是少出
+现为好，所以通常字母对空位会得到一个负分，这个负分就叫做空位罚分。这里我们让空位
+罚分，也就是 gap 分值为-5 分<br>
+不过要注意，得分矩阵 p 和 q 的前面各留一个空列和一个空行，也就是第 0
+列和第 0 行</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 146; 
+			flex-basis: 351px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId111.png" data-size="764x522">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId111.png"
+			width="764"
+			height="522"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId111_hu7e3c7a6cac843f781605871164e10d1f_226507_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId111_hu7e3c7a6cac843f781605871164e10d1f_226507_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.985601487314086in&rdquo;}</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 148; 
+			flex-basis: 357px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId114.png" data-size="756x508">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId114.png"
+			width="756"
+			height="508"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId114_hud620c59eb7c3f357ae16d8735104a3ff_280632_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId114_hud620c59eb7c3f357ae16d8735104a3ff_280632_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.919752843394576in&rdquo;}</p>
+<p>我们再回过头来看一下第一行和第一列 （图
+6）。其实，第一行的每一个值都是从左边的格加 gap
+来的。所以我们给它们补上向左 的箭头。第一列的每一个值都是从上边的格加
+gap 来的。所以我们给它们补上向上的箭头。
+至此，所有的箭头和数值就都填好了<br>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 155; 
+			flex-basis: 373px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId117.png" data-size="779x500">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId117.png"
+			width="779"
+			height="500"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId117_hu6407bbc18afce01514c81d2c0cd13c5e_288270_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId117_hu6407bbc18afce01514c81d2c0cd13c5e_288270_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.7441163604549432in&rdquo;}</p>
+<p>追溯箭头是从右下角到左上角，但
+是写全局比对是从左上角开始，如果是斜箭头则是字符对字符，如果是水平箭头或垂直箭头
+则是字符对空位，箭头指着的序列为空位。我们看第一个是斜箭头，字母对字母，就是
+A 对 A，第二个是水平箭头，字母对空位，箭头指着的序列是空位，也就是 C
+对空位。然后 斜箭头 G 对 A，斜箭头 T 对 T，斜箭头 C 对
+C，一直写到右下角，全局比对就出现了</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 145; 
+			flex-basis: 350px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId120.png" data-size="757x519">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId120.png"
+			width="757"
+			height="519"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId120_huf99a3857f55b9254d2b6ddd4bc6924b8_237312_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId120_huf99a3857f55b9254d2b6ddd4bc6924b8_237312_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.999339457567804in&rdquo;}</p>
+<h4 id="双序列局部比对">双序列局部比对</h4>
+<p>得分越高，越相似，这个例子告诉我
+们，对于像这样一长一短的两条序列，比较局部比比较全长更有意义。这就是为什么除了全
+局比对，还有局部比对</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 424px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId124.png" data-size="988x558">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId124.png"
+			width="988"
+			height="558"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId124_hu08a79a971856daeccfe001e0ad759e77_287963_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId124_hu08a79a971856daeccfe001e0ad759e77_287963_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.294534120734908in&rdquo;}</p>
+<p>局部比对的计算公式在全局比对的基础上增加了第四个元素&quot;0&quot;<br>
+从 s(1,1)开始要选择四个值中的最大值。除了上面格 s(0,1)+gap=0+-5=-5，左边
+格 s(1,0)+gap=0+-5=-5，斜上格 s(0,0)+w(1,1)=0+-3=-3，还有一个 0。max(-5,
+-5,-3,0)=0。并且这个 0
+既不是从上面格，也不是从左边格，以及斜上格三个方向来的，
+而是来自于公式里增加的&quot;0&quot;，所以不用画箭头</p>
+<p>与全局比对不同，局部比对的得分不是在右
+下角，而是在整个矩阵中找最大值。这个最大值才是局部比对的最终得分，他可能出现在任，何一个位置。这次箭头追溯也不是从右下角到左上角，而是从刚刚找到的最大值开始追溯到
+没有箭头为止。追溯箭头终止的位置也可以是得分矩阵中的任何一个位置。</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 170; 
+			flex-basis: 409px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId127.png" data-size="992x581">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId127.png"
+			width="992"
+			height="581"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId127_hu7b591719f3570c384590f3eb4256ba0f_319627_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId127_hu7b591719f3570c384590f3eb4256ba0f_319627_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.4164982502187224in&rdquo;}</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 161; 
+			flex-basis: 388px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId130.png" data-size="944x583">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId130.png"
+			width="944"
+			height="583"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId130_hu911c6c049e12c0ab9c6ecc6edf167b31_298260_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId130_hu911c6c049e12c0ab9c6ecc6edf167b31_298260_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.602577646544182in&rdquo;}</p>
+<h3 id="一致度和相似性">一致度和相似性</h3>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 172; 
+			flex-basis: 413px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId135.png" data-size="959x556">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId135.png"
+			width="959"
+			height="556"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId135_hu01da7199253f5373fa67c2fa96a1b429_314798_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId135_hu01da7199253f5373fa67c2fa96a1b429_314798_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.381994750656168in&rdquo;}</p>
+<h3 id="在线双序列比对工具">在线双序列比对工具</h3>
+<h4 id="embl-httpwwwebiacuktoolspsa">EMBL <a class="link" href="http://www.ebi.ac.uk/Tools/psa"  target="_blank" rel="noopener"
+    >http://www.ebi.ac.uk/Tools/psa</a></h4>
+<p>首先看下全局alignment，输入值非常简单，把要比较的两条
+蛋白质序列贴在输入框里或者上传。可以使用示例文件 global.fasta
+里面的两条序列。如果想 要进一步设置比对的参数，可以点 More
+options。从这里可以选择使用哪种替换记分矩阵。 按照之前讲过的原则，选择
+PAM 矩阵或 BLOSUM 矩阵。如果实在不知道选哪个矩阵，就 闭着眼睛选
+BLOSUME62 吧！下拉菜单里默认选的就是 BLOSUM62。除了选择替换记分矩
+阵，这里还可以设置空位罚分（gap open），也就是 gap
+的分值。这里实际上是让你选空位对字母的情况
+罚几分，所以显示的是正数，但在计算的过程中还是按照负数处理<br>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 164; 
+			flex-basis: 395px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId140.png" data-size="930x565">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId140.png"
+			width="930"
+			height="565"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId140_hu285f270a6d5466231800667494d6a21c_407695_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId140_hu285f270a6d5466231800667494d6a21c_407695_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.5439063867016625in&rdquo;}</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 164; 
+			flex-basis: 393px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId143.png" data-size="983x599">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId143.png"
+			width="983"
+			height="599"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId143_hu197ad81cfca790510be892c5262dad06_286426_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId143_hu197ad81cfca790510be892c5262dad06_286426_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.5545942694663166in&rdquo;}</p>
+<p>结果：<br>
+在结果页面里，上部是比
+对使用的参数，以及得出的序列比对的长度、一致度、相似度、空位比例和比对得分。下部
+就是序列比对。在序列比对里，左边是两条序列的名字，因为输入的是 FASTA
+格式的序列， 所以程序自动识别出了序列的名字。右边的序列比对分 3
+行。上下两行是序列，里面插入了
+许多的空位。中间这行标记出了哪些位置上下两个字母是完全相同的，用竖线表示。上下两
+个字母相似，用双点表示。上下不相似，用单点表示。字母对空位的情况，用空格表示。这
+样，我们只要数数比对结果里竖线的个数（40 个），再除以比对的长度（196
+个），就可计算 出一致度。再用竖线的个数加上双点的个数（40+29=69
+个），除以比对长度（196 个），就 是相似度。整个比对里一共插入了 65
+个空位，占整个比对长度的 33%。序列两边的数是这
+一行中的字母在序列中的位置数，而不是这一行的长度。比如第二行是 seq1 的第
+49 个字母 到第 97 个字母，是 seq2 的第 27 个字母到第 75 个字母<br>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 146; 
+			flex-basis: 352px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId146.png" data-size="571x389">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId146.png"
+			width="571"
+			height="389"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId146_hu69baa9dc44fa56ff9b16e5c19d1447e2_176579_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId146_hu69baa9dc44fa56ff9b16e5c19d1447e2_176579_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.9740212160979875in&rdquo;}</p>
+<h4 id="gap">gap</h4>
+<p>EMBL 比对工具将 gap 分为两种，一种叫&quot;gap 开头（GAP OPEN）&quot;，另一种叫&quot;gap
+延长（GAP EXTEND）&quot;（图 1）。gap 开头就是连续的一串 gap
+里面打头的那一个，可以当 它是队长。gap 延长就是剩下的那些
+gap，也就是队长后面跟着的小兵</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 185; 
+			flex-basis: 445px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId150.png" data-size="921x496">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId150.png"
+			width="921"
+			height="496"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId150_hu08f6e5d14dbf079677e585c241dafbcb_234978_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId150_hu08f6e5d14dbf079677e585c241dafbcb_234978_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.141512467191601in&rdquo;}</p>
+<p>这一串里，第一个 gap 是 gap 开头，后面的都是 gap 延长。单独的一个 gap 按
+gap 开头算。gap 开头和 gap 延长 可以分别定义不同的罚分。默认情况下，gap
+开头罚分多，gap 延长罚分少。全局比对的例
+子里我们就是用这种搭配组合方案做出的比对。这次我们反过来试试，让 gap
+开头罚分少， 让 gap 延长罚分多。比如 gap 开头选罚 1 分，gap 延长选罚 5
+分，其他参数不变，再作一次 看看结果发生了什么变化</p>
+<p>当 gap 开头小，gap 延长大的时候，做出来的比对里面，gap
+很分散，极少有连续长串 的 gap 出现（图 2-A）。开头的一串 gap
+是个例外，因为 seq2 太短， seq1 的这一段只能跟 gap 相对。其他部分的 gap
+都是分散出现的。这和我们第一次做出来的比对结果是截然不同的（图
+2-B）。在第一次做的结果里，也就是 gap 开头大，gap 延长小的时候，gap
+很集中，有很多成 长串出现的 gap。大家可以想想其中的奥妙。当 gap
+开头大，gap 延长小的时候，说明在连 续的字母里插入一个 gap
+打开一个缺口要付出很大的代价，因为 gap 开头罚分大。但是这个
+缺口一旦打开了，也就是一旦有了第一个 gap，后面再接更多的 gap
+就容易了，因为 gap 延 长罚分小。所以这种情况下，gap 都集中连成长串出现</p>
+<p>而反过来，当 gap 开头小，gap 延长大的时候，说明在连续的字母里插入一个
+gap 打开 一个缺口很容易，并不需要付出太大代价，因为 gap
+开头罚分小。但是想在第一个 gap 后面 再接一个 gap 就难了，因为 gap
+延长罚分大。所以这种情况下很难有长串的 gap 出现，gap
+每延长一个都要付出巨大代价。因此在第二次我们做的结果里都是分散的 gap。
+除了开头一段因两条序列长短不同而不得已出现的长串 gap 外，没有其他的长串
+gap 了</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 149; 
+			flex-basis: 359px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId153.png" data-size="791x528">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId153.png"
+			width="791"
+			height="528"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId153_hube772f44dbceced368d5cf5e7c29689c_315276_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId153_hube772f44dbceced368d5cf5e7c29689c_315276_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.8938046806649167in&rdquo;}</p>
+<p>这就是说，通过调整 gap 开头和 gap
+延长，我们可以把序列比对做成我们期待的样子。<br>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 184; 
+			flex-basis: 442px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId156.png" data-size="968x525">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId156.png"
+			width="968"
+			height="525"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId156_hu4bfcf7bc95094ba7eca6a4f0af3b9b4f_415217_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId156_hu4bfcf7bc95094ba7eca6a4f0af3b9b4f_415217_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.1637390638670166in&rdquo;}</p>
+<p>举两个例子，看看应该怎样调整 gap 最合理:<br>
+第一个例子，你知道要比对的两条序列很相似，
+是同源序列，所以它们的结构和功能也应该都差不多。其中一条序列的结构已知，另一条未
+知。你想把它们很好的比对在一起，用其中已知结构的序列做模板，来预测另一个序列的结
+构。这时候我们期待得到的是 gap 分散的比对结果还是 gap
+集中的呢？另一例子，你知道要
+比对的两条序列绝大部分区域都很相似，但是其中一条序列的一个功能区在另一条序列中是
+缺失的。你想要通过序列比对把这个功能区找出来。这时候我们要怎么设置 gap
+开头和 gap
+延长呢？这两个例子告诉我们，在实际应用中，需要根据不同的情况选取不同的
+gap 罚分，
+以满足不同的生物学意义。如果你对结果没有什么预期，那就请保持默认的参数。<br>
+除此之外，结尾的 gap 也可以划分出不同的种类并赋予不同的罚分，如果把 END
+GAP PENALTY 选成 true，就可以设置结尾的 gap 罚分了。结尾 gap
+不太常用，特别是在做亲缘 关系较近的序列比对时，是否设置结尾
+gap，比对结果差别不大。</p>
+<h4 id="embl-局部双序列比对">EMBL 局部双序列比对</h4>
+<p>EMBL 的局部双序列比对工具可以选择经典的 Smith-Waterman 算法</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 168; 
+			flex-basis: 403px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId160.png" data-size="852x507">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId160.png"
+			width="852"
+			height="507"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId160_hucc12a6acaf203140a324c66b45e8c08e_278124_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId160_hucc12a6acaf203140a324c66b45e8c08e_278124_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.4712434383202098in&rdquo;}</p>
+<p>从比对结果可以看出，只有中间黑色的相似的部分出现在比对结果中了，两头
+红色的不相似的部分被忽略掉了。也就是只返回了局部最相似，得分最高的片段的比对结果。<br>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 218; 
+			flex-basis: 524px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId163.png" data-size="568x260">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId163.png"
+			width="568"
+			height="260"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId163_hu502379d4c7103fdf42e570de2e5a6556_142340_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId163_hu502379d4c7103fdf42e570de2e5a6556_142340_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;2.6701870078740155in&rdquo;}</p>
+<p>用这两条序列再做一次全局比对，从两次的比对结果可以更清楚的看出，全局
+比对里前面和后面对得不好的部分在局部比对里就都被忽略了<br>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 171; 
+			flex-basis: 410px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId166.png" data-size="917x536">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId166.png"
+			width="917"
+			height="536"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId166_hu1bf3c3bce6459e1259537534ffe2b869_478965_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId166_hu1bf3c3bce6459e1259537534ffe2b869_478965_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.4096686351706036in&rdquo;}</p>
+<p>除了一长一短两条序列适合做局部比对，有的时候两条差不多长的序列也可以做局部比
+对，以找出它们最相似的局部片段。为了让相似的部分突出出来，我们把 gap
+都调大，gap 开头调到 10，gap 延长调到 5，提交。<br>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 178; 
+			flex-basis: 427px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId169.png" data-size="804x451">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId169.png"
+			width="804"
+			height="451"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId169_hu3c565fcb06fd796282df5864eae5eebc_197589_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId169_hu3c565fcb06fd796282df5864eae5eebc_197589_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.272180664916885in&rdquo;}</p>
+<p>比对结果中，只有黑色的相似的部分出现在最终的比对结果中了，两头红色的不相似的
+部分全部被忽略了<br>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 220; 
+			flex-basis: 528px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId172.png" data-size="502x228">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId172.png"
+			width="502"
+			height="228"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId172_huf9fef229211cbee092eb19cfd7bafd53_114019_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId172_huf9fef229211cbee092eb19cfd7bafd53_114019_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;2.649401793525809in&rdquo;}</p>
+<p>如果给这两条序列做全局比对的话，会发现，绝大部分位置对得都很差，只有中间这一
+段对的还不错，所以，有时候两条序列并不同源，它们只是有一个功能相似的区域，
+这时用局部比对我们就能很快找到这一区域在两条序列中的位置。但是如果做全局比对的话，
+结果就不如局部比对明显了。</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 179; 
+			flex-basis: 431px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId175.png" data-size="661x368">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId175.png"
+			width="661"
+			height="368"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId175_hub7918841ee5ab520c3ecd07593799a40_142875_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId175_hub7918841ee5ab520c3ecd07593799a40_142875_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.247603893263342in&rdquo;}</p>
+<h4 id="其他在线序列比对工具">其他在线序列比对工具</h4>
+<p>可以做双序列比对的工具很多（表
+1）。不同网站都有自己的比对工具，所使用的算法
+也不尽相同，但是它们的核心算法都是讲过的 Nidelmann-Wunsch 和
+Smith-Waterman 算法<br>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 188; 
+			flex-basis: 452px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId179.png" data-size="564x299">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId179.png"
+			width="564"
+			height="299"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId179_hubaca0359f34b491423ef819e17671c4f_123217_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId179_hubaca0359f34b491423ef819e17671c4f_123217_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.09249343832021in&rdquo;}</p>
+<h3 id="blast">BLAST</h3>
+<p><a class="link" href="http://www.ncbi.nlm.nih.gov/"  target="_blank" rel="noopener"
+    >http://www.ncbi.nlm.nih.gov/</a></p>
+<h4 id="简介">简介</h4>
+<p>们已经学会如何做双序列比对，那可不可以拿一条序列和数据库中的每条序列逐一进
+行双序列比对，通过这种方法来找相似呢？这确实是一个办法。这样我们只要根据比对后得
+出的相似度排序，就可以找到最相似的那条序列了。但是，这种方法因计算耗时过长，只是
+理论上可行而已。之前我们用 EMBL
+的双序列比对工具做全局比对，虽然很快就出结果了，
+但至少也要经历一两秒钟的时间。而数据库中有几百万条序列，全部比对一遍，耗时太长。
+因此，我们需要快速的数据库相似性搜索工具。目前世界上广泛使用的就是
+BLAST。它可
+以在尽可能准确的前提下，快速的从数据库中找到跟某一条序列相似的序列</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 173; 
+			flex-basis: 416px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId185.png" data-size="939x541">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId185.png"
+			width="939"
+			height="541"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId185_huebe0a47e3ba16c997b50818849856cd8_635417_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId185_huebe0a47e3ba16c997b50818849856cd8_635417_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.3608442694663165in&rdquo;}</p>
+<p>在实际应用
+中，更多时候，输入值是一条序列。想要找到这条序列在数据库中的相关注释，是不能把这
+条序列直接放到搜索条里搜索的。这个时候就得用 BLAST 搜索了！</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 164; 
+			flex-basis: 393px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId188.png" data-size="904x551">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId188.png"
+			width="904"
+			height="551"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId188_hudf0c2968c6db0b91a2b2fd1de7aa763d_361156_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId188_hudf0c2968c6db0b91a2b2fd1de7aa763d_361156_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.55549321959755in&rdquo;}</p>
+<p>。BLAST 从头至尾将两条序列扫描一遍并找出所有片段对，并在允许的阈值
+范围内对片段对进行延伸，最终找出高分值片段对（high-scoring pairs, HSPs）</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 169; 
+			flex-basis: 407px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId191.png" data-size="894x527">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId191.png"
+			width="894"
+			height="527"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId191_hu7d33dd6fb07b967b424d4073d0d53606_251134_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId191_hu7d33dd6fb07b967b424d4073d0d53606_251134_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.4386646981627296in&rdquo;}</p>
+<h4 id="blast种类">BLAST种类</h4>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 169; 
+			flex-basis: 406px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId195.png" data-size="722x426">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId195.png"
+			width="722"
+			height="426"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId195_huf3671981f13b1053574b945e6a23c459_205632_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId195_huf3671981f13b1053574b945e6a23c459_205632_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.441827427821522in&rdquo;}</p>
+<p>为什么是 按 6
+条链翻译？在无法得知翻译起始位点在情况下，翻译可能是从第一个碱基开始，三个三
+个的往后翻译，也可能是从第 2 个碱基开始，也可能从第 3
+个碱基开始。另外还有可能是从
+这条链的互补链上开始，这样又有三个可能的开始位置，加起来一共会产生 6
+条可能被翻译 出来的蛋白质序列。这 6
+条中有些是真实存在的，有些是不存在，但是谁真谁假我们无从知 晓，所以 6
+条序列都要到数据库中去搜索一下试试。接下来的问题是，既然是核酸序列，为
+什么不做 BLASTn
+直接到核酸数据库里去搜索，而是要到蛋白质数据库里搜索呢？我们说这
+样做是有意义的，比如，从核酸序列数据库里找不到跟你手里这条核酸序列相似的序列，或
+找到了相似的序列但这些找到的序列无法提供有意义的注释信息。这时，就可以去蛋白质数
+据库试试，看看这条核酸序列的翻译产物能不能从蛋白质数据库里找到相似的序列以及有意
+义的注释信息。或者说，你不是想找跟你这条核酸序列相似的核酸序列，而是想找跟你这条
+核酸序列编码蛋白质相似的蛋白质序列，这时就要做 BLASTx<br>
+反之，当你不是想找跟你手上这条蛋白质序列相似的蛋白质序列，而是想找跟编码这条
+蛋白质序列的核酸序列相似的核酸序列的时候，就要做 tBLASTn</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 138; 
+			flex-basis: 332px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId198.png" data-size="593x428">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId198.png"
+			width="593"
+			height="428"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId198_hue691bc39a33e3a0b6d28bd98f3d00e7d_128295_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId198_hue691bc39a33e3a0b6d28bd98f3d00e7d_128295_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.210229658792651in&rdquo;}</p>
+<h4 id="ncbi上的blastp">NCBI上的BLASTp</h4>
+<p>NCBI 的 BLAST 工 具 为 例 尝 试 一 下 不 同 算 法 的 BLAST 工 具
+（<a class="link" href="http://www.ncbi.nlm.nih.gov/"  target="_blank" rel="noopener"
+    >http://www.ncbi.nlm.nih.gov/</a>）。BLAST 链接在 NCBI
+主页右侧很显眼的地方。我们做 BLASTp（Protein
+BLAST），也就是用蛋白质序列搜索蛋白质序列数据库<br>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 202; 
+			flex-basis: 487px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId202.png" data-size="544x268">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId202.png"
+			width="544"
+			height="268"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId202_hue45399aad3c0a4a6457b2cc0ea00d6af_83386_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId202_hue45399aad3c0a4a6457b2cc0ea00d6af_83386_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;2.8737740594925634in&rdquo;}</p>
+<ul>
+<li>
+<p>输入待搜索的蛋白质序列，这条序列可以在示例文 件 blast.fasta
+里面找到。</p>
+</li>
+<li>
+<p>定搜索跟输入序列哪部分相似的序列，如果空着就是全长搜索。</p>
+</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li>如从50-100就是比较输入序列的第50位开始到100位相比</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li>
+<p>给搜索任务起一个名字，如果输入的是 FASTA
+格式的序列，那么在输入框里面点一下， 序列的名字就会被自动识别出来。</p>
+</li>
+<li>
+<p>如果在 Align two or more sequences 前面打勾的话，可以同时提交多个
+BLAST 任务</p>
+</li>
+</ul>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 136; 
+			flex-basis: 326px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId205.png" data-size="553x406">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId205.png"
+			width="553"
+			height="406"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId205_huaba5d4efdc0864d8cb80649169bf5022_207222_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId205_huaba5d4efdc0864d8cb80649169bf5022_207222_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.282700131233596in&rdquo;}</p>
+<ul>
+<li>
+<p>被搜索的数据库（虽然是 NCBI 的 BLAST 工具，可以选择的数据库却不只
+NCBI 下属的数据库，还包括其他组织的数据库，比如 PDB，
+Swissprot。事实上，各大数据库网站的 BLAST 工具都可以实现跨平台搜索）</p>
+</li>
+<li>
+<p>Organism 可以把搜索范围限定在某一特定物种内，或者排除某一物种。</p>
+</li>
+<li>
+<p>在算法选择这一栏里，有之前提到的三种不同的 BLAST 算法，标准
+BLAST，PSI-BLAST 和 PHI-BLAST。这一次我们先尝试标准
+BLAST。所有参数设置完毕之 后，点 BLAST</p>
+</li>
+</ul>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 138; 
+			flex-basis: 332px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId208.png" data-size="557x402">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId208.png"
+			width="557"
+			height="402"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId208_hucdbfee66ce9aee3a908e3554509c8677_194227_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId208_hucdbfee66ce9aee3a908e3554509c8677_194227_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.210053587051618in&rdquo;}</p>
+<p>在Graphic Summary结果里：<br>
+BLAST 工具识别出输入序列的第 25 到第 170 个氨基酸这一段属于 TIR
+蛋白质家族。这部分里彩色 线条构成的图告诉我们，一共从数据库中找到 50 个
+hits，也就是高分匹配片段。注意这些 线代表的是 50 个高分匹配片段而不是 50
+条序列。一个高分匹配片段有可能是一条全长的序
+列，也就是全长匹配，也有可能只是某条序列的一部分，也就是局部匹配。代表这些高分匹
+配片段的线拥有不同颜色和不同的长短。如果把鼠标放到某一条线上，可以看到这条匹配片
+段的具体信息，包括他所在序列的数据库编号，序列的名字，匹配得分，期望值 E
+值。匹 配得分在 200 以上的用红线表示，80 到 200 之间的用粉线，50 到 80
+的绿线，40-50 的蓝线， 40
+以下的黑线，所以颜色反映的是匹配的好坏程度。如果某一个高分匹配片段和输入序列
+是从头到尾匹配，就是全长的线，比如最上面的三条红线。如果只匹配输入序列的一部分，
+则是一条短线，短线所在的位置就是与输入序列匹配的位置</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 62; 
+			flex-basis: 150px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId211.png" data-size="416x663">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId211.png"
+			width="416"
+			height="663"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId211_hub5bec907d475e25d070fcc305d022cc5_180073_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId211_hub5bec907d475e25d070fcc305d022cc5_180073_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.777777777777778in&rdquo;
+height=&ldquo;9.208333333333334in&rdquo;}</p>
+<p>Descriptions：<br>
+是这 50 个高分匹配片段所在序列的详细信息列表。每条序列
+都有一个匹配得分和覆盖度。这两项决定了第二部分彩图中每条线的颜色和长短。除了匹配
+得分和覆盖度，表中还列出了其他指标。尤为重要的是 E-value。E-value
+也叫做期望值或 E 值。E
+值越接近零，说明输入序列与当前这条序列为同一条序列的可能性越大。<br>
+第三部分的 表就是根据 E值由低到高排序的。随着 E
+值增大，匹配得分是成反比逐渐降低的。但是一 致度与 E
+值并非完全成反比。因为我们在前面讲 BLAST 核心思想的时候说过，BLAST 没有
+做双序列比对，为了提高速度，它牺牲了一定的准确度。表中的一致度，是 BLAST
+搜索完 成后，针对搜索到的这 50 条序列专门做双序列比对而得到的。BLAST
+牺牲掉的准确度对高
+度相似的序列，也就是亲缘关系近的序列构成不了威胁，不会把它们落掉，但是对于那些只
+有一点点相似，也就是远源的序列，就有点麻烦了，它们很有可能被丢掉而没有被
+BLAST 发现</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 125; 
+			flex-basis: 302px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId214.png" data-size="667x530">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId214.png"
+			width="667"
+			height="530"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId214_hufeaf2d527905edf2aa2adf61ded7348c_253823_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId214_hufeaf2d527905edf2aa2adf61ded7348c_253823_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.635181539807524in&rdquo;}</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 134; 
+			flex-basis: 323px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId217.png" data-size="696x517">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId217.png"
+			width="696"
+			height="517"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId217_hu492b1bb2bc4ee5edb592a863bf97bd6e_423424_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId217_hu492b1bb2bc4ee5edb592a863bf97bd6e_423424_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.333093832020998in&rdquo;}</p>
+<h4 id="ncbi上的psi-blast">NCBI上的PSI-BLAST</h4>
+<p>为了提高速度，标准 BLAST
+牺牲了一定的准确度，牺牲掉的准确度对高度相似的序列，
+也就是亲缘关系近的序列构成不了威胁，不会把它们落掉，但是对于那些只有一点点相似，
+也就是远源的序列，就有点麻烦了。它们很可能被落掉而没有被 BLAST 发现</p>
+<p>要解决这个问题，可以用 PSI-BLAST。PSI-BLAST
+可以搜罗出一个庞大的蛋白质家族， 当然也包括标准 BLAST
+不小心漏掉的那些远房亲戚。换言之，标准 BLAST 找到了直接认识
+的朋友，但朋友的朋友都丢掉了</p>
+<p>位置特异权重矩阵（Position-Specific Scoring Matrix，简称 PSSM）是
+以矩阵的形式，统计一个多序列比对中，每个位置上不同残基出现的百分比。假设
+A 的朋 友只有 B，B 朋友除 A 外还有 C。如果输入序列的第一个位置是
+A，那么在第一轮没有 PSSM 辅助的情况下，只有第一个位置是 A 或 B
+的序列被找到了。</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 161; 
+			flex-basis: 388px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId221.png" data-size="808x499">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId221.png"
+			width="808"
+			height="499"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId221_hu38113a93ddbb7b358aa1dde506997c84_290206_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId221_hu38113a93ddbb7b358aa1dde506997c84_290206_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.6025164041994753in&rdquo;}</p>
+<p>用 NCBI 的 PSI-BLAST 工具再次搜索 blast.fasta 这条序列，仍然在 SwissProt
+数据库 中搜索，算法选 PSI-BLAST<br>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 232; 
+			flex-basis: 557px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId224.png" data-size="964x415">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId224.png"
+			width="964"
+			height="415"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId224_hu82deb65c34e26660ac7818fa952a75e7_287102_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId224_hu82deb65c34e26660ac7818fa952a75e7_287102_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;2.51123687664042in&rdquo;}</p>
+<p>略有不同的是，在第三部分（Descriptions）
+列表的最右侧多了两列。绿色标记的一列是将要为下一轮搜索创建 PSSM
+所选择的序列，默 认第一轮搜索到的序列都将用来创建
+PSSM。红色标记的一列是已在本轮搜索中用来创建 PSSM
+的序列。因为是第一轮搜索，之前还没有搜索到任何序列，也就是第一轮的搜索过程；</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 131; 
+			flex-basis: 315px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId227.png" data-size="534x406">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId227.png"
+			width="534"
+			height="406"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId227_hu43a5713dbb099f94bd51db4469a691a5_249614_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId227_hu43a5713dbb099f94bd51db4469a691a5_249614_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.435080927384077in&rdquo;}</p>
+<p>接下来点&quot;go&quot;进行第二轮搜索。&ldquo;go&quot;左侧的输入
+框里可以指定列出搜索到的前多少条序列。因为 PSI-BLAST
+无休止的一直做下去，也许会 把数据库中的全部序列都找出来<br>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 129; 
+			flex-basis: 310px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId230.png" data-size="513x397">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId230.png"
+			width="513"
+			height="397"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId230_hu74eda741cb597d9519c92bf0e4cf5851_247819_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId230_hu74eda741cb597d9519c92bf0e4cf5851_247819_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.514294619422572in&rdquo;}</p>
+<p>红色标记的一列，也就是已在第二轮搜索中被用来创建 PSSM
+的序列，大部分都打勾了。但是，再往后面会看到有些标黄的序列没有打勾。这些没
+有打勾的标黄的序列就是在第二轮搜索中新找到的序列。它们将用于创建下一轮搜索使用的
+PSSM，但是在本轮搜索中，它们没有被用到，所以没有打勾。而没有标黄的这些打勾的序
+列，是在第一轮中就已经找到的序列。（好在通过 PSI-BLAST，它
+们又被找回来了）</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 138; 
+			flex-basis: 333px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId233.png" data-size="521x375">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId233.png"
+			width="521"
+			height="375"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId233_hu0b1f0a86ad78d650a37e68f27f4a0675_154583_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId233_hu0b1f0a86ad78d650a37e68f27f4a0675_154583_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.198655949256343in&rdquo;}</p>
+<h4 id="ncbi-phi-blast">NCBI PHI-BLAST</h4>
+<p>PSI-BLAST 是撒大网搜索，而 PHI-BLAST 则是精准搜索；其中，N 是天冬酰胺，P
+是脯氨酸，S 是丝氨酸，T 是苏氨酸。{ }代表除大括号里的氨基酸
+以外的任意氨基酸，[ ]代表中括号中的任意一个氨基酸；PHI-BLAST
+可以根据给入的正则表达式对搜索到的相似序列
+进行模式匹配，符合正则表达式的才会被作为结果输出。<br>
+正则表达式{L}GEx<a class="link" href="" >GAS</a>x(3,7)的意思是， 除 L 以外的任意一个字母，紧接
+G，再紧接 E，再接一个任意字符，之后是 GAS 中的任意 一个，再接 LIVM
+中的任意一个，最后再接 3 到 7 个任意字符；</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 175; 
+			flex-basis: 422px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId238.png" data-size="897x510">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId238.png"
+			width="897"
+			height="510"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId238_hu0d32814966f055a762200922629d3d45_338406_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId238_hu0d32814966f055a762200922629d3d45_338406_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.3166108923884514in&rdquo;}</p>
+<p>在 NCBI BLAST 工具的输入页面，当算法选择了 PHI-BLAST
+之后，会自动出现模式输入框，</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 131; 
+			flex-basis: 316px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId241.png" data-size="541x410">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId241.png"
+			width="541"
+			height="410"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId241_hu3090eb85781a1dfe317eeb8c25192ac0_171911_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId241_hu3090eb85781a1dfe317eeb8c25192ac0_171911_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.4208245844269465in&rdquo;}</p>
+<p>此外，PHI-BLAST 可以和PSI-BLAST 联合使用，以找到更多符合模式的远房亲戚们</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 139; 
+			flex-basis: 335px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId244.png" data-size="553x396">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId244.png"
+			width="553"
+			height="396"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId244_hu3a1e7fb51ade5602277440c2ce40fdde_163434_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId244_hu3a1e7fb51ade5602277440c2ce40fdde_163434_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.177214566929134in&rdquo;}</p>
+<h4 id="三种blast的区别">三种BLAST的区别</h4>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 156; 
+			flex-basis: 376px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId248.png" data-size="813x518">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId248.png"
+			width="813"
+			height="518"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId248_hu4b23f05694e49acadafc1588aa93c6ed_265164_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId248_hu4b23f05694e49acadafc1588aa93c6ed_265164_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.716686351706037in&rdquo;}</p>
+<h4 id="ncbi的smartblast">NCBI的SmartBLAST</h4>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 168; 
+			flex-basis: 405px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId252.png" data-size="858x508">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId252.png"
+			width="858"
+			height="508"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId252_hu7ac18d89ec1fc1fc87e2cf21d400b1c1_189718_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId252_hu7ac18d89ec1fc1fc87e2cf21d400b1c1_189718_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.4537674978127733in&rdquo;}</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 139; 
+			flex-basis: 335px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId255.png" data-size="724x518">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId255.png"
+			width="724"
+			height="518"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId255_hube9ff20d9c25f541801991b749fd8c5a_233635_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId255_hube9ff20d9c25f541801991b749fd8c5a_233635_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.173571741032371in&rdquo;}</p>
+<h4 id="其他网站的blast的工具">其他网站的BLAST的工具</h4>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 176; 
+			flex-basis: 422px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId259.png" data-size="914x519">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId259.png"
+			width="914"
+			height="519"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId259_hucf51fc7d3ec53b62724dbbfbeca3716b_290517_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId259_hucf51fc7d3ec53b62724dbbfbeca3716b_290517_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.3123622047244092in&rdquo;}</p>
+<h3 id="多序列比对">多序列比对</h3>
+<p>前面我们讲的是双序列比对，为了看清楚每一列的保守情况和理化性
+质，通常会给多序列比对根据不同的原则赋予丰富的色彩；</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 170; 
+			flex-basis: 410px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId264.png" data-size="868x508">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId264.png"
+			width="868"
+			height="508"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId264_hue943a6350a82d217979f4fe90f7ef800_813249_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId264_hue943a6350a82d217979f4fe90f7ef800_813249_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.4139774715660542in&rdquo;}</p>
+<h4 id="多序列比对的用途">多序列比对的用途</h4>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 192; 
+			flex-basis: 461px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId267.png" data-size="918x477">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId267.png"
+			width="918"
+			height="477"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId267_hu43cce593172544d349b89a64292eabbf_238412_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId267_hu43cce593172544d349b89a64292eabbf_238412_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.031045494313211in&rdquo;}</p>
+<h4 id="多序列比对的算法">多序列比对的算法</h4>
+<p>两条序列的比对需要构建一个二维表格，然后从
+右下角到左上角找出一条最优路线。如果是做 3
+条序列的比对，应该做一个三维立方体，从
+(0,0,0)这个位置到(n,n,n)这个位置找到最优的贯穿路径。以此类推，如果是做 n
+条序列的比对，就要创建一个 n 维空间。这个 n
+维空间实在是难以想象，但是有一点是明确的， 就是到了 n
+维我们已经没有办法再像二维那样精确的计算出比对结果了。<br>
+由于计算量过于巨
+大，所以目前所有的多序列比对工具都是不完美的。它们都使用一种近似的算法。目的就是
+为了缩短计算时间，但也因此牺牲了一定的准确度。好在多序列比对并不像双序列比对对准
+确度要求极高。通常，我们是要从多序列比对中看到一个趋势，一个大体的位置，所以牺牲
+掉的这点儿准确度影响不大</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 187; 
+			flex-basis: 449px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId271.png" data-size="874x467">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId271.png"
+			width="874"
+			height="467"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId271_hud3c36a81c7f6eda9d0398a25c49c1669_277229_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId271_hud3c36a81c7f6eda9d0398a25c49c1669_277229_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.1168952318460192in&rdquo;}</p>
+<h4 id="多序列比对的注意事项">多序列比对的注意事项</h4>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 198; 
+			flex-basis: 476px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId275.png" data-size="877x442">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId275.png"
+			width="877"
+			height="442"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId275_hu4dc5176cffa5916f2f53fd51a1c00e63_235895_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId275_hu4dc5176cffa5916f2f53fd51a1c00e63_235895_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;2.9399464129483817in&rdquo;}</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 187; 
+			flex-basis: 450px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId278.png" data-size="876x467">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId278.png"
+			width="876"
+			height="467"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId278_hu11d018cbea093c0ef94471ceca7968f4_213805_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId278_hu11d018cbea093c0ef94471ceca7968f4_213805_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.1097790901137357in&rdquo;}</p>
+<h4 id="embl---clustal-omega-多序列比对工具">EMBL - Clustal Omega 多序列比对工具</h4>
+<p><a class="link" href="http://www.ebi.ac.uk/Tools/msa"  target="_blank" rel="noopener"
+    >http://www.ebi.ac.uk/Tools/msa</a></p>
+<p>目前世界上最流行的多序列比对工具是 CLUSTAL 系列，TCOFFEE 和 MUSCLE。其中
+CLUSTAL 系列使用率最高；TCOFFEE 最新，而且还有很多变形；MUSCLE
+最快，而且胃 口大，能接受的序列数量是其他工具比不了的</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 165; 
+			flex-basis: 397px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId283.png" data-size="798x482">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId283.png"
+			width="798"
+			height="482"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId283_hua6c9083f5c1827b4e80156985fb4b112_241683_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId283_hua6c9083f5c1827b4e80156985fb4b112_241683_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.523391294838145in&rdquo;}</p>
+<p>EMBL 的多序 列比对工具很多，包括前面提到的 CLUSTAL
+系列、TCOFFEE、MUSCLE。我们看 EMBL 这些比对工具中 CLUSTAL 系列的最新版本
+Clustal Omega</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 133; 
+			flex-basis: 320px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId286.png" data-size="552x413">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId286.png"
+			width="552"
+			height="413"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId286_hu127889eaeac7bad25422e640174724ac_241876_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId286_hu127889eaeac7bad25422e640174724ac_241876_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.364431321084864in&rdquo;}</p>
+<p>在这个界面里可以点通过点击 More
+options，设置各种设置。在这个例子里，所有参数都使用默认值。参数里有输出格式（OUTPUT
+FORMAT）和输出顺序（ORDER）这两个参 数。</p>
+<ul>
+<li>
+<p>输出格式里可以选择常用的多序列比对格式。我们选标准的 Clustal
+格式。这是最常见 的多序列比对格式</p>
+</li>
+<li>
+<p>输出顺序参数可以设定多序列比对中各个序列的排列顺序。&ldquo;aligned&rdquo;
+是按照比对过程中自动创建的计算顺序排列；&ldquo;input&quot;是按照输入序列的原始顺序排列。(输入序列是按照
+TLR10、9、8、7&hellip;这样的顺序排列的。输出顺序参数设定为
+aligned，看看比 对结果里序列的排列顺序是否发生了变化)</p>
+</li>
+</ul>
+<p>Clustal 格式 的输出结果<br>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 129; 
+			flex-basis: 311px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId289.png" data-size="551x425">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId289.png"
+			width="551"
+			height="425"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId289_hua15b66d6ed6acc6535b46f0c53767bd0_247093_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId289_hua15b66d6ed6acc6535b46f0c53767bd0_247093_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.499394138232721in&rdquo;}</p>
+<p>可以看到，比对中序列的排列顺序跟输入的时候不一样了，这是按
+照比对创建时的计算顺序排列的。请点击 Download Alignment File
+保存将当前结果，以便后
+面章节进一步加工。保存的文件后缀名是&rdquo;.clustal&rdquo;。它是一个纯文本文件，用写字板或者
+记事本都可以打开</p>
+<p>如果想要添加色彩，点击&quot;Show
+Colors&quot;。之后，不同的氨基酸根据它们的理化性质 不同会显示出不同的颜色<br>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 127; 
+			flex-basis: 307px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId292.png" data-size="554x433">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId292.png"
+			width="554"
+			height="433"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId292_hua09fedfe2cf58cb8e5bcb906d22decab_302035_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId292_hua09fedfe2cf58cb8e5bcb906d22decab_302035_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.559265091863517in&rdquo;}</p>
+<p>除了颜色之外，多序列比对每一段的最后一行都有些星星点点的标记。这些标记和双序
+列比对中的竖线、双点、单点的意思类似，但并不完全相同;这些星星点点的标记可以为我们指出保守区域所在的位置，即，星星点点特别密集的区域</p>
+<ul>
+<li>
+<p>如果某一列是完全保守的一列，
+也就是说这一列里的字母完全相同，那么这一列的下面就打一个&quot;*&quot;</p>
+</li>
+<li>
+<p>如果这一列的残基
+有大致相似的分子大小及相同的亲疏水性，也就是这一列的字母要么相同要么相似，没有不
+相似的，那么就打一个&quot;：&quot;</p>
+</li>
+<li>
+<p>如果这一列的残基
+有大致相似的分子大小及相同的亲疏水性，也就是这一列的字母要么相同要么相似，没有不
+相似的，那么就打一个&quot;：&quot;</p>
+</li>
+<li>
+<p>什么都不标记代表这一列是完全不保守的，也就是这一列的字母全部都不相似</p>
+</li>
+</ul>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 131; 
+			flex-basis: 315px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId295.png" data-size="604x460">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId295.png"
+			width="604"
+			height="460"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId295_hu03288858d3596af74730f37cfd1fe2d5_329421_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId295_hu03288858d3596af74730f37cfd1fe2d5_329421_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.4426038932633425in&rdquo;}</p>
+<p>Result Summary 标签里，给出了全部结果信息的下载列表和一个 Jalview
+的按钮（图 4）。 Jalview 是多序列比对编辑软件;。在下载列表里，如果打开
+&ldquo;Percent Identity
+Matrix&quot;链接，可以得到所有序列两两之间的一致度矩阵。一致度矩阵的第
+一行省略掉了。它和第一列完全相同，都是序列的名字并且按照相同的顺序排列。所以这个
+矩阵是以对角线为轴对称的，并且对角线上是某条序列自己和自己的一致度，都是
+100%。
+这个矩阵可以帮助我们更好的了解这些序列之间的关系。比如我们可以从中发现，一致度最高的一对序列是
+TLR1 和 TLR6,</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 139; 
+			flex-basis: 335px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId298.png" data-size="607x434">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId298.png"
+			width="607"
+			height="434"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId298_hu1afb14434d981d4ece3e5049272b83f3_262822_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId298_hu1afb14434d981d4ece3e5049272b83f3_262822_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.170785214348206in&rdquo;}</p>
+<p>还可以通过 Phylogenetic Tree 标签下的 Guide Tree
+清楚的看出哪条序列和哪条序列更相似;Phylogenetic Tree 翻译成中文是系统发
+生树。但是这里要特别注意，这不是真正意义上的系统发生树！它只是在创建多序列比对的
+过程中用到的树（Guide
+Tree），没有经过距离校正，所以不能当作系统发生树来使用。如果
+想要根据多序列比对结果构建系统发生树，可以在 Alignments
+标签下，点击&quot;Send to
+ClustalW2_Phylogeny&quot;链接，把做好的多序列比对发送给专门做系统发生树的工具</p>
+<h4 id="tcoffee---expresso">TCOFFEE - Expresso</h4>
+<p><a class="link" href="http://tcoffee.crg.cat"  target="_blank" rel="noopener"
+    >http://tcoffee.crg.cat</a><br>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 425px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId303.png" data-size="891x503">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId303.png"
+			width="891"
+			height="503"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId303_hu456f4fb1773cf3ae63a7fc1bb9bb7ba4_258878_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId303_hu456f4fb1773cf3ae63a7fc1bb9bb7ba4_258878_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.293115704286964in&rdquo;}</p>
+<p>TCOFFEE 本身是一个标准的多序列比对工具，跟 CLUSTAL
+没有什么区别。我们来看 它的变形，也就是根据比对序列种类的不同，TCOFFEE
+网站下特有的比对工具</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 134; 
+			flex-basis: 322px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId306.png" data-size="631x470">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId306.png"
+			width="631"
+			height="470"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId306_hud21fe5c3ab21aee9db998c4b21558166_181265_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId306_hud21fe5c3ab21aee9db998c4b21558166_181265_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.34495406824147in&rdquo;}</p>
+<ul>
+<li>
+<p>Expresso 最有特色，它是为序列加入结构信息后再做多序列比对的
+工具。因为有结构信息的辅助，它可以大大提高比对的准确度</p>
+</li>
+<li>
+<p>M-Coffee 可以把多个比对的结果整合成一个</p>
+</li>
+<li>
+<p>TM-Coffee 专为穿膜蛋白打造</p>
+</li>
+<li>
+<p>PSI-Coffee 专为远源序列打造</p>
+</li>
+</ul>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 132; 
+			flex-basis: 317px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId309.png" data-size="543x411">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId309.png"
+			width="543"
+			height="411"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId309_hub97310f6634abcb987ce46334c6c1dbf_204746_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId309_hub97310f6634abcb987ce46334c6c1dbf_204746_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.415285433070866in&rdquo;}</p>
+<p>做 Expresso 的序列我们选用网站提供的示例序列（图 2）。Show more options
+下，可以
+通过各种方式给入输入序列的结构信息。如果你有这些序列现成的结构文件，也就是
+PDB
+文件，可以直接把它们上传上来。三条序列对应三个上传链接。可以上传的结构文件不只限
+于 PDB
+数据库下载的，也包括还未正式发表的解析结构或者计算机预测的结构，只要是用
+PDB 文件格式保存的，都可以</p>
+<p>如果没有现成的结构文件，但是这些序列在 PDB
+数据库里有对应结构的话，你可以从
+接下来的输入框里，按照规定的写法，指定哪条序列对应 PDB
+数据库中的哪个结构</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 131; 
+			flex-basis: 316px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId312.png" data-size="540x410">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId312.png"
+			width="540"
+			height="410"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId312_hu5ec4abafb2a7ab3eafafabf1c771ff9e_225582_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId312_hu5ec4abafb2a7ab3eafafabf1c771ff9e_225582_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.4290113735783025in&rdquo;}</p>
+<p>如果这里输入了信息，Expresso 会自动从 PDB 网站下载指定的 PDB
+文件。那些已经本地上 传的结构，Expresso
+也会根据序列信息自动匹配出它是哪条序列的结构，不需要再在这里列
+出了。如果对结构信息一无所知，只需要将&quot;MODE_PDB&quot;钩选。之后，Expresso
+就会自 己在网络上为所有没有指定结构信息的序列搜索相应的结构。你提供给
+Expresso
+的结构信息越多，计算时间就会越短；你提供结构信息越少，计算时间就会越长。如果只勾选了
+&ldquo;MODE_PDB&rdquo;，那么需要等待的时间会很长，因为 Expresso
+首先要搜索，然后要下载， 最后要计算</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 130; 
+			flex-basis: 313px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId315.png" data-size="552x423">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId315.png"
+			width="552"
+			height="423"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId315_huece8ac75e2a52b225173969f3a75193f_150418_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId315_huece8ac75e2a52b225173969f3a75193f_150418_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.470108267716536in&rdquo;}</p>
+<p>TCOFFEE
+系列各比对工具做出的多序列比对的颜色代表比对质量的好坏。越红质量越好，
+越蓝质量越坏。这次的比对结果非常令人满意。如果配合上这些序列二级结构信息看一下的
+话，你会发现，螺旋和螺旋很好的对在了一起，折叠和折叠很好的对在了一起。</p>
+<p>同样的序列做普通的 TCOFFEE，质量远不如 Expresso。可以看到二级结构全部
+错位。所以，如果你有序列的结构信息的话，用 Expresso
+相比用普通的比对工具会大大提 高比对质量。</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 131; 
+			flex-basis: 315px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId318.png" data-size="528x402">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId318.png"
+			width="528"
+			height="402"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId318_huf8a0b8719114a015c2f599b7a41365c8_138559_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId318_huf8a0b8719114a015c2f599b7a41365c8_138559_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.441287182852143in&rdquo;}</p>
+<h4 id="多序列比对的结果保存格式">多序列比对的结果保存格式</h4>
+<p>比如有漂亮的网页格式的，标准的 Clustal 格式的，还有写完一条
+序列再写下一条的 FASTA 格式的，以及方便下一步建树使用的 Phylip 格式的<br>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 169; 
+			flex-basis: 406px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId322.png" data-size="573x338">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId322.png"
+			width="573"
+			height="338"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId322_huc9969246f1c32fcff81386dcf1e98638_244419_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId322_huc9969246f1c32fcff81386dcf1e98638_244419_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.4409536307961504in&rdquo;}</p>
+<p>要保存哪种格式主要看你下一步要干什么。在选择保存格式之前：</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 174; 
+			flex-basis: 418px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId325.png" data-size="878x503">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId325.png"
+			width="878"
+			height="503"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId325_hub0600e1f3f0cc2c2363fe80a12958ff7_251501_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId325_hub0600e1f3f0cc2c2363fe80a12958ff7_251501_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.3418744531933506in&rdquo;}</p>
+<h4 id="格式转换工具fmtseq">格式转换工具fmtseq</h4>
+<p><a class="link" href="http://www.bioinformatics.org/JaMBW/1/2"  target="_blank" rel="noopener"
+    >http://www.bioinformatics.org/JaMBW/1/2</a></p>
+<p>它可以实现 20 多种格式间的转 换。其中总有一款是你想要的</p>
+<h4 id="多序列比对的编辑和发布jalview">多序列比对的编辑和发布：Jalview</h4>
+<p><a class="link" href="http://www.jalview.org/"  target="_blank" rel="noopener"
+    >http://www.jalview.org/</a></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 225; 
+			flex-basis: 540px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId332.png" data-size="784x348">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId332.png"
+			width="784"
+			height="348"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId332_hufdf45f769497fb3c23e2c8c2eca9fb9b_340750_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId332_hufdf45f769497fb3c23e2c8c2eca9fb9b_340750_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;2.589284776902887in&rdquo;}</p>
+<p>通过 Jalview 除了可以加工多序列比对，还可以针对比对中的序列做各种各样的
+分析、比如构建系统发生树、预测蛋白质二级结构、查看结构域家族、从 PDB
+数据库中查 询三级结构等</p>
+<h5 id="jalview的使用简介">Jalview的使用简介</h5>
+<p>Jalview 打开之后，会自动展示许多 Demo 窗口。通过这些窗口，你可以了解到，
+Jalview
+能加工序列比对、做进化树、分析结构，等等。功能确实不少。不过，你需要做的，
+是把这些窗口统统关掉。打开你自己的多序列比对。<br>
+点击 File 菜单 - Input Alignment - From File - 打开我们之前用Clustal
+Omega做出并保存的多序列比对结果&quot;clustalo.clustal&rdquo;（如
+果你忘记保存了可以从附件中下载）。因为&quot;.clustal&quot;不是 Jalview
+熟悉的后缀名，所以需要 把文件类型改成&quot;所有文件&quot;才能看到它</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 62; 
+			flex-basis: 150px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId335.png" data-size="397x635">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId335.png"
+			width="397"
+			height="635"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId335_hub98ef5f96b644af67174fe343ea6c679_226053_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId335_hub98ef5f96b644af67174fe343ea6c679_226053_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.513888888888889in&rdquo;
+height=&ldquo;8.819444444444445in&rdquo;}</p>
+<p>它们体现了比对中每个位置的
+保守度高低（Conservation）、比对质量高低（Score）、以及共有序列（Consensus）。从保守度
+行，可以很清楚的找到保守区大致的位置。共有序列指的是某一列出现频率最高的那个字母，
+比如第 58 列中 W 出现的频率最高，是
+100%。如果某一列拥有的最高出现频率的字母是两
+个或两个以上的话，会以&quot;+&ldquo;显示。把鼠标放在&rdquo;+&ldquo;上就可以看到是哪些字母出现的频
+率一样高。共有序列可以一定程度上体现出某个保守区域所具有的序列特征。以后如果看到
+和这段序列长相极其相似的序列，它很可能能跟这个保守区的功能相似。</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 134; 
+			flex-basis: 321px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId338.png" data-size="593x442">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId338.png"
+			width="593"
+			height="442"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId338_hu9829ac8e18252c4a1de08536aa00e0ef_221057_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId338_hu9829ac8e18252c4a1de08536aa00e0ef_221057_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.34794728783902in&rdquo;}</p>
+<h5 id="使用jalview加工数据">使用Jalview加工数据</h5>
+<ul>
+<li>上颜色</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 135; 
+			flex-basis: 324px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId342.png" data-size="599x443">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId342.png"
+			width="599"
+			height="443"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId342_huc6a9f94c14bddf782e0a85a5837651b9_336261_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId342_huc6a9f94c14bddf782e0a85a5837651b9_336261_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.3141338582677164in&rdquo;}</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li>另一个颜色方案</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 135; 
+			flex-basis: 324px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId345.png" data-size="597x441">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId345.png"
+			width="597"
+			height="441"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId345_hu9f748b282ad225f3490f0cf7629f8460_278319_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId345_hu9f748b282ad225f3490f0cf7629f8460_278319_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.309044181977253in&rdquo;}</li>
+</ul>
+<p>Clustalx的颜色方案<br>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 161; 
+			flex-basis: 387px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId348.png" data-size="606x375">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId348.png"
+			width="606"
+			height="375"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId348_hu9cddd3aed5ff009d6193b318c8d727fb_250912_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId348_hu9cddd3aed5ff009d6193b318c8d727fb_250912_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.6097353455818024in&rdquo;}</p>
+<ul>
+<li>对局部位置进行 手动调整</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li>比如，从前期实验我们得知，图中方框所示区域的 TLR2、10、6、1 这四条序
+列的第 53 列应该往右挪一列，跟 TLR9、8、7 这三条序列的第 54
+列对在一起。TLR2、10、 6、1 这四条序列的第 53
+列补空位。其他位置不动<br>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 138; 
+			flex-basis: 332px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId351.png" data-size="642x463">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId351.png"
+			width="642"
+			height="463"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId351_hu2d562b75673730143e0804fcb8b31da4_401357_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId351_hu2d562b75673730143e0804fcb8b31da4_401357_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.206905074365705in&rdquo;}</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li>多序列比对的外观</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li>
+<p>默认情况下，多序列比对是单行显示的。由于序列长，需要拖动窗口拉条才能浏览全部。这样不利于查看分析，也不利于将导出的比对图片插入文献。
+如果想要让多序列比对根据 Jalview 窗口的宽度自动换行，可以在 Format
+菜单下勾选&quot;Wrap&rdquo;
+。此外，还可以通过&quot;Font&hellip;&ldquo;窗口对字体格式、大小等进行调整</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 135; 
+			flex-basis: 325px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId354.png" data-size="698x514">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId354.png"
+			width="698"
+			height="514"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId354_hu227402fa6081a1805a230ef167a9dfd2_488555_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId354_hu227402fa6081a1805a230ef167a9dfd2_488555_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.295605861767279in&rdquo;}</p>
+</li>
+</ul>
+<p>如果你只需要多序列比对，而不需要有关保守度等的注释行。可以关闭
+annotations 标签下的 &ldquo;Show annotations&quot;选项，以达到去掉注释行的目的</p>
+<ul>
+<li>比如，可以按照序列的名字、
+两两一致度或其他规则给比对中的序列重新排序以及为选中的两条序列做双序列全局比对</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 136; 
+			flex-basis: 328px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId357.png" data-size="687x502">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId357.png"
+			width="687"
+			height="502"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId357_huda419339025e77b6b3829dbbe71f106d_556313_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId357_huda419339025e77b6b3829dbbe71f106d_556313_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.2624934383202095in&rdquo;}</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li>为选中的一组序列计算各种系统发生树</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 142; 
+			flex-basis: 341px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId360.png" data-size="695x489">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId360.png"
+			width="695"
+			height="489"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId360_huf1cf0f751d9045c4f00fd779804d3208_433643_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId360_huf1cf0f751d9045c4f00fd779804d3208_433643_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.104316491688539in&rdquo;}</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li>或者用在线软件为某一条序列预 测二级结构</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 132; 
+			flex-basis: 318px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId363.png" data-size="691x520">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId363.png"
+			width="691"
+			height="520"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId363_hu0bdd07a887d5dce5a8d3aad7cb169a2b_431735_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId363_hu0bdd07a887d5dce5a8d3aad7cb169a2b_431735_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.389772528433946in&rdquo;}</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li>导出多序列比对为图片</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 137; 
+			flex-basis: 329px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId366.png" data-size="706x514">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId366.png"
+			width="706"
+			height="514"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId366_hud0430a589ca17e30f97a8e5efa4a9177_466497_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId366_hud0430a589ca17e30f97a8e5efa4a9177_466497_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.246930227471566in&rdquo;}</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li>其他编辑工具</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li>
+<p>Boxshade 擅长黑白制图。因很多学术期
+刊只收取彩图的编辑费，所以黑白图可以节省科研经费。ESPript
+的功能十分强大。MView 擅长把彩色多序列比对转换成 HTML
+源代码。这样就可以将它直接插入网页，并方便以文 本形式选取。</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 335; 
+			flex-basis: 804px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId369.png" data-size="781x233">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId369.png"
+			width="781"
+			height="233"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId369_huc0e21191260ba073aaadb9bf9755e3cf_48558_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId369_huc0e21191260ba073aaadb9bf9755e3cf_48558_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;1.7402898075240596in&rdquo;}</p>
+</li>
+</ul>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 348; 
+			flex-basis: 836px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId372.png" data-size="781x224">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId372.png"
+			width="781"
+			height="224"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId372_hu3122eeb253405f403804c751720c4ff5_216751_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId372_hu3122eeb253405f403804c751720c4ff5_216751_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;1.6730686789151357in&rdquo;}</p>
+<h3 id="寻找保守区域">寻找保守区域</h3>
+<p>你究竟想从多序列比对中得到什么，答案是你想要找到序列中重要
+的位置，说得更专业一点，就是要找到保守区域<br>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 222; 
+			flex-basis: 533px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId378.png" data-size="591x266">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId378.png"
+			width="591"
+			height="266"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId378_hu9261005bf29210b4d2c0a94bc9fdcf75_253816_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId378_hu9261005bf29210b4d2c0a94bc9fdcf75_253816_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;2.6254932195975504in&rdquo;}</p>
+<p>通过多序列比对下方的星星点点可以大致 发现图 1
+中两个红框中的区域比较吸引眼球，因为星星点点特别多（&rdquo;*&ldquo;代表这一列残基完全相同；&rdquo;:&ldquo;代表这一列残基或者相同或者相似；&rdquo;.&rdquo;
+代表这一列残基有相似的但也有不相似的；什么都没有代表这一列残基都不相似。所以我们
+寻找的就是星星点点特别多的区域。当然用眼睛来数星星不那么靠谱。我们仍然需要借助软
+件来更好的寻来保守区域）</p>
+<h4 id="序列标识图">序列标识图</h4>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 164; 
+			flex-basis: 394px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId381.png" data-size="811x494">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId381.png"
+			width="811"
+			height="494"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId381_hu98d085949c33fd641c9bdfc6b8d979ff_283487_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId381_hu98d085949c33fd641c9bdfc6b8d979ff_283487_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.553226159230096in&rdquo;}</p>
+<p>要创建序列标识图，首先需要一个多序列比对。多序列比对中的一列对应序列标识图中
+的一个位置。然后分别计算每一列中不同残基出现的频率，再根据以下公式把频率转换成高
+度值，最后根据高度值写出不同残基的彩色字母图形</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 168; 
+			flex-basis: 404px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId384.png" data-size="895x531">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId384.png"
+			width="895"
+			height="531"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId384_hucec5117f2fafd37271dd086f616e7c8f_320026_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId384_hucec5117f2fafd37271dd086f616e7c8f_320026_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.460893482064742in&rdquo;}</p>
+<p>如果某一列非常保守，字母高度就高。反之，如果某一列没有什么特征，各种残基都有
+出现，杂乱无章，那么就会看到一堆比较矮的字母摞在一起<br>
+这里再次强调，字母的高度和
+它在某一列中出现的频率成正比，但是并不等于频率。试想一下，如果字母高度就是频率的
+话，那么序列标识图中每个位置上字母摞起来的总高度应该是一样的，都是
+100%。但是从图中可以看到，序列标识图上每个位置字母摞起来的总高度是不一样的，这是因为在字母
+高度的计算过程中涉及了熵值。某一列中字母出现的情况越混乱，熵值越大，字母越矮。字
+母出现的情况越有规律，熵值越小，字母越高。所以序列标识图可以很好的展现多序列比对
+中每一列的保守程度，即，它们是杂乱无章的，还有有规律可循的。并且把可循的规律图形
+化的展现出来。这就是我们为什么要给序列打上 logo 的原因</p>
+<h4 id="weblogo">WebLogo</h4>
+<p><a class="link" href="http://weblogo.threeplusone.com/"  target="_blank" rel="noopener"
+    >http://weblogo.threeplusone.com/</a><br>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 143; 
+			flex-basis: 343px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId389.png" data-size="746x521">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId389.png"
+			width="746"
+			height="521"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId389_hu4177744fe0b1c139a63c521759a21b6c_274908_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId389_hu4177744fe0b1c139a63c521759a21b6c_274908_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.073949037620298in&rdquo;}</p>
+<p>示例文件 promoter.fasta 是一组启动子序列的多序列比对， 以 FASTA
+格式存储。FASTA 格式的多序列比对要求把多序列比对中的每一条序列连同插入
+的空位一起按 FASTA 格式书写，写完一条序列再写下一条。这和之前讲过的
+Clustal 格式不 太一样。</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 135; 
+			flex-basis: 326px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId392.png" data-size="704x518">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId392.png"
+			width="704"
+			height="518"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId392_hu3fcb831d2b41059266edb740074cb404_162340_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId392_hu3fcb831d2b41059266edb740074cb404_162340_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.292139107611549in&rdquo;}</p>
+<p>从图中可以清晰的看到：输入的这些启动子序列上 TATA-Box
+的共有特征序列，以及它们出现的位置</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 147; 
+			flex-basis: 354px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId395.png" data-size="721x488">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId395.png"
+			width="721"
+			height="488"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId395_hu08b8a27e11088df404697e11a4f90666_174079_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId395_hu08b8a27e11088df404697e11a4f90666_174079_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.948219597550306in&rdquo;}</p>
+<h4 id="序列基序meme">序列基序MEME</h4>
+<p><a class="link" href="http://meme-suite.org/"  target="_blank" rel="noopener"
+    >http://meme-suite.org/</a></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 168; 
+			flex-basis: 405px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId400.png" data-size="832x493">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId400.png"
+			width="832"
+			height="493"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId400_huaa31b68ce1c241e97abf03de7228b3ef_258244_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId400_huaa31b68ce1c241e97abf03de7228b3ef_258244_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.4565299650043744in&rdquo;}</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 144; 
+			flex-basis: 346px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId403.png" data-size="608x421">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId403.png"
+			width="608"
+			height="421"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId403_hu61bae8a663f48ff5bbd3f2cb000a9b16_216056_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId403_hu61bae8a663f48ff5bbd3f2cb000a9b16_216056_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.039199475065617in&rdquo;}</p>
+<p>MEME 的 使用非常简单，只需要将待分析的序列上传即可（图
+1）。而且，上传的序列为原始序列，
+不需要提前为它们做多序列比对。你也可以指定返回排名前几的基序。MEME
+的等待时间 稍长，大约 10 分钟以上，所以最好留下邮箱。</p>
+<p>Meme 的返回结果被保存成各种格式：HTML、XML、test
+等。便于在线查看的是&quot;MEME HTML output&quot;，即网页格式</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 183; 
+			flex-basis: 439px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId406.png" data-size="590x322">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId406.png"
+			width="590"
+			height="322"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId406_hu9be14fadeaf7fdeabb607729c528c841_90875_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId406_hu9be14fadeaf7fdeabb607729c528c841_90875_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.1836154855643044in&rdquo;}</p>
+<p>网页格式的 MEME
+结果页面中，给出了找到的排名前三的基序，它们以序列标识图的形式展现出来</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 146; 
+			flex-basis: 351px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId409.png" data-size="587x401">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId409.png"
+			width="587"
+			height="401"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId409_hu1bd6bd3fea48c31f46308032c58ef4cf_178092_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId409_hu1bd6bd3fea48c31f46308032c58ef4cf_178092_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.9849507874015746in&rdquo;}</p>
+<p>同时还提供这三个基序在每条序列中的大体位置。如果要进一步了解
+某个基序，可以点击序列标识图右侧的&quot;More&quot;下面的&quot;下&quot;箭头，以查看详细。
+点击后，会得到大比例序列标识图，以及该基序在每条序列中对应的序列片段和它们出现的
+具体位置<br>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 154; 
+			flex-basis: 371px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId412.png" data-size="531x343">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId412.png"
+			width="531"
+			height="343"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId412_hu2834608f0e53258c5d2c5bb82eea9bc6_217005_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId412_hu2834608f0e53258c5d2c5bb82eea9bc6_217005_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.768046806649169in&rdquo;}</p>
+<p>此外，还可以点击序列标识图右侧的&quot;Submit/Download&quot;下面的&quot;右&quot;箭头，将某个基序提交至各种数据库，并进行针对该基序的序列相似性搜索，已找到数据库中
+含有该基序的序列，进而推测该基序的功能。这步操作是通过 The MEME Suite
+软件套装下 的另一个软件 FIMO 来实现的</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 150; 
+			flex-basis: 360px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId415.png" data-size="531x354">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId415.png"
+			width="531"
+			height="354"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId415_hu00ba349bb300fa0c977c47a90c1c563c_161568_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId415_hu00ba349bb300fa0c977c47a90c1c563c_161568_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.888888888888889in&rdquo;}</p>
+<h4 id="prints-指纹图谱数据库">PRINTS 指纹图谱数据库</h4>
+<p><a class="link" href="http://130.88.97.239/PRINTS/index.php"  target="_blank" rel="noopener"
+    >http://130.88.97.239/PRINTS/index.php</a><br>
+<a class="link" href="http://www"  target="_blank" rel="noopener"
+    >http://www</a>. bioinf.manchester.ac.uk/dbbrowser/PRINTS/</p>
+<p>蛋白质序列进行了充分的研究，而且早已发现并总结了这些
+序列上的重要基序。相关研究成果汇入了 PRINTS 蛋白质序列指纹图谱数据库</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 232; 
+			flex-basis: 558px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId421.png" data-size="882x379">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId421.png"
+			width="882"
+			height="379"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId421_hu9ad1bb42dc837a7517cdee27b8fe2aa6_275113_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId421_hu9ad1bb42dc837a7517cdee27b8fe2aa6_275113_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;2.506613079615048in&rdquo;}</p>
+<p>要浏览 PRINTS
+数据库，可以输入数据库编号、关键词、或标题等以查找某一个指纹图
+谱。比如点击&quot;By text&quot;通过关键词搜索。输入条中输入&quot;TRANSFERRIN&quot;，也就
+是搜索转铁蛋白家族的图谱。搜索返回转铁蛋白家族的指纹图谱链接<br>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 140; 
+			flex-basis: 336px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId424.png" data-size="762x544">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId424.png"
+			width="762"
+			height="544"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId424_hu176f56c800fd2136e6bf1f2039de5d1f_209266_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId424_hu176f56c800fd2136e6bf1f2039de5d1f_209266_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.164479440069991in&rdquo;}</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 142; 
+			flex-basis: 342px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId427.png" data-size="561x393">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId427.png"
+			width="561"
+			height="393"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId427_hud2e83e2f8d6057928fd3e6a0a26c27e3_126974_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId427_hud2e83e2f8d6057928fd3e6a0a26c27e3_126974_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.086452318460193in&rdquo;}</p>
+<ul>
+<li>点击结果页面中的&quot;TRANSFERRIN&quot;链接后，会显示包括指纹图谱的基本信息、与其
+他数据库之间的交叉链接、构建指纹图谱所使用的蛋白质序列、以及指纹图谱中每个基序等具体信息</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 138; 
+			flex-basis: 331px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId430.png" data-size="553x400">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId430.png"
+			width="553"
+			height="400"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId430_huf06361d0738fb6cce7dc216c1a6b60db_191706_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId430_huf06361d0738fb6cce7dc216c1a6b60db_191706_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.2194083552056in&rdquo;}</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li>点击&quot;View alignment&quot;链接后，可以看到创建指纹图谱所使用的多序列比对</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 171; 
+			flex-basis: 410px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId433.png" data-size="597x349">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId433.png"
+			width="597"
+			height="349"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId433_hud486f64775ef2b8d24b9bbaf20efd33a_240489_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId433_hud486f64775ef2b8d24b9bbaf20efd33a_240489_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.4101060804899386in&rdquo;}</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li>点击&quot;View
+structure&quot;链接后，网页会打开一个三维视图插件，并以该家族中某一特征
+蛋白质具有的三维结构为例，在线显示指纹图谱中各个基序在三维结构中的位置；
+从该三维结构图中可以看出，紫色的基序在氨基酸序列水平上并不相邻，但是在三维空间结
+构中是紧密联系在一起的，并形成蛋白质的重要功能区</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 139; 
+			flex-basis: 334px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId436.png" data-size="534x383">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId436.png"
+			width="534"
+			height="383"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId436_hu4196ce34211c9b3f6f813377da1d824c_185768_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId436_hu4196ce34211c9b3f6f813377da1d824c_185768_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.183832020997375in&rdquo;}</li>
+</ul>
+<pre tabindex="0"><code>&lt;!-- --&gt;
+</code></pre><ul>
+<li>PRINTS 还提供指纹匹配服务。也就是搜索某一序列所匹配的
+指纹图谱。此功能通过 PRINTS
+主页也上的&quot;FPScan&quot;链接实现，注意输入的待搜 索序列只能是&quot;a raw
+sequence&quot;，也就是纯序列。换言之，FASTA 格式中带大于号的第一行
+不能拷贝进输入框。示例文件 prints.fasta 请从课程附件中下载</li>
+</ul>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 128; 
+			flex-basis: 309px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId439.png" data-size="697x541">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId439.png"
+			width="697"
+			height="541"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId439_hu886061e1a603e1a70c6369ff49788a04_188321_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId439_hu886061e1a603e1a70c6369ff49788a04_188321_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.527737314085739in&rdquo;}</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 137; 
+			flex-basis: 330px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId442.png" data-size="514x373">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId442.png"
+			width="514"
+			height="373"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId442_hu6f3459d636354dad98367466a645ff38_145202_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId442_hu6f3459d636354dad98367466a645ff38_145202_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.2331386701662295in&rdquo;}</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 146; 
+			flex-basis: 352px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId445.png" data-size="584x398">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId445.png"
+			width="584"
+			height="398"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId445_huc6ba7f244d006b94747f5d2fa1e3f481_203284_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId445_huc6ba7f244d006b94747f5d2fa1e3f481_203284_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.975456036745407in&rdquo;}</p>
+<ul>
+<li>点击排名第一的视紫红质家族的&quot;Graphic&quot;链接，可以得到该家族指纹图谱中各个基
+序在输入序列中所匹配的位置。结果页面的下部还提供了视紫红质家族的 6
+个基序
+在输入序列中所对应的具体序列片段。由此，可以推测，输入序列属于视紫红质家族，并具
+有该家族蛋白质的主要功能。事实上，输入序列确实是从 UniprotKB
+数据库中下载的一条羊 的视紫红质的序列（P02700）。</li>
+</ul>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 149; 
+			flex-basis: 358px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId448.png" data-size="812x544">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId448.png"
+			width="812"
+			height="544"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId448_hu71682c33e359bd7150a49edee6cc4765_269330_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId448_hu71682c33e359bd7150a49edee6cc4765_269330_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;3.9080457130358703in&rdquo;}</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 130; 
+			flex-basis: 312px"
+	>
+	<a href="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId451.png" data-size="705x541">
+		<img src="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId451.png"
+			width="705"
+			height="541"
+			srcset="/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId451_huf3af12e20369fa9b40874a02b7490235_338814_480x0_resize_box_3.png 480w, /p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/media/rId451_huf3af12e20369fa9b40874a02b7490235_338814_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>{width=&ldquo;5.833333333333333in&rdquo;
+height=&ldquo;4.476358267716535in&rdquo;}</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/tutorials/">tutorials</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2022 - 
+        
+        2023 叶宇浩随记博客
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.5.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">Table of contents</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#序列比较">序列比较</a>
+      <ol>
+        <li><a href="#基础概念">基础概念</a></li>
+        <li><a href="#序列相似性">序列相似性</a></li>
+        <li><a href="#替换计分矩阵">替换计分矩阵</a></li>
+        <li><a href="#序列两两比较的方法">序列两两比较的方法</a>
+          <ol>
+            <li><a href="#打点法">打点法</a></li>
+            <li><a href="#打点法在线软件">打点法在线软件</a></li>
+            <li><a href="#序列比对法">序列比对法</a></li>
+            <li><a href="#双序列全局比对以及算法">双序列全局比对以及算法</a></li>
+            <li><a href="#双序列局部比对">双序列局部比对</a></li>
+          </ol>
+        </li>
+        <li><a href="#一致度和相似性">一致度和相似性</a></li>
+        <li><a href="#在线双序列比对工具">在线双序列比对工具</a>
+          <ol>
+            <li><a href="#embl-httpwwwebiacuktoolspsa">EMBL <a href="http://www.ebi.ac.uk/Tools/psa">http://www.ebi.ac.uk/Tools/psa</a></a></li>
+            <li><a href="#gap">gap</a></li>
+            <li><a href="#embl-局部双序列比对">EMBL 局部双序列比对</a></li>
+            <li><a href="#其他在线序列比对工具">其他在线序列比对工具</a></li>
+          </ol>
+        </li>
+        <li><a href="#blast">BLAST</a>
+          <ol>
+            <li><a href="#简介">简介</a></li>
+            <li><a href="#blast种类">BLAST种类</a></li>
+            <li><a href="#ncbi上的blastp">NCBI上的BLASTp</a></li>
+            <li><a href="#ncbi上的psi-blast">NCBI上的PSI-BLAST</a></li>
+            <li><a href="#ncbi-phi-blast">NCBI PHI-BLAST</a></li>
+            <li><a href="#三种blast的区别">三种BLAST的区别</a></li>
+            <li><a href="#ncbi的smartblast">NCBI的SmartBLAST</a></li>
+            <li><a href="#其他网站的blast的工具">其他网站的BLAST的工具</a></li>
+          </ol>
+        </li>
+        <li><a href="#多序列比对">多序列比对</a>
+          <ol>
+            <li><a href="#多序列比对的用途">多序列比对的用途</a></li>
+            <li><a href="#多序列比对的算法">多序列比对的算法</a></li>
+            <li><a href="#多序列比对的注意事项">多序列比对的注意事项</a></li>
+            <li><a href="#embl---clustal-omega-多序列比对工具">EMBL - Clustal Omega 多序列比对工具</a></li>
+            <li><a href="#tcoffee---expresso">TCOFFEE - Expresso</a></li>
+            <li><a href="#多序列比对的结果保存格式">多序列比对的结果保存格式</a></li>
+            <li><a href="#格式转换工具fmtseq">格式转换工具fmtseq</a></li>
+            <li><a href="#多序列比对的编辑和发布jalview">多序列比对的编辑和发布：Jalview</a></li>
+          </ol>
+        </li>
+        <li><a href="#寻找保守区域">寻找保守区域</a>
+          <ol>
+            <li><a href="#序列标识图">序列标识图</a></li>
+            <li><a href="#weblogo">WebLogo</a></li>
+            <li><a href="#序列基序meme">序列基序MEME</a></li>
+            <li><a href="#prints-指纹图谱数据库">PRINTS 指纹图谱数据库</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

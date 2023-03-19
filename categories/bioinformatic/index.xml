@@ -1,0 +1,548 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>生物信息学&amp;计算生物学 on 叶宇浩随记博客</title>
+    <link>https://example.com/categories/bioinformatic/</link>
+    <description>Recent content in 生物信息学&amp;计算生物学 on 叶宇浩随记博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 04 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://example.com/categories/bioinformatic/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>山东大生信_Linux_Perl_note</title>
+      <link>https://example.com/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_linux_perl_note/</link>
+      <pubDate>Thu, 04 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_linux_perl_note/</guid>
+      <description>写在前面的话：这个笔记不过多深入知识，因为做入门有，大概知道什么时候该用哪个，以及现在有什么技术
+Linux {width=&amp;ldquo;5.833333333333333in&amp;rdquo; height=&amp;ldquo;2.6345844269466316in&amp;rdquo;}
+有一定的基础所以不做笔记了
+Perl 可以去看其他的课程</description>
+    </item>
+    
+    <item>
+      <title>山东大生信note</title>
+      <link>https://example.com/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1note/</link>
+      <pubDate>Thu, 04 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1note/</guid>
+      <description>写在前面的话：这个笔记不过多深入知识，因为做入门有，大概知道什么时候该用哪个，以及现在有什么技术
+教程地址：https://www.bilibili.com/video/BV13t411372E?spm_id_from=333.1007.top_right_bar_window_custom_collection.content.click
+写在前面的话：这个笔记不过多深入知识，因为做入门有，大概知道什么时候该用哪个，以及现在有什么技术
+生物数据库 PubMed的使用（原核生物） PubMed 是拥有超过两百六十万生物医学文献的数据库。这些文献来源于 MEDLINE， 也就是生物医学文献数据库、生命科学领域学术杂志以及在线的专业书籍。他们大部分提供 全文链接。注意，提供的是链接，你有没有权限通过这个链接打开或者下载全文另当别论。 不管怎么说，看上去还不错。PubMed 主页（http://www.ncbi.nlm.nih.gov/pubmed）上有个搜 索条。不管三七二十一，先把家说的 dUTPase 敲到搜索条里，点搜索。找到了五百多条文 献。每个文献有题目，作者，刊物，出版时间等等。如果列出的这些信息还不够，或者无法 满足你的要求，你从页面上方设置每个文献是要显示内容、总结、摘要，还是其他。还可以 控制每页显示几个文献，以及按照你期望的顺序进行排序
+如果找到的文献太多，一时看不完，可以把他们保存到本地。只要选中你要保存的文献， 然后通过发送按钮，选择文件，再选择保存的内容以及顺序，最后点创建文件。这样你选中 文章的信息就以纯文本文件的形式保存到本地电脑上了。
+Pubmed 提供文 献的摘要和全文链接。这里有两个全文链接。其中一个链接的图标上有 free 字样。Jim 很幸 运，这篇文章是 open access 的，也就是免费阅读的。两个链接，第一个是期刊提供的全文 链接，第二个是 PubMed 中心提供的全文链接。点其中一个链接，就可以在线浏览文献全文 了，或者下载全文的 PDF 文件到本地。至此，JIM 总算找到了些许有用的信息
+回到 PUBMED 搜索结果页面，在显示内容格式这个下拉菜单里，除了总结，摘要，还 有个叫 MEDLINE 的项目。你可以把它简单的理解为数据库中文献记录的内部结构。每条 文献都是以这样的内部结构存储在数据库中的。一篇文献的所以信息被分割成小节，每个小 节都有自己的索引名，比如 TI 代表题目，AB 代表摘要，AU 代表作者等等。这些由几个字 母组成的索引名是规定好的。
+了解了 MEDLINE 结构，我们就可以在搜索条中通过引入索引名，来按照不同的规则 搜索。比如搜索 Down 这个词。我们在 Down 的后面加上空格，中括号 AU（Down [AU]）， 就会返回所有作者名里有 Down 这个词的文献。如果加上[TI]，则返回题目中有 Down 的 文献。中括号 AD 是搜索发表单位。如果什么限制都没有，只写 Down 的话是在任意地方搜 索。我们看到，引入不同索引名后，搜索到的文献数量是不相同的</description>
+    </item>
+    
+    <item>
+      <title>山东大生信_序列比较_note</title>
+      <link>https://example.com/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/</link>
+      <pubDate>Wed, 03 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E5%BA%8F%E5%88%97%E6%AF%94%E8%BE%83_note/</guid>
+      <description>写在前面的话：这个笔记不过多深入知识，因为做入门有，大概知道什么时候该用哪个，以及现在有什么技术
+序列比较 基础概念 {width=&amp;ldquo;5.833333333333333in&amp;rdquo; height=&amp;ldquo;3.3103608923884513in&amp;rdquo;}
+序列相似性 {width=&amp;ldquo;5.833333333333333in&amp;rdquo; height=&amp;ldquo;3.227069116360455in&amp;rdquo;}
+相似的序列说明可能来自同一祖先而且可能具有相似的结构和功能
+{width=&amp;ldquo;5.833333333333333in&amp;rdquo; height=&amp;ldquo;3.3227121609798775in&amp;rdquo;}
+{width=&amp;ldquo;5.833333333333333in&amp;rdquo; height=&amp;ldquo;3.3592727471566053in&amp;rdquo;}
+例子的一致度为：50%；
+替换计分矩阵 {width=&amp;ldquo;5.833333333333333in&amp;rdquo; height=&amp;ldquo;3.4233748906386703in&amp;rdquo;}
+{width=&amp;ldquo;5.833333333333333in&amp;rdquo; height=&amp;ldquo;3.468004155730534in&amp;rdquo;}
+{width=&amp;ldquo;5.833333333333333in&amp;rdquo; height=&amp;ldquo;3.2975951443569556in&amp;rdquo;}
+{width=&amp;ldquo;5.833333333333333in&amp;rdquo; height=&amp;ldquo;3.382060367454068in&amp;rdquo;}
+PAM后面的数体现的是序列差异度，而BLOSUM后面的数字体现的是相似性
+{width=&amp;ldquo;5.833333333333333in&amp;rdquo; height=&amp;ldquo;3.6440846456692912in&amp;rdquo;}
+{width=&amp;ldquo;5.833333333333333in&amp;rdquo; height=&amp;ldquo;3.0868766404199475in&amp;rdquo;}
+其他两种蛋白质序列比对的替换计分矩阵
+{width=&amp;ldquo;5.833333333333333in&amp;rdquo; height=&amp;ldquo;2.353906386701662in&amp;rdquo;}
+那现在来解决下前面遗留的相似度问题：
+{width=&amp;ldquo;5.833333333333333in&amp;rdquo; height=&amp;ldquo;3.4432042869641295in&amp;rdquo;}
+{width=&amp;ldquo;5.833333333333333in&amp;rdquo; height=&amp;ldquo;3.406619641294838in&amp;rdquo;}
+{width=&amp;ldquo;5.833333333333333in&amp;rdquo; height=&amp;ldquo;3.5194849081364827in&amp;rdquo;}
+（2+1）:代表两对相同的，一对相似的
+那么问题来了，两个序列的长度不相同怎么办呢？
+{width=&amp;ldquo;5.833333333333333in&amp;rdquo; height=&amp;ldquo;3.5037270341207347in&amp;rdquo;}
+先学习下两个序列的比较方法
+序列两两比较的方法 打点法 {width=&amp;ldquo;5.833333333333333in&amp;rdquo; height=&amp;ldquo;3.021797900262467in&amp;rdquo;}
+{width=&amp;ldquo;5.833333333333333in&amp;rdquo; height=&amp;ldquo;3.142396106736658in&amp;rdquo;}
+{width=&amp;ldquo;5.833333333333333in&amp;rdquo; height=&amp;ldquo;3.716813210848644in&amp;rdquo;}
+{width=&amp;ldquo;5.833333333333333in&amp;rdquo; height=&amp;ldquo;3.3695647419072614in&amp;rdquo;}
+打点法在线软件 Dotlet [http://myhits.isb-sib.ch/cgi-bin/dotlet]
+{width=&amp;ldquo;5.833333333333333in&amp;rdquo; height=&amp;ldquo;3.3341786964129483in&amp;rdquo;}
+Input中复制序列进去
+{width=&amp;ldquo;5.833333333333333in&amp;rdquo; height=&amp;ldquo;3.0793339895013125in&amp;rdquo;}
+{width=&amp;ldquo;5.833333333333333in&amp;rdquo; height=&amp;ldquo;3.550419947506562in&amp;rdquo;}
+如果选其他的， 比如选择 15，那就是一次比较 15 个字母，也就是看 15 个字母长度的序列整体的相似度如 何来确定打不打点。注意这里不是比较完前 15 个字母，然后再从第 16 个字母开始比较后面 的 15 个字母，而是第 1 次比较第 1 到第 15 个字母，然后再比较第 2 到第 16 个字母，再是 第 3 到第 17 个字母，依次类推；</description>
+    </item>
+    
+    <item>
+      <title>山东大生信_生物数据库_note</title>
+      <link>https://example.com/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/</link>
+      <pubDate>Tue, 02 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E5%BA%93_note/</guid>
+      <description>写在前面的话：这个笔记不过多深入知识，因为做入门有，大概知道什么时候该用哪个，以及现在有什么技术
+教程地址：https://www.bilibili.com/video/BV13t411372E?spm_id_from=333.1007.top_right_bar_window_custom_collection.content.click
+写在前面的话：这个笔记不过多深入知识，因为做入门有，大概知道什么时候该用哪个，以及现在有什么技术
+生物数据库 PubMed的使用（原核生物） PubMed 是拥有超过两百六十万生物医学文献的数据库。这些文献来源于 MEDLINE， 也就是生物医学文献数据库、生命科学领域学术杂志以及在线的专业书籍。他们大部分提供 全文链接。注意，提供的是链接，你有没有权限通过这个链接打开或者下载全文另当别论。 不管怎么说，看上去还不错。PubMed 主页（http://www.ncbi.nlm.nih.gov/pubmed）上有个搜 索条。不管三七二十一，先把家说的 dUTPase 敲到搜索条里，点搜索。找到了五百多条文 献。每个文献有题目，作者，刊物，出版时间等等。如果列出的这些信息还不够，或者无法 满足你的要求，你从页面上方设置每个文献是要显示内容、总结、摘要，还是其他。还可以 控制每页显示几个文献，以及按照你期望的顺序进行排序
+如果找到的文献太多，一时看不完，可以把他们保存到本地。只要选中你要保存的文献， 然后通过发送按钮，选择文件，再选择保存的内容以及顺序，最后点创建文件。这样你选中 文章的信息就以纯文本文件的形式保存到本地电脑上了。
+Pubmed 提供文 献的摘要和全文链接。这里有两个全文链接。其中一个链接的图标上有 free 字样。Jim 很幸 运，这篇文章是 open access 的，也就是免费阅读的。两个链接，第一个是期刊提供的全文 链接，第二个是 PubMed 中心提供的全文链接。点其中一个链接，就可以在线浏览文献全文 了，或者下载全文的 PDF 文件到本地。至此，JIM 总算找到了些许有用的信息
+回到 PUBMED 搜索结果页面，在显示内容格式这个下拉菜单里，除了总结，摘要，还 有个叫 MEDLINE 的项目。你可以把它简单的理解为数据库中文献记录的内部结构。每条 文献都是以这样的内部结构存储在数据库中的。一篇文献的所以信息被分割成小节，每个小 节都有自己的索引名，比如 TI 代表题目，AB 代表摘要，AU 代表作者等等。这些由几个字 母组成的索引名是规定好的。
+了解了 MEDLINE 结构，我们就可以在搜索条中通过引入索引名，来按照不同的规则 搜索。比如搜索 Down 这个词。我们在 Down 的后面加上空格，中括号 AU（Down [AU]）， 就会返回所有作者名里有 Down 这个词的文献。如果加上[TI]，则返回题目中有 Down 的 文献。中括号 AD 是搜索发表单位。如果什么限制都没有，只写 Down 的话是在任意地方搜 索。我们看到，引入不同索引名后，搜索到的文献数量是不相同的</description>
+    </item>
+    
+    <item>
+      <title>山东大生信_生物数据挖掘_note</title>
+      <link>https://example.com/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/</link>
+      <pubDate>Tue, 02 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%94%9F%E7%89%A9%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98_note/</guid>
+      <description>写在前面的话：这个笔记不过多深入知识，因为做入门有，大概知道什么时候该用哪个，以及现在有什么技术
+生物数据挖掘（这章讲的有点水） 大数据有四字箴言：大、快、杂、 疑，即大数据资料量庞大、变化飞快、种类繁杂、以及真伪存疑
+数据库系统 数据挖掘涉及三个领域：统计、数据库系统和机器学习。关于统计，有专门的统计课程 不属于这门课的主要讲授内容。这一章主要从数据库系统和机器学习这两部分入手来掌握数 据挖掘的基本方法。 数据库系统就是存放数据的数据库和管理数据库的管理软件加在一起，即，数据库+数 据库管理系统=数据库系统。这就像一个图书馆，除了书籍以外，还要有图书管理员，否则 书放不进去也拿不出来
+{width=&amp;ldquo;5.833333333333333in&amp;rdquo; height=&amp;ldquo;3.278423009623797in&amp;rdquo;}
+数据库有很多类型，比如传统的关系型数据库，是以表格的形式存储数据的。还有近些 年越来越流行的面向对象型数据库，比如 XML 数据库。它是以 XML 格式存储数据的。Xml 格式的数据都是以尖括号括起来的标签开始，在标签名前加个斜线结束。标签中还可以再包 含子一级的标签。比如病人资料这个标签下就有两个病人标签，每个病人标签下还有四个记 录病人信息的标签。如果需要的话，疾病这个标签下还可以再加入更深一层的标签，比如疾 病的名字、分型等等。这样一层一层的，结构非常清晰而且灵活，特别适合存储复杂的生物 数据。这是传统的关系型数据库无法比拟的
+机器学习 主要任务 机器学习主要是设计和分析一些让计算机可以自动&amp;quot;学习&amp;quot;的算法。这些算法是一类从 数据中获得规律，并利用这些规律对未知数据进行预测的算法。比如有台电脑，我们想让他 学会辨认各种球，那么我们就拿来很多球让电脑学习，告诉它这样的球足球、这样的球是排 球，这样的球是篮球，这样的球是棒球。经过大量的学习后，电脑说，我已经学会了，可以 分清这四种球了。好，我们来考考他。学过的都能掌握，没学过的打死也不会，这就是机器 学习。如果机器学习到了一个很高的境界，能够主动学习了，并能正确掌握学习到的东西， 那就走向人工智能了。目前市面上比较火的公子小白就具备机器学习的功能，但可惜仍然是 比较初级的被动学习，还没有智能到主动学习
+现在回到最初的问题上，看看这个电脑是怎么学会识别各种球的。电脑没有眼睛，所以 我们也不是真的把球摆到电脑面前让他看。我们实际上是把电脑学习的物体转化成了向量， 让电脑读取向量值，也就是用向量来描述物体。我们可以用一个 5 维的向量来描述一个球。 这五个维度分别描述了球的直径、重量、颜色、材质和纹路。这样一个向量足够将各种球区 分开了。几乎所有物体我们都可以把他转化成多维向量。比如图片可以转换成颜色柱状图， 并由此创建一个 36 维的向量，一个维度对应一种颜色，每一维度上的值代表这种颜色在图 片中出现的频率。再比如，基因表达水平，可以用描述基因芯片上每个点的颜色及深浅的向 量来表示。甚至我们教室里的每一个人都可以向量化
+{width=&amp;ldquo;5.833333333333333in&amp;rdquo; height=&amp;ldquo;2.9564643482064743in&amp;rdquo;}
+机器都能学些什么，也就是机器学习的任务。常见的机器学习的任务 有分类、聚类和回归。分类和聚类虽然名字很像，但他们的区别还是巨大的。之前教给小电 脑完成的任务就是分类任务
+{width=&amp;ldquo;5.833333333333333in&amp;rdquo; height=&amp;ldquo;3.4433650481189852in&amp;rdquo;}
+分类任务要有足够的背景知识去训练电脑，告诉电脑这个样的都是篮球，这个样的都是 足球，这样的都是排球。然后拿学习过的这些球以外的球，让电脑判断是哪一种球，这就是 分类
+{width=&amp;ldquo;5.833333333333333in&amp;rdquo; height=&amp;ldquo;3.098248031496063in&amp;rdquo;}
+再来看聚类，要理解聚类可以设想这样一个场景，一个外星人来到地球，对球状物体非 常痴迷，从地球上搜集了大量的球状物体。它不知道这些球状物都是什么，为了更好的研究 它们，外星人把长得差不多的球都放在了一起，并且将它们命名为球 1、 球 2 和球 3。这个 过程就叫聚类。由此可见，聚类和分类最大的区别就是聚类不需要背景知识，而分类需要
+{width=&amp;ldquo;5.833333333333333in&amp;rdquo; height=&amp;ldquo;3.219550524934383in&amp;rdquo;}</description>
+    </item>
+    
+    <item>
+      <title>山东大生信_进化树_note_</title>
+      <link>https://example.com/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%BF%9B%E5%8C%96%E6%A0%91_note_/</link>
+      <pubDate>Mon, 01 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%BF%9B%E5%8C%96%E6%A0%91_note_/</guid>
+      <description>写在前面的话：这个笔记不过多深入知识，因为做入门有，大概知道什么时候该用哪个，以及现在有什么技术
+进化树 引言 Nothing in Biology Makes Sense Except in the Light of Evolution（如果生物学没有了进化， 那么一切都将黯然无光）
+分子进化概念 {width=&amp;ldquo;5.833333333333333in&amp;rdquo; height=&amp;ldquo;3.1352602799650042in&amp;rdquo;}
+所谓变异速度是指一定时间内不同碱基或氨基酸突变的个数。这个 进化变异速度被认为是恒定的，跟物种没有关系。所以，拿蛋白质来说，两个蛋白质在序列 上越相似，他们距离共同祖先就越近。分子钟理论是进化研究领域被普遍认可的理论，但是至今也没有直接的证据证实。
+一些基本概念 同源（Homologs），相同来源。没错，但是它的确切定义是，来源于共同祖先的相似序 列为同源序列。也就是说，相似序列有两种，一种是来源于共同祖先的，那么他们可以叫同 源，另一种不是来源于共同祖先的，那么他们尽管相似也不能叫同源。 &amp;lt;!-- --&amp;gt; 第二种情况出现的概 率虽然低，但还是存在的，所以相似序列并不一定是同源序列。同源又分为三种，直系同源， 旁系同源和异同源。
+{width=&amp;ldquo;5.833333333333333in&amp;rdquo; height=&amp;ldquo;4.80228237095363in&amp;rdquo;}
+&amp;lt;!-- --&amp;gt; 直系同源（Orthologs）是指，来自于不同物种的由垂直家系，也就是物种形成，进化而 来的基因，并且典型的保留与原始基因相同的功能。也就是说，随着进化分支，一个基因进 入了不同的物种，并保留了原有功能。这时，不同物种中的这个基因就属于直系同源 &amp;lt;!-- --&amp;gt; {width=&amp;ldquo;5.833333333333333in&amp;rdquo; height=&amp;ldquo;5.332113954505687in&amp;rdquo;} &amp;lt;!-- --&amp;gt; 旁系同源（Paralogs）是指在同一物种中的来源于基因复制的基因，可能会进化出新的 但与原功能相关的功能来。基因复制产生了两个重复的基因，多出来的这个有几种命运，一 个是又丢了。复制出来发现没有用，又删了。另一种命运是演化出了新的功能。如果这个新 功能是往好的方向发展，就会被保留下了，如果是往不好的方面发展，就会被自然选择淘汰。 还有一种命运，就是被放置不用。复制出来以后，又加了个终止子，既不表达，也不删除， 搁那里搁着不管，成了伪基因。被保留下来的具有新功能的基因与另一个复制出来的基因之 间就是旁系同源。 &amp;lt;!-- --&amp;gt; {width=&amp;ldquo;5.833333333333333in&amp;rdquo; height=&amp;ldquo;5.564267279090114in&amp;rdquo;} &amp;lt;!-- --&amp;gt; 异同源（Xenologs）是指通过水平基因转移，来源于共生或病毒侵染所产生的相似基因。 异同源的产生不是垂直进化而来的，也不是平行复制产生的，而是由于原核生物与真核生物 的接触，比如病毒感染，在跨度巨大的物种间跳跃转移产生的 &amp;lt;!-- --&amp;gt; {width=&amp;ldquo;5.833333333333333in&amp;rdquo; height=&amp;ldquo;5.4842333770778655in&amp;rdquo;} &amp;lt;!-- --&amp;gt; 不同的同源，概念很容易混淆。图 1 清楚的描述了各种同源之间的关系。首先，有个早 期的球蛋白基因，它通过基因复制，形成了α球蛋白基因和β球蛋白基因。后来随着进化，这 两种复制产生的基因也存在于不同的物种中。其中某一物种里的，比如老鼠里的α球蛋白基 因和β球蛋白基因就属于旁系同源。而某一个基因在不同物种中，比如青蛙里的α球蛋白基因 和鸡里的α球蛋白基因就属于直系同源。再比如，某个细菌，它没有早期的球蛋白基因，也 自然没有β球蛋白基因，但是通过与青蛙的共生，发生了基因水平转移。于是它从某一天就 起有了β球蛋白基因。那么这个细菌的β球蛋白基因和青蛙的β球蛋白基因就属于异同源 &amp;lt;!</description>
+    </item>
+    
+    <item>
+      <title>山东大生信_简单的生物统计应用以及序列算法</title>
+      <link>https://example.com/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/</link>
+      <pubDate>Sun, 31 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%9F%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95/</guid>
+      <description>写在前面的话：这个笔记不过多深入知识，因为做入门有，大概知道什么时候该用哪个，以及现在有什么技术
+简单的生物统计应用以及序列算法 Bayesj基础 {width=&amp;ldquo;5.833333333333333in&amp;rdquo; height=&amp;ldquo;8.125433070866142in&amp;rdquo;}
+{width=&amp;ldquo;5.833333333333333in&amp;rdquo; height=&amp;ldquo;3.6918602362204727in&amp;rdquo;}
+{width=&amp;ldquo;5.833333333333333in&amp;rdquo; height=&amp;ldquo;3.400382764654418in&amp;rdquo;}
+{width=&amp;ldquo;5.833333333333333in&amp;rdquo; height=&amp;ldquo;3.6757983377077865in&amp;rdquo;}
+{width=&amp;ldquo;5.833333333333333in&amp;rdquo; height=&amp;ldquo;3.5953871391076118in&amp;rdquo;}
+Bayes在生物学的应用 {width=&amp;ldquo;5.833333333333333in&amp;rdquo; height=&amp;ldquo;2.822579833770779in&amp;rdquo;}
+{width=&amp;ldquo;5.833333333333333in&amp;rdquo; height=&amp;ldquo;3.0538134295713038in&amp;rdquo;}
+{width=&amp;ldquo;5.833333333333333in&amp;rdquo; height=&amp;ldquo;3.2251596675415573in&amp;rdquo;}
+二元预测的灵敏度和特异度 基本介绍 {width=&amp;ldquo;5.833333333333333in&amp;rdquo; height=&amp;ldquo;3.2344356955380578in&amp;rdquo;}
+{width=&amp;ldquo;5.833333333333333in&amp;rdquo; height=&amp;ldquo;3.480990813648294in&amp;rdquo;}
+A的灵敏度达到100%，说明它对发生很敏感，只要有发生就会探测到；A的特异度60%说明所引起的探测不一定是由于地震引起的
+{width=&amp;ldquo;5.833333333333333in&amp;rdquo; height=&amp;ldquo;3.3598140857392824in&amp;rdquo;}
+在生物学上的应用 {width=&amp;ldquo;5.833333333333333in&amp;rdquo; height=&amp;ldquo;3.343495188101487in&amp;rdquo;}
+{width=&amp;ldquo;5.833333333333333in&amp;rdquo; height=&amp;ldquo;3.2347659667541557in&amp;rdquo;}
+位点特异性加权矩阵 每一行是一个LRR的序列（长度为11）（上半部分）, 来看看每一个氨基酸即20个氨基酸出现的概率（下半部分）；如第一行A在第一列（1）中 代表A这个氨基酸出现在第一个序列中的占比为0.3%
+{width=&amp;ldquo;5.833333333333333in&amp;rdquo; height=&amp;ldquo;3.0606332020997375in&amp;rdquo;}
+当作打分矩阵用来预测是哪里出现了LRR序列
+如：构造一个长度为11的小窗口，一个一个位置往后面扫描，每一次都打一次分，
+{width=&amp;ldquo;5.833333333333333in&amp;rdquo; height=&amp;ldquo;2.589207130358705in&amp;rdquo;}
+如何打分：
+比如这个 LTVLMLLHNQL
+{width=&amp;ldquo;5.833333333333333in&amp;rdquo; height=&amp;ldquo;3.5772353455818022in&amp;rdquo;}
+在矩阵中第一列找到L中出现的百分比为： 75% 即 0.75；同样的方法找到后面的氨基酸的百分比之和，转为小数，相加求和
+{width=&amp;ldquo;5.833333333333333in&amp;rdquo; height=&amp;ldquo;3.8992311898512684in&amp;rdquo;}
+量化的标准（阈值）的确定，即低于这个分值的不是LRR序列
+怎么找到一个合理的阈值（即灵敏度和特异性高）
+{width=&amp;ldquo;5.833333333333333in&amp;rdquo; height=&amp;ldquo;3.0096095800524933in&amp;rdquo;}
+看这两个的交点 （ 或者将这两条曲线叠加起来，纯数学求和，取最高值 ） {width=&amp;ldquo;5.833333333333333in&amp;rdquo; height=&amp;ldquo;3.1744925634295713in&amp;rdquo;}
+基本序列算法 基本概念 {width=&amp;ldquo;5.833333333333333in&amp;rdquo; height=&amp;ldquo;3.188888888888889in&amp;rdquo;}</description>
+    </item>
+    
+    <item>
+      <title>山东大生信_高通量测序_note</title>
+      <link>https://example.com/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E9%AB%98%E9%80%9A%E9%87%8F%E6%B5%8B%E5%BA%8F_note/</link>
+      <pubDate>Sat, 30 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E9%AB%98%E9%80%9A%E9%87%8F%E6%B5%8B%E5%BA%8F_note/</guid>
+      <description> 写在前面的话：这个笔记不过多深入知识，因为做入门有，大概知道什么时候该用哪个，以及现在有什么技术
+高通量测序 （对于我，这章了解就好了) 基因组学与测序技术 Sanger 测序
+{width=&amp;ldquo;5.833333333333333in&amp;rdquo; height=&amp;ldquo;5.018454724409449in&amp;rdquo;}
+高通量测序
+{width=&amp;ldquo;5.833333333333333in&amp;rdquo; height=&amp;ldquo;3.314882983377078in&amp;rdquo;}
+得到一个整个的DNA，将其捣碎，加入测序相关的试剂进去，体系放在一个槽里，每个槽里就是每个测序反应（可加入荧光观察）； 会有个拍照系统，每个反应中每隔一段时间拍一张；
+测序在医学中有大作用
+数据本身的复杂性
+{width=&amp;ldquo;5.833333333333333in&amp;rdquo; height=&amp;ldquo;4.381519028871391in&amp;rdquo;}
+测序本身都会有错误，所以在进行之前，要排查出来；
+海量数据的计算和挖掘成为主要瓶颈；用内存计算拼接；
+从头测序 de novo sequencing 片段化、零碎的信息拼接成染色体水平
+Overlap Graph : 基于read重叠区的，去找到他们的重合，然后再末端延申去获得这些片段;也就是说这里是将两两的序列作比较
+De Bruijn Graph: 把read切成特定大小的长度
+{width=&amp;ldquo;5.833333333333333in&amp;rdquo; height=&amp;ldquo;3.6531977252843393in&amp;rdquo;}
+都很难解决重复区域
+{width=&amp;ldquo;5.833333333333333in&amp;rdquo; height=&amp;ldquo;3.4084962817147857in&amp;rdquo;}
+重测序 转录组测序 测序对象是不是DNA序列，而是 DNA转录的产物
+表观基因组学 在DNA上的修饰，DNA上本身的甲基化（甲基化可以沉默基因的表达）、组蛋白的修饰，组蛋白的promoting的打开与否，
+来测试这种打开的信号
+{width=&amp;ldquo;5.833333333333333in&amp;rdquo; height=&amp;ldquo;3.331119860017498in&amp;rdquo;}
+{width=&amp;ldquo;5.833333333333333in&amp;rdquo; height=&amp;ldquo;3.464051837270341in&amp;rdquo;}
+{width=&amp;ldquo;5.833333333333333in&amp;rdquo; height=&amp;ldquo;4.072636701662292in&amp;rdquo;}
+猛犸象基因组测序计划 </description>
+    </item>
+    
+    <item>
+      <title>山东大生信_蛋白结构预测_note</title>
+      <link>https://example.com/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/</link>
+      <pubDate>Fri, 29 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E5%B1%B1%E4%B8%9C%E5%A4%A7%E7%94%9F%E4%BF%A1_%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B_note/</guid>
+      <description>写在前面的话：这个笔记不过多深入知识，因为做入门有，大概知道什么时候该用哪个，以及现在有什么技术
+蛋白质结构预测
+蛋白质的结构 你将洞悉一个蛋白质到 底长什么样子（蛋白质三维结构），它和它的闺蜜手拉手拍合影的样子（蛋白质和蛋白质分 子对接），它嘴巴里塞满食物的样子（蛋白质和小分子分子对接），以及它在你身体里活动的 样子（分子动力学模拟)
+一级结构也就是氨基酸序列， 二 级结构是周期性的结构构象，比如α螺旋β折叠等 三 级结构是整条多肽链的三维空间结构 四级结构是几 个蛋白质分子形成的复合体结构，比如三聚体，四聚体等 蛋白质是由氨基酸组成的，前一个氨基酸的羧基和后一个氨基酸的氨基脱去一分子的水，缩合形成的肽键。肽键将氨基酸连接起来形成肽链。成熟的肽链 并不是一根松散的毛线，它要经过折叠变成一个线团，即，形成空间立体结构。拥有了空间立体结之后，蛋白质才能上岗工作。 蛋白质的二级结构 DSSP指认 蛋白质经过折叠后会形成规则的片段，这些规则的片段构成了蛋白质的二级结构单元 （图 1）。三种常见的二级结构单元包括螺旋、β折叠、和转角。螺旋中最常见的就是α螺旋， 但不只有α螺旋，还有其他的螺旋，比如 3 转角螺旋，5 转角螺旋等。β折叠由平行排列的β 折片组成。这些折片在序列上可能相隔很远，但是在空间结构上并排在一起，彼此间形成氢 键。除了螺旋和折叠外，蛋白质结构中还存在大量的无规律松散结构 coil。如果这些无规律 的肽链突然发生了急转弯，这个转弯结构就叫做β转角
+蛋白质的二级结构经常用图形来形象的描述。比如黄色的箭头代表对应的氨基酸 具有β折片结构。波浪线代表螺旋结构，小鼓包是转角。此外，以字母形式书写的二级结构 序列能够更加精准的描述。其中，E 代表β折叠，H 代表α螺旋，T 代表转角。没有写任何字 母的地方是松散的 coil 结构
+研究人员根据 DSSP，也就是蛋白质二级结构定义词典，将三级结构里的二级结构单元指认出来的
+然后再按照规定的格式，记录下蛋白质中每个氨基酸处于哪种二级结构单元。这样一 个记录蛋白质二级结构信息的文件叫做 DSSP 文件。蛋白质结构数据库 PDB 中的每一个蛋 白质三级结构都有自己对应的 DSSP 文件。DSSP 文件里不同字母所代表的不同二级结构单 元和 PDB 里面的记录方式是统一的
+DSSP 的主页上，Introduction 部分有一个 Web server 链接，这个链接很容易让人误以为 可以通过它预测某条氨基酸序列的二级结构。这是不对的。DSSP 网站的 Web Server 可以指 认蛋白质结构文件，也就是 PDB 文件中的二级结构，并创建出相应的 DSSP 文件。提交的 PDB 文件可以是用实验方法刚刚解析出来，还没有提交 PDB 数据库的蛋白质三级结构，也 可以是用计算方法预测出来的蛋白质三级结构模型。总之，输入值必须是三级结构，而不是 一级的氨基酸序列（PDB ID 必须是小写的）</description>
+    </item>
+    
+    <item>
+      <title>ch20_高级</title>
+      <link>https://example.com/p/ch20_%E9%AB%98%E7%BA%A7/</link>
+      <pubDate>Thu, 19 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/ch20_%E9%AB%98%E7%BA%A7/</guid>
+      <description>biopython官方地址：https://biopython.org/
+github地址：https://github.com/biopython/biopython/blob/master/
+中文版教程：https://biopython-cn.readthedocs.io/zh_CN/latest/cn/chr06.html
+biopython包的说明（具体到每个模块了）：https://www.osgeo.cn/biopython/Bio.HMM.DynamicProgramming.html
+解析器的设计 过去很多Biopython解析器都是根据面向事件设计出来的，包括Scanner和Consumer。
+Scanners是将输入的数据源进行逐行分析，只要识别出数据中的信息就会发送一个事件。 例如，如果数据中包含物种名信息，Scanner只要读到某行包含名称信息时就会产生一个 organism_name 事件。
+Consumers是用来接收Scanners所发出事件的对象。 接着上面的例子，当Consumer收到了 organism_name 事件，在当前应用程序中无论以何种方式都会运行。
+这是一个非常灵活的构架，如果你想要将一个文件解析成多种其他格式的，这将会很有优势。 例如， Bio.GenBank 模块可以运用这种方式构建 SeqRecord 或者其他独特的文件格式记录对象。
+最近，很多添加了 Bio.SeqIO 和 Bio.AlignIO 的解析器使用了一种更为简单的方法， 但是只能产生单一形式的文件格式（分别是 SeqRecord and MultipleSeqAlignment ）。 在某些情况，Bio.SeqIO 解析器实际上包含了另一种Biopython解析器 - 例如， Bio.SwissProt 解析器产生了特定的SwissProt格式对象，又转换成了 SeqRecord 格式对象。
+替换矩阵 SubsMat 这个模块提供了一个类和一些固定的方法来产生替换矩阵，类似于BLOSUM或者PAM矩阵，但是是基于用户提供的数据。 此外，你还可以从已建立的替换矩阵集合MatrixInfo.py中选择一个矩阵。 SeqMat 类来自于一个字典（dictionary）:
+class SeqMat(dict) 这个字典的格式是 {(i1,j1):n1, (i1,j2):n2,&amp;hellip;,(ik,jk):nk} ， i和j是字母集，而n是一个值。
+属性 self.alphabet: Bio.Alphabet中定义的一个类 self.ab_list: 排列好的字母列表。主要是内部需求。 方法 __init__(self,data=None,alphabet=None, mat_name=&amp;#39;&amp;#39;, build_later=0): data: 可以是一个字典，也可以是另一个SeqMat实例。 alphabet: 一个Bio.Alphabet的实例。如果没有提供，将从数据构建一个alphabet。 mat_name: 矩阵名，例如 BLOSUM62 或者 PAM250 build_later: 默认值为false。如果为true，用户应该只提供alphabet和空字典。如果想要之后再构建矩阵，这样会跳过alphabet大小和矩阵大小的检查。 entropy(self,obs_freq_mat) obs_freq_mat: 一个观测频率矩阵。基于“obs_freq_mat”的频率返回矩阵的熵值。矩阵实例须为LO或者SUBS。 sum(self) 计算矩阵的字母表中每个字母值的总和，返回值是字典的形式 {i1: s1, i2: s2,&amp;hellip;,in:sn}, 其中:</description>
+    </item>
+    
+    <item>
+      <title>ch19_biopython测试框架</title>
+      <link>https://example.com/p/ch19_biopython%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6/</link>
+      <pubDate>Wed, 18 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/ch19_biopython%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6/</guid>
+      <description>biopython官方地址：https://biopython.org/
+github地址：https://github.com/biopython/biopython/blob/master/
+中文版教程：https://biopython-cn.readthedocs.io/zh_CN/latest/cn/chr06.html
+biopython包的说明（具体到每个模块了）：https://www.osgeo.cn/biopython/Bio.HMM.DynamicProgramming.html
+Biopython具有一个基于Python标准单元测试框架 unittesthttp://docs.python.org/library/unittest.html 的回归测试框架（文件 run_tests.py）。而为模块提供全面测试， 是确保Biopython代码在使用期内尽可能无bug的一个最重要的方面。 也经常是最被轻视的方面之一。本章旨在使运行Biopython测试和编 写测试代码尽可能容易。理想情况下，进入Biopython的每个模块都 应该有一个测试（还应该有对应文档！）。强烈鼓励我们所有开发 者，以及任何从源码安装Biopython的人运行单元测试。
+运行测试 在你下载Biopython源码或者从我们的源码仓库签出时，你会发现一 个子目录调用 Tests。 这包括关键脚本 run_tests.py、 名为 test_XXX.py 的很多独立脚本、一个叫 output 的子目录和 很多其他包含测试套件输入文件的子目录。
+作为构建和安装Biopython的一部分，你通常会在命令行上从Biopython 源码顶层目录运行整个测试套件如下：
+python setup.py test 这事实上等价于转到 Tests 子目录，并运行：
+python run_tests.py #你通常会想要只运行测试的一部分，这可以如下来操作： python run_tests.py test_SeqIO.py test_AlignIO.py #当给出测试列表时， .py 扩展名是可选的，所以你可以只需打字： python run_tests.py test_SeqIO test_AlignIO #要运行 docstring 测试（见 19.3 节）的话， 你可以用 python run_tests.py doctest 缺省情况下， run_tests.py 运行所有测试，包括docstring测试。
+如果一单个测试失败了，你还可以尝试直接运行它，它会给出更多信息。
+重要的是，要注意单个单元测试有两类作用：
+简单打印和比较脚本。 这些单元测试本质上是简短的 Python 示例 程序，它们会打印出各种输出文本。对于一个名为 test_XXX.py 的测试文件，在 output 子目录（包含期望的输出）下会有一个 叫做 test_XXX 的匹配文本文件。测试框架所做的全部就是运行 脚本并检查输出的一致性。 基于 unittest 的标准测试。 这些会 import unittest ，然 后定义 unittest.</description>
+    </item>
+    
+    <item>
+      <title>ch18_coobook</title>
+      <link>https://example.com/p/ch18_coobook/</link>
+      <pubDate>Tue, 17 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/ch18_coobook/</guid>
+      <description>biopython官方地址：https://biopython.org/
+github地址：https://github.com/biopython/biopython/blob/master/
+中文版教程：https://biopython-cn.readthedocs.io/zh_CN/latest/cn/chr06.html
+biopython包的说明（具体到每个模块了）：https://www.osgeo.cn/biopython/Bio.HMM.DynamicProgramming.html
+操作序列文件 过滤文件中的序列 通常你会拥有一个包含许多序列的大文件（例如，FASTA基因文件，或者FASTQ或SFF读长文件），和一个包含你所感兴趣的序列的ID列表，而你希望创建一个由这一ID列表里的序列构成的文件。
+让我们假设这个ID列表在一个简单的文本文件中，作为每一行的第一个词。这可能是一个表格文件，其第一列是序列ID。尝试下面的代码：
+from Bio import SeqIO input_file = &amp;#34;big_file.sff&amp;#34; id_file = &amp;#34;short_list.txt&amp;#34; output_file = &amp;#34;short_list.sff&amp;#34; wanted = set(line.rstrip(&amp;#34;\n&amp;#34;).split(None,1)[0] for line in open(id_file)) print &amp;#34;Found %i unique identifiers in %s&amp;#34; % (len(wanted), id_file) records = (r for r in SeqIO.parse(input_file, &amp;#34;sff&amp;#34;) if r.id in wanted) count = SeqIO.write(records, output_file, &amp;#34;sff&amp;#34;) print &amp;#34;Saved %i records from %s to %s&amp;#34; % (count, input_file, output_file) if count &amp;lt; len(wanted): print &amp;#34;Warning %i IDs not found in %s&amp;#34; % (len(wanted)-count, input_file) 注意，我们使用Python的 set 类型而不是 list，这会使得检测成员关系更快。</description>
+    </item>
+    
+    <item>
+      <title>ch16_监督学习方法</title>
+      <link>https://example.com/p/ch16_%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/</link>
+      <pubDate>Mon, 16 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/ch16_%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/</guid>
+      <description>biopython官方地址：https://biopython.org/
+github地址：https://github.com/biopython/biopython/blob/master/
+中文版教程：https://biopython-cn.readthedocs.io/zh_CN/latest/cn/chr06.html
+biopython包的说明（具体到每个模块了）：https://www.osgeo.cn/biopython/Bio.HMM.DynamicProgramming.html
+注意本章介绍的所有监督学习方法都需要先安装Numerical Python （numpy）。
+Logistic回归模型 背景和目的 Logistic回归是一种监督学习方法，通过若干预测变量 x__i 的加权和来尝试将样本划分为 K 个不同类别。Logistic回归模型可用来计算预测变量的权重 β_i_ 。在Biopython中，logistic回归模型目前只实现了二类别（ K = 2 ）分类，而预测变量的数量没有限制。
+作为一个例子，我们试着预测细菌中的操纵子结构。一个操纵子是在一条DNA链上许多相邻基因组成的一个集合，可以被共同转录为一条mRNA分子。这条mRNA分子经翻译后产生多个不同的蛋白质。我们将以枯草芽孢杆菌的操纵子数据进行说明，它的一个操纵子平均包含2.4个基因。
+作为理解细菌的基因调节的第一步，我们需要知道其操纵子的结构。枯草芽孢杆菌大约10%的基因操纵子结构已经通过实验获知。剩下的90%的基因操纵子结构可以通过一种监督学习方法来预测。
+在这种监督学习方法中，我们需要选择某些与操纵子结构有关的容易度量的预测变量 x__i 。例如可以选择基因间碱基对距离来来作为其中一个预测变量。同一个操纵子中的相邻基因往往距离相对较近，而位于不同操纵子的相邻基因间通常具有更大的空间来容纳启动子和终止子序列。另一个预测变量可以基于基因表达量度。根据操纵子的定义，属于同一个操纵子的基因有相同的基因表达谱，而不同操纵子的两个基因的表达谱也不相同。在实际操作中，由于存在测量误差，对相同操纵子的基因表达轮廓的测量不会完全一致。为了测量基因表达轮廓的相似性，我们假设测量误差服从正态分布，然后计算对应的对数似然分值。
+现在我们有了两个预测变量，可以据此预测在同一条DNA链上两个相邻基因是否属于相同的操纵子： - _x_1 ：两基因间的碱基对数； - _x_2 ：两基因表达谱的相似度。
+在logistic回归模型中，我们使用这两个预测变量的加权和来计算一个联合得分 S：
+S=β0+β1x1+β2x2.S=β0+β1x1+β2x2.
+根据下面两组示例基因，logistic回归模型对参数 β0 ， β1, β2 给出合适的值： - OP: 相邻基因，相同DNA链，属于相同操纵子； - NOP: 相邻基因，相同DNA链，属于不同操纵子。
+在logistic回归模型中，属于某个类别的概率依赖于通过logistic函数得出的分数。对于这两类OP和NOP，相应概率可如下表述：
+使用一组已知是否属于相同操纵子（OP类别）或不同操纵子（NOP类别）的基因对，通过最大化相应概率函数的对数似然值，我们可以计算权重 β0, β1, β2 。
+训练logistic回归模型 已知类别(OP or NOP)的相邻基因对.如果两个基因相重叠，其基因间距离为负值
+基因对	基因间距离 (x1)	基因表达得分 (x2)	类别 cotJA — cotJB	-53	-200.78	OP yesK — yesL	117	-267.</description>
+    </item>
+    
+    <item>
+      <title>ch15_聚类分析</title>
+      <link>https://example.com/p/ch15_%E8%81%9A%E7%B1%BB%E5%88%86%E6%9E%90/</link>
+      <pubDate>Sun, 15 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/ch15_%E8%81%9A%E7%B1%BB%E5%88%86%E6%9E%90/</guid>
+      <description>biopython官方地址：https://biopython.org/
+github地址：https://github.com/biopython/biopython/blob/master/
+中文版教程：https://biopython-cn.readthedocs.io/zh_CN/latest/cn/chr06.html
+biopython包的说明（具体到每个模块了）：https://www.osgeo.cn/biopython/Bio.HMM.DynamicProgramming.html
+聚类分析是根据元素相似度，进行分组的过程。在生物信息学中，聚类分析广泛 用于基因表达数据分析，用来对具有相似表达谱的基因归类；从而鉴定功能相关的基 因，或预测未知基因的功能。
+Biopython中的 Bio.Cluster 模块提供了常用的聚类算法。虽然Bio.Cluster被设计用于 基因表达数据，它也可用于其他类型数据的聚类。 Bio.Cluster 和其使用的C聚类库的说明见De Hoon et al. [14].
+Bio.Cluster 包含了以下四种聚类算法：
+系统聚类（成对重心法，最短距离，最大距离和平均连锁法); k-means, k-medians, 和 k-medoids 聚类; 自组织映射（Self-Organizing Maps）; 主成分分析 数据表示法
+用于聚类的输入为一个 n x m 的Python 数值矩阵 data。在基因表达数据聚类中， 每一行表示不同的基因，每一列表示不同的实验条件。 Bio.Cluster 既可以 针对每行（基因），也可以针对每列（实验条件）进行聚类。
+缺失值
+在芯片实验中，经常会有些缺失值，可以用一个额外的 n × m Numerical Python 整型矩阵 mask 表示。 例如 mask[i,j] ,表示 data[i,j] 是个缺失值， 并且在分析中被忽略。
+随机数据生成器
+k-means/medians/medoids 聚类和 Self-Organizing Maps (SOMs) 需要调用随机数生成器。在 Bio.Cluster 中，正态分布随机数 生成器的算法是基于L’Ecuyer [25] ，二项分布的随机数 生成器算法是基于Kachitvichyanukul and Schmeiser [23] 开发的BTPE算法。随机数生成器在调用时会首先进行初始化。由于随机数生成器使用了 两个乘同余发生器（multiplicative linear congruential generators），所以初始化时需要两个整型的 种子。这两个种子可以调用系统提供的 rand （C标准库）函数生成。在 Bio.</description>
+    </item>
+    
+    <item>
+      <title>ch14_使用Bio.motifs进行模体序列分析</title>
+      <link>https://example.com/p/ch14_%E4%BD%BF%E7%94%A8bio.motifs%E8%BF%9B%E8%A1%8C%E6%A8%A1%E4%BD%93%E5%BA%8F%E5%88%97%E5%88%86%E6%9E%90/</link>
+      <pubDate>Sat, 14 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/ch14_%E4%BD%BF%E7%94%A8bio.motifs%E8%BF%9B%E8%A1%8C%E6%A8%A1%E4%BD%93%E5%BA%8F%E5%88%97%E5%88%86%E6%9E%90/</guid>
+      <description>biopython官方地址：https://biopython.org/
+github地址：https://github.com/biopython/biopython/blob/master/
+中文版教程：https://biopython-cn.readthedocs.io/zh_CN/latest/cn/chr06.html
+biopython包的说明（具体到每个模块了）：https://www.osgeo.cn/biopython/Bio.HMM.DynamicProgramming.html
+这章主要的介绍Biopython中的 Bio.motifs 包。这个包是为了方便那些需要进行模体序列分析的人们而特意提供的，所以我想你们在使用时肯定对模体序列分析的一些相关要点都很熟悉。假如在使用中遇到不清楚的地方，请您查阅 相关章节以获得有关的信息。
+这章的大部分内容是介绍Biopython 1.61 之前版本中新加入的 Bio.motifs 包，该包替代了Biopython 1.50版本中的 Bio.Motif 包，而 Bio.Motif 包是基于较早版本的Biopython 中的两个模块 Bio.AlignAce 和 Bio.MEME 。Bio.motifs 包较好地综合了上述的几个模块的功能，做为一个统一模块工具。
+说到其他库，看到这里，你或许会对 TAMO 感兴趣，这是另一个分析模体序列的Python库。它能提供更多关于 de-novo 模体的查找方式，不过它并没有纳入到Biopython中，而且在商业用途上还有一些限制
+模体对象 由于我们感兴趣的是模体分析，所以我们需要先看看 Motif 对象。对此我们需要先导入Bio.motifs包：
+&amp;gt;&amp;gt;&amp;gt; from Bio import motifs 然后我们可以开始创建我们第一个模体对象。我们可以从模体的实例列表中创建一个 Motif 对象，也可以通过读取模体数据库中或模体查找软件产生的文件来获得一个 Motif 对象
+&amp;gt;&amp;gt;&amp;gt; from Bio import motifs 从实例中创建一个模体 假设我们有一些DNA模体的实例
+&amp;gt;&amp;gt;&amp;gt; from Bio.Seq import Seq &amp;gt;&amp;gt;&amp;gt; instances = [Seq(&amp;#34;TACAA&amp;#34;), ... Seq(&amp;#34;TACGC&amp;#34;), ... Seq(&amp;#34;TACAC&amp;#34;), ... Seq(&amp;#34;TACCC&amp;#34;), ... Seq(&amp;#34;AACCC&amp;#34;), ... Seq(&amp;#34;AATGC&amp;#34;), ... Seq(&amp;#34;AATGC&amp;#34;), .</description>
+    </item>
+    
+    <item>
+      <title>ch13_Bio.Phylo系统发育分析</title>
+      <link>https://example.com/p/ch13_bio.phylo%E7%B3%BB%E7%BB%9F%E5%8F%91%E8%82%B2%E5%88%86%E6%9E%90/</link>
+      <pubDate>Fri, 13 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/ch13_bio.phylo%E7%B3%BB%E7%BB%9F%E5%8F%91%E8%82%B2%E5%88%86%E6%9E%90/</guid>
+      <description>biopython官方地址：https://biopython.org/
+github地址：https://github.com/biopython/biopython/blob/master/
+中文版教程：https://biopython-cn.readthedocs.io/zh_CN/latest/cn/chr06.html
+biopython包的说明（具体到每个模块了）：https://www.osgeo.cn/biopython/Bio.HMM.DynamicProgramming.html
+Biopython1.54开始引入了Bio.Phylo模块，与SeqIO和AlignIO类似，它的目的是提供 一个通用的独立于源数据格式的方法来使用系统进化树，同时提供一致的API来进行 I/O操作。
+Bio.Phylo在一篇开放获取的期刊文章中有介绍 [9, Talevich et al., 2012], 这可能对您也有所帮助。
+树中有什么？ 为了熟悉这个模块，让我们首先从一个已经创建好的树开始，从几个不同的角度来审视 它。接着我们将给树的分支上颜色，并使用一个特殊的phyloXML特性，最终保存树
+译者注：本翻译中， 分支 对应原文中的 branch ，原文中一般代表 某一个节点的前导连线；而 进化枝 对应原文中的 clade ，代表某个节点所代表的整个 进化分支，包括本身和它所有的后代；若clade代表biopython中的对象则保留原文
+在终端中使用你喜欢的编辑器创建一个简单的Newick文件：
+% cat &amp;gt; simple.dnd &amp;lt;&amp;lt;EOF &amp;gt; (((A,B),(C,D)),(E,F,G)); &amp;gt; EOF 这棵树没有分支长度，只有一个拓扑结构和标记的端点。（如果你有一个真正的树文件， 你也可以使用它来替代进行示例操作。）
+选择启动你的Python解释器：
+% ipython -pylab 对于交互式操作，使用参数 -pylab 启动IPython解释器能启用 matplotlib 整合 功能，这样图像就能自动弹出来。我们将在这个示例中使用该功能。
+现在，在Python终端中，读取树文件，给定文件名和格式名。
+&amp;gt;&amp;gt;&amp;gt; from Bio import Phylo &amp;gt;&amp;gt;&amp;gt; tree = Phylo.read(&amp;#34;simple.dnd&amp;#34;, &amp;#34;newick&amp;#34;) 以字符串打印该树对象我们将得到整个对象的层次结构概况。
+&amp;gt;&amp;gt;&amp;gt; print tree Tree(weight=1.0, rooted=False, name=&amp;#34;&amp;#34;) Clade(branch_length=1.0) Clade(branch_length=1.0) Clade(branch_length=1.</description>
+    </item>
+    
+    <item>
+      <title>ch12_Bio.PopGen_群体遗传学</title>
+      <link>https://example.com/p/ch12_bio.popgen_%E7%BE%A4%E4%BD%93%E9%81%97%E4%BC%A0%E5%AD%A6/</link>
+      <pubDate>Thu, 12 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/ch12_bio.popgen_%E7%BE%A4%E4%BD%93%E9%81%97%E4%BC%A0%E5%AD%A6/</guid>
+      <description>biopython官方地址：https://biopython.org/
+github地址：https://github.com/biopython/biopython/blob/master/
+中文版教程：https://biopython-cn.readthedocs.io/zh_CN/latest/cn/chr06.html
+biopython包的说明（具体到每个模块了）：https://www.osgeo.cn/biopython/Bio.HMM.DynamicProgramming.html
+Bio.PopGen是一个群体遗传学相关的模块，在Biopython 1.44及以后的版本中可用。
+该模块的中期目标是支持各种类型的数据格式、应用程序和数据库。目前，该模块正在紧张的开发中，并会快速实现对新特征的支持。这可能会带来一些不稳定的API，尤其是当你使用的是开发版。不过，我们正式公开发行的API应该更加稳定。
+GenePop GenePop（ http://genepop.curtin.edu.au/）是一款主流的群体遗传学软件包，支持Hardy-Weinberg检验、连锁不平衡、群体分化、基础统计计算、 FstFst 和迁移率估计等等。GenePop并不支持基于序列的统计计算，因为它并不能处理序列数据。GenePop文件格式广泛用于多种其它的群体遗传学应用软件，因此成为群体遗传学领域重要格式。
+Bio.PopGen提供GenePop文件格式解析器和生成器，同时也提供操作记录内容的小工具。此处有个关于怎样读取GenePop文件的示例（你可以在Biopython的Test/PopGen文件夹下找到GenePop示例文件）：
+from Bio.PopGen import GenePop handle = open(&amp;#34;example.gen&amp;#34;) rec = GenePop.read(handle) handle.close() 它将读取名为example.gen的文件并解析。如果你输出rec，那么该记录将会以GenePop格式再次输出。
+在rec中最重要的信息是基因座名称和群体信息（当然不止这些，请使用help(GenePop.Record)获得API帮助文档）。基因座名称可以在rec.loci_list中找到，群体信息可以在rec.populations中找到。群体信息是一个列表，每个群体（population）作为其中一个元素。每个元素本身又是包含个体（individual）的列表，每个个体包含个体名和等位基因列表（每个marker两个元素），下面是一个rec.populations的示例：
+[ [ (&amp;#39;Ind1&amp;#39;, [(1, 2), (3, 3), (200, 201)], (&amp;#39;Ind2&amp;#39;, [(2, None), (3, 3), (None, None)], ], [ (&amp;#39;Other1&amp;#39;, [(1, 1), (4, 3), (200, 200)], ] ] 在上面的例子中，我们有两个群体，第一个群体包含两个个体，第二个群体只包含一个个体。第一个群体的第一个个体叫做Ind1，紧接着是3个基因座各自的等位基因信息。请注意，对于任何的基因座，信息可以缺失（如上述个体Ind2）。
+有几个可用的工具函数可以处理GenePop记录，如下例：
+from Bio.PopGen import GenePop #Imagine that you have loaded rec, as per the code snippet above.</description>
+    </item>
+    
+    <item>
+      <title>Ch10_Swiss-Prot_ExPASy</title>
+      <link>https://example.com/p/ch10_swiss-prot_expasy/</link>
+      <pubDate>Wed, 11 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/ch10_swiss-prot_expasy/</guid>
+      <description>biopython官方地址：https://biopython.org/
+github地址：https://github.com/biopython/biopython/blob/master/
+中文版教程：https://biopython-cn.readthedocs.io/zh_CN/latest/cn/chr06.html
+biopython包的说明（具体到每个模块了）：https://www.osgeo.cn/biopython/Bio.HMM.DynamicProgramming.html
+Swiss-Prot ( http://www.expasy.org/sprot )是一个 蛋白质序列数据库。 Biopython能够解析纯文本的Swiss-Prot文件, 这种格式也被Swiss-Prot、TrEMBL和PIRPSD的UniProt数据库使用。然而我们并 不支持UniProKB的XML格式文件。
+解析Swiss-Prot和ExPASy 你可以将 Swiss-Prot记录存到 Bio.SwissProt.Record 对象, 这实际上存储了Swiss-Prot记录 中所包含的的全部信息。在这部分我们将介绍怎样从一个Swiss-Prot文件中提 取 Bio.SwissProt.Record 对象。
+获取Swiss-Prot文件记录的方式 为了解析Swiss-Prot记录，我们首先需要得到一个Swiss-Prot记录文件。根据该Swiss-Prot 记录的储存位置和储存方式，获取该记录文件的方式也有所不同：
+#本地打开Swiss-Prot文件： &amp;gt;&amp;gt;&amp;gt; handle = open(&amp;#34;myswissprotfile.dat&amp;#34;) #打开使用gzip压缩的Swiss-Prot文件： &amp;gt;&amp;gt;&amp;gt; import gzip &amp;gt;&amp;gt;&amp;gt; handle = gzip.open(&amp;#34;myswissprotfile.dat.gz&amp;#34;) #在线打开Swiss-Prot文件： &amp;gt;&amp;gt;&amp;gt; import urllib &amp;gt;&amp;gt;&amp;gt; handle = urllib.urlopen(&amp;#34;http://www.somelocation.org/data/someswissprotfile.dat&amp;#34;) #从ExPASy数据库在线打开Swiss-Prot文件 &amp;gt;&amp;gt;&amp;gt; from Bio import ExPASy &amp;gt;&amp;gt;&amp;gt; handle = ExPASy.get_sprot_raw(myaccessionnumber) 读取Swiss-Prot文件 通过 Bio.SeqIO 来获取格式未知的 SeqRecord 对象。此外，我们也可以 用 Bio.SwissProt 来获取更加匹配基本文件格式的 Bio.SwissProt.Record 对象。
+我们使用 read() 函数来从文件中读取一个Swiss-Prot记录：</description>
+    </item>
+    
+    <item>
+      <title>ch11_PDB模块</title>
+      <link>https://example.com/p/ch11_pdb%E6%A8%A1%E5%9D%97/</link>
+      <pubDate>Wed, 11 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/ch11_pdb%E6%A8%A1%E5%9D%97/</guid>
+      <description>biopython官方地址：https://biopython.org/
+github地址：https://github.com/biopython/biopython/blob/master/
+中文版教程：https://biopython-cn.readthedocs.io/zh_CN/latest/cn/chr06.html
+biopython包的说明（具体到每个模块了）：https://www.osgeo.cn/biopython/Bio.HMM.DynamicProgramming.html
+Bio.PDB是Biopython中处理生物大分子晶体结构的模块。除了别的类之外，Bio.PDB包含PDBParser类，此类能够产生一个Structure对象，以一种较方便的方式获取文件中的原子数据。只是在处理PDB文件头所包含的信息时，该类有一定的局限性。
+晶体结果文件的读与写 读取PDB文件 首先，我们创建一个 PDBParser 对象：
+&amp;gt;&amp;gt;&amp;gt; from Bio.PDB.PDBParser import PDBParser &amp;gt;&amp;gt;&amp;gt; p = PDBParser(PERMISSIVE=1) PERMISSIV 标签表示一些与PDB文件相关的问题会被忽略（注意某些原子和/或残基会丢失）。如果没有这个标签，则会在解析器运行期间有问题被检测到的时候生成一个 PDBConstructionException 标签。
+接着通过 PDBParser 解析PDB文件，就产生了Structure对象（在此例子中，PDB文件为’pdb1fat.ent’，’1fat’是用户定义的结构名称）:
+&amp;gt;&amp;gt;&amp;gt; structure_id = &amp;#34;1fat&amp;#34; &amp;gt;&amp;gt;&amp;gt; filename = &amp;#34;pdb1fat.ent&amp;#34; &amp;gt;&amp;gt;&amp;gt; s = p.get_structure(structure_id, filename) 你可以从PDBParser对象中用 get_header 和 get_trailer 方法来提取PDB文件中的文件头和文件尾（简单的字符串列表）。然而许多PDB文件头包含不完整或错误的信息。许多错误在等价的mmCIF格式文件中得到修正。 因此，如果你对文件头信息感兴趣，可以用下面即将讲到的 MMCIF2Dict 来提取信息，而不用处理PDB文件文件头。
+现在澄清了，让我们回到解析PDB文件头这件事上。结构对象有个属性叫 header ，这是一个将头记录映射到其相应值的Python字典。
+例子：
+&amp;gt;&amp;gt;&amp;gt; resolution = structure.header[&amp;#39;resolution&amp;#39;] &amp;gt;&amp;gt;&amp;gt; keywords = structure.header[&amp;#39;keywords&amp;#39;] 在这个字典中可用的关键字有 name 、 head 、 deposition_date 、 release_date 、 structure_method 、 resolution 、 structure_reference （映射到一个参考文献列表）、 journal_reference 、 author 、和 compound （映射到一个字典，其中包含结晶化合物的各种信息）。</description>
+    </item>
+    
+    <item>
+      <title>ch9_访问NCBI_Entrez数据库</title>
+      <link>https://example.com/p/ch9_%E8%AE%BF%E9%97%AEncbi_entrez%E6%95%B0%E6%8D%AE%E5%BA%93/</link>
+      <pubDate>Tue, 10 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/ch9_%E8%AE%BF%E9%97%AEncbi_entrez%E6%95%B0%E6%8D%AE%E5%BA%93/</guid>
+      <description>biopython官方地址：https://biopython.org/
+github地址：https://github.com/biopython/biopython/blob/master/
+中文版教程：https://biopython-cn.readthedocs.io/zh_CN/latest/cn/chr06.html
+biopython包的说明（具体到每个模块了）：https://www.osgeo.cn/biopython/Bio.HMM.DynamicProgramming.html
+这一章只挑取自己感觉有需要的去记录
+简介 Entrez (http://www.ncbi.nlm.nih.gov/Entrez) 是一个给客户提供NCBI各个数据库（如PubMed, GeneBank, GEO等等）访问的检索系统。 用户可以通过浏览器手动输入查询条目访问Entrez，也可以使用Biopython的 Bio.Entrez 模块以编程方式访问来访问Entrez。 如果使用第二种方法，用户用一个Python脚本就可以实现在PubMed里面搜索或者从GenBank下载数据。
+Bio.Entrez 模块利用了Entrez Programming Utilities（也称作EUtils），包含八个工具，详情请见NCBI的网站： http://www.ncbi.nlm.nih.gov/entrez/utils/. 每个工具都能在Python的 Bio.Entrez 模块中找到对应函数，后面会详细讲到。这个模块可以保证用来查询的URL 的正确性，并且向NCBI要求的一样，每三秒钟查询的次数不超过一。
+EUtils返回的输出结果通常是XML格式，我们有以下不同的方法来解析这种类型的输入文件：
+使用 Bio.Entrez解析器将XML输出的解析成Python对象; 使用Python标准库中的DOM (Document Object Model)解析器; 使用Python标准库中的SAX (Simple API for XML)解析器; 把XML输出当做原始的文本文件，通过字符串查找和处理来进行解析； 对于DOM和SAX解析器，可以查看Python的文档. Bio.Entrez 中使用到的解析器将会在下面讨论.
+NCBI使用DTD (Document Type Definition)文件来描述XML文件中所包含信息的结构. 大多数NCBI使用的DTD文件 格式都包含在了Biopython发行包里。当NCBI Entrez读入一个XML格式的文件的时候，Bio.Entrez 将会使用DTD文件。
+有时候，你可能会发现与某种特殊的XML相关的DTD文件在Biopython发行包里面不存在。当NCBI升级它的 DTD文件的时候，这种情况可能发生。如果发生这种情况，Entrez.read 将会显示丢失的DTD文件名字和URL的 警示信息。解析器会通过互联网获取缺失的DTD文件，让XML的分析继续正常进行。如果本地存在对应的DTD文件的 话，处理起来会更快。因此，为了更快的处理，我们可以通过警示信息里面的URL来下载对应的DTD文件，将文件放在DTD 文件默认存放的文件夹 &amp;hellip;site-packages/Bio/Entrez/DTDs 。如果你没有权限进入这个文件夹，你也可以把 DTD文件放到 ~/.biopython/Bio/Entrez/DTDs 这个目录，~ 表示的是你的Home目录。因为这个目录会先于 &amp;hellip;site-packages/Bio/Entrez/DTDs 被解析器读取，所以当 &amp;hellip;site-packages/Bio/Entrez/DTDs 下面的DTD文件过时的时候，你也可以将最新版本的DTD文件放到Home目录的那个文件夹下面。当然也有其他方案，如果你 是通过源码来安装的Biopython，你可以将DTD文件放到源码的 Bio/Entrez/DTDs 文件夹下，然后重新安装Biopython。 这样会将新的DTD文件和之前的一样地安装到正确的位置。
+Entrez Programming Utilities也可以生成其他格式的输出文件，比如Fasta、序列数据库里面的GenBank文件格式 或者文献数据库里面的MedLine格式 详细的访问规范 对任何连续超过100次的访问请求，请在周末时间或者避开美国的使用高峰时间。这个取决于你是否遵从。 使用这个网址 http://eutils.</description>
+    </item>
+    
+    <item>
+      <title>ch8_BLAST和其他序列搜素工具</title>
+      <link>https://example.com/p/ch8_blast%E5%92%8C%E5%85%B6%E4%BB%96%E5%BA%8F%E5%88%97%E6%90%9C%E7%B4%A0%E5%B7%A5%E5%85%B7/</link>
+      <pubDate>Mon, 09 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/ch8_blast%E5%92%8C%E5%85%B6%E4%BB%96%E5%BA%8F%E5%88%97%E6%90%9C%E7%B4%A0%E5%B7%A5%E5%85%B7/</guid>
+      <description>biopython官方地址：https://biopython.org/
+github地址：https://github.com/biopython/biopython/blob/master/
+中文版教程：https://biopython-cn.readthedocs.io/zh_CN/latest/cn/chr06.html
+biopython包的说明（具体到每个模块了）：https://www.osgeo.cn/biopython/Bio.HMM.DynamicProgramming.html
+生物序列的鉴定是生物信息工作的主要部分。有几个工具像BLAST（可能是最流行 的），FASTA ，HMMER还有许多其它的都有这个功能，每个工具都有独特的算法和 途径。一般来说，这些工具都是用你的序列在数据库中搜索可能的匹配。随着序列 数量的增加（匹配数也会随之增加），将会有成百上千的可能匹配，解析这些结果 无疑变得越来越困难。理所当然，人工解析搜索结果变得不可能。而且你可能会同 时用几种不同的搜索工具，每种工具都有独特的统计方法、规则和输出格式。可以 想象，同时用多种工具搜索多条序列是多么恐怖的事。 我们对此非常了解，所以我们在Biopython构建了 Bio.SearchIO 亚模块。Bio.SearchIO 模块使从搜索结果中提取信息变得简单，并且可以处理不同工具 的不同标准和规则。SearchIO 和BioPerl中模块名称一致。 在本章中，我们将学习 Bio.SearchIO 的主要功能，了解它可以做什么。我 们将使用两个主要的搜索工具：BLAST和FASTA。它们只是用来阐明思路，你可以轻 易地把工作流程应用到 Bio.SearchIO 支持的其他工具中
+SearchIO对象模型 尽管多数搜索工具的输出风格极为不同，但是它们蕴含的理念很相似：
+输出文件可能包含一条或更多的搜索查询的结果。 在每次查询中，你会在给定的数据库中得到一个或更多的hit（命中）。 在每个hit中，你会得到一个或更多包含query（查询)序列和数据库序列实际比对的区域。 一些工具如BLAT和Exonerate可能会把这些区域分成几个比对片段（或在BLAT中 称为区块，在Exonerate中称为可能外显子）。这并不是很常见，像BLAST和 HMMER就不这么做。 一些名词介绍 知道这些共性之后，我们决定把它们作为创造 Bio.SearchIO 对象模型的基础。对 象模型是Python对象组成的嵌套分级系统，每个对象都代表一个上面列出的概念。这些对 象是：
+QueryResult，代表单个搜索查询。 Hit，代表单个的数据库hit。Hit 对象包含在 QueryResult 中， 每个 QueryResult 中有0个或多个 Hit 对象。 HSP (high-scoring pair（高分片段）)，代表query和hit序列中有 意义比对的区域。HSP 对象包含在 Hit 对象中，而且每个 Hit 有一个 或更多的 HSP 对象。 HSPFragment，代表query和hit序列中单个的邻近比对。 HSPFragment 对象包含在 HSP 对象中。多数的搜索工具如BLAST和HMMER把 HSP 和 HSPFragment 合并，因为一个 HSP 只含有一个 HSPFragment。但是 像BLAT和Exonerate会产生含有多个 HSPFragment 的 HSP 。似乎有些困 惑？不要紧，稍后我们将详细介绍这两个对象。 这四个对象是当你用 Bio.</description>
+    </item>
+    
+    <item>
+      <title>ch7_blast</title>
+      <link>https://example.com/p/ch7_blast/</link>
+      <pubDate>Sat, 07 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/ch7_blast/</guid>
+      <description>biopython官方地址：https://biopython.org/
+github地址：https://github.com/biopython/biopython/blob/master/
+中文版教程：https://biopython-cn.readthedocs.io/zh_CN/latest/cn/chr06.html
+biopython包的说明（具体到每个模块了）：https://www.osgeo.cn/biopython/Bio.HMM.DynamicProgramming.html
+这章是来解决使用Blast的一些麻烦地方——处理大量的BLAST比对结果数据 通常是困难的，还有怎么自动运行BLAST序列比对。 使用BLAST通常可以分成2个步。这两步都可以用上Biopython。第一步，提交你的查询 序列,运行BLAST，并得到输出数据。第二步，用Python解析BLAST的输出，并作进一步分析。 我们将在一个Python脚本里调用NCBI在线BLAST服务来开始这章的内容。
+通过Internet运行BLAST 我们使用 Bio.Blast.NCBIWWW 模块的函数 qblast() 来调用在线版本的BLAST。 这个函数有3个必需的参数:
+第一个参数是用来搜索的blast程序，这是小写的字符串。对这个参数的选项和描述可以在 http://www.ncbi.nlm.nih.gov/BLAST/blast_program.shtml. 查到。目前 qblast 只支持 blastn, blastp, blastx, tblast 和 tblastx. 第二个参数指定了将要搜索的数据库。同样地，这个参数的选项也可以在 http://www.ncbi.nlm.nih.gov/BLAST/blast_databases.shtml. 查到 第三个参数是一个包含你要查询序列的字符串。这个字符串可以是序列的本身 （fasta格式的），或者是一个类似GI的id。 qblast 函数还可以接受许多其他选项和参数。这些参数基本上类似于你在BLAST网站页面 能够设置的参数。在这里我们只强调其中的一些： qblast 函数可以返回多种格式的BLAST结果。你可以通过可选参数 format_type 指定格式关键字为：&amp;ldquo;HTML&amp;rdquo;, &amp;ldquo;Text&amp;rdquo;, &amp;ldquo;ASN.1&amp;rdquo;, 或 &amp;ldquo;XML&amp;rdquo; 。默认 格式是 &amp;ldquo;XML&amp;rdquo; ，这是解析器期望的格式， 参数 expect 指定期望值，即阀值 e-value 请注意，NCBI BLAST 网站上的默认参数和QBLAST的默认参数不完全相同。如果你得到了 不同的结果，你就需要检查下参数设置 （比如，e-value阈值和gap值）. 简单的例子 举个例子，如果你有条核酸序列，想使用BLAST对核酸数据库（nt）进行搜索，已知这条查询序列的GI号， 你可以这样做：
+&amp;gt;&amp;gt;&amp;gt; from Bio.Blast import NCBIWWW &amp;gt;&amp;gt;&amp;gt; result_handle = NCBIWWW.qblast(&amp;#34;blastn&amp;#34;, &amp;#34;nt&amp;#34;, &amp;#34;8332116&amp;#34;) 或者，我们想要查询的序列在FASTA文件中，那么我们只需打开这个文件并把这条记录读入到字符串，然后用这个字符串作为查询参数:</description>
+    </item>
+    
+    <item>
+      <title>Ch6_Multiple_Sequence_Alignment_objects</title>
+      <link>https://example.com/p/ch6_multiple_sequence_alignment_objects/</link>
+      <pubDate>Fri, 06 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/ch6_multiple_sequence_alignment_objects/</guid>
+      <description>biopython官方地址：https://biopython.org/
+github地址：https://github.com/biopython/biopython/blob/master/
+中文版教程：https://biopython-cn.readthedocs.io/zh_CN/latest/cn/chr06.html
+biopython包的说明（具体到每个模块了）：https://www.osgeo.cn/biopython/Bio.HMM.DynamicProgramming.html
+MSA的基本原理 多序列比对（Multiple Sequence Alignment, MSA）是指对多个序列进行对位排列。 这通常需要保证序列间的等同位点处在同一列上，并通过引进小横线（-）以保证最终的序列具有相同的长度。这种序列比对可以视作是由字符组成的矩阵。在Biopython中，多序列比对中每一个序列是以 SeqRecord 对象来表示的。 这里我们介绍一种新的对象 – MultipleSeqAlignment 来表示这样一类数据，我们还将介绍 Bio.AlignIO 模块来读写不同格式的多序列比对数据（ Bio.AlignIO 在设计上与之前介绍的 Bio.SeqIO 模块是类似的）。Biopython中， Bio.SeqIO 和 Bio.AlignIO 都能读写各种格式的多序列比对数据。在实际处理中，使用哪一个模块取决于用户需要对数据进行何种操作。
+读取多序列比对数据 在Biopython中，有两种方法读取多序列比对数据：
+io.AlignIO.read() 只能读取一个多序列比对，在大多数情况下，你所遇到的文件仅仅包括一个多序列比对。这时，你应该使用 Bio.AlignIO.read() ，这将返回一个 MultipleSeqAlignment 对象 Bio.AlignIO.parse() 可以依次读取多个序列比对数据，将会返回一个 MultipleSeqAlignment 的 迭代器（iterator） 。迭代器往往在循环中使用。在实际数据分析过程中会时常处理包含有多个多序列比对的文件 这两个函数的参数： 第一个参数为包含有多序列比对数据的 句柄（handle） 。在实际操作中，这往往是一个打开的文件/文件名 第二个参数为多序列比对文件格式（小写）（http://biopython.org/wiki/AlignIO 这里可以看支持哪几种格式） Bio.AlignIO 模块还接受一个可选参数 seq_count，它可以处理不确定的多序列比对格式，或者包含有多个序列的排列 单一的序列比对 F05371_seed.sth文件是一个FAM数据库中Phage_Coat_Gp8的种子排列（PF05371） 你会注意到，以上输出截短了中间一部分序列的内容。你也可以很容易地通过控制多序列比对中每一条序列（作为 SeqRecord 对象）来输出你所喜欢的格式。例如 你是否已经注意到以上原始数据文件中包含有蛋白数据库（PDB）交叉引用以及相关二级结构的信息？可以尝试以下代码：record.dbxrefs 多个序列比对 如果你想用 Bio.AlignIO 来读取这个文件，你可以使用： 与 Bio.SeqIO.parse 一样， Bio.SeqIO.parse() 将返回一个迭代器（iterator）。如果你希望把所有的序列比对都读取到内存中，以下代码将把它们储存在一个列表对象里 含糊的序列比对 将多个序列比对以FASTA格式储存并不方便。然而，在某些情况下，如果你一定要这么做， Bio.AlignIO 依然能够处理上述情形（但是所有的序列比对必须都含有相同的序列）。一个很常见的例子是，我们经常会使用EMBOSS工具箱中的 needle 和 water 来产生许多两两间的序列比对 —— 然而在这种情况下，你可以指定数据格式为“emboss”，Bio.</description>
+    </item>
+    
+    <item>
+      <title>Ch5_Sequence_Input_Output</title>
+      <link>https://example.com/p/ch5_sequence_input_output/</link>
+      <pubDate>Thu, 05 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/ch5_sequence_input_output/</guid>
+      <description>biopython官方地址：https://biopython.org/
+github地址：https://github.com/biopython/biopython/blob/master/
+中文版教程：https://biopython-cn.readthedocs.io/zh_CN/latest/cn/chr06.html
+biopython包的说明（具体到每个模块了）：https://www.osgeo.cn/biopython/Bio.HMM.DynamicProgramming.html
+The workhorse function Bio.SeqIO.parse() is used to read in sequence data as SeqRecord objects. This function expects two arguments:
+The first argument is a handle to read the data from, or a filename. A The second argument is a lower case string specifying sequence format The Bio.SeqIO.parse() function returns an iterator which gives SeqRecord objects. Iterators are typically used in a for loop as shown below. Sometimes you&amp;rsquo;ll find yourself dealing with files which contain only a single record.</description>
+    </item>
+    
+    <item>
+      <title>ch3_seq_object</title>
+      <link>https://example.com/p/ch3_seq_object/</link>
+      <pubDate>Wed, 04 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/ch3_seq_object/</guid>
+      <description>biopython官方地址：https://biopython.org/
+github地址：https://github.com/biopython/biopython/blob/master/
+中文版教程：https://biopython-cn.readthedocs.io/zh_CN/latest/cn/chr06.html
+biopython包的说明（具体到每个模块了）：https://www.osgeo.cn/biopython/Bio.HMM.DynamicProgramming.html
+Sequences are essentially strings of letters like AGTACACTGGT, which seems very natural since this is the most common way that sequences are seen in biological file formats. The most important difference between Seq objects and standard Python strings is they have different methods. Although the Seq object supports many of the same methods as a plain string, its translate()method differs by doing biological translation, and there are also additional biologically relevant methods like reverse_complement().</description>
+    </item>
+    
+    <item>
+      <title>Ch4_Sequence_annotation_object_序列注释信息</title>
+      <link>https://example.com/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/</link>
+      <pubDate>Wed, 04 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/ch4_sequence_annotation_object_%E5%BA%8F%E5%88%97%E6%B3%A8%E9%87%8A%E4%BF%A1%E6%81%AF/</guid>
+      <description>biopython官方地址：https://biopython.org/
+github地址：https://github.com/biopython/biopython/blob/master/
+中文版教程：https://biopython-cn.readthedocs.io/zh_CN/latest/cn/chr06.html
+biopython包的说明（具体到每个模块了）：https://www.osgeo.cn/biopython/Bio.HMM.DynamicProgramming.html
+help查看帮助 SeqRecord对象的属性 创建SeqRecord对象 直接用Seq 可以直接赋予其相关信息 annotations的字典 letter_annotations的字典 读取fasta(NCBI)创建SeqRecord objects 读取GenBank files （GenBamk）创建SeqRecord对象 这里以NC_005816.gb为例 同样用SeqIO读取 SeqFeatrue objects 属性： Postions / locations The key idea about each SeqFeature object is to describe a region on a parent sequence, for which we use a location object, typically describing a range between two positions. Two try to clarify the terminology we&amp;rsquo;re using
+locations的分类 具体的可以百度看下
+FeatureLocation object CompoundLocation object positions的分类 具体的可以百度看下</description>
+    </item>
+    
+    <item>
+      <title>ch1&#43;ch2&#43;安装&#43;引用&#43;快速上手</title>
+      <link>https://example.com/p/ch1-ch2-%E5%AE%89%E8%A3%85-%E5%BC%95%E7%94%A8-%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B/</link>
+      <pubDate>Tue, 03 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/ch1-ch2-%E5%AE%89%E8%A3%85-%E5%BC%95%E7%94%A8-%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B/</guid>
+      <description>biopython官方地址：https://biopython.org/
+github地址：https://github.com/biopython/biopython/blob/master/
+中文版教程：https://biopython-cn.readthedocs.io/zh_CN/latest/cn/chr06.html
+biopython包的说明（具体到每个模块了）：https://www.osgeo.cn/biopython/Bio.HMM.DynamicProgramming.html
+安装biopython的库 安装命令：
+pip install biopython 从biopython 1.77开始支持py3
+这样可以查看biopython版本 FAQ PAGES https://docs.python.org/3/faq/index.html question email http://biopython.org/wiki/Mailing_lists 引用说明 Peter J. A. Cock, Tiago Antao, Jexb;rey T. Chang, Brad A. Chapman, Cymon J. Cox, Andrew Dalke, Iddo
+Friedberg, Thomas Hamelryck, Frank Kauxb;, Bartek Wilczynski, Michiel J. L. de Hoon: \Biopython:
+freely available Python tools for computational molecular biology and bioinformatics&amp;quot;. Bioinformatics
+25 (11), 1422{1423 (2009). https://doi.org/10.1093/bioinformatics/btp163 快速上手 Seq对象 创建Seq对象 属性：SeqRecord Seq对象都会被赋予 SeqRecord的属性，这个属性会含有seq的信息（如 identifier, name and description）</description>
+    </item>
+    
+  </channel>
+</rss>

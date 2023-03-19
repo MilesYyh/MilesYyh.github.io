@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>PyMOL on 叶宇浩随记博客</title>
+    <link>https://example.com/categories/pymol/</link>
+    <description>Recent content in PyMOL on 叶宇浩随记博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 11 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://example.com/categories/pymol/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>氨基酸结构缺失修复</title>
+      <link>https://example.com/p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/</link>
+      <pubDate>Sat, 11 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BB%93%E6%9E%84%E7%BC%BA%E5%A4%B1%E4%BF%AE%E5%A4%8D/</guid>
+      <description>说明 之前从PDB数据库上下载某个基因的野生型结构时，发生存在AA缺失的现象，即某些位点上的AA没有，碰巧这个缺失的位点在突变的范围内，位点的缺失在PyMOL中表现为断点，看了下PDB文件 (从PDB数据库上下载下来的原文件) 的missing信息 (只有从PDB数据库上下载的结构文件才会有missing字段，像结构预测的软件是没有的)，确实是缺失的（避免是因为PyMOL不能识别导致）
+位点在377上缺失 紧接着，使用trRosetta预测了野生型的蛋白结构，发现在使用gmx pdb2gmx 时发现这个新的结构文件上原子缺失了（并不等同于上面的氨基酸缺失），如下报错： 也就是说gmx发现这个蛋白结构文件23位点的色氨酸Trp缺失了CH2的原子信息（注意可能还存在其他原子的缺失，只是Tyr-23的缺失在前面，所以先报错了）
+遂记录下解决办法，针对AA缺失和原子缺失的修复方法
+氨基酸缺失 Chimera-modeller填补 注意了，这里一定是要用PDB数据库上下载下来的结构文件，因为只有PDB上的结构文件，有足够多的补充信息， 比如上面在Vscode中展示的missing字段
+导入结构文件，只显示蛋白主体 command-line中输入
+#导入文件 open 蛋白的IDcode(PDB数据库的) 可以看到这些377 residue确实是缺失的，断点线处
+#只展示蛋白主体，因为PDB上还含有配体、水分子等信息，这里巧用的chimera的内置的key-word delete ~protein #确保删除了配体 delete ligand 注意下，这里delete后的那些stick展现的残基实际上是这个蛋白的活性位点，chimera会默认突出显示
+使用Model Loops 顶部menu
+Tools... Structure Editing... Model/Refine Loops 调整参数（主要调整这几个）：
+Model/remodel : 看自己的缺失位置去确定 Number of models to generate: 生成的结果数 Modeller license key: 这个key可以自己去modeller申请，免费的，MODELIRANJE 实际上这里用到的是Modeller同源建模 等待结果即可，chiemra主窗口的左下角可以看进度（不过这里使用的云端的Modeller的程序，当然了可以指定自己本地的Modeller） 保存最优结构pdb 运行完Modeller，Chimera会自动将结构比对在主窗口中 这里保存#1.1的结果
+单击Modeller Results中的#1.1 在点击Modeller Results中不同的结构时，chimera会自动比对这个结构和原来的结构，并且此时主窗口和model都会只展示（选择）他们两个，其他则被暂时hide了起来
+保存为PDB文件 顶部menu File... Save PDB... 注意，在Save models的选项中，选择自己想要保存的结果即可，比如这里的#1.1就是377位点上被补全后的氨基酸+整个其他位点的整体蛋白了，所以可以不用选择自己导入的那个结构文件了 确实补充上了
+手动复制位点PDB信息到文件 这个方法有个前提，就是，能同时找到同一个类型的蛋白，比如说A和B两个蛋白，他们实际上是同一个蛋白（不要在乎这里的名字A、B），（假设）A是通过X-ray的方法得到的结构信息，它缺失的位点信息是1-39，B是通过NMR的方法得到的结构信息，它缺失的位点信息是532-543，那么我想补全A的话，可以通过B的1-39的PDB坐标复制到A的文件中 这个产生的结果，相对其他办法，比较麻烦，而且误差会比较大，但是也很有用</description>
+    </item>
+    
+    <item>
+      <title>蛋白结构图片美化</title>
+      <link>https://example.com/p/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96/</link>
+      <pubDate>Thu, 20 Oct 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E5%9B%BE%E7%89%87%E7%BE%8E%E5%8C%96/</guid>
+      <description>这是我在别人的基础上，然后自行调整了很多细节信息，较为满意的结构图片的展示，特写此post来记录分享（take an example），当然了，能帮到大家也是一件极好的事 （主要用的都是cmd的命令，所以本记录不适合零基础）
+载入蛋白结构 这里我使用的是PDB code 4MDS
+load 4MDS 去除水分子和配体 这一步根据自己的需要去做 （其实做不做都无所谓）
+去水 去水（蛋白主体旁边的红点其实就是水分子）
+remove solvent 展示序列信息 set seq_view,1 可以看到这里有三个配体，名字分别为23H，DMS
+去除配体结构 resn 后面的名字 （23H，DMS）根据自己研究蛋白的配体名字来修改
+remove resn 23H remove resn DMS 复制主要参数 这里的参数来源于参考资料[^1]，我略作了修改
+select resn HOH remove sele select hydrophobic, (resn ala+gly+val+ile+leu+phe+met) show sticks, (hydrophobic and (!name c+n+o)) color yelloworange, hydrophobic select hydrophilic, !hydrophobic and (!name c+n+o) show sticks, hydrophilic color lightblue, hydrophilic color white, bb. color oxygen, elem o color nitrogen, elem N color sulfur, elem S set ray_trace_mode,3 set stick_radius, 0.</description>
+    </item>
+    
+    <item>
+      <title>PyMOL蛋白结美化参数(整合)</title>
+      <link>https://example.com/p/pymol%E8%9B%8B%E7%99%BD%E7%BB%93%E7%BE%8E%E5%8C%96%E5%8F%82%E6%95%B0%E6%95%B4%E5%90%88/</link>
+      <pubDate>Wed, 12 Oct 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/pymol%E8%9B%8B%E7%99%BD%E7%BB%93%E7%BE%8E%E5%8C%96%E5%8F%82%E6%95%B0%E6%95%B4%E5%90%88/</guid>
+      <description>PyMOL的功能十分强大，特别是命令行的参数，它可以对蛋白结构的细节展示进行许多调整，方便使用，这里集合一些参数，直接复制进pymol的cmd即可（本post会持续更新）
+PyMOL-wiki PyMOL官网本身有gallery（https://pymolwiki.org/index.php/Gallery），这里会有一堆大佬去上传自己的展示参数，只不过，我发现似乎有点少 下面的大部分是转载的[^学习来源2],当然了，用到自己的结构上时，可以自行参数调整，比如不喜欢侧链的信息，就可以自行hide起来，自行修改color等
+细节侧链美漫风 参数
+reinitialize select resn HOH remove sele select hydrophobic, (resn ala+gly+val+ile+leu+phe+met) show sticks, (hydrophobic and (!name c+n+o)) color yelloworange, hydrophobic select hydrophilic, !hydrophobic and (!name c+n+o) show sticks, hydrophilic color lightblue, hydrophilic color white, bb. color oxygen, elem o color nitrogen, elem N color sulfur, elem S set ray_trace_mode,3 set stick_radius, 0.4 set cartoon_loop_radius, 0.4 set cartoon_oval_width, 0.4 set cartoon_rect_width, 0.4 set fog,0 bg_color white set valence, 0 set ray_shadow, 0 zoom orient ray 图片展示（take PDB code:7f52，删除了水分子，图片背景实际上是白色的，放在word中会更明显） 个人很喜欢这个风格，不过我经常会将其他的侧链信息都隐藏起来，从而突出某些位点的sticks</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='biopython官方教程学习笔记'><title>ch13_Bio.Phylo系统发育分析</title>
+
+<link rel='canonical' href='https://example.com/p/ch13_bio.phylo%E7%B3%BB%E7%BB%9F%E5%8F%91%E8%82%B2%E5%88%86%E6%9E%90/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='ch13_Bio.Phylo系统发育分析'>
+<meta property='og:description' content='biopython官方教程学习笔记'>
+<meta property='og:url' content='https://example.com/p/ch13_bio.phylo%E7%B3%BB%E7%BB%9F%E5%8F%91%E8%82%B2%E5%88%86%E6%9E%90/'>
+<meta property='og:site_name' content='叶宇浩随记博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='tutorials' /><meta property='article:published_time' content='2021-08-13T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-08-13T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="ch13_Bio.Phylo系统发育分析">
+<meta name="twitter:description" content="biopython官方教程学习笔记">
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>Back</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/biopython/" style="background-color: #002be1; color: #fff;">
+                生物编程
+            </a>
+        
+            <a href="/categories/bioinformatic/" style="background-color: #7816ff; color: #fff;">
+                生物信息学&amp;计算生物学
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/ch13_bio.phylo%E7%B3%BB%E7%BB%9F%E5%8F%91%E8%82%B2%E5%88%86%E6%9E%90/">ch13_Bio.Phylo系统发育分析</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        biopython官方教程学习笔记
+    </h3>
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Aug 13, 2021</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    5 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <p><strong>biopython官方地址：</strong><a class="link" href="https://biopython.org/"  target="_blank" rel="noopener"
+    ><strong>https://biopython.org/</strong></a></p>
+<p><strong>github地址：</strong><a class="link" href="https://github.com/biopython/biopython/blob/master/README.rst"  target="_blank" rel="noopener"
+    ><strong>https://github.com/biopython/biopython/blob/master/</strong></a></p>
+<p><strong>中文版教程：</strong><a class="link" href="https://biopython-cn.readthedocs.io/zh_CN/latest/cn/chr06.html"  target="_blank" rel="noopener"
+    ><strong>https://biopython-cn.readthedocs.io/zh_CN/latest/cn/chr06.html</strong></a></p>
+<p><strong>biopython包的说明（具体到每个模块了）：</strong><a class="link" href="https://www.osgeo.cn/biopython/Bio.HMM.DynamicProgramming.html"  target="_blank" rel="noopener"
+    ><strong>https://www.osgeo.cn/biopython/Bio.HMM.DynamicProgramming.html</strong></a></p>
+<p>Biopython1.54开始引入了Bio.Phylo模块，与SeqIO和AlignIO类似，它的目的是提供 一个通用的独立于源数据格式的方法来使用系统进化树，同时提供一致的API来进行 I/O操作。<br>
+Bio.Phylo在一篇开放获取的期刊文章中有介绍 [<a class="link" href="https://biopython-cn.readthedocs.io/zh_CN/latest/cn/chr23.html#talevich2012"  target="_blank" rel="noopener"
+    >9</a>, Talevich <em>et al.</em>, 2012], 这可能对您也有所帮助。</p>
+<h2 id="树中有什么">树中有什么？</h2>
+<p>为了熟悉这个模块，让我们首先从一个已经创建好的树开始，从几个不同的角度来审视 它。接着我们将给树的分支上颜色，并使用一个特殊的phyloXML特性，最终保存树<br>
+译者注：本翻译中， <strong>分支</strong> 对应原文中的 <strong>branch</strong> ，原文中一般代表 某一个节点的前导连线；而 <strong>进化枝</strong> 对应原文中的 <strong>clade</strong> ，代表某个节点所代表的整个 进化分支，包括本身和它所有的后代；若clade代表biopython中的对象则保留原文<br>
+在终端中使用你喜欢的编辑器创建一个简单的Newick文件：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">%</span> <span class="n">cat</span> <span class="o">&gt;</span> <span class="n">simple</span><span class="o">.</span><span class="n">dnd</span> <span class="o">&lt;&lt;</span><span class="n">EOF</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="p">(((</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">),(</span><span class="n">C</span><span class="p">,</span><span class="n">D</span><span class="p">)),(</span><span class="n">E</span><span class="p">,</span><span class="n">F</span><span class="p">,</span><span class="n">G</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="n">EOF</span>
+</span></span></code></pre></div><p>这棵树没有分支长度，只有一个拓扑结构和标记的端点。（如果你有一个真正的树文件， 你也可以使用它来替代进行示例操作。）<br>
+选择启动你的Python解释器：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">%</span> <span class="n">ipython</span> <span class="o">-</span><span class="n">pylab</span>
+</span></span></code></pre></div><p>对于交互式操作，使用参数 -pylab 启动IPython解释器能启用 <strong>matplotlib</strong> 整合 功能，这样图像就能自动弹出来。我们将在这个示例中使用该功能。<br>
+现在，在Python终端中，读取树文件，给定文件名和格式名。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio</span> <span class="kn">import</span> <span class="n">Phylo</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">tree</span> <span class="o">=</span> <span class="n">Phylo</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">&#34;simple.dnd&#34;</span><span class="p">,</span> <span class="s2">&#34;newick&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><p>以字符串打印该树对象我们将得到整个对象的层次结构概况。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="n">tree</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Tree</span><span class="p">(</span><span class="n">weight</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">rooted</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&#34;&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Clade</span><span class="p">(</span><span class="n">branch_length</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Clade</span><span class="p">(</span><span class="n">branch_length</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">Clade</span><span class="p">(</span><span class="n">branch_length</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="n">Clade</span><span class="p">(</span><span class="n">branch_length</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&#34;A&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="n">Clade</span><span class="p">(</span><span class="n">branch_length</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&#34;B&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">Clade</span><span class="p">(</span><span class="n">branch_length</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="n">Clade</span><span class="p">(</span><span class="n">branch_length</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&#34;C&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="n">Clade</span><span class="p">(</span><span class="n">branch_length</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&#34;D&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Clade</span><span class="p">(</span><span class="n">branch_length</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">Clade</span><span class="p">(</span><span class="n">branch_length</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&#34;E&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">Clade</span><span class="p">(</span><span class="n">branch_length</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&#34;F&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">Clade</span><span class="p">(</span><span class="n">branch_length</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&#34;G&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><p>Tree 对象包含树的全局信息，如树是有根树还是无根树。它包含一个根进化枝， 和以此往下以列表嵌套的所有进化枝，直至叶子分支。<br>
+函数 draw_ascii 创建一个简单的ASCII-art(纯文本)系统发生图。在没有更好 图形工具的情况下，这对于交互研究来说是一个方便的可视化展示方式。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">Phylo</span><span class="o">.</span><span class="n">draw_ascii</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                                                    <span class="n">________________________</span> <span class="n">A</span>
+</span></span><span class="line"><span class="cl">                           <span class="n">________________________</span><span class="o">|</span>
+</span></span><span class="line"><span class="cl">                          <span class="o">|</span>                        <span class="o">|</span><span class="n">________________________</span> <span class="n">B</span>
+</span></span><span class="line"><span class="cl">  <span class="n">________________________</span><span class="o">|</span>
+</span></span><span class="line"><span class="cl"> <span class="o">|</span>                        <span class="o">|</span>                         <span class="n">________________________</span> <span class="n">C</span>
+</span></span><span class="line"><span class="cl"> <span class="o">|</span>                        <span class="o">|</span><span class="n">________________________</span><span class="o">|</span>
+</span></span><span class="line"><span class="cl"><span class="n">_</span><span class="o">|</span>                                                 <span class="o">|</span><span class="n">________________________</span> <span class="n">D</span>
+</span></span><span class="line"><span class="cl"> <span class="o">|</span>
+</span></span><span class="line"><span class="cl"> <span class="o">|</span>                         <span class="n">________________________</span> <span class="n">E</span>
+</span></span><span class="line"><span class="cl"> <span class="o">|</span>                        <span class="o">|</span>
+</span></span><span class="line"><span class="cl"> <span class="o">|</span><span class="n">________________________</span><span class="o">|</span><span class="n">________________________</span> <span class="n">F</span>
+</span></span><span class="line"><span class="cl">                          <span class="o">|</span>
+</span></span><span class="line"><span class="cl">                          <span class="o">|</span><span class="n">________________________</span> <span class="n">G</span>
+</span></span></code></pre></div><p>如果你安装有 <strong>matplotlib</strong> 或者 <strong>pylab</strong>, 你可以使用 draw 函数一个图像</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">tree</span><span class="o">.</span><span class="n">rooted</span> <span class="o">=</span> <span class="kc">True</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">Phylo</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span>
+</span></span></code></pre></div><p><figure 
+	>
+	<a href="https://cdn.nlark.com/yuque/0/2022/png/25882219/1651735884363-edc07247-c816-472c-b49e-f36cd5612476.png#clientId=u502d85ec-ce59-4&amp;from=paste&amp;id=u867eb369&amp;name=image.png&amp;originHeight=530&amp;originWidth=666&amp;originalType=url&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;size=20311&amp;status=done&amp;style=none&amp;taskId=u0126ff25-cd8a-476a-9f4f-87919ea00fe&amp;title=" >
+		<img src="https://cdn.nlark.com/yuque/0/2022/png/25882219/1651735884363-edc07247-c816-472c-b49e-f36cd5612476.png#clientId=u502d85ec-ce59-4&amp;from=paste&amp;id=u867eb369&amp;name=image.png&amp;originHeight=530&amp;originWidth=666&amp;originalType=url&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;size=20311&amp;status=done&amp;style=none&amp;taskId=u0126ff25-cd8a-476a-9f4f-87919ea00fe&amp;title="
+			
+			
+			
+			loading="lazy"
+			alt="image.png">
+	</a>
+	
+	<figcaption>image.png</figcaption>
+	
+</figure></p>
+<h2 id="给树的分支上颜色">给树的分支上颜色</h2>
+<p>函数 draw 和 draw_graphviz 支持在树中显示不同的颜色和分支宽度。 从Biopython 1.59开始，Clade对象就开始支持 color 和 width 属性， 且使用他们不需要额外支持。这两个属性都表示导向给定的进化枝前面的分支的 属性，并依次往下作用，所以所有的后代分支在显示时也都继承相同的宽度和颜 色。<br>
+在早期的Biopython版本中，PhyloXML树有些特殊的特性，使用这些属性需要首先 将这个树转换为一个基本树对象的子类Phylogeny，该类在Bio.Phylo.PhyloXML模 块中。<br>
+在Biopython 1.55和之后的版本中，这是一个很方便的树方法：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">tree</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">as_phyloxml</span><span class="p">()</span>
+</span></span></code></pre></div><p>在Biopython 1.54中, 你能通过导入一个额外的模块实现相同的事情：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio.Phylo.PhyloXML</span> <span class="kn">import</span> <span class="n">Phylogeny</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">tree</span> <span class="o">=</span> <span class="n">Phylogeny</span><span class="o">.</span><span class="n">from_tree</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span>
+</span></span></code></pre></div><p>注意Newick和Nexus文件类型并不支持分支颜色和宽度，如果你在Bio.Phylo中使用 这些属性，你只能保存这些值到PhyloXML格式中。（你也可以保存成Newick或Nexus 格式，但是颜色和宽度信息在输出的文件时会被忽略掉。）<br>
+现在我们开始指定颜色。首先，我们将设置根进化枝为灰色。我们能通过赋值24位 的颜色值来实现，用三位数的RGB值、HTML格式的十六进制字符串、或者预先设置好的 颜色名称</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">tree</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="p">(</span><span class="mi">128</span><span class="p">,</span><span class="mi">128</span><span class="p">,</span><span class="mi">128</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#等同于</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">tree</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="s2">&#34;#808080&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#等同于</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">tree</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="s2">&#34;gray&#34;</span>
+</span></span></code></pre></div><p>一个进化枝的颜色会被当作从上而下整个进化枝的颜色，所以我们这里设置根的 的颜色会将整个树的颜色变为灰色。我们能通过在树中下面分支赋值不同的颜色 来重新定义某个分支的颜色。<br>
+让我们先定位“E”和“F”最近祖先（MRCA）节点。方法 common_ancestor 返回 原始树中这个进化枝的引用，所以当我们设置该进化枝为“salmon”颜色时，这个颜 色则会在原始的树中显示出来。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">mrca</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">common_ancestor</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;E&#34;</span><span class="p">},</span> <span class="p">{</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;F&#34;</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">mrca</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="s2">&#34;salmon&#34;</span>
+</span></span></code></pre></div><p>当我们碰巧明确地知道某个进化枝在树中的位置，以嵌套列表的形式，我们就能 通过索引的方式直接跳到那个位置。这里，索引 [0,1] 表示根节点的第一个 子代节点的第二个子代。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">tree</span><span class="o">.</span><span class="n">clade</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="s2">&#34;blue&#34;</span>
+</span></span></code></pre></div><p>最后，展示一下我们的工作结果</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">Phylo</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span>
+</span></span></code></pre></div><p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 125; 
+			flex-basis: 301px"
+	>
+	<a href="/p/ch13_bio.phylo%E7%B3%BB%E7%BB%9F%E5%8F%91%E8%82%B2%E5%88%86%E6%9E%90/picture/ch13_Bio.Phylo%E7%B3%BB%E7%BB%9F%E5%8F%91%E8%82%B2%E5%88%86%E6%9E%90.png" data-size="816x650">
+		<img src="/p/ch13_bio.phylo%E7%B3%BB%E7%BB%9F%E5%8F%91%E8%82%B2%E5%88%86%E6%9E%90/picture/ch13_Bio.Phylo%E7%B3%BB%E7%BB%9F%E5%8F%91%E8%82%B2%E5%88%86%E6%9E%90.png"
+			width="816"
+			height="650"
+			srcset="/p/ch13_bio.phylo%E7%B3%BB%E7%BB%9F%E5%8F%91%E8%82%B2%E5%88%86%E6%9E%90/picture/ch13_Bio.Phylo%E7%B3%BB%E7%BB%9F%E5%8F%91%E8%82%B2%E5%88%86%E6%9E%90_hu844e15f26e232e4e7e50c103958118e7_33364_480x0_resize_box_3.png 480w, /p/ch13_bio.phylo%E7%B3%BB%E7%BB%9F%E5%8F%91%E8%82%B2%E5%88%86%E6%9E%90/picture/ch13_Bio.Phylo%E7%B3%BB%E7%BB%9F%E5%8F%91%E8%82%B2%E5%88%86%E6%9E%90_hu844e15f26e232e4e7e50c103958118e7_33364_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+注意进化枝的颜色包括导向它的分支和它的子代的分支。E和F的共同祖先结果刚好 在根分支下面，而通过这样上色，我们能清楚的看出这个树的根在哪里。<br>
+我们已经完成了很多！现在让我们休息一下，保存一下我们的工作。使用一个文件 名或句柄（这里我们使用标准输出来查看将会输出什么）和 phyloxml 格式来 调用 write 函数。PhyloXML格式保存了我们设置的颜色，所以你能通过其他树 查看工具，如Archaeopteryx，打开这个phyloXML文件，这些颜色也会显示出来。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">sys</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">Phylo</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="s2">&#34;phyloxml&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="n">phy</span><span class="p">:</span><span class="n">phyloxml</span> <span class="n">xmlns</span><span class="p">:</span><span class="n">phy</span><span class="o">=</span><span class="s2">&#34;http://www.phyloxml.org&#34;</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">&lt;</span><span class="n">phy</span><span class="p">:</span><span class="n">phylogeny</span> <span class="n">rooted</span><span class="o">=</span><span class="s2">&#34;true&#34;</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">&lt;</span><span class="n">phy</span><span class="p">:</span><span class="n">clade</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="o">&lt;</span><span class="n">phy</span><span class="p">:</span><span class="n">branch_length</span><span class="o">&gt;</span><span class="mf">1.0</span><span class="o">&lt;/</span><span class="n">phy</span><span class="p">:</span><span class="n">branch_length</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="o">&lt;</span><span class="n">phy</span><span class="p">:</span><span class="n">color</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&lt;</span><span class="n">phy</span><span class="p">:</span><span class="n">red</span><span class="o">&gt;</span><span class="mi">128</span><span class="o">&lt;/</span><span class="n">phy</span><span class="p">:</span><span class="n">red</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&lt;</span><span class="n">phy</span><span class="p">:</span><span class="n">green</span><span class="o">&gt;</span><span class="mi">128</span><span class="o">&lt;/</span><span class="n">phy</span><span class="p">:</span><span class="n">green</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&lt;</span><span class="n">phy</span><span class="p">:</span><span class="n">blue</span><span class="o">&gt;</span><span class="mi">128</span><span class="o">&lt;/</span><span class="n">phy</span><span class="p">:</span><span class="n">blue</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="o">&lt;/</span><span class="n">phy</span><span class="p">:</span><span class="n">color</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="o">&lt;</span><span class="n">phy</span><span class="p">:</span><span class="n">clade</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&lt;</span><span class="n">phy</span><span class="p">:</span><span class="n">branch_length</span><span class="o">&gt;</span><span class="mf">1.0</span><span class="o">&lt;/</span><span class="n">phy</span><span class="p">:</span><span class="n">branch_length</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&lt;</span><span class="n">phy</span><span class="p">:</span><span class="n">clade</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">          <span class="o">&lt;</span><span class="n">phy</span><span class="p">:</span><span class="n">branch_length</span><span class="o">&gt;</span><span class="mf">1.0</span><span class="o">&lt;/</span><span class="n">phy</span><span class="p">:</span><span class="n">branch_length</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">          <span class="o">&lt;</span><span class="n">phy</span><span class="p">:</span><span class="n">clade</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="o">&lt;</span><span class="n">phy</span><span class="p">:</span><span class="n">name</span><span class="o">&gt;</span><span class="n">A</span><span class="o">&lt;/</span><span class="n">phy</span><span class="p">:</span><span class="n">name</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="o">...</span>
+</span></span></code></pre></div><h2 id="io函数">I/O函数</h2>
+<p>和SeqIO、AlignIO类似, Phylo使用四个函数处理文件的输入输出： parse 、 read 、 write 和 convert ，所有的函数都支持Newick、NEXUS、 phyloXML和NeXML等树文件格式。<br>
+read 函数解析并返回给定文件中的单个树。注意，如果文件中包含多个或不包含任何树，它将抛出一个错误。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio</span> <span class="kn">import</span> <span class="n">Phylo</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">tree</span> <span class="o">=</span> <span class="n">Phylo</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">&#34;Tests/Nexus/int_node_labels.nwk&#34;</span><span class="p">,</span> <span class="s2">&#34;newick&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="n">tree</span>
+</span></span></code></pre></div><p>处理多个（或者未知个数）的树文件，需要使用 parse 函数迭代给定文件中的每一个树。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">trees</span> <span class="o">=</span> <span class="n">Phylo</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s2">&#34;Tests/PhyloXML/phyloxml_examples.xml&#34;</span><span class="p">,</span> <span class="s2">&#34;phyloxml&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">tree</span> <span class="ow">in</span> <span class="n">trees</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>     <span class="nb">print</span> <span class="n">tree</span>
+</span></span></code></pre></div><p>使用 write 函数输出一个或多个可迭代的树。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">trees</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">Phylo</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s2">&#34;phyloxml_examples.xml&#34;</span><span class="p">,</span> <span class="s2">&#34;phyloxml&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">tree1</span> <span class="o">=</span> <span class="n">trees</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">others</span> <span class="o">=</span> <span class="n">trees</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">Phylo</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">tree1</span><span class="p">,</span> <span class="s2">&#34;tree1.xml&#34;</span><span class="p">,</span> <span class="s2">&#34;phyloxml&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">Phylo</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">others</span><span class="p">,</span> <span class="s2">&#34;other_trees.xml&#34;</span><span class="p">,</span> <span class="s2">&#34;phyloxml&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="mi">12</span>
+</span></span></code></pre></div><p>使用 convert 函数转换任何支持的树格式。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">Phylo</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s2">&#34;tree1.dnd&#34;</span><span class="p">,</span> <span class="s2">&#34;newick&#34;</span><span class="p">,</span> <span class="s2">&#34;tree1.xml&#34;</span><span class="p">,</span> <span class="s2">&#34;nexml&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">Phylo</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s2">&#34;other_trees.xml&#34;</span><span class="p">,</span> <span class="s2">&#34;phyloxml&#34;</span><span class="p">,</span> <span class="s2">&#34;other_trees.nex&#34;</span><span class="p">,</span> <span class="s1">&#39;nexus&#34;)</span>
+</span></span><span class="line"><span class="cl"><span class="mi">12</span>
+</span></span></code></pre></div><p>和SeqIO和AlignIO类似，当使用字符串而不是文件作为输入输出时，需要使用 ‵‵StringIO`` 函数</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio</span> <span class="kn">import</span> <span class="n">Phylo</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">StringIO</span> <span class="kn">import</span> <span class="n">StringIO</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">handle</span> <span class="o">=</span> <span class="n">StringIO</span><span class="p">(</span><span class="s2">&#34;(((A,B),(C,D)),(E,F,G));&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">tree</span> <span class="o">=</span> <span class="n">Phylo</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="s2">&#34;newick&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><h2 id="查看和导出树">查看和导出树</h2>
+<p>了解一个 Tree 对象概况的最简单的方法是用 print 函数将它打印出来：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">tree</span> <span class="o">=</span> <span class="n">Phylo</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">&#34;Tests/PhyloXML/example.xml&#34;</span><span class="p">,</span> <span class="s2">&#34;phyloxml&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="n">tree</span>
+</span></span><span class="line"><span class="cl"><span class="n">Phylogeny</span><span class="p">(</span><span class="n">rooted</span><span class="o">=</span><span class="s1">&#39;True&#39;</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;phyloXML allows to use either a &#34;branch_length&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">attribute</span><span class="o">...</span><span class="s1">&#39;, name=&#39;</span><span class="n">example</span> <span class="kn">from</span> <span class="nn">Prof.</span> <span class="n">Joe</span> <span class="n">Felsenstein</span><span class="s1">&#39;s book &#34;Inferring Phyl...&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Clade</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Clade</span><span class="p">(</span><span class="n">branch_length</span><span class="o">=</span><span class="s1">&#39;0.06&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">Clade</span><span class="p">(</span><span class="n">branch_length</span><span class="o">=</span><span class="s1">&#39;0.102&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;A&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">Clade</span><span class="p">(</span><span class="n">branch_length</span><span class="o">=</span><span class="s1">&#39;0.23&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;B&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Clade</span><span class="p">(</span><span class="n">branch_length</span><span class="o">=</span><span class="s1">&#39;0.4&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;C&#39;</span><span class="p">)</span>
+</span></span></code></pre></div><p>上面实际上是Biopython的树对象层次结构的一个概况。然而更可能的情况是，你希望见到 画出树的形状，这里有三个函数来做这件事情。<br>
+如我们在demo中看到的一样， draw_ascii 打印一个树的ascii-art图像（有根进化树） 到标准输出，或者一个打开的文件句柄，若有提供。不是所有关于树的信息被显示出来，但是它提供了一个 不依靠于任何外部依赖的快速查看树的方法。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">tree</span> <span class="o">=</span> <span class="n">Phylo</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">&#34;example.xml&#34;</span><span class="p">,</span> <span class="s2">&#34;phyloxml&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">Phylo</span><span class="o">.</span><span class="n">draw_ascii</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">             <span class="n">__________________</span> <span class="n">A</span>
+</span></span><span class="line"><span class="cl">  <span class="n">__________</span><span class="o">|</span>
+</span></span><span class="line"><span class="cl"><span class="n">_</span><span class="o">|</span>          <span class="o">|</span><span class="n">___________________________________________</span> <span class="n">B</span>
+</span></span><span class="line"><span class="cl"> <span class="o">|</span>
+</span></span><span class="line"><span class="cl"> <span class="o">|</span><span class="n">___________________________________________________________________________</span> <span class="n">C</span>
+</span></span></code></pre></div><p>draw 函数则使用matplotlib类库画出一个更加好看的图像。查看API文档以获得关于它所接受的 用来定制输出的参数。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">tree</span> <span class="o">=</span> <span class="n">Phylo</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">&#34;example.xml&#34;</span><span class="p">,</span> <span class="s2">&#34;phyloxml&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">Phylo</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">branch_labels</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">branch_length</span><span class="p">)</span>
+</span></span></code></pre></div><p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 150; 
+			flex-basis: 362px"
+	>
+	<a href="/p/ch13_bio.phylo%E7%B3%BB%E7%BB%9F%E5%8F%91%E8%82%B2%E5%88%86%E6%9E%90/picture/ch13_Bio.Phylo%E7%B3%BB%E7%BB%9F%E5%8F%91%E8%82%B2%E5%88%86%E6%9E%90-1.png" data-size="860x570">
+		<img src="/p/ch13_bio.phylo%E7%B3%BB%E7%BB%9F%E5%8F%91%E8%82%B2%E5%88%86%E6%9E%90/picture/ch13_Bio.Phylo%E7%B3%BB%E7%BB%9F%E5%8F%91%E8%82%B2%E5%88%86%E6%9E%90-1.png"
+			width="860"
+			height="570"
+			srcset="/p/ch13_bio.phylo%E7%B3%BB%E7%BB%9F%E5%8F%91%E8%82%B2%E5%88%86%E6%9E%90/picture/ch13_Bio.Phylo%E7%B3%BB%E7%BB%9F%E5%8F%91%E8%82%B2%E5%88%86%E6%9E%90-1_hu2e5e72a257fd7b1470c8559eda450791_52244_480x0_resize_box_3.png 480w, /p/ch13_bio.phylo%E7%B3%BB%E7%BB%9F%E5%8F%91%E8%82%B2%E5%88%86%E6%9E%90/picture/ch13_Bio.Phylo%E7%B3%BB%E7%BB%9F%E5%8F%91%E8%82%B2%E5%88%86%E6%9E%90-1_hu2e5e72a257fd7b1470c8559eda450791_52244_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+draw_graphviz 则画出一个无根的进化分枝图（cladogram），但是它要求你安装有Graphviz、 PyDot或PyGraphviz、Network和matplotlib（或pylab）。使用上面相同的例子，和Graphviz中的 dot 程序，让我们来画一个有根树<br>
+（提示：如果你使用 -pylab 选项执行IPython，调用 draw_graphviz 将导致matplotlib 查看器自动运行，而不需要手动的调用 show() 方法。）</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">tree</span> <span class="o">=</span> <span class="n">Phylo</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">&#34;example.xml&#34;</span><span class="p">,</span> <span class="s2">&#34;phyloxml&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">Phylo</span><span class="o">.</span><span class="n">draw_graphviz</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">prog</span><span class="o">=</span><span class="s1">&#39;dot&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">pylab</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">pylab</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>                    <span class="c1"># Displays the tree in an interactive viewer</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">pylab</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;phylo-dot.png&#39;</span><span class="p">)</span>  <span class="c1"># Creates a PNG file of the same graphic</span>
+</span></span></code></pre></div><p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 128; 
+			flex-basis: 307px"
+	>
+	<a href="/p/ch13_bio.phylo%E7%B3%BB%E7%BB%9F%E5%8F%91%E8%82%B2%E5%88%86%E6%9E%90/picture/ch13_Bio.Phylo%E7%B3%BB%E7%BB%9F%E5%8F%91%E8%82%B2%E5%88%86%E6%9E%90-2.png" data-size="492x384">
+		<img src="/p/ch13_bio.phylo%E7%B3%BB%E7%BB%9F%E5%8F%91%E8%82%B2%E5%88%86%E6%9E%90/picture/ch13_Bio.Phylo%E7%B3%BB%E7%BB%9F%E5%8F%91%E8%82%B2%E5%88%86%E6%9E%90-2.png"
+			width="492"
+			height="384"
+			srcset="/p/ch13_bio.phylo%E7%B3%BB%E7%BB%9F%E5%8F%91%E8%82%B2%E5%88%86%E6%9E%90/picture/ch13_Bio.Phylo%E7%B3%BB%E7%BB%9F%E5%8F%91%E8%82%B2%E5%88%86%E6%9E%90-2_hu4ab4aba26e42b595679c41496773fb3a_24854_480x0_resize_box_3.png 480w, /p/ch13_bio.phylo%E7%B3%BB%E7%BB%9F%E5%8F%91%E8%82%B2%E5%88%86%E6%9E%90/picture/ch13_Bio.Phylo%E7%B3%BB%E7%BB%9F%E5%8F%91%E8%82%B2%E5%88%86%E6%9E%90-2_hu4ab4aba26e42b595679c41496773fb3a_24854_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+这将输出树对象到一个NetworkX图中，使用Graphviz来布局节点的位置，并使用matplotlib来显示 它。这里有几个关键词参数来修改结果图像，包括大多数被NetworkX函数 networkx.draw 和 networkx.draw_graphviz 所接受的参数。<br>
+最终的显示也受所提供的树对象的 rooted 属性的影响。有根树在每个分支（branch）上显示 一个“head”来表明它的方向</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">tree</span> <span class="o">=</span> <span class="n">Phylo</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">&#34;simple.dnd&#34;</span><span class="p">,</span> <span class="s2">&#34;newick&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">tree</span><span class="o">.</span><span class="n">rooted</span> <span class="o">=</span> <span class="kc">True</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">Phylo</span><span class="o">.</span><span class="n">draw_graphiz</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span>
+</span></span></code></pre></div><p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 117; 
+			flex-basis: 281px"
+	>
+	<a href="/p/ch13_bio.phylo%E7%B3%BB%E7%BB%9F%E5%8F%91%E8%82%B2%E5%88%86%E6%9E%90/picture/ch13_Bio.Phylo%E7%B3%BB%E7%BB%9F%E5%8F%91%E8%82%B2%E5%88%86%E6%9E%90-3.png" data-size="528x450">
+		<img src="/p/ch13_bio.phylo%E7%B3%BB%E7%BB%9F%E5%8F%91%E8%82%B2%E5%88%86%E6%9E%90/picture/ch13_Bio.Phylo%E7%B3%BB%E7%BB%9F%E5%8F%91%E8%82%B2%E5%88%86%E6%9E%90-3.png"
+			width="528"
+			height="450"
+			srcset="/p/ch13_bio.phylo%E7%B3%BB%E7%BB%9F%E5%8F%91%E8%82%B2%E5%88%86%E6%9E%90/picture/ch13_Bio.Phylo%E7%B3%BB%E7%BB%9F%E5%8F%91%E8%82%B2%E5%88%86%E6%9E%90-3_huda1a38ee25487510abe0fa370f39ac60_34536_480x0_resize_box_3.png 480w, /p/ch13_bio.phylo%E7%B3%BB%E7%BB%9F%E5%8F%91%E8%82%B2%E5%88%86%E6%9E%90/picture/ch13_Bio.Phylo%E7%B3%BB%E7%BB%9F%E5%8F%91%E8%82%B2%E5%88%86%E6%9E%90-3_huda1a38ee25487510abe0fa370f39ac60_34536_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+“prog”参数指定Graphviz的用来布局的引擎。默认的引擎 twopi 对任何大小的树都表现很好， 很可靠的避免交叉的分支出现。neato 程序可能画出更加好看的中等大小的树，但是有时候会 有交叉分支出现（见图. ）。 dot 程序或许对小型的树有用， 但是对于大一点的树的布局易产生奇怪的事情。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">Phylo</span><span class="o">.</span><span class="n">draw_graphviz</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">prog</span><span class="o">=</span><span class="s2">&#34;neato&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 143; 
+			flex-basis: 344px"
+	>
+	<a href="/p/ch13_bio.phylo%E7%B3%BB%E7%BB%9F%E5%8F%91%E8%82%B2%E5%88%86%E6%9E%90/picture/ch13_Bio.Phylo%E7%B3%BB%E7%BB%9F%E5%8F%91%E8%82%B2%E5%88%86%E6%9E%90-4.png" data-size="612x426">
+		<img src="/p/ch13_bio.phylo%E7%B3%BB%E7%BB%9F%E5%8F%91%E8%82%B2%E5%88%86%E6%9E%90/picture/ch13_Bio.Phylo%E7%B3%BB%E7%BB%9F%E5%8F%91%E8%82%B2%E5%88%86%E6%9E%90-4.png"
+			width="612"
+			height="426"
+			srcset="/p/ch13_bio.phylo%E7%B3%BB%E7%BB%9F%E5%8F%91%E8%82%B2%E5%88%86%E6%9E%90/picture/ch13_Bio.Phylo%E7%B3%BB%E7%BB%9F%E5%8F%91%E8%82%B2%E5%88%86%E6%9E%90-4_huea7c4770d620342bc6aec2423f23586c_34442_480x0_resize_box_3.png 480w, /p/ch13_bio.phylo%E7%B3%BB%E7%BB%9F%E5%8F%91%E8%82%B2%E5%88%86%E6%9E%90/picture/ch13_Bio.Phylo%E7%B3%BB%E7%BB%9F%E5%8F%91%E8%82%B2%E5%88%86%E6%9E%90-4_huea7c4770d620342bc6aec2423f23586c_34442_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+这个查看方式非常方便研究大型的树，因为matplotlib查看器可以放大选择的区域，使得杂乱的图像 变得稀疏</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">tree</span> <span class="o">=</span> <span class="n">Phylo</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">&#34;apaf.xml&#34;</span><span class="p">,</span> <span class="s2">&#34;phyloxml&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">Phylo</span><span class="o">.</span><span class="n">draw_graphviz</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">prog</span><span class="o">=</span><span class="s2">&#34;neato&#34;</span><span class="p">,</span> <span class="n">node_size</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</span></span></code></pre></div><p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 129; 
+			flex-basis: 311px"
+	>
+	<a href="/p/ch13_bio.phylo%E7%B3%BB%E7%BB%9F%E5%8F%91%E8%82%B2%E5%88%86%E6%9E%90/picture/ch13_Bio.Phylo%E7%B3%BB%E7%BB%9F%E5%8F%91%E8%82%B2%E5%88%86%E6%9E%90-5.png" data-size="636x490">
+		<img src="/p/ch13_bio.phylo%E7%B3%BB%E7%BB%9F%E5%8F%91%E8%82%B2%E5%88%86%E6%9E%90/picture/ch13_Bio.Phylo%E7%B3%BB%E7%BB%9F%E5%8F%91%E8%82%B2%E5%88%86%E6%9E%90-5.png"
+			width="636"
+			height="490"
+			srcset="/p/ch13_bio.phylo%E7%B3%BB%E7%BB%9F%E5%8F%91%E8%82%B2%E5%88%86%E6%9E%90/picture/ch13_Bio.Phylo%E7%B3%BB%E7%BB%9F%E5%8F%91%E8%82%B2%E5%88%86%E6%9E%90-5_hu46a18ea1b97db5daedd80f8ff1480895_85287_480x0_resize_box_3.png 480w, /p/ch13_bio.phylo%E7%B3%BB%E7%BB%9F%E5%8F%91%E8%82%B2%E5%88%86%E6%9E%90/picture/ch13_Bio.Phylo%E7%B3%BB%E7%BB%9F%E5%8F%91%E8%82%B2%E5%88%86%E6%9E%90-5_hu46a18ea1b97db5daedd80f8ff1480895_85287_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+注意，分支长度并没有被正确地显示，因为Graphviz在布局时忽略了他们。然而，分支长度可以在输出 树为NetworkX图对象（ to_networkx ）时重新获得</p>
+<h2 id="使用tree和clade对象">使用Tree和Clade对象</h2>
+<p>parse 和 read 方法产生的 Tree 对象是一些包含递归的子树的容器，连接到 Tree 对象的 root 属性（不管进化树实际上被认为是否有根）。一个 Tree 包含进化树的全局信息， 如有根性（rootedness）和指向一个单独的 Clade 的引用; 一个 Clade 包含节点和进化枝 特异性信息，如分支长度（branch length）和一个它自身后代 Clade 实例的列表，附着在 clades 属性上。<br>
+所以，这里 tree 和 tree.root 间是有区别的. 然而，实际操作中，你几乎不需要担心它。为了 缓和这个不同，Tree 和 Clade 两者都继承自 TreeMixin，它包含常用的用来查找、审视和 修改树和任何它的进化枝的方法的实现。这意味着，所有 tree 所支持的方法在 tree.root 和 任何它下面的clade中都能用。（ Clade 也有一个 root 属性，它返回clade对象本身。）</p>
+<h3 id="查找和遍历类方法">查找和遍历类方法</h3>
+<p>为了方便起见，我们提供了两个简化的方法来直接返回所有的外部或内部节点为列表：<br>
+<strong><code>get_terminals</code></strong><br>
+创建一个包含树的所有末端（叶子）节点的列表。<br>
+<strong><code>get_nonterminals</code></strong><br>
+创建一个包含树的所有非末端（内部）节点的列表。<br>
+这两个都包装了一个能完全控制树的遍历的方法 find_clades。另外两个遍历方法 find_elements 和 find_any 依赖于同样的核心功能，也接受同样的参数，没有更好的描述我们就把这个参数叫做 “目标说明”（target specification）吧。它们指定哪些树中的对象将被匹配并在迭代过程中返回。 第一个参数可以是下面的任何类型：</p>
+<ul>
+<li>一个 <strong>TreeElement 实例</strong> ，那个树的元素将根据一致性被匹配——这样，使用Clade实例作为目标将找到 树中的这个Clade；</li>
+<li>一个 <strong>string</strong> ，匹配树元素的字符串表示——特别地，Clade的 name <em>(在Biopython 1.56中引入)</em>；</li>
+<li>一个 <strong>class</strong> 或 <strong>type</strong>，这样每一个类型（或子类型）相同的树元素都被匹配；</li>
+<li>一个 <strong>dictionary</strong> ，其中键（key）是树元素的属性名，值（value）将匹配到每个树元素相应的属性值。 它变得更加详细：由于浮点数值可能产生奇怪的行为，我们不支持直接匹配 floats 类型。作为替代，使用boolean值 True 来匹配每个元素中指定属性的非零值，然后再对这个属性用不等式（或精确地数值，如果你喜欢 危险地活着）进行手动过滤。如果该字典包含多个条目，匹配的元素必须匹配所有给定的属性值——以“and”方式思考，而不是“or”。
+<ul>
+<li>如果提供的是 int 类型，它将匹配数值上相等的属性，即，1将匹配1或者1.0</li>
+<li>如果提供的是boolean类型（True或者False），对应的属性值将被当做boolean求值和检验</li>
+<li>None 匹配 None</li>
+<li>如果提供的是字符串，将被当做正则表达式对待（必须匹配对应元素属性的全部，不能只是前面的部分）。 提供没有特殊正则表达式字符的字符串将精准的匹配字符串属性，所以如果你不适用正则表达式，不用 担心它。例如，包含进化枝名称Foo1、Foo2和Foo3的一个树， tree.find_clades({&ldquo;name&rdquo;: &ldquo;Foo1&rdquo;}) 将匹配 Foo1， {&ldquo;name&rdquo;: &ldquo;Foo.*&rdquo;} 匹配所有的三个进化枝，而 {&ldquo;name&rdquo;: &ldquo;Foo&rdquo;} 并不匹配任何进化枝。</li>
+</ul>
+</li>
+<li>一个接受一个参数（它将应用于树中的每一个元素），返回True或False的函数 <strong>function</strong> 。为方便起见， LookupError、AttributeError和ValueError被沉默，这样就提供了另外一个在树中查找浮点值的安全方式， 或者一些更加复杂的特性。
+在目标参数后面，有两个可选的关键词参数：<br>
+<strong>terminal</strong><br>
+— 用来选择或排除末端进化枝（或者叫叶子节点）的一个boolean值：True仅搜索末端进化枝，False则搜索 非末端（内部）进化枝，而默认为None，同时搜索末端和非末端进化枝，包括没有 is_terminal 方法的 任何树元素。<br>
+<strong>order</strong><br>
+— 树遍历的顺序：&ldquo;preorder&rdquo; （默认值）是深度优先搜索（depth-first search，DFS）， &ldquo;postorder&rdquo; 是子节点先于父节点的DFS搜索， &ldquo;level&rdquo; 是宽度优先搜索（breadth-first search，BFS）。<br>
+最后，这些方法接受任意的关键词参数，这些参数将被以和词典“目标说明”相同的方式对待：键表示要搜索的元素 属性的名称，参数值（string、integer、None或者boolean）将和找到的每个属性的值进行比较。如果没有提供 关键词参数，则任何TreeElement类型将被匹配。这个的代码普遍比传入一个词典作为“目标说明”要短： tree.find_clades({&ldquo;name&rdquo;: &ldquo;Foo1&rdquo;}) 可以简化为 tree.find_clades(name=&ldquo;Foo1&rdquo;)。<br>
+（在Biopython 1.56和以后的版本中，这可以更短：tree.find_clades(&ldquo;Foo1&rdquo;) ）<br>
+现在我们已经掌握了“目标说明”，这里有一些遍历树的方法：<br>
+<strong><code>find_clades</code></strong><br>
+查找每个包含匹配元素的进化枝。就是说，用 find_elements 查找每个元素，然而返回对应的clade对象。 （这通常是你想要的。）<br>
+最终的结果是一个包含所有匹配对象的迭代器，默认为深度优先搜索。这不一定是和Newick、Nexus或XML原文件 中显示的相同的顺序。<br>
+<strong><code>find_elements</code></strong><br>
+<strong>查找和给定属性匹配的所有树元素，返回匹配的元素本身。简单的Newick树没有复杂的子元素，所以它将和</strong><br>
+find_clades 的行为一致。PhyloXML树通常在clade上附加有复杂的对象，所以这个方法对提取这些信息 非常有用。<br>
+<strong><code>find_any</code></strong><br>
+返回 find_elements() 所找到的第一个元素，或者None。这对于检测树中是否存在匹配的元素也非常有用， 可以在条件判断语句中使用。<br>
+另外两个用于帮助在树的节点间导航的方法：<br>
+<strong><code>get_path</code></strong><br>
+直接列出从树的根节点（或当前进化枝）到给定的目标间的所有clade。返回包含这个路径上所有clade对象的 列表，以给定目标为结尾，但不包含根进化枝。<br>
+<strong><code>trace</code></strong><br>
+列出树中两个目标间的所有clade对象，不包含起始和结尾。</li>
+</ul>
+<h2 id="信息类方法">信息类方法</h2>
+<p>这些方法提供关于整个树（或任何进化枝）的信息。<br>
+<strong><code>common_ancestor</code></strong><br>
+查找所提供的所有目标的最近共同祖先（the most recent common ancestor） （这将是一个Clade对象）。如果没有提供任何目标，将返回当前Clade（调用该 方法的那个）的根；如果提供一个目标，将返回目标本身。然而，如果有任何提供 的目标无法在当前tree（或clade）中找到，将引起一个异常。<br>
+<strong><code>count_terminals</code></strong><br>
+计算树中末端（叶子）节点的个数。<br>
+<strong><code>depths</code></strong><br>
+创建一个树中进化枝到其深度的映射。结果是一个字典，其中键是树中所有的Clade 实例，值是从根到每个clade（包含末端）的距离。默认距离是到这个clade的分支 长度累加，然而使用 unit_branch_lengths=True 选项，将只计算分支的个数 （其在树中的级数）。<br>
+<strong><code>distance</code></strong><br>
+计算两个目标间的分支长度总和。如果只指定一个目标，另一个则为该树的根。<br>
+<strong><code>total_branch_length</code></strong><br>
+计算这个树中的分支长度总和。这在系统发生学中通常就称为树的长度“length”， 但是我们使用更加明确的名称，以避免和Python的术语混淆。<br>
+余下的方法是boolean检测方法：<br>
+<strong><code>is_bifurcating</code></strong><br>
+如果树是严格的二叉树；即，所有的节点有2个或者0个子代（对应的，内部或外部）。 根节点可能有三个后代，然而仍然被认为是二叉树的一部分。<br>
+<strong><code>is_monophyletic</code></strong><br>
+检验给定的所有目标是否组成一个完成的子进化枝——即，存在一个进化枝满足：它的 末端节点和给定的目标是相同的集合。目标需要时树中的末端节点。为方便起见，若 给定目标是一个单系（monophyletic），这个方法将返回它们的共同祖先（MCRA）（ 而不是 True ），否则将返回 False 。<br>
+<strong><code>is_parent_of</code></strong><br>
+若目标是这个树的后代（descendant）则为True——不必为直接后代。检验一个进化枝的 直接后代，只需要用简单的列表成员检测方法： if subclade in clade: &hellip;<br>
+<strong><code>is_preterminal</code></strong><br>
+若所有的直接后代都为末端则为True；否则任何一个直接后代不为末端则为False。</p>
+<h2 id="修改类的方法">修改类的方法</h2>
+<p>这些方法都在原地对树进行修改，所以如果你想保持原来的树不变，你首先要使用Python的 copy 模块对树进行完整的拷贝</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">tree</span> <span class="o">=</span> <span class="n">Phylo</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s1">&#39;example.xml&#39;</span><span class="p">,</span> <span class="s1">&#39;phyloxml&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">copy</span>
+</span></span><span class="line"><span class="cl"><span class="n">newtree</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span>
+</span></span></code></pre></div><p><strong><code>collapse</code></strong><br>
+从树中删除目标，重新连接它的子代（children）到它的父亲节点（parent）。<br>
+<strong><code>collapse_all</code></strong><br>
+删除这个树的所有后代（descendants），只保留末端节点（terminals）。 分支长度被保留，即到每个末端节点的距离保持不变。如指定一个目标（见上）， 只坍塌（collapses）和指定匹配的内部节点。<br>
+<strong><code>ladderize</code></strong><br>
+根据末端节点的个数，在原地对进化枝（clades）进行排序。越深的进化枝默认被放到最后， 使用 reverse=True 将其放到最前。<br>
+<strong><code>prune</code></strong><br>
+从树中修剪末端进化枝（terminal clade）。如果分类名（taxon）来自一个二叉枝（bifurcation）， 连接的节点将被坍塌，它的分支长度将被加到剩下的末端节点上。这可能不再是一个有意义的值。<br>
+<strong><code>root_with_outgroup</code></strong><br>
+使用包含给定目标的外群进化枝（outgroup clade）重新确定树的根节点，即外群的共同祖先。该方法 只在Tree对象中能用，不能用于Clade对象。<br>
+如果外群和self.root一致，将不发生改变。如果外群进化枝是末端（即一个末端节点被作为外群），一个 新的二叉根进化枝将被创建，且到给定外群的分支长度为0。否则，外群根部的内部节点变为整个树的一个 三叉根。如果原先的根是一个二叉，它将被从树中遗弃。<br>
+在所有的情况下，树的分支长度总和保持不变。<br>
+<strong><code>root_at_midpoint</code></strong><br>
+重新选择树中两个最远的节点的中点作为树的根。（这实际上是使用 root_with_outgroup 函数。）<br>
+<strong><code>split</code></strong><br>
+产生 <em>n</em> （默认为2）个 新的后代。在一个物种树中，这是一个物种形成事件。新的进化枝拥有给定的 branch_length 以及和这个进化枝的根相同的名字，名字后面包含一个整数后缀（从0开始计数）—— 例如，分割名为“A”的进化枝将生成子进化枝“A0”和“A1”。<br>
+phyloXML文件格式包含用来注释树的，采用额外数据格式和图像提示的字段。<br>
+参加Biopython维基上的PhyloXML页面 (<a class="link" href="http://biopython.org/wiki/PhyloXML"  target="_blank" rel="noopener"
+    >http://biopython.org/wiki/PhyloXML</a>) 以查看关于使用PhyloXML提供的额外注释特性的描述和例子。</p>
+<h2 id="运行外部程序">运行外部程序</h2>
+<p>尽管Bio.Phylo本身不从序列比对推断进化树，但这里有一些第三方的程序可以使用。 他们通过 Bio.Phylo.Applications 模块获得支持，使用和 Bio.Emboss.Applications 、 Bio.Align.Applications 以及其他模块相同的通用框架<br>
+Biopython 1.58引入了一个PhyML的打包程序（wrapper） (<a class="link" href="http://www.atgc-montpellier.fr/phyml/"  target="_blank" rel="noopener"
+    >http://www.atgc-montpellier.fr/phyml/</a>)。 该程序接受一个 phylip-relaxed 格式（它是Phylip格式，然而没有对分类名称的10个字符的限制） 的比对输入和多种参数。一个快速的例子是：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio</span> <span class="kn">import</span> <span class="n">Phylo</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio.Phylo.Applications</span> <span class="kn">import</span> <span class="n">PhymlCommandline</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">cmd</span> <span class="o">=</span> <span class="n">PhymlCommandline</span><span class="p">(</span><span class="nb">input</span><span class="o">=</span><span class="s1">&#39;Tests/Phylip/random.phy&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">out_log</span><span class="p">,</span> <span class="n">err_log</span> <span class="o">=</span> <span class="n">cmd</span><span class="p">()</span>
+</span></span></code></pre></div><p>这生成一个树文件盒一个统计文件，名称为： [<em>input filename</em>]_phyml_tree.txt 和 [<em>input filename</em>]_phyml_stats.txt. 树文件的格式是Newick格式：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">tree</span> <span class="o">=</span> <span class="n">Phylo</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s1">&#39;Tests/Phylip/random.phy_phyml_tree.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;newick&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">Phylo</span><span class="o">.</span><span class="n">draw_ascii</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span>
+</span></span></code></pre></div><h2 id="paml整合">PAML整合</h2>
+<p>Biopython 1.58引入了对PAML的支持 (<a class="link" href="http://abacus.gene.ucl.ac.uk/software/paml.html"  target="_blank" rel="noopener"
+    >http://abacus.gene.ucl.ac.uk/software/paml.html</a>), 它是一个采用最大似然法（maximum likelihood）进行系统进化分析的程序包。目前，对程序codeml、baseml和yn00的支持 已经实现。由于PAML使用控制文件而不是命令行参数来控制运行时选项，这个打包程序（wrapper）的使用格式和Biopython 的其他应用打包程序有些差异。<br>
+一个典型的流程是：初始化一个PAML对象，指定一个比对文件，一个树文件，一个输出文件和工作路径。下一步，运行时 选项通过 set_options() 方法或者读入一个已有的控制文件来设定。最后，程序通过 run() 方法来运行，输出文件 将自动被解析到一个结果目录。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio.Phylo.PAML</span> <span class="kn">import</span> <span class="n">codeml</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">cml</span> <span class="o">=</span> <span class="n">codeml</span><span class="o">.</span><span class="n">Codeml</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">cml</span><span class="o">.</span><span class="n">alignment</span> <span class="o">=</span> <span class="s2">&#34;Tests/PAML/alignment.phylip&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">cml</span><span class="o">.</span><span class="n">tree</span> <span class="o">=</span> <span class="s2">&#34;Tests/PAML/species.tree&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">cml</span><span class="o">.</span><span class="n">out_file</span> <span class="o">=</span> <span class="s2">&#34;results.out&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">cml</span><span class="o">.</span><span class="n">working_dir</span> <span class="o">=</span> <span class="s2">&#34;./scratch&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">cml</span><span class="o">.</span><span class="n">set_options</span><span class="p">(</span><span class="n">seqtype</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>         <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>         <span class="n">noisy</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>         <span class="n">RateAncestor</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>         <span class="n">model</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>         <span class="n">NSsites</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>         <span class="n">CodonFreq</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>         <span class="n">cleandata</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>         <span class="n">fix_alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>         <span class="n">kappa</span><span class="o">=</span><span class="mf">4.54006</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">results</span> <span class="o">=</span> <span class="n">cml</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">ns_sites</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;NSsites&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">m0</span> <span class="o">=</span> <span class="n">ns_sites</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">m0_params</span> <span class="o">=</span> <span class="n">m0</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;parameters&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="n">m0_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;omega&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><p>已有的输出文件也可以通过模块的 read() 方法来解析：<br>
+这个新模块的详细介绍目前在Biopython维基上可以看到： <a class="link" href="http://biopython.org/wiki/PAML"  target="_blank" rel="noopener"
+    >http://biopython.org/wiki/PAML</a></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">results</span> <span class="o">=</span> <span class="n">codeml</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">&#34;Tests/PAML/Results/codeml/codeml_NSsites_all.out&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="n">results</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;lnL max&#34;</span><span class="p">)</span>
+</span></span></code></pre></div>
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/tutorials/">tutorials</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2022 - 
+        
+        2023 叶宇浩随记博客
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.5.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">Table of contents</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#树中有什么">树中有什么？</a></li>
+    <li><a href="#给树的分支上颜色">给树的分支上颜色</a></li>
+    <li><a href="#io函数">I/O函数</a></li>
+    <li><a href="#查看和导出树">查看和导出树</a></li>
+    <li><a href="#使用tree和clade对象">使用Tree和Clade对象</a>
+      <ol>
+        <li><a href="#查找和遍历类方法">查找和遍历类方法</a></li>
+      </ol>
+    </li>
+    <li><a href="#信息类方法">信息类方法</a></li>
+    <li><a href="#修改类的方法">修改类的方法</a></li>
+    <li><a href="#运行外部程序">运行外部程序</a></li>
+    <li><a href="#paml整合">PAML整合</a></li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>python on 叶宇浩随记博客</title>
+    <link>https://example.com/categories/python/</link>
+    <description>Recent content in python on 叶宇浩随记博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 19 Jan 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://example.com/categories/python/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>pandas数据排序sort_values()和sort_index()</title>
+      <link>https://example.com/p/pandas%E6%95%B0%E6%8D%AE%E6%8E%92%E5%BA%8Fsort_values%E5%92%8Csort_index/</link>
+      <pubDate>Thu, 19 Jan 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/pandas%E6%95%B0%E6%8D%AE%E6%8E%92%E5%BA%8Fsort_values%E5%92%8Csort_index/</guid>
+      <description>df.sort_values() DataFrame.sort_values(by, axis=0, ascending=True, inplace=False, kind=&amp;lsquo;quicksort&amp;rsquo;, na_position=&amp;lsquo;last&amp;rsquo;)
+参数说明：
+axis：{0 or ‘index’, 1 or ‘columns’}, default 0 by：str or list of str；如果axis=0，那么by=&amp;ldquo;列名&amp;rdquo;；如果axis=1，那么by=&amp;ldquo;行名&amp;rdquo; ascending：布尔型，True则升序，如果by=[&amp;lsquo;列名1&amp;rsquo;,&amp;lsquo;列名2&amp;rsquo;]，则该参数可以是[True, False]， 即第一字段升序，第二个降序 1 2 2 注意：指定多列（多行）排序时，先按排在前面的列（行）排序，如果内部有相同数据，再对相同 数据内部用下一个列（行）排序，以此类推。如何内部无重复数据，则后续排列不执行。即首先满 足排在前面的参数的排序，再排后面参数 inplace：布尔型，是否用排序后的数据框替换现有的数据框 kind：排序方法，{‘quicksort’, ‘mergesort’, ‘heapsort’}, default ‘quicksort’。似 乎不用太关心 na_position：{‘first’, ‘last’}, default ‘last’，默认缺失值排在最后面。 df.sort_index() 功能和sort_values一致，但是它默认根据行标签（是所有行标签本身，而不是行对应的数据）对所有行排序，或根据列标签对所有列排序
+sort_index(axis=0, level=None, ascending=True, inplace=False, kind=&amp;lsquo;quicksort&amp;rsquo;, na_position=&amp;lsquo;last&amp;rsquo;, sort_remaining=True, by=None)
+import pandas as pd df = pd.DataFrame({&amp;#39;b&amp;#39;:[1,2,3,2],&amp;#39;a&amp;#39;:[4,3,2,1],&amp;#39;c&amp;#39;:[1,3,8,2]},index=[2,0,1,3]) df result: code:
+df.sort_values(by=&amp;#34;c&amp;#34;) result: code:
+df.sort_values(by=[&amp;#34;a&amp;#34;,&amp;#34;c&amp;#34;],ascending=[True,False]) result: code:
+df result: code:</description>
+    </item>
+    
+    <item>
+      <title>pandas的分组取最大多行并求和函数nlargest()</title>
+      <link>https://example.com/p/pandas%E7%9A%84%E5%88%86%E7%BB%84%E5%8F%96%E6%9C%80%E5%A4%A7%E5%A4%9A%E8%A1%8C%E5%B9%B6%E6%B1%82%E5%92%8C%E5%87%BD%E6%95%B0nlargest/</link>
+      <pubDate>Mon, 07 Nov 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/pandas%E7%9A%84%E5%88%86%E7%BB%84%E5%8F%96%E6%9C%80%E5%A4%A7%E5%A4%9A%E8%A1%8C%E5%B9%B6%E6%B1%82%E5%92%8C%E5%87%BD%E6%95%B0nlargest/</guid>
+      <description>在pandas库里面，我们常常关心的是最大的前几个，比如销售最好的几个产品，几个店，等。之前讲到的head(), 能够看到看到DF里面的前几行，如果需要看到最大或者最小的几行就需要先进行排序。max()和min()可以看到最大或者最小值，但是只能看到一个值。 所以我们可以使用nlargest()函数，nlargest()的优点就是能一次看到最大的几行，而且不需要排序。缺点就是只能看到最大的，看不到最小的。 单价排在前十的数据
+nlargest()的第一个参数就是截取的行数。第二个参数就是依据的列名。
+这样就可以筛选出单价最高的前十行，而且是按照单价从最高到最低进行排列的，所以还是按照之前的索引。
+还可以按照total_price来进行排名 按照total_price排名
+nlargest还有一个参数，keep=&amp;lsquo;first&amp;rsquo;或者&amp;rsquo;last&amp;rsquo;。当出现重复值的时候，keep=&amp;lsquo;first&amp;rsquo;,会选取在原始DataFrame里排在前面的，keep=&amp;lsquo;last&amp;rsquo;则去排后面的。
+由于nlagerst()不能去最小的多个值，如果我们一定要使用这个函数进行选取也是可以的.
+先设置一个辅助列 然后在进行选取： 以辅助列进行选取
+当然了，也可以通过head()加上排序进行选取的。
+那以前这些操作都可以通过其它函数来进行替代的话，nlargest()有什么必要介绍吗？或者说学不学这个函数有什么关系吗？
+这就是我们今天要重点介绍的，如果说要选择不同location_road下的前五名要怎么操作呢？
+很多人可能第一反应会想到先分组然后进行max()操作，但是这样的操作只能选择最大的一列： 使用max()
+但是使用max有一个问题，就是选取的是每一列的最大值，而不是选取最大值的那一行，也就是说只能在选取单列的最大值的时候才是准确的。
+这个时候我们就要想到apply和lambda的自定义函数了
+选取多个指标的TOP(N)
+这样就选出了不同loaction_road的price排在前五的行了。
+nlargest()函数在这种场景下使用是非常方便的，而且结果也已经默认排好顺序了。
+还有一些场景下需要计算分组的前几名，然后在进行求和的，这个我们也可以使用nlargest进行操作： 分组之后进行求和
+使用这种方法会出现报错提示，这个因为在列和索引都存在loaction_road，有重复，系统有警告，在实际使用时可以先改列名再操作。我们也可以换一种方式直接按照索引进行求和，这样就没有警告了： </description>
+    </item>
+    
+    <item>
+      <title>pd.quantile分位数方法</title>
+      <link>https://example.com/p/pd.quantile%E5%88%86%E4%BD%8D%E6%95%B0%E6%96%B9%E6%B3%95/</link>
+      <pubDate>Sun, 04 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/pd.quantile%E5%88%86%E4%BD%8D%E6%95%B0%E6%96%B9%E6%B3%95/</guid>
+      <description>参考资料：
+https://www.zhihu.com/question/67763556
+https://www.jianshu.com/p/a3cb124679df
+首先来了解下什么是分位数，实际上就是用概率作为依据将一批数据分开的那个点
+举个实例：
+分位数是数据分析中常用的一个统计量，经过抽样得到一个样本值，以学生成成绩为例：
+60,70,87,56,35,64,28,84,89,65.
+p分位数
+如果想在这10位同学中淘汰至少35%,同时让至少65%的同学晋级，你怎么选？
+当然的想法是找一个数，小于等于这个数的同学至少有35%,大于等于这个数的同学至少有65%,
+要想顺利地找到这个数，需要将数据排序：
+28, 35, 56, 60，64, 65, 70, 84, 87, 89
+排序后上面十个数分别记为x(1)到x(10).
+至少有35%,即至少有10*35%=3.5个学生，所以x_0.35 ≥60=x(4); （从左到右）
+至少有65%，即至少有10*65%=6.5个学生，所以x_0.35≤60=x(4); （从右到左）
+故二者取交集，令x_0.35 =60.
+以上是np不为整数的情况，如果np为整数，不妨设p=0.3
+至少有30%,即至少有10*30%=3个学生，所以x_0.3 ≥56=x(3); （从左到右）
+至少有70%，即至少有10*70%=7个学生，所以x_0.3≤60=x(4); （从右到左）
+二者取交集，有两个值，一个是56,一个是60,如何选取？就取二者的平均值
+x_0.3＝（56+60）/2=58.
+补充：
+常见的四分位数：
+四分位数（Quartile) 也称四分位点，是指在统计学中把所有数值由小到大排列并分成四等份，处于三个分割点位置的数值
+第一四分位数 (Q1)，又称“较小四分位数”，等于该样本中所有数值由小到大排列后第25%的数字
+第二四分位数 (Q2)，又称“中位数”，等于该样本中所有数值由小到大排列后第50%的数字。
+第三四分位数 (Q3)，又称“较大四分位数”，等于该样本中所有数值由小到大排列后第75%的数字。
+第三四分位数与第一四分位数的差距又称四分位距（InterQuartile Range,IQR）
+正如上文所言，四分位数 就是将数据从小到大排成4等分，然后取出3个分割点的数值。百分位数则以此类推，通过分位数 我们可以对数据的分布有更深的了解
+分位数的计算方法有两种，以四分位数为例
+n+1 方法 n是项数 n+1 算出来的结果会比实际稍高一些
+n = 10 Q1 = (n+1) * 0.25 Q2 = (n+1) * 0.50 Q3 = (n+1) * 0.</description>
+    </item>
+    
+    <item>
+      <title>pandas stack和unstack函数</title>
+      <link>https://example.com/p/pandas-stack%E5%92%8Cunstack%E5%87%BD%E6%95%B0/</link>
+      <pubDate>Wed, 10 Aug 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/pandas-stack%E5%92%8Cunstack%E5%87%BD%E6%95%B0/</guid>
+      <description> import numpy as np import pandas as pd df = pd.DataFrame(np.arange(6).reshape((2,3)),index=[&amp;#34;street1&amp;#34;,&amp;#34;street2&amp;#34;],columns=[&amp;#34;one&amp;#34;,&amp;#34;two&amp;#34;,&amp;#34;sthree&amp;#34;]) df result: code:
+data2 = df.stack() data2 result: code:
+data3 = data2.unstack() data3 result: </description>
+    </item>
+    
+    <item>
+      <title>pd.pct_change()计算变化率</title>
+      <link>https://example.com/p/pd.pct_change%E8%AE%A1%E7%AE%97%E5%8F%98%E5%8C%96%E7%8E%87/</link>
+      <pubDate>Wed, 27 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/pd.pct_change%E8%AE%A1%E7%AE%97%E5%8F%98%E5%8C%96%E7%8E%87/</guid>
+      <description>首先明确啥是变化率
+（后一个值-前一个值）／前一个值
+pandas 中的方法pct_change()方法可以用来计算变化率
+import pandas as pd test = pd.Series([1,2,3,4,5]) test result: test.pct_change() result: code:
+import numpy as np d = np.random.randint(0,20,(5,5)) test2 = pd.DataFrame(d) test2 result: code:
+test2.pct_change() result: </description>
+    </item>
+    
+    <item>
+      <title>pd.findna函数详解</title>
+      <link>https://example.com/p/pd.findna%E5%87%BD%E6%95%B0%E8%AF%A6%E8%A7%A3/</link>
+      <pubDate>Tue, 19 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/pd.findna%E5%87%BD%E6%95%B0%E8%AF%A6%E8%A7%A3/</guid>
+      <description>fillna（）是用来填充NaN值的 参数：
+inplace True/False 是否在直接修改元原对象，False的话会创建一个副本 method 填充方法; {‘pad’, ‘ffill’,‘backfill’, ‘bfill’, None}, default None pad/ffill：用前一个非缺失值去填充该缺失值 backfill/bfill：用下一个非缺失值填充该缺失值 -None：指定一个值去替换缺失值（缺省默认这种方式） -limit参数：限制填充个数 -axis参数 ：修改填充方向 code:
+import pandas as pd import numpy as np from numpy import nan as NAN df1 = pd.DataFrame([[1,2,3],[NAN,NAN,2],[NAN,NAN,NAN],[8,8,NAN]]) df1 result: code:
+df1.fillna(22) result: code:
+df1.fillna(method=&amp;#34;pad&amp;#34;) result: code:
+df1.fillna(method=&amp;#34;ffill&amp;#34;) result: code:
+df1 result: code:
+df1.fillna(method=&amp;#34;bfill&amp;#34;) result: </description>
+    </item>
+    
+    <item>
+      <title>pd.Categorical类别对应用法</title>
+      <link>https://example.com/p/pd.categorical%E7%B1%BB%E5%88%AB%E5%AF%B9%E5%BA%94%E7%94%A8%E6%B3%95/</link>
+      <pubDate>Sun, 17 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/pd.categorical%E7%B1%BB%E5%88%AB%E5%AF%B9%E5%BA%94%E7%94%A8%E6%B3%95/</guid>
+      <description>先看示例：
+import pandas as pd import numpy as np test = pd.Categorical([&amp;#39;a&amp;#39;,&amp;#39;a&amp;#39;,&amp;#39;b&amp;#39;,&amp;#39;c&amp;#39;,&amp;#39;c&amp;#39;]) test result:
+[&amp;#39;a&amp;#39;, &amp;#39;a&amp;#39;, &amp;#39;b&amp;#39;, &amp;#39;c&amp;#39;, &amp;#39;c&amp;#39;] Categories (3, object): [&amp;#39;a&amp;#39;, &amp;#39;b&amp;#39;, &amp;#39;c&amp;#39;] code:
+test.dtype result:
+CategoricalDtype(categories=[&amp;#39;a&amp;#39;, &amp;#39;b&amp;#39;, &amp;#39;c&amp;#39;], ordered=False) code:
+test.codes result:
+array([0, 0, 1, 2, 2], dtype=int8) code:
+test.categories result:
+Index([&amp;#39;a&amp;#39;, &amp;#39;b&amp;#39;, &amp;#39;c&amp;#39;], dtype=&amp;#39;object&amp;#39;) 由上面的例子可以看出pandas的Categorical对象，实际上是计算一个列表型数据中的类别数，即不重复项，它返回的是一个CategoricalDtype 类型的对象，相当于在原来数据上附加上类别信息
+codes可以使得数据中相同的值的index变成一样的，返回一个新的index categories 可以返回类别的值 </description>
+    </item>
+    
+    <item>
+      <title>使用pd.merge实现数据合并</title>
+      <link>https://example.com/p/%E4%BD%BF%E7%94%A8pd.merge%E5%AE%9E%E7%8E%B0%E6%95%B0%E6%8D%AE%E5%90%88%E5%B9%B6/</link>
+      <pubDate>Fri, 08 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E4%BD%BF%E7%94%A8pd.merge%E5%AE%9E%E7%8E%B0%E6%95%B0%E6%8D%AE%E5%90%88%E5%B9%B6/</guid>
+      <description>pd.merge()
+pandas.merge(left, right, how=&amp;#39;inner&amp;#39;, on=None, left_on=None, right_on=None, left_index=False, right_index=False, sort=False, suffixes=(&amp;#39;_x&amp;#39;, &amp;#39;_y&amp;#39;), copy=True, indicator=False, validate=None) how : {‘left’, ‘right’, ‘outer’, ‘inner’}, default ‘inner’（设置数据连接的集合操作规则） left: 返回的结果只包含左列 right: 返回的结果只包含右列 inner: 交集 outer: 并集 on ：label or list（此参数只有在两个DataFrame有共同列名的时候才可以使用） left_on与right_on: label or list, or array-like（合并两个列名不同的数据集） left_index与right_index : bool, default False（合并索引） suffixes : tuple of (str, str), default (&amp;rsquo;_x&amp;rsquo;, &amp;lsquo;_y&amp;rsquo;)（为重复列名自定义后缀） # 简单连接 # 只有一个共同列名时参数 on 可省略 import pandas as pd df1 = pd.DataFrame({&amp;#39;Warframe&amp;#39;:[&amp;#39;saryn&amp;#39;,&amp;#39;volt&amp;#39;,&amp;#39;trinity&amp;#39;,&amp;#39;loki&amp;#39;], &amp;#39;group&amp;#39;:[&amp;#39;A&amp;#39;,&amp;#39;B&amp;#39;,&amp;#39;C&amp;#39;,&amp;#39;D&amp;#39;]}) df2 = pd.</description>
+    </item>
+    
+    <item>
+      <title>pd.resample()对给定的时间单位内重取样</title>
+      <link>https://example.com/p/pd.resample%E5%AF%B9%E7%BB%99%E5%AE%9A%E7%9A%84%E6%97%B6%E9%97%B4%E5%8D%95%E4%BD%8D%E5%86%85%E9%87%8D%E5%8F%96%E6%A0%B7/</link>
+      <pubDate>Mon, 04 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/pd.resample%E5%AF%B9%E7%BB%99%E5%AE%9A%E7%9A%84%E6%97%B6%E9%97%B4%E5%8D%95%E4%BD%8D%E5%86%85%E9%87%8D%E5%8F%96%E6%A0%B7/</guid>
+      <description>resample与groupby的区别：
+resample：在给定的时间单位内重取样
+groupby：对给定的数据条目进行统计
+函数原型：
+DataFrame.resample(rule, how=None, axis=0, fill_method=None, closed=None, label=None, convention=&amp;lsquo;start&amp;rsquo;, kind=None, loffset=None, limit=None, base=0)
+其中，参数how已经废弃了。
+附：常见时间频率
+A year
+M month
+W week
+D day
+H hour
+T minute
+S second
+import pandas as pd import numpy as np index = pd.date_range(&amp;#34;15/1/2021&amp;#34;,periods=9,freq=&amp;#34;T&amp;#34;) index result: code:
+series = pd.Series(range(9),index=index) series result: code:
+series.resample(&amp;#34;3T&amp;#34;).sum() #在给定的时间单位内重取样 result: series.resample(&amp;#34;3T&amp;#34;,label=&amp;#34;right&amp;#34;,closed=&amp;#34;right&amp;#34;).sum() result: </description>
+    </item>
+    
+    <item>
+      <title>pd.shift()函数可以把数据移动指定的位数</title>
+      <link>https://example.com/p/pd.shift%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E6%8A%8A%E6%95%B0%E6%8D%AE%E7%A7%BB%E5%8A%A8%E6%8C%87%E5%AE%9A%E7%9A%84%E4%BD%8D%E6%95%B0/</link>
+      <pubDate>Mon, 04 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/pd.shift%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E6%8A%8A%E6%95%B0%E6%8D%AE%E7%A7%BB%E5%8A%A8%E6%8C%87%E5%AE%9A%E7%9A%84%E4%BD%8D%E6%95%B0/</guid>
+      <description>pandas DataFrame.shift()函数可以把数据移动指定的位数
+period参数指定移动的步幅,可以为正为负.axis指定移动的轴
+import pandas as pd data1 = pd.DataFrame({ &amp;#34;a&amp;#34;:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9], &amp;#39;b&amp;#39;: [9, 8, 7, 6, 5, 4, 3, 2, 1, 0] }) data1 result: 如果想让 a和b的数据都往下移动一位:
+没有的话，会以NAN填充
+data2 = data1.shift(axis=0) data2 result: code:
+data1 result: code:
+data3 = data1.shift(axis=1) data3 result: data1 result: 如果想往上或者往左移动,可以指定(periods=-1): 因为periods是用来指定步长
+data4 = data1.shift(periods=-1,axis=0) data4 result: 一个例子:
+这里有一组某车站各个小时的总进站人数和总出站人数的数据:
+entries_and_exits = pd.DataFrame({ &amp;#39;ENTRIESn&amp;#39;: [3144312, 3144335, 3144353, 3144424, 3144594, 3144808, 3144895, 3144905, 3144941, 3145094], &amp;#39;EXITSn&amp;#39;: [1088151, 1088159, 1088177, 1088231, 1088275, 1088317, 1088328, 1088331, 1088420, 1088753] }) entries_and_exits result: 要求计算每个小时该车站进出站人数</description>
+    </item>
+    
+    <item>
+      <title>pd.aggregate聚类作用</title>
+      <link>https://example.com/p/pd.aggregate%E8%81%9A%E7%B1%BB%E4%BD%9C%E7%94%A8/</link>
+      <pubDate>Sat, 02 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/pd.aggregate%E8%81%9A%E7%B1%BB%E4%BD%9C%E7%94%A8/</guid>
+      <description>Dataframe.aggregate()函数用于在一个或多个列上应用某些聚合。使用callable，string，dict或string /callables列表进行聚合。最常用的聚合是
+sum:返回所请求轴的值之和 min:返回所请求轴的最小值 max:返回所请求轴的最大值 用法：DataFrame.aggregate(func, axis=0, *args, **kwargs)
+参数：
+func:可调用，字符串，字典或字符串/可调用列表，用于汇总数据的函数 如果是函数，则必须在传递DataFrame或传递给DataFrame.apply时起作用 对于DataFrame，如果键是DataFrame列名，则可以传递dict axis:(默认0){0或“索引”，1或“列”} 0或“索引”：将函数应用于每个列。 1或“列”：将函数应用于每一行 范例1： 汇总 DataFrame 中所有列的“和”和“最小”函数 范例2 在Pandas中，我们还可以在不同的列上应用不同的聚合函数。为此，我们需要传递一个字典，该字典的键包含列名称，值包含任何特定列的聚合函数列表 </description>
+    </item>
+    
+    <item>
+      <title>pandas中的date_range可用于生成指定长度的DatetimeIndex</title>
+      <link>https://example.com/p/pandas%E4%B8%AD%E7%9A%84date_range%E5%8F%AF%E7%94%A8%E4%BA%8E%E7%94%9F%E6%88%90%E6%8C%87%E5%AE%9A%E9%95%BF%E5%BA%A6%E7%9A%84datetimeindex/</link>
+      <pubDate>Tue, 28 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/pandas%E4%B8%AD%E7%9A%84date_range%E5%8F%AF%E7%94%A8%E4%BA%8E%E7%94%9F%E6%88%90%E6%8C%87%E5%AE%9A%E9%95%BF%E5%BA%A6%E7%9A%84datetimeindex/</guid>
+      <description>有时候我们的数据是按某个频率收集的，比如每日、每月、每15分钟，那么我们怎么产生对应频率的索引呢？pandas中的date_range可用于生成指定长度的DatetimeIndex。
+我们先看一下怎么生成日期范围：pd.date_range(startdate,enddate)
+1.生成指定开始日期和结束日期的时间范围：
+import pandas as pd #月日年 index = pd.date_range(&amp;#34;4/1/2021&amp;#34;,&amp;#34;5/2/2021&amp;#34;) print(index) result: 也可以只指定开始日期或结束日期，但这时必须要输入一个时间长度，并且指定输入的是开始时间还是结束时间，如果不指定默认是开始时间。
+code:
+#periods指定时间长度 pd.date_range(start=&amp;#34;4/1/2021&amp;#34;,periods=10) result: 现在我们已经知道怎么生成日期范围了，但是上面我们生成的日期的时间间隔都是天，接下来告诉大家怎么生成其他时间频率的日期范围。
+要生成按某个频率计算的日期范围，只需要在date_range后加上freq就可以了。比如，生成每小时间隔的时间：
+pd.date_range(&amp;#34;4/1/2021&amp;#34;,periods=10,freq=&amp;#34;h&amp;#34;) result: 生成时间间隔为1小时30分的时间：
+pd.date_range(&amp;#34;4/1/2021&amp;#34;,periods=10,freq=&amp;#34;1h30min&amp;#34;) result:
+python还可以生成其他不规则频率的时间，比如每月的第一个工作日，每月的第一个日历日等
+生成每月的第一个工作日：
+pd.date_range(&amp;#34;1/1/2021&amp;#34;,periods=12,freq=&amp;#34;BMS&amp;#34;) result: 生成每月的第一个日历日： code:
+pd.date_range(&amp;#34;1/1/2021&amp;#34;,periods=12,freq=&amp;#34;MS&amp;#34;) result: 有一种很实用的频率类，为“WOM”，即每月的几个星期几。比如每月的第三个星期五。如果我们每月的第三个星期五发工资，这样就可以很方便的知道今年每个月的工资日了。
+pd.date_range(&amp;#34;1/1/2021&amp;#34;,periods=12,freq=&amp;#34;WOM-3FRI&amp;#34;) result: </description>
+    </item>
+    
+    <item>
+      <title>学习Pandas_第十一课</title>
+      <link>https://example.com/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%8D%81%E4%B8%80%E8%AF%BE/</link>
+      <pubDate>Sat, 25 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%8D%81%E4%B8%80%E8%AF%BE/</guid>
+      <description>从多个 Excel 文件中读取数据并且在一个 dataframe 将这些数据合并在一起。
+import pandas as pd import numpy as np import matplotlib.pyplot as plt plt.rcParams[&amp;#34;font.sans-serif&amp;#34;] = &amp;#34;SimHei&amp;#34; plt.rcParams[&amp;#34;axes.unicode_minus&amp;#34;] = False import warnings warnings.filterwarnings(&amp;#34;ignore&amp;#34;) import os 创建 3 个 Excel 文件
+#创建DataFrame #一个key就对应一个columns d = {&amp;#34;Channel&amp;#34;:[1],&amp;#34;Number&amp;#34;:[255]} df = pd.DataFrame(d) df result: # 导出到 Excel 文件中 df.to_excel(&amp;#34;./test1.xlsx&amp;#34;,sheet_name=&amp;#34;test1&amp;#34;,index=False) df.to_excel(&amp;#34;./test2.xlsx&amp;#34;,sheet_name=&amp;#34;test2&amp;#34;,index=False) df.to_excel(&amp;#34;./test3.xlsx&amp;#34;,sheet_name=&amp;#34;test3&amp;#34;,index=False) print(&amp;#34;Done&amp;#34;) result:
+Done 把 3 个 Excel 文件数据读入一个 DataFrame
+把 Excel 文件名读入到一个 list 中，并确保目录下没有其他 Excel 文件。
+#存放文件名的list FileNames = [] os.</description>
+    </item>
+    
+    <item>
+      <title>学习Pandas_第七课</title>
+      <link>https://example.com/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%83%E8%AF%BE/</link>
+      <pubDate>Fri, 24 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%83%E8%AF%BE/</guid>
+      <description>import pandas as pd import numpy as np import matplotlib.pyplot as plt import warnings warnings.filterwarnings(&amp;#34;ignore&amp;#34;) plt.rcParams[&amp;#34;font.sans-serif&amp;#34;] = &amp;#34;SimHei&amp;#34; plt.rcParams[&amp;#34;axes.unicode_minus&amp;#34;] = False 这里来讲下离群值Outlier
+#创建一个dataframe，用日期做索引 States = [&amp;#39;NY&amp;#39;, &amp;#39;NY&amp;#39;, &amp;#39;NY&amp;#39;, &amp;#39;NY&amp;#39;, &amp;#39;FL&amp;#39;, &amp;#39;FL&amp;#39;, &amp;#39;GA&amp;#39;, &amp;#39;GA&amp;#39;, &amp;#39;FL&amp;#39;,&amp;#39;FL&amp;#39;] data = [1.0, 2, 3, 4, 5, 6, 7, 8, 9, 10] idx = pd.date_range(&amp;#34;20210101&amp;#34;,periods=10,freq=&amp;#34;MS&amp;#34;)#MS每月第一个日历日 df1 = pd.DataFrame(data,index=idx,columns=[&amp;#34;Revenue&amp;#34;]) df1[&amp;#34;State&amp;#34;] = States df1 result: data2 = [10.0, 10.0, 9, 9, 8, 8, 7, 7, 6, 6] idx2 = pd.</description>
+    </item>
+    
+    <item>
+      <title>学习Pandas_第十课</title>
+      <link>https://example.com/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%8D%81%E8%AF%BE/</link>
+      <pubDate>Fri, 24 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%8D%81%E8%AF%BE/</guid>
+      <description>import pandas as pd import numpy as np import matplotlib.pyplot as plt import warnings warnings.filterwarnings(&amp;#34;ignore&amp;#34;) plt.rcParams[&amp;#34;font.sans-serif&amp;#34;] = &amp;#34;SimHei&amp;#34; plt.rcParams[&amp;#34;axes.unicode_minus&amp;#34;] = False 从DataFrame 到 Excel 从Excel 到 DataFrame 从DataFrame到 JSON 从JSON到DataFrame #创建一个DataFrame d = [1,2,3,4,5,6,7,8,9] df = pd.DataFrame(d,columns=[&amp;#34;Number&amp;#34;]) df result: #导出到excel df.to_excel(&amp;#34;./Lesson10.xlsx&amp;#34;,sheet_name=&amp;#34;testing&amp;#34;,index=False) print(&amp;#34;Done&amp;#34;) result:
+Done 从 Excel 到 DataFram
+df = pd.read_excel(r&amp;#34;./Lesson10.xlsx&amp;#34;,sheet_name=0) df.head() result: df.dtypes result:
+umber int64 dtype: object df.tail() 从 DataFrame 到 JSON
+df.to_json(&amp;#34;./Lesson10.json&amp;#34;) print(&amp;#34;Done&amp;#34;) result:
+Done 从 JSON 到 DataFram</description>
+    </item>
+    
+    <item>
+      <title>学习Pandas_第五课</title>
+      <link>https://example.com/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%BA%94%E8%AF%BE/</link>
+      <pubDate>Thu, 23 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%BA%94%E8%AF%BE/</guid>
+      <description>import pandas as pd import numpy as np import matplotlib.pyplot as plt import warnings warnings.filterwarnings(&amp;#34;ignore&amp;#34;) plt.rcParams[&amp;#34;font.sans-serif&amp;#34;] = [&amp;#34;SimHei&amp;#34;] plt.rcParams[&amp;#34;axes.unicode_minus&amp;#34;] = False #小数据集 d = {&amp;#34;one&amp;#34;:[1,1],&amp;#34;two&amp;#34;:[2,2]} i = [&amp;#34;a&amp;#34;,&amp;#34;b&amp;#34;] df = pd.DataFrame(d,index=i) df result: df.index result:
+Index([&amp;#39;a&amp;#39;, &amp;#39;b&amp;#39;], dtype=&amp;#39;object&amp;#39;) #把列名(columns)放置到索引位置 srack叠积 stack = df.stack() stack result: #现在索引包含了原来的列名 stack.index result: unstack = df.unstack()#如果是unstack则是解除叠积(这是对一个已经stack了的而言的) #对于没有stack的而言，unstack则是花结构加过来，而且交换行index的位置 unstack result: unstack.index 用 T (转置)，我们可以把列和索引交换位置。
+df transpose = df.T transpose transpose.index result:
+Index([&amp;#39;one&amp;#39;, &amp;#39;two&amp;#39;], dtype=&amp;#39;object&amp;#39;) </description>
+    </item>
+    
+    <item>
+      <title>学习Pandas_第六课</title>
+      <link>https://example.com/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%85%AD%E8%AF%BE/</link>
+      <pubDate>Thu, 23 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%85%AD%E8%AF%BE/</guid>
+      <description>import pandas as pd import numpy as np import matplotlib.pyplot as plt import warnings warnings.filterwarnings(&amp;#34;ignore&amp;#34;) plt.rcParams[&amp;#34;font.sans-serif&amp;#34;] = [&amp;#34;SimHei&amp;#34;] plt.rcParams[&amp;#34;axes.unicode_minus&amp;#34;] = False #小数据集 d = {&amp;#34;one&amp;#34;:[1,1,1,1,1], &amp;#34;two&amp;#34;:[2,2,2,2,2], &amp;#34;letter&amp;#34;:[&amp;#34;a&amp;#34;,&amp;#34;a&amp;#34;,&amp;#34;b&amp;#34;,&amp;#34;b&amp;#34;,&amp;#34;c&amp;#34;]} df = pd.DataFrame(d) df result: #创建一个groupby对象 one = df.groupby(&amp;#34;letter&amp;#34;)#根据letter分组 即根据letter的结果分组，相同的放一起 one.sum() result: #创建一个groupby对象 one = df.groupby(&amp;#34;letter&amp;#34;)#根据letter分组 即根据letter的结果分组，相同的放一起 one.sum() #多个分组依据记得[]封起来 letterone = df.groupby([&amp;#34;letter&amp;#34;,&amp;#34;one&amp;#34;]).sum() letterone letterone.index result: 你可能不想把用来分组的列名字作为索引，像下面的做法很容易实现。
+#参数as_index=False会取消把groupby的对象作为index letterone = df.groupby([&amp;#34;letter&amp;#34;,&amp;#34;one&amp;#34;],as_index=False).sum() letterone letterone.index result: </description>
+    </item>
+    
+    <item>
+      <title>学习Pandas_第四课</title>
+      <link>https://example.com/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%9B%9B%E8%AF%BE/</link>
+      <pubDate>Wed, 22 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%9B%9B%E8%AF%BE/</guid>
+      <description>import pandas as pd import numpy as np #一个小数据集 d = [0,1,2,3,4,5,6,7,8,9] #创建一个dataframe df = pd.DataFrame(d) df result: #修改列名 df.columns = [&amp;#34;Rev&amp;#34;] df #增加一列 服从广播机制 df[&amp;#34;NewCol&amp;#34;] = 5 df result: #修改一下增加这一列的值 df[&amp;#34;NewCol&amp;#34;] = df[&amp;#34;NewCol&amp;#34;] + 1 df result: #可以删除这一列 del df[&amp;#34;NewCol&amp;#34;] df result: # 让我们增加几列。 译者注: 当使用 dataframe 没有的列时，dataframe 自动增加这个新列 df[&amp;#34;test&amp;#34;] = 3 df[&amp;#34;col&amp;#34;] = df[&amp;#34;Rev&amp;#34;] df result: # 如果有需要，可以改变索引(index)的名字 注意数量 i = [&amp;#39;a&amp;#39;,&amp;#39;b&amp;#39;,&amp;#39;c&amp;#39;,&amp;#39;d&amp;#39;,&amp;#39;e&amp;#39;,&amp;#39;f&amp;#39;,&amp;#39;g&amp;#39;,&amp;#39;h&amp;#39;,&amp;#39;i&amp;#39;,&amp;#39;j&amp;#39;] df.index = i df result: # 通过使用 *loc，我们可以选择 dataframe 中的部分数据 loc要传入值，不能是数字，而iloc可以 df.</description>
+    </item>
+    
+    <item>
+      <title>学习Pandas_第一课</title>
+      <link>https://example.com/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%80%E8%AF%BE/</link>
+      <pubDate>Tue, 21 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%80%E8%AF%BE/</guid>
+      <description>数据异常常见的情况：
+数据缺失 missing data 数据不一致 inconsistent 在正常范围之外 out of place #导入相关库 import pandas as pd import matplotlib.pyplot as plt import sys #导入这个是为了确认py的版本 import matplotlib #这样导入matplotlib只是为了显示一下其版本号 # 初始化matplotlib，用inline方式显示图形 %matplotlib inline print(&amp;#34;Python 版本&amp;#34; + sys.version) print(&amp;#34;pd版本&amp;#34; + pd.__version__) print(&amp;#34;plt版本&amp;#34; + matplotlib.__version__) result: 创建数据 #初始化数据集: 婴儿名字和出生率 names = [&amp;#39;Bob&amp;#39;,&amp;#39;Jessica&amp;#39;,&amp;#39;Mary&amp;#39;,&amp;#39;John&amp;#39;,&amp;#39;Mel&amp;#39;] births = [968, 155, 77, 578, 973] #zip函数可以将多个列并起来为一个大的list 即拼接在一起如names中的第一个和births中的第一个放在一起，以此类推 zip? #这样可以查看zip函数的说明 #zip函数进行直到某列没有数据，停止 BabyDataSet = list(zip(names,births)) BabyDataSet result: df 是一个 DataFrame对象。 你可以把这个对象理解为包含了 BabyDataset 的 内容而格式非常象一个 sql 表格或者 Excel 的数据表。 让我们看看 df 中的内容。</description>
+    </item>
+    
+    <item>
+      <title>学习Pandas_第三课</title>
+      <link>https://example.com/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/</link>
+      <pubDate>Tue, 21 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%89%E8%AF%BE/</guid>
+      <description>获取数据 - 我们的数据在一个 Excel 文件中，包含了每一个日期的客户数量。 我们 将学习如何读取 Excel 文件的内容并处理其中的数据。
+准备数据 - 这组时间序列的数据并不规整而且有重复。 我们的挑战是整理这些数据 并且预测下一个年度的客户数。
+分析数据 - 我们将使用图形来查看趋势情况和离群点。我们会使用一些内置的计算 工具来预测下一年度的客户数。
+表现数据 - 结果将会被绘制成图形。
+import numpy as np import pandas as pd import matplotlib.pyplot as plt import warnings warnings.filterwarnings(&amp;#34;ignore&amp;#34;) %matplotlib inline plt.rcParams[&amp;#34;font.sans-serif&amp;#34;] = [&amp;#34;SimHei&amp;#34;] plt.rcParams[&amp;#34;axes.unicode_minus&amp;#34;] = False pd.date_range? #date_range()函数用来生成时间序列的 #参数freq是单位 #设置种子 np.random.seed(2021) #生成测试数据的函数 def create_dataset(Number = 1): output = [] for _ in range(Number): #创建一个按周期计算的日期的范围（每周一起始） ==》 W-MON rng = pd.date_range(start=&amp;#34;1/1/2021&amp;#34;,end=&amp;#34;12/31/2024&amp;#34;,freq=&amp;#34;W-MON&amp;#34;) #创建一些随机数 data = np.</description>
+    </item>
+    
+    <item>
+      <title>学习Pandas_第二课</title>
+      <link>https://example.com/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%BA%8C%E8%AF%BE/</link>
+      <pubDate>Tue, 21 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%BA%8C%E8%AF%BE/</guid>
+      <description>#导入库 import numpy as np import pandas as pd import matplotlib.pyplot as plt %matplotlib inline import warnings warnings.filterwarnings(&amp;#34;ignore&amp;#34;) plt.rcParams[&amp;#34;axes.unicode_minus&amp;#34;] = False plt.rcParams[&amp;#34;font.sans-serif&amp;#34;] = [&amp;#34;SimHei&amp;#34;] names = [&amp;#34;Bob&amp;#34;,&amp;#34;Jessica&amp;#34;,&amp;#34;Mary&amp;#34;,&amp;#34;John&amp;#34;,&amp;#34;Mel&amp;#34;] 使用上面的5个名字来创建一个有1,000个婴儿名字的随机列表，我们要做如下一些
+操作:
+生成一个 0 到 4 之间的随机数
+我们会用到 seed，randint, len, range 和 zip 这几个函数。
+#随机种子保证随机的一致性 np.random.seed? np.random.seed(2021)#随机种子 #用loop产生随机数（index），再去找值 random_names = [names[np.random.randint(0,len(names))]for _ in range(1000)] random_names[:10] result: #同理birth ## 1880年，不同婴儿名字对应的出生数量 np.random.seed(2021) births = [np.random.randint(0,1000) for _ in range(1000)] births[:10] result: #用 zip 函数把 names 和 births 这两个数据集合并在一起。 bady_data_set = list(zip(random_names,births)) bady_data_set[:10] result: 我们基本上完成了数据集的创建工作。 现在我们要用 pandas 库将这个数据集导出 到一个 csv 文件中。</description>
+    </item>
+    
+    <item>
+      <title>Pandas秘籍_第五章</title>
+      <link>https://example.com/p/pandas%E7%A7%98%E7%B1%8D_%E7%AC%AC%E4%BA%94%E7%AB%A0/</link>
+      <pubDate>Tue, 07 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/pandas%E7%A7%98%E7%B1%8D_%E7%AC%AC%E4%BA%94%E7%AB%A0/</guid>
+      <description> 放这里用来随时随地看
+在处理自行车数据时，我需要温度和降水数据，来弄清楚人们下雨时是否喜欢骑自 行车。 所以我访问了加拿大历史天气数据的网站，并想出如何自动获得它们。 这里我们将获取 201 年 3 月的数据，并清理它们。 以下是可用于在蒙特利尔获取数据的网址模板。
+import pandas as pd import numpy as np import matplotlib import matplotlib.pyplot as plt matplotlib.style.use(&amp;#34;ggplot&amp;#34;) plt.rcParams[&amp;#34;font.sans-serif&amp;#34;] = &amp;#34;SimHei&amp;#34; plt.rcParams[&amp;#34;axes.unicode_minus&amp;#34;] = False import warnings warnings.filterwarnings(&amp;#34;ignore&amp;#34;) df = pd.read_csv(&amp;#34;./comptagevelo2012.csv&amp;#34;,index_col=&amp;#34;Date&amp;#34;,sep=&amp;#34;,&amp;#34;, encoding=&amp;#34;latin1&amp;#34;,parse_dates=[&amp;#34;Date&amp;#34;],dayfirst=True) df result: </description>
+    </item>
+    
+    <item>
+      <title>Pandas秘籍_第三章</title>
+      <link>https://example.com/p/pandas%E7%A7%98%E7%B1%8D_%E7%AC%AC%E4%B8%89%E7%AB%A0/</link>
+      <pubDate>Mon, 06 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/pandas%E7%A7%98%E7%B1%8D_%E7%AC%AC%E4%B8%89%E7%AB%A0/</guid>
+      <description>放这里用来随时随地看
+import pandas as pd import numpy as np import matplotlib import matplotlib.pyplot as plt matplotlib.style.use(&amp;#34;ggplot&amp;#34;)#这要放在plt后 import warnings warnings.filterwarnings(&amp;#34;ignore&amp;#34;) plt.rcParams[&amp;#34;font.sans-serif&amp;#34;] = &amp;#34;SimHei&amp;#34; plt.rcParams[&amp;#34;axes.unicode_minus&amp;#34;] = False plt.rcParams[&amp;#34;figure.figsize&amp;#34;] = (15,5) %matplotlib inline complaints = pd.read_csv(&amp;#34;./311_Service_Requests_from_2010_to_Present.csv&amp;#34;) 我想知道哪个区有最多的噪音投诉。 首先，我们来看看数据，看看它是什么样子：
+complaints[:5] result: 为了得到噪音投诉，我们需要找到 Complaint Type 列为 Noise - Street/Sidewalk 的行。
+#其实就是列用了个判断去取值 noise_complaints = complaints[complaints[&amp;#34;Complaint Type&amp;#34;] == &amp;#34;Noise - Street/Sidewalk&amp;#34;] noise_complaints[:3] result: 您还可以将多个条件与 &amp;amp; 运算符组合，如下所示:
+is_noise = complaints[&amp;#34;Complaint Type&amp;#34;] == &amp;#34;Noise - Street/Sidewalk&amp;#34; is_noise[:6] result: code:</description>
+    </item>
+    
+    <item>
+      <title>Pandas秘籍_第二章</title>
+      <link>https://example.com/p/pandas%E7%A7%98%E7%B1%8D_%E7%AC%AC%E4%BA%8C%E7%AB%A0/</link>
+      <pubDate>Sun, 05 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/pandas%E7%A7%98%E7%B1%8D_%E7%AC%AC%E4%BA%8C%E7%AB%A0/</guid>
+      <description>放这里用来随时随地看
+import pandas as pd import matplotlib import matplotlib.pyplot as plt matplotlib.style.use(&amp;#34;ggplot&amp;#34;) matplotlib.line_width = 5000#行宽 matplotlib.max_columns = 60 plt.rcParams[&amp;#34;font.sans-serif&amp;#34;] = &amp;#34;SimHei&amp;#34; plt.rcParams[&amp;#34;axes.unicode_minus&amp;#34;] = False plt.rcParams[&amp;#34;figure.figsize&amp;#34;] = (15,5) complaints = pd.read_csv()#读取数据csv complaints#查看数据有什么 选择列和行 为了选择一列，使用列名称作为索引，像这样：
+complaints[&amp;#34;Complaint Type&amp;#34;] 要获得 DataFrame 的前 5 行，我们可以使用切片： df [:5]
+complaints[:5] 我们可以组合它们来获得一列的前五行
+complaints[&amp;#34;Compaint Type&amp;#34;][:5] #等同于 complaints[:5][&amp;#34;Complaint Type&amp;#34;] 选择多列 如果我们只关心投诉类型和区，但不关心其余的信息怎么办？ Pandas 使它很容易 选择列的一个子集：只需将所需列的列表用作索引。
+#记得用一个[]装起来 complaints[[&amp;#34;Complaint Type&amp;#34;,&amp;#34;Borough&amp;#34;]] 这会向我们展示总结，我们可以获取前 10 列：
+complaints[[&amp;#34;Complaint Type&amp;#34;,&amp;#34;Borough&amp;#34;]][:10] value_counts() 方法计算类别 什么是最常见的投诉类型？
+这是个易于回答的问题，我们可以调用 .value_counts() 方法：
+这个方法可以计算类别</description>
+    </item>
+    
+    <item>
+      <title>Pandas秘籍_第四章</title>
+      <link>https://example.com/p/pandas%E7%A7%98%E7%B1%8D_%E7%AC%AC%E5%9B%9B%E7%AB%A0/</link>
+      <pubDate>Sat, 04 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/pandas%E7%A7%98%E7%B1%8D_%E7%AC%AC%E5%9B%9B%E7%AB%A0/</guid>
+      <description>放这里用来随时随地看
+import pandas as pd import numpy as np import matplotlib import matplotlib.pyplot as plt matplotlib.style.use(&amp;#34;ggplot&amp;#34;) plt.rcParams[&amp;#34;font.sans-serif&amp;#34;] = &amp;#34;SimHei&amp;#34; plt.rcParams[&amp;#34;axes.unicode_minus&amp;#34;] = False plt.rcParams[&amp;#34;figure.figsize&amp;#34;] = (15,5) import warnings warnings.filterwarnings(&amp;#34;ignore&amp;#34;) 好的！ 我们将在这里回顾我们的自行车道数据集。 我住在蒙特利尔，我很好奇我 们是一个通勤城市，还是以骑自行车为乐趣的城市 - 人们在周末还是工作日骑自行车？
+df = pd.read_csv(&amp;#34;./comptagevelo2012.csv&amp;#34;,index_col=&amp;#34;Date&amp;#34;,sep=&amp;#34;,&amp;#34;, encoding=&amp;#34;latin1&amp;#34;,parse_dates=[&amp;#34;Date&amp;#34;],dayfirst=True) df result: code:
+df[&amp;#34;Berri1&amp;#34;].plot() result: 接下来，我们只是看看 Berri 自行车道。 Berri 是蒙特利尔的一条街道，是一个相当 重要的自行车道。 现在我习惯走这条路去图书馆，但我在旧蒙特利尔工作时，我习 惯于走这条路去上班。 所以我们要创建一个只有 Berri 自行车道的 DataFrame 。
+b_df = df[[&amp;#34;Berri1&amp;#34;]]#[[&amp;#34;xxx&amp;#34;]]这样可以使得赋予赋值的b_df是DataFrame对象 b_df[:5] result: code:
+b_df_2 = df[&amp;#34;Berri1&amp;#34;] b_df_2[:5] ressult: 接下来，我们需要添加一列 weekday 。 首先，我们可以从索引得到星期。 我们还 没有谈到索引，但索引在上面的 DataFrame 中是左边的东西，在 Date 下面。 它 基本上是一年中的所有日子。</description>
+    </item>
+    
+    <item>
+      <title>Pandas秘籍_第一章</title>
+      <link>https://example.com/p/pandas%E7%A7%98%E7%B1%8D_%E7%AC%AC%E4%B8%80%E7%AB%A0/</link>
+      <pubDate>Fri, 03 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/pandas%E7%A7%98%E7%B1%8D_%E7%AC%AC%E4%B8%80%E7%AB%A0/</guid>
+      <description>放这里用来随时随地看
+读取文件 import pandas as pd import numpy as np import matplotlib.pyplot as plt import warnings warnings.filterwarnings(&amp;#34;ignore&amp;#34;) plt.rcParams[&amp;#34;font.sans-serif&amp;#34;] = &amp;#34;SimHei&amp;#34; plt.rcParams[&amp;#34;axes.unicode_minus&amp;#34;] = False 您可以使用 read_csv 函数从CSV文件读取数据。 默认情况下，它假定字段以逗 号分隔。
+这个数据集是一个列表，蒙特利尔的 7 个不同的自行车道上每天有多少人。
+df = pd.read_csv(&amp;#34;./comptagevelo2012.csv&amp;#34;,index_col=&amp;#34;Date&amp;#34;) df.tail() result: 你可以看到这完全损坏了。 read_csv 拥有一堆选项能够让我们修复它，在这里我 们：
+将列分隔符改成 ; sep=&amp;quot;,&amp;quot; 将编码改为 latin1 （默认为 utf-8 ） encoding=&amp;ldquo;latin1&amp;rdquo; 解析 Date 列中的日期 parse_dates=[&amp;ldquo;Date&amp;rdquo;] 告诉它我们的日期将日放在前面，而不是月 dayfirst = True 将索引设置为 Date index_col = &amp;ldquo;Date&amp;rdquo; df = pd.read_csv(&amp;#34;./comptagevelo2012.csv&amp;#34;,index_col=&amp;#34;Date&amp;#34;,sep=&amp;#34;,&amp;#34;, encoding=&amp;#34;latin1&amp;#34;,parse_dates=[&amp;#34;Date&amp;#34;],dayfirst=True) df.head() result: 选择一列 当你读取 CSV 时，你会得到一种称为 DataFrame 的对象，它由行和列组成。 您 从数据框架中获取列的方式与从字典中获取元素的方式相同。</description>
+    </item>
+    
+    <item>
+      <title>pandas读取文件的read_csv()方法的parse_dates参数</title>
+      <link>https://example.com/p/pandas%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6%E7%9A%84read_csv%E6%96%B9%E6%B3%95%E7%9A%84parse_dates%E5%8F%82%E6%95%B0/</link>
+      <pubDate>Sun, 18 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/pandas%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6%E7%9A%84read_csv%E6%96%B9%E6%B3%95%E7%9A%84parse_dates%E5%8F%82%E6%95%B0/</guid>
+      <description>parse_dates参数： 将csv的时间字符串转换成日期格式 第一种 第二种 第三种 第四种 </description>
+    </item>
+    
+  </channel>
+</rss>

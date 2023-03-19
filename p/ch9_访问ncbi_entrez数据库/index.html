@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='biopython官方教程学习笔记'><title>ch9_访问NCBI_Entrez数据库</title>
+
+<link rel='canonical' href='https://example.com/p/ch9_%E8%AE%BF%E9%97%AEncbi_entrez%E6%95%B0%E6%8D%AE%E5%BA%93/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='ch9_访问NCBI_Entrez数据库'>
+<meta property='og:description' content='biopython官方教程学习笔记'>
+<meta property='og:url' content='https://example.com/p/ch9_%E8%AE%BF%E9%97%AEncbi_entrez%E6%95%B0%E6%8D%AE%E5%BA%93/'>
+<meta property='og:site_name' content='叶宇浩随记博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='tutorials' /><meta property='article:published_time' content='2021-08-10T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-08-10T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="ch9_访问NCBI_Entrez数据库">
+<meta name="twitter:description" content="biopython官方教程学习笔记">
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>Back</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/biopython/" style="background-color: #002be1; color: #fff;">
+                生物编程
+            </a>
+        
+            <a href="/categories/bioinformatic/" style="background-color: #7816ff; color: #fff;">
+                生物信息学&amp;计算生物学
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/ch9_%E8%AE%BF%E9%97%AEncbi_entrez%E6%95%B0%E6%8D%AE%E5%BA%93/">ch9_访问NCBI_Entrez数据库</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        biopython官方教程学习笔记
+    </h3>
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Aug 10, 2021</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    10 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <p><strong>biopython官方地址：</strong><a class="link" href="https://biopython.org/"  target="_blank" rel="noopener"
+    ><strong>https://biopython.org/</strong></a></p>
+<p><strong>github地址：</strong><a class="link" href="https://github.com/biopython/biopython/blob/master/README.rst"  target="_blank" rel="noopener"
+    ><strong>https://github.com/biopython/biopython/blob/master/</strong></a></p>
+<p><strong>中文版教程：</strong><a class="link" href="https://biopython-cn.readthedocs.io/zh_CN/latest/cn/chr06.html"  target="_blank" rel="noopener"
+    ><strong>https://biopython-cn.readthedocs.io/zh_CN/latest/cn/chr06.html</strong></a></p>
+<p><strong>biopython包的说明（具体到每个模块了）：</strong><a class="link" href="https://www.osgeo.cn/biopython/Bio.HMM.DynamicProgramming.html"  target="_blank" rel="noopener"
+    ><strong>https://www.osgeo.cn/biopython/Bio.HMM.DynamicProgramming.html</strong></a></p>
+<blockquote>
+<p>这一章只挑取自己感觉有需要的去记录</p>
+</blockquote>
+<h2 id="简介">简介</h2>
+<p>Entrez (<a class="link" href="http://www.ncbi.nlm.nih.gov/Entrez"  target="_blank" rel="noopener"
+    >http://www.ncbi.nlm.nih.gov/Entrez</a>) 是一个给客户提供NCBI各个数据库（如PubMed, GeneBank, GEO等等）访问的检索系统。 用户可以通过浏览器手动输入查询条目访问Entrez，也可以使用Biopython的 Bio.Entrez 模块以编程方式访问来访问Entrez。 如果使用第二种方法，用户用一个Python脚本就可以实现在PubMed里面搜索或者从GenBank下载数据。<br>
+Bio.Entrez 模块利用了Entrez Programming Utilities（也称作EUtils），包含八个工具，详情请见NCBI的网站： <a class="link" href="http://www.ncbi.nlm.nih.gov/entrez/utils/"  target="_blank" rel="noopener"
+    >http://www.ncbi.nlm.nih.gov/entrez/utils/</a>. 每个工具都能在Python的 Bio.Entrez 模块中找到对应函数，后面会详细讲到。这个模块可以保证用来查询的URL 的正确性，并且向NCBI要求的一样，每三秒钟查询的次数不超过一。<br>
+EUtils返回的输出结果通常是XML格式，我们有以下不同的方法来解析这种类型的输入文件：</p>
+<ol>
+<li>使用 Bio.Entrez解析器将XML输出的解析成Python对象;</li>
+<li>使用Python标准库中的DOM (Document Object Model)解析器;</li>
+<li>使用Python标准库中的SAX (Simple API for XML)解析器;</li>
+<li>把XML输出当做原始的文本文件，通过字符串查找和处理来进行解析；
+对于DOM和SAX解析器，可以查看Python的文档. Bio.Entrez 中使用到的解析器将会在下面讨论.<br>
+NCBI使用DTD (Document Type Definition)文件来描述XML文件中所包含信息的结构. 大多数NCBI使用的DTD文件 格式都包含在了Biopython发行包里。当NCBI Entrez读入一个XML格式的文件的时候，Bio.Entrez 将会使用DTD文件。<br>
+有时候，你可能会发现与某种特殊的XML相关的DTD文件在Biopython发行包里面不存在。当NCBI升级它的 DTD文件的时候，这种情况可能发生。如果发生这种情况，Entrez.read 将会显示丢失的DTD文件名字和URL的 警示信息。解析器会通过互联网获取缺失的DTD文件，让XML的分析继续正常进行。如果本地存在对应的DTD文件的 话，处理起来会更快。因此，为了更快的处理，我们可以通过警示信息里面的URL来下载对应的DTD文件，将文件放在DTD 文件默认存放的文件夹 &hellip;site-packages/Bio/Entrez/DTDs 。如果你没有权限进入这个文件夹，你也可以把 DTD文件放到 ~/.biopython/Bio/Entrez/DTDs 这个目录，~ 表示的是你的Home目录。因为这个目录会先于 &hellip;site-packages/Bio/Entrez/DTDs 被解析器读取，所以当 &hellip;site-packages/Bio/Entrez/DTDs 下面的DTD文件过时的时候，你也可以将最新版本的DTD文件放到Home目录的那个文件夹下面。当然也有其他方案，如果你 是通过源码来安装的Biopython，你可以将DTD文件放到源码的 Bio/Entrez/DTDs 文件夹下，然后重新安装Biopython。 这样会将新的DTD文件和之前的一样地安装到正确的位置。<br>
+Entrez Programming Utilities也可以生成其他格式的输出文件，比如Fasta、序列数据库里面的GenBank文件格式 或者文献数据库里面的MedLine格式</li>
+</ol>
+<h2 id="详细的访问规范">详细的访问规范</h2>
+<ul>
+<li>对任何连续超过100次的访问请求，请在周末时间或者避开美国的使用高峰时间。这个取决于你是否遵从。</li>
+<li>使用这个网址 <a class="link" href="http://eutils.ncbi.nlm.nih.gov/"  target="_blank" rel="noopener"
+    >http://eutils.ncbi.nlm.nih.gov</a> ， 而不是通常的NCBI网址。Biopython使用的是这个网址。</li>
+<li>每秒钟不要超过三次请求（比2009年年初的每三秒钟最多一次请求要宽松）。这个由Biopython自动强制实行。</li>
+<li>使用email参数，这样如果遇到什么问题，NCBI可以通过邮件联系到你。你可以在每次请求Entrez的时候明确的设置 这个参数（例如，在参数列表中包含 email=&quot;<a class="link" href="mailto:A.N.Other@example.com" >A.N.Other@example.com</a>&quot; ），或者你也可以设置一个全局的email 地址：</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio</span> <span class="kn">import</span> <span class="n">Entrez</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">Entrez</span><span class="o">.</span><span class="n">email</span> <span class="o">=</span> <span class="s2">&#34;A.N.Other@example.com&#34;</span>
+</span></span></code></pre></div><ul>
+<li>Bio.Entrez 将会在每次向Entrez请求的时候使用这个邮件地址。请千万不要胡乱的填写邮件地址，不填写都比 这要好。邮件的参数从2010年6月1日将是强制的参数。在过度使用的情况下，NCBI会在封锁用户访问E-utilities之前尝试通过 用户提供的邮件地址联系。</li>
+<li>如果你是在一个大的软件包里面使用Biopython的，请通过tool这个参数明确说明。你既可以在每次请求访问Entrez 的时候通过参数明确地指明使用的工具（例如，在参数列表中包含 tool=&ldquo;MyLocalScript&rdquo; ），或者你也可以 设置一个全局的tool名称：</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio</span> <span class="kn">import</span> <span class="n">Entrez</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">Entrez</span><span class="o">.</span><span class="n">tool</span> <span class="o">=</span> <span class="s2">&#34;MyLocalScript&#34;</span>
+</span></span></code></pre></div><p>最后，根据你的使用情况选择不同的策略。如果你打算下载大量的数据，最好使用其他的方法。比如，你想得到所有人的 基因的数据，那么考虑通过FTP得到每个染色体的GenBank文件，然后将这些文件导入到你自己的BioSQL数据库里面去</p>
+<h2 id="einfo-获取entrez数据库的信息">EInfo 获取Entrez数据库的信息</h2>
+<p>EInfo为每个NCBI的数据库提供了条目索引，最近更新的时间以及可用的链接。此外，你可以很容易的使用EInfo通过 Entrez获取所有数据库名字的列表</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio</span> <span class="kn">import</span> <span class="n">Entrez</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">Entrez</span><span class="o">.</span><span class="n">email</span> <span class="o">=</span> <span class="s2">&#34;A.N.Other@example.com&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">handle</span> <span class="o">=</span> <span class="n">Entrez</span><span class="o">.</span><span class="n">einfo</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="n">handle</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</span></span></code></pre></div><h2 id="变量result为xml格式的数据库列表">变量result为XML格式的数据库列表</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="n">result</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="err">?</span><span class="n">xml</span> <span class="n">version</span><span class="o">=</span><span class="s2">&#34;1.0&#34;</span><span class="err">?</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="err">!</span><span class="n">DOCTYPE</span> <span class="n">eInfoResult</span> <span class="n">PUBLIC</span> <span class="s2">&#34;-//NLM//DTD eInfoResult, 11 May 2002//EN&#34;</span>
+</span></span><span class="line"><span class="cl"> <span class="s2">&#34;http://www.ncbi.nlm.nih.gov/entrez/query/DTD/eInfo_020511.dtd&#34;</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="n">eInfoResult</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="n">DbList</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&lt;</span><span class="n">DbName</span><span class="o">&gt;</span><span class="n">pubmed</span><span class="o">&lt;/</span><span class="n">DbName</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&lt;</span><span class="n">DbName</span><span class="o">&gt;</span><span class="n">protein</span><span class="o">&lt;/</span><span class="n">DbName</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&lt;</span><span class="n">DbName</span><span class="o">&gt;</span><span class="n">nucleotide</span><span class="o">&lt;/</span><span class="n">DbName</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&lt;</span><span class="n">DbName</span><span class="o">&gt;</span><span class="n">nuccore</span><span class="o">&lt;/</span><span class="n">DbName</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&lt;</span><span class="n">DbName</span><span class="o">&gt;</span><span class="n">nucgss</span><span class="o">&lt;/</span><span class="n">DbName</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&lt;</span><span class="n">DbName</span><span class="o">&gt;</span><span class="n">nucest</span><span class="o">&lt;/</span><span class="n">DbName</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&lt;</span><span class="n">DbName</span><span class="o">&gt;</span><span class="n">structure</span><span class="o">&lt;/</span><span class="n">DbName</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&lt;</span><span class="n">DbName</span><span class="o">&gt;</span><span class="n">genome</span><span class="o">&lt;/</span><span class="n">DbName</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&lt;</span><span class="n">DbName</span><span class="o">&gt;</span><span class="n">books</span><span class="o">&lt;/</span><span class="n">DbName</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&lt;</span><span class="n">DbName</span><span class="o">&gt;</span><span class="n">cancerchromosomes</span><span class="o">&lt;/</span><span class="n">DbName</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&lt;</span><span class="n">DbName</span><span class="o">&gt;</span><span class="n">cdd</span><span class="o">&lt;/</span><span class="n">DbName</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&lt;</span><span class="n">DbName</span><span class="o">&gt;</span><span class="n">gap</span><span class="o">&lt;/</span><span class="n">DbName</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&lt;</span><span class="n">DbName</span><span class="o">&gt;</span><span class="n">domains</span><span class="o">&lt;/</span><span class="n">DbName</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&lt;</span><span class="n">DbName</span><span class="o">&gt;</span><span class="n">gene</span><span class="o">&lt;/</span><span class="n">DbName</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&lt;</span><span class="n">DbName</span><span class="o">&gt;</span><span class="n">genomeprj</span><span class="o">&lt;/</span><span class="n">DbName</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&lt;</span><span class="n">DbName</span><span class="o">&gt;</span><span class="n">gensat</span><span class="o">&lt;/</span><span class="n">DbName</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&lt;</span><span class="n">DbName</span><span class="o">&gt;</span><span class="n">geo</span><span class="o">&lt;/</span><span class="n">DbName</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&lt;</span><span class="n">DbName</span><span class="o">&gt;</span><span class="n">gds</span><span class="o">&lt;/</span><span class="n">DbName</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&lt;</span><span class="n">DbName</span><span class="o">&gt;</span><span class="n">homologene</span><span class="o">&lt;/</span><span class="n">DbName</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&lt;</span><span class="n">DbName</span><span class="o">&gt;</span><span class="n">journals</span><span class="o">&lt;/</span><span class="n">DbName</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&lt;</span><span class="n">DbName</span><span class="o">&gt;</span><span class="n">mesh</span><span class="o">&lt;/</span><span class="n">DbName</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&lt;</span><span class="n">DbName</span><span class="o">&gt;</span><span class="n">ncbisearch</span><span class="o">&lt;/</span><span class="n">DbName</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&lt;</span><span class="n">DbName</span><span class="o">&gt;</span><span class="n">nlmcatalog</span><span class="o">&lt;/</span><span class="n">DbName</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&lt;</span><span class="n">DbName</span><span class="o">&gt;</span><span class="n">omia</span><span class="o">&lt;/</span><span class="n">DbName</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&lt;</span><span class="n">DbName</span><span class="o">&gt;</span><span class="n">omim</span><span class="o">&lt;/</span><span class="n">DbName</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&lt;</span><span class="n">DbName</span><span class="o">&gt;</span><span class="n">pmc</span><span class="o">&lt;/</span><span class="n">DbName</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&lt;</span><span class="n">DbName</span><span class="o">&gt;</span><span class="n">popset</span><span class="o">&lt;/</span><span class="n">DbName</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&lt;</span><span class="n">DbName</span><span class="o">&gt;</span><span class="n">probe</span><span class="o">&lt;/</span><span class="n">DbName</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&lt;</span><span class="n">DbName</span><span class="o">&gt;</span><span class="n">proteinclusters</span><span class="o">&lt;/</span><span class="n">DbName</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&lt;</span><span class="n">DbName</span><span class="o">&gt;</span><span class="n">pcassay</span><span class="o">&lt;/</span><span class="n">DbName</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&lt;</span><span class="n">DbName</span><span class="o">&gt;</span><span class="n">pccompound</span><span class="o">&lt;/</span><span class="n">DbName</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&lt;</span><span class="n">DbName</span><span class="o">&gt;</span><span class="n">pcsubstance</span><span class="o">&lt;/</span><span class="n">DbName</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&lt;</span><span class="n">DbName</span><span class="o">&gt;</span><span class="n">snp</span><span class="o">&lt;/</span><span class="n">DbName</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&lt;</span><span class="n">DbName</span><span class="o">&gt;</span><span class="n">taxonomy</span><span class="o">&lt;/</span><span class="n">DbName</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&lt;</span><span class="n">DbName</span><span class="o">&gt;</span><span class="n">toolkit</span><span class="o">&lt;/</span><span class="n">DbName</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&lt;</span><span class="n">DbName</span><span class="o">&gt;</span><span class="n">unigene</span><span class="o">&lt;/</span><span class="n">DbName</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&lt;</span><span class="n">DbName</span><span class="o">&gt;</span><span class="n">unists</span><span class="o">&lt;/</span><span class="n">DbName</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;/</span><span class="n">DbList</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;/</span><span class="n">eInfoResult</span><span class="o">&gt;</span>
+</span></span></code></pre></div><h3 id="使用bioentrez-将xml文件读入到python中">使用Bio.Entrez 将XML文件读入到python中</h3>
+<p>因为这是一个相当简单的XML文件，我们可以简单的通过字符串查找提取里面所包含的信息。使用 Bio.Entrez 的解析器， 我们可以直接将这个XML读入到一个Python对象里面去：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio</span> <span class="kn">import</span> <span class="n">Entrez</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">handle</span> <span class="o">=</span> <span class="n">Entrez</span><span class="o">.</span><span class="n">einfo</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">record</span> <span class="o">=</span> <span class="n">Entrez</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">handle</span><span class="p">)</span>
+</span></span></code></pre></div><p>现在 record 是拥有一个确定键值的字典：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">record</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="sa">u</span><span class="s1">&#39;DbList&#39;</span><span class="p">]</span>
+</span></span></code></pre></div><p>这个键对应的值存储了上面XML文件里面包含的数据库名字的列表：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">record</span><span class="p">[</span><span class="s2">&#34;DbList&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="s1">&#39;pubmed&#39;</span><span class="p">,</span> <span class="s1">&#39;protein&#39;</span><span class="p">,</span> <span class="s1">&#39;nucleotide&#39;</span><span class="p">,</span> <span class="s1">&#39;nuccore&#39;</span><span class="p">,</span> <span class="s1">&#39;nucgss&#39;</span><span class="p">,</span> <span class="s1">&#39;nucest&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="s1">&#39;structure&#39;</span><span class="p">,</span> <span class="s1">&#39;genome&#39;</span><span class="p">,</span> <span class="s1">&#39;books&#39;</span><span class="p">,</span> <span class="s1">&#39;cancerchromosomes&#39;</span><span class="p">,</span> <span class="s1">&#39;cdd&#39;</span><span class="p">,</span> <span class="s1">&#39;gap&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="s1">&#39;domains&#39;</span><span class="p">,</span> <span class="s1">&#39;gene&#39;</span><span class="p">,</span> <span class="s1">&#39;genomeprj&#39;</span><span class="p">,</span> <span class="s1">&#39;gensat&#39;</span><span class="p">,</span> <span class="s1">&#39;geo&#39;</span><span class="p">,</span> <span class="s1">&#39;gds&#39;</span><span class="p">,</span> <span class="s1">&#39;homologene&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="s1">&#39;journals&#39;</span><span class="p">,</span> <span class="s1">&#39;mesh&#39;</span><span class="p">,</span> <span class="s1">&#39;ncbisearch&#39;</span><span class="p">,</span> <span class="s1">&#39;nlmcatalog&#39;</span><span class="p">,</span> <span class="s1">&#39;omia&#39;</span><span class="p">,</span> <span class="s1">&#39;omim&#39;</span><span class="p">,</span> <span class="s1">&#39;pmc&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="s1">&#39;popset&#39;</span><span class="p">,</span> <span class="s1">&#39;probe&#39;</span><span class="p">,</span> <span class="s1">&#39;proteinclusters&#39;</span><span class="p">,</span> <span class="s1">&#39;pcassay&#39;</span><span class="p">,</span> <span class="s1">&#39;pccompound&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="s1">&#39;pcsubstance&#39;</span><span class="p">,</span> <span class="s1">&#39;snp&#39;</span><span class="p">,</span> <span class="s1">&#39;taxonomy&#39;</span><span class="p">,</span> <span class="s1">&#39;toolkit&#39;</span><span class="p">,</span> <span class="s1">&#39;unigene&#39;</span><span class="p">,</span> <span class="s1">&#39;unists&#39;</span><span class="p">]</span>
+</span></span></code></pre></div><h3 id="使用einfo获得更多信息">使用EInfo获得更多信息</h3>
+<p>对于这些数据库，我们可以使用EInfo获得更多的信息：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">handle</span> <span class="o">=</span> <span class="n">Entrez</span><span class="o">.</span><span class="n">einfo</span><span class="p">(</span><span class="n">db</span><span class="o">=</span><span class="s2">&#34;pubmed&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">record</span> <span class="o">=</span> <span class="n">Entrez</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">handle</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">record</span><span class="p">[</span><span class="s2">&#34;DbInfo&#34;</span><span class="p">][</span><span class="s2">&#34;Description&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;PubMed bibliographic record&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">record</span><span class="p">[</span><span class="s2">&#34;DbInfo&#34;</span><span class="p">][</span><span class="s2">&#34;Count&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;17989604&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">record</span><span class="p">[</span><span class="s2">&#34;DbInfo&#34;</span><span class="p">][</span><span class="s2">&#34;LastUpdate&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;2008/05/24 06:45&#39;</span>
+</span></span></code></pre></div><p>通过 record[&ldquo;DbInfo&rdquo;].keys() 可以获取存储在这个记录里面的其他信息。这里面最有用的信息之一是一个ESearch可用的 搜索值列表：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">record</span><span class="p">[</span><span class="s2">&#34;DbInfo&#34;</span><span class="p">][</span><span class="s2">&#34;FieldList&#34;</span><span class="p">]:</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>     <span class="nb">print</span> <span class="s2">&#34;</span><span class="si">%(Name)s</span><span class="s2">, </span><span class="si">%(FullName)s</span><span class="s2">, </span><span class="si">%(Description)s</span><span class="s2">&#34;</span> <span class="o">%</span> <span class="n">field</span>
+</span></span><span class="line"><span class="cl"><span class="n">ALL</span><span class="p">,</span> <span class="n">All</span> <span class="n">Fields</span><span class="p">,</span> <span class="n">All</span> <span class="n">terms</span> <span class="kn">from</span> <span class="nn">all</span> <span class="n">searchable</span> <span class="n">fields</span>
+</span></span><span class="line"><span class="cl"><span class="n">UID</span><span class="p">,</span> <span class="n">UID</span><span class="p">,</span> <span class="n">Unique</span> <span class="n">number</span> <span class="n">assigned</span> <span class="n">to</span> <span class="n">publication</span>
+</span></span><span class="line"><span class="cl"><span class="n">FILT</span><span class="p">,</span> <span class="n">Filter</span><span class="p">,</span> <span class="n">Limits</span> <span class="n">the</span> <span class="n">records</span>
+</span></span><span class="line"><span class="cl"><span class="n">TITL</span><span class="p">,</span> <span class="n">Title</span><span class="p">,</span> <span class="n">Words</span> <span class="ow">in</span> <span class="n">title</span> <span class="n">of</span> <span class="n">publication</span>
+</span></span><span class="line"><span class="cl"><span class="n">WORD</span><span class="p">,</span> <span class="n">Text</span> <span class="n">Word</span><span class="p">,</span> <span class="n">Free</span> <span class="n">text</span> <span class="n">associated</span> <span class="k">with</span> <span class="n">publication</span>
+</span></span><span class="line"><span class="cl"><span class="n">MESH</span><span class="p">,</span> <span class="n">MeSH</span> <span class="n">Terms</span><span class="p">,</span> <span class="n">Medical</span> <span class="n">Subject</span> <span class="n">Headings</span> <span class="n">assigned</span> <span class="n">to</span> <span class="n">publication</span>
+</span></span><span class="line"><span class="cl"><span class="n">MAJR</span><span class="p">,</span> <span class="n">MeSH</span> <span class="n">Major</span> <span class="n">Topic</span><span class="p">,</span> <span class="n">MeSH</span> <span class="n">terms</span> <span class="n">of</span> <span class="n">major</span> <span class="n">importance</span> <span class="n">to</span> <span class="n">publication</span>
+</span></span><span class="line"><span class="cl"><span class="n">AUTH</span><span class="p">,</span> <span class="n">Author</span><span class="p">,</span> <span class="n">Author</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="n">of</span> <span class="n">publication</span>
+</span></span><span class="line"><span class="cl"><span class="n">JOUR</span><span class="p">,</span> <span class="n">Journal</span><span class="p">,</span> <span class="n">Journal</span> <span class="n">abbreviation</span> <span class="n">of</span> <span class="n">publication</span>
+</span></span><span class="line"><span class="cl"><span class="n">AFFL</span><span class="p">,</span> <span class="n">Affiliation</span><span class="p">,</span> <span class="n">Author</span><span class="s1">&#39;s institutional affiliation and address</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span></code></pre></div><p>这是一个很长的列表，但是间接的告诉你在使用PubMed的时候，你可以通过 Jones[AUTH] 搜索作者，或者通过 Sanger[AFFL] 将作者范围限制在Sanger Centre。这个会非常方便，特别是在你对某个数据库不太熟悉的时候。</p>
+<h2 id="esearch搜素entrez数据库">ESearch:搜素Entrez数据库</h2>
+<h3 id="使用bioentrezesearch来搜素任意数据库">使用Bio.Entrez,esearch()来搜素任意数据库</h3>
+<h4 id="在pubmed中搜索跟biopython相关的文献">在PubMed中搜索跟Biopython相关的文献</h4>
+<p>我们可以使用 Bio.Entrez.esearch() 来搜索任意的数据库。例如，我们在PubMed中搜索跟Biopython相关的文献：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio</span> <span class="kn">import</span> <span class="n">Entrez</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">Entrez</span><span class="o">.</span><span class="n">email</span> <span class="o">=</span> <span class="s2">&#34;A.N.Other@example.com&#34;</span>     <span class="c1"># Always tell NCBI who you are</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">handle</span> <span class="o">=</span> <span class="n">Entrez</span><span class="o">.</span><span class="n">esearch</span><span class="p">(</span><span class="n">db</span><span class="o">=</span><span class="s2">&#34;pubmed&#34;</span><span class="p">,</span> <span class="n">term</span><span class="o">=</span><span class="s2">&#34;biopython&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">record</span> <span class="o">=</span> <span class="n">Entrez</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">handle</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">record</span><span class="p">[</span><span class="s2">&#34;IdList&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="s1">&#39;19304878&#39;</span><span class="p">,</span> <span class="s1">&#39;18606172&#39;</span><span class="p">,</span> <span class="s1">&#39;16403221&#39;</span><span class="p">,</span> <span class="s1">&#39;16377612&#39;</span><span class="p">,</span> <span class="s1">&#39;14871861&#39;</span><span class="p">,</span> <span class="s1">&#39;14630660&#39;</span><span class="p">,</span> <span class="s1">&#39;12230038&#39;</span><span class="p">]</span>
+</span></span></code></pre></div><p>在输出的结果中，我们可以看到七个PubMed IDs（包括19304878，这个是Biopython应用笔记的PMID），你可以通过 EFetch来获取这些文献</p>
+<h3 id="通过esearch来搜索genbank">通过ESearch来搜索GenBank</h3>
+<p>你也可以通过ESearch来搜索GenBank。我们将以在_Cypripedioideae_ orchids中搜索_matK_基因为例，快速展示一下</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">handle</span> <span class="o">=</span> <span class="n">Entrez</span><span class="o">.</span><span class="n">esearch</span><span class="p">(</span><span class="n">db</span><span class="o">=</span><span class="s2">&#34;nucleotide&#34;</span><span class="p">,</span><span class="n">term</span><span class="o">=</span><span class="s2">&#34;Cypripedioideae[Orgn] AND matK[Gene]&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">record</span> <span class="o">=</span> <span class="n">Entrez</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">handle</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">record</span><span class="p">[</span><span class="s2">&#34;Count&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;25&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">record</span><span class="p">[</span><span class="s2">&#34;IdList&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="s1">&#39;126789333&#39;</span><span class="p">,</span> <span class="s1">&#39;37222967&#39;</span><span class="p">,</span> <span class="s1">&#39;37222966&#39;</span><span class="p">,</span> <span class="s1">&#39;37222965&#39;</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="s1">&#39;61585492&#39;</span><span class="p">]</span>
+</span></span></code></pre></div><p>每个IDs(126789333, 37222967, 37222966, …)是GenBank的一个标识,后面再讲怎么下载这些GenaBank的记录和信息<br>
+注意，不是像 Cypripedioideae[Orgn] 这样在搜索的时候加上特定的物种名字，而是需要在搜索的时候使用NCBI的 taxon ID，像 txid158330[Orgn] 这样。这个并没有记录在ESearch的帮助页面上，NCBI通过邮件回复解释了这个 问题。你可以通过经常和Entrez的网站接口互动，来推断搜索条目的格式。例如，在基因组搜索的时候加上 complete[prop] 可以把结果限制在完成的基因组上。</p>
+<h4 id="获取一个computational-journal名字的列表">获取一个computational journal名字的列表</h4>
+<p>作为最后一个例子，让我们获取一个computational journal名字的列表：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">handle</span> <span class="o">=</span> <span class="n">Entrez</span><span class="o">.</span><span class="n">esearch</span><span class="p">(</span><span class="n">db</span><span class="o">=</span><span class="s2">&#34;journals&#34;</span><span class="p">,</span> <span class="n">term</span><span class="o">=</span><span class="s2">&#34;computational&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">record</span> <span class="o">=</span> <span class="n">Entrez</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">handle</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">record</span><span class="p">[</span><span class="s2">&#34;Count&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;16&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">record</span><span class="p">[</span><span class="s2">&#34;IdList&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="s1">&#39;30367&#39;</span><span class="p">,</span> <span class="s1">&#39;33843&#39;</span><span class="p">,</span> <span class="s1">&#39;33823&#39;</span><span class="p">,</span> <span class="s1">&#39;32989&#39;</span><span class="p">,</span> <span class="s1">&#39;33190&#39;</span><span class="p">,</span> <span class="s1">&#39;33009&#39;</span><span class="p">,</span> <span class="s1">&#39;31986&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="s1">&#39;34502&#39;</span><span class="p">,</span> <span class="s1">&#39;8799&#39;</span><span class="p">,</span> <span class="s1">&#39;22857&#39;</span><span class="p">,</span> <span class="s1">&#39;32675&#39;</span><span class="p">,</span> <span class="s1">&#39;20258&#39;</span><span class="p">,</span> <span class="s1">&#39;33859&#39;</span><span class="p">,</span> <span class="s1">&#39;32534&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="s1">&#39;32357&#39;</span><span class="p">,</span> <span class="s1">&#39;32249&#39;</span><span class="p">]</span>
+</span></span></code></pre></div><p>同样，我们可以通过EFetch来获得关于每个journal IDs更多的消息。</p>
+<h2 id="efetch从entrez下载更多的记录">EFetch:从Entrez下载更多的记录</h2>
+<p>NCBI大部分的数据库都支持多种不同的文件格式。当使用 Bio.Entrez.efetch() 从Entrez下载特定的某种格式的时候， 需要 rettype 和或者 retmode 这些可选的参数。对于不同数据库类型不同的搭配在下面的网页中有描述（<a class="link" href="http://www.ncbi.nlm.nih.gov/entrez/query/static/efetch_help.html"  target="_blank" rel="noopener"
+    >http://www.ncbi.nlm.nih.gov/entrez/query/static/efetch_help.html</a>），例如： <a class="link" href="http://eutils.ncbi.nlm.nih.gov/corehtml/query/static/efetchlit_help.html"  target="_blank" rel="noopener"
+    >literature</a>, <a class="link" href="http://eutils.ncbi.nlm.nih.gov/corehtml/query/static/efetchseq_help.html"  target="_blank" rel="noopener"
+    >sequences</a> and <a class="link" href="http://eutils.ncbi.nlm.nih.gov/corehtml/query/static/efetchtax_help.html"  target="_blank" rel="noopener"
+    >taxonomy</a>).</p>
+<h3 id="通过-bioentrezefetch-从genbank下载记录186972394">通过 Bio.Entrez.efetch 从GenBank下载记录186972394</h3>
+<p>一种常用的用法是下载FASTA或者GenBank/GenPept的文本格式 (接着可以使用 Bio.SeqIO 来解析）。从上面 <em>Cypripedioideae</em> 的例子,我们可以通过 Bio.Entrez.efetch 从GenBank下载记录186972394。<br>
+参数 rettype=&ldquo;gb&rdquo; 和 retmode=&ldquo;text&rdquo; 让我们下载的数据为GenBank格式。<br>
+需要注意的是直到2009年，Entrez EFetch API要求使用 “genbank” 作为返回类型，然而现在NCBI坚持使用官方的 “gb” 或 “gbwithparts” （或者针对蛋白的“gp”) 返回类型。同样需要注意的是，直到2012年2月， Entrez EFetch API默认的返回格式为纯文本格式文件，现在默认的为XML格式<br>
+作为另外的选择，你也可以使用 rettype=&ldquo;fasta&rdquo; 来获取Fasta格式的文件；(<a class="link" href="https://www.ncbi.nlm.nih.gov/entrez/query/static/efetchseq_help.html"  target="_blank" rel="noopener"
+    >https://www.ncbi.nlm.nih.gov/entrez/query/static/efetchseq_help.html</a>)<br>
+记住，可选的数据格式决定于你要下载的数据库——请参见<br>
+(<a class="link" href="http://eutils.ncbi.nlm.nih.gov/entrez/query/static/efetch_help.html"  target="_blank" rel="noopener"
+    >http://eutils.ncbi.nlm.nih.gov/entrez/query/static/efetch_help.html</a>)</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio</span> <span class="kn">import</span> <span class="n">Entrez</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">Entrez</span><span class="o">.</span><span class="n">email</span> <span class="o">=</span> <span class="s2">&#34;A.N.Other@example.com&#34;</span>     <span class="c1"># Always tell NCBI who you are</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">handle</span> <span class="o">=</span> <span class="n">Entrez</span><span class="o">.</span><span class="n">efetch</span><span class="p">(</span><span class="n">db</span><span class="o">=</span><span class="s2">&#34;nucleotide&#34;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&#34;186972394&#34;</span><span class="p">,</span> <span class="n">rettype</span><span class="o">=</span><span class="s2">&#34;gb&#34;</span><span class="p">,</span> <span class="n">retmode</span><span class="o">=</span><span class="s2">&#34;text&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="n">handle</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">LOCUS</span>       <span class="n">EU490707</span>                <span class="mi">1302</span> <span class="n">bp</span>    <span class="n">DNA</span>     <span class="n">linear</span>   <span class="n">PLN</span> <span class="mi">05</span><span class="o">-</span><span class="n">MAY</span><span class="o">-</span><span class="mi">2008</span>
+</span></span><span class="line"><span class="cl"><span class="n">DEFINITION</span>  <span class="n">Selenipedium</span> <span class="n">aequinoctiale</span> <span class="n">maturase</span> <span class="n">K</span> <span class="p">(</span><span class="n">matK</span><span class="p">)</span> <span class="n">gene</span><span class="p">,</span> <span class="n">partial</span> <span class="n">cds</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">chloroplast</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl"><span class="n">ACCESSION</span>   <span class="n">EU490707</span>
+</span></span><span class="line"><span class="cl"><span class="n">VERSION</span>     <span class="n">EU490707</span><span class="mf">.1</span>  <span class="n">GI</span><span class="p">:</span><span class="mi">186972394</span>
+</span></span><span class="line"><span class="cl"><span class="n">KEYWORDS</span>    <span class="o">.</span>
+</span></span><span class="line"><span class="cl"><span class="n">SOURCE</span>      <span class="n">chloroplast</span> <span class="n">Selenipedium</span> <span class="n">aequinoctiale</span>
+</span></span><span class="line"><span class="cl">  <span class="n">ORGANISM</span>  <span class="n">Selenipedium</span> <span class="n">aequinoctiale</span>
+</span></span><span class="line"><span class="cl">            <span class="n">Eukaryota</span><span class="p">;</span> <span class="n">Viridiplantae</span><span class="p">;</span> <span class="n">Streptophyta</span><span class="p">;</span> <span class="n">Embryophyta</span><span class="p">;</span> <span class="n">Tracheophyta</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">Spermatophyta</span><span class="p">;</span> <span class="n">Magnoliophyta</span><span class="p">;</span> <span class="n">Liliopsida</span><span class="p">;</span> <span class="n">Asparagales</span><span class="p">;</span> <span class="n">Orchidaceae</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">Cypripedioideae</span><span class="p">;</span> <span class="n">Selenipedium</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl"><span class="n">REFERENCE</span>   <span class="mi">1</span>  <span class="p">(</span><span class="n">bases</span> <span class="mi">1</span> <span class="n">to</span> <span class="mi">1302</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">AUTHORS</span>   <span class="n">Neubig</span><span class="p">,</span><span class="n">K</span><span class="o">.</span><span class="n">M</span><span class="o">.</span><span class="p">,</span> <span class="n">Whitten</span><span class="p">,</span><span class="n">W</span><span class="o">.</span><span class="n">M</span><span class="o">.</span><span class="p">,</span> <span class="n">Carlsward</span><span class="p">,</span><span class="n">B</span><span class="o">.</span><span class="n">S</span><span class="o">.</span><span class="p">,</span> <span class="n">Blanco</span><span class="p">,</span><span class="n">M</span><span class="o">.</span><span class="n">A</span><span class="o">.</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">Endara</span><span class="p">,</span><span class="n">C</span><span class="o">.</span><span class="n">L</span><span class="o">.</span><span class="p">,</span> <span class="n">Williams</span><span class="p">,</span><span class="n">N</span><span class="o">.</span><span class="n">H</span><span class="o">.</span> <span class="ow">and</span> <span class="n">Moore</span><span class="p">,</span><span class="n">M</span><span class="o">.</span><span class="n">J</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">  <span class="n">TITLE</span>     <span class="n">Phylogenetic</span> <span class="n">utility</span> <span class="n">of</span> <span class="n">ycf1</span> <span class="ow">in</span> <span class="n">orchids</span>
+</span></span><span class="line"><span class="cl">  <span class="n">JOURNAL</span>   <span class="n">Unpublished</span>
+</span></span><span class="line"><span class="cl"><span class="n">REFERENCE</span>   <span class="mi">2</span>  <span class="p">(</span><span class="n">bases</span> <span class="mi">1</span> <span class="n">to</span> <span class="mi">1302</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">AUTHORS</span>   <span class="n">Neubig</span><span class="p">,</span><span class="n">K</span><span class="o">.</span><span class="n">M</span><span class="o">.</span><span class="p">,</span> <span class="n">Whitten</span><span class="p">,</span><span class="n">W</span><span class="o">.</span><span class="n">M</span><span class="o">.</span><span class="p">,</span> <span class="n">Carlsward</span><span class="p">,</span><span class="n">B</span><span class="o">.</span><span class="n">S</span><span class="o">.</span><span class="p">,</span> <span class="n">Blanco</span><span class="p">,</span><span class="n">M</span><span class="o">.</span><span class="n">A</span><span class="o">.</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">Endara</span><span class="p">,</span><span class="n">C</span><span class="o">.</span><span class="n">L</span><span class="o">.</span><span class="p">,</span> <span class="n">Williams</span><span class="p">,</span><span class="n">N</span><span class="o">.</span><span class="n">H</span><span class="o">.</span> <span class="ow">and</span> <span class="n">Moore</span><span class="p">,</span><span class="n">M</span><span class="o">.</span><span class="n">J</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">  <span class="n">TITLE</span>     <span class="n">Direct</span> <span class="n">Submission</span>
+</span></span><span class="line"><span class="cl">  <span class="n">JOURNAL</span>   <span class="n">Submitted</span> <span class="p">(</span><span class="mi">14</span><span class="o">-</span><span class="n">FEB</span><span class="o">-</span><span class="mi">2008</span><span class="p">)</span> <span class="n">Department</span> <span class="n">of</span> <span class="n">Botany</span><span class="p">,</span> <span class="n">University</span> <span class="n">of</span>
+</span></span><span class="line"><span class="cl">            <span class="n">Florida</span><span class="p">,</span> <span class="mi">220</span> <span class="n">Bartram</span> <span class="n">Hall</span><span class="p">,</span> <span class="n">Gainesville</span><span class="p">,</span> <span class="n">FL</span> <span class="mi">32611</span><span class="o">-</span><span class="mi">8526</span><span class="p">,</span> <span class="n">USA</span>
+</span></span><span class="line"><span class="cl"><span class="n">FEATURES</span>             <span class="n">Location</span><span class="o">/</span><span class="n">Qualifiers</span>
+</span></span><span class="line"><span class="cl">     <span class="n">source</span>          <span class="mf">1..1302</span>
+</span></span><span class="line"><span class="cl">                     <span class="o">/</span><span class="n">organism</span><span class="o">=</span><span class="s2">&#34;Selenipedium aequinoctiale&#34;</span>
+</span></span><span class="line"><span class="cl">                     <span class="o">/</span><span class="n">organelle</span><span class="o">=</span><span class="s2">&#34;plastid:chloroplast&#34;</span>
+</span></span><span class="line"><span class="cl">                     <span class="o">/</span><span class="n">mol_type</span><span class="o">=</span><span class="s2">&#34;genomic DNA&#34;</span>
+</span></span><span class="line"><span class="cl">                     <span class="o">/</span><span class="n">specimen_voucher</span><span class="o">=</span><span class="s2">&#34;FLAS:Blanco 2475&#34;</span>
+</span></span><span class="line"><span class="cl">                     <span class="o">/</span><span class="n">db_xref</span><span class="o">=</span><span class="s2">&#34;taxon:256374&#34;</span>
+</span></span><span class="line"><span class="cl">     <span class="n">gene</span>            <span class="o">&lt;</span><span class="mf">1.</span><span class="o">.&gt;</span><span class="mi">1302</span>
+</span></span><span class="line"><span class="cl">                     <span class="o">/</span><span class="n">gene</span><span class="o">=</span><span class="s2">&#34;matK&#34;</span>
+</span></span><span class="line"><span class="cl">     <span class="n">CDS</span>             <span class="o">&lt;</span><span class="mf">1.</span><span class="o">.&gt;</span><span class="mi">1302</span>
+</span></span><span class="line"><span class="cl">                     <span class="o">/</span><span class="n">gene</span><span class="o">=</span><span class="s2">&#34;matK&#34;</span>
+</span></span><span class="line"><span class="cl">                     <span class="o">/</span><span class="n">codon_start</span><span class="o">=</span><span class="mi">1</span>
+</span></span><span class="line"><span class="cl">                     <span class="o">/</span><span class="n">transl_table</span><span class="o">=</span><span class="mi">11</span>
+</span></span><span class="line"><span class="cl">                     <span class="o">/</span><span class="n">product</span><span class="o">=</span><span class="s2">&#34;maturase K&#34;</span>
+</span></span><span class="line"><span class="cl">                     <span class="o">/</span><span class="n">protein_id</span><span class="o">=</span><span class="s2">&#34;ACC99456.1&#34;</span>
+</span></span><span class="line"><span class="cl">                     <span class="o">/</span><span class="n">db_xref</span><span class="o">=</span><span class="s2">&#34;GI:186972395&#34;</span>
+</span></span><span class="line"><span class="cl">                     <span class="o">/</span><span class="n">translation</span><span class="o">=</span><span class="s2">&#34;IFYEPVEIFGYDNKSSLVLVKRLITRMYQQNFLISSVNDSNQKG</span>
+</span></span><span class="line"><span class="cl">                     <span class="n">FWGHKHFFSSHFSSQMVSEGFGVILEIPFSSQLVSSLEEKKIPKYQNLRSIHSIFPFL</span>
+</span></span><span class="line"><span class="cl">                     <span class="n">EDKFLHLNYVSDLLIPHPIHLEILVQILQCRIKDVPSLHLLRLLFHEYHNLNSLITSK</span>
+</span></span><span class="line"><span class="cl">                     <span class="n">KFIYAFSKRKKRFLWLLYNSYVYECEYLFQFLRKQSSYLRSTSSGVFLERTHLYVKIE</span>
+</span></span><span class="line"><span class="cl">                     <span class="n">HLLVVCCNSFQRILCFLKDPFMHYVRYQGKAILASKGTLILMKKWKFHLVNFWQSYFH</span>
+</span></span><span class="line"><span class="cl">                     <span class="n">FWSQPYRIHIKQLSNYSFSFLGYFSSVLENHLVVRNQMLENSFIINLLTKKFDTIAPV</span>
+</span></span><span class="line"><span class="cl">                     <span class="n">ISLIGSLSKAQFCTVLGHPISKPIWTDFSDSDILDRFCRICRNLCRYHSGSSKKQVLY</span>
+</span></span><span class="line"><span class="cl">                     <span class="n">RIKYILRLSCARTLARKHKSTVRTFMRRLGSGLLEEFFMEEE</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">ORIGIN</span>
+</span></span><span class="line"><span class="cl">        <span class="mi">1</span> <span class="n">attttttacg</span> <span class="n">aacctgtgga</span> <span class="n">aatttttggt</span> <span class="n">tatgacaata</span> <span class="n">aatctagttt</span> <span class="n">agtacttgtg</span>
+</span></span><span class="line"><span class="cl">       <span class="mi">61</span> <span class="n">aaacgtttaa</span> <span class="n">ttactcgaat</span> <span class="n">gtatcaacag</span> <span class="n">aattttttga</span> <span class="n">tttcttcggt</span> <span class="n">taatgattct</span>
+</span></span><span class="line"><span class="cl">      <span class="mi">121</span> <span class="n">aaccaaaaag</span> <span class="n">gattttgggg</span> <span class="n">gcacaagcat</span> <span class="n">tttttttctt</span> <span class="n">ctcatttttc</span> <span class="n">ttctcaaatg</span>
+</span></span><span class="line"><span class="cl">      <span class="mi">181</span> <span class="n">gtatcagaag</span> <span class="n">gttttggagt</span> <span class="n">cattctggaa</span> <span class="n">attccattct</span> <span class="n">cgtcgcaatt</span> <span class="n">agtatcttct</span>
+</span></span><span class="line"><span class="cl">      <span class="mi">241</span> <span class="n">cttgaagaaa</span> <span class="n">aaaaaatacc</span> <span class="n">aaaatatcag</span> <span class="n">aatttacgat</span> <span class="n">ctattcattc</span> <span class="n">aatatttccc</span>
+</span></span><span class="line"><span class="cl">      <span class="mi">301</span> <span class="n">tttttagaag</span> <span class="n">acaaattttt</span> <span class="n">acatttgaat</span> <span class="n">tatgtgtcag</span> <span class="n">atctactaat</span> <span class="n">accccatccc</span>
+</span></span><span class="line"><span class="cl">      <span class="mi">361</span> <span class="n">atccatctgg</span> <span class="n">aaatcttggt</span> <span class="n">tcaaatcctt</span> <span class="n">caatgccgga</span> <span class="n">tcaaggatgt</span> <span class="n">tccttctttg</span>
+</span></span><span class="line"><span class="cl">      <span class="mi">421</span> <span class="n">catttattgc</span> <span class="n">gattgctttt</span> <span class="n">ccacgaatat</span> <span class="n">cataatttga</span> <span class="n">atagtctcat</span> <span class="n">tacttcaaag</span>
+</span></span><span class="line"><span class="cl">      <span class="mi">481</span> <span class="n">aaattcattt</span> <span class="n">acgccttttc</span> <span class="n">aaaaagaaag</span> <span class="n">aaaagattcc</span> <span class="n">tttggttact</span> <span class="n">atataattct</span>
+</span></span><span class="line"><span class="cl">      <span class="mi">541</span> <span class="n">tatgtatatg</span> <span class="n">aatgcgaata</span> <span class="n">tctattccag</span> <span class="n">tttcttcgta</span> <span class="n">aacagtcttc</span> <span class="n">ttatttacga</span>
+</span></span><span class="line"><span class="cl">      <span class="mi">601</span> <span class="n">tcaacatctt</span> <span class="n">ctggagtctt</span> <span class="n">tcttgagcga</span> <span class="n">acacatttat</span> <span class="n">atgtaaaaat</span> <span class="n">agaacatctt</span>
+</span></span><span class="line"><span class="cl">      <span class="mi">661</span> <span class="n">ctagtagtgt</span> <span class="n">gttgtaattc</span> <span class="n">ttttcagagg</span> <span class="n">atcctatgct</span> <span class="n">ttctcaagga</span> <span class="n">tcctttcatg</span>
+</span></span><span class="line"><span class="cl">      <span class="mi">721</span> <span class="n">cattatgttc</span> <span class="n">gatatcaagg</span> <span class="n">aaaagcaatt</span> <span class="n">ctggcttcaa</span> <span class="n">agggaactct</span> <span class="n">tattctgatg</span>
+</span></span><span class="line"><span class="cl">      <span class="mi">781</span> <span class="n">aagaaatgga</span> <span class="n">aatttcatct</span> <span class="n">tgtgaatttt</span> <span class="n">tggcaatctt</span> <span class="n">attttcactt</span> <span class="n">ttggtctcaa</span>
+</span></span><span class="line"><span class="cl">      <span class="mi">841</span> <span class="n">ccgtatagga</span> <span class="n">ttcatataaa</span> <span class="n">gcaattatcc</span> <span class="n">aactattcct</span> <span class="n">tctcttttct</span> <span class="n">ggggtatttt</span>
+</span></span><span class="line"><span class="cl">      <span class="mi">901</span> <span class="n">tcaagtgtac</span> <span class="n">tagaaaatca</span> <span class="n">tttggtagta</span> <span class="n">agaaatcaaa</span> <span class="n">tgctagagaa</span> <span class="n">ttcatttata</span>
+</span></span><span class="line"><span class="cl">      <span class="mi">961</span> <span class="n">ataaatcttc</span> <span class="n">tgactaagaa</span> <span class="n">attcgatacc</span> <span class="n">atagccccag</span> <span class="n">ttatttctct</span> <span class="n">tattggatca</span>
+</span></span><span class="line"><span class="cl">     <span class="mi">1021</span> <span class="n">ttgtcgaaag</span> <span class="n">ctcaattttg</span> <span class="n">tactgtattg</span> <span class="n">ggtcatccta</span> <span class="n">ttagtaaacc</span> <span class="n">gatctggacc</span>
+</span></span><span class="line"><span class="cl">     <span class="mi">1081</span> <span class="n">gatttctcgg</span> <span class="n">attctgatat</span> <span class="n">tcttgatcga</span> <span class="n">ttttgccgga</span> <span class="n">tatgtagaaa</span> <span class="n">tctttgtcgt</span>
+</span></span><span class="line"><span class="cl">     <span class="mi">1141</span> <span class="n">tatcacagcg</span> <span class="n">gatcctcaaa</span> <span class="n">aaaacaggtt</span> <span class="n">ttgtatcgta</span> <span class="n">taaaatatat</span> <span class="n">acttcgactt</span>
+</span></span><span class="line"><span class="cl">     <span class="mi">1201</span> <span class="n">tcgtgtgcta</span> <span class="n">gaactttggc</span> <span class="n">acggaaacat</span> <span class="n">aaaagtacag</span> <span class="n">tacgcacttt</span> <span class="n">tatgcgaaga</span>
+</span></span><span class="line"><span class="cl">     <span class="mi">1261</span> <span class="n">ttaggttcgg</span> <span class="n">gattattaga</span> <span class="n">agaattcttt</span> <span class="n">atggaagaag</span> <span class="n">aa</span>
+</span></span><span class="line"><span class="cl"><span class="o">//</span>
+</span></span></code></pre></div><p>如果你要获取记录的格式是 Bio.SeqIO 所接受的一种格式 你可以直接将其解析为一个 SeqRecord ：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio</span> <span class="kn">import</span> <span class="n">Entrez</span><span class="p">,</span> <span class="n">SeqIO</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">handle</span> <span class="o">=</span> <span class="n">Entrez</span><span class="o">.</span><span class="n">efetch</span><span class="p">(</span><span class="n">db</span><span class="o">=</span><span class="s2">&#34;nucleotide&#34;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&#34;186972394&#34;</span><span class="p">,</span><span class="n">rettype</span><span class="o">=</span><span class="s2">&#34;gb&#34;</span><span class="p">,</span> <span class="n">retmode</span><span class="o">=</span><span class="s2">&#34;text&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">record</span> <span class="o">=</span> <span class="n">SeqIO</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="s2">&#34;genbank&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">handle</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="n">record</span>
+</span></span><span class="line"><span class="cl"><span class="n">ID</span><span class="p">:</span> <span class="n">EU490707</span><span class="mf">.1</span>
+</span></span><span class="line"><span class="cl"><span class="n">Name</span><span class="p">:</span> <span class="n">EU490707</span>
+</span></span><span class="line"><span class="cl"><span class="n">Description</span><span class="p">:</span> <span class="n">Selenipedium</span> <span class="n">aequinoctiale</span> <span class="n">maturase</span> <span class="n">K</span> <span class="p">(</span><span class="n">matK</span><span class="p">)</span> <span class="n">gene</span><span class="p">,</span> <span class="n">partial</span> <span class="n">cds</span><span class="p">;</span> <span class="n">chloroplast</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl"><span class="n">Number</span> <span class="n">of</span> <span class="n">features</span><span class="p">:</span> <span class="mi">3</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="n">Seq</span><span class="p">(</span><span class="s1">&#39;ATTTTTTACGAACCTGTGGAAATTTTTGGTTATGACAATAAATCTAGTTTAGTA...GAA&#39;</span><span class="p">,</span> <span class="n">IUPACAmbiguousDNA</span><span class="p">())</span>
+</span></span></code></pre></div><p>需要注意的是，一种更加典型的用法是先把序列数据保存到一个本地文件，<em>然后</em> 使用 Bio.SeqIO 来解析。这样就避免了 在运行脚本的时候需要重复的下载同样的文件，并减轻NCBI服务器的负载。例如：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">os</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">Bio</span> <span class="kn">import</span> <span class="n">SeqIO</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">Bio</span> <span class="kn">import</span> <span class="n">Entrez</span>
+</span></span><span class="line"><span class="cl"><span class="n">Entrez</span><span class="o">.</span><span class="n">email</span> <span class="o">=</span> <span class="s2">&#34;A.N.Other@example.com&#34;</span>     <span class="c1"># Always tell NCBI who you are</span>
+</span></span><span class="line"><span class="cl"><span class="n">filename</span> <span class="o">=</span> <span class="s2">&#34;gi_186972394.gbk&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># Downloading...</span>
+</span></span><span class="line"><span class="cl">    <span class="n">net_handle</span> <span class="o">=</span> <span class="n">Entrez</span><span class="o">.</span><span class="n">efetch</span><span class="p">(</span><span class="n">db</span><span class="o">=</span><span class="s2">&#34;nucleotide&#34;</span><span class="p">,</span><span class="nb">id</span><span class="o">=</span><span class="s2">&#34;186972394&#34;</span><span class="p">,</span><span class="n">rettype</span><span class="o">=</span><span class="s2">&#34;gb&#34;</span><span class="p">,</span> <span class="n">retmode</span><span class="o">=</span><span class="s2">&#34;text&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">out_handle</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&#34;w&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">out_handle</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">net_handle</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">    <span class="n">out_handle</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">net_handle</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span> <span class="s2">&#34;Saved&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span> <span class="s2">&#34;Parsing...&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">record</span> <span class="o">=</span> <span class="n">SeqIO</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&#34;genbank&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span> <span class="n">record</span>
+</span></span></code></pre></div><p>为了得到XML格式的输出，你可以使用 Bio.Entrez.read() 函数和参数 retmode=&ldquo;xml&rdquo; 进行解析，：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio</span> <span class="kn">import</span> <span class="n">Entrez</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">handle</span> <span class="o">=</span> <span class="n">Entrez</span><span class="o">.</span><span class="n">efetch</span><span class="p">(</span><span class="n">db</span><span class="o">=</span><span class="s2">&#34;nucleotide&#34;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&#34;186972394&#34;</span><span class="p">,</span> <span class="n">retmode</span><span class="o">=</span><span class="s2">&#34;xml&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">record</span> <span class="o">=</span> <span class="n">Entrez</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">handle</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">handle</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">record</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&#34;GBSeq_definition&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;Selenipedium aequinoctiale maturase K (matK) gene, partial cds; chloroplast&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">record</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&#34;GBSeq_source&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;chloroplast Selenipedium aequinoctiale&#39;</span>
+</span></span></code></pre></div><p>就像这样处理数据。例如解析其他数据库特异的文件格式（例如，PubMed中用到的 MEDLINE 格式）</p>
+<h2 id="使用elink在ncbi-entrez中搜索相关的条目">使用ELink在NCBI Entrez中搜索相关的条目</h2>
+<p>ELink，在Biopython中是 Bio.Entrez.elink() ，可以用来在NCBI Entrez数据库中寻找相关的条目。例如，你 可以使用它在gene数据库中寻找核苷酸条目，或者其他很酷的事情</p>
+<h3 id="简单的例子_bioinformatics_杂志中寻找与biopython应用相关的文章">简单的例子（ <em>Bioinformatics</em> 杂志中寻找与Biopython应用相关的文章）</h3>
+<p>让我们使用ELink来在2009年的 <em>Bioinformatics</em> 杂志中寻找与Biopython应用相关的文章。这篇文章的PubMed ID 是19304878：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio</span> <span class="kn">import</span> <span class="n">Entrez</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">Entrez</span><span class="o">.</span><span class="n">email</span> <span class="o">=</span> <span class="s2">&#34;A.N.Other@example.com&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">pmid</span> <span class="o">=</span> <span class="s2">&#34;19304878&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">record</span> <span class="o">=</span> <span class="n">Entrez</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">Entrez</span><span class="o">.</span><span class="n">elink</span><span class="p">(</span><span class="n">dbfrom</span><span class="o">=</span><span class="s2">&#34;pubmed&#34;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">pmid</span><span class="p">))</span>
+</span></span></code></pre></div><p>变量 record 包含了一个Python列表，列出了已经搜索过的数据库。因为我们特指了一个PubMed ID来搜索，所以 record 只包含了一个条目。这个条目是一个字典变量，包含了我们需要寻找的条目的信息，以及能搜索到的所有相关 的内容：</p>
+<h4 id="字典存储的结果">字典存储的结果</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">record</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&#34;DbFrom&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;pubmed&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">record</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&#34;IdList&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="s1">&#39;19304878&#39;</span><span class="p">]</span>
+</span></span></code></pre></div><h4 id="键值linksetdb">键值LinkSetDb</h4>
+<p>键 &ldquo;LinkSetDb&rdquo; 包含了搜索结果，将每个目标数据库保存为一个列表。在我们这个搜索中，我们只在PubMed数据库 中找到了结果（尽管已经被分到了不同的分类）：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">record</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&#34;LinkSetDb&#34;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="mi">5</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">linksetdb</span> <span class="ow">in</span> <span class="n">record</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&#34;LinkSetDb&#34;</span><span class="p">]:</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>     <span class="nb">print</span> <span class="n">linksetdb</span><span class="p">[</span><span class="s2">&#34;DbTo&#34;</span><span class="p">],</span> <span class="n">linksetdb</span><span class="p">[</span><span class="s2">&#34;LinkName&#34;</span><span class="p">],</span> <span class="nb">len</span><span class="p">(</span><span class="n">linksetdb</span><span class="p">[</span><span class="s2">&#34;Link&#34;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="n">pubmed</span> <span class="n">pubmed_pubmed</span> <span class="mi">110</span>
+</span></span><span class="line"><span class="cl"><span class="n">pubmed</span> <span class="n">pubmed_pubmed_combined</span> <span class="mi">6</span>
+</span></span><span class="line"><span class="cl"><span class="n">pubmed</span> <span class="n">pubmed_pubmed_five</span> <span class="mi">6</span>
+</span></span><span class="line"><span class="cl"><span class="n">pubmed</span> <span class="n">pubmed_pubmed_reviews</span> <span class="mi">5</span>
+</span></span><span class="line"><span class="cl"><span class="n">pubmed</span> <span class="n">pubmed_pubmed_reviews_five</span> <span class="mi">5</span>
+</span></span></code></pre></div><h4 id="实际的搜索结果被保存在键值为-link-的字典下">实际的搜索结果被保存在键值为 &ldquo;Link&rdquo; 的字典下</h4>
+<p>实际的搜索结果被保存在键值为 &ldquo;Link&rdquo; 的字典下。在标准搜索下，总共找到了110个条目。让我们现在看看我们第一个 搜索结果：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">record</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&#34;LinkSetDb&#34;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&#34;Link&#34;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span><span class="sa">u</span><span class="s1">&#39;Id&#39;</span><span class="p">:</span> <span class="s1">&#39;19304878&#39;</span><span class="p">}</span>
+</span></span></code></pre></div><p>这个就是我们搜索的文章，从中并不能看到更多的结果，所以让我们来看看我们的第二个搜索结果：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">record</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&#34;LinkSetDb&#34;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&#34;Link&#34;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span><span class="sa">u</span><span class="s1">&#39;Id&#39;</span><span class="p">:</span> <span class="s1">&#39;14630660&#39;</span><span class="p">}</span>
+</span></span></code></pre></div><p>这个PubMed ID为14530660的文章是关于Biopython PDB解析器的。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">link</span> <span class="ow">in</span> <span class="n">record</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&#34;LinkSetDb&#34;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&#34;Link&#34;</span><span class="p">]</span> <span class="p">:</span> <span class="nb">print</span> <span class="n">link</span><span class="p">[</span><span class="s2">&#34;Id&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="mi">19304878</span>
+</span></span><span class="line"><span class="cl"><span class="mi">14630660</span>
+</span></span><span class="line"><span class="cl"><span class="mi">18689808</span>
+</span></span><span class="line"><span class="cl"><span class="mi">17121776</span>
+</span></span><span class="line"><span class="cl"><span class="mi">16377612</span>
+</span></span><span class="line"><span class="cl"><span class="mi">12368254</span>
+</span></span><span class="line"><span class="cl"><span class="o">......</span>
+</span></span></code></pre></div><h2 id="egquery全局搜索-统计搜索的条目">EGQuery:全局搜索-统计搜索的条目</h2>
+<p>GQuery提供搜索字段在每个Entrez数据库中的数目。当我们只需要知道在每个数据库中能找到的条目的个数， 而不需要知道具体搜索结果的时候，这个非常的有用</p>
+<h3 id="bioentrzegquery获取跟biopython">Bio.Entrz.egquery()获取跟&quot;Biopython&quot;</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio</span> <span class="kn">import</span> <span class="n">Entrez</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">Entrez</span><span class="o">.</span><span class="n">email</span> <span class="o">=</span> <span class="s2">&#34;A.N.Other@example.com&#34;</span>     <span class="c1"># Always tell NCBI who you are</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">handle</span> <span class="o">=</span> <span class="n">Entrez</span><span class="o">.</span><span class="n">egquery</span><span class="p">(</span><span class="n">term</span><span class="o">=</span><span class="s2">&#34;biopython&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">record</span> <span class="o">=</span> <span class="n">Entrez</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">handle</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">record</span><span class="p">[</span><span class="s2">&#34;eGQueryResult&#34;</span><span class="p">]:</span> <span class="nb">print</span> <span class="n">row</span><span class="p">[</span><span class="s2">&#34;DbName&#34;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s2">&#34;Count&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="n">pubmed</span> <span class="mi">6</span>
+</span></span><span class="line"><span class="cl"><span class="n">pmc</span> <span class="mi">62</span>
+</span></span><span class="line"><span class="cl"><span class="n">journals</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span></code></pre></div><h2 id="espell获得拼写建议">ESpell获得拼写建议</h2>
+<h3 id="使用bioentrezespell获得biopython正确的拼写">使用Bio.Entrez.espell()获得Biopython正确的拼写</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio</span> <span class="kn">import</span> <span class="n">Entrez</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">Entrez</span><span class="o">.</span><span class="n">email</span> <span class="o">=</span> <span class="s2">&#34;A.N.Other@example.com&#34;</span>     <span class="c1"># Always tell NCBI who you are</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">handle</span> <span class="o">=</span> <span class="n">Entrez</span><span class="o">.</span><span class="n">espell</span><span class="p">(</span><span class="n">term</span><span class="o">=</span><span class="s2">&#34;biopythooon&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">record</span> <span class="o">=</span> <span class="n">Entrez</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">handle</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">record</span><span class="p">[</span><span class="s2">&#34;Query&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;biopythooon&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">record</span><span class="p">[</span><span class="s2">&#34;CorrectedQuery&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;biopython&#39;</span>
+</span></span></code></pre></div><h3 id="解析大的entrez-xml文件">解析大的Entrez XML文件</h3>
+<p>Entrez.read 函数将Entrez返回的结果读取到一个Python对象里面去，这个对象被保存在内存中。对于解析太大的 XML文件而内存不够时，可以使用 Entrez.parse 这个函数。这是一个生成器函数，它将一个一个的读取XML文件里面的内容。只有XML 文件是一个列表对象的时候，这个函数才有用（换句话说，如果在一个内存无限的计算机上 Entrez.read 将返回一个 Python列表）。<br>
+例如，你可以通过NCBI的FTP站点从Entrez Gene 数据库中下载某个物种全部的条目作为一个文件。这个文件可能很大。 作为一个例子，在2009年9月4日，文件 Homo_sapiens.ags.gz 包含了Entrez Gene数据库中人的序列，文件大小 有116576kB。这个文件是 ASN 格式，可以通过NCBI的 gene2xml 程序转成XML格式（请到NCBI的FTP站点获取 更多的信息）：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">gene2xml</span> <span class="o">-</span><span class="n">b</span> <span class="n">T</span> <span class="o">-</span><span class="n">i</span> <span class="n">Homo_sapiens</span><span class="o">.</span><span class="n">ags</span> <span class="o">-</span><span class="n">o</span> <span class="n">Homo_sapiens</span><span class="o">.</span><span class="n">xml</span>
+</span></span></code></pre></div><p>XML结果文件有6.1GB. 在大多数电脑上尝试 Entrez.read 都会导致 MemoryError 。<br>
+XML文件 Homo_sapiens.xml 包含了一个Entrez gene记录的列表，每个对应于人的一个Entrez基因信息。 Entrez.parse 将一个一个的读取这些记录。这样你可以通过遍历每个记录的方式打印或者存储每个记录相关的信息。例如，下面这个脚本 遍历了Entrez基因里面的记录，打印了每个基因的数目和名字：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio</span> <span class="kn">import</span> <span class="n">Entrez</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">handle</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&#34;Homo_sapiens.xml&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">records</span> <span class="o">=</span> <span class="n">Entrez</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">handle</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">record</span> <span class="ow">in</span> <span class="n">records</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>     <span class="n">status</span> <span class="o">=</span> <span class="n">record</span><span class="p">[</span><span class="s1">&#39;Entrezgene_track-info&#39;</span><span class="p">][</span><span class="s1">&#39;Gene-track&#39;</span><span class="p">][</span><span class="s1">&#39;Gene-track_status&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>     <span class="k">if</span> <span class="n">status</span><span class="o">.</span><span class="n">attributes</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;discontinued&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>         <span class="k">continue</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>     <span class="n">geneid</span> <span class="o">=</span> <span class="n">record</span><span class="p">[</span><span class="s1">&#39;Entrezgene_track-info&#39;</span><span class="p">][</span><span class="s1">&#39;Gene-track&#39;</span><span class="p">][</span><span class="s1">&#39;Gene-track_geneid&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>     <span class="n">genename</span> <span class="o">=</span> <span class="n">record</span><span class="p">[</span><span class="s1">&#39;Entrezgene_gene&#39;</span><span class="p">][</span><span class="s1">&#39;Gene-ref&#39;</span><span class="p">][</span><span class="s1">&#39;Gene-ref_locus&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>     <span class="nb">print</span> <span class="n">geneid</span><span class="p">,</span> <span class="n">genename</span>
+</span></span></code></pre></div><p>将会打印以下内容:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="mi">1</span> <span class="n">A1BG</span>
+</span></span><span class="line"><span class="cl"><span class="mi">2</span> <span class="n">A2M</span>
+</span></span><span class="line"><span class="cl"><span class="mi">3</span> <span class="n">A2MP</span>
+</span></span><span class="line"><span class="cl"><span class="mi">8</span> <span class="n">AA</span>
+</span></span><span class="line"><span class="cl"><span class="mi">9</span> <span class="n">NAT1</span>
+</span></span><span class="line"><span class="cl"><span class="mi">10</span> <span class="n">NAT2</span>
+</span></span><span class="line"><span class="cl"><span class="mi">11</span> <span class="n">AACP</span>
+</span></span><span class="line"><span class="cl"><span class="mi">12</span> <span class="n">SERPINA3</span>
+</span></span><span class="line"><span class="cl"><span class="mi">13</span> <span class="n">AADAC</span>
+</span></span><span class="line"><span class="cl"><span class="mi">14</span> <span class="n">AAMP</span>
+</span></span><span class="line"><span class="cl"><span class="mi">15</span> <span class="n">AANAT</span>
+</span></span><span class="line"><span class="cl"><span class="mi">16</span> <span class="n">AARS</span>
+</span></span><span class="line"><span class="cl"><span class="mi">17</span> <span class="n">AAVS1</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span></code></pre></div><h2 id="heading"></h2>
+<p>解析GEO记录
+GEO ( <a class="link" href="http://www.ncbi.nlm.nih.gov/geo/"  target="_blank" rel="noopener"
+    >Gene Expression Omnibus</a> ) 是高通量基因表达和杂交芯片 数据的数据库。 Bio.Geo 模块可以用来解析GEO格式的数据<br>
+下面的代码展示了怎样将一个名称为 GSE16.txt 的GEO文件存进一个记录，并打印该记录：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio</span> <span class="kn">import</span> <span class="n">Geo</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">handle</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&#34;GSE16.txt&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">records</span> <span class="o">=</span> <span class="n">Geo</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">handle</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">record</span> <span class="ow">in</span> <span class="n">records</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>     <span class="nb">print</span> <span class="n">record</span>
+</span></span></code></pre></div><p>你可以使用 ESearch 来搜索 “gds” 数据库 (GEO 数据集) :</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio</span> <span class="kn">import</span> <span class="n">Entrez</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">Entrez</span><span class="o">.</span><span class="n">email</span> <span class="o">=</span> <span class="s2">&#34;A.N.Other@example.com&#34;</span> <span class="c1"># Always tell NCBI who you are</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">handle</span> <span class="o">=</span> <span class="n">Entrez</span><span class="o">.</span><span class="n">esearch</span><span class="p">(</span><span class="n">db</span><span class="o">=</span><span class="s2">&#34;gds&#34;</span><span class="p">,</span><span class="n">term</span><span class="o">=</span><span class="s2">&#34;GSE16&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">record</span> <span class="o">=</span> <span class="n">Entrez</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">handle</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">record</span><span class="p">[</span><span class="s2">&#34;Count&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="mi">2</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">record</span><span class="p">[</span><span class="s2">&#34;IdList&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="s1">&#39;200000016&#39;</span><span class="p">,</span> <span class="s1">&#39;100000028&#39;</span><span class="p">]</span>
+</span></span></code></pre></div><h2 id="使用代理">使用代理</h2>
+<p>通常状况下，你不需要使用代理，但是如果你的网络有问题的时候，我们有以下应对方法。在内部， Bio.Entrez 使用 一个标准的 Python 库 urllib 来访问 NCBI的服务器。这个将检查叫做 http_proxy 的环境变量来自动配置简单 的代理服务。不幸的是，这个模块不支持需要认证的代理。<br>
+你可以选择设定环境变量 http_proxy 。同样，你可以在Python脚本开头的地方设置这个参数，例如：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">os</span>
+</span></span><span class="line"><span class="cl"><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&#34;http_proxy&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&#34;http://proxyhost.example.com:8080&#34;</span>
+</span></span></code></pre></div><h2 id="实例">实例</h2>
+<h3 id="pubmed和medline">PubMed和Medline</h3>
+<p>在这个例子当中，我们要查询PubMed当中所有跟Orchids相关的文章,我们首先看看有多少这样的文章：</p>
+<h4 id="先看下有多少这样的文章">先看下有多少这样的文章</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio</span> <span class="kn">import</span> <span class="n">Entrez</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">Entrez</span><span class="o">.</span><span class="n">email</span> <span class="o">=</span> <span class="s2">&#34;A.N.Other@example.com&#34;</span>     <span class="c1"># Always tell NCBI who you are</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">handle</span> <span class="o">=</span> <span class="n">Entrez</span><span class="o">.</span><span class="n">egquery</span><span class="p">(</span><span class="n">term</span><span class="o">=</span><span class="s2">&#34;orchid&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">record</span> <span class="o">=</span> <span class="n">Entrez</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">handle</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">record</span><span class="p">[</span><span class="s2">&#34;eGQueryResult&#34;</span><span class="p">]:</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>     <span class="k">if</span> <span class="n">row</span><span class="p">[</span><span class="s2">&#34;DbName&#34;</span><span class="p">]</span><span class="o">==</span><span class="s2">&#34;pubmed&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>         <span class="nb">print</span> <span class="n">row</span><span class="p">[</span><span class="s2">&#34;Count&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="mi">463</span>
+</span></span></code></pre></div><h4 id="使用bioentrezefetch下载上述pubmed-ids">使用Bio.Entrez.efetch（）下载上述PubMed IDs</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">handle</span> <span class="o">=</span> <span class="n">Entrez</span><span class="o">.</span><span class="n">esearch</span><span class="p">(</span><span class="n">db</span><span class="o">=</span><span class="s2">&#34;pubmed&#34;</span><span class="p">,</span> <span class="n">term</span><span class="o">=</span><span class="s2">&#34;orchid&#34;</span><span class="p">,</span> <span class="n">retmax</span><span class="o">=</span><span class="mi">463</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">record</span> <span class="o">=</span> <span class="n">Entrez</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">handle</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">idlist</span> <span class="o">=</span> <span class="n">record</span><span class="p">[</span><span class="s2">&#34;IdList&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="n">idlist</span>
+</span></span></code></pre></div><p>返回值是一个Python列表，包含了所有和orchids相关文章的PubMed IDs：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="p">[</span><span class="s1">&#39;18680603&#39;</span><span class="p">,</span> <span class="s1">&#39;18665331&#39;</span><span class="p">,</span> <span class="s1">&#39;18661158&#39;</span><span class="p">,</span> <span class="s1">&#39;18627489&#39;</span><span class="p">,</span> <span class="s1">&#39;18627452&#39;</span><span class="p">,</span> <span class="s1">&#39;18612381&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;18594007&#39;</span><span class="p">,</span> <span class="s1">&#39;18591784&#39;</span><span class="p">,</span> <span class="s1">&#39;18589523&#39;</span><span class="p">,</span> <span class="s1">&#39;18579475&#39;</span><span class="p">,</span> <span class="s1">&#39;18575811&#39;</span><span class="p">,</span> <span class="s1">&#39;18575690&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span></code></pre></div><p>这样我们就得到了这些信息，显然我们想要得到对应的Medline records和更多额外的信息。这里，我们将以纯文本的 形式下载和Medline records相关的信息，然后使用 Bio.Medline 模块来解析他们：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio</span> <span class="kn">import</span> <span class="n">Medline</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">handle</span> <span class="o">=</span> <span class="n">Entrez</span><span class="o">.</span><span class="n">efetch</span><span class="p">(</span><span class="n">db</span><span class="o">=</span><span class="s2">&#34;pubmed&#34;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">idlist</span><span class="p">,</span> <span class="n">rettype</span><span class="o">=</span><span class="s2">&#34;medline&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                           <span class="n">retmode</span><span class="o">=</span><span class="s2">&#34;text&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">records</span> <span class="o">=</span> <span class="n">Medline</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">handle</span><span class="p">)</span>
+</span></span></code></pre></div><p>请记住 records 是一个迭代器，所以你只能访问这些records一次。如果你想保存这些records，你需要把他们转成列表：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">records</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">records</span><span class="p">)</span>
+</span></span></code></pre></div><p>现在让我们迭代这些records，然后分别打印每一个record的信息：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">record</span> <span class="ow">in</span> <span class="n">records</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>     <span class="nb">print</span> <span class="s2">&#34;title:&#34;</span><span class="p">,</span> <span class="n">record</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;TI&#34;</span><span class="p">,</span> <span class="s2">&#34;?&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>     <span class="nb">print</span> <span class="s2">&#34;authors:&#34;</span><span class="p">,</span> <span class="n">record</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;AU&#34;</span><span class="p">,</span> <span class="s2">&#34;?&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>     <span class="nb">print</span> <span class="s2">&#34;source:&#34;</span><span class="p">,</span> <span class="n">record</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;SO&#34;</span><span class="p">,</span> <span class="s2">&#34;?&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>     <span class="nb">print</span>
+</span></span></code></pre></div><p>这个的输出结果是这样的:<br>
+特别有意思的是作者的列表，作者的列表会作为一个标准的Python列表返回。这使得用标准的Python工具操作和搜索 变得简单。例如，我们可以像下面的代码这样循环读取所有条目来查找某个特定的作者：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">search_author</span> <span class="o">=</span> <span class="s2">&#34;Waits T&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">record</span> <span class="ow">in</span> <span class="n">records</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>     <span class="k">if</span> <span class="ow">not</span> <span class="s2">&#34;AU&#34;</span> <span class="ow">in</span> <span class="n">record</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>         <span class="k">continue</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>     <span class="k">if</span> <span class="n">search_author</span> <span class="ow">in</span> <span class="n">record</span><span class="p">[</span><span class="s2">&#34;AU&#34;</span><span class="p">]:</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>         <span class="nb">print</span> <span class="s2">&#34;Author </span><span class="si">%s</span><span class="s2"> found: </span><span class="si">%s</span><span class="s2">&#34;</span> <span class="o">%</span> <span class="p">(</span><span class="n">search_author</span><span class="p">,</span> <span class="n">record</span><span class="p">[</span><span class="s2">&#34;SO&#34;</span><span class="p">])</span>
+</span></span></code></pre></div><h2 id="搜索下载和解析entrez核酸记录">搜索、下载、和解析Entrez核酸记录</h2>
+<p>这里我们将展示一个关于远程Entrez查询的简单例子。我们讲到了使用NCBI 的Entrez网站来搜索 NCBI 的核酸数据库来获得关于Cypripedioideae的信息。现在我们看看如何使用Python脚本 自动的处理。在这个例子当中，我们仅仅展示如何使用Entrez模块来连接，获取结果，解析他们。</p>
+<h3 id="在下载这些结果之前使用egquery来计算结果的数目">在下载这些结果之前，使用EGQuery来计算结果的数目</h3>
+<p>首先，我们在下载这些结果之前，使用EGQuery来计算结果的数目。EGQuery 将会告诉我们在每个数据库中分别有多少 搜索结果，但在我们这个例子当中，我们只对核苷酸感兴趣：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio</span> <span class="kn">import</span> <span class="n">Entrez</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">Entrez</span><span class="o">.</span><span class="n">email</span> <span class="o">=</span> <span class="s2">&#34;A.N.Other@example.com&#34;</span>     <span class="c1"># Always tell NCBI who you are</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">handle</span> <span class="o">=</span> <span class="n">Entrez</span><span class="o">.</span><span class="n">egquery</span><span class="p">(</span><span class="n">term</span><span class="o">=</span><span class="s2">&#34;Cypripedioideae&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">record</span> <span class="o">=</span> <span class="n">Entrez</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">handle</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">record</span><span class="p">[</span><span class="s2">&#34;eGQueryResult&#34;</span><span class="p">]:</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>     <span class="k">if</span> <span class="n">row</span><span class="p">[</span><span class="s2">&#34;DbName&#34;</span><span class="p">]</span><span class="o">==</span><span class="s2">&#34;nuccore&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>         <span class="nb">print</span> <span class="n">row</span><span class="p">[</span><span class="s2">&#34;Count&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="mi">814</span>
+</span></span></code></pre></div><p>所以，我们预期能找到814个 Entrez 核酸记录（这是我在2008年得到的结果；在未来这个结果应该会增加）。如果你得 到了高的不可思议的结果数目时，你可能得重新考虑是否需要下载所有的这些结果，下载是我们的下一步</p>
+<h3 id="下载数据">下载数据</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio</span> <span class="kn">import</span> <span class="n">Entrez</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">handle</span> <span class="o">=</span> <span class="n">Entrez</span><span class="o">.</span><span class="n">esearch</span><span class="p">(</span><span class="n">db</span><span class="o">=</span><span class="s2">&#34;nucleotide&#34;</span><span class="p">,</span> <span class="n">term</span><span class="o">=</span><span class="s2">&#34;Cypripedioideae&#34;</span><span class="p">,</span> <span class="n">retmax</span><span class="o">=</span><span class="mi">814</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">record</span> <span class="o">=</span> <span class="n">Entrez</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">handle</span><span class="p">)</span>
+</span></span></code></pre></div><p>在这里, record 是一个包含了搜索结果和一些辅助信息的Python字典。仅仅作为参考信息，让我们看看在这些字典当中 究竟存储了些什么内容：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio</span> <span class="kn">import</span> <span class="n">Entrez</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">handle</span> <span class="o">=</span> <span class="n">Entrez</span><span class="o">.</span><span class="n">esearch</span><span class="p">(</span><span class="n">db</span><span class="o">=</span><span class="s2">&#34;nucleotide&#34;</span><span class="p">,</span> <span class="n">term</span><span class="o">=</span><span class="s2">&#34;Cypripedioideae&#34;</span><span class="p">,</span> <span class="n">retmax</span><span class="o">=</span><span class="mi">814</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">record</span> <span class="o">=</span> <span class="n">Entrez</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">handle</span><span class="p">)</span>
+</span></span></code></pre></div><p>在这里, record 是一个包含了搜索结果和一些辅助信息的Python字典。仅仅作为参考信息，让我们看看在这些字典当中 究竟存储了些什么内容：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="n">record</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="sa">u</span><span class="s1">&#39;Count&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;RetMax&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;IdList&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;TranslationSet&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;RetStart&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;QueryTranslation&#39;</span><span class="p">]</span>
+</span></span></code></pre></div><p>首先, 让我们检查看看我们得到了多少个结果:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="n">record</span><span class="p">[</span><span class="s2">&#34;Count&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;814&#39;</span>
+</span></span></code></pre></div><p>这个结果是我们所期望的。这814个结果被存在了 record[&lsquo;IdList&rsquo;] 中:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="nb">len</span><span class="p">(</span><span class="n">record</span><span class="p">[</span><span class="s2">&#34;IdList&#34;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="mi">814</span>
+</span></span></code></pre></div><p>让我们看看前五个结果:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="n">record</span><span class="p">[</span><span class="s2">&#34;IdList&#34;</span><span class="p">][:</span><span class="mi">5</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="s1">&#39;187237168&#39;</span><span class="p">,</span> <span class="s1">&#39;187372713&#39;</span><span class="p">,</span> <span class="s1">&#39;187372690&#39;</span><span class="p">,</span> <span class="s1">&#39;187372688&#39;</span><span class="p">,</span> <span class="s1">&#39;187372686&#39;</span><span class="p">]</span>
+</span></span></code></pre></div><p>我们可以使用 efetch 来下载这些结果. 尽管你可以一个一个的下载这些记录，但为了减少 NCBI 服务器的负载，最好呢还是 一次性的下载所有的结果。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">idlist</span> <span class="o">=</span> <span class="s2">&#34;,&#34;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">record</span><span class="p">[</span><span class="s2">&#34;IdList&#34;</span><span class="p">][:</span><span class="mi">5</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="n">idlist</span>
+</span></span><span class="line"><span class="cl"><span class="mi">187237168</span><span class="p">,</span><span class="mi">187372713</span><span class="p">,</span><span class="mi">187372690</span><span class="p">,</span><span class="mi">187372688</span><span class="p">,</span><span class="mi">187372686</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">handle</span> <span class="o">=</span> <span class="n">Entrez</span><span class="o">.</span><span class="n">efetch</span><span class="p">(</span><span class="n">db</span><span class="o">=</span><span class="s2">&#34;nucleotide&#34;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">idlist</span><span class="p">,</span> <span class="n">retmode</span><span class="o">=</span><span class="s2">&#34;xml&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">records</span> <span class="o">=</span> <span class="n">Entrez</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">handle</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="nb">len</span><span class="p">(</span><span class="n">records</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="mi">5</span>
+</span></span></code></pre></div><p>每个这样的records对应一个GenBank record.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="n">records</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="sa">u</span><span class="s1">&#39;GBSeq_moltype&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;GBSeq_source&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;GBSeq_sequence&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="sa">u</span><span class="s1">&#39;GBSeq_primary-accession&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;GBSeq_definition&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;GBSeq_accession-version&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="sa">u</span><span class="s1">&#39;GBSeq_topology&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;GBSeq_length&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;GBSeq_feature-table&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="sa">u</span><span class="s1">&#39;GBSeq_create-date&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;GBSeq_other-seqids&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;GBSeq_division&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="sa">u</span><span class="s1">&#39;GBSeq_taxonomy&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;GBSeq_references&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;GBSeq_update-date&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="sa">u</span><span class="s1">&#39;GBSeq_organism&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;GBSeq_locus&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;GBSeq_strandedness&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="n">records</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&#34;GBSeq_primary-accession&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">DQ110336</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="n">records</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&#34;GBSeq_other-seqids&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="s1">&#39;gb|DQ110336.1|&#39;</span><span class="p">,</span> <span class="s1">&#39;gi|187237168&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="n">records</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&#34;GBSeq_definition&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">Cypripedium</span> <span class="n">calceolus</span> <span class="n">voucher</span> <span class="n">Davis</span> <span class="mi">03</span><span class="o">-</span><span class="mi">03</span> <span class="n">A</span> <span class="n">maturase</span> <span class="p">(</span><span class="n">matR</span><span class="p">)</span> <span class="n">gene</span><span class="p">,</span> <span class="n">partial</span> <span class="n">cds</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">mitochondrial</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="n">records</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&#34;GBSeq_organism&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">Cypripedium</span> <span class="n">calceolus</span>
+</span></span></code></pre></div><h2 id="搜索下载和解析genbank-record">搜索、下载和解析GenBank record</h2>
+<p>GenBank record 格式是保存序列信息、序列特征和其他相关信息非常普遍的一种方法。这种格式是从 NCBI 数据库 <a class="link" href="http://www.ncbi.nlm.nih.gov/"  target="_blank" rel="noopener"
+    >http://www.ncbi.nlm.nih.gov/</a> 获取信息非常好的一种方式 .<br>
+在这个例子当中，我们将展示怎样去查询 NCBI 数据库，根据query提取记录，然后使用 Bio.SeqIO 解析他们 —— 在中提到过这些。简单起见，<br>
+首先，我们想要查询找出要获取的记录的ID。这里我们快速的检索我们最喜欢的一个物种 <em>Opuntia</em> (多刺的梨型仙人掌)。我们 可以做一个快速的检索来获得所有满足要求的GIs（GenBank标志符）。首先我们看看有多少个记录：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio</span> <span class="kn">import</span> <span class="n">Entrez</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">Entrez</span><span class="o">.</span><span class="n">email</span> <span class="o">=</span> <span class="s2">&#34;A.N.Other@example.com&#34;</span>     <span class="c1"># Always tell NCBI who you are</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">handle</span> <span class="o">=</span> <span class="n">Entrez</span><span class="o">.</span><span class="n">egquery</span><span class="p">(</span><span class="n">term</span><span class="o">=</span><span class="s2">&#34;Opuntia AND rpl16&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">record</span> <span class="o">=</span> <span class="n">Entrez</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">handle</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">record</span><span class="p">[</span><span class="s2">&#34;eGQueryResult&#34;</span><span class="p">]:</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>     <span class="k">if</span> <span class="n">row</span><span class="p">[</span><span class="s2">&#34;DbName&#34;</span><span class="p">]</span><span class="o">==</span><span class="s2">&#34;nuccore&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>         <span class="nb">print</span> <span class="n">row</span><span class="p">[</span><span class="s2">&#34;Count&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="mi">9</span>
+</span></span></code></pre></div><p>现在我们下载GenBank identifiers的列表：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">handle</span> <span class="o">=</span> <span class="n">Entrez</span><span class="o">.</span><span class="n">esearch</span><span class="p">(</span><span class="n">db</span><span class="o">=</span><span class="s2">&#34;nuccore&#34;</span><span class="p">,</span> <span class="n">term</span><span class="o">=</span><span class="s2">&#34;Opuntia AND rpl16&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">record</span> <span class="o">=</span> <span class="n">Entrez</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">handle</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">gi_list</span> <span class="o">=</span> <span class="n">record</span><span class="p">[</span><span class="s2">&#34;IdList&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">gi_list</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="s1">&#39;57240072&#39;</span><span class="p">,</span> <span class="s1">&#39;57240071&#39;</span><span class="p">,</span> <span class="s1">&#39;6273287&#39;</span><span class="p">,</span> <span class="s1">&#39;6273291&#39;</span><span class="p">,</span> <span class="s1">&#39;6273290&#39;</span><span class="p">,</span> <span class="s1">&#39;6273289&#39;</span><span class="p">,</span> <span class="s1">&#39;6273286&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;6273285&#39;</span><span class="p">,</span> <span class="s1">&#39;6273284&#39;</span><span class="p">]</span>
+</span></span></code></pre></div><p>现在我们使用这些GIs来下载GenBank records —— 注意在老的Biopython版本中，你必须将GI号用逗号隔开传递给Entrez，例如 在 Biopython 1.59中，你可以传递一个列表，下面的内容会为你做转换：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">gi_str</span> <span class="o">=</span> <span class="s2">&#34;,&#34;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">gi_list</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">handle</span> <span class="o">=</span> <span class="n">Entrez</span><span class="o">.</span><span class="n">efetch</span><span class="p">(</span><span class="n">db</span><span class="o">=</span><span class="s2">&#34;nuccore&#34;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">gi_str</span><span class="p">,</span> <span class="n">rettype</span><span class="o">=</span><span class="s2">&#34;gb&#34;</span><span class="p">,</span> <span class="n">retmode</span><span class="o">=</span><span class="s2">&#34;text&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><p>如果你想看原始的 GenBank 文件，你可以从这个句柄中读取并打印结果：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">text</span> <span class="o">=</span> <span class="n">handle</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="n">text</span>
+</span></span><span class="line"><span class="cl"><span class="n">LOCUS</span>       <span class="n">AY851612</span>                 <span class="mi">892</span> <span class="n">bp</span>    <span class="n">DNA</span>     <span class="n">linear</span>   <span class="n">PLN</span> <span class="mi">10</span><span class="o">-</span><span class="n">APR</span><span class="o">-</span><span class="mi">2007</span>
+</span></span><span class="line"><span class="cl"><span class="n">DEFINITION</span>  <span class="n">Opuntia</span> <span class="n">subulata</span> <span class="n">rpl16</span> <span class="n">gene</span><span class="p">,</span> <span class="n">intron</span><span class="p">;</span> <span class="n">chloroplast</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl"><span class="n">ACCESSION</span>   <span class="n">AY851612</span>
+</span></span><span class="line"><span class="cl"><span class="n">VERSION</span>     <span class="n">AY851612</span><span class="mf">.1</span>  <span class="n">GI</span><span class="p">:</span><span class="mi">57240072</span>
+</span></span><span class="line"><span class="cl"><span class="n">KEYWORDS</span>    <span class="o">.</span>
+</span></span><span class="line"><span class="cl"><span class="n">SOURCE</span>      <span class="n">chloroplast</span> <span class="n">Austrocylindropuntia</span> <span class="n">subulata</span>
+</span></span><span class="line"><span class="cl">  <span class="n">ORGANISM</span>  <span class="n">Austrocylindropuntia</span> <span class="n">subulata</span>
+</span></span><span class="line"><span class="cl">            <span class="n">Eukaryota</span><span class="p">;</span> <span class="n">Viridiplantae</span><span class="p">;</span> <span class="n">Streptophyta</span><span class="p">;</span> <span class="n">Embryophyta</span><span class="p">;</span> <span class="n">Tracheophyta</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">Spermatophyta</span><span class="p">;</span> <span class="n">Magnoliophyta</span><span class="p">;</span> <span class="n">eudicotyledons</span><span class="p">;</span> <span class="n">core</span> <span class="n">eudicotyledons</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">Caryophyllales</span><span class="p">;</span> <span class="n">Cactaceae</span><span class="p">;</span> <span class="n">Opuntioideae</span><span class="p">;</span> <span class="n">Austrocylindropuntia</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl"><span class="n">REFERENCE</span>   <span class="mi">1</span>  <span class="p">(</span><span class="n">bases</span> <span class="mi">1</span> <span class="n">to</span> <span class="mi">892</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">AUTHORS</span>   <span class="n">Butterworth</span><span class="p">,</span><span class="n">C</span><span class="o">.</span><span class="n">A</span><span class="o">.</span> <span class="ow">and</span> <span class="n">Wallace</span><span class="p">,</span><span class="n">R</span><span class="o">.</span><span class="n">S</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span></code></pre></div><p>在这个例子当中，我们只是得到了原始的记录。为了得到对Python友好的格式，我们可以使用 Bio.SeqIO 将GenBank 数据转化成 SeqRecord 对象，包括 SeqFeature 对象</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio</span> <span class="kn">import</span> <span class="n">SeqIO</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">handle</span> <span class="o">=</span> <span class="n">Entrez</span><span class="o">.</span><span class="n">efetch</span><span class="p">(</span><span class="n">db</span><span class="o">=</span><span class="s2">&#34;nuccore&#34;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">gi_str</span><span class="p">,</span> <span class="n">rettype</span><span class="o">=</span><span class="s2">&#34;gb&#34;</span><span class="p">,</span> <span class="n">retmode</span><span class="o">=</span><span class="s2">&#34;text&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">records</span> <span class="o">=</span> <span class="n">SeqIO</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="s2">&#34;gb&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><p>我们现在可以逐个查看这些record来寻找我们感兴趣的信息：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">record</span> <span class="ow">in</span> <span class="n">records</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="o">...</span>    <span class="nb">print</span> <span class="s2">&#34;</span><span class="si">%s</span><span class="s2">, length </span><span class="si">%i</span><span class="s2">, with </span><span class="si">%i</span><span class="s2"> features&#34;</span> \
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="o">...</span>           <span class="o">%</span> <span class="p">(</span><span class="n">record</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">record</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">record</span><span class="o">.</span><span class="n">features</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">AY851612</span><span class="p">,</span> <span class="n">length</span> <span class="mi">892</span><span class="p">,</span> <span class="k">with</span> <span class="mi">3</span> <span class="n">features</span>
+</span></span><span class="line"><span class="cl"><span class="n">AY851611</span><span class="p">,</span> <span class="n">length</span> <span class="mi">881</span><span class="p">,</span> <span class="k">with</span> <span class="mi">3</span> <span class="n">features</span>
+</span></span><span class="line"><span class="cl"><span class="n">AF191661</span><span class="p">,</span> <span class="n">length</span> <span class="mi">895</span><span class="p">,</span> <span class="k">with</span> <span class="mi">3</span> <span class="n">features</span>
+</span></span><span class="line"><span class="cl"><span class="n">AF191665</span><span class="p">,</span> <span class="n">length</span> <span class="mi">902</span><span class="p">,</span> <span class="k">with</span> <span class="mi">3</span> <span class="n">features</span>
+</span></span><span class="line"><span class="cl"><span class="n">AF191664</span><span class="p">,</span> <span class="n">length</span> <span class="mi">899</span><span class="p">,</span> <span class="k">with</span> <span class="mi">3</span> <span class="n">features</span>
+</span></span><span class="line"><span class="cl"><span class="n">AF191663</span><span class="p">,</span> <span class="n">length</span> <span class="mi">899</span><span class="p">,</span> <span class="k">with</span> <span class="mi">3</span> <span class="n">features</span>
+</span></span><span class="line"><span class="cl"><span class="n">AF191660</span><span class="p">,</span> <span class="n">length</span> <span class="mi">893</span><span class="p">,</span> <span class="k">with</span> <span class="mi">3</span> <span class="n">features</span>
+</span></span><span class="line"><span class="cl"><span class="n">AF191659</span><span class="p">,</span> <span class="n">length</span> <span class="mi">894</span><span class="p">,</span> <span class="k">with</span> <span class="mi">3</span> <span class="n">features</span>
+</span></span><span class="line"><span class="cl"><span class="n">AF191658</span><span class="p">,</span> <span class="n">length</span> <span class="mi">896</span><span class="p">,</span> <span class="k">with</span> <span class="mi">3</span> <span class="n">features</span>
+</span></span></code></pre></div><p>最后，如果你计划重复你的分析，你应该下载这些record <em>一次</em> ，然后将他们保存在你的硬盘里，在本地进行分析；而不是 从 NCBI 下载之后就马上进行分析（像这个例子一样）</p>
+<h2 id="查看物种的谱系关系">查看物种的谱系关系</h2>
+<p>仍然以植物为例子，让我们找出Cyripedioideae兰花家族的谱系。首先让我们在Taxonomy数据库中查找跟Cypripedioideae 相关的记录，确实找到了一个确切的 NCBI taxonomy 标识号：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio</span> <span class="kn">import</span> <span class="n">Entrez</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">Entrez</span><span class="o">.</span><span class="n">email</span> <span class="o">=</span> <span class="s2">&#34;A.N.Other@example.com&#34;</span>     <span class="c1"># Always tell NCBI who you are</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">handle</span> <span class="o">=</span> <span class="n">Entrez</span><span class="o">.</span><span class="n">esearch</span><span class="p">(</span><span class="n">db</span><span class="o">=</span><span class="s2">&#34;Taxonomy&#34;</span><span class="p">,</span> <span class="n">term</span><span class="o">=</span><span class="s2">&#34;Cypripedioideae&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">record</span> <span class="o">=</span> <span class="n">Entrez</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">handle</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">record</span><span class="p">[</span><span class="s2">&#34;IdList&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="s1">&#39;158330&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">record</span><span class="p">[</span><span class="s2">&#34;IdList&#34;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;158330&#39;</span>
+</span></span></code></pre></div><p>现在，我们使用 efetch 从 Taxonomy 数据库中下载这些条目，然后解析它：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">handle</span> <span class="o">=</span> <span class="n">Entrez</span><span class="o">.</span><span class="n">efetch</span><span class="p">(</span><span class="n">db</span><span class="o">=</span><span class="s2">&#34;Taxonomy&#34;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&#34;158330&#34;</span><span class="p">,</span> <span class="n">retmode</span><span class="o">=</span><span class="s2">&#34;xml&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">records</span> <span class="o">=</span> <span class="n">Entrez</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">handle</span><span class="p">)</span>
+</span></span></code></pre></div><p>再次，这个record保存了许多的信息：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">records</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="sa">u</span><span class="s1">&#39;Lineage&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;Division&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;ParentTaxId&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;PubDate&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;LineageEx&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="sa">u</span><span class="s1">&#39;CreateDate&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;TaxId&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;Rank&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;GeneticCode&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;ScientificName&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="sa">u</span><span class="s1">&#39;MitoGeneticCode&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;UpdateDate&#39;</span><span class="p">]</span>
+</span></span></code></pre></div><p>我们可以直接从这个record获得谱系信息：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">records</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&#34;Lineage&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;cellular organisms; Eukaryota; Viridiplantae; Streptophyta; Streptophytina;</span>
+</span></span><span class="line"><span class="cl"> <span class="n">Embryophyta</span><span class="p">;</span> <span class="n">Tracheophyta</span><span class="p">;</span> <span class="n">Euphyllophyta</span><span class="p">;</span> <span class="n">Spermatophyta</span><span class="p">;</span> <span class="n">Magnoliophyta</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"> <span class="n">Liliopsida</span><span class="p">;</span> <span class="n">Asparagales</span><span class="p">;</span> <span class="n">Orchidaceae</span><span class="s1">&#39;</span>
+</span></span></code></pre></div>
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/tutorials/">tutorials</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2022 - 
+        
+        2023 叶宇浩随记博客
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.5.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">Table of contents</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#简介">简介</a></li>
+    <li><a href="#详细的访问规范">详细的访问规范</a></li>
+    <li><a href="#einfo-获取entrez数据库的信息">EInfo 获取Entrez数据库的信息</a></li>
+    <li><a href="#变量result为xml格式的数据库列表">变量result为XML格式的数据库列表</a>
+      <ol>
+        <li><a href="#使用bioentrez-将xml文件读入到python中">使用Bio.Entrez 将XML文件读入到python中</a></li>
+        <li><a href="#使用einfo获得更多信息">使用EInfo获得更多信息</a></li>
+      </ol>
+    </li>
+    <li><a href="#esearch搜素entrez数据库">ESearch:搜素Entrez数据库</a>
+      <ol>
+        <li><a href="#使用bioentrezesearch来搜素任意数据库">使用Bio.Entrez,esearch()来搜素任意数据库</a>
+          <ol>
+            <li><a href="#在pubmed中搜索跟biopython相关的文献">在PubMed中搜索跟Biopython相关的文献</a></li>
+          </ol>
+        </li>
+        <li><a href="#通过esearch来搜索genbank">通过ESearch来搜索GenBank</a>
+          <ol>
+            <li><a href="#获取一个computational-journal名字的列表">获取一个computational journal名字的列表</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#efetch从entrez下载更多的记录">EFetch:从Entrez下载更多的记录</a>
+      <ol>
+        <li><a href="#通过-bioentrezefetch-从genbank下载记录186972394">通过 Bio.Entrez.efetch 从GenBank下载记录186972394</a></li>
+      </ol>
+    </li>
+    <li><a href="#使用elink在ncbi-entrez中搜索相关的条目">使用ELink在NCBI Entrez中搜索相关的条目</a>
+      <ol>
+        <li><a href="#简单的例子_bioinformatics_杂志中寻找与biopython应用相关的文章">简单的例子（ <em>Bioinformatics</em> 杂志中寻找与Biopython应用相关的文章）</a>
+          <ol>
+            <li><a href="#字典存储的结果">字典存储的结果</a></li>
+            <li><a href="#键值linksetdb">键值LinkSetDb</a></li>
+            <li><a href="#实际的搜索结果被保存在键值为-link-的字典下">实际的搜索结果被保存在键值为 &ldquo;Link&rdquo; 的字典下</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#egquery全局搜索-统计搜索的条目">EGQuery:全局搜索-统计搜索的条目</a>
+      <ol>
+        <li><a href="#bioentrzegquery获取跟biopython">Bio.Entrz.egquery()获取跟&quot;Biopython&quot;</a></li>
+      </ol>
+    </li>
+    <li><a href="#espell获得拼写建议">ESpell获得拼写建议</a>
+      <ol>
+        <li><a href="#使用bioentrezespell获得biopython正确的拼写">使用Bio.Entrez.espell()获得Biopython正确的拼写</a></li>
+        <li><a href="#解析大的entrez-xml文件">解析大的Entrez XML文件</a></li>
+      </ol>
+    </li>
+    <li><a href="#heading"></a></li>
+    <li><a href="#使用代理">使用代理</a></li>
+    <li><a href="#实例">实例</a>
+      <ol>
+        <li><a href="#pubmed和medline">PubMed和Medline</a>
+          <ol>
+            <li><a href="#先看下有多少这样的文章">先看下有多少这样的文章</a></li>
+            <li><a href="#使用bioentrezefetch下载上述pubmed-ids">使用Bio.Entrez.efetch（）下载上述PubMed IDs</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#搜索下载和解析entrez核酸记录">搜索、下载、和解析Entrez核酸记录</a>
+      <ol>
+        <li><a href="#在下载这些结果之前使用egquery来计算结果的数目">在下载这些结果之前，使用EGQuery来计算结果的数目</a></li>
+        <li><a href="#下载数据">下载数据</a></li>
+      </ol>
+    </li>
+    <li><a href="#搜索下载和解析genbank-record">搜索、下载和解析GenBank record</a></li>
+    <li><a href="#查看物种的谱系关系">查看物种的谱系关系</a></li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

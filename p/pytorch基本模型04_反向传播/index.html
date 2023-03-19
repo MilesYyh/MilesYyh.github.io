@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='跟学的刘二老师pytorch'><title>pytorch基本模型04_反向传播</title>
+
+<link rel='canonical' href='https://example.com/p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B04_%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='pytorch基本模型04_反向传播'>
+<meta property='og:description' content='跟学的刘二老师pytorch'>
+<meta property='og:url' content='https://example.com/p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B04_%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/'>
+<meta property='og:site_name' content='叶宇浩随记博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='tutorials' /><meta property='article:tag' content='pytorch' /><meta property='article:published_time' content='2022-02-15T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2022-02-15T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="pytorch基本模型04_反向传播">
+<meta name="twitter:description" content="跟学的刘二老师pytorch">
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>Back</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/deeplearning/" style="background-color: #0f1503; color: #fff;">
+                深度学习
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B04_%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/">pytorch基本模型04_反向传播</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        跟学的刘二老师pytorch
+    </h3>
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Feb 15, 2022</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    8 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <blockquote>
+<p>这是学习pytorch基本使用的记录（我记得看的是B站刘二老师的视频）</p>
+</blockquote>
+<h2 id="tensor对象包含了data和grad">Tensor对象包含了data和grad</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">torch</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">x_data</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">y_data</span> <span class="o">=</span> <span class="p">[</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#记得用[]装起来</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">w</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">([</span><span class="mf">1.0</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="n">w</span><span class="o">.</span><span class="n">requires_grad</span> <span class="o">=</span> <span class="kc">True</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#参数requires_grad = True/False 是用来设置是否计算梯度（求导）,默认是True</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#定义一个线性的计算单元</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">x</span><span class="o">*</span><span class="n">w</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#定义损失函数</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">loss</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">forward</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">(</span><span class="n">y_pred</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#forward(4).item 注意这里是将w（tensor）中的值取出，由于它是tensor对象，所以用item获取</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;predict (before training)&#34;</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="n">forward</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x_data</span><span class="p">,</span><span class="n">y_data</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">#这里的loss就会自动构建一个计算图(正向)了</span>
+</span></span><span class="line"><span class="cl">        <span class="n">l</span> <span class="o">=</span> <span class="n">loss</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">#用tenor本身有的backward</span>
+</span></span><span class="line"><span class="cl">        <span class="n">l</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">#要这样取出w.grad.item()权重导数的值</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;</span><span class="se">\t</span><span class="s2">grad:&#34;</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">w</span><span class="o">.</span><span class="n">grad</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">#SGB</span>
+</span></span><span class="line"><span class="cl">        <span class="n">w</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">w</span><span class="o">.</span><span class="n">data</span> <span class="o">-</span><span class="mf">0.01</span><span class="o">*</span><span class="n">w</span><span class="o">.</span><span class="n">grad</span><span class="o">.</span><span class="n">data</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="c1">#记得每次循环将此轮反向传播的梯度清零  要不然会累加</span>
+</span></span><span class="line"><span class="cl">        <span class="n">w</span><span class="o">.</span><span class="n">grad</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">zero_</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     l.item()取出这次epoch的损失值</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;progress:&#34;</span><span class="p">,</span><span class="n">epoch</span><span class="p">,</span><span class="n">l</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;predict (after training)&#34;</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="n">forward</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">predict</span> <span class="p">(</span><span class="n">before</span> <span class="n">training</span><span class="p">)</span> <span class="mi">4</span> <span class="o">&lt;</span><span class="n">built</span><span class="o">-</span><span class="ow">in</span> <span class="n">method</span> <span class="n">item</span> <span class="n">of</span> <span class="n">Tensor</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x00000253A7978400</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">2.0</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">7.840000152587891</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">16.228801727294922</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">0</span> <span class="mf">7.315943717956543</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">1.478623867034912</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">5.796205520629883</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">11.998146057128906</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">1</span> <span class="mf">3.9987640380859375</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">1.0931644439697266</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">4.285204887390137</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">8.870372772216797</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">2</span> <span class="mf">2.1856532096862793</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">0.8081896305084229</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">3.1681032180786133</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">6.557973861694336</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">3</span> <span class="mf">1.1946394443511963</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">0.5975041389465332</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">2.3422164916992188</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">4.848389625549316</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">4</span> <span class="mf">0.6529689431190491</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">0.4417421817779541</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">1.7316293716430664</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">3.58447265625</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">5</span> <span class="mf">0.35690122842788696</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">0.3265852928161621</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">1.2802143096923828</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">2.650045394897461</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">6</span> <span class="mf">0.195076122879982</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">0.24144840240478516</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">0.9464778900146484</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">1.9592113494873047</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">7</span> <span class="mf">0.10662525147199631</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">0.17850565910339355</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">0.699742317199707</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">1.4484672546386719</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">8</span> <span class="mf">0.0582793727517128</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">0.1319713592529297</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">0.5173273086547852</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">1.070866584777832</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">9</span> <span class="mf">0.03185431286692619</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">0.09756779670715332</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">0.3824653625488281</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">0.7917022705078125</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">10</span> <span class="mf">0.017410902306437492</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">0.07213282585144043</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">0.2827606201171875</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">0.5853137969970703</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">11</span> <span class="mf">0.009516451507806778</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">0.053328514099121094</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">0.2090473175048828</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">0.43272972106933594</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">12</span> <span class="mf">0.005201528314501047</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">0.039426326751708984</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">0.15455150604248047</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">0.3199195861816406</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">13</span> <span class="mf">0.0028430151287466288</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">0.029148340225219727</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">0.11426162719726562</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">0.23652076721191406</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">14</span> <span class="mf">0.0015539465239271522</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">0.021549701690673828</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">0.08447456359863281</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">0.17486286163330078</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">15</span> <span class="mf">0.0008493617060594261</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">0.01593184471130371</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">0.062453269958496094</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">0.12927818298339844</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">16</span> <span class="mf">0.00046424579340964556</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">0.011778593063354492</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">0.046172142028808594</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">0.09557533264160156</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">17</span> <span class="mf">0.0002537401160225272</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">0.00870823860168457</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">0.03413581848144531</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">0.07066154479980469</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">18</span> <span class="mf">0.00013869594840798527</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">0.006437778472900391</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">0.025236129760742188</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">0.052239418029785156</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">19</span> <span class="mf">7.580435340059921e-05</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">0.004759550094604492</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">0.018657684326171875</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">0.038620948791503906</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">20</span> <span class="mf">4.143271507928148e-05</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">0.003518819808959961</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">0.0137939453125</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">0.028553009033203125</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">21</span> <span class="mf">2.264650902361609e-05</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">0.00260162353515625</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">0.010198593139648438</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">0.021108627319335938</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">22</span> <span class="mf">1.2377059647405986e-05</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">0.0019233226776123047</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">0.0075397491455078125</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">0.0156097412109375</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">23</span> <span class="mf">6.768445018678904e-06</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">0.0014221668243408203</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">0.0055751800537109375</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">0.011541366577148438</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">24</span> <span class="mf">3.7000872907810844e-06</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">0.0010514259338378906</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">0.0041217803955078125</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">0.008531570434570312</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">25</span> <span class="mf">2.021880391112063e-06</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">0.0007772445678710938</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">0.0030469894409179688</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">0.006305694580078125</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">26</span> <span class="mf">1.1044940038118511e-06</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">0.0005745887756347656</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">0.0022525787353515625</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">0.0046634674072265625</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">27</span> <span class="mf">6.041091182851233e-07</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">0.0004248619079589844</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">0.0016651153564453125</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">0.003444671630859375</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">28</span> <span class="mf">3.296045179013163e-07</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">0.0003139972686767578</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">0.0012311935424804688</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">0.0025491714477539062</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">29</span> <span class="mf">1.805076408345485e-07</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">0.00023221969604492188</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">0.0009107589721679688</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">0.0018854141235351562</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">30</span> <span class="mf">9.874406714516226e-08</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">0.00017189979553222656</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">0.0006742477416992188</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">0.00139617919921875</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">31</span> <span class="mf">5.4147676564753056e-08</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">0.0001270771026611328</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">0.0004978179931640625</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">0.00102996826171875</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">32</span> <span class="mf">2.9467628337442875e-08</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">9.393692016601562e-05</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">0.0003681182861328125</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">0.0007610321044921875</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">33</span> <span class="mf">1.6088051779661328e-08</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">6.937980651855469e-05</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">0.00027179718017578125</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">0.000560760498046875</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">34</span> <span class="mf">8.734787115827203e-09</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">5.125999450683594e-05</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">0.00020122528076171875</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">0.0004177093505859375</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">35</span> <span class="mf">4.8466972657479346e-09</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">3.790855407714844e-05</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">0.000148773193359375</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">0.000308990478515625</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">36</span> <span class="mf">2.6520865503698587e-09</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">2.8133392333984375e-05</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">0.000110626220703125</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">0.0002288818359375</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">37</span> <span class="mf">1.4551915228366852e-09</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">2.09808349609375e-05</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">8.20159912109375e-05</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">0.00016880035400390625</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">38</span> <span class="mf">7.914877642178908e-10</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">1.5497207641601562e-05</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">6.103515625e-05</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">0.000125885009765625</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">39</span> <span class="mf">4.4019543565809727e-10</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">1.1444091796875e-05</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">4.482269287109375e-05</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">9.1552734375e-05</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">40</span> <span class="mf">2.3283064365386963e-10</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">8.344650268554688e-06</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">3.24249267578125e-05</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">6.580352783203125e-05</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">41</span> <span class="mf">1.2028067430946976e-10</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">5.9604644775390625e-06</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">2.288818359375e-05</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">4.57763671875e-05</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">42</span> <span class="mf">5.820766091346741e-11</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">4.291534423828125e-06</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">1.71661376953125e-05</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">3.719329833984375e-05</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">43</span> <span class="mf">3.842615114990622e-11</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">3.337860107421875e-06</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">1.33514404296875e-05</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">2.86102294921875e-05</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">44</span> <span class="mf">2.2737367544323206e-11</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">2.6226043701171875e-06</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">1.049041748046875e-05</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">2.288818359375e-05</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">45</span> <span class="mf">1.4551915228366852e-11</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">1.9073486328125e-06</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">7.62939453125e-06</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">1.430511474609375e-05</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">46</span> <span class="mf">5.6843418860808015e-12</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">1.430511474609375e-06</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">5.7220458984375e-06</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">1.1444091796875e-05</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">47</span> <span class="mf">3.637978807091713e-12</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">1.1920928955078125e-06</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">4.76837158203125e-06</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">1.1444091796875e-05</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">48</span> <span class="mf">3.637978807091713e-12</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">9.5367431640625e-07</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">3.814697265625e-06</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">8.58306884765625e-06</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">49</span> <span class="mf">2.0463630789890885e-12</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">7.152557373046875e-07</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">2.86102294921875e-06</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">5.7220458984375e-06</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">50</span> <span class="mf">9.094947017729282e-13</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">7.152557373046875e-07</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">2.86102294921875e-06</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">5.7220458984375e-06</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">51</span> <span class="mf">9.094947017729282e-13</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">7.152557373046875e-07</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">2.86102294921875e-06</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">5.7220458984375e-06</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">52</span> <span class="mf">9.094947017729282e-13</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">7.152557373046875e-07</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">2.86102294921875e-06</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">5.7220458984375e-06</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">53</span> <span class="mf">9.094947017729282e-13</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">7.152557373046875e-07</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">2.86102294921875e-06</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">5.7220458984375e-06</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">54</span> <span class="mf">9.094947017729282e-13</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">7.152557373046875e-07</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">2.86102294921875e-06</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">5.7220458984375e-06</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">55</span> <span class="mf">9.094947017729282e-13</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">7.152557373046875e-07</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">2.86102294921875e-06</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">5.7220458984375e-06</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">56</span> <span class="mf">9.094947017729282e-13</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">7.152557373046875e-07</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">2.86102294921875e-06</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">5.7220458984375e-06</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">57</span> <span class="mf">9.094947017729282e-13</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">7.152557373046875e-07</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">2.86102294921875e-06</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">5.7220458984375e-06</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">58</span> <span class="mf">9.094947017729282e-13</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">7.152557373046875e-07</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">2.86102294921875e-06</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">5.7220458984375e-06</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">59</span> <span class="mf">9.094947017729282e-13</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">7.152557373046875e-07</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">2.86102294921875e-06</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">5.7220458984375e-06</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">60</span> <span class="mf">9.094947017729282e-13</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">7.152557373046875e-07</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">2.86102294921875e-06</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">5.7220458984375e-06</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">61</span> <span class="mf">9.094947017729282e-13</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">7.152557373046875e-07</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">2.86102294921875e-06</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">5.7220458984375e-06</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">62</span> <span class="mf">9.094947017729282e-13</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">7.152557373046875e-07</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">2.86102294921875e-06</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">5.7220458984375e-06</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">63</span> <span class="mf">9.094947017729282e-13</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">7.152557373046875e-07</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">2.86102294921875e-06</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">5.7220458984375e-06</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">64</span> <span class="mf">9.094947017729282e-13</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">7.152557373046875e-07</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">2.86102294921875e-06</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">5.7220458984375e-06</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">65</span> <span class="mf">9.094947017729282e-13</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">7.152557373046875e-07</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">2.86102294921875e-06</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">5.7220458984375e-06</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">66</span> <span class="mf">9.094947017729282e-13</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">7.152557373046875e-07</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">2.86102294921875e-06</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">5.7220458984375e-06</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">67</span> <span class="mf">9.094947017729282e-13</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">7.152557373046875e-07</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">2.86102294921875e-06</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">5.7220458984375e-06</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">68</span> <span class="mf">9.094947017729282e-13</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">7.152557373046875e-07</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">2.86102294921875e-06</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">5.7220458984375e-06</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">69</span> <span class="mf">9.094947017729282e-13</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">7.152557373046875e-07</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">2.86102294921875e-06</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">5.7220458984375e-06</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">70</span> <span class="mf">9.094947017729282e-13</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">7.152557373046875e-07</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">2.86102294921875e-06</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">5.7220458984375e-06</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">71</span> <span class="mf">9.094947017729282e-13</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">7.152557373046875e-07</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">2.86102294921875e-06</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">5.7220458984375e-06</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">72</span> <span class="mf">9.094947017729282e-13</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">7.152557373046875e-07</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">2.86102294921875e-06</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">5.7220458984375e-06</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">73</span> <span class="mf">9.094947017729282e-13</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">7.152557373046875e-07</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">2.86102294921875e-06</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">5.7220458984375e-06</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">74</span> <span class="mf">9.094947017729282e-13</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">7.152557373046875e-07</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">2.86102294921875e-06</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">5.7220458984375e-06</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">75</span> <span class="mf">9.094947017729282e-13</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">7.152557373046875e-07</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">2.86102294921875e-06</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">5.7220458984375e-06</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">76</span> <span class="mf">9.094947017729282e-13</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">7.152557373046875e-07</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">2.86102294921875e-06</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">5.7220458984375e-06</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">77</span> <span class="mf">9.094947017729282e-13</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">7.152557373046875e-07</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">2.86102294921875e-06</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">5.7220458984375e-06</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">78</span> <span class="mf">9.094947017729282e-13</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">7.152557373046875e-07</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">2.86102294921875e-06</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">5.7220458984375e-06</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">79</span> <span class="mf">9.094947017729282e-13</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">7.152557373046875e-07</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">2.86102294921875e-06</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">5.7220458984375e-06</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">80</span> <span class="mf">9.094947017729282e-13</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">7.152557373046875e-07</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">2.86102294921875e-06</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">5.7220458984375e-06</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">81</span> <span class="mf">9.094947017729282e-13</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">7.152557373046875e-07</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">2.86102294921875e-06</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">5.7220458984375e-06</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">82</span> <span class="mf">9.094947017729282e-13</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">7.152557373046875e-07</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">2.86102294921875e-06</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">5.7220458984375e-06</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">83</span> <span class="mf">9.094947017729282e-13</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">7.152557373046875e-07</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">2.86102294921875e-06</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">5.7220458984375e-06</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">84</span> <span class="mf">9.094947017729282e-13</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">7.152557373046875e-07</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">2.86102294921875e-06</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">5.7220458984375e-06</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">85</span> <span class="mf">9.094947017729282e-13</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">7.152557373046875e-07</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">2.86102294921875e-06</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">5.7220458984375e-06</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">86</span> <span class="mf">9.094947017729282e-13</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">7.152557373046875e-07</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">2.86102294921875e-06</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">5.7220458984375e-06</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">87</span> <span class="mf">9.094947017729282e-13</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">7.152557373046875e-07</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">2.86102294921875e-06</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">5.7220458984375e-06</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">88</span> <span class="mf">9.094947017729282e-13</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">7.152557373046875e-07</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">2.86102294921875e-06</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">5.7220458984375e-06</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">89</span> <span class="mf">9.094947017729282e-13</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">7.152557373046875e-07</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">2.86102294921875e-06</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">5.7220458984375e-06</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">90</span> <span class="mf">9.094947017729282e-13</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">7.152557373046875e-07</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">2.86102294921875e-06</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">5.7220458984375e-06</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">91</span> <span class="mf">9.094947017729282e-13</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">7.152557373046875e-07</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">2.86102294921875e-06</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">5.7220458984375e-06</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">92</span> <span class="mf">9.094947017729282e-13</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">7.152557373046875e-07</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">2.86102294921875e-06</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">5.7220458984375e-06</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">93</span> <span class="mf">9.094947017729282e-13</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">7.152557373046875e-07</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">2.86102294921875e-06</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">5.7220458984375e-06</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">94</span> <span class="mf">9.094947017729282e-13</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">7.152557373046875e-07</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">2.86102294921875e-06</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">5.7220458984375e-06</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">95</span> <span class="mf">9.094947017729282e-13</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">7.152557373046875e-07</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">2.86102294921875e-06</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">5.7220458984375e-06</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">96</span> <span class="mf">9.094947017729282e-13</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">7.152557373046875e-07</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">2.86102294921875e-06</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">5.7220458984375e-06</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">97</span> <span class="mf">9.094947017729282e-13</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">7.152557373046875e-07</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">2.86102294921875e-06</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">5.7220458984375e-06</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">98</span> <span class="mf">9.094947017729282e-13</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">1.0</span> <span class="mf">2.0</span> <span class="o">-</span><span class="mf">7.152557373046875e-07</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">2.0</span> <span class="mf">4.0</span> <span class="o">-</span><span class="mf">2.86102294921875e-06</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grad</span><span class="p">:</span> <span class="mf">3.0</span> <span class="mf">6.0</span> <span class="o">-</span><span class="mf">5.7220458984375e-06</span>
+</span></span><span class="line"><span class="cl"><span class="n">progress</span><span class="p">:</span> <span class="mi">99</span> <span class="mf">9.094947017729282e-13</span>
+</span></span><span class="line"><span class="cl"><span class="n">predict</span> <span class="p">(</span><span class="n">after</span> <span class="n">training</span><span class="p">)</span> <span class="mi">4</span> <span class="mf">7.999998569488525</span>
+</span></span></code></pre></div>
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/tutorials/">tutorials</a>
+        
+            <a href="/tags/pytorch/">pytorch</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">Related contents</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="">
+    <a href="/p/lecture_13_rnn_classifier/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Lecture_13_RNN_Classifier</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/ppt_lecture_01_overview/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">ppt_Lecture_01_Overview</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/ppt_lecture_02_linear_model/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">ppt_Lecture_02_Linear_Model</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/ppt_lecture_03_gradient_descent/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">ppt_Lecture_03_Gradient_Descent</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/ppt_lecture_04_back_propagation/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">ppt_Lecture_04_Back_Propagation</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2022 - 
+        
+        2023 叶宇浩随记博客
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.5.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">Table of contents</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#tensor对象包含了data和grad">Tensor对象包含了data和grad</a></li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

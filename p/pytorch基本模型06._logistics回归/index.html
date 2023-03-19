@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='跟学的刘二老师pytorch'><title>pytorch基本模型06._logistics回归</title>
+
+<link rel='canonical' href='https://example.com/p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B06._logistics%E5%9B%9E%E5%BD%92/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='pytorch基本模型06._logistics回归'>
+<meta property='og:description' content='跟学的刘二老师pytorch'>
+<meta property='og:url' content='https://example.com/p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B06._logistics%E5%9B%9E%E5%BD%92/'>
+<meta property='og:site_name' content='叶宇浩随记博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='tutorials' /><meta property='article:tag' content='pytorch' /><meta property='article:published_time' content='2022-02-19T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2022-02-19T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="pytorch基本模型06._logistics回归">
+<meta name="twitter:description" content="跟学的刘二老师pytorch">
+    </head>
+    <body class="
+    article-page 
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        on-phone--column extended
+    
+">
+    
+        <aside class="sidebar left-sidebar sticky">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header class="site-info">
+        
+            
+            <figure class="site-avatar">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hub6b2d46d776162e2e8dcd667345276ca_41574_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+
+                
+            </figure>
+            
+        
+        
+        <h1 class="site-name"><a href="/">叶宇浩随记博客</a></h1>
+        <h2 class="site-description">始于rosetta</h2></header>
+
+    <ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/' target="_blank">
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>分类</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>检索</span>
+            </a>
+        </li>
+        
+
+        
+            <li id="dark-mode-toggle">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <span>Dark Mode</span>
+            </li>
+        
+    </ol>
+</aside>
+
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/deeplearning/" style="background-color: #0f1503; color: #fff;">
+                深度学习
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B06._logistics%E5%9B%9E%E5%BD%92/">pytorch基本模型06._logistics回归</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        跟学的刘二老师pytorch
+    </h3>
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Feb 19, 2022</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    2 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <blockquote>
+<p>这是学习pytorch基本使用的记录（我记得看的是B站刘二老师的视频）</p>
+</blockquote>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 113; 
+			flex-basis: 272px"
+	>
+	<a href="/p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B06._logistics%E5%9B%9E%E5%BD%92/picture/6.logistics%E5%9B%9E%E5%BD%92.png" data-size="1190x1050">
+		<img src="/p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B06._logistics%E5%9B%9E%E5%BD%92/picture/6.logistics%E5%9B%9E%E5%BD%92.png"
+			width="1190"
+			height="1050"
+			srcset="/p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B06._logistics%E5%9B%9E%E5%BD%92/picture/6.logistics%E5%9B%9E%E5%BD%92_hu221ba8097352bd12e27476458370abbb_189117_480x0_resize_box_3.png 480w, /p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B06._logistics%E5%9B%9E%E5%BD%92/picture/6.logistics%E5%9B%9E%E5%BD%92_hu221ba8097352bd12e27476458370abbb_189117_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 334; 
+			flex-basis: 801px"
+	>
+	<a href="/p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B06._logistics%E5%9B%9E%E5%BD%92/picture/6.logistics%E5%9B%9E%E5%BD%92-1.png" data-size="1336x400">
+		<img src="/p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B06._logistics%E5%9B%9E%E5%BD%92/picture/6.logistics%E5%9B%9E%E5%BD%92-1.png"
+			width="1336"
+			height="400"
+			srcset="/p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B06._logistics%E5%9B%9E%E5%BD%92/picture/6.logistics%E5%9B%9E%E5%BD%92-1_hu8212d5f1f0532f7395dbfde4473496ad_102455_480x0_resize_box_3.png 480w, /p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B06._logistics%E5%9B%9E%E5%BD%92/picture/6.logistics%E5%9B%9E%E5%BD%92-1_hu8212d5f1f0532f7395dbfde4473496ad_102455_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>code</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">torch</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">x_data</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">([[</span><span class="mf">1.0</span><span class="p">],[</span><span class="mf">2.0</span><span class="p">],[</span><span class="mf">3.0</span><span class="p">]])</span>
+</span></span><span class="line"><span class="cl"><span class="n">y_data</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">([[</span><span class="mi">0</span><span class="p">],[</span><span class="mi">1</span><span class="p">],[</span><span class="mi">0</span><span class="p">]])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">LogisticRegressionModel</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">super</span><span class="p">(</span><span class="n">LogisticRegressionModel</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">linear</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">x</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">#加了个激活函数   F.sigmoid()</span>
+</span></span><span class="line"><span class="cl">        <span class="n">y_pred</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">linear</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">y_pred</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl"><span class="n">model</span> <span class="o">=</span> <span class="n">LogisticRegressionModel</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">criterion</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">BCELoss</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">SGD</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span><span class="n">lr</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x_data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">loss</span> <span class="o">=</span> <span class="n">criterion</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span><span class="n">y_data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">epoch</span><span class="p">,</span><span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;w=&#34;</span><span class="p">,</span><span class="n">model</span><span class="o">.</span><span class="n">linear</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;b=&#34;</span><span class="p">,</span><span class="n">model</span><span class="o">.</span><span class="n">linear</span><span class="o">.</span><span class="n">bias</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="mi">0</span> <span class="mf">0.6860817074775696</span>
+</span></span><span class="line"><span class="cl"><span class="mi">1</span> <span class="mf">0.6860291957855225</span>
+</span></span><span class="line"><span class="cl"><span class="mi">2</span> <span class="mf">0.6859772801399231</span>
+</span></span><span class="line"><span class="cl"><span class="mi">3</span> <span class="mf">0.6859259605407715</span>
+</span></span><span class="line"><span class="cl"><span class="mi">4</span> <span class="mf">0.6858751177787781</span>
+</span></span><span class="line"><span class="cl"><span class="mi">5</span> <span class="mf">0.6858246922492981</span>
+</span></span><span class="line"><span class="cl"><span class="mi">6</span> <span class="mf">0.6857749819755554</span>
+</span></span><span class="line"><span class="cl"><span class="mi">7</span> <span class="mf">0.6857255101203918</span>
+</span></span><span class="line"><span class="cl"><span class="mi">8</span> <span class="mf">0.6856767535209656</span>
+</span></span><span class="line"><span class="cl"><span class="mi">9</span> <span class="mf">0.6856281757354736</span>
+</span></span><span class="line"><span class="cl"><span class="mi">10</span> <span class="mf">0.6855802536010742</span>
+</span></span><span class="line"><span class="cl"><span class="mi">11</span> <span class="mf">0.6855327486991882</span>
+</span></span><span class="line"><span class="cl"><span class="mi">12</span> <span class="mf">0.6854856610298157</span>
+</span></span><span class="line"><span class="cl"><span class="mi">13</span> <span class="mf">0.6854391098022461</span>
+</span></span><span class="line"><span class="cl"><span class="mi">14</span> <span class="mf">0.6853928565979004</span>
+</span></span><span class="line"><span class="cl"><span class="mi">15</span> <span class="mf">0.6853470802307129</span>
+</span></span><span class="line"><span class="cl"><span class="mi">16</span> <span class="mf">0.6853017210960388</span>
+</span></span><span class="line"><span class="cl"><span class="mi">17</span> <span class="mf">0.6852567195892334</span>
+</span></span><span class="line"><span class="cl"><span class="mi">18</span> <span class="mf">0.6852121353149414</span>
+</span></span><span class="line"><span class="cl"><span class="mi">19</span> <span class="mf">0.6851678490638733</span>
+</span></span><span class="line"><span class="cl"><span class="mi">20</span> <span class="mf">0.6851240992546082</span>
+</span></span><span class="line"><span class="cl"><span class="mi">21</span> <span class="mf">0.6850807070732117</span>
+</span></span><span class="line"><span class="cl"><span class="mi">22</span> <span class="mf">0.6850376129150391</span>
+</span></span><span class="line"><span class="cl"><span class="mi">23</span> <span class="mf">0.6849947571754456</span>
+</span></span><span class="line"><span class="cl"><span class="mi">24</span> <span class="mf">0.6849524974822998</span>
+</span></span><span class="line"><span class="cl"><span class="mi">25</span> <span class="mf">0.6849103569984436</span>
+</span></span><span class="line"><span class="cl"><span class="mi">26</span> <span class="mf">0.6848687529563904</span>
+</span></span><span class="line"><span class="cl"><span class="mi">27</span> <span class="mf">0.6848273277282715</span>
+</span></span><span class="line"><span class="cl"><span class="mi">28</span> <span class="mf">0.684786319732666</span>
+</span></span><span class="line"><span class="cl"><span class="mi">29</span> <span class="mf">0.6847454905509949</span>
+</span></span><span class="line"><span class="cl"><span class="mi">30</span> <span class="mf">0.6847050786018372</span>
+</span></span><span class="line"><span class="cl"><span class="mi">31</span> <span class="mf">0.6846650242805481</span>
+</span></span><span class="line"><span class="cl"><span class="mi">32</span> <span class="mf">0.6846251487731934</span>
+</span></span><span class="line"><span class="cl"><span class="mi">33</span> <span class="mf">0.6845856308937073</span>
+</span></span><span class="line"><span class="cl"><span class="mi">34</span> <span class="mf">0.6845464706420898</span>
+</span></span><span class="line"><span class="cl"><span class="mi">35</span> <span class="mf">0.684507429599762</span>
+</span></span><span class="line"><span class="cl"><span class="mi">36</span> <span class="mf">0.6844688057899475</span>
+</span></span><span class="line"><span class="cl"><span class="mi">37</span> <span class="mf">0.6844303607940674</span>
+</span></span><span class="line"><span class="cl"><span class="mi">38</span> <span class="mf">0.6843922734260559</span>
+</span></span><span class="line"><span class="cl"><span class="mi">39</span> <span class="mf">0.6843543648719788</span>
+</span></span><span class="line"><span class="cl"><span class="mi">40</span> <span class="mf">0.6843166947364807</span>
+</span></span><span class="line"><span class="cl"><span class="mi">41</span> <span class="mf">0.6842794418334961</span>
+</span></span><span class="line"><span class="cl"><span class="mi">42</span> <span class="mf">0.6842422485351562</span>
+</span></span><span class="line"><span class="cl"><span class="mi">43</span> <span class="mf">0.6842053532600403</span>
+</span></span><span class="line"><span class="cl"><span class="mi">44</span> <span class="mf">0.6841687560081482</span>
+</span></span><span class="line"><span class="cl"><span class="mi">45</span> <span class="mf">0.6841323375701904</span>
+</span></span><span class="line"><span class="cl"><span class="mi">46</span> <span class="mf">0.6840961575508118</span>
+</span></span><span class="line"><span class="cl"><span class="mi">47</span> <span class="mf">0.6840601563453674</span>
+</span></span><span class="line"><span class="cl"><span class="mi">48</span> <span class="mf">0.6840245127677917</span>
+</span></span><span class="line"><span class="cl"><span class="mi">49</span> <span class="mf">0.6839889883995056</span>
+</span></span><span class="line"><span class="cl"><span class="mi">50</span> <span class="mf">0.683953583240509</span>
+</span></span><span class="line"><span class="cl"><span class="mi">51</span> <span class="mf">0.6839186549186707</span>
+</span></span><span class="line"><span class="cl"><span class="mi">52</span> <span class="mf">0.6838836669921875</span>
+</span></span><span class="line"><span class="cl"><span class="mi">53</span> <span class="mf">0.6838489174842834</span>
+</span></span><span class="line"><span class="cl"><span class="mi">54</span> <span class="mf">0.6838144659996033</span>
+</span></span><span class="line"><span class="cl"><span class="mi">55</span> <span class="mf">0.6837801933288574</span>
+</span></span><span class="line"><span class="cl"><span class="mi">56</span> <span class="mf">0.6837460398674011</span>
+</span></span><span class="line"><span class="cl"><span class="mi">57</span> <span class="mf">0.6837120652198792</span>
+</span></span><span class="line"><span class="cl"><span class="mi">58</span> <span class="mf">0.6836783289909363</span>
+</span></span><span class="line"><span class="cl"><span class="mi">59</span> <span class="mf">0.6836447715759277</span>
+</span></span><span class="line"><span class="cl"><span class="mi">60</span> <span class="mf">0.6836113929748535</span>
+</span></span><span class="line"><span class="cl"><span class="mi">61</span> <span class="mf">0.6835780739784241</span>
+</span></span><span class="line"><span class="cl"><span class="mi">62</span> <span class="mf">0.6835450530052185</span>
+</span></span><span class="line"><span class="cl"><span class="mi">63</span> <span class="mf">0.6835122108459473</span>
+</span></span><span class="line"><span class="cl"><span class="mi">64</span> <span class="mf">0.6834794878959656</span>
+</span></span><span class="line"><span class="cl"><span class="mi">65</span> <span class="mf">0.6834468245506287</span>
+</span></span><span class="line"><span class="cl"><span class="mi">66</span> <span class="mf">0.6834144592285156</span>
+</span></span><span class="line"><span class="cl"><span class="mi">67</span> <span class="mf">0.6833822131156921</span>
+</span></span><span class="line"><span class="cl"><span class="mi">68</span> <span class="mf">0.6833500266075134</span>
+</span></span><span class="line"><span class="cl"><span class="mi">69</span> <span class="mf">0.6833180785179138</span>
+</span></span><span class="line"><span class="cl"><span class="mi">70</span> <span class="mf">0.683286190032959</span>
+</span></span><span class="line"><span class="cl"><span class="mi">71</span> <span class="mf">0.6832544803619385</span>
+</span></span><span class="line"><span class="cl"><span class="mi">72</span> <span class="mf">0.6832229495048523</span>
+</span></span><span class="line"><span class="cl"><span class="mi">73</span> <span class="mf">0.6831915974617004</span>
+</span></span><span class="line"><span class="cl"><span class="mi">74</span> <span class="mf">0.6831602454185486</span>
+</span></span><span class="line"><span class="cl"><span class="mi">75</span> <span class="mf">0.6831291317939758</span>
+</span></span><span class="line"><span class="cl"><span class="mi">76</span> <span class="mf">0.6830981373786926</span>
+</span></span><span class="line"><span class="cl"><span class="mi">77</span> <span class="mf">0.683067262172699</span>
+</span></span><span class="line"><span class="cl"><span class="mi">78</span> <span class="mf">0.6830365061759949</span>
+</span></span><span class="line"><span class="cl"><span class="mi">79</span> <span class="mf">0.6830058097839355</span>
+</span></span><span class="line"><span class="cl"><span class="mi">80</span> <span class="mf">0.6829752922058105</span>
+</span></span><span class="line"><span class="cl"><span class="mi">81</span> <span class="mf">0.6829448342323303</span>
+</span></span><span class="line"><span class="cl"><span class="mi">82</span> <span class="mf">0.6829145550727844</span>
+</span></span><span class="line"><span class="cl"><span class="mi">83</span> <span class="mf">0.6828843951225281</span>
+</span></span><span class="line"><span class="cl"><span class="mi">84</span> <span class="mf">0.6828543543815613</span>
+</span></span><span class="line"><span class="cl"><span class="mi">85</span> <span class="mf">0.6828243732452393</span>
+</span></span><span class="line"><span class="cl"><span class="mi">86</span> <span class="mf">0.6827945709228516</span>
+</span></span><span class="line"><span class="cl"><span class="mi">87</span> <span class="mf">0.6827647686004639</span>
+</span></span><span class="line"><span class="cl"><span class="mi">88</span> <span class="mf">0.6827352046966553</span>
+</span></span><span class="line"><span class="cl"><span class="mi">89</span> <span class="mf">0.6827056407928467</span>
+</span></span><span class="line"><span class="cl"><span class="mi">90</span> <span class="mf">0.6826761364936829</span>
+</span></span><span class="line"><span class="cl"><span class="mi">91</span> <span class="mf">0.6826467514038086</span>
+</span></span><span class="line"><span class="cl"><span class="mi">92</span> <span class="mf">0.6826176047325134</span>
+</span></span><span class="line"><span class="cl"><span class="mi">93</span> <span class="mf">0.6825883984565735</span>
+</span></span><span class="line"><span class="cl"><span class="mi">94</span> <span class="mf">0.6825593113899231</span>
+</span></span><span class="line"><span class="cl"><span class="mi">95</span> <span class="mf">0.682530403137207</span>
+</span></span><span class="line"><span class="cl"><span class="mi">96</span> <span class="mf">0.6825015544891357</span>
+</span></span><span class="line"><span class="cl"><span class="mi">97</span> <span class="mf">0.6824727058410645</span>
+</span></span><span class="line"><span class="cl"><span class="mi">98</span> <span class="mf">0.6824440360069275</span>
+</span></span><span class="line"><span class="cl"><span class="mi">99</span> <span class="mf">0.6824154257774353</span>
+</span></span><span class="line"><span class="cl"><span class="n">w</span><span class="o">=</span> <span class="o">-</span><span class="mf">0.7670175433158875</span>
+</span></span><span class="line"><span class="cl"><span class="n">b</span><span class="o">=</span> <span class="mf">0.9575299620628357</span>
+</span></span></code></pre></div><p>code</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">200</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">x_t</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">view</span><span class="p">((</span><span class="mi">200</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">y_t</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x_t</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#data.numpy 可以将Tensor的数据转为numpy</span>
+</span></span><span class="line"><span class="cl"><span class="n">y</span> <span class="o">=</span> <span class="n">y_t</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">],[</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.5</span><span class="p">],</span><span class="n">c</span><span class="o">=</span><span class="s2">&#34;r&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 167; 
+			flex-basis: 401px"
+	>
+	<a href="/p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B06._logistics%E5%9B%9E%E5%BD%92/picture/6.logistics%E5%9B%9E%E5%BD%92-2.png" data-size="802x480">
+		<img src="/p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B06._logistics%E5%9B%9E%E5%BD%92/picture/6.logistics%E5%9B%9E%E5%BD%92-2.png"
+			width="802"
+			height="480"
+			srcset="/p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B06._logistics%E5%9B%9E%E5%BD%92/picture/6.logistics%E5%9B%9E%E5%BD%92-2_hu6eb09c45d6e265f493526a96609c6a60_38015_480x0_resize_box_3.png 480w, /p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B06._logistics%E5%9B%9E%E5%BD%92/picture/6.logistics%E5%9B%9E%E5%BD%92-2_hu6eb09c45d6e265f493526a96609c6a60_38015_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/tutorials/">tutorials</a>
+        
+            <a href="/tags/pytorch/">pytorch</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">Related contents</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="">
+    <a href="/p/lecture_13_rnn_classifier/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Lecture_13_RNN_Classifier</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/ppt_lecture_01_overview/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">ppt_Lecture_01_Overview</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/ppt_lecture_02_linear_model/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">ppt_Lecture_02_Linear_Model</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/ppt_lecture_03_gradient_descent/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">ppt_Lecture_03_Gradient_Descent</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/ppt_lecture_04_back_propagation/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">ppt_Lecture_04_Back_Propagation</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2022 - 
+        
+        2023 叶宇浩随记博客
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.5.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

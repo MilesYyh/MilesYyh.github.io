@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>蛋白设计 on 叶宇浩随记博客</title>
+    <link>https://example.com/categories/protein_design/</link>
+    <description>Recent content in 蛋白设计 on 叶宇浩随记博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 14 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://example.com/categories/protein_design/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>De novo design of small beta barrel proteins</title>
+      <link>https://example.com/p/de-novo-design-of-small-beta-barrel-proteins/</link>
+      <pubDate>Tue, 14 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/de-novo-design-of-small-beta-barrel-proteins/</guid>
+      <description>De novo design of small beta barrel proteins
+link:https://www.pnas.org/doi/abs/10.1073/pnas.2207974120</description>
+    </item>
+    
+    <item>
+      <title>A simple method for displaying the hydropathic character of a protein</title>
+      <link>https://example.com/p/a-simple-method-for-displaying-the-hydropathic-character-of-a-protein/</link>
+      <pubDate>Fri, 10 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/a-simple-method-for-displaying-the-hydropathic-character-of-a-protein/</guid>
+      <description>DOI: 10.1016/0022-2836(82)90515-0 这篇论文讲了Kyte-Doolittle-scale即蛋白疏水性的数值 </description>
+    </item>
+    
+    <item>
+      <title>Kaggle酶的热稳定性预测比赛_我的参赛笔记</title>
+      <link>https://example.com/p/kaggle%E9%85%B6%E7%9A%84%E7%83%AD%E7%A8%B3%E5%AE%9A%E6%80%A7%E9%A2%84%E6%B5%8B%E6%AF%94%E8%B5%9B_%E6%88%91%E7%9A%84%E5%8F%82%E8%B5%9B%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Sun, 05 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/kaggle%E9%85%B6%E7%9A%84%E7%83%AD%E7%A8%B3%E5%AE%9A%E6%80%A7%E9%A2%84%E6%B5%8B%E6%AF%94%E8%B5%9B_%E6%88%91%E7%9A%84%E5%8F%82%E8%B5%9B%E7%AC%94%E8%AE%B0/</guid>
+      <description>最近参加了一次酶稳定性预测的比赛，挺折磨的，发现很多东西都不会（主要是深度学习方面，学的不怎么好，理论和实际都比较缺，打算今年考完研后再系统性的学习一遍深度学习，不过所幸下次的学习有前面的杂七杂八学过的基础，美滋滋），特写此post来记录第一次真正使用过深度学习解决问题。
+顺便吐槽一下结果，在比赛ddl的前一天排名很好的，反正有铜牌（相当满足），比赛结束后直掉800多名hh。 比赛背景介绍 本次比赛实际上是一个回归任务，即输入的数据为：AA sequence（分别是野生型的突变序列）；输出数据为：酶的热稳定性值；即有一个蛋白（野生型），它有很多突变的位点，然后，我们需要看这些位点的突变是有利否，即这些突变能否提高热稳定性
+简单介绍一些计算生物方面的知识： 我一开始特别想用深度学习的方法（比如写个bliLSTM）来着，但是其实也不一定非得到上深度学习，因为现有的很多计算方法的结果也挺可靠的
+蛋白质稳定性工作在应用机器学习方法之前，在相关领域内也有一些计算方法可以实现，如：ESM, EVE 和 Rosetta （Rosetta 真的神！）等 ，在这次比赛中，直接运用这些方法而非机器学习方法也是允许的 AlphaFold2的诞生：我们在这次比赛中的目标是利用一级结构预测热稳定性，而如何利用一级结构预测整体的三级 PDB 文件：蛋白质的整体结构是三维的，如何通过结构化数据的方式理解三维的关系，包括每个氨基酸的坐标、种类等，常用的是PDB文件，PDB文件是一个开放的数据库，可以从中查询蛋白质相应的数据，如果是数据库中没有的蛋白质，则可以用AlphaFold2、I-TASSER、trRosetta、Robetta等进行预测，预测结果也是一个类似PDB格式的描述三维原子三维坐标关系的文件。 数据集介绍 比赛提供的wild-type序列：
+VPVNPEPDATSVENVALKTGSGDSQSDPIKADLEVKGQSALPFDVDCWAILCKGAPNVLQRVNEKTKNSNRDRSGANKGPFKDPQKWGIKALPPKNPSWSAQDFKSPEEYAFASSLQGGTNAILAPVNLASQNSQGGVLNGFYSANKVAQFDPSKPQQTKGTWFQITKFTGAAGPYCKALGSNDKSVCDKNKNIAGDWGFDPAKWAYQYDEKNNKFNYVGK train.csv 文件： seq_id:每条序列的身份即ID，用以区分序列 protein_sequence:蛋白质序列（官方说他们人为的将大部分将test测试集中的蛋白序列大部分都保持在了固定的220AA，即测试集中的蛋白序列部分氨基酸是被删除了的，可能是留下了结构域的部分） pH:每条序列的pH最适条件值 data_scource:每条序列对应的来源（实际上是每条序列是从哪里收集来的信息） tm:熔融温度，值越高，表示酶稳定性越高 train_updates_20220929.csv： 也是训练数据，官方的Train.csv文件有一定的错误，因此在9月29日发布了这份修改了错误的版本 test.csv 测试集 (它这里的数据相比于train.csv，少了tm的值) sample_submission： 最终预测结果文件提交的格式示例 wildtype_structure_prediction_af2.pdb 本次比赛野生型蛋白的三维结构文件 wild-type结构长这样 评分函数 本次比赛的评估指标是spearman 相关系数，即反应的是我们预测的tm值与真实值之间的相关性，因此本次比赛的相对大小重要性大于预测的绝对大小
+前期准备 本次比赛的目标是通过氨基酸序列，预测酶的热稳定性，即回归任务，核心难点有以下几块：
+训练数据集的构建：本次比赛允许使用外部数据，因此有参赛者找寻了大量的可用外部数据，需要研究如何将不同来源的数据合并在一个训练数据集。同时本次的测试数据集是仅由一条原始序列，进行各种单点突变而成，因此也需要在构建训练数据集的过程中尽量相似于测试数据，即单点突变等。
+tm数据的缺乏。大量的外部数据中，直接给定温度:Tm的数据还是比较少的，因此也由许多参赛者找寻了跟TM的相关数据，如预测ΔΔG等
+思路 基本思路，目前核心解决这个比赛任务的思路有以下几种：
+传统的生物学方法解决:如blosum评分矩阵，rosetta等，这种方式可以不用训练数据，直接对测试集数据进行计算，给出稳定性分数，优势是计算方便，缺点是目前来看准确性一般 机器学习的预测方式(3D CNN):蛋白质在空间中最终是三维结构，因此可以用3DCNN进行预测 Transformer(序列预测)：直接将蛋白质的氨基酸序列，如AAAKL…，作为序列，运用如LSTM、Transformer等模型进行序列预测 传统建模（XGBOOST、LIGHTGBM）：运用各种方式进行特征工程，运用XGB、LGB进行预测 开源方案 赛开始之初，最重要的就是研究目前开源的代码，主流的方案和思路是哪些，我主要看了三个，如下：
+LB开源最高、0.603分： https://www.kaggle.com/code/seyered/eda-novozymes-enzyme-stability XGB：https://www.kaggle.com/code/cdeotte/xgboost-5000-mutations-200-pdb-files-lb-0-410 3DCNN：https://www.kaggle.com/code/vslaykovsky/nesp-thermonet-v2 LB-0.603 这个代码的核心本质是利用一系列传统的生物计算方法为主，兼顾一部分机器学习算法的结果，进行模型的加权融合。主要的方法包括：
+Blosum: BLOSUM (Blocks of Amino Acid Substitution Matrix）：传统的生物方法，会计算序列之间每一个氨基酸变化带来的影响大小 PLDDT：Alphafold2在预测出整体结构后，对每一个氨基酸会给出一个置信度打分，即PLDDT，代表预测的准确与否，与稳定性有一定相关性 DeepDDG：利用深度学习预测稳定性的算法，已开源 Demask：利用线性模型预测的氨基酸改变后的作用大小 此外还有RMSD、SASA、Rosetta等，不一一赘述了，原文中有比较清晰的介绍 XGBoost 作者在通过一系列特征工程，构建了每条序列的特征，并且利用XGB模型进行预测，其中特征包括：</description>
+    </item>
+    
+    <item>
+      <title>De novo design of luciferases using deep learning</title>
+      <link>https://example.com/p/de-novo-design-of-luciferases-using-deep-learning/</link>
+      <pubDate>Thu, 02 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/de-novo-design-of-luciferases-using-deep-learning/</guid>
+      <description>De novo design of luciferases using deep learning
+link:https://www.nature.com/articles/s41586-023-05696-3</description>
+    </item>
+    
+    <item>
+      <title>《PROTEIN ANATOMY》</title>
+      <link>https://example.com/p/protein-anatomy/</link>
+      <pubDate>Sat, 25 Feb 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/protein-anatomy/</guid>
+      <description> </description>
+    </item>
+    
+    <item>
+      <title>Macromolecular modeling and design in Rosetta: recent methods and frameworks</title>
+      <link>https://example.com/p/macromolecular-modeling-and-design-in-rosetta-recent-methods-and-frameworks/</link>
+      <pubDate>Thu, 19 Jan 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/macromolecular-modeling-and-design-in-rosetta-recent-methods-and-frameworks/</guid>
+      <description>Macromolecular modeling and design in Rosetta: recent methods and frameworks
+link:https://www.nature.com/articles/s41592-020-0848-2</description>
+    </item>
+    
+    <item>
+      <title>Computer-aided design of functional protein interactions</title>
+      <link>https://example.com/p/computer-aided-design-of-functional-protein-interactions/</link>
+      <pubDate>Thu, 22 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/computer-aided-design-of-functional-protein-interactions/</guid>
+      <description>Computer-aided design of functional protein interactions https://www.nature.com/articles/nchembio.251</description>
+    </item>
+    
+    <item>
+      <title>《PROTEIN ANATOMY》</title>
+      <link>https://example.com/p/protein-anatomy/</link>
+      <pubDate>Fri, 16 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/protein-anatomy/</guid>
+      <description> </description>
+    </item>
+    
+    <item>
+      <title>Obtaining protein foldability information from computational models of AlphaFold2 and RoseTTAFold</title>
+      <link>https://example.com/p/obtaining-protein-foldability-information-from-computational-models-of-alphafold2-and-rosettafold/</link>
+      <pubDate>Thu, 15 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/obtaining-protein-foldability-information-from-computational-models-of-alphafold2-and-rosettafold/</guid>
+      <description>Obtaining protein foldability information from computational models of AlphaFold2 and RoseTTAFold
+link:https://www.sciencedirect.com/science/article/pii/S2001037022003683</description>
+    </item>
+    
+    <item>
+      <title>Accurate positioning of functional residues with robotics-inspired computational protein design </title>
+      <link>https://example.com/p/accurate-positioning-of-functional-residues-with-robotics-inspired-computational-protein-design/</link>
+      <pubDate>Thu, 01 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/accurate-positioning-of-functional-residues-with-robotics-inspired-computational-protein-design/</guid>
+      <description>Accurate positioning of functional residues with robotics-inspired computational protein design
+link:https://www.pnas.org/doi/abs/10.1073/pnas.2115480119</description>
+    </item>
+    
+    <item>
+      <title>Robust deep learning–based protein sequence design using ProteinMPNN</title>
+      <link>https://example.com/p/robust-deep-learningbased-protein-sequence-design-using-proteinmpnn/</link>
+      <pubDate>Thu, 01 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/robust-deep-learningbased-protein-sequence-design-using-proteinmpnn/</guid>
+      <description>Robust deep learning–based protein sequence design using ProteinMPNN
+link:https://www.science.org/doi/abs/10.1126/science.add2187</description>
+    </item>
+    
+    <item>
+      <title>Control of protein signaling using a computationally designed GTPase/GEF orthogonal pair</title>
+      <link>https://example.com/p/control-of-protein-signaling-using-a-computationally-designed-gtpase/gef-orthogonal-pair/</link>
+      <pubDate>Tue, 29 Nov 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/control-of-protein-signaling-using-a-computationally-designed-gtpase/gef-orthogonal-pair/</guid>
+      <description>Control of protein signaling using a computationally designed GTPase/GEF orthogonal pair
+link:https://www.pnas.org/cai/doi/10.1073/pnas.1114487109</description>
+    </item>
+    
+    <item>
+      <title>《蛋白质结构导论》</title>
+      <link>https://example.com/p/%E8%9B%8B%E7%99%BD%E8%B4%A8%E7%BB%93%E6%9E%84%E5%AF%BC%E8%AE%BA/</link>
+      <pubDate>Wed, 07 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E8%9B%8B%E7%99%BD%E8%B4%A8%E7%BB%93%E6%9E%84%E5%AF%BC%E8%AE%BA/</guid>
+      <description> </description>
+    </item>
+    
+    <item>
+      <title>Accurate prediction of protein structures and interactions using a 3-track neural network</title>
+      <link>https://example.com/p/accurate-prediction-of-protein-structures-and-interactions-using-a-3-track-neural-network/</link>
+      <pubDate>Wed, 17 Aug 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/accurate-prediction-of-protein-structures-and-interactions-using-a-3-track-neural-network/</guid>
+      <description>Accurate prediction of protein structures and interactions using a 3-track neural network
+link:https://www.science.org/doi/abs/10.1126/science.abj8754</description>
+    </item>
+    
+    <item>
+      <title>Automated Design of Efficient and Functionally Diverse Enzyme Repertoires </title>
+      <link>https://example.com/p/automated-design-of-efficient-and-functionally-diverse-enzyme-repertoires/</link>
+      <pubDate>Thu, 11 Aug 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/automated-design-of-efficient-and-functionally-diverse-enzyme-repertoires/</guid>
+      <description>Automated Design of Efficient and Functionally Diverse Enzyme Repertoires
+link:https://www.sciencedirect.com/science/article/pii/S1097276518306932</description>
+    </item>
+    
+    <item>
+      <title>Computational Thermostabilization of an Enzyme</title>
+      <link>https://example.com/p/computational-thermostabilization-of-an-enzyme/</link>
+      <pubDate>Tue, 09 Aug 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/computational-thermostabilization-of-an-enzyme/</guid>
+      <description>Computational Thermostabilization of an Enzyme
+link:https://www.science.org/doi/abs/10.1126/science.1107387</description>
+    </item>
+    
+    <item>
+      <title>De Novo Computational Design of Retro-Aldol Enzymes</title>
+      <link>https://example.com/p/de-novo-computational-design-of-retro-aldol-enzymes/</link>
+      <pubDate>Sat, 02 Jul 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/de-novo-computational-design-of-retro-aldol-enzymes/</guid>
+      <description>De Novo Computational Design of Retro-Aldol Enzymes
+link:https://www.science.org/doi/abs/10.1126/science.1152692</description>
+    </item>
+    
+    <item>
+      <title>protein_class模型修复记录</title>
+      <link>https://example.com/p/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/</link>
+      <pubDate>Sat, 11 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/</guid>
+      <description>不久前，别人发给了我github上一个蛋白质分类的深度学习模型，在运行作者的代码时，发现模型似乎有点问题（反正在我的laptop上运行了不了，应该不是电脑的问题，因为我仔细看了后发现作者使用的biLSTM有问题，经过千辛万苦，终于让我改好了hhh）,特此写一篇markdown来记录（其实我对LSTM一点都不熟悉&amp;hellip;属于是误打误撞修好的）
+项目地址：https://github.com/jgbrasier/protein-classification 作者还提供了一个PDF（IDL_Projet.pdf）里面有详细说明模型的构造 PDF主要内容 数据的预处理 模型的结构 融合了两个模型的结构，分别是CNN卷积网络和BiLSTM。 超参数的设置 预测的准确率和混淆矩阵 我对代码的bug修改记录 数据读取部分 作者是在google lab上运行的，所以有数据上传部分的代码，但是我发现代码上传的好慢，于是自己手动上传了 作者原code: 我的修改： 直接注释就好了，将dataset下载到本地的目录，再读取
+数据加载部分 后面训练时，发现数据的维度对不上，而且我觉得他这里的数据加载器有问题，所以，我自己加了个数据的处理器（主要是加在了Model前面）： CNN_BiLSTM融合模型的问题 发现这里训练是也有问题（当时没截图），作者原代码：
+class CNN_BiLSTM(nn.Module): def __init__(self, vocab_size, embedding_size, hidden_size, n_filters, filter_sizes, num_layers, num_classes, batch_size): &amp;#34;&amp;#34;&amp;#34; vocab_size: int, number of words in vocbulary emedding_size: int, embedding dimension hidden_size: int, size of hidden layer num_layers: int, number of LSTM layers num_classes: number of classes batch_size: size of mini batches &amp;#34;&amp;#34;&amp;#34; super(CNN_BiLSTM, self).__init__() self.hidden_size = hidden_size self.</description>
+    </item>
+    
+    <item>
+      <title>《PyRosetta Textbook》</title>
+      <link>https://example.com/p/pyrosetta-textbook/</link>
+      <pubDate>Sun, 22 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/pyrosetta-textbook/</guid>
+      <description> </description>
+    </item>
+    
+    <item>
+      <title>《蛋白质结构预测：支持向量机的应用》</title>
+      <link>https://example.com/p/%E8%9B%8B%E7%99%BD%E8%B4%A8%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA%E7%9A%84%E5%BA%94%E7%94%A8/</link>
+      <pubDate>Fri, 20 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E8%9B%8B%E7%99%BD%E8%B4%A8%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA%E7%9A%84%E5%BA%94%E7%94%A8/</guid>
+      <description> </description>
+    </item>
+    
+    <item>
+      <title>Practically Useful: What the Rosetta Protein Modeling Suite Can Do for You</title>
+      <link>https://example.com/p/practically-useful-what-the-rosetta-protein-modeling-suite-can-do-for-you/</link>
+      <pubDate>Wed, 04 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/practically-useful-what-the-rosetta-protein-modeling-suite-can-do-for-you/</guid>
+      <description>Practically Useful: What the Rosetta Protein Modeling Suite Can Do for You</description>
+    </item>
+    
+    <item>
+      <title>PyRosetta: a script-based interface for implementing molecular modeling algorithms using Rosetta</title>
+      <link>https://example.com/p/pyrosetta-a-script-based-interface-for-implementing-molecular-modeling-algorithms-using-rosetta/</link>
+      <pubDate>Tue, 03 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/pyrosetta-a-script-based-interface-for-implementing-molecular-modeling-algorithms-using-rosetta/</guid>
+      <description>PyRosetta: a script-based interface for implementing molecular modeling algorithms using Rosetta
+link:https://academic.oup.com/bioinformatics/article/26/5/689/212442?login=false</description>
+    </item>
+    
+    <item>
+      <title>Free-Energy Landscape of Enzyme Catalysis</title>
+      <link>https://example.com/p/free-energy-landscape-of-enzyme-catalysis/</link>
+      <pubDate>Thu, 21 Apr 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/free-energy-landscape-of-enzyme-catalysis/</guid>
+      <description>Free-Energy Landscape of Enzyme Catalysis</description>
+    </item>
+    
+    <item>
+      <title>Rational design of a highly efficient catalytic system for the production of PAPS from ATP and its application in the synthesis of chondroitin sulfate</title>
+      <link>https://example.com/p/rational-design-of-a-highly-efficient-catalytic-system-for-the-production-of-paps-from-atp-and-its-application-in-the-synthesis-of-chondroitin-sulfate/</link>
+      <pubDate>Sat, 09 Apr 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/rational-design-of-a-highly-efficient-catalytic-system-for-the-production-of-paps-from-atp-and-its-application-in-the-synthesis-of-chondroitin-sulfate/</guid>
+      <description>理性设计提高产量 link:https://onlinelibrary.wiley.com/doi/epdf/10.1002/bit.27919 </description>
+    </item>
+    
+    <item>
+      <title>RosettaScripts: A Scripting Language Interface to the Rosetta Macromolecular Modeling Suite</title>
+      <link>https://example.com/p/rosettascripts-a-scripting-language-interface-to-the-rosetta-macromolecular-modeling-suite/</link>
+      <pubDate>Sat, 19 Mar 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/rosettascripts-a-scripting-language-interface-to-the-rosetta-macromolecular-modeling-suite/</guid>
+      <description>RosettaScripts: A Scripting Language Interface to the Rosetta Macromolecular Modeling Suite
+link:https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0020161</description>
+    </item>
+    
+    <item>
+      <title>Protein structure prediction and analysis using the Robetta server</title>
+      <link>https://example.com/p/protein-structure-prediction-and-analysis-using-the-robetta-server/</link>
+      <pubDate>Sun, 27 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/protein-structure-prediction-and-analysis-using-the-robetta-server/</guid>
+      <description>Protein structure prediction and analysis using the Robetta server
+link:https://academic.oup.com/nar/article/32/suppl_2/W526/1040731?login=false</description>
+    </item>
+    
+    <item>
+      <title>Native protein sequences are close to optimal for their structures</title>
+      <link>https://example.com/p/native-protein-sequences-are-close-to-optimal-for-their-structures/</link>
+      <pubDate>Thu, 10 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/native-protein-sequences-are-close-to-optimal-for-their-structures/</guid>
+      <description>Native protein sequences are close to optimal for their structures
+link:https://www.pnas.org/doi/abs/10.1073/pnas.97.19.10383</description>
+    </item>
+    
+    <item>
+      <title>The Backrub Motion: How Protein Backbone Shrugs When a Sidechain Dances</title>
+      <link>https://example.com/p/the-backrub-motion-how-protein-backbone-shrugs-when-a-sidechain-dances/</link>
+      <pubDate>Thu, 10 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/the-backrub-motion-how-protein-backbone-shrugs-when-a-sidechain-dances/</guid>
+      <description>The Backrub Motion: How Protein Backbone Shrugs When a Sidechain Dances
+link:https://www.cell.com/fulltext/S0969-2126(06)00040-2</description>
+    </item>
+    
+    <item>
+      <title>Macromolecular Modeling with Rosetta</title>
+      <link>https://example.com/p/macromolecular-modeling-with-rosetta/</link>
+      <pubDate>Wed, 12 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/macromolecular-modeling-with-rosetta/</guid>
+      <description>Macromolecular Modeling with Rosetta
+link:https://www.annualreviews.org/doi/abs/10.1146/annurev.biochem.77.062906.171838</description>
+    </item>
+    
+    <item>
+      <title>ROSETTALIGAND Docking with Full Ligand and Receptor Flexibility </title>
+      <link>https://example.com/p/rosettaligand-docking-with-full-ligand-and-receptor-flexibility/</link>
+      <pubDate>Wed, 12 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/rosettaligand-docking-with-full-ligand-and-receptor-flexibility/</guid>
+      <description>ROSETTALIGAND Docking with Full Ligand and Receptor Flexibility
+link:https://www.sciencedirect.com/science/article/abs/pii/S0022283608014289</description>
+    </item>
+    
+    <item>
+      <title>Learned protein embeddings for machine learning</title>
+      <link>https://example.com/p/learned-protein-embeddings-for-machine-learning/</link>
+      <pubDate>Mon, 03 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/learned-protein-embeddings-for-machine-learning/</guid>
+      <description>理解蛋白质序列在机器学习模型的编码 link:https://academic.oup.com/bioinformatics/article/34/15/2642/4951834</description>
+    </item>
+    
+    <item>
+      <title>机器学习助力酶定向进化</title>
+      <link>https://example.com/p/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%8A%A9%E5%8A%9B%E9%85%B6%E5%AE%9A%E5%90%91%E8%BF%9B%E5%8C%96/</link>
+      <pubDate>Wed, 29 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%8A%A9%E5%8A%9B%E9%85%B6%E5%AE%9A%E5%90%91%E8%BF%9B%E5%8C%96/</guid>
+      <description>机器学习助力酶定向进化 link:http://www.cqvip.com/qk/92127x/202004/7102480996.html</description>
+    </item>
+    
+    <item>
+      <title>ch14_使用Bio.motifs进行模体序列分析</title>
+      <link>https://example.com/p/ch14_%E4%BD%BF%E7%94%A8bio.motifs%E8%BF%9B%E8%A1%8C%E6%A8%A1%E4%BD%93%E5%BA%8F%E5%88%97%E5%88%86%E6%9E%90/</link>
+      <pubDate>Sat, 14 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/ch14_%E4%BD%BF%E7%94%A8bio.motifs%E8%BF%9B%E8%A1%8C%E6%A8%A1%E4%BD%93%E5%BA%8F%E5%88%97%E5%88%86%E6%9E%90/</guid>
+      <description>biopython官方地址：https://biopython.org/
+github地址：https://github.com/biopython/biopython/blob/master/
+中文版教程：https://biopython-cn.readthedocs.io/zh_CN/latest/cn/chr06.html
+biopython包的说明（具体到每个模块了）：https://www.osgeo.cn/biopython/Bio.HMM.DynamicProgramming.html
+这章主要的介绍Biopython中的 Bio.motifs 包。这个包是为了方便那些需要进行模体序列分析的人们而特意提供的，所以我想你们在使用时肯定对模体序列分析的一些相关要点都很熟悉。假如在使用中遇到不清楚的地方，请您查阅 相关章节以获得有关的信息。
+这章的大部分内容是介绍Biopython 1.61 之前版本中新加入的 Bio.motifs 包，该包替代了Biopython 1.50版本中的 Bio.Motif 包，而 Bio.Motif 包是基于较早版本的Biopython 中的两个模块 Bio.AlignAce 和 Bio.MEME 。Bio.motifs 包较好地综合了上述的几个模块的功能，做为一个统一模块工具。
+说到其他库，看到这里，你或许会对 TAMO 感兴趣，这是另一个分析模体序列的Python库。它能提供更多关于 de-novo 模体的查找方式，不过它并没有纳入到Biopython中，而且在商业用途上还有一些限制
+模体对象 由于我们感兴趣的是模体分析，所以我们需要先看看 Motif 对象。对此我们需要先导入Bio.motifs包：
+&amp;gt;&amp;gt;&amp;gt; from Bio import motifs 然后我们可以开始创建我们第一个模体对象。我们可以从模体的实例列表中创建一个 Motif 对象，也可以通过读取模体数据库中或模体查找软件产生的文件来获得一个 Motif 对象
+&amp;gt;&amp;gt;&amp;gt; from Bio import motifs 从实例中创建一个模体 假设我们有一些DNA模体的实例
+&amp;gt;&amp;gt;&amp;gt; from Bio.Seq import Seq &amp;gt;&amp;gt;&amp;gt; instances = [Seq(&amp;#34;TACAA&amp;#34;), ... Seq(&amp;#34;TACGC&amp;#34;), ... Seq(&amp;#34;TACAC&amp;#34;), ... Seq(&amp;#34;TACCC&amp;#34;), ... Seq(&amp;#34;AACCC&amp;#34;), ... Seq(&amp;#34;AATGC&amp;#34;), ... Seq(&amp;#34;AATGC&amp;#34;), .</description>
+    </item>
+    
+    <item>
+      <title>test</title>
+      <link>https://example.com/p/test/</link>
+      <pubDate>Thu, 13 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/test/</guid>
+      <description>这是正文内容！！ 随便放上一张照片看看 image 这是一个标题测试 这是另一个标题测试 这是标题测试 这是另一个图片测试 image </description>
+    </item>
+    
+  </channel>
+</rss>

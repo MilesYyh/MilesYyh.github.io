@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='biopython官方教程学习笔记'><title>ch3_seq_object</title>
+
+<link rel='canonical' href='https://example.com/p/ch3_seq_object/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='ch3_seq_object'>
+<meta property='og:description' content='biopython官方教程学习笔记'>
+<meta property='og:url' content='https://example.com/p/ch3_seq_object/'>
+<meta property='og:site_name' content='叶宇浩随记博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='tutorials' /><meta property='article:published_time' content='2021-08-04T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-08-04T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="ch3_seq_object">
+<meta name="twitter:description" content="biopython官方教程学习笔记">
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>Back</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/biopython/" style="background-color: #002be1; color: #fff;">
+                生物编程
+            </a>
+        
+            <a href="/categories/bioinformatic/" style="background-color: #7816ff; color: #fff;">
+                生物信息学&amp;计算生物学
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/ch3_seq_object/">ch3_seq_object</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        biopython官方教程学习笔记
+    </h3>
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Aug 04, 2021</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    2 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <p><strong>biopython官方地址：</strong><a class="link" href="https://biopython.org/"  target="_blank" rel="noopener"
+    ><strong>https://biopython.org/</strong></a></p>
+<p><strong>github地址：</strong><a class="link" href="https://github.com/biopython/biopython/blob/master/README.rst"  target="_blank" rel="noopener"
+    ><strong>https://github.com/biopython/biopython/blob/master/</strong></a></p>
+<p><strong>中文版教程：</strong><a class="link" href="https://biopython-cn.readthedocs.io/zh_CN/latest/cn/chr06.html"  target="_blank" rel="noopener"
+    ><strong>https://biopython-cn.readthedocs.io/zh_CN/latest/cn/chr06.html</strong></a></p>
+<p><strong>biopython包的说明（具体到每个模块了）：</strong><a class="link" href="https://www.osgeo.cn/biopython/Bio.HMM.DynamicProgramming.html"  target="_blank" rel="noopener"
+    ><strong>https://www.osgeo.cn/biopython/Bio.HMM.DynamicProgramming.html</strong></a></p>
+<p>Sequences are essentially strings of letters like AGTACACTGGT, which
+seems very natural since this is the most common way that sequences are
+seen in biological file formats.
+The most important difference between Seq objects and standard Python
+strings is they have different methods. Although the Seq object supports
+many of the same methods as a plain string, its translate()method
+differs by doing biological translation, and there are also additional
+biologically relevant methods like reverse_complement().</p>
+<h2 id="seq像string">Seq像string</h2>
+<p>Seq对象是只可读的，不可写</p>
+<h3 id="enumerate方法">enumerate方法</h3>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 228; 
+			flex-basis: 547px"
+	>
+	<a href="/p/ch3_seq_object/picture/1.png" data-size="792x347">
+		<img src="/p/ch3_seq_object/picture/1.png"
+			width="792"
+			height="347"
+			srcset="/p/ch3_seq_object/picture/1_hu95172f71c317abcd23a19e9c461e48b6_42992_480x0_resize_box_3.png 480w, /p/ch3_seq_object/picture/1_hu95172f71c317abcd23a19e9c461e48b6_42992_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="切片取值">切片取值</h3>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 581; 
+			flex-basis: 1396px"
+	>
+	<a href="/p/ch3_seq_object/picture/2.png" data-size="739x127">
+		<img src="/p/ch3_seq_object/picture/2.png"
+			width="739"
+			height="127"
+			srcset="/p/ch3_seq_object/picture/2_huae7a3f39a75f6c0f18095be18338e47d_24347_480x0_resize_box_3.png 480w, /p/ch3_seq_object/picture/2_huae7a3f39a75f6c0f18095be18338e47d_24347_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 321; 
+			flex-basis: 771px"
+	>
+	<a href="/p/ch3_seq_object/picture/ch3_seq_object-1.png" data-size="611x190">
+		<img src="/p/ch3_seq_object/picture/ch3_seq_object-1.png"
+			width="611"
+			height="190"
+			srcset="/p/ch3_seq_object/picture/ch3_seq_object-1_hu317cafdc2c43093cfca686a523a2ed9f_26298_480x0_resize_box_3.png 480w, /p/ch3_seq_object/picture/ch3_seq_object-1_hu317cafdc2c43093cfca686a523a2ed9f_26298_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 212; 
+			flex-basis: 509px"
+	>
+	<a href="/p/ch3_seq_object/picture/ch3_seq_object-2.png" data-size="380x179">
+		<img src="/p/ch3_seq_object/picture/ch3_seq_object-2.png"
+			width="380"
+			height="179"
+			srcset="/p/ch3_seq_object/picture/ch3_seq_object-2_hu9b25e4fed210e8e4776d207506ebe12a_25248_480x0_resize_box_3.png 480w, /p/ch3_seq_object/picture/ch3_seq_object-2_hu9b25e4fed210e8e4776d207506ebe12a_25248_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 532; 
+			flex-basis: 1277px"
+	>
+	<a href="/p/ch3_seq_object/picture/ch3_seq_object-3.png" data-size="559x105">
+		<img src="/p/ch3_seq_object/picture/ch3_seq_object-3.png"
+			width="559"
+			height="105"
+			srcset="/p/ch3_seq_object/picture/ch3_seq_object-3_hu217e87bb99e1f5ca97c2e873b45ea923_12611_480x0_resize_box_3.png 480w, /p/ch3_seq_object/picture/ch3_seq_object-3_hu217e87bb99e1f5ca97c2e873b45ea923_12611_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h4 id="count方法">count方法</h4>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 494; 
+			flex-basis: 1186px"
+	>
+	<a href="/p/ch3_seq_object/picture/ch3_seq_object-4.png" data-size="776x157">
+		<img src="/p/ch3_seq_object/picture/ch3_seq_object-4.png"
+			width="776"
+			height="157"
+			srcset="/p/ch3_seq_object/picture/ch3_seq_object-4_hu5e60078812cdbda17ef73c9139bd2518_18859_480x0_resize_box_3.png 480w, /p/ch3_seq_object/picture/ch3_seq_object-4_hu5e60078812cdbda17ef73c9139bd2518_18859_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 403; 
+			flex-basis: 969px"
+	>
+	<a href="/p/ch3_seq_object/picture/ch3_seq_object-5.png" data-size="949x235">
+		<img src="/p/ch3_seq_object/picture/ch3_seq_object-5.png"
+			width="949"
+			height="235"
+			srcset="/p/ch3_seq_object/picture/ch3_seq_object-5_hud12f44a9e7663c6c7b4892f7877bce35_39336_480x0_resize_box_3.png 480w, /p/ch3_seq_object/picture/ch3_seq_object-5_hud12f44a9e7663c6c7b4892f7877bce35_39336_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="biosequtils-中的gc可以直接计算cg含量百分比">Bio.SeqUtils 中的GC可以直接计算CG含量百分比</h3>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 403; 
+			flex-basis: 969px"
+	>
+	<a href="/p/ch3_seq_object/picture/ch3_seq_object-6.png" data-size="949x235">
+		<img src="/p/ch3_seq_object/picture/ch3_seq_object-6.png"
+			width="949"
+			height="235"
+			srcset="/p/ch3_seq_object/picture/ch3_seq_object-6_hud12f44a9e7663c6c7b4892f7877bce35_39336_480x0_resize_box_3.png 480w, /p/ch3_seq_object/picture/ch3_seq_object-6_hud12f44a9e7663c6c7b4892f7877bce35_39336_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="seq转为string">Seq转为string</h3>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 455; 
+			flex-basis: 1094px"
+	>
+	<a href="/p/ch3_seq_object/picture/ch3_seq_object-7.png" data-size="693x152">
+		<img src="/p/ch3_seq_object/picture/ch3_seq_object-7.png"
+			width="693"
+			height="152"
+			srcset="/p/ch3_seq_object/picture/ch3_seq_object-7_hu1a539b04db1be6be530f7b2630e9bfeb_27011_480x0_resize_box_3.png 480w, /p/ch3_seq_object/picture/ch3_seq_object-7_hu1a539b04db1be6be530f7b2630e9bfeb_27011_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+即使是Seq对象，print的时候也只会跟str一样返回序列的结果，而不会带上属性
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 516; 
+			flex-basis: 1240px"
+	>
+	<a href="/p/ch3_seq_object/picture/ch3_seq_object-8.png" data-size="460x89">
+		<img src="/p/ch3_seq_object/picture/ch3_seq_object-8.png"
+			width="460"
+			height="89"
+			srcset="/p/ch3_seq_object/picture/ch3_seq_object-8_hu6c3e7f038b00267c7251bebeaab6ba28_11454_480x0_resize_box_3.png 480w, /p/ch3_seq_object/picture/ch3_seq_object-8_hu6c3e7f038b00267c7251bebeaab6ba28_11454_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="用法">%用法</h3>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 487; 
+			flex-basis: 1169px"
+	>
+	<a href="/p/ch3_seq_object/picture/ch3_seq_object-9.png" data-size="833x171">
+		<img src="/p/ch3_seq_object/picture/ch3_seq_object-9.png"
+			width="833"
+			height="171"
+			srcset="/p/ch3_seq_object/picture/ch3_seq_object-9_hu2b629f3b8ac7715620f054063757fe1e_25902_480x0_resize_box_3.png 480w, /p/ch3_seq_object/picture/ch3_seq_object-9_hu2b629f3b8ac7715620f054063757fe1e_25902_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="号序列拼接">+号序列拼接</h3>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 333; 
+			flex-basis: 800px"
+	>
+	<a href="/p/ch3_seq_object/picture/ch3_seq_object-10.png" data-size="790x237">
+		<img src="/p/ch3_seq_object/picture/ch3_seq_object-10.png"
+			width="790"
+			height="237"
+			srcset="/p/ch3_seq_object/picture/ch3_seq_object-10_hu858d58e33f7dcb1929338fa39764bcfe_37334_480x0_resize_box_3.png 480w, /p/ch3_seq_object/picture/ch3_seq_object-10_hu858d58e33f7dcb1929338fa39764bcfe_37334_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="join方法拼接也可以">join方法拼接也可以</h3>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 433; 
+			flex-basis: 1039px"
+	>
+	<a href="/p/ch3_seq_object/picture/ch3_seq_object-11.png" data-size="719x166">
+		<img src="/p/ch3_seq_object/picture/ch3_seq_object-11.png"
+			width="719"
+			height="166"
+			srcset="/p/ch3_seq_object/picture/ch3_seq_object-11_hu74eca6edd4d44f2a6247735bdfb41ce5_30564_480x0_resize_box_3.png 480w, /p/ch3_seq_object/picture/ch3_seq_object-11_hu74eca6edd4d44f2a6247735bdfb41ce5_30564_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="upperlower方法">upper/lower方法</h3>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 184; 
+			flex-basis: 443px"
+	>
+	<a href="/p/ch3_seq_object/picture/ch3_seq_object-12.png" data-size="719x389">
+		<img src="/p/ch3_seq_object/picture/ch3_seq_object-12.png"
+			width="719"
+			height="389"
+			srcset="/p/ch3_seq_object/picture/ch3_seq_object-12_huf3a954fd0d6804bb6f52505d07393ba7_55941_480x0_resize_box_3.png 480w, /p/ch3_seq_object/picture/ch3_seq_object-12_huf3a954fd0d6804bb6f52505d07393ba7_55941_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="seq对象获取compement互补链reverse_complement反向互补链">Seq对象获取compement互补链/reverse_complement反向互补链</h3>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 331; 
+			flex-basis: 796px"
+	>
+	<a href="/p/ch3_seq_object/picture/ch3_seq_object-13.png" data-size="806x243">
+		<img src="/p/ch3_seq_object/picture/ch3_seq_object-13.png"
+			width="806"
+			height="243"
+			srcset="/p/ch3_seq_object/picture/ch3_seq_object-13_hu9a2434ae57fa944becd62908ce333fb6_46395_480x0_resize_box_3.png 480w, /p/ch3_seq_object/picture/ch3_seq_object-13_hu9a2434ae57fa944becd62908ce333fb6_46395_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+这肯定不能用在protein seq上咯，因为protein seq不是ATCG</p>
+<h3 id="transcription转录">Transcription转录</h3>
+<p>Consider the following (made up) stretch of double stranded DNA which
+encodes a short peptide:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 184; 
+			flex-basis: 442px"
+	>
+	<a href="/p/ch3_seq_object/picture/ch3_seq_object-14.png" data-size="641x348">
+		<img src="/p/ch3_seq_object/picture/ch3_seq_object-14.png"
+			width="641"
+			height="348"
+			srcset="/p/ch3_seq_object/picture/ch3_seq_object-14_hud6ae86399d602ff2cd33da14b2659a41_41268_480x0_resize_box_3.png 480w, /p/ch3_seq_object/picture/ch3_seq_object-14_hud6ae86399d602ff2cd33da14b2659a41_41268_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+The actual biological transcription process works from the template
+strand, doing a reverse complement (TCAG → CUGA) to give the mRNA.
+However, in Biopython and bioinformatics in general, we typically work
+directly with the coding strand because this means we can get the mRNA
+sequence just by switching T → U.</p>
+<ul>
+<li>一步
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 409; 
+			flex-basis: 983px"
+	>
+	<a href="/p/ch3_seq_object/picture/ch3_seq_object-15.png" data-size="877x214">
+		<img src="/p/ch3_seq_object/picture/ch3_seq_object-15.png"
+			width="877"
+			height="214"
+			srcset="/p/ch3_seq_object/picture/ch3_seq_object-15_hu2cd7c535c78708f02b95c9c0e9cdd3cd_44907_480x0_resize_box_3.png 480w, /p/ch3_seq_object/picture/ch3_seq_object-15_hu2cd7c535c78708f02b95c9c0e9cdd3cd_44907_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></li>
+<li>两步
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 409; 
+			flex-basis: 983px"
+	>
+	<a href="/p/ch3_seq_object/picture/ch3_seq_object-16.png" data-size="877x214">
+		<img src="/p/ch3_seq_object/picture/ch3_seq_object-16.png"
+			width="877"
+			height="214"
+			srcset="/p/ch3_seq_object/picture/ch3_seq_object-16_hu2cd7c535c78708f02b95c9c0e9cdd3cd_44907_480x0_resize_box_3.png 480w, /p/ch3_seq_object/picture/ch3_seq_object-16_hu2cd7c535c78708f02b95c9c0e9cdd3cd_44907_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 409; 
+			flex-basis: 983px"
+	>
+	<a href="/p/ch3_seq_object/picture/ch3_seq_object-17.png" data-size="877x214">
+		<img src="/p/ch3_seq_object/picture/ch3_seq_object-17.png"
+			width="877"
+			height="214"
+			srcset="/p/ch3_seq_object/picture/ch3_seq_object-17_hu2cd7c535c78708f02b95c9c0e9cdd3cd_44907_480x0_resize_box_3.png 480w, /p/ch3_seq_object/picture/ch3_seq_object-17_hu2cd7c535c78708f02b95c9c0e9cdd3cd_44907_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></li>
+</ul>
+<h3 id="back_transcribe方法">back_transcribe方法</h3>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 496; 
+			flex-basis: 1191px"
+	>
+	<a href="/p/ch3_seq_object/picture/ch3_seq_object-18.png" data-size="819x165">
+		<img src="/p/ch3_seq_object/picture/ch3_seq_object-18.png"
+			width="819"
+			height="165"
+			srcset="/p/ch3_seq_object/picture/ch3_seq_object-18_hub9b155300ddcdf76b4e3132217384001_40160_480x0_resize_box_3.png 480w, /p/ch3_seq_object/picture/ch3_seq_object-18_hub9b155300ddcdf76b4e3132217384001_40160_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="translation翻译">translation翻译</h3>
+<p>将DNA序列翻译为protein序列
+翻译table原则：<a class="link" href="https://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi"  target="_blank" rel="noopener"
+    >https://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi</a>
+<figure 
+	>
+	<a href="https://cdn.nlark.com/yuque/0/2022/png/25882219/1651153720843-79d7a21a-85eb-4956-b534-29d9c33f705b.png" >
+		<img src="https://cdn.nlark.com/yuque/0/2022/png/25882219/1651153720843-79d7a21a-85eb-4956-b534-29d9c33f705b.png"
+			
+			
+			
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h4 id="翻译的table选择">翻译的table选择</h4>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 516; 
+			flex-basis: 1240px"
+	>
+	<a href="/p/ch3_seq_object/picture/ch3_seq_object-19.png" data-size="1039x201">
+		<img src="/p/ch3_seq_object/picture/ch3_seq_object-19.png"
+			width="1039"
+			height="201"
+			srcset="/p/ch3_seq_object/picture/ch3_seq_object-19_hu955d4c6d3b1910f40236b159a3f5a745_47914_480x0_resize_box_3.png 480w, /p/ch3_seq_object/picture/ch3_seq_object-19_hu955d4c6d3b1910f40236b159a3f5a745_47914_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h4 id="考虑终止密码子的翻译">考虑终止密码子的翻译</h4>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 516; 
+			flex-basis: 1240px"
+	>
+	<a href="/p/ch3_seq_object/picture/ch3_seq_object-20.png" data-size="1039x201">
+		<img src="/p/ch3_seq_object/picture/ch3_seq_object-20.png"
+			width="1039"
+			height="201"
+			srcset="/p/ch3_seq_object/picture/ch3_seq_object-20_hu955d4c6d3b1910f40236b159a3f5a745_47914_480x0_resize_box_3.png 480w, /p/ch3_seq_object/picture/ch3_seq_object-20_hu955d4c6d3b1910f40236b159a3f5a745_47914_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+Notice that when you use the to_stop argument, the stop codon itself is
+not translated - and the stop symbol is not included at the end of your
+protein sequence. You can even specify the stop symbol if you don't
+like the default asterisk:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 1059; 
+			flex-basis: 2542px"
+	>
+	<a href="/p/ch3_seq_object/picture/ch3_seq_object-24.png" data-size="678x64">
+		<img src="/p/ch3_seq_object/picture/ch3_seq_object-24.png"
+			width="678"
+			height="64"
+			srcset="/p/ch3_seq_object/picture/ch3_seq_object-24_hu2ed2a2843aad51938277d0f67f3c1076_17173_480x0_resize_box_3.png 480w, /p/ch3_seq_object/picture/ch3_seq_object-24_hu2ed2a2843aad51938277d0f67f3c1076_17173_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h4 id="考虑细菌的起始密码子">考虑细菌的起始密码子</h4>
+<p><figure 
+	>
+	<a href="https://cdn.nlark.com/yuque/0/2022/png/25882219/1651154672053-79b0e3af-234a-40de-8d30-75806b5369a0.png" >
+		<img src="https://cdn.nlark.com/yuque/0/2022/png/25882219/1651154672053-79b0e3af-234a-40de-8d30-75806b5369a0.png"
+			
+			
+			
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="translation-tables选择翻译的table标准">Translation Tables选择翻译的table标准</h3>
+<p>let's just focus on two choices: the Standard translation table, and
+the translation table for Vertebrate Mitochondrial DNA
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 138; 
+			flex-basis: 331px"
+	>
+	<a href="/p/ch3_seq_object/picture/ch3_seq_object-28.png" data-size="790x572">
+		<img src="/p/ch3_seq_object/picture/ch3_seq_object-28.png"
+			width="790"
+			height="572"
+			srcset="/p/ch3_seq_object/picture/ch3_seq_object-28_hu14664e970879535f99ddc6ba89324b6d_195024_480x0_resize_box_3.png 480w, /p/ch3_seq_object/picture/ch3_seq_object-28_hu14664e970879535f99ddc6ba89324b6d_195024_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 108; 
+			flex-basis: 260px"
+	>
+	<a href="/p/ch3_seq_object/picture/ch3_seq_object-29.png" data-size="748x690">
+		<img src="/p/ch3_seq_object/picture/ch3_seq_object-29.png"
+			width="748"
+			height="690"
+			srcset="/p/ch3_seq_object/picture/ch3_seq_object-29_hu7e5579e6cb1d871fa13b797d8f975ff5_103198_480x0_resize_box_3.png 480w, /p/ch3_seq_object/picture/ch3_seq_object-29_hu7e5579e6cb1d871fa13b797d8f975ff5_103198_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h4 id="甚至可以直接返回终止密码子起始密码子直接翻译">甚至可以直接返回终止密码子、起始密码子、直接翻译</h4>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 316; 
+			flex-basis: 760px"
+	>
+	<a href="/p/ch3_seq_object/picture/ch3_seq_object-30.png" data-size="456x144">
+		<img src="/p/ch3_seq_object/picture/ch3_seq_object-30.png"
+			width="456"
+			height="144"
+			srcset="/p/ch3_seq_object/picture/ch3_seq_object-30_huf51185e388a3000c5a6f34032af9c51a_35903_480x0_resize_box_3.png 480w, /p/ch3_seq_object/picture/ch3_seq_object-30_huf51185e388a3000c5a6f34032af9c51a_35903_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="序列的比较">序列的比较</h3>
+<p>Biopython can track the molecule type, so comparing two Seq objects could mean considering this too.Should a DNA fragment &ldquo;ACG&rdquo; and an RNA fragment &ldquo;ACG&rdquo; be equal? What about the peptide &ldquo;ACG&rdquo;? Or the Python string &quot;ACG&quot;? In everyday use, your sequences will generally all be the same type of (all DNA, all RNA, or all protein). Well, as of Biopython 1.65, sequence comparison only looks at the sequence and compares like the Python string.
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 238; 
+			flex-basis: 572px"
+	>
+	<a href="/p/ch3_seq_object/picture/ch3_seq_object-31.png" data-size="372x156">
+		<img src="/p/ch3_seq_object/picture/ch3_seq_object-31.png"
+			width="372"
+			height="156"
+			srcset="/p/ch3_seq_object/picture/ch3_seq_object-31_huf61ea6f2b8be9989ff0d88b57f082c38_23617_480x0_resize_box_3.png 480w, /p/ch3_seq_object/picture/ch3_seq_object-31_huf61ea6f2b8be9989ff0d88b57f082c38_23617_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="空的seq对象">空的seq对象</h3>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 537; 
+			flex-basis: 1289px"
+	>
+	<a href="/p/ch3_seq_object/picture/ch3_seq_object-32.png" data-size="376x70">
+		<img src="/p/ch3_seq_object/picture/ch3_seq_object-32.png"
+			width="376"
+			height="70"
+			srcset="/p/ch3_seq_object/picture/ch3_seq_object-32_huc7b97922cb6c062d61599596aec1bd53_14792_480x0_resize_box_3.png 480w, /p/ch3_seq_object/picture/ch3_seq_object-32_huc7b97922cb6c062d61599596aec1bd53_14792_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 361; 
+			flex-basis: 868px"
+	>
+	<a href="/p/ch3_seq_object/picture/ch3_seq_object-33.png" data-size="760x210">
+		<img src="/p/ch3_seq_object/picture/ch3_seq_object-33.png"
+			width="760"
+			height="210"
+			srcset="/p/ch3_seq_object/picture/ch3_seq_object-33_hu0df56684cfd541128bc6be0623b59f88_46062_480x0_resize_box_3.png 480w, /p/ch3_seq_object/picture/ch3_seq_object-33_hu0df56684cfd541128bc6be0623b59f88_46062_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="mutableseq-对象">MutableSeq 对象</h3>
+<p>Seq对象只可读，而MutableSeq对象可写</p>
+<ul>
+<li>Seq对象
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 391; 
+			flex-basis: 938px"
+	>
+	<a href="/p/ch3_seq_object/picture/ch3_seq_object-35.png" data-size="782x200">
+		<img src="/p/ch3_seq_object/picture/ch3_seq_object-35.png"
+			width="782"
+			height="200"
+			srcset="/p/ch3_seq_object/picture/ch3_seq_object-35_hud016acaaab5cca8983fe77844fe9e92f_63991_480x0_resize_box_3.png 480w, /p/ch3_seq_object/picture/ch3_seq_object-35_hud016acaaab5cca8983fe77844fe9e92f_63991_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></li>
+<li>MutableSeq对象
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 382; 
+			flex-basis: 917px"
+	>
+	<a href="/p/ch3_seq_object/picture/ch3_seq_object-36.png" data-size="772x202">
+		<img src="/p/ch3_seq_object/picture/ch3_seq_object-36.png"
+			width="772"
+			height="202"
+			srcset="/p/ch3_seq_object/picture/ch3_seq_object-36_hu01d68543a431615f2ca4c482fa076ac6_77967_480x0_resize_box_3.png 480w, /p/ch3_seq_object/picture/ch3_seq_object-36_hu01d68543a431615f2ca4c482fa076ac6_77967_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 219; 
+			flex-basis: 526px"
+	>
+	<a href="/p/ch3_seq_object/picture/ch3_seq_object-37.png" data-size="592x270">
+		<img src="/p/ch3_seq_object/picture/ch3_seq_object-37.png"
+			width="592"
+			height="270"
+			srcset="/p/ch3_seq_object/picture/ch3_seq_object-37_hu19937a2ff8b379bc67b9bee1432d5e53_93299_480x0_resize_box_3.png 480w, /p/ch3_seq_object/picture/ch3_seq_object-37_hu19937a2ff8b379bc67b9bee1432d5e53_93299_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></li>
+</ul>
+<h3 id="unkonwnseq-object对象">UnkonwnSeq object对象</h3>
+<p>这样创建一个未知具体序列的对象效率会更快，而且占用的内存更小
+传入长度和未知号码的替代符号：
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 229; 
+			flex-basis: 550px"
+	>
+	<a href="/p/ch3_seq_object/picture/ch3_seq_object-38.png" data-size="422x184">
+		<img src="/p/ch3_seq_object/picture/ch3_seq_object-38.png"
+			width="422"
+			height="184"
+			srcset="/p/ch3_seq_object/picture/ch3_seq_object-38_hu2a23f8fdeccded51763e05e595237b5a_37047_480x0_resize_box_3.png 480w, /p/ch3_seq_object/picture/ch3_seq_object-38_hu2a23f8fdeccded51763e05e595237b5a_37047_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h4 id="xn的意义">X/N的意义</h4>
+<p><strong>For DNA or RNA sequences, unknown nucleotides are commonly denoted by
+the letter &quot;N&quot;, while for proteins &quot;X&quot; is commonly used for unknown
+amino acids.</strong> When creating an 'UnknownSeq', you can specify the
+character to be used instead of &quot;?&quot; to represent unknown letters.</p>
+<h4 id="即使是unkownseq也可以使用seq的方法">即使是UnkownSeq也可以使用Seq的方法</h4>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 112; 
+			flex-basis: 269px"
+	>
+	<a href="/p/ch3_seq_object/picture/ch3_seq_object-39.png" data-size="604x538">
+		<img src="/p/ch3_seq_object/picture/ch3_seq_object-39.png"
+			width="604"
+			height="538"
+			srcset="/p/ch3_seq_object/picture/ch3_seq_object-39_hu8ee2b0f1b7a8d80ab57188b9ffdada7a_89813_480x0_resize_box_3.png 480w, /p/ch3_seq_object/picture/ch3_seq_object-39_hu8ee2b0f1b7a8d80ab57188b9ffdada7a_89813_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="直接在string使用方法也是可以的">直接在string使用方法也是可以的</h3>
+<p>虽然这样是可以的，但是还是更加推荐使用Seq对象而不是String对象
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 395; 
+			flex-basis: 949px"
+	>
+	<a href="/p/ch3_seq_object/picture/ch3_seq_object-40.png" data-size="870x220">
+		<img src="/p/ch3_seq_object/picture/ch3_seq_object-40.png"
+			width="870"
+			height="220"
+			srcset="/p/ch3_seq_object/picture/ch3_seq_object-40_huddf54e174f9ea4407167a98885a87e16_110943_480x0_resize_box_3.png 480w, /p/ch3_seq_object/picture/ch3_seq_object-40_huddf54e174f9ea4407167a98885a87e16_110943_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/tutorials/">tutorials</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2022 - 
+        
+        2023 叶宇浩随记博客
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.5.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">Table of contents</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#seq像string">Seq像string</a>
+      <ol>
+        <li><a href="#enumerate方法">enumerate方法</a></li>
+        <li><a href="#切片取值">切片取值</a>
+          <ol>
+            <li><a href="#count方法">count方法</a></li>
+          </ol>
+        </li>
+        <li><a href="#biosequtils-中的gc可以直接计算cg含量百分比">Bio.SeqUtils 中的GC可以直接计算CG含量百分比</a></li>
+        <li><a href="#seq转为string">Seq转为string</a></li>
+        <li><a href="#用法">%用法</a></li>
+        <li><a href="#号序列拼接">+号序列拼接</a></li>
+        <li><a href="#join方法拼接也可以">join方法拼接也可以</a></li>
+        <li><a href="#upperlower方法">upper/lower方法</a></li>
+        <li><a href="#seq对象获取compement互补链reverse_complement反向互补链">Seq对象获取compement互补链/reverse_complement反向互补链</a></li>
+        <li><a href="#transcription转录">Transcription转录</a></li>
+        <li><a href="#back_transcribe方法">back_transcribe方法</a></li>
+        <li><a href="#translation翻译">translation翻译</a>
+          <ol>
+            <li><a href="#翻译的table选择">翻译的table选择</a></li>
+            <li><a href="#考虑终止密码子的翻译">考虑终止密码子的翻译</a></li>
+            <li><a href="#考虑细菌的起始密码子">考虑细菌的起始密码子</a></li>
+          </ol>
+        </li>
+        <li><a href="#translation-tables选择翻译的table标准">Translation Tables选择翻译的table标准</a>
+          <ol>
+            <li><a href="#甚至可以直接返回终止密码子起始密码子直接翻译">甚至可以直接返回终止密码子、起始密码子、直接翻译</a></li>
+          </ol>
+        </li>
+        <li><a href="#序列的比较">序列的比较</a></li>
+        <li><a href="#空的seq对象">空的seq对象</a></li>
+        <li><a href="#mutableseq-对象">MutableSeq 对象</a></li>
+        <li><a href="#unkonwnseq-object对象">UnkonwnSeq object对象</a>
+          <ol>
+            <li><a href="#xn的意义">X/N的意义</a></li>
+            <li><a href="#即使是unkownseq也可以使用seq的方法">即使是UnkownSeq也可以使用Seq的方法</a></li>
+          </ol>
+        </li>
+        <li><a href="#直接在string使用方法也是可以的">直接在string使用方法也是可以的</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

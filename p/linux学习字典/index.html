@@ -1,0 +1,3348 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='linux学习记录'><title>Linux学习字典</title>
+
+<link rel='canonical' href='https://example.com/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='Linux学习字典'>
+<meta property='og:description' content='linux学习记录'>
+<meta property='og:url' content='https://example.com/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/'>
+<meta property='og:site_name' content='叶宇浩随记博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2021-09-10T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-09-10T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="Linux学习字典">
+<meta name="twitter:description" content="linux学习记录">
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>Back</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/linux/" style="background-color: #083; color: #fff;">
+                linux系统
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/">Linux学习字典</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        linux学习记录
+    </h3>
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Sep 10, 2021</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    2 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <blockquote>
+<p>这是系统性学习一遍Linxu的笔记
+看的教程：https://www.bilibili.com/video/BV1CQ4y127LQ?spm_id_from=333.999.0.0</p>
+</blockquote>
+<h2 id="ls">ls</h2>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 170; 
+			flex-basis: 408px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8.png" data-size="840x494">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8.png"
+			width="840"
+			height="494"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8_hu54b33b5e4dd1ea561b3c3916965d2f4d_105500_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8_hu54b33b5e4dd1ea561b3c3916965d2f4d_105500_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 134; 
+			flex-basis: 322px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-1.png" data-size="840x626">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-1.png"
+			width="840"
+			height="626"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-1_hu8b7bbeb40825efcd36cb1e43d19d7c26_661941_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-1_hu8b7bbeb40825efcd36cb1e43d19d7c26_661941_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+1 列的第一个字符可能是 d/l/-  -表示这个文件是一个二进制文件  d表示是一个目录文件  l表示一个软连接文件；第二个字符到第九个字符代表权限</p>
+<p>2 列 表示文件的数量 （如目录的多个文件也会显示出来）</p>
+<p>3 列/4列 分别是文件的所有者/所有组  配合权限使用</p>
+<p>5 列是文件的大小 单位为btype（字节）  ls -alh可以转换为M/kb的形式</p>
+<p>6 列 文件上一次被修改的时间  （当年的会具体到h）</p>
+<p>7 文件名 （软连接则指向真实路径）</p>
+<p>以.点开头的是隐藏文件，ls -a 可以看出</p>
+<h2 id="ls--al-cd-pwdls--alh">ls -al /cd /pwd/ls -alh</h2>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 175; 
+			flex-basis: 420px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-2.png" data-size="840x480">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-2.png"
+			width="840"
+			height="480"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-2_hubfac9f6565a9d8eaa88a5511bbbc6438_156524_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-2_hubfac9f6565a9d8eaa88a5511bbbc6438_156524_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="linux文件系统">Linux文件系统</h2>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 190; 
+			flex-basis: 458px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-3.png" data-size="840x440">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-3.png"
+			width="840"
+			height="440"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-3_hud08825dcfc4f0af71a31980e4c6303c4_79479_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-3_hud08825dcfc4f0af71a31980e4c6303c4_79479_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 212; 
+			flex-basis: 509px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-4.png" data-size="840x396">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-4.png"
+			width="840"
+			height="396"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-4_hu69cb836cd75f186a49c919db7402f456_102197_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-4_hu69cb836cd75f186a49c919db7402f456_102197_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+bin ： 放的都是命令文件</p>
+<p>sbin： 放的是命令文件 权限等级高于bin</p>
+<p>boot : 存放的是启动系统所需的东西</p>
+<p>dev ： 存放Linux的设备文件</p>
+<p>etc ： 存放配置/应用 文件</p>
+<p>home： 存放用户的身份目录       root比较特殊单独成一个</p>
+<p>run：系统启动和程序启动时运行产生的文件</p>
+<p>usr: 存放应用程序的文件</p>
+<p>tmp：存放临时文件
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 207; 
+			flex-basis: 499px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-5.png" data-size="840x404">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-5.png"
+			width="840"
+			height="404"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-5_huc0d8795f7f6467360c30b757a12c2097_107212_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-5_huc0d8795f7f6467360c30b757a12c2097_107212_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+/dev/sda2 理解为window的D盘访问</p>
+<h2 id="cp--mv">cp / mv</h2>
+<h3 id="cp">cp</h3>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 200; 
+			flex-basis: 480px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-6.png" data-size="840x420">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-6.png"
+			width="840"
+			height="420"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-6_hu51fcfe5fe8939c49617a6276a7bb797c_86429_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-6_hu51fcfe5fe8939c49617a6276a7bb797c_86429_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 200; 
+			flex-basis: 482px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-7.png" data-size="840x418">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-7.png"
+			width="840"
+			height="418"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-7_hu0f8a518f78b9fb855a3c9e29dff77ae1_358597_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-7_hu0f8a518f78b9fb855a3c9e29dff77ae1_358597_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+cp -r 可以拷贝目录中的所有文件（目录）
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 247; 
+			flex-basis: 593px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-8.png" data-size="826x334">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-8.png"
+			width="826"
+			height="334"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-8_hua386e8498b7f8fdec76d08327e15b477_284568_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-8_hua386e8498b7f8fdec76d08327e15b477_284568_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="mv-用法和cp一样">mv 用法和cp一样</h3>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 191; 
+			flex-basis: 460px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-9.png" data-size="840x438">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-9.png"
+			width="840"
+			height="438"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-9_hub5778c506f16ed9b89071388968a4225_68700_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-9_hub5778c506f16ed9b89071388968a4225_68700_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 128; 
+			flex-basis: 309px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-10.png" data-size="840x652">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-10.png"
+			width="840"
+			height="652"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-10_hue96455ae6edd42abc2d8584f583baccc_444010_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-10_hue96455ae6edd42abc2d8584f583baccc_444010_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="touch--mkdir--rm">touch / mkdir / rm</h2>
+<h3 id="touch">touch</h3>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 185; 
+			flex-basis: 444px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-11.png" data-size="840x454">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-11.png"
+			width="840"
+			height="454"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-11_hu081fd4160b5cd9adf30874d39a0b57e2_78710_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-11_hu081fd4160b5cd9adf30874d39a0b57e2_78710_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+1112310630.35 ：11年12月10号6点30分35秒</p>
+<h3 id="mkdir">mkdir</h3>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 176; 
+			flex-basis: 423px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-12.png" data-size="840x476">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-12.png"
+			width="840"
+			height="476"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-12_hu8a383811298df2f4e3193023b242e520_72789_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-12_hu8a383811298df2f4e3193023b242e520_72789_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="rm">rm</h3>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 176; 
+			flex-basis: 423px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-12.png" data-size="840x476">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-12.png"
+			width="840"
+			height="476"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-12_hu8a383811298df2f4e3193023b242e520_72789_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-12_hu8a383811298df2f4e3193023b242e520_72789_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+rm -rf * 删除所有文件</p>
+<h2 id="cat">cat</h2>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 182; 
+			flex-basis: 438px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-13.png" data-size="840x460">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-13.png"
+			width="840"
+			height="460"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-13_hu17e30f7e43f1a3380e341e2b92f6ebe4_100115_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-13_hu17e30f7e43f1a3380e341e2b92f6ebe4_100115_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 124; 
+			flex-basis: 298px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-14.png" data-size="738x594">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-14.png"
+			width="738"
+			height="594"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-14_hu097003b15415d1067884989cff8e73f6_214165_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-14_hu097003b15415d1067884989cff8e73f6_214165_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+cat -n file1 &gt; file2 将file1内容以及行号到file2中
+cat file | grep word  将file中包含word的行抓出来出来 （|是通道符）
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 123; 
+			flex-basis: 295px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-15.png" data-size="840x682">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-15.png"
+			width="840"
+			height="682"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-15_hu4f4866d2c4259199d369518b4d7f48a0_392829_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-15_hu4f4866d2c4259199d369518b4d7f48a0_392829_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="head--tail">head / tail</h2>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 224; 
+			flex-basis: 539px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-16.png" data-size="840x374">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-16.png"
+			width="840"
+			height="374"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-16_hu671e40be264cda0dce3983bdd6beb8d0_69797_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-16_hu671e40be264cda0dce3983bdd6beb8d0_69797_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 188; 
+			flex-basis: 452px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-17.png" data-size="840x446">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-17.png"
+			width="840"
+			height="446"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-17_hu58063a1c4e0802afba040ddd8002dd58_250604_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-17_hu58063a1c4e0802afba040ddd8002dd58_250604_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 203; 
+			flex-basis: 489px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-18.png" data-size="840x412">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-18.png"
+			width="840"
+			height="412"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-18_hub1ec60ab27805f92d7bd410c6a570969_76807_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-18_hub1ec60ab27805f92d7bd410c6a570969_76807_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 186; 
+			flex-basis: 448px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-19.png" data-size="840x450">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-19.png"
+			width="840"
+			height="450"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-19_hu822052b4c0e8d250923cd1598f7db0dd_389510_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-19_hu822052b4c0e8d250923cd1598f7db0dd_389510_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+tail -f 是是实时更新的，可以ctrl+C退出</p>
+<h2 id="more">more</h2>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 186; 
+			flex-basis: 448px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-20.png" data-size="840x450">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-20.png"
+			width="840"
+			height="450"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-20_hu0f3996f2e21c86991a5a96b2f93f1585_92045_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-20_hu0f3996f2e21c86991a5a96b2f93f1585_92045_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+history | more ： history是Linux中的命令，也就是命令的返回结果可以用more搭配阅读</p>
+<h2 id="less">less</h2>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 190; 
+			flex-basis: 458px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-21.png" data-size="840x440">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-21.png"
+			width="840"
+			height="440"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-21_hu38f6e68f498df0af25f61255b2a592e1_104891_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-21_hu38f6e68f498df0af25f61255b2a592e1_104891_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="vi">vi</h2>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 190; 
+			flex-basis: 456px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-22.png" data-size="840x442">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-22.png"
+			width="840"
+			height="442"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-22_hu0c73d5ac03c248c3f010e3c6c15c4d83_68649_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-22_hu0c73d5ac03c248c3f010e3c6c15c4d83_68649_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+交互式是指 可以使用一些操作
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 207; 
+			flex-basis: 499px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-23.png" data-size="840x404">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-23.png"
+			width="840"
+			height="404"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-23_hu2be1fc7ab3686f7aab9d622f8d9981f6_89642_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-23_hu2be1fc7ab3686f7aab9d622f8d9981f6_89642_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 211; 
+			flex-basis: 506px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-24.png" data-size="840x398">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-24.png"
+			width="840"
+			height="398"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-24_hub74db22a264761d6cdc2f45731511d81_104483_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-24_hub74db22a264761d6cdc2f45731511d81_104483_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="vi命令扩展">vi命令扩展</h2>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 205; 
+			flex-basis: 494px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-25.png" data-size="840x408">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-25.png"
+			width="840"
+			height="408"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-25_hu89f13f58b02b97efa996df2820dcfd06_87999_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-25_hu89f13f58b02b97efa996df2820dcfd06_87999_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 206; 
+			flex-basis: 496px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-26.png" data-size="840x406">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-26.png"
+			width="840"
+			height="406"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-26_hu4fb74c9b1ef2d98464a2114de578eb23_71512_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-26_hu4fb74c9b1ef2d98464a2114de578eb23_71512_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>复制粘贴时可以使用ctrl + v进入快速模式
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 198; 
+			flex-basis: 475px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-27.png" data-size="840x424">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-27.png"
+			width="840"
+			height="424"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-27_huf015adc9e3aeb7e84f9d6193181d84e7_63812_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-27_huf015adc9e3aeb7e84f9d6193181d84e7_63812_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="权限修改-chmod--chown-chgrp">权限修改 chmod / chown /chgrp</h2>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 195; 
+			flex-basis: 468px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-28.png" data-size="840x430">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-28.png"
+			width="840"
+			height="430"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-28_hudd3dc718edbe3a7037f6b03eb8125cbf_98670_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-28_hudd3dc718edbe3a7037f6b03eb8125cbf_98670_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 200; 
+			flex-basis: 480px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-29.png" data-size="840x420">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-29.png"
+			width="840"
+			height="420"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-29_hu0cfd5f11b4eec79b5e3f16d363aed206_91073_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-29_hu0cfd5f11b4eec79b5e3f16d363aed206_91073_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 197; 
+			flex-basis: 473px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-30.png" data-size="840x426">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-30.png"
+			width="840"
+			height="426"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-30_hu6701eddc16c78b8d371d10d032d907d1_99211_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-30_hu6701eddc16c78b8d371d10d032d907d1_99211_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 125; 
+			flex-basis: 300px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-31.png" data-size="840x672">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-31.png"
+			width="840"
+			height="672"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-31_hu13133dad80666ca943c51cf684fdbfae_449990_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-31_hu13133dad80666ca943c51cf684fdbfae_449990_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 318; 
+			flex-basis: 763px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-32.png" data-size="840x264">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-32.png"
+			width="840"
+			height="264"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-32_hu87030b51a7089e135cb53274c06fefb9_166637_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-32_hu87030b51a7089e135cb53274c06fefb9_166637_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 318; 
+			flex-basis: 763px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-33.png" data-size="840x264">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-33.png"
+			width="840"
+			height="264"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-33_hu87030b51a7089e135cb53274c06fefb9_166637_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-33_hu87030b51a7089e135cb53274c06fefb9_166637_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="通配符">通配符</h2>
+<p>模糊搜索
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 184; 
+			flex-basis: 442px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-34.png" data-size="840x456">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-34.png"
+			width="840"
+			height="456"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-34_hu470e10bbd81873db1c4e1351b1ce64ed_112703_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-34_hu470e10bbd81873db1c4e1351b1ce64ed_112703_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 170; 
+			flex-basis: 409px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-35.png" data-size="840x492">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-35.png"
+			width="840"
+			height="492"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-35_hueae6b29121c24e37a46943a79e4d68f3_458502_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-35_hueae6b29121c24e37a46943a79e4d68f3_458502_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 545; 
+			flex-basis: 1309px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-36.png" data-size="840x154">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-36.png"
+			width="840"
+			height="154"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-36_hu0ad12215c87b9adcd1bec2436b116aa5_143683_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-36_hu0ad12215c87b9adcd1bec2436b116aa5_143683_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 666; 
+			flex-basis: 1600px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-37.png" data-size="840x126">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-37.png"
+			width="840"
+			height="126"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-37_hu56b026b517ce7acb87587b18830ee2d2_138586_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-37_hu56b026b517ce7acb87587b18830ee2d2_138586_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="find">find</h2>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 181; 
+			flex-basis: 434px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-38.png" data-size="840x464">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-38.png"
+			width="840"
+			height="464"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-38_hu5b5006eea59649a5662dc7317888e69f_125362_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-38_hu5b5006eea59649a5662dc7317888e69f_125362_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+-mtime -3 表示三天内修改过的文件
+-mtime 3 表示刚好三天的文件
+-mtime +3 表示三天前修改过的文件</p>
+<p>find / -name test.* 表示从全局查找test.开头的文件
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 206; 
+			flex-basis: 496px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-39.png" data-size="840x406">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-39.png"
+			width="840"
+			height="406"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-39_hu847b488e984590c35363a3e0452bb570_207798_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-39_hu847b488e984590c35363a3e0452bb570_207798_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 251; 
+			flex-basis: 603px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-40.png" data-size="840x334">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-40.png"
+			width="840"
+			height="334"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-40_hu231b28fc58b8697f3d15d103536d08cd_148858_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-40_hu231b28fc58b8697f3d15d103536d08cd_148858_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="locate">locate</h2>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 235; 
+			flex-basis: 566px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-41.png" data-size="840x356">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-41.png"
+			width="840"
+			height="356"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-41_hu4170955fab5879182d3ffc788cfaa4f0_88832_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-41_hu4170955fab5879182d3ffc788cfaa4f0_88832_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="man">man</h2>
+<p>man 命令 可以查找这个命令的说明</p>
+<h2 id="help">help</h2>
+<p>命令 &ndash;help 可以查找这个命令的说明</p>
+<h2 id="bash-shell的快捷键">Bash shell的快捷键</h2>
+<p>ctrl + a/e 可以快速跳到命令行首/尾
+ctrl + u/k   从当前删除到命令开头/末尾
+Esc + .  可以快速输入上一个命令中的参数
+Tab  则是用来补全命令的 / 补充文件名也行
+ctrl + r 搜索以前使用过的命令
+方向键的上下 可以快速调用你使用过的命令</p>
+<h2 id="重定向">重定向</h2>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 560; 
+			flex-basis: 1344px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-42.png" data-size="840x150">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-42.png"
+			width="840"
+			height="150"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-42_hudd6fa107df5454c41761c43304a4e0c1_38381_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-42_hudd6fa107df5454c41761c43304a4e0c1_38381_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 259; 
+			flex-basis: 622px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-43.png" data-size="840x324">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-43.png"
+			width="840"
+			height="324"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-43_huc00e9ee8d82b637832bacf316c3ac688_280361_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-43_huc00e9ee8d82b637832bacf316c3ac688_280361_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+/ &gt; ll.txt 相当于把ll.txt清空
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 509; 
+			flex-basis: 1223px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-44.png" data-size="836x164">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-44.png"
+			width="836"
+			height="164"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-44_hu9fa667dddf3fdfb31a7ef550502567d0_116956_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-44_hu9fa667dddf3fdfb31a7ef550502567d0_116956_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+echo 也可以重定向
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 763; 
+			flex-basis: 1832px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-45.png" data-size="840x110">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-45.png"
+			width="840"
+			height="110"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-45_hu39dd1ec5aac73eec1da40ab001ed7df1_84657_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-45_hu39dd1ec5aac73eec1da40ab001ed7df1_84657_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 400; 
+			flex-basis: 960px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-46.png" data-size="840x210">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-46.png"
+			width="840"
+			height="210"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-46_hu0bc510bc4a31ea7cf03f29a366e7e567_160875_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-46_hu0bc510bc4a31ea7cf03f29a366e7e567_160875_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<blockquote>
+<p>网络命令</p>
+</blockquote>
+<h2 id="ping">ping</h2>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 188; 
+			flex-basis: 452px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-47.png" data-size="840x446">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-47.png"
+			width="840"
+			height="446"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-47_huceca3ae0406df81b1af6d9c3a056c57c_79666_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-47_huceca3ae0406df81b1af6d9c3a056c57c_79666_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+ping 域名 的话会先将域名解析为IP再ping  （window下加个 -t才表示长ping）
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 278; 
+			flex-basis: 667px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-48.png" data-size="840x302">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-48.png"
+			width="840"
+			height="302"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-48_hu640a734d5a9124eb178efb1846cc24f2_322495_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-48_hu640a734d5a9124eb178efb1846cc24f2_322495_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 208; 
+			flex-basis: 501px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-49.png" data-size="840x402">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-49.png"
+			width="840"
+			height="402"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-49_hub2c303f9d31709e41b0a450da94a877a_204527_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-49_hub2c303f9d31709e41b0a450da94a877a_204527_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>ttl：生成时间 随跳数增多减少
+time：是响应时间   （36ms合理，超过200ms会有影响）
+icmp_seq： 若数值出现不连续，则出现丢包
+rrt min/avg/max/mdev = 36.630/36.660/36.721/0.123 ms
+代表最小响应时间/平均响应时间/最大/方差（越小网络情况越好）
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 194; 
+			flex-basis: 466px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-50.png" data-size="840x432">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-50.png"
+			width="840"
+			height="432"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-50_huc118840fca18d9c9588b1ea43e3c9e9d_97111_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-50_huc118840fca18d9c9588b1ea43e3c9e9d_97111_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="ifconfig">ifconfig</h2>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 218; 
+			flex-basis: 525px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-51.png" data-size="840x384">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-51.png"
+			width="840"
+			height="384"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-51_hu339f61eae17fe3f7142c0dece82d7ec3_83774_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-51_hu339f61eae17fe3f7142c0dece82d7ec3_83774_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 161; 
+			flex-basis: 387px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-52.png" data-size="840x520">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-52.png"
+			width="840"
+			height="520"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-52_hub6b4b055182f56f2e5deb0f8b1b32aee_287134_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-52_hub6b4b055182f56f2e5deb0f8b1b32aee_287134_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="route">route</h2>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 178; 
+			flex-basis: 428px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-53.png" data-size="840x470">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-53.png"
+			width="840"
+			height="470"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-53_hu6c410c5c189b82f096934a43350474ca_170670_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-53_hu6c410c5c189b82f096934a43350474ca_170670_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 124; 
+			flex-basis: 299px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-54.png" data-size="840x674">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-54.png"
+			width="840"
+			height="674"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-54_hu677dd27a63722842947032b0e8db4646_284201_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-54_hu677dd27a63722842947032b0e8db4646_284201_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 1272; 
+			flex-basis: 3054px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-55.png" data-size="840x66">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-55.png"
+			width="840"
+			height="66"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-55_hub3ab2b5b2063b62e4c2797c135f599fc_74187_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-55_hub3ab2b5b2063b62e4c2797c135f599fc_74187_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 153; 
+			flex-basis: 369px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-56.png" data-size="840x546">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-56.png"
+			width="840"
+			height="546"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-56_huf3adf12a50ec8920ac5dc8a794b536a5_455862_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-56_huf3adf12a50ec8920ac5dc8a794b536a5_455862_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 446; 
+			flex-basis: 1072px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-57.png" data-size="840x188">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-57.png"
+			width="840"
+			height="188"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-57_hu99477f8c67c4b257f1a4b580fb1b7566_163260_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-57_hu99477f8c67c4b257f1a4b580fb1b7566_163260_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>H主机路由
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 362; 
+			flex-basis: 868px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-58.png" data-size="840x232">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-58.png"
+			width="840"
+			height="232"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-58_hudabe23581f55f723417c5ed0408e391b_220493_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-58_hudabe23581f55f723417c5ed0408e391b_220493_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="ip">ip</h2>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 188; 
+			flex-basis: 452px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-59.png" data-size="840x446">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-59.png"
+			width="840"
+			height="446"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-59_hu91603a92383f2081839be2a63a70dd8d_111254_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-59_hu91603a92383f2081839be2a63a70dd8d_111254_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+ip address （ip a / ip addr）功能等同于ifconfig
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 471; 
+			flex-basis: 1132px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-60.png" data-size="840x178">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-60.png"
+			width="840"
+			height="178"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-60_huf4454f97a907fc32d5cb8f4bfc6dbaf3_174321_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-60_huf4454f97a907fc32d5cb8f4bfc6dbaf3_174321_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+添加/删除路由
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 407; 
+			flex-basis: 978px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-61.png" data-size="840x206">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-61.png"
+			width="840"
+			height="206"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-61_hub7d764247189c0cd18cc742557841dd3_235094_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-61_hub7d764247189c0cd18cc742557841dd3_235094_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 506; 
+			flex-basis: 1214px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-62.png" data-size="840x166">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-62.png"
+			width="840"
+			height="166"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-62_hu7e42f5b2b5ab382a76f9ff6d16fcb074_186975_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-62_hu7e42f5b2b5ab382a76f9ff6d16fcb074_186975_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+ip maddress （ip m）可以用来返回主机的MAC地址
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 154; 
+			flex-basis: 371px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-63.png" data-size="840x542">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-63.png"
+			width="840"
+			height="542"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-63_hu57f7bdd93a903df9c347f80cee9c695d_285188_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-63_hu57f7bdd93a903df9c347f80cee9c695d_285188_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 287; 
+			flex-basis: 690px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-64.png" data-size="840x292">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-64.png"
+			width="840"
+			height="292"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-64_hu543f9fd3458258a032564a0b54153b54_329090_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-64_hu543f9fd3458258a032564a0b54153b54_329090_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="ip配置持久化">ip配置持久化</h2>
+<p><strong>Linux  下一切皆文件</strong>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 233; 
+			flex-basis: 560px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-65.png" data-size="840x360">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-65.png"
+			width="840"
+			height="360"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-65_hu7c520bd3a52909aff4e0af8f071dd7d7_50838_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-65_hu7c520bd3a52909aff4e0af8f071dd7d7_50838_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 185; 
+			flex-basis: 446px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-66.png" data-size="840x452">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-66.png"
+			width="840"
+			height="452"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-66_hu139a17ca7dd8702b848a2256bc7d8a50_119219_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-66_hu139a17ca7dd8702b848a2256bc7d8a50_119219_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>添加辅组网卡eth1
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 281; 
+			flex-basis: 676px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-67.png" data-size="840x298">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-67.png"
+			width="840"
+			height="298"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-67_hu3b0e089b749a7e3346845695ba48f535_300100_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-67_hu3b0e089b749a7e3346845695ba48f535_300100_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 466; 
+			flex-basis: 1120px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-68.png" data-size="840x180">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-68.png"
+			width="840"
+			height="180"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-68_hu6409ee0a1ee0ebf504074fa6684aa052_189872_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-68_hu6409ee0a1ee0ebf504074fa6684aa052_189872_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+vi ifcfg-eth1
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 181; 
+			flex-basis: 434px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-69.png" data-size="840x464">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-69.png"
+			width="840"
+			height="464"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-69_hu11d0a61f07b9a5117b92bb530945612f_160878_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-69_hu11d0a61f07b9a5117b92bb530945612f_160878_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 256; 
+			flex-basis: 614px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-70.png" data-size="840x328">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-70.png"
+			width="840"
+			height="328"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-70_huf01dbf687e4ccabf65d4a3fcc548049d_40336_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-70_huf01dbf687e4ccabf65d4a3fcc548049d_40336_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>I eth1是指定从eth1网卡进去</p>
+<p>执行：systemctl restart network</p>
+<h2 id="netstat">netstat</h2>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 232; 
+			flex-basis: 556px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-71.png" data-size="840x362">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-71.png"
+			width="840"
+			height="362"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-71_hu1273a1446d6453e16159f5164f8adffa_87073_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-71_hu1273a1446d6453e16159f5164f8adffa_87073_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>l:指的是 正在监听的端口（服务） 可以用来查看服务是否有成功对外使用
+n：则会将netstat识别的协议用数字形式显示
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 150; 
+			flex-basis: 361px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-72.png" data-size="840x558">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-72.png"
+			width="840"
+			height="558"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-72_hu04fa8f90c48446e6c08623f585b37030_276769_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-72_hu04fa8f90c48446e6c08623f585b37030_276769_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="nslookup">nslookup</h2>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 179; 
+			flex-basis: 430px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-73.png" data-size="840x468">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-73.png"
+			width="840"
+			height="468"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-73_hu6c18e7ea6eea524d4ddfd51d118d937a_81754_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-73_hu6c18e7ea6eea524d4ddfd51d118d937a_81754_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 168; 
+			flex-basis: 404px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-74.png" data-size="840x498">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-74.png"
+			width="840"
+			height="498"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-74_hu787f40a68f8f4c8a5cf0718031e7754a_173174_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-74_hu787f40a68f8f4c8a5cf0718031e7754a_173174_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 180; 
+			flex-basis: 432px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-75.png" data-size="840x466">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-75.png"
+			width="840"
+			height="466"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-75_hu94c2f92532a16008aef4a676f762c31b_140407_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-75_hu94c2f92532a16008aef4a676f762c31b_140407_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="host">host</h2>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 135; 
+			flex-basis: 326px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-76.png" data-size="840x618">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-76.png"
+			width="840"
+			height="618"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-76_hufcd66ee8ea9d74a81d80886cd3c0fc03_443211_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-76_hufcd66ee8ea9d74a81d80886cd3c0fc03_443211_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="dig">dig</h2>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 187; 
+			flex-basis: 450px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-77.png" data-size="840x448">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-77.png"
+			width="840"
+			height="448"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-77_hu1347899620cc00f43ecf9e95f1a81852_257527_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-77_hu1347899620cc00f43ecf9e95f1a81852_257527_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 133; 
+			flex-basis: 321px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-78.png" data-size="840x628">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-78.png"
+			width="840"
+			height="628"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-78_hua7bfc13a14ec5cf840b0f926f9314540_375603_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-78_hua7bfc13a14ec5cf840b0f926f9314540_375603_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="traceroute">traceroute</h2>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 150; 
+			flex-basis: 360px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-79.png" data-size="840x560">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-79.png"
+			width="840"
+			height="560"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-79_hua5a3bc6ddbeab8f5c1544915ea5cc05f_128936_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-79_hua5a3bc6ddbeab8f5c1544915ea5cc05f_128936_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 159; 
+			flex-basis: 383px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-80.png" data-size="840x526">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-80.png"
+			width="840"
+			height="526"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-80_hu78533df15637d7ed2e680948eb6296c0_347859_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-80_hu78533df15637d7ed2e680948eb6296c0_347859_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 407; 
+			flex-basis: 978px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-81.png" data-size="758x186">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-81.png"
+			width="758"
+			height="186"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-81_hue9b4374c3dcb116e317fde06def92a51_80150_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-81_hue9b4374c3dcb116e317fde06def92a51_80150_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="telnet">telnet</h2>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 198; 
+			flex-basis: 475px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-82.png" data-size="840x424">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-82.png"
+			width="840"
+			height="424"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-82_hub2e8acb4d87a8716ef3f8d1490709b80_61959_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-82_hub2e8acb4d87a8716ef3f8d1490709b80_61959_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 204; 
+			flex-basis: 491px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-83.png" data-size="840x410">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-83.png"
+			width="840"
+			height="410"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-83_hua01cb2593adb5843e4eaa7677d075f73_236932_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-83_hua01cb2593adb5843e4eaa7677d075f73_236932_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="nmap">nmap</h2>
+<p>可以查看服务器对外开放的端口
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 169; 
+			flex-basis: 406px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-84.png" data-size="840x496">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-84.png"
+			width="840"
+			height="496"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-84_hub1e8d89e10136715f5b701069ff618f3_123332_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-84_hub1e8d89e10136715f5b701069ff618f3_123332_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+&ndash; top -port 10 : 扫描10个最常用的端口
+-p 0-100: 扫描 0-100的端口状态
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 241; 
+			flex-basis: 579px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-85.png" data-size="840x348">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-85.png"
+			width="840"
+			height="348"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-85_huf31195ae9b3391aec5dcf01b0d8c9095_261208_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-85_huf31195ae9b3391aec5dcf01b0d8c9095_261208_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 333; 
+			flex-basis: 800px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-86.png" data-size="840x252">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-86.png"
+			width="840"
+			height="252"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-86_hu0bf433bd2f3eb56be251ed7c64088023_195661_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-86_hu0bf433bd2f3eb56be251ed7c64088023_195661_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="wget">wget</h2>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 237; 
+			flex-basis: 569px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-87.png" data-size="840x354">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-87.png"
+			width="840"
+			height="354"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-87_hu309e347355c6eb5751df4ea0e8cd0e4d_71023_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-87_hu309e347355c6eb5751df4ea0e8cd0e4d_71023_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 392; 
+			flex-basis: 942px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-88.png" data-size="840x214">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-88.png"
+			width="840"
+			height="214"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-88_hue9469f8d06f8c3b2e24e5c658af91669_209610_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-88_hue9469f8d06f8c3b2e24e5c658af91669_209610_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	>
+	<a href="/picture/Pasted%20image%2020230316134140.png" >
+		<img src="/picture/Pasted%20image%2020230316134140.png"
+			
+			
+			
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="curl">curl</h2>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 153; 
+			flex-basis: 367px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-90.png" data-size="840x548">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-90.png"
+			width="840"
+			height="548"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-90_huecc250dad443228835d09ee4dd9dbe5d_99172_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-90_huecc250dad443228835d09ee4dd9dbe5d_99172_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+注意是大写I</p>
+<blockquote>
+<p>软件安装、进程与服务</p>
+</blockquote>
+<h2 id="rpm">rpm</h2>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 203; 
+			flex-basis: 489px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-91.png" data-size="840x412">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-91.png"
+			width="840"
+			height="412"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-91_hucb07916c1646a41f433d0bd07d773d2d_95369_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-91_hucb07916c1646a41f433d0bd07d773d2d_95369_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 194; 
+			flex-basis: 466px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-92.png" data-size="840x432">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-92.png"
+			width="840"
+			height="432"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-92_hue0de2aa56f2f79dafb316b78040044e1_87009_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-92_hue0de2aa56f2f79dafb316b78040044e1_87009_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 500; 
+			flex-basis: 1200px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-93.png" data-size="840x168">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-93.png"
+			width="840"
+			height="168"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-93_hu090fd9861d2fca7ae6667928ee37984f_200299_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-93_hu090fd9861d2fca7ae6667928ee37984f_200299_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 203; 
+			flex-basis: 489px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-94.png" data-size="840x412">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-94.png"
+			width="840"
+			height="412"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-94_huf1da072e264cccdae2afc3ab822a2f63_104639_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-94_huf1da072e264cccdae2afc3ab822a2f63_104639_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 233; 
+			flex-basis: 560px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-95.png" data-size="840x360">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-95.png"
+			width="840"
+			height="360"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-95_hue04ce7f26bc1f6ccb39f6423ca28fd12_269474_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-95_hue04ce7f26bc1f6ccb39f6423ca28fd12_269474_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+rpm安装会存在依懒包的问题</p>
+<h2 id="yum">yum</h2>
+<p>yum会自动安装存在依懒包的问题
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 150; 
+			flex-basis: 360px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-96.png" data-size="840x560">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-96.png"
+			width="840"
+			height="560"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-96_hude911de8ff60cf50592ce4771191e6db_135450_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-96_hude911de8ff60cf50592ce4771191e6db_135450_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 207; 
+			flex-basis: 499px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-97.png" data-size="840x404">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-97.png"
+			width="840"
+			height="404"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-97_hu0ffe8a2a5e0326adb5e60e0f7ea42fc3_104034_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-97_hu0ffe8a2a5e0326adb5e60e0f7ea42fc3_104034_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 207; 
+			flex-basis: 499px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-98.png" data-size="840x404">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-98.png"
+			width="840"
+			height="404"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-98_hu7ae9df0d60a8f6cb6fe79b68896833e7_107855_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-98_hu7ae9df0d60a8f6cb6fe79b68896833e7_107855_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="systemctl">systemctl</h2>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 210; 
+			flex-basis: 504px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-99.png" data-size="840x400">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-99.png"
+			width="840"
+			height="400"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-99_hua42a0dec733a62c6d1f8d91d70a488be_77889_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-99_hua42a0dec733a62c6d1f8d91d70a488be_77889_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 204; 
+			flex-basis: 491px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-100.png" data-size="840x410">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-100.png"
+			width="840"
+			height="410"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-100_hu74e3113034f257c6d5b9736f3a0dac83_121267_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-100_hu74e3113034f257c6d5b9736f3a0dac83_121267_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 285; 
+			flex-basis: 685px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-101.png" data-size="840x294">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-101.png"
+			width="840"
+			height="294"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-101_hu283669b1c7abb3d396bf1259b6672eda_349989_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-101_hu283669b1c7abb3d396bf1259b6672eda_349989_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="进程">进程</h2>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 234; 
+			flex-basis: 563px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-102.png" data-size="840x358">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-102.png"
+			width="840"
+			height="358"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-102_hu27445e6261fce10390eda8845745435a_68083_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-102_hu27445e6261fce10390eda8845745435a_68083_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="ps">ps</h2>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 167; 
+			flex-basis: 401px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-103.png" data-size="840x502">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-103.png"
+			width="840"
+			height="502"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-103_huf1f09be4898ac4a9426cea7ee55ac208_144173_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-103_huf1f09be4898ac4a9426cea7ee55ac208_144173_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 122; 
+			flex-basis: 294px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-104.png" data-size="840x684">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-104.png"
+			width="840"
+			height="684"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-104_huf40ae16b6640b3306a92d3fdeeee903c_225466_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-104_huf40ae16b6640b3306a92d3fdeeee903c_225466_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 204; 
+			flex-basis: 491px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-105.png" data-size="840x410">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-105.png"
+			width="840"
+			height="410"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-105_hu4acb5a106893d629429bb14696b5751c_123043_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-105_hu4acb5a106893d629429bb14696b5751c_123043_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 165; 
+			flex-basis: 396px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-106.png" data-size="840x508">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-106.png"
+			width="840"
+			height="508"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-106_hu5ebe1ab662d73040e22c4913cd2fee67_136169_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-106_hu5ebe1ab662d73040e22c4913cd2fee67_136169_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="top">top</h2>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 202; 
+			flex-basis: 486px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-107.png" data-size="840x414">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-107.png"
+			width="840"
+			height="414"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-107_hubd78f61f0779f456e25532c518f157f6_313042_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-107_hubd78f61f0779f456e25532c518f157f6_313042_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 323; 
+			flex-basis: 775px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-108.png" data-size="840x260">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-108.png"
+			width="840"
+			height="260"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-108_hu59914767eef9b98648be7ea2b9c4833d_153267_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-108_hu59914767eef9b98648be7ea2b9c4833d_153267_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 111; 
+			flex-basis: 268px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-109.png" data-size="840x752">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-109.png"
+			width="840"
+			height="752"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-109_hub7c262bd5b802414dc1e4c8bd7424009_527339_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-109_hub7c262bd5b802414dc1e4c8bd7424009_527339_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 193; 
+			flex-basis: 464px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-110.png" data-size="840x434">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-110.png"
+			width="840"
+			height="434"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-110_huedd94b46d0c9e1c575805a8b6469a806_86102_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-110_huedd94b46d0c9e1c575805a8b6469a806_86102_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="kill">kill</h2>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 425px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-111.png" data-size="840x474">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-111.png"
+			width="840"
+			height="474"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-111_hu4c08c021fac79ba114dc013f6d2c7a67_75566_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-111_hu4c08c021fac79ba114dc013f6d2c7a67_75566_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 269; 
+			flex-basis: 646px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-112.png" data-size="840x312">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-112.png"
+			width="840"
+			height="312"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-112_hu4ac6adbbc5da987ccd505e5db63026b3_391721_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-112_hu4ac6adbbc5da987ccd505e5db63026b3_391721_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 241; 
+			flex-basis: 579px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-113.png" data-size="840x348">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-113.png"
+			width="840"
+			height="348"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-113_hub96a85d953f6d4e75613f10793d24d0a_323635_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-113_hub96a85d953f6d4e75613f10793d24d0a_323635_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="pstree">pstree</h2>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 488; 
+			flex-basis: 1172px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-114.png" data-size="840x172">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-114.png"
+			width="840"
+			height="172"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-114_hua3e04c41547756049f3af339a6b04ca8_52082_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-114_hua3e04c41547756049f3af339a6b04ca8_52082_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 111; 
+			flex-basis: 268px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-115.png" data-size="840x752">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-115.png"
+			width="840"
+			height="752"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-115_hu970a575c2c6069abe4e94cdfaa8af9ee_239591_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-115_hu970a575c2c6069abe4e94cdfaa8af9ee_239591_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<blockquote>
+<p>防火墙
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 202; 
+			flex-basis: 486px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-116.png" data-size="840x414">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-116.png"
+			width="840"
+			height="414"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-116_hue5a894abacf691134004eea70a83a340_305634_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-116_hue5a894abacf691134004eea70a83a340_305634_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+</blockquote>
+<h2 id="firewalld">firewalld</h2>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 185; 
+			flex-basis: 444px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-117.png" data-size="840x454">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-117.png"
+			width="840"
+			height="454"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-117_hubc5fe30ee767b67ce1b06f9861732241_179417_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-117_hubc5fe30ee767b67ce1b06f9861732241_179417_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 247; 
+			flex-basis: 592px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-118.png" data-size="840x340">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-118.png"
+			width="840"
+			height="340"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-118_hu6acc987dce87090b3340d98521669fec_434654_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-118_hu6acc987dce87090b3340d98521669fec_434654_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 217; 
+			flex-basis: 522px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-119.png" data-size="840x386">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-119.png"
+			width="840"
+			height="386"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-119_hub1801a59eaacf95c736d8c6cdc8ef7ec_106139_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-119_hub1801a59eaacf95c736d8c6cdc8ef7ec_106139_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="selinux">SELinux</h2>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 218; 
+			flex-basis: 525px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-120.png" data-size="840x384">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-120.png"
+			width="840"
+			height="384"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-120_hu7a820a563e91e2a1767e3932c5bf51fc_73461_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-120_hu7a820a563e91e2a1767e3932c5bf51fc_73461_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 711; 
+			flex-basis: 1708px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-121.png" data-size="840x118">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-121.png"
+			width="840"
+			height="118"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-121_hucc6324ace80acd72077759f61b98346d_136789_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-121_hucc6324ace80acd72077759f61b98346d_136789_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 403; 
+			flex-basis: 969px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-122.png" data-size="840x208">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-122.png"
+			width="840"
+			height="208"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-122_hu516d746f336703551ae08a784d0c4045_273503_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-122_hu516d746f336703551ae08a784d0c4045_273503_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 190; 
+			flex-basis: 456px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-123.png" data-size="840x442">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-123.png"
+			width="840"
+			height="442"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-123_hub135bda7869dbf2ca96a5dae2963eb34_123891_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-123_hub135bda7869dbf2ca96a5dae2963eb34_123891_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 314; 
+			flex-basis: 753px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-124.png" data-size="804x256">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-124.png"
+			width="804"
+			height="256"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-124_huf7a281c0c5dba08d2425a5c154dc7859_188037_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-124_huf7a281c0c5dba08d2425a5c154dc7859_188037_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 186; 
+			flex-basis: 448px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-125.png" data-size="840x450">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-125.png"
+			width="840"
+			height="450"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-125_hu705f1e16749428a638f6a630c9d9987c_253643_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-125_hu705f1e16749428a638f6a630c9d9987c_253643_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="硬件资源管理">硬件资源管理</h2>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 199; 
+			flex-basis: 477px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-126.png" data-size="840x422">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-126.png"
+			width="840"
+			height="422"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-126_hu2113a12e6979d7485ad0e5c34c277e5c_89028_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-126_hu2113a12e6979d7485ad0e5c34c277e5c_89028_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 181; 
+			flex-basis: 436px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-127.png" data-size="840x462">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-127.png"
+			width="840"
+			height="462"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-127_huce338c4d1e3a68ce67862fec78842cfa_94950_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-127_huce338c4d1e3a68ce67862fec78842cfa_94950_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="lscpu">lscpu</h2>
+<p>查看cpu规格信息
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 185; 
+			flex-basis: 444px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-129.png" data-size="840x454">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-129.png"
+			width="840"
+			height="454"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-129_hu33712285b60a733f7b2821c22805219b_222178_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-129_hu33712285b60a733f7b2821c22805219b_222178_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="uptime">uptime</h2>
+<p>查看cpu负载均衡
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 1312; 
+			flex-basis: 3150px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-130.png" data-size="840x64">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-130.png"
+			width="840"
+			height="64"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-130_hu29abd0c779c4e7552f943bdb9998dd9e_51211_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-130_hu29abd0c779c4e7552f943bdb9998dd9e_51211_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="lsmem">lsmem</h2>
+<p>查看内存规格</p>
+<h2 id="free">free</h2>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 857; 
+			flex-basis: 2057px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-131.png" data-size="840x98">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-131.png"
+			width="840"
+			height="98"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-131_hu81e8da30d11851c02447ab5d9bba7d40_61366_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-131_hu81e8da30d11851c02447ab5d9bba7d40_61366_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 1024; 
+			flex-basis: 2458px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-132.png" data-size="840x82">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-132.png"
+			width="840"
+			height="82"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-132_hu6ca7ad2b4378cab030f0cfb5ea82cb0b_51541_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-132_hu6ca7ad2b4378cab030f0cfb5ea82cb0b_51541_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="df">df</h2>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 149; 
+			flex-basis: 358px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-133.png" data-size="840x562">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-133.png"
+			width="840"
+			height="562"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-133_huc4b1f07a4d5bf934a2c5a0b816ac3ab5_302018_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-133_huc4b1f07a4d5bf934a2c5a0b816ac3ab5_302018_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+/dev/sda1 挂载到了boot目录下
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 152; 
+			flex-basis: 365px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-134.png" data-size="840x552">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-134.png"
+			width="840"
+			height="552"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-134_hu893bfc545aa1e84376129f679ec1de6a_126376_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-134_hu893bfc545aa1e84376129f679ec1de6a_126376_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="du">du</h2>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 160; 
+			flex-basis: 384px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-135.png" data-size="840x524">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-135.png"
+			width="840"
+			height="524"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-135_hu77f51883496e82870bfc7d89110d4aa0_95908_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-135_hu77f51883496e82870bfc7d89110d4aa0_95908_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="fdisk">fdisk</h2>
+<p>对新的磁盘进行分区以及格式化
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 165; 
+			flex-basis: 396px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-136.png" data-size="840x508">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-136.png"
+			width="840"
+			height="508"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-136_hudba89aeb79624b353b64932b3a234a77_98803_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-136_hudba89aeb79624b353b64932b3a234a77_98803_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 139; 
+			flex-basis: 333px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-137.png" data-size="840x604">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-137.png"
+			width="840"
+			height="604"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-137_hu8f5e5bd0b4b6a7d468e36514d876ee7a_484818_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-137_hu8f5e5bd0b4b6a7d468e36514d876ee7a_484818_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 139; 
+			flex-basis: 333px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-138.png" data-size="840x604">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-138.png"
+			width="840"
+			height="604"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-138_hu8f5e5bd0b4b6a7d468e36514d876ee7a_484818_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-138_hu8f5e5bd0b4b6a7d468e36514d876ee7a_484818_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="mkfs">mkfs</h2>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 164; 
+			flex-basis: 393px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-139.png" data-size="840x512">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-139.png"
+			width="840"
+			height="512"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-139_hu08111d2c3544ca6f9af4c1bb3bd0c546_123513_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-139_hu08111d2c3544ca6f9af4c1bb3bd0c546_123513_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="磁盘挂载持久化">磁盘挂载持久化</h2>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 224; 
+			flex-basis: 539px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-140.png" data-size="840x374">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-140.png"
+			width="840"
+			height="374"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-140_hue7d1bf472e0b040ff23567b2ea383fdb_106810_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-140_hue7d1bf472e0b040ff23567b2ea383fdb_106810_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="磁盘管理-iostat">磁盘管理 iostat</h2>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 183; 
+			flex-basis: 440px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-141.png" data-size="840x458">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-141.png"
+			width="840"
+			height="458"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-141_hu16dedd3678d7d48d15e58e460083c46c_148948_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-141_hu16dedd3678d7d48d15e58e460083c46c_148948_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 198; 
+			flex-basis: 475px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-142.png" data-size="840x424">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-142.png"
+			width="840"
+			height="424"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-142_hu38d79067cf22928145b1c8c5f8609e65_169602_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-142_hu38d79067cf22928145b1c8c5f8609e65_169602_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 163; 
+			flex-basis: 392px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-143.png" data-size="840x514">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-143.png"
+			width="840"
+			height="514"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-143_hudb097c2520fa989cd7c01942a0ce2968_94479_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-143_hudb097c2520fa989cd7c01942a0ce2968_94479_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="iotop">iotop</h2>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 180; 
+			flex-basis: 432px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-144.png" data-size="840x466">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-144.png"
+			width="840"
+			height="466"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-144_hu71fd12ffa277b7702500a8254b909e46_102620_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-144_hu71fd12ffa277b7702500a8254b909e46_102620_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 254; 
+			flex-basis: 610px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-145.png" data-size="840x330">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-145.png"
+			width="840"
+			height="330"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-145_hu52999fc4f791f13e1efe53b6f298649d_157296_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-145_hu52999fc4f791f13e1efe53b6f298649d_157296_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 260; 
+			flex-basis: 626px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-146.png" data-size="840x322">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-146.png"
+			width="840"
+			height="322"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-146_hu45d29a244aa25b735a68f6816e518ba5_76955_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-146_hu45d29a244aa25b735a68f6816e518ba5_76955_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 205; 
+			flex-basis: 494px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-148.png" data-size="840x408">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-148.png"
+			width="840"
+			height="408"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-148_hu61db68b3f2b5b94cf60b77f0ab88bd73_76824_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-148_hu61db68b3f2b5b94cf60b77f0ab88bd73_76824_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="硬件资源管小结">硬件资源管小结</h2>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 188; 
+			flex-basis: 452px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-149.png" data-size="840x446">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-149.png"
+			width="840"
+			height="446"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-149_hu6e101185231f86e45d2352aa2bf7f0c2_96690_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-149_hu6e101185231f86e45d2352aa2bf7f0c2_96690_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 207; 
+			flex-basis: 499px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-150.png" data-size="840x404">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-150.png"
+			width="840"
+			height="404"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-150_hu247bf25a3ff044d87d94adfc828d1de4_120529_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-150_hu247bf25a3ff044d87d94adfc828d1de4_120529_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<blockquote>
+<p>系统日志
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 224; 
+			flex-basis: 539px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-151.png" data-size="840x374">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-151.png"
+			width="840"
+			height="374"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-151_hu79e9dc0ad022b43d097439f65b547474_84595_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-151_hu79e9dc0ad022b43d097439f65b547474_84595_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 219; 
+			flex-basis: 527px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-152.png" data-size="840x382">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-152.png"
+			width="840"
+			height="382"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-152_hu9fdf94a12fda4484313087e3c61dc785_80799_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-152_hu9fdf94a12fda4484313087e3c61dc785_80799_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+</blockquote>
+<h2 id="rsyslog">rsyslog</h2>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 407; 
+			flex-basis: 978px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-153.png" data-size="840x206">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-153.png"
+			width="840"
+			height="206"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-153_hu65c45c46f22b3082e12c6635185fbf46_50978_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-153_hu65c45c46f22b3082e12c6635185fbf46_50978_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+grep -v “^#” /etc/rsyslog.conf | grep -v &ldquo;^$&rdquo;</p>
+<p>-v 表示过滤
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 216; 
+			flex-basis: 519px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-154.png" data-size="840x388">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-154.png"
+			width="840"
+			height="388"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-154_hu936d233c0d031d2471d95709f2f96e49_449164_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-154_hu936d233c0d031d2471d95709f2f96e49_449164_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 857; 
+			flex-basis: 2057px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-155.png" data-size="840x98">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-155.png"
+			width="840"
+			height="98"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-155_hubee22295dac96fccdaacf16d9f65f6da_119262_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-155_hubee22295dac96fccdaacf16d9f65f6da_119262_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 175; 
+			flex-basis: 420px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-156.png" data-size="840x480">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-156.png"
+			width="840"
+			height="480"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-156_hu2de0fba319b96ac19209c0151740d917_116077_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-156_hu2de0fba319b96ac19209c0151740d917_116077_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="日志轮转-logrotate">日志轮转 logrotate</h2>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 381; 
+			flex-basis: 916px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-157.png" data-size="840x220">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-157.png"
+			width="840"
+			height="220"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-157_hu19314435d30f4f50d9b67bace7984844_72193_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-157_hu19314435d30f4f50d9b67bace7984844_72193_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 170; 
+			flex-basis: 409px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-158.png" data-size="840x492">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-158.png"
+			width="840"
+			height="492"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-158_hucddfc2fb11c0fbdc46714194c4e9de10_249529_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-158_hucddfc2fb11c0fbdc46714194c4e9de10_249529_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 233; 
+			flex-basis: 560px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-159.png" data-size="840x360">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-159.png"
+			width="840"
+			height="360"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-159_hue9c39e788bc429d6938674e818bf2d2f_78845_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-159_hue9c39e788bc429d6938674e818bf2d2f_78845_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 233; 
+			flex-basis: 560px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-160.png" data-size="840x360">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-160.png"
+			width="840"
+			height="360"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-160_hue9c39e788bc429d6938674e818bf2d2f_78845_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-160_hue9c39e788bc429d6938674e818bf2d2f_78845_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="logger">logger</h2>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 190; 
+			flex-basis: 456px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-161.png" data-size="840x442">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-161.png"
+			width="840"
+			height="442"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-161_hu9a72ea6812af111458c6ba92845626b1_100182_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-161_hu9a72ea6812af111458c6ba92845626b1_100182_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="journalctl">journalctl</h2>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 186; 
+			flex-basis: 448px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-162.png" data-size="840x450">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-162.png"
+			width="840"
+			height="450"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-162_hu3ece4e9ab40b412654e73e8115cddfd9_108954_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-162_hu3ece4e9ab40b412654e73e8115cddfd9_108954_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 139; 
+			flex-basis: 333px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-163.png" data-size="840x604">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-163.png"
+			width="840"
+			height="604"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-163_hud0e235542221d3b949fe710c46be0e3d_158400_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-163_hud0e235542221d3b949fe710c46be0e3d_158400_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 403; 
+			flex-basis: 969px"
+	>
+	<a href="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-164.png" data-size="840x208">
+		<img src="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-164.png"
+			width="840"
+			height="208"
+			srcset="/p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-164_hu8a0419cb25b5584b7c3db676d2d18537_283301_480x0_resize_box_3.png 480w, /p/linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8/picture/Linux%E5%AD%A6%E4%B9%A0%E5%AD%97%E5%85%B8-164_hu8a0419cb25b5584b7c3db676d2d18537_283301_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+通配符| 其实就是为了串起多个命令的作用</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2022 - 
+        
+        2023 叶宇浩随记博客
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.5.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">Table of contents</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#ls">ls</a></li>
+    <li><a href="#ls--al-cd-pwdls--alh">ls -al /cd /pwd/ls -alh</a></li>
+    <li><a href="#linux文件系统">Linux文件系统</a></li>
+    <li><a href="#cp--mv">cp / mv</a>
+      <ol>
+        <li><a href="#cp">cp</a></li>
+        <li><a href="#mv-用法和cp一样">mv 用法和cp一样</a></li>
+      </ol>
+    </li>
+    <li><a href="#touch--mkdir--rm">touch / mkdir / rm</a>
+      <ol>
+        <li><a href="#touch">touch</a></li>
+        <li><a href="#mkdir">mkdir</a></li>
+        <li><a href="#rm">rm</a></li>
+      </ol>
+    </li>
+    <li><a href="#cat">cat</a></li>
+    <li><a href="#head--tail">head / tail</a></li>
+    <li><a href="#more">more</a></li>
+    <li><a href="#less">less</a></li>
+    <li><a href="#vi">vi</a></li>
+    <li><a href="#vi命令扩展">vi命令扩展</a></li>
+    <li><a href="#权限修改-chmod--chown-chgrp">权限修改 chmod / chown /chgrp</a></li>
+    <li><a href="#通配符">通配符</a></li>
+    <li><a href="#find">find</a></li>
+    <li><a href="#locate">locate</a></li>
+    <li><a href="#man">man</a></li>
+    <li><a href="#help">help</a></li>
+    <li><a href="#bash-shell的快捷键">Bash shell的快捷键</a></li>
+    <li><a href="#重定向">重定向</a></li>
+    <li><a href="#ping">ping</a></li>
+    <li><a href="#ifconfig">ifconfig</a></li>
+    <li><a href="#route">route</a></li>
+    <li><a href="#ip">ip</a></li>
+    <li><a href="#ip配置持久化">ip配置持久化</a></li>
+    <li><a href="#netstat">netstat</a></li>
+    <li><a href="#nslookup">nslookup</a></li>
+    <li><a href="#host">host</a></li>
+    <li><a href="#dig">dig</a></li>
+    <li><a href="#traceroute">traceroute</a></li>
+    <li><a href="#telnet">telnet</a></li>
+    <li><a href="#nmap">nmap</a></li>
+    <li><a href="#wget">wget</a></li>
+    <li><a href="#curl">curl</a></li>
+    <li><a href="#rpm">rpm</a></li>
+    <li><a href="#yum">yum</a></li>
+    <li><a href="#systemctl">systemctl</a></li>
+    <li><a href="#进程">进程</a></li>
+    <li><a href="#ps">ps</a></li>
+    <li><a href="#top">top</a></li>
+    <li><a href="#kill">kill</a></li>
+    <li><a href="#pstree">pstree</a></li>
+    <li><a href="#firewalld">firewalld</a></li>
+    <li><a href="#selinux">SELinux</a></li>
+    <li><a href="#硬件资源管理">硬件资源管理</a></li>
+    <li><a href="#lscpu">lscpu</a></li>
+    <li><a href="#uptime">uptime</a></li>
+    <li><a href="#lsmem">lsmem</a></li>
+    <li><a href="#free">free</a></li>
+    <li><a href="#df">df</a></li>
+    <li><a href="#du">du</a></li>
+    <li><a href="#fdisk">fdisk</a></li>
+    <li><a href="#mkfs">mkfs</a></li>
+    <li><a href="#磁盘挂载持久化">磁盘挂载持久化</a></li>
+    <li><a href="#磁盘管理-iostat">磁盘管理 iostat</a></li>
+    <li><a href="#iotop">iotop</a></li>
+    <li><a href="#硬件资源管小结">硬件资源管小结</a></li>
+    <li><a href="#rsyslog">rsyslog</a></li>
+    <li><a href="#日志轮转-logrotate">日志轮转 logrotate</a></li>
+    <li><a href="#logger">logger</a></li>
+    <li><a href="#journalctl">journalctl</a></li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

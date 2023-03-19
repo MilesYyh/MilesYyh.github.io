@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>foldit on 叶宇浩随记博客</title>
+    <link>https://example.com/tags/foldit/</link>
+    <description>Recent content in foldit on 叶宇浩随记博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 13 May 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://example.com/tags/foldit/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>test</title>
+      <link>https://example.com/p/test/</link>
+      <pubDate>Thu, 13 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/test/</guid>
+      <description>这是正文内容！！ 随便放上一张照片看看 image 这是一个标题测试 这是另一个标题测试 这是标题测试 这是另一个图片测试 image </description>
+    </item>
+    
+  </channel>
+</rss>

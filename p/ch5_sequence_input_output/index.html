@@ -1,0 +1,1281 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='biopython官方教程学习笔记'><title>Ch5_Sequence_Input_Output</title>
+
+<link rel='canonical' href='https://example.com/p/ch5_sequence_input_output/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='Ch5_Sequence_Input_Output'>
+<meta property='og:description' content='biopython官方教程学习笔记'>
+<meta property='og:url' content='https://example.com/p/ch5_sequence_input_output/'>
+<meta property='og:site_name' content='叶宇浩随记博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='tutorials' /><meta property='article:published_time' content='2021-08-05T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-08-05T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="Ch5_Sequence_Input_Output">
+<meta name="twitter:description" content="biopython官方教程学习笔记">
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>Back</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/biopython/" style="background-color: #002be1; color: #fff;">
+                生物编程
+            </a>
+        
+            <a href="/categories/bioinformatic/" style="background-color: #7816ff; color: #fff;">
+                生物信息学&amp;计算生物学
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/ch5_sequence_input_output/">Ch5_Sequence_Input_Output</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        biopython官方教程学习笔记
+    </h3>
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Aug 05, 2021</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    4 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <p><strong>biopython官方地址：</strong><a class="link" href="https://biopython.org/"  target="_blank" rel="noopener"
+    ><strong>https://biopython.org/</strong></a></p>
+<p><strong>github地址：</strong><a class="link" href="https://github.com/biopython/biopython/blob/master/README.rst"  target="_blank" rel="noopener"
+    ><strong>https://github.com/biopython/biopython/blob/master/</strong></a></p>
+<p><strong>中文版教程：</strong><a class="link" href="https://biopython-cn.readthedocs.io/zh_CN/latest/cn/chr06.html"  target="_blank" rel="noopener"
+    ><strong>https://biopython-cn.readthedocs.io/zh_CN/latest/cn/chr06.html</strong></a></p>
+<p><strong>biopython包的说明（具体到每个模块了）：</strong><a class="link" href="https://www.osgeo.cn/biopython/Bio.HMM.DynamicProgramming.html"  target="_blank" rel="noopener"
+    ><strong>https://www.osgeo.cn/biopython/Bio.HMM.DynamicProgramming.html</strong></a></p>
+<p>The workhorse function Bio.SeqIO.parse() is used to read in sequence data as SeqRecord objects. This function expects two arguments:</p>
+<ul>
+<li>The first argument is a handle to read the data from, or a filename. A</li>
+<li>The second argument is a lower case string specifying sequence format
+<strong>The Bio.SeqIO.parse() function returns an iterator which gives SeqRecord objects. Iterators are typically used in a for loop as shown below. Sometimes you&rsquo;ll find yourself dealing with files which contain only a single record. For this situation use the function Bio.SeqIO.read() which takes the same arguments. Provided there is one and only one record in the file, this is returned as a SeqRecord object. Otherwise an exception is raised.</strong></li>
+</ul>
+<h2 id="seqioparse文件读取">SeqIO.parse文件读取</h2>
+<p><strong>SeqIO.parse读取的对象可以用来直接迭代</strong>
+<strong>The object returned by Bio.SeqIO is actually an iterator which returns SeqRecord objects. You get to see each record in turn, but once and only once. The plus point is that an iterator can save you memory when dealing with large files.</strong>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 220; 
+			flex-basis: 529px"
+	>
+	<a href="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output.png" data-size="870x394">
+		<img src="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output.png"
+			width="870"
+			height="394"
+			srcset="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output_hu47b98480cc231e697155452d2ff29464_139260_480x0_resize_box_3.png 480w, /p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output_hu47b98480cc231e697155452d2ff29464_139260_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+当然了也可以直接用列表生成式
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 873; 
+			flex-basis: 2095px"
+	>
+	<a href="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-1.png" data-size="908x104">
+		<img src="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-1.png"
+			width="908"
+			height="104"
+			srcset="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-1_hu5f0bfa6bc08d455b58da095835fa349f_51532_480x0_resize_box_3.png 480w, /p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-1_hu5f0bfa6bc08d455b58da095835fa349f_51532_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="next代替loop">next代替loop</h2>
+<p><strong>Instead of using a for loop, can also use the next() function on an iterator to step through the entries, like this:</strong>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 155; 
+			flex-basis: 373px"
+	>
+	<a href="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-2.png" data-size="860x552">
+		<img src="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-2.png"
+			width="860"
+			height="552"
+			srcset="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-2_hu3b6b6139e9c552c83d41b4c0b4750258_77017_480x0_resize_box_3.png 480w, /p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-2_hu3b6b6139e9c552c83d41b4c0b4750258_77017_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+One special case to consider is when your sequence files have multiple records, but you only want the first one. In this situation the following code is very concise:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 872; 
+			flex-basis: 2093px"
+	>
+	<a href="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-3.png" data-size="750x86">
+		<img src="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-3.png"
+			width="750"
+			height="86"
+			srcset="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-3_hu513f16dbf8307389e2dc87521a67966a_22385_480x0_resize_box_3.png 480w, /p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-3_hu513f16dbf8307389e2dc87521a67966a_22385_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+就是说使用next的话只会返回第一个loop的结果
+A word of warning here – using the next() function like this will silently ignore any additional records in the file. If your files have one and only one record, like some of the online examples later in this chapter, or a GenBank file for a single chromosome, then use the new Bio.SeqIO.read() function instead. This will check there are no extra unexpected records present.</p>
+<h2 id="使用list将seqrecord装起来">使用list将SeqRecord装起来</h2>
+<p>装起来的也是SeqRecord对象
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 130; 
+			flex-basis: 312px"
+	>
+	<a href="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-4.png" data-size="836x642">
+		<img src="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-4.png"
+			width="836"
+			height="642"
+			srcset="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-4_hu421732f5120bbb7e56aa910a813a97ff_175918_480x0_resize_box_3.png 480w, /p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-4_hu421732f5120bbb7e56aa910a813a97ff_175918_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+You can of course still use a for loop with a list of SeqRecord objects. Using a list is much more flexible than an iterator (for example, you can determine the number of records from the length of the list), but does need more memory because it will hold all the records in memory at once.</p>
+<h2 id="extracting-data提取数据">Extracting data提取数据</h2>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 136; 
+			flex-basis: 328px"
+	>
+	<a href="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-5.png" data-size="670x490">
+		<img src="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-5.png"
+			width="670"
+			height="490"
+			srcset="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-5_hu30b16deeec20f64000607af5275680a3_151683_480x0_resize_box_3.png 480w, /p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-5_hu30b16deeec20f64000607af5275680a3_151683_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="像这些注释信息是以字典的形式存起来的可以这样取出来">像这些注释信息（是以字典的形式存起来的）可以这样取出来</h3>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 360; 
+			flex-basis: 864px"
+	>
+	<a href="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-6.png" data-size="720x200">
+		<img src="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-6.png"
+			width="720"
+			height="200"
+			srcset="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-6_hucb745932c1e25955f44c0303b2c0511d_48741_480x0_resize_box_3.png 480w, /p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-6_hucb745932c1e25955f44c0303b2c0511d_48741_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 328; 
+			flex-basis: 788px"
+	>
+	<a href="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-7.png" data-size="572x174">
+		<img src="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-7.png"
+			width="572"
+			height="174"
+			srcset="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-7_hu75650b54145c5ae628dfc06cb306fa1f_37251_480x0_resize_box_3.png 480w, /p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-7_hu75650b54145c5ae628dfc06cb306fa1f_37251_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 328; 
+			flex-basis: 788px"
+	>
+	<a href="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-8.png" data-size="572x174">
+		<img src="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-8.png"
+			width="572"
+			height="174"
+			srcset="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-8_hu75650b54145c5ae628dfc06cb306fa1f_37251_480x0_resize_box_3.png 480w, /p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-8_hu75650b54145c5ae628dfc06cb306fa1f_37251_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="如果想要物种的全部信息也可以这样提取出来-gbf">如果想要物种的全部信息也可以这样提取出来 （gbf）</h3>
+<p><strong>Great. That was pretty easy because GenBank files are annotated in a standardised way.</strong>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 200; 
+			flex-basis: 480px"
+	>
+	<a href="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-9.png" data-size="864x432">
+		<img src="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-9.png"
+			width="864"
+			height="432"
+			srcset="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-9_hubc99722165de464bdb2391b23119dad3_124210_480x0_resize_box_3.png 480w, /p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-9_hubc99722165de464bdb2391b23119dad3_124210_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="如果想要物种的全部信息也可以这样提取出来-fasta">如果想要物种的全部信息也可以这样提取出来 （fasta）</h3>
+<p>let&rsquo;s suppose you wanted to extract a list of the species from a FASTA file, rather than the GenBank file. The bad news is you will have to write some code to extract the data you want from the record&rsquo;s description line - if the information is in the file in the first place!
+这个为例子的fasta：
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 815; 
+			flex-basis: 1956px"
+	>
+	<a href="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-10.png" data-size="848x104">
+		<img src="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-10.png"
+			width="848"
+			height="104"
+			srcset="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-10_hu1dde2fe1400c8684212a69739ac5373b_67512_480x0_resize_box_3.png 480w, /p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-10_hu1dde2fe1400c8684212a69739ac5373b_67512_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 183; 
+			flex-basis: 440px"
+	>
+	<a href="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-11.png" data-size="904x492">
+		<img src="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-11.png"
+			width="904"
+			height="492"
+			srcset="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-11_huce629767c61c78300b4328ccc8e4469e_71553_480x0_resize_box_3.png 480w, /p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-11_huce629767c61c78300b4328ccc8e4469e_71553_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+也可以用列表生成式这样写：
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 545; 
+			flex-basis: 1308px"
+	>
+	<a href="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-12.png" data-size="894x164">
+		<img src="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-12.png"
+			width="894"
+			height="164"
+			srcset="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-12_hu7b9b625d8510d9b962f2b2991b78e0f1_39548_480x0_resize_box_3.png 480w, /p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-12_hu7b9b625d8510d9b962f2b2991b78e0f1_39548_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="modifying-data-修改数据">Modifying data 修改数据</h2>
+<h4 id="直接重新赋值即可">直接重新赋值即可</h4>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 442; 
+			flex-basis: 1061px"
+	>
+	<a href="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-13.png" data-size="840x190">
+		<img src="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-13.png"
+			width="840"
+			height="190"
+			srcset="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-13_huca90ffc44e3f84fe7e450af0a407b2a9_58177_480x0_resize_box_3.png 480w, /p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-13_huca90ffc44e3f84fe7e450af0a407b2a9_58177_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="format为fasta数据时要记得赋上id和description">format为fasta数据时要记得赋上id和description</h3>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 395; 
+			flex-basis: 949px"
+	>
+	<a href="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-14.png" data-size="878x222">
+		<img src="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-14.png"
+			width="878"
+			height="222"
+			srcset="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-14_hu1bcb38bcc7d74f328fea1d2e0dbd505f_126252_480x0_resize_box_3.png 480w, /p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-14_hu1bcb38bcc7d74f328fea1d2e0dbd505f_126252_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="传入压缩文件">传入压缩文件</h2>
+<h3 id="输出总共有多少条序列">输出总共有多少条序列</h3>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 218; 
+			flex-basis: 523px"
+	>
+	<a href="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-15.png" data-size="838x384">
+		<img src="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-15.png"
+			width="838"
+			height="384"
+			srcset="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-15_hu688eb7f7d354debf10bb6e08f9aecb9e_124567_480x0_resize_box_3.png 480w, /p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-15_hu688eb7f7d354debf10bb6e08f9aecb9e_124567_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="打开gzbz文件">打开gz/bz文件</h3>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 218; 
+			flex-basis: 523px"
+	>
+	<a href="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-16.png" data-size="838x384">
+		<img src="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-16.png"
+			width="838"
+			height="384"
+			srcset="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-16_hu688eb7f7d354debf10bb6e08f9aecb9e_124567_480x0_resize_box_3.png 480w, /p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-16_hu688eb7f7d354debf10bb6e08f9aecb9e_124567_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="从网上读取文件-parsing-sequences-from-the-net">从网上读取文件 parsing sequences from the net</h2>
+<h3 id="seqioread-是只能读取文件的第一个数据的">SeqIO.read() 是只能读取文件的第一个数据的</h3>
+<p>First of all, let&rsquo;s fetch just one record. If you don&rsquo;t care about the annotations and features downloading a FASTA file is a good choice as these are compact. Now remember, when you expect the handle to contain one and only one record, use the Bio.SeqIO.read() function:</p>
+<h3 id="entrez从网上ncbi获取文件">Entrez从网上NCBI获取文件</h3>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 282; 
+			flex-basis: 677px"
+	>
+	<a href="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-17.png" data-size="920x326">
+		<img src="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-17.png"
+			width="920"
+			height="326"
+			srcset="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-17_huaeb68916e402c72efb691a2e55fc0805_108577_480x0_resize_box_3.png 480w, /p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-17_huaeb68916e402c72efb691a2e55fc0805_108577_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="genbankfile-的格式输入">genbankfile 的格式输入</h3>
+<p>in Biopython 1.50 onwards, we support &ldquo;gb&rdquo; as an alias for &ldquo;genbank&rdquo; in Bio.SeqIO
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 296; 
+			flex-basis: 712px"
+	>
+	<a href="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-18.png" data-size="920x310">
+		<img src="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-18.png"
+			width="920"
+			height="310"
+			srcset="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-18_hu29944e78084b0a12818c3af52e6a41a6_137904_480x0_resize_box_3.png 480w, /p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-18_hu29944e78084b0a12818c3af52e6a41a6_137904_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="多records-使用seqioparse">多records 使用SeqIO.parse()</h3>
+<p>Notice this time we have three features.
+Now let&rsquo;s fetch several records. This time the handle contains multiple records, so we must use theBio.SeqIO.parse() function:
+其实就是因为SeqIO.parse返回的是一个可迭代的对象
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 116; 
+			flex-basis: 278px"
+	>
+	<a href="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-19.png" data-size="920x792">
+		<img src="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-19.png"
+			width="920"
+			height="792"
+			srcset="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-19_hu141cc4b9587f71c6d3e6c987fe17dde0_144675_480x0_resize_box_3.png 480w, /p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-19_hu141cc4b9587f71c6d3e6c987fe17dde0_144675_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 410; 
+			flex-basis: 984px"
+	>
+	<a href="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-20.png" data-size="870x212">
+		<img src="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-20.png"
+			width="870"
+			height="212"
+			srcset="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-20_hu1c04f855819a0640f543d1f59d277ccf_134613_480x0_resize_box_3.png 480w, /p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-20_hu1c04f855819a0640f543d1f59d277ccf_134613_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="使用expasy从swissprot上读取文件">使用ExPASy从SwissProt上读取文件</h3>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 194; 
+			flex-basis: 467px"
+	>
+	<a href="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-21.png" data-size="920x472">
+		<img src="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-21.png"
+			width="920"
+			height="472"
+			srcset="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-21_hu6679585e7d2449c4236c6fe3993b5e35_199723_480x0_resize_box_3.png 480w, /p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-21_hu6679585e7d2449c4236c6fe3993b5e35_199723_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="seqrecord变为dictionary对象">SeqRecord变为Dictionary对象</h2>
+<p>这是一个简单的前例
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 319; 
+			flex-basis: 766px"
+	>
+	<a href="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-22.png" data-size="920x288">
+		<img src="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-22.png"
+			width="920"
+			height="288"
+			srcset="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-22_hue3ad9df5d789c92e1540b33fbd6e9955_125266_480x0_resize_box_3.png 480w, /p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-22_hue3ad9df5d789c92e1540b33fbd6e9955_125266_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="seqioto_dict">SeqIO.to_dict</h3>
+<p>使用这个时会以<strong>id</strong>作为默认的key值，使用的对象为 a list or generator giving SeqRecordobjects.
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 1032; 
+			flex-basis: 2477px"
+	>
+	<a href="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-23.png" data-size="764x74">
+		<img src="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-23.png"
+			width="764"
+			height="74"
+			srcset="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-23_hu837fd77cb261cf5372d7c4bca449c6e2_27576_480x0_resize_box_3.png 480w, /p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-23_hu837fd77cb261cf5372d7c4bca449c6e2_27576_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 139; 
+			flex-basis: 335px"
+	>
+	<a href="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-24.png" data-size="920x658">
+		<img src="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-24.png"
+			width="920"
+			height="658"
+			srcset="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-24_hua15ddbff96fa7acfa339984789b2a6af_154696_480x0_resize_box_3.png 480w, /p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-24_hua15ddbff96fa7acfa339984789b2a6af_154696_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+现在试试用fasta文件
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 421; 
+			flex-basis: 1011px"
+	>
+	<a href="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-25.png" data-size="910x216">
+		<img src="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-25.png"
+			width="910"
+			height="216"
+			srcset="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-25_hu90c8ed18cb39e3b8cd02b23b2264ba23_77557_480x0_resize_box_3.png 480w, /p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-25_hu90c8ed18cb39e3b8cd02b23b2264ba23_77557_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+像这样的话最好指定下以什么为字典的key了，
+先写个函数返回序列的id
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 484; 
+			flex-basis: 1162px"
+	>
+	<a href="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-26.png" data-size="920x190">
+		<img src="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-26.png"
+			width="920"
+			height="190"
+			srcset="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-26_hu4b7e5593af54cb1ff99ec245c128fe4d_60128_480x0_resize_box_3.png 480w, /p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-26_hu4b7e5593af54cb1ff99ec245c128fe4d_60128_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="to_dict的参数key_function的作用">to_dict的参数key_function的作用</h3>
+<p>key_function可以传入一个函数，返回key划分的值
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 373; 
+			flex-basis: 897px"
+	>
+	<a href="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-27.png" data-size="920x246">
+		<img src="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-27.png"
+			width="920"
+			height="246"
+			srcset="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-27_hu330327d25766f7eb917a0869a13a9275_72051_480x0_resize_box_3.png 480w, /p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-27_hu330327d25766f7eb917a0869a13a9275_72051_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="使用seguid-checksum产生to_dict的索引">使用SEGUID checksum产生to_dict的索引</h3>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 275; 
+			flex-basis: 661px"
+	>
+	<a href="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-28.png" data-size="920x334">
+		<img src="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-28.png"
+			width="920"
+			height="334"
+			srcset="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-28_hueff07c35858af702d94d20e43d16bc6d_108858_480x0_resize_box_3.png 480w, /p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-28_hueff07c35858af702d94d20e43d16bc6d_108858_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 356; 
+			flex-basis: 855px"
+	>
+	<a href="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-29.png" data-size="920x258">
+		<img src="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-29.png"
+			width="920"
+			height="258"
+			srcset="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-29_hu0b99ac6c66a85e867f259b9a31539abb_118450_480x0_resize_box_3.png 480w, /p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-29_hu0b99ac6c66a85e867f259b9a31539abb_118450_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="sequence-files-as-dictionaries--indexed-files">Sequence files as Dictionaries – Indexed files</h2>
+<p>相比前面的to_dict这样可以节省相当多的电脑内存</p>
+<h3 id="seqioindex的方法">SeqIO.index()的方法</h3>
+<p>实现的效果和to_dict完全一样
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 294; 
+			flex-basis: 707px"
+	>
+	<a href="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-30.png" data-size="908x308">
+		<img src="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-30.png"
+			width="908"
+			height="308"
+			srcset="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-30_hu03f038fc5dc6197f8a371101cfddb9fd_109082_480x0_resize_box_3.png 480w, /p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-30_hu03f038fc5dc6197f8a371101cfddb9fd_109082_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+Note that Bio.SeqIO.index() won&rsquo;t take a handle, but only a filename.
+However, alignment formats like PHYLIP or Clustal are not supported. Finally as an optional argument you can supply a key function.
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 468; 
+			flex-basis: 1124px"
+	>
+	<a href="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-31.png" data-size="862x184">
+		<img src="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-31.png"
+			width="862"
+			height="184"
+			srcset="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-31_hueb31e6a8597dd2c686c8b3dc41e90452_70871_480x0_resize_box_3.png 480w, /p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-31_hueb31e6a8597dd2c686c8b3dc41e90452_70871_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+同样对于这种也要需要去写个函数去重新捕获key</p>
+<h3 id="seqioindex的key_function参数">SeqIO.index()的key_function参数</h3>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 477; 
+			flex-basis: 1145px"
+	>
+	<a href="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-32.png" data-size="888x186">
+		<img src="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-32.png"
+			width="888"
+			height="186"
+			srcset="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-32_huc432e7f17f84362f8eff5c15627b3355_67621_480x0_resize_box_3.png 480w, /p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-32_huc432e7f17f84362f8eff5c15627b3355_67621_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 901; 
+			flex-basis: 2164px"
+	>
+	<a href="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-33.png" data-size="920x102">
+		<img src="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-33.png"
+			width="920"
+			height="102"
+			srcset="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-33_hu43623afd5c1d1b4c702507fbea82ed68_53159_480x0_resize_box_3.png 480w, /p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-33_hu43623afd5c1d1b4c702507fbea82ed68_53159_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="get_raw方法可以返回原始形式的数据">get_raw方法可以返回原始形式的数据</h3>
+<p>The dictionary-like object from Bio.SeqIO.index() gives you each entry as a SeqRecord object. However, it is sometimes useful to be able to get the original raw data straight from the file. For this use the get_raw()method which takes a single argument (the record identifier) and returns a bytes string (extracted from the file without modification).
+<strong><a class="link" href="ftp://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/complete/uniprot_sprot.dat.gz" >ftp://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/complete/uniprot_sprot.dat.gz</a></strong>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 529; 
+			flex-basis: 1271px"
+	>
+	<a href="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-34.png" data-size="816x154">
+		<img src="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-34.png"
+			width="816"
+			height="154"
+			srcset="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-34_hudd8edc59c5aef58c0141d374d7bdce12_58110_480x0_resize_box_3.png 480w, /p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-34_hudd8edc59c5aef58c0141d374d7bdce12_58110_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="seqioindex可以直接打开bgz压缩文件">SeqIO.index可以直接打开bgz压缩文件</h3>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 260; 
+			flex-basis: 626px"
+	>
+	<a href="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-36.png" data-size="908x348">
+		<img src="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-36.png"
+			width="908"
+			height="348"
+			srcset="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-36_hud369ae5fe5b463a00c1f1889b6bf340a_111368_480x0_resize_box_3.png 480w, /p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-36_hud369ae5fe5b463a00c1f1889b6bf340a_111368_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="writing-sequence-file将seqrecord写出">Writing Sequence file将SeqRecord写出</h2>
+<h3 id="seqiowrite">SeqIO.write()</h3>
+<p>这是一个小例子
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 158; 
+			flex-basis: 380px"
+	>
+	<a href="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-37.png" data-size="854x538">
+		<img src="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-37.png"
+			width="854"
+			height="538"
+			srcset="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-37_hudf22a97e897a372666a58eb2ec3a0746_176258_480x0_resize_box_3.png 480w, /p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-37_hudf22a97e897a372666a58eb2ec3a0746_176258_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 173; 
+			flex-basis: 417px"
+	>
+	<a href="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-38.png" data-size="744x428">
+		<img src="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-38.png"
+			width="744"
+			height="428"
+			srcset="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-38_huf7544a4a59a5e4c4d15adc2a5dfdcfcf_190810_480x0_resize_box_3.png 480w, /p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-38_huf7544a4a59a5e4c4d15adc2a5dfdcfcf_190810_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="converting-between-sequence-file-formats-可以直接将seqioparse读取的seqrecord写出文件">Converting between sequence file formats 可以直接将SeqIO.parse()读取的SeqRecord写出文件</h2>
+<p>In previous example we used a list of SeqRecord objects as input to the Bio.SeqIO.write() function, but it will also accept a SeqRecord iterator like we get from Bio.SeqIO.parse() – this lets us do file conversion by combining these two functions.
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 505; 
+			flex-basis: 1214px"
+	>
+	<a href="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-39.png" data-size="688x136">
+		<img src="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-39.png"
+			width="688"
+			height="136"
+			srcset="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-39_hu7733e7f0ed222a7a3a4cb6985ae5246f_40757_480x0_resize_box_3.png 480w, /p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-39_hu7733e7f0ed222a7a3a4cb6985ae5246f_40757_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="使用convert命令也可以">使用convert命令也可以</h2>
+<p>The Bio.SeqIO.convert() function will take handles or filenames. Watch out though – if the output file already exists, it will overwrite it! To find out more, see the built in help:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 685; 
+			flex-basis: 1645px"
+	>
+	<a href="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-40.png" data-size="864x126">
+		<img src="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-40.png"
+			width="864"
+			height="126"
+			srcset="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-40_hu7e8736f23747c1da33883dcc0431ba07_40250_480x0_resize_box_3.png 480w, /p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-40_hu7e8736f23747c1da33883dcc0431ba07_40250_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="使用convert获得反向互补链">使用convert获得反向互补链</h2>
+<p>这是之前的思路
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 783; 
+			flex-basis: 1880px"
+	>
+	<a href="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-41.png" data-size="846x108">
+		<img src="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-41.png"
+			width="846"
+			height="108"
+			srcset="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-41_hu157130f4c8453e18d8eb508dac5061f3_36816_480x0_resize_box_3.png 480w, /p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-41_hu157130f4c8453e18d8eb508dac5061f3_36816_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+Now, if we want to save these reverse complements to a file, we&rsquo;ll need to make SeqRecord objects. We can use the SeqRecord object&rsquo;s built in .reverse_complement() method (see Section 4.9) but we must decide how to name our new records. This is an excellent place to demonstrate the power of list comprehensions which make a list in memory:
+就是说将Seq赋予为SeqIORecord对象是要赋予对应的ID和description
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 377; 
+			flex-basis: 904px"
+	>
+	<a href="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-42.png" data-size="920x244">
+		<img src="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-42.png"
+			width="920"
+			height="244"
+			srcset="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-42_hu35aeca073aff6f0b07fa8d5b547da973_108664_480x0_resize_box_3.png 480w, /p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-42_hu35aeca073aff6f0b07fa8d5b547da973_108664_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 766; 
+			flex-basis: 1840px"
+	>
+	<a href="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-43.png" data-size="920x120">
+		<img src="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-43.png"
+			width="920"
+			height="120"
+			srcset="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-43_hu2f7107ea76c2c69710f9b1d7c5c90a90_55477_480x0_resize_box_3.png 480w, /p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-43_hu2f7107ea76c2c69710f9b1d7c5c90a90_55477_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="直接使用string写入文件而不是将seqrecord对象写入">直接使用string写入文件，而不是将SeqRecord对象写入</h2>
+<h2 id="bioseqiofastaio">Bio.SeqIO.FastaIO</h2>
+<p>这里可以参考下这个：<a class="link" href="https://www.osgeo.cn/biopython/Bio.SeqIO.FastaIO.html"  target="_blank" rel="noopener"
+    >https://www.osgeo.cn/biopython/Bio.SeqIO.FastaIO.html</a>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 149; 
+			flex-basis: 358px"
+	>
+	<a href="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-44.png" data-size="740x496">
+		<img src="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-44.png"
+			width="740"
+			height="496"
+			srcset="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-44_huc5854d6c63bd82e4982d2ea94a02b6ca_161385_480x0_resize_box_3.png 480w, /p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-44_huc5854d6c63bd82e4982d2ea94a02b6ca_161385_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 160; 
+			flex-basis: 384px"
+	>
+	<a href="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-45.png" data-size="912x570">
+		<img src="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-45.png"
+			width="912"
+			height="570"
+			srcset="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-45_huefcf47a687b821f4b06f04f4ad0a85bf_195626_480x0_resize_box_3.png 480w, /p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-45_huefcf47a687b821f4b06f04f4ad0a85bf_195626_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 365; 
+			flex-basis: 876px"
+	>
+	<a href="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-46.png" data-size="884x242">
+		<img src="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-46.png"
+			width="884"
+			height="242"
+			srcset="/p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-46_hu22328cc4388f1e9325399a75e9244e30_71733_480x0_resize_box_3.png 480w, /p/ch5_sequence_input_output/picture/Ch5_Sequence_Input_Output-46_hu22328cc4388f1e9325399a75e9244e30_71733_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/tutorials/">tutorials</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2022 - 
+        
+        2023 叶宇浩随记博客
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.5.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">Table of contents</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#seqioparse文件读取">SeqIO.parse文件读取</a></li>
+    <li><a href="#next代替loop">next代替loop</a></li>
+    <li><a href="#使用list将seqrecord装起来">使用list将SeqRecord装起来</a></li>
+    <li><a href="#extracting-data提取数据">Extracting data提取数据</a>
+      <ol>
+        <li><a href="#像这些注释信息是以字典的形式存起来的可以这样取出来">像这些注释信息（是以字典的形式存起来的）可以这样取出来</a></li>
+        <li><a href="#如果想要物种的全部信息也可以这样提取出来-gbf">如果想要物种的全部信息也可以这样提取出来 （gbf）</a></li>
+        <li><a href="#如果想要物种的全部信息也可以这样提取出来-fasta">如果想要物种的全部信息也可以这样提取出来 （fasta）</a></li>
+      </ol>
+    </li>
+    <li><a href="#modifying-data-修改数据">Modifying data 修改数据</a>
+      <ol>
+        <li>
+          <ol>
+            <li><a href="#直接重新赋值即可">直接重新赋值即可</a></li>
+          </ol>
+        </li>
+        <li><a href="#format为fasta数据时要记得赋上id和description">format为fasta数据时要记得赋上id和description</a></li>
+      </ol>
+    </li>
+    <li><a href="#传入压缩文件">传入压缩文件</a>
+      <ol>
+        <li><a href="#输出总共有多少条序列">输出总共有多少条序列</a></li>
+        <li><a href="#打开gzbz文件">打开gz/bz文件</a></li>
+      </ol>
+    </li>
+    <li><a href="#从网上读取文件-parsing-sequences-from-the-net">从网上读取文件 parsing sequences from the net</a>
+      <ol>
+        <li><a href="#seqioread-是只能读取文件的第一个数据的">SeqIO.read() 是只能读取文件的第一个数据的</a></li>
+        <li><a href="#entrez从网上ncbi获取文件">Entrez从网上NCBI获取文件</a></li>
+        <li><a href="#genbankfile-的格式输入">genbankfile 的格式输入</a></li>
+        <li><a href="#多records-使用seqioparse">多records 使用SeqIO.parse()</a></li>
+        <li><a href="#使用expasy从swissprot上读取文件">使用ExPASy从SwissProt上读取文件</a></li>
+      </ol>
+    </li>
+    <li><a href="#seqrecord变为dictionary对象">SeqRecord变为Dictionary对象</a>
+      <ol>
+        <li><a href="#seqioto_dict">SeqIO.to_dict</a></li>
+        <li><a href="#to_dict的参数key_function的作用">to_dict的参数key_function的作用</a></li>
+        <li><a href="#使用seguid-checksum产生to_dict的索引">使用SEGUID checksum产生to_dict的索引</a></li>
+      </ol>
+    </li>
+    <li><a href="#sequence-files-as-dictionaries--indexed-files">Sequence files as Dictionaries – Indexed files</a>
+      <ol>
+        <li><a href="#seqioindex的方法">SeqIO.index()的方法</a></li>
+        <li><a href="#seqioindex的key_function参数">SeqIO.index()的key_function参数</a></li>
+        <li><a href="#get_raw方法可以返回原始形式的数据">get_raw方法可以返回原始形式的数据</a></li>
+        <li><a href="#seqioindex可以直接打开bgz压缩文件">SeqIO.index可以直接打开bgz压缩文件</a></li>
+      </ol>
+    </li>
+    <li><a href="#writing-sequence-file将seqrecord写出">Writing Sequence file将SeqRecord写出</a>
+      <ol>
+        <li><a href="#seqiowrite">SeqIO.write()</a></li>
+      </ol>
+    </li>
+    <li><a href="#converting-between-sequence-file-formats-可以直接将seqioparse读取的seqrecord写出文件">Converting between sequence file formats 可以直接将SeqIO.parse()读取的SeqRecord写出文件</a></li>
+    <li><a href="#使用convert命令也可以">使用convert命令也可以</a></li>
+    <li><a href="#使用convert获得反向互补链">使用convert获得反向互补链</a></li>
+    <li><a href="#直接使用string写入文件而不是将seqrecord对象写入">直接使用string写入文件，而不是将SeqRecord对象写入</a></li>
+    <li><a href="#bioseqiofastaio">Bio.SeqIO.FastaIO</a></li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

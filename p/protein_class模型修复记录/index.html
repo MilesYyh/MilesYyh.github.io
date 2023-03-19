@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='深度学习'><title>protein_class模型修复记录</title>
+
+<link rel='canonical' href='https://example.com/p/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='protein_class模型修复记录'>
+<meta property='og:description' content='深度学习'>
+<meta property='og:url' content='https://example.com/p/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/'>
+<meta property='og:site_name' content='叶宇浩随记博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='pytorch' /><meta property='article:published_time' content='2022-06-11T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2022-06-11T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="protein_class模型修复记录">
+<meta name="twitter:description" content="深度学习">
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>Back</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/deeplearning/" style="background-color: #0f1503; color: #fff;">
+                深度学习
+            </a>
+        
+            <a href="/categories/protein_design/" style="background-color: #0938ff; color: #fff;">
+                蛋白设计
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/">protein_class模型修复记录</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        深度学习
+    </h3>
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Jun 11, 2022</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    3 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <blockquote>
+<p>不久前，别人发给了我github上一个蛋白质分类的深度学习模型，在运行作者的代码时，发现模型似乎有点问题（反正在我的laptop上运行了不了，应该不是电脑的问题，因为我仔细看了后发现作者使用的biLSTM有问题，经过千辛万苦，终于让我改好了hhh）,特此写一篇markdown来记录（其实我对LSTM一点都不熟悉&hellip;属于是误打误撞修好的）</p>
+</blockquote>
+<ul>
+<li>项目地址：https://github.com/jgbrasier/protein-classification</li>
+<li>作者还提供了一个PDF（<a class="link" href="https://github.com/jgbrasier/protein-classification/blob/main/IDL_Projet.pdf"  title="IDL_Projet.pdf"
+     target="_blank" rel="noopener"
+    >IDL_Projet.pdf</a>）里面有详细说明模型的构造
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 80; 
+			flex-basis: 193px"
+	>
+	<a href="/p/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/picture/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95.png" data-size="1152x1432">
+		<img src="/p/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/picture/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95.png"
+			width="1152"
+			height="1432"
+			srcset="/p/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/picture/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95_hu17c20f56e8927e886823335506a9bb8f_316635_480x0_resize_box_3.png 480w, /p/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/picture/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95_hu17c20f56e8927e886823335506a9bb8f_316635_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></li>
+</ul>
+<h2 id="pdf主要内容">PDF主要内容</h2>
+<h3 id="数据的预处理">数据的预处理</h3>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 164; 
+			flex-basis: 395px"
+	>
+	<a href="/p/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/picture/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95-2.png" data-size="1586x962">
+		<img src="/p/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/picture/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95-2.png"
+			width="1586"
+			height="962"
+			srcset="/p/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/picture/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95-2_hud4cfa3622c918a8b112808c6b358327c_352472_480x0_resize_box_3.png 480w, /p/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/picture/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95-2_hud4cfa3622c918a8b112808c6b358327c_352472_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="模型的结构">模型的结构</h3>
+<p>融合了两个模型的结构，分别是CNN卷积网络和BiLSTM。
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 124; 
+			flex-basis: 299px"
+	>
+	<a href="/p/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/picture/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95-3.png" data-size="1208x968">
+		<img src="/p/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/picture/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95-3.png"
+			width="1208"
+			height="968"
+			srcset="/p/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/picture/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95-3_hu921daf537804c7a83a2ab21a7a5c260e_259122_480x0_resize_box_3.png 480w, /p/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/picture/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95-3_hu921daf537804c7a83a2ab21a7a5c260e_259122_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="超参数的设置">超参数的设置</h3>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 182; 
+			flex-basis: 437px"
+	>
+	<a href="/p/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/picture/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95-5.png" data-size="1338x734">
+		<img src="/p/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/picture/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95-5.png"
+			width="1338"
+			height="734"
+			srcset="/p/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/picture/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95-5_hu7bdb9af9e77a5fccbaf322c421c7270c_158188_480x0_resize_box_3.png 480w, /p/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/picture/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95-5_hu7bdb9af9e77a5fccbaf322c421c7270c_158188_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="预测的准确率和混淆矩阵">预测的准确率和混淆矩阵</h3>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 81; 
+			flex-basis: 195px"
+	>
+	<a href="/p/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/picture/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95-6.png" data-size="1154x1414">
+		<img src="/p/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/picture/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95-6.png"
+			width="1154"
+			height="1414"
+			srcset="/p/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/picture/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95-6_hub058dec9b5aad7b0737609c9ea71c099_195719_480x0_resize_box_3.png 480w, /p/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/picture/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95-6_hub058dec9b5aad7b0737609c9ea71c099_195719_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="我对代码的bug修改记录">我对代码的bug修改记录</h2>
+<h3 id="数据读取部分">数据读取部分</h3>
+<p>作者是在google lab上运行的，所以有数据上传部分的代码，但是我发现代码上传的好慢，于是自己手动上传了
+作者原code:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 186; 
+			flex-basis: 448px"
+	>
+	<a href="/p/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/picture/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95-7.png" data-size="2068x1106">
+		<img src="/p/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/picture/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95-7.png"
+			width="2068"
+			height="1106"
+			srcset="/p/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/picture/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95-7_hub6b7f0014cb51389643d8b213174704e_213825_480x0_resize_box_3.png 480w, /p/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/picture/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95-7_hub6b7f0014cb51389643d8b213174704e_213825_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+我的修改：
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 289; 
+			flex-basis: 693px"
+	>
+	<a href="/p/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/picture/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95-8.png" data-size="2220x768">
+		<img src="/p/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/picture/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95-8.png"
+			width="2220"
+			height="768"
+			srcset="/p/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/picture/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95-8_hu067ad468c1d0922a636984330193d44d_171267_480x0_resize_box_3.png 480w, /p/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/picture/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95-8_hu067ad468c1d0922a636984330193d44d_171267_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+直接注释就好了，将dataset下载到本地的目录，再读取</p>
+<h3 id="数据加载部分">数据加载部分</h3>
+<p>后面训练时，发现数据的维度对不上，而且我觉得他这里的数据加载器有问题，所以，我自己加了个数据的处理器（主要是加在了Model前面）：
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 175; 
+			flex-basis: 420px"
+	>
+	<a href="/p/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/picture/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95-9.png" data-size="1586x906">
+		<img src="/p/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/picture/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95-9.png"
+			width="1586"
+			height="906"
+			srcset="/p/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/picture/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95-9_huf25628a580ec3200a7ff815e3800b9f3_122712_480x0_resize_box_3.png 480w, /p/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/picture/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95-9_huf25628a580ec3200a7ff815e3800b9f3_122712_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h3 id="cnn_bilstm融合模型的问题">CNN_BiLSTM融合模型的问题</h3>
+<p>发现这里训练是也有问题（当时没截图），作者原代码：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">CNN_BiLSTM</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vocab_size</span><span class="p">,</span> <span class="n">embedding_size</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">,</span> <span class="n">n_filters</span><span class="p">,</span> <span class="n">filter_sizes</span><span class="p">,</span> <span class="n">num_layers</span><span class="p">,</span> <span class="n">num_classes</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    vocab_size: int, number of words in vocbulary
+</span></span></span><span class="line"><span class="cl"><span class="s2">    emedding_size: int, embedding dimension
+</span></span></span><span class="line"><span class="cl"><span class="s2">    hidden_size: int, size of hidden layer
+</span></span></span><span class="line"><span class="cl"><span class="s2">    num_layers: int, number of LSTM layers
+</span></span></span><span class="line"><span class="cl"><span class="s2">    num_classes: number of classes
+</span></span></span><span class="line"><span class="cl"><span class="s2">    batch_size: size of mini batches
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">super</span><span class="p">(</span><span class="n">CNN_BiLSTM</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">hidden_size</span> <span class="o">=</span> <span class="n">hidden_size</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">num_layers</span> <span class="o">=</span> <span class="n">num_layers</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span> <span class="o">=</span> <span class="n">batch_size</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">embedding</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Embedding</span><span class="p">(</span><span class="n">vocab_size</span><span class="p">,</span> <span class="n">embedding_size</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">convs</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">ModuleList</span><span class="p">([</span><span class="n">nn</span><span class="o">.</span><span class="n">Conv1d</span><span class="p">(</span><span class="n">in_channels</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                                          <span class="n">out_channels</span><span class="o">=</span><span class="n">n_filters</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                                          <span class="n">kernel_size</span><span class="o">=</span><span class="p">(</span><span class="n">fs</span><span class="p">,</span> <span class="n">embedding_size</span><span class="p">))</span> <span class="k">for</span> <span class="n">fs</span> <span class="ow">in</span> <span class="n">filter_sizes</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">lstm</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">LSTM</span><span class="p">(</span><span class="n">embedding_size</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">,</span> <span class="n">num_layers</span><span class="p">,</span> <span class="n">batch_first</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">bidirectional</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">dropout</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.3</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">l</span> <span class="o">=</span> <span class="n">n_filters</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">filter_sizes</span><span class="p">)</span> <span class="o">+</span> <span class="n">hidden_size</span><span class="o">*</span><span class="mi">2</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">fc1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">l</span><span class="o">//</span><span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">fc2</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">l</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span> <span class="n">num_classes</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="k">def</span> <span class="nf">init_hidden</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># initialise hidden &amp; cell state</span>
+</span></span><span class="line"><span class="cl">    <span class="n">h0</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="n">th</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_layers</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">hidden_size</span><span class="p">))</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">c0</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="n">th</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_layers</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">hidden_size</span><span class="p">))</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">(</span><span class="n">h0</span><span class="p">,</span> <span class="n">c0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">hidden</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">embedding</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span> <span class="c1"># x=[batch_size, seq_len, embedding_size]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">cnn_x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># x=[batch_size, 1, seq_len, embedding_size]  </span>
+</span></span><span class="line"><span class="cl">    <span class="n">cnn_x</span> <span class="o">=</span> <span class="p">[</span><span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">conv</span><span class="p">(</span><span class="n">cnn_x</span><span class="p">))</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="k">for</span> <span class="n">conv</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">convs</span><span class="p">]</span> <span class="c1"># conv_n = [batch size, n_filters, seq_len - filter_sizes[n]]</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cnn_x</span> <span class="o">=</span> <span class="p">[</span><span class="n">F</span><span class="o">.</span><span class="n">max_pool1d</span><span class="p">(</span><span class="n">conv</span><span class="p">,</span> <span class="n">conv</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">conv</span> <span class="ow">in</span> <span class="n">cnn_x</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cnn_out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dropout</span><span class="p">(</span><span class="n">th</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">cnn_x</span><span class="p">,</span> <span class="n">dim</span> <span class="o">=</span> <span class="mi">1</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">lstm_out</span><span class="p">,</span> <span class="n">hidden</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lstm</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">hidden</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">lstm_out</span> <span class="o">=</span> <span class="n">lstm_out</span><span class="o">.</span><span class="n">permute</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># lstm_out=[sequence_len, batch_size, hidden_size] because batch_first = True</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># feature extraction 1 using maxpool1d over all states</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># lstm_out = th.transpose(lstm_out, 0, 1)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># lstm_out = th.transpose(lstm_out, 1, 2)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># lstm_out = F.max_pool1d(lstm_out, lstm_out.size(2)).squeeze(2)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># feature extraction 2 taking last hidden state</span>
+</span></span><span class="line"><span class="cl">    <span class="n">lstm_out</span> <span class="o">=</span> <span class="n">lstm_out</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="n">lstm_out</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">lstm_out</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># concatenate CNN and LSTM output before FC layers</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cnn_out</span> <span class="o">=</span> <span class="n">th</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">cnn_out</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">lstm_out</span> <span class="o">=</span> <span class="n">th</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">lstm_out</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cnn_lstm_out</span> <span class="o">=</span> <span class="n">th</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">cnn_out</span><span class="p">,</span> <span class="n">lstm_out</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cnn_lstm_out</span> <span class="o">=</span> <span class="n">th</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">cnn_lstm_out</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># FC layers</span>
+</span></span><span class="line"><span class="cl">    <span class="n">y</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">cnn_lstm_out</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc1</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dropout</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">y</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc2</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">probs</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">log_softmax</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># probs=[batch_size, num_classes]</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">probs</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># generate model instance</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># cnnbilstm_model = CNN_BiLSTM(vocab_size, embedding_size, hidden_size, n_filters, filter_sizes, num_layers, num_classes, batch_size).to(device)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># print(cnnbilstm_model)</span>
+</span></span></code></pre></div><p>我的修改：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">CNN_BiLSTM</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vocab_size</span><span class="p">,</span> <span class="n">embedding_size</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">,</span> <span class="n">n_filters</span><span class="p">,</span> <span class="n">filter_sizes</span><span class="p">,</span> <span class="n">num_layers</span><span class="p">,</span> <span class="n">num_classes</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    vocab_size: int, number of words in vocbulary
+</span></span></span><span class="line"><span class="cl"><span class="s2">    emedding_size: int, embedding dimension
+</span></span></span><span class="line"><span class="cl"><span class="s2">    hidden_size: int, size of hidden layer
+</span></span></span><span class="line"><span class="cl"><span class="s2">    num_layers: int, number of LSTM layers
+</span></span></span><span class="line"><span class="cl"><span class="s2">    num_classes: number of classes
+</span></span></span><span class="line"><span class="cl"><span class="s2">    batch_size: size of mini batches
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">super</span><span class="p">(</span><span class="n">CNN_BiLSTM</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">hidden_size</span> <span class="o">=</span> <span class="n">hidden_size</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">num_layers</span> <span class="o">=</span> <span class="n">num_layers</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span> <span class="o">=</span> <span class="n">batch_size</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">embedding</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Embedding</span><span class="p">(</span><span class="n">vocab_size</span><span class="p">,</span> <span class="n">embedding_size</span><span class="p">)</span> <span class="c1">#  ,11</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">convs</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">ModuleList</span><span class="p">([</span><span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="n">in_channels</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                                          <span class="n">out_channels</span><span class="o">=</span><span class="n">n_filters</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                                          <span class="n">kernel_size</span><span class="o">=</span><span class="p">(</span><span class="n">fs</span><span class="p">,</span> <span class="n">embedding_size</span><span class="p">))</span> <span class="k">for</span> <span class="n">fs</span> <span class="ow">in</span> <span class="n">filter_sizes</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">lstm</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">LSTM</span><span class="p">(</span><span class="n">embedding_size</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">,</span> <span class="n">num_layers</span><span class="p">,</span> <span class="n">batch_first</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">bidirectional</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">dropout</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.3</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">l</span> <span class="o">=</span> <span class="n">n_filters</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">filter_sizes</span><span class="p">)</span> <span class="o">+</span> <span class="n">hidden_size</span><span class="o">*</span><span class="mi">2</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">fc1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">l</span><span class="o">//</span><span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">fc2</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">l</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span> <span class="n">num_classes</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="k">def</span> <span class="nf">init_hidden</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># initialise hidden &amp; cell state</span>
+</span></span><span class="line"><span class="cl">    <span class="n">h0</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="n">th</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_layers</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">hidden_size</span><span class="p">))</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">c0</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="n">th</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_layers</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">hidden_size</span><span class="p">))</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">(</span><span class="n">h0</span><span class="p">,</span> <span class="n">c0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">hidden</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">embedding</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span> <span class="c1"># x=[batch_size, seq_len, embedding_size]</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">cnn_x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># x=[batch_size, 1, seq_len, embedding_size]  </span>
+</span></span><span class="line"><span class="cl">    <span class="n">cnn_x</span> <span class="o">=</span> <span class="p">[</span><span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">conv</span><span class="p">(</span><span class="n">cnn_x</span><span class="p">))</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="k">for</span> <span class="n">conv</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">convs</span><span class="p">]</span> <span class="c1"># conv_n = [batch size, n_filters, seq_len - filter_sizes[n]]</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cnn_x</span> <span class="o">=</span> <span class="p">[</span><span class="n">F</span><span class="o">.</span><span class="n">max_pool1d</span><span class="p">(</span><span class="n">conv</span><span class="p">,</span> <span class="n">conv</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">conv</span> <span class="ow">in</span> <span class="n">cnn_x</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cnn_out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dropout</span><span class="p">(</span><span class="n">th</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">cnn_x</span><span class="p">,</span> <span class="n">dim</span> <span class="o">=</span> <span class="mi">1</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">lstm_out</span><span class="p">,</span> <span class="n">hidden</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lstm</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">hidden</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">lstm_out</span> <span class="o">=</span> <span class="n">lstm_out</span><span class="o">.</span><span class="n">permute</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># lstm_out=[sequence_len, batch_size, hidden_size] because batch_first = True</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># feature extraction 1 using maxpool1d over all states</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># lstm_out = th.transpose(lstm_out, 0, 1)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># lstm_out = th.transpose(lstm_out, 1, 2)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># lstm_out = F.max_pool1d(lstm_out, lstm_out.size(2)).squeeze(2)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># feature extraction 2 taking last hidden state</span>
+</span></span><span class="line"><span class="cl">    <span class="n">lstm_out</span> <span class="o">=</span> <span class="n">lstm_out</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="n">lstm_out</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">lstm_out</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># concatenate CNN and LSTM output before FC layers</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cnn_out</span> <span class="o">=</span> <span class="n">th</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">cnn_out</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">lstm_out</span> <span class="o">=</span> <span class="n">th</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">lstm_out</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cnn_lstm_out</span> <span class="o">=</span> <span class="n">th</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">cnn_out</span><span class="p">,</span> <span class="n">lstm_out</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cnn_lstm_out</span> <span class="o">=</span> <span class="n">th</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">cnn_lstm_out</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># FC layers</span>
+</span></span><span class="line"><span class="cl">    <span class="n">y</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">cnn_lstm_out</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc1</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dropout</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">y</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc2</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">probs</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">log_softmax</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># probs=[batch_size, num_classes]</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">probs</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># generate model instance</span>
+</span></span><span class="line"><span class="cl"><span class="n">cnnbilstm_model</span> <span class="o">=</span> <span class="n">CNN_BiLSTM</span><span class="p">(</span><span class="n">vocab_size</span><span class="p">,</span> <span class="n">embedding_size</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">,</span> <span class="n">n_filters</span><span class="p">,</span> <span class="n">filter_sizes</span><span class="p">,</span> <span class="n">num_layers</span><span class="p">,</span> <span class="n">num_classes</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">cnnbilstm_model</span><span class="p">)</span>
+</span></span></code></pre></div><p>result：
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 255; 
+			flex-basis: 613px"
+	>
+	<a href="/p/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/picture/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95-10.png" data-size="1176x460">
+		<img src="/p/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/picture/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95-10.png"
+			width="1176"
+			height="460"
+			srcset="/p/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/picture/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95-10_hue01c3dfeb8eb7270bec0d6c1f58081c8_111854_480x0_resize_box_3.png 480w, /p/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/picture/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95-10_hue01c3dfeb8eb7270bec0d6c1f58081c8_111854_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+确确实实ok的</p>
+<blockquote>
+<p>除了其他文件路径外，其他部分的代码和作者本人的没啥区别。</p>
+</blockquote>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/pytorch/">pytorch</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2022 - 
+        
+        2023 叶宇浩随记博客
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.5.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">Table of contents</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#pdf主要内容">PDF主要内容</a>
+      <ol>
+        <li><a href="#数据的预处理">数据的预处理</a></li>
+        <li><a href="#模型的结构">模型的结构</a></li>
+        <li><a href="#超参数的设置">超参数的设置</a></li>
+        <li><a href="#预测的准确率和混淆矩阵">预测的准确率和混淆矩阵</a></li>
+      </ol>
+    </li>
+    <li><a href="#我对代码的bug修改记录">我对代码的bug修改记录</a>
+      <ol>
+        <li><a href="#数据读取部分">数据读取部分</a></li>
+        <li><a href="#数据加载部分">数据加载部分</a></li>
+        <li><a href="#cnn_bilstm融合模型的问题">CNN_BiLSTM融合模型的问题</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

@@ -1,0 +1,1046 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>深度学习 on 叶宇浩随记博客</title>
+    <link>https://example.com/categories/deeplearning/</link>
+    <description>Recent content in 深度学习 on 叶宇浩随记博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 05 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://example.com/categories/deeplearning/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Kaggle酶的热稳定性预测比赛_我的参赛笔记</title>
+      <link>https://example.com/p/kaggle%E9%85%B6%E7%9A%84%E7%83%AD%E7%A8%B3%E5%AE%9A%E6%80%A7%E9%A2%84%E6%B5%8B%E6%AF%94%E8%B5%9B_%E6%88%91%E7%9A%84%E5%8F%82%E8%B5%9B%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Sun, 05 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/kaggle%E9%85%B6%E7%9A%84%E7%83%AD%E7%A8%B3%E5%AE%9A%E6%80%A7%E9%A2%84%E6%B5%8B%E6%AF%94%E8%B5%9B_%E6%88%91%E7%9A%84%E5%8F%82%E8%B5%9B%E7%AC%94%E8%AE%B0/</guid>
+      <description>最近参加了一次酶稳定性预测的比赛，挺折磨的，发现很多东西都不会（主要是深度学习方面，学的不怎么好，理论和实际都比较缺，打算今年考完研后再系统性的学习一遍深度学习，不过所幸下次的学习有前面的杂七杂八学过的基础，美滋滋），特写此post来记录第一次真正使用过深度学习解决问题。
+顺便吐槽一下结果，在比赛ddl的前一天排名很好的，反正有铜牌（相当满足），比赛结束后直掉800多名hh。 比赛背景介绍 本次比赛实际上是一个回归任务，即输入的数据为：AA sequence（分别是野生型的突变序列）；输出数据为：酶的热稳定性值；即有一个蛋白（野生型），它有很多突变的位点，然后，我们需要看这些位点的突变是有利否，即这些突变能否提高热稳定性
+简单介绍一些计算生物方面的知识： 我一开始特别想用深度学习的方法（比如写个bliLSTM）来着，但是其实也不一定非得到上深度学习，因为现有的很多计算方法的结果也挺可靠的
+蛋白质稳定性工作在应用机器学习方法之前，在相关领域内也有一些计算方法可以实现，如：ESM, EVE 和 Rosetta （Rosetta 真的神！）等 ，在这次比赛中，直接运用这些方法而非机器学习方法也是允许的 AlphaFold2的诞生：我们在这次比赛中的目标是利用一级结构预测热稳定性，而如何利用一级结构预测整体的三级 PDB 文件：蛋白质的整体结构是三维的，如何通过结构化数据的方式理解三维的关系，包括每个氨基酸的坐标、种类等，常用的是PDB文件，PDB文件是一个开放的数据库，可以从中查询蛋白质相应的数据，如果是数据库中没有的蛋白质，则可以用AlphaFold2、I-TASSER、trRosetta、Robetta等进行预测，预测结果也是一个类似PDB格式的描述三维原子三维坐标关系的文件。 数据集介绍 比赛提供的wild-type序列：
+VPVNPEPDATSVENVALKTGSGDSQSDPIKADLEVKGQSALPFDVDCWAILCKGAPNVLQRVNEKTKNSNRDRSGANKGPFKDPQKWGIKALPPKNPSWSAQDFKSPEEYAFASSLQGGTNAILAPVNLASQNSQGGVLNGFYSANKVAQFDPSKPQQTKGTWFQITKFTGAAGPYCKALGSNDKSVCDKNKNIAGDWGFDPAKWAYQYDEKNNKFNYVGK train.csv 文件： seq_id:每条序列的身份即ID，用以区分序列 protein_sequence:蛋白质序列（官方说他们人为的将大部分将test测试集中的蛋白序列大部分都保持在了固定的220AA，即测试集中的蛋白序列部分氨基酸是被删除了的，可能是留下了结构域的部分） pH:每条序列的pH最适条件值 data_scource:每条序列对应的来源（实际上是每条序列是从哪里收集来的信息） tm:熔融温度，值越高，表示酶稳定性越高 train_updates_20220929.csv： 也是训练数据，官方的Train.csv文件有一定的错误，因此在9月29日发布了这份修改了错误的版本 test.csv 测试集 (它这里的数据相比于train.csv，少了tm的值) sample_submission： 最终预测结果文件提交的格式示例 wildtype_structure_prediction_af2.pdb 本次比赛野生型蛋白的三维结构文件 wild-type结构长这样 评分函数 本次比赛的评估指标是spearman 相关系数，即反应的是我们预测的tm值与真实值之间的相关性，因此本次比赛的相对大小重要性大于预测的绝对大小
+前期准备 本次比赛的目标是通过氨基酸序列，预测酶的热稳定性，即回归任务，核心难点有以下几块：
+训练数据集的构建：本次比赛允许使用外部数据，因此有参赛者找寻了大量的可用外部数据，需要研究如何将不同来源的数据合并在一个训练数据集。同时本次的测试数据集是仅由一条原始序列，进行各种单点突变而成，因此也需要在构建训练数据集的过程中尽量相似于测试数据，即单点突变等。
+tm数据的缺乏。大量的外部数据中，直接给定温度:Tm的数据还是比较少的，因此也由许多参赛者找寻了跟TM的相关数据，如预测ΔΔG等
+思路 基本思路，目前核心解决这个比赛任务的思路有以下几种：
+传统的生物学方法解决:如blosum评分矩阵，rosetta等，这种方式可以不用训练数据，直接对测试集数据进行计算，给出稳定性分数，优势是计算方便，缺点是目前来看准确性一般 机器学习的预测方式(3D CNN):蛋白质在空间中最终是三维结构，因此可以用3DCNN进行预测 Transformer(序列预测)：直接将蛋白质的氨基酸序列，如AAAKL…，作为序列，运用如LSTM、Transformer等模型进行序列预测 传统建模（XGBOOST、LIGHTGBM）：运用各种方式进行特征工程，运用XGB、LGB进行预测 开源方案 赛开始之初，最重要的就是研究目前开源的代码，主流的方案和思路是哪些，我主要看了三个，如下：
+LB开源最高、0.603分： https://www.kaggle.com/code/seyered/eda-novozymes-enzyme-stability XGB：https://www.kaggle.com/code/cdeotte/xgboost-5000-mutations-200-pdb-files-lb-0-410 3DCNN：https://www.kaggle.com/code/vslaykovsky/nesp-thermonet-v2 LB-0.603 这个代码的核心本质是利用一系列传统的生物计算方法为主，兼顾一部分机器学习算法的结果，进行模型的加权融合。主要的方法包括：
+Blosum: BLOSUM (Blocks of Amino Acid Substitution Matrix）：传统的生物方法，会计算序列之间每一个氨基酸变化带来的影响大小 PLDDT：Alphafold2在预测出整体结构后，对每一个氨基酸会给出一个置信度打分，即PLDDT，代表预测的准确与否，与稳定性有一定相关性 DeepDDG：利用深度学习预测稳定性的算法，已开源 Demask：利用线性模型预测的氨基酸改变后的作用大小 此外还有RMSD、SASA、Rosetta等，不一一赘述了，原文中有比较清晰的介绍 XGBoost 作者在通过一系列特征工程，构建了每条序列的特征，并且利用XGB模型进行预测，其中特征包括：</description>
+    </item>
+    
+    <item>
+      <title>我的算法学习导航页</title>
+      <link>https://example.com/p/%E6%88%91%E7%9A%84%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E5%AF%BC%E8%88%AA%E9%A1%B5/</link>
+      <pubDate>Thu, 29 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E6%88%91%E7%9A%84%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E5%AF%BC%E8%88%AA%E9%A1%B5/</guid>
+      <description> 为什么写这一页？因为中间换电脑忘记把之前关于机器学习和深度学习的个人笔记复制到新的电脑上了，旧laptop被我格式化。属于是无语了，所以特写此页做导航页，方便自己检索知识
+机器学习 基础知识：
+吴恩达老师的课程 李航老师的统计学习方法 （已学完） 简博士的机器学习课程（学完了当时更新到的知识） 小康老师的机器学习课程（这个实际讲解的李航老师的那本书，当时是靠这个理解的） 刘老师的博客（常用！）： https://www.cnblogs.com/pinard/ 框架方面只学了个sklearn，通过代码实践学习 深度学习 李宏毅老师的课程 （已学完） pytorch 基础课程 小土堆 （已学完） 李沐老师的动手深度学习（已学完） 因为自己笔记全删除了（很痛心），所以找来两个很好的笔记分享（常用）：
+https://github.com/ShusenTang/Dive-into-DL-PyTorch （本地安装运行会形成一个知识网页） https://blog.csdn.net/weixin_42306148/article/details/123754540?spm=1001.2014.3001.5501 </description>
+    </item>
+    
+    <item>
+      <title>阿里云_ML_02_数据探索</title>
+      <link>https://example.com/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/</link>
+      <pubDate>Sat, 24 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_02_%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2/</guid>
+      <description>这个post是自己去跟着阿里云天池上的机器学习的一个案例跟着敲了一遍代码，并且加了自己的理解，放到这里来随时回顾
+读取数据 import pandas as pd import numpy as np import matplotlib.pyplot as plt import warnings warnings.filterwarnings(&amp;#34;ignore&amp;#34;) import seaborn as sns #scipy 是一个统计学习的库 from scipy import stats train_data = pd.read_csv(&amp;#34;./zhengqi_train.txt&amp;#34;,sep=&amp;#34;\t&amp;#34;,encoding=&amp;#34;utf-8&amp;#34;) test_data = pd.read_csv(&amp;#34;./zhengqi_test.txt&amp;#34;,sep=&amp;#34;\t&amp;#34;,encoding=&amp;#34;utf-8&amp;#34;) 查看训练集特征变量信息 train_data.head() result: code:
+train_data.info result 此训练集数据共有2888个样本，数据中有V0-V37共计38个特征变量，变量类型都为数值类型，所有数据特征没有缺失值数据； 数据字段由于采用了脱敏处理，删除了特征数据的具体含义；target字段为标签变量
+code:
+test_data.info result: 测试集数据共有1925个样本，数据中有V0-V37共计38个特征变量，变量类型都为数值类型
+查看数据统计信息 train_data.describe() result: code:
+test_data.describe() result: 上面数据显示了数据的统计信息，例如样本数，数据的均值mean，标准差std，最小值，最大值等
+查看数据字段信息 code:
+train_data.head() result: 上面显示训练集前5条数据的基本信息，可以看到数据都是浮点型数据，数据都是数值型连续型特征
+code:
+test_data.head() result: 画箱形图探索数据 code:
+#指定绘图对象的宽和高 fig = plt.figure(figsize=(4,8)) # orient：&amp;#34;v&amp;#34;|&amp;#34;h&amp;#34; 用于控制图像使水平还是竖直显示 sns.</description>
+    </item>
+    
+    <item>
+      <title>阿里云_ML_03_特征工程</title>
+      <link>https://example.com/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/</link>
+      <pubDate>Sat, 24 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_03_%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/</guid>
+      <description>这个post是自己去跟着阿里云天池上的机器学习的一个案例跟着敲了一遍代码，并且加了自己的理解，放到这里来随时回顾
+import pandas as pd import numpy as np import matplotlib.pyplot as plt import seaborn as sns import warnings warnings.filterwarnings(&amp;#34;ignore&amp;#34;) #从scipy中导入stats统计函数 from scipy import stats plt.rcParams[&amp;#34;font.sans-serif&amp;#34;] = &amp;#34;SimHei&amp;#34; plt.rcParams[&amp;#34;axes.unicode_minus&amp;#34;] = False train_data = pd.read_csv(&amp;#34;./zhengqi_train.txt&amp;#34;,sep=&amp;#34;\t&amp;#34;,encoding=&amp;#34;utf-8&amp;#34;) test_data = pd.read_csv(&amp;#34;./zhengqi_test.txt&amp;#34;,sep=&amp;#34;\t&amp;#34;,encoding=&amp;#34;utf-8&amp;#34;) train_data.describe() result: 异常值分析 plt.figure(figsize=(18,10)) #x传入的每一列的特征值（数值），labels传入的是每个特征值的名字即列名 就是图中的x轴的名字 plt.boxplot(x=train_data.values,labels=train_data.columns) plt.hlines([7.5,-7.5],0,40,colors=&amp;#34;r&amp;#34;) plt.show() result: 删除异常值 train_data = train_data[train_data[&amp;#34;V9&amp;#34;]&amp;gt;-7.5] train_data.describe() result: code:
+train_data.head() result: 最大最小值归一化 code:
+from sklearn import preprocessing feature_columns = [col for col in train_data.columns if col not in [&amp;#34;target&amp;#34;]] #注意MinScaler传入的是每一列的数据 min_max_scaler = preprocessing.</description>
+    </item>
+    
+    <item>
+      <title>阿里云_ML_04_模型训练</title>
+      <link>https://example.com/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_04_%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83/</link>
+      <pubDate>Sat, 24 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_04_%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83/</guid>
+      <description>这个post是自己去跟着阿里云天池上的机器学习的一个案例跟着敲了一遍代码，并且加了自己的理解，放到这里来随时回顾
+import pandas as pd import numpy as np import matplotlib.pyplot as plt import seaborn as sns import warnings warnings.filterwarnings(&amp;#34;ignore&amp;#34;) from scipy import stats %matplotlib inline 读取数据 train_data = pd.read_csv(&amp;#34;./zhengqi_train.txt&amp;#34;,sep=&amp;#34;\t&amp;#34;,encoding=&amp;#34;utf-8&amp;#34;) test_data = pd.read_csv(&amp;#34;./zhengqi_test.txt&amp;#34;,sep=&amp;#34;\t&amp;#34;,encoding=&amp;#34;utf-8&amp;#34;) train_data.describe() result: 异常值分析 其实就是画给box图看离散的点
+plt.figure(figsize=(18,10)) plt.boxplot(x=train_data.values,labels=train_data.columns) plt.hlines([-7.5,7.5],0,40,colors=&amp;#34;Blue&amp;#34;) plt.show() result: 删除异常值 train_data = train_data[train_data[&amp;#34;V9&amp;#34;]&amp;gt;-7.5] train_data.describe() result: code:
+test_data.describe() result: 最大值最小值归一化处理 from sklearn import preprocessing features_columns = [col for col in train_data.columns if col not in [&amp;#34;target&amp;#34;]] min_max_scaler = preprocessing.</description>
+    </item>
+    
+    <item>
+      <title>阿里云_ML_05_模型验证</title>
+      <link>https://example.com/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_05_%E6%A8%A1%E5%9E%8B%E9%AA%8C%E8%AF%81/</link>
+      <pubDate>Sat, 24 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E9%98%BF%E9%87%8C%E4%BA%91_ml_05_%E6%A8%A1%E5%9E%8B%E9%AA%8C%E8%AF%81/</guid>
+      <description>这个post是自己去跟着阿里云天池上的机器学习的一个案例跟着敲了一遍代码，并且加了自己的理解，放到这里来随时回顾
+过拟合与欠拟合的问题 获取并绘制数据集 import numpy as np import matplotlib.pyplot as plt import pandas as pd np.random.seed(22) x = np.random.uniform(-3.0,3.0,size=100) X = x.reshape(-1,1)#-1表示系统自动计算行 #np.random.normal()产生正态分布的数 y = 0.5 * x**2 + x + 2 + np.random.normal(0,1,size=100) plt.scatter(x,y) plt.show() result: 使用线性回归拟合数据 from sklearn.linear_model import LinearRegression lin_reg = LinearRegression() lin_reg.fit(X,y) lin_reg.score(X,y)#score返回的是准确率 result:
+0.4340452690750729 准确率为 0.434，比较低，直线拟合数据的程度较低
+使用均方误差判断拟合程度 from sklearn.metrics import mean_squared_error y_predict = lin_reg.predict(X) mean_squared_error(y_predict,y) result:
+2.7365298290204287 绘制拟合效果 plt.scatter(x,y) plt.plot(np.sort(x),y_predict[np.argsort(x)],color=&amp;#34;red&amp;#34;) plt.show() result: 使用多项式回归拟合:
+封装Pipeline管道 #Pipeline封装算法流 from sklearn.</description>
+    </item>
+    
+    <item>
+      <title>sklearn中的交叉验证Cross-Validation</title>
+      <link>https://example.com/p/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81cross-validation/</link>
+      <pubDate>Fri, 16 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/sklearn%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81cross-validation/</guid>
+      <description>sklearn是利用python进行机器学习中一个非常全面和好用的第三方库，用过的都说好。今天主要记录一下sklearn中关于交叉验证的各种用法，主要是对sklearn官方文档 https://scikit-learn.org/stable/modules/cross_validation.html
+import numpy as np from sklearn.model_selection import train_test_split from sklearn.datasets import load_iris from sklearn import svm iris = load_iris() iris.data.shape,iris.target.shape result:
+((150, 4), (150,)) train_test_split 对数据集进行快速打乱（分为训练集和测试集）, 这里相当于对数据集进行了shuffle后按照给定的test_size进行数据集划分
+这里是按照6:4对训练集测试集进行划分 X_train,X_test,y_train,y_test = train_test_split(iris.data,iris.target,test_size=.4,random_state=22)
+code:
+X_train.shape,y_train.shape result:
+((90, 4), (90,)) code:
+iris.data[:5] result: code:
+X_train[:5] result: code:
+clf = svm.SVC(kernel=&amp;#34;linear&amp;#34;,C=1) clf.fit(X_train,y_train) result:
+SVC(C=1, kernel=&amp;#39;linear&amp;#39;) clf.score(X_test,y_test) result:
+0.9833333333333333 cross_val_score 对数据集进行指定次数的交叉验证并为每次验证效果评测 其中，score 默认是以 scoring=&amp;lsquo;f1_macro’进行评测的，余外针对分类或回归还有： 这需要from　sklearn import metrics ,通过在cross_val_score 指定参数来设定评测标准； 当cv 指定为int 类型时，默认使用KFold 或StratifiedKFold 进行数据集打乱，下面会对KFold 和StratifiedKFold 进行介绍</description>
+    </item>
+    
+    <item>
+      <title>有意思的卷积运算动画</title>
+      <link>https://example.com/p/%E6%9C%89%E6%84%8F%E6%80%9D%E7%9A%84%E5%8D%B7%E7%A7%AF%E8%BF%90%E7%AE%97%E5%8A%A8%E7%94%BB/</link>
+      <pubDate>Sat, 24 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E6%9C%89%E6%84%8F%E6%80%9D%E7%9A%84%E5%8D%B7%E7%A7%AF%E8%BF%90%E7%AE%97%E5%8A%A8%E7%94%BB/</guid>
+      <description> 在stackflow上看到了两个生动的卷积运算的动画，感觉很明了，来源：http://ww1.machinelearninguru.com/
+Your browser doesn&#39;t support HTML5 video. Here is a link to the video instead. Your browser doesn&#39;t support HTML5 video. Here is a link to the video instead. </description>
+    </item>
+    
+    <item>
+      <title>sklearn.preprocessing.StandardScaler数据标准化</title>
+      <link>https://example.com/p/sklearn.preprocessing.standardscaler%E6%95%B0%E6%8D%AE%E6%A0%87%E5%87%86%E5%8C%96/</link>
+      <pubDate>Mon, 08 Aug 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/sklearn.preprocessing.standardscaler%E6%95%B0%E6%8D%AE%E6%A0%87%E5%87%86%E5%8C%96/</guid>
+      <description>sklearn.preprocessing.StandardScaler数据标准化 如果某个特征的方差远大于其它特征的方差，那么它将会在算法学习中占据主导位置，导致我们的学习器不能像我们期望的那样，去学习其他的特征，这将导致最后的模型收敛速度慢甚至不收敛，因此我们需要对这样的特征数据进行标准化/归一化
+StandarScaler 标准化数据通过减去均值然后除以方差（或标准差），这种数据标准化方法经过处理后数据符合标准正态分布，即均值为0，标准差为1，转化函数为：x =(x - 𝜇)/𝜎
+import numpy as np from sklearn.preprocessing import StandardScaler &amp;#34;&amp;#34;&amp;#34; scale_ : 缩放比列，同时也是标准差 mean_ : 每个特征的平均值 var_ : 每个特征的方差 n_samples_seen_ : 样本数量 &amp;#34;&amp;#34;&amp;#34; x = np.array(range(1,10)).reshape(-1,1) ss = StandardScaler() ss.fit(X=x) print(x) print(ss.n_samples_seen_) print(ss.mean_) print(ss.var_) print(ss.scale_) print(&amp;#34;标准化后的数据：&amp;#34;) y = ss.fit_transform(x) print(y) result: </description>
+    </item>
+    
+    <item>
+      <title>《神经网络与深度学习-邱老师》</title>
+      <link>https://example.com/p/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E9%82%B1%E8%80%81%E5%B8%88/</link>
+      <pubDate>Sat, 11 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E9%82%B1%E8%80%81%E5%B8%88/</guid>
+      <description> </description>
+    </item>
+    
+    <item>
+      <title>protein_class模型修复记录</title>
+      <link>https://example.com/p/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/</link>
+      <pubDate>Sat, 11 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/protein_class%E6%A8%A1%E5%9E%8B%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/</guid>
+      <description>不久前，别人发给了我github上一个蛋白质分类的深度学习模型，在运行作者的代码时，发现模型似乎有点问题（反正在我的laptop上运行了不了，应该不是电脑的问题，因为我仔细看了后发现作者使用的biLSTM有问题，经过千辛万苦，终于让我改好了hhh）,特此写一篇markdown来记录（其实我对LSTM一点都不熟悉&amp;hellip;属于是误打误撞修好的）
+项目地址：https://github.com/jgbrasier/protein-classification 作者还提供了一个PDF（IDL_Projet.pdf）里面有详细说明模型的构造 PDF主要内容 数据的预处理 模型的结构 融合了两个模型的结构，分别是CNN卷积网络和BiLSTM。 超参数的设置 预测的准确率和混淆矩阵 我对代码的bug修改记录 数据读取部分 作者是在google lab上运行的，所以有数据上传部分的代码，但是我发现代码上传的好慢，于是自己手动上传了 作者原code: 我的修改： 直接注释就好了，将dataset下载到本地的目录，再读取
+数据加载部分 后面训练时，发现数据的维度对不上，而且我觉得他这里的数据加载器有问题，所以，我自己加了个数据的处理器（主要是加在了Model前面）： CNN_BiLSTM融合模型的问题 发现这里训练是也有问题（当时没截图），作者原代码：
+class CNN_BiLSTM(nn.Module): def __init__(self, vocab_size, embedding_size, hidden_size, n_filters, filter_sizes, num_layers, num_classes, batch_size): &amp;#34;&amp;#34;&amp;#34; vocab_size: int, number of words in vocbulary emedding_size: int, embedding dimension hidden_size: int, size of hidden layer num_layers: int, number of LSTM layers num_classes: number of classes batch_size: size of mini batches &amp;#34;&amp;#34;&amp;#34; super(CNN_BiLSTM, self).__init__() self.hidden_size = hidden_size self.</description>
+    </item>
+    
+    <item>
+      <title>Lecture_13_RNN_Classifier</title>
+      <link>https://example.com/p/lecture_13_rnn_classifier/</link>
+      <pubDate>Thu, 21 Apr 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/lecture_13_rnn_classifier/</guid>
+      <description>这是跟学刘二老师的的课程ppt，特地放这里用来随时随地看</description>
+    </item>
+    
+    <item>
+      <title>ppt_Lecture_01_Overview</title>
+      <link>https://example.com/p/ppt_lecture_01_overview/</link>
+      <pubDate>Thu, 21 Apr 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/ppt_lecture_01_overview/</guid>
+      <description>这是跟学刘二老师的的课程ppt，特地放这里用来随时随地看</description>
+    </item>
+    
+    <item>
+      <title>ppt_Lecture_02_Linear_Model</title>
+      <link>https://example.com/p/ppt_lecture_02_linear_model/</link>
+      <pubDate>Thu, 21 Apr 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/ppt_lecture_02_linear_model/</guid>
+      <description>这是跟学刘二老师的的课程ppt，特地放这里用来随时随地看</description>
+    </item>
+    
+    <item>
+      <title>ppt_Lecture_03_Gradient_Descent</title>
+      <link>https://example.com/p/ppt_lecture_03_gradient_descent/</link>
+      <pubDate>Thu, 21 Apr 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/ppt_lecture_03_gradient_descent/</guid>
+      <description>这是跟学刘二老师的的课程ppt，特地放这里用来随时随地看</description>
+    </item>
+    
+    <item>
+      <title>ppt_Lecture_04_Back_Propagation</title>
+      <link>https://example.com/p/ppt_lecture_04_back_propagation/</link>
+      <pubDate>Thu, 21 Apr 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/ppt_lecture_04_back_propagation/</guid>
+      <description>这是跟学刘二老师的的课程ppt，特地放这里用来随时随地看</description>
+    </item>
+    
+    <item>
+      <title>ppt_Lecture_05_Linear_Regression_with_PyTorch</title>
+      <link>https://example.com/p/ppt_lecture_05_linear_regression_with_pytorch/</link>
+      <pubDate>Thu, 21 Apr 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/ppt_lecture_05_linear_regression_with_pytorch/</guid>
+      <description>这是跟学刘二老师的的课程ppt，特地放这里用来随时随地看</description>
+    </item>
+    
+    <item>
+      <title>ppt_Lecture_06_Logistic_Regression</title>
+      <link>https://example.com/p/ppt_lecture_06_logistic_regression/</link>
+      <pubDate>Thu, 21 Apr 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/ppt_lecture_06_logistic_regression/</guid>
+      <description>这是跟学刘二老师的的课程ppt，特地放这里用来随时随地看</description>
+    </item>
+    
+    <item>
+      <title>ppt_Lecture_07_Multiple_Dimension_Input</title>
+      <link>https://example.com/p/ppt_lecture_07_multiple_dimension_input/</link>
+      <pubDate>Thu, 21 Apr 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/ppt_lecture_07_multiple_dimension_input/</guid>
+      <description>这是跟学刘二老师的的课程ppt，特地放这里用来随时随地看</description>
+    </item>
+    
+    <item>
+      <title>ppt_Lecture_08_Dataset_and_Dataloader</title>
+      <link>https://example.com/p/ppt_lecture_08_dataset_and_dataloader/</link>
+      <pubDate>Thu, 21 Apr 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/ppt_lecture_08_dataset_and_dataloader/</guid>
+      <description>这是跟学刘二老师的的课程ppt，特地放这里用来随时随地看</description>
+    </item>
+    
+    <item>
+      <title>ppt_Lecture_09_Softmax_Classifier</title>
+      <link>https://example.com/p/ppt_lecture_09_softmax_classifier/</link>
+      <pubDate>Thu, 21 Apr 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/ppt_lecture_09_softmax_classifier/</guid>
+      <description>这是跟学刘二老师的的课程ppt，特地放这里用来随时随地看</description>
+    </item>
+    
+    <item>
+      <title>ppt_Lecture_10_Basic_CNN</title>
+      <link>https://example.com/p/ppt_lecture_10_basic_cnn/</link>
+      <pubDate>Thu, 21 Apr 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/ppt_lecture_10_basic_cnn/</guid>
+      <description>这是跟学刘二老师的的课程ppt，特地放这里用来随时随地看</description>
+    </item>
+    
+    <item>
+      <title>ppt_Lecture_11_Advanced_CNN</title>
+      <link>https://example.com/p/ppt_lecture_11_advanced_cnn/</link>
+      <pubDate>Thu, 21 Apr 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/ppt_lecture_11_advanced_cnn/</guid>
+      <description>这是跟学刘二老师的的课程ppt，特地放这里用来随时随地看</description>
+    </item>
+    
+    <item>
+      <title>ppt_Lecture_12_Basic_RNN</title>
+      <link>https://example.com/p/ppt_lecture_12_basic_rnn/</link>
+      <pubDate>Thu, 21 Apr 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/ppt_lecture_12_basic_rnn/</guid>
+      <description>这是跟学刘二老师的的课程ppt，特地放这里用来随时随地看</description>
+    </item>
+    
+    <item>
+      <title>Sklearn.metrics机器学习各种评价指标</title>
+      <link>https://example.com/p/sklearn.metrics%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%90%84%E7%A7%8D%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87/</link>
+      <pubDate>Tue, 19 Apr 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/sklearn.metrics%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%90%84%E7%A7%8D%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87/</guid>
+      <description>这是Python sklearn机器学习各种评价指标——sklearn.metrics简介及应用示例 （文中图片来源于知乎，但是因为是很久之前的图片，今天整理起来找不到原作者的知乎账号了）
+补充，找到了，但是记错了，不是知乎。。
+https://scikit-learn.org/stable/modules/classes.html https://www.cnblogs.com/mindy-snail/p/12445973.html # 有两种方式导入： #方式一： from sklearn.metrics import mean_squared_error from sklearn.metrics import r2_score # 此时的调用方式直接调用即可 mean_squared_error(y_test,y_pred) #方式二： from sklearn import metrics #此时的调用方式 metrics.mean_squared_error(y_test,y_pred) 来看scikit-learn.metrics里各种指标简介
+回归指标 1.explained_variance_score(y_true, y_pred, sample_weight=None, multioutput=‘uniform_average’)：回归方差(反应自变量与因变量之间的相关程度) 2.mean_absolute_error(y_true,y_pred,sample_weight=None,multioutput=‘uniform_average’)：平均绝对误差 3.mean_squared_error(y_true, y_pred, sample_weight=None, multioutput=‘uniform_average’)：均方差 4.median_absolute_error(y_true, y_pred) 中值绝对误差 5.r2_score(y_true, y_pred,sample_weight=None,multioutput=‘uniform_average’) ：R平方值 分类指标 1.accuracy_score(y_true,y_pred):精度 2.auc(x,y,reorder=False):ROC曲线下的面积;较大的AUC代表了较好的performance 3.average_precision_score(y_true, y_score, average=‘macro’, sample_weight=None):根据预测得分计算平均精度(AP) 4.brief_score_loss(y_true, y_prob, sample_weight=None, pos_label=None):The smaller the Brier score, the better. 5.confusion_matrix(y_true, y_pred, labels=None, sample_weight=None):通过计算混淆矩阵来评估分类的准确性 返回混淆矩阵 6.f1_score(y_true, y_pred, labels=None, pos_label=1, average=‘binary’, sample_weight=None):F1值 7.</description>
+    </item>
+    
+    <item>
+      <title>用scikit-learn进行LDA降维</title>
+      <link>https://example.com/p/%E7%94%A8scikit-learn%E8%BF%9B%E8%A1%8Clda%E9%99%8D%E7%BB%B4/</link>
+      <pubDate>Mon, 07 Mar 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E7%94%A8scikit-learn%E8%BF%9B%E8%A1%8Clda%E9%99%8D%E7%BB%B4/</guid>
+      <description>我们首先生成三类三维特征的数据，代码如下：
+import numpy as np import matplotlib.pyplot as plt from mpl_toolkits.mplot3d import Axes3D from sklearn.datasets import make_classification X,y = make_classification(n_samples=1000,n_features=3,n_redundant=0, n_classes=3,n_informative=2,n_clusters_per_class=1,class_sep=0.5, random_state=22) fig = plt.figure(figsize=(15,8)) ax = Axes3D(fig,rect=[0,0,1,1],elev=30,azim=20) ax.scatter(X[:,0],X[:,1],X[:,2],marker=&amp;#34;o&amp;#34;,c=y) 首先我们看看使用PCA降维到二维的情况，注意PCA无法使用类别信息来降维
+from sklearn.decomposition import PCA pca = PCA(n_components=2) pca.fit(X) print(pca.explained_variance_ratio_) print(pca.explained_variance_) X_nex = pca.transform(X) plt.scatter(X_nex[:,0],X_nex[:,1],marker=&amp;#34;o&amp;#34;,c=y) plt.show() result: 由于PCA没有利用类别信息，我们可以看到降维后，样本特征和类别的信息关联几乎完全丢失。
+现在我们再看看使用LDA的效果
+from sklearn.discriminant_analysis import LinearDiscriminantAnalysis lda = LinearDiscriminantAnalysis(n_components=2) lda.fit(X,y) X_new = lda.transform(X) plt.scatter(X_new[:,0],X_new[:,1],marker=&amp;#34;o&amp;#34;,c=y) plt.show() result: 可以看出降维后样本特征和类别信息之间的关系得以保留。
+一般来说，如果我们的数据是有类别标签的，那么优先选择LDA去尝试降维；当然也可以使用PCA做很小幅度的降维去消去噪声，然后再使用LDA降维。如果没有类别标签，那么肯定PCA是最先考虑的一个选择了。</description>
+    </item>
+    
+    <item>
+      <title>用scikit-learn学习主成分分析(PCA)</title>
+      <link>https://example.com/p/%E7%94%A8scikit-learn%E5%AD%A6%E4%B9%A0%E4%B8%BB%E6%88%90%E5%88%86%E5%88%86%E6%9E%90pca/</link>
+      <pubDate>Sat, 05 Mar 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E7%94%A8scikit-learn%E5%AD%A6%E4%B9%A0%E4%B8%BB%E6%88%90%E5%88%86%E5%88%86%E6%9E%90pca/</guid>
+      <description>import numpy as np import pandas as pd import matplotlib import matplotlib.pyplot as plt import warnings warnings.filterwarnings(&amp;#34;ignore&amp;#34;) # matplotlib.style.use(&amp;#34;ggplot&amp;#34;) #这个用来绘制三维图 from mpl_toolkits.mplot3d import Axes3D # from sklearn.datasets.samples_generator import make_blobs from sklearn.datasets import make_blobs # X为样本特征，Y为样本簇类别， 共1000个样本，每个样本3个特征，共4个簇 X,y = make_blobs(n_samples=10000,n_features=3,centers=[[3,3,3],[0,0,0],[1,1,1],[2,2,2]], cluster_std=[0.2,0.1,0.2,0.2],random_state=22) fig = plt.figure(figsize=(15,5))#之所以要这样是为了传给Axes3D一个画布 ax = Axes3D(fig,rect=[0,0,1,1],elev=30,azim=20) plt.scatter(X[:,0],X[:,1],X[:,2],marker=&amp;#34;o&amp;#34;) result: 我们先不降维，只对数据进行投影，看看投影后的三个维度的方差分布，代码如下：
+from sklearn.decomposition import PCA pca = PCA(n_components=3) pca.fit(X) print(pca.explained_variance_) print(pca.explained_variance_ratio_) result:
+[3.78352072 0.03342374 0.03210098] [0.98297637 0.00868364 0.00833998] 投影后第一个特征占了绝大多数的主成分比例。
+现在我们来进行降维，从三维降到2维，代码如下：
+pca = PCA(n_components=2) pca.</description>
+    </item>
+    
+    <item>
+      <title>用scikit-learn研究局部线性嵌入(LLE)</title>
+      <link>https://example.com/p/%E7%94%A8scikit-learn%E7%A0%94%E7%A9%B6%E5%B1%80%E9%83%A8%E7%BA%BF%E6%80%A7%E5%B5%8C%E5%85%A5lle/</link>
+      <pubDate>Sat, 05 Mar 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E7%94%A8scikit-learn%E7%A0%94%E7%A9%B6%E5%B1%80%E9%83%A8%E7%BA%BF%E6%80%A7%E5%B5%8C%E5%85%A5lle/</guid>
+      <description>LLE用于降维可视化实践
+下面我们用一个具体的例子来使用scikit-learn进行LLE降维并可视化。
+import numpy as np import pandas as pd import matplotlib.pyplot as plt from mpl_toolkits.mplot3d import Axes3D #manifold是用来导入LLE from sklearn import manifold,datasets from sklearn.utils import check_random_state 我们接着生成随机数据，由于LLE必须要基于流形不能闭合，因此我们生成了一个缺一个口的三维球体。生成数据并可视化的代码如下：
+n_samples = 500 #check_random_state 的作用是 Turn seed into a np.random.RandomState instance random_state = check_random_state(0) print(random_state) result:
+RandomState(MT19937) #作用体现在这里了 p = random_state.rand(n_samples)*(2*np.pi-0.55) t = random_state.rand(n_samples)*np.pi print(p,t) result: # 让球体不闭合，符合流形定义 indices = ((t &amp;lt; (np.pi - (np.pi / 8))) &amp;amp; (t &amp;gt; ((np.pi / 8)))) colors = p[indices] x, y, z = np.</description>
+    </item>
+    
+    <item>
+      <title>《动手学深度学习》</title>
+      <link>https://example.com/p/%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</link>
+      <pubDate>Thu, 03 Mar 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</guid>
+      <description> </description>
+    </item>
+    
+    <item>
+      <title>pytorch基本模型12_循环神经网路（基础篇）</title>
+      <link>https://example.com/p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B12_%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E8%B7%AF%E5%9F%BA%E7%A1%80%E7%AF%87/</link>
+      <pubDate>Mon, 28 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B12_%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E8%B7%AF%E5%9F%BA%E7%A1%80%E7%AF%87/</guid>
+      <description>这是学习pytorch基本使用的记录（我记得看的是B站刘二老师的视频）
+注意几个参数
+输入和隐层（输出）维度 序列长度 批处理大小 注 调用RNNCell这个需要循环，循环长度就是序列长度 import torch batch_size = 1 seq_len = 3 #序列长度 input_size = 4 #输入维度 hidden_size = 2 #隐层维度 cell = torch.nn.RNNCell(input_size=input_size,hidden_size=hidden_size) dataset = torch.randn(seq_len,batch_size,input_size) hidden = torch.zeros(batch_size,hidden_size) #for循环处理seq_len长度的数据 for idx,data in enumerate(dataset): print(&amp;#34;=&amp;#34;*20,idx,&amp;#34;=&amp;#34;*20) print(&amp;#34;Input size:&amp;#34;,data.shape,data) hidden = cell(data,hidden) print(&amp;#34;hidden size:&amp;#34;,hidden.shape,hidden) print(hidden) result:
+==================== 0 ==================== Input size: torch.Size([1, 4]) tensor([[-0.5352, 1.8843, -0.0926, 0.5294]]) hidden size: torch.Size([1, 2]) tensor([[ 0.3160, -0.5305]], grad_fn=&amp;lt;TanhBackward0&amp;gt;) tensor([[ 0.3160, -0.</description>
+    </item>
+    
+    <item>
+      <title>pytorch基本模型11_卷积神经网络（高级篇）</title>
+      <link>https://example.com/p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B11_%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E9%AB%98%E7%BA%A7%E7%AF%87/</link>
+      <pubDate>Fri, 25 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B11_%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E9%AB%98%E7%BA%A7%E7%AF%87/</guid>
+      <description>这是学习pytorch基本使用的记录（我记得看的是B站刘二老师的视频）
+1、卷积核超参数选择困难，自动找到卷积的最佳组合。 2、1x1卷积核，不同通道的信息融合。使用1x1卷积核虽然参数量增加了，但是能够显著的降低计算量(operations) 3、Inception Moudel由4个分支组成，要分清哪些是在Init里定义，哪些是在forward里调用。4个分支在dim=1(channels)上进行concatenate。24+16+24+24 = 88 4、GoogleNet的Inception(Pytorch实现) 5、1乘28乘28 → 10乘24乘24 → 10乘12乘12 → 88乘12乘12 → 20乘8乘8 → 88乘4乘4=1408 代码说明：
+1、先使用类对Inception Moudel进行封装
+2、先是1个卷积层(conv,maxpooling,relu)，然后inceptionA模块(输出的channels是24+16+24+24=88)，接下来又是一个卷积层(conv,mp,relu),然后inceptionA模块，最后一个全连接层(fc)。
+3、1408这个数据可以通过x = x.view(in_size, -1)后调用x.shape得到。
+import torch import torch.nn as nn from torchvision import datasets from torchvision import transforms from torch.utils.data import DataLoader import torch.nn.functional as F batch_size = 64 transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.1307),(0.3081,))]) train_dataset = datasets.MNIST(root=&amp;#34;../dataset/minis/&amp;#34;,train=True,transform=transform) train_loader = DataLoader(dataset=train_dataset,shuffle=True,batch_size=batch_size) test_dataset = datasets.MNIST(root=&amp;#34;../dataset/minis/&amp;#34;,train=False,transform=transform) test_loader = DataLoader(dataset=test_dataset,shuffle=True,batch_size=batch_size) class InceptionA(torch.</description>
+    </item>
+    
+    <item>
+      <title>pytorch基本模型10_卷积神经网络（基础篇）</title>
+      <link>https://example.com/p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B10_%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80%E7%AF%87/</link>
+      <pubDate>Thu, 24 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B10_%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80%E7%AF%87/</guid>
+      <description>这是学习pytorch基本使用的记录（我记得看的是B站刘二老师的视频）
+1、每一个卷积核它的通道数量要求和输入通道是一样的。这种卷积核的总数有多少个和你输出通道的数量是一样的
+2 卷积(convolution)后，C(Channels)变，W(width)和H(Height)可变可不变，取决于是否padding。subsampling(或pooling)后，C不变，W和H变
+3 卷积层：保留图像的空间信息。
+4 卷积层要求输入输出是四维张量(B,C,W,H)，全连接层的输入与输出都是二维张量(B,Input_feature)
+5 卷积(线性变换)，激活函数(非线性变换)，池化；这个过程若干次后，view打平，进入全连接层 1、torch.nn.Conv2d(1,10,kernel_size=3,stride=2,bias=False)
+1是指输入的Channel，灰色图像是1维的；10是指输出的Channel，也可以说第一个卷积层需要10个卷积核；kernel_size=3,卷积核大小是3x3；stride=2进行卷积运算时的步长，默认为1；bias=False卷积运算是否需要偏置bias，默认为False。padding = 0，卷积操作是否补0。
+2、self.fc = torch.nn.Linear(320, 10)，这个320获取的方式，可以通过x = x.view(batch_size, -1) # print(x.shape)可得到(64,320),64指的是batch，320就是指要进行全连接操作时，输入的特征维度。
+import torch from torchvision import datasets from torchvision import transforms from torch.utils.data import DataLoader import torch.nn.functional as F batch_size = 64 transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.1307,),(0.3081,))]) #简单来说就是使用datasets读取数据 #DataLoader来处理加入batch train_dataset = datasets.MNIST(root=&amp;#34;../dataset/minis/&amp;#34;,train=True,transform=transform) train_loader = DataLoader(train_dataset,shuffle=True,batch_size=batch_size) test_dataset = datasets.MNIST(root=&amp;#34;../dataset/minis/&amp;#34;,train=False,transform=transform) test_loader = DataLoader(test_dataset,shuffle=True,batch_size=batch_size) class Net(torch.nn.Module): def __init__(self): super(Net,self).__init__() self.conv1 = torch.</description>
+    </item>
+    
+    <item>
+      <title>pytorch基本模型07_处理多维特征的输入</title>
+      <link>https://example.com/p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B07_%E5%A4%84%E7%90%86%E5%A4%9A%E7%BB%B4%E7%89%B9%E5%BE%81%E7%9A%84%E8%BE%93%E5%85%A5/</link>
+      <pubDate>Tue, 22 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B07_%E5%A4%84%E7%90%86%E5%A4%9A%E7%BB%B4%E7%89%B9%E5%BE%81%E7%9A%84%E8%BE%93%E5%85%A5/</guid>
+      <description>这是学习pytorch基本使用的记录（我记得看的是B站刘二老师的视频）
+import torch import numpy as np xy = np.loadtxt(&amp;#34;../ppt&amp;amp;vedio/diabetes.csv.gz&amp;#34;,delimiter=&amp;#34;,&amp;#34;,dtype=np.float32) x_data = torch.from_numpy(xy[:,:-1]) # [-1] 最后得到的是个矩阵 y_data = torch.from_numpy(xy[:,[-1]]) x_data result:
+tensor([[-0.2941, 0.4874, 0.1803, ..., 0.0015, -0.5312, -0.0333], [-0.8824, -0.1457, 0.0820, ..., -0.2072, -0.7669, -0.6667], [-0.0588, 0.8392, 0.0492, ..., -0.3055, -0.4927, -0.6333], ..., [-0.4118, 0.2161, 0.1803, ..., -0.2191, -0.8574, -0.7000], [-0.8824, 0.2663, -0.0164, ..., -0.1028, -0.7686, -0.1333], [-0.8824, -0.0653, 0.1475, ..., -0.0939, -0.7976, -0.9333]]) In [11]: 1 class Model(torch.nn.Module): code</description>
+    </item>
+    
+    <item>
+      <title>pytorch基本模型08_加载数据集</title>
+      <link>https://example.com/p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B08_%E5%8A%A0%E8%BD%BD%E6%95%B0%E6%8D%AE%E9%9B%86/</link>
+      <pubDate>Tue, 22 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B08_%E5%8A%A0%E8%BD%BD%E6%95%B0%E6%8D%AE%E9%9B%86/</guid>
+      <description>这是学习pytorch基本使用的记录（我记得看的是B站刘二老师的视频）
+import numpy as np import torch from torch.utils.data import Dataset,DataLoader #DiabetesDataset集成了Dataset的属性 class DiabetesDataset(Dataset): def __init__(self,filepath): xy = np.loadtxt(filepath,delimiter=&amp;#34;,&amp;#34;,dtype=np.float32) self.len = xy.shape[0] #from_numpy 可以将numpy对象转为Tensor self.x_data = torch.from_numpy(xy[:,:-1]) self.y_data = torch.from_numpy(xy[:,[-1]]) def __getitem__(self,index): return self.x_data[index],self.y_data[index] def __len__(self): return self.len dataset = DiabetesDataset(&amp;#34;../ppt&amp;amp;vedio/diabetes.csv.gz&amp;#34;) train_loader = DataLoader(dataset=dataset, batch_size=32, shuffle=True, num_workers=0) class Model(torch.nn.Module): def __init__(self): super(Model,self).__init__() self.linear1 = torch.nn.Linear(8,6) self.linear2 = torch.nn.Linear(6,4) self.linear3 = torch.nn.Linear(4,1) self.sigmoid = torch.nn.Sigmoid() def forward(self,x): x = self.sigmoid(self.linear1(x)) x = self.</description>
+    </item>
+    
+    <item>
+      <title>pytorch基本模型09_多分类问题</title>
+      <link>https://example.com/p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B09_%E5%A4%9A%E5%88%86%E7%B1%BB%E9%97%AE%E9%A2%98/</link>
+      <pubDate>Tue, 22 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B09_%E5%A4%9A%E5%88%86%E7%B1%BB%E9%97%AE%E9%A2%98/</guid>
+      <description>这是学习pytorch基本使用的记录（我记得看的是B站刘二老师的视频）
+import torch import numpy as np y = np.array([1,0,0]) z = np.array([0.2,0.1,-0.1]) y_pred = np.exp(z) / np.exp(z).sum() loss = (-y * np.log(y_pred)).sum() print(loss) import torch y = torch.LongTensor([0]) z = torch.Tensor([[0.2,0.1,-0.1]]) criterion = torch.nn.CrossEntropyLoss() loss = criterion(z,y) print(loss) import torch criterion = torch.nn.CrossEntropyLoss() Y = torch.LongTensor([2,0,1]) Y_pred1 = torch.Tensor([[0.1,0.2,0.9], [1.1,0.1,0.2], [0.2,2.1,0.1]]) Y_pred2 = torch.Tensor(([[0.8,0.2,0.3], [0.2,0.3,0.5], [0.2,0.2,0.5]])) l1 = criterion(Y_pred1,Y) l2 = criterion(Y_pred2,Y) print(&amp;#34;Batch Loss1 = &amp;#34;,l1.data,&amp;#34;\nBatch Loss2=&amp;#34;,l2.data) #transfrom是用来处理数据的，如改变维度之类的 import torch from torchvision import transforms from torchvision import datasets from torch.</description>
+    </item>
+    
+    <item>
+      <title>pytorch基本模型05用PyTorch实现线性回归</title>
+      <link>https://example.com/p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B05%E7%94%A8pytorch%E5%AE%9E%E7%8E%B0%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/</link>
+      <pubDate>Sat, 19 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B05%E7%94%A8pytorch%E5%AE%9E%E7%8E%B0%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/</guid>
+      <description>这是学习pytorch基本使用的记录（我记得看的是B站刘二老师的视频）
+准备数据 设计计算单元 构建代价和优化函数 训练 import torch x_data = torch.Tensor([[1.0],[2.0],[3.0]]) y_data = torch.Tensor([[2.0],[4.0],[6.0]]) #计算单元 class LinerarModel(torch.nn.Module): def __init__(self): #super中传入类名 super(LinerarModel,self).__init__() self.linear = torch.nn.Linear(1,1)#weight and bias def forward(self,x): y_pred = self.linear(x) return y_pred #实例化 model = LinerarModel() #代价函数 实例化torch中的MSELoss criterion = torch.nn.MSELoss() #参数优化函数 实例化torch中的optim.SGD optimizer = torch.optim.SGD(model.parameters(),lr=0.01) print(model.parameters) result
+&amp;lt;bound method Module.parameters of LinerarModel( (linear): Linear(in_features=1, out_features=1, bias=True) )&amp;gt; code
+for epoch in range(1000): y_pred = model(x_data)#forward #这里model就已经构建了一个计算图了，又因为事用loss去求偏导，所以下面用loss.backward #loss这里会自动拼接上去上面的那个计算图 loss = criterion(y_pred,y_data) print(epoch,loss) optimizer.</description>
+    </item>
+    
+    <item>
+      <title>pytorch基本模型06._logistics回归</title>
+      <link>https://example.com/p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B06._logistics%E5%9B%9E%E5%BD%92/</link>
+      <pubDate>Sat, 19 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B06._logistics%E5%9B%9E%E5%BD%92/</guid>
+      <description>这是学习pytorch基本使用的记录（我记得看的是B站刘二老师的视频）
+code
+import torch x_data = torch.Tensor([[1.0],[2.0],[3.0]]) y_data = torch.Tensor([[0],[1],[0]]) class LogisticRegressionModel(torch.nn.Module): def __init__(self): super(LogisticRegressionModel,self).__init__() self.linear = torch.nn.Linear(1,1) def forward(self,x): #加了个激活函数 F.sigmoid() y_pred = torch.sigmoid(self.linear(x)) return y_pred model = LogisticRegressionModel() criterion = torch.nn.BCELoss() optimizer = torch.optim.SGD(model.parameters(),lr=0.01) for epoch in range(100): y_pred = model(x_data) loss = criterion(y_pred,y_data) print(epoch,loss.item()) optimizer.zero_grad() loss.backward() optimizer.step() print(&amp;#34;w=&amp;#34;,model.linear.weight.item()) print(&amp;#34;b=&amp;#34;,model.linear.bias.item()) result:
+0 0.6860817074775696 1 0.6860291957855225 2 0.6859772801399231 3 0.6859259605407715 4 0.6858751177787781 5 0.6858246922492981 6 0.6857749819755554 7 0.6857255101203918 8 0.</description>
+    </item>
+    
+    <item>
+      <title>pytorch基本模型04_反向传播</title>
+      <link>https://example.com/p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B04_%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/</link>
+      <pubDate>Tue, 15 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B04_%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/</guid>
+      <description>这是学习pytorch基本使用的记录（我记得看的是B站刘二老师的视频）
+Tensor对象包含了data和grad import torch x_data = [1.0, 2.0, 3.0] y_data = [2.0, 4.0, 6.0] #记得用[]装起来 w = torch.Tensor([1.0]) w.requires_grad = True #参数requires_grad = True/False 是用来设置是否计算梯度（求导）,默认是True #定义一个线性的计算单元 def forward(x): return x*w #定义损失函数 def loss(x,y): y_pred = forward(x) return (y_pred - y) ** 2 #forward(4).item 注意这里是将w（tensor）中的值取出，由于它是tensor对象，所以用item获取 print(&amp;#34;predict (before training)&amp;#34;,4,forward(4).item) for epoch in range(100): for x,y in zip(x_data,y_data): #这里的loss就会自动构建一个计算图(正向)了 l = loss(x,y) #用tenor本身有的backward l.backward() #要这样取出w.grad.item()权重导数的值 print(&amp;#34;\tgrad:&amp;#34;,x,y,w.grad.item()) #SGB w.data = w.data -0.01*w.grad.data #记得每次循环将此轮反向传播的梯度清零 要不然会累加 w.</description>
+    </item>
+    
+    <item>
+      <title>pytorch基本模型01_版本demo</title>
+      <link>https://example.com/p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B01_%E7%89%88%E6%9C%ACdemo/</link>
+      <pubDate>Sun, 13 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B01_%E7%89%88%E6%9C%ACdemo/</guid>
+      <description> 这是学习pytorch基本使用的记录（我记得看的是B站刘二老师的视频）
+code
+import torch torch.randn(*sizes, out=None) → Tensor
+等同于np.randn返回的是均值0，方差为1的正态分布 的张量
+code
+x = torch.randn(1,10) x result: code:
+prev_h = torch.randn(1,20) prev_h result: code:
+W_h = torch.randn(20,20) W_h result: W_x = torch.randn(20,10) W_x 查看pytorch版本
+import torch print(torch.__version__) </description>
+    </item>
+    
+    <item>
+      <title>pytorch基本模型02_线性模型</title>
+      <link>https://example.com/p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B02_%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/</link>
+      <pubDate>Sun, 13 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B02_%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/</guid>
+      <description>这是学习pytorch基本使用的记录（我记得看的是B站刘二老师的视频）
+import numpy as np import matplotlib.pyplot as plt x_data = [1.0,2.0,3.0] y_data = [2.0,4.0,6.0] #正向传播，预测y def forward(x): return x*w #计算损失 def loss(x,y): y_pred = forward(x) return (y_pred-y) * (y_pred-y) #权重更新存储 w_list = [] #mse均误差cunc mse_list = [] #产生不同的权重，用于计算 左闭右开 for w in np.arange(0.0,4.1,0.1): print(&amp;#34;w=&amp;#34;,w) l_sum = 0 #依次传入每个样本 for x_val,y_val in zip(x_data,y_data): y_pred_val = forward(x_val) #注意定义的loss中本身会计算产生一个正向传播的计算图 loss_val = loss(x_val,y_val) #mse这里是三个样本的损失之和 l_sum+=loss_val #t制表符会使得输出更好看 print(&amp;#34;\t&amp;#34;,x_val,y_val,y_pred_val,loss_val) print(&amp;#34;MSE=&amp;#34;,l_sum/3) w_list.append(w) mse_list.append(l_sum/3) result
+w= 0.</description>
+    </item>
+    
+    <item>
+      <title>pytorch基本模型03_梯度下降算法</title>
+      <link>https://example.com/p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B03_%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E7%AE%97%E6%B3%95/</link>
+      <pubDate>Sun, 13 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/pytorch%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B03_%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E7%AE%97%E6%B3%95/</guid>
+      <description>这是学习pytorch基本使用的记录（我记得看的是B站刘二老师的视频）
+import numpy as np import matplotlib.pyplot as plt import matplotlib import warnings warnings.filterwarnings(&amp;#34;ignore&amp;#34;) import seaborn as sns plt.rcParams[&amp;#34;font.sans-serif&amp;#34;] = &amp;#34;SimHei&amp;#34; plt.rcParams[&amp;#34;axes.unicode_minus&amp;#34;] = False x_data = [1.0,2.0,3.0] y_data = [2.0,4.0,6.0] #初始化个权重值 w = 1.0 #正向传播 def forward(x): return w*x #代价 def cost(xs,ys): cost = 0 for x,y in zip(xs,ys): y_pred = forward(x) cost += (y_pred-y)**2 return cost/len(xs) #梯度求导部分 def gradient(xs,ys): grad = 0 for x,y in zip(xs,ys): grad += 2*x*(x*w-y) return grad / len(xs) print(&amp;#34;Predict (before training)&amp;#34;,4,forward(4)) cost_list = [] for epoch in range(100): cost_val = cost(x_data,y_data) cost_list.</description>
+    </item>
+    
+    <item>
+      <title>sklearn.datasets中的几个函数make_moons,make_circles,make_classification</title>
+      <link>https://example.com/p/sklearn.datasets%E4%B8%AD%E7%9A%84%E5%87%A0%E4%B8%AA%E5%87%BD%E6%95%B0make_moonsmake_circlesmake_classification/</link>
+      <pubDate>Sun, 06 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/sklearn.datasets%E4%B8%AD%E7%9A%84%E5%87%A0%E4%B8%AA%E5%87%BD%E6%95%B0make_moonsmake_circlesmake_classification/</guid>
+      <description>make_moons() sklearn.datasets.make_moons(n_samples=100, shuffle=True, noise=None, random_state=None)
+制作月亮型数据
+重要参数：n_samples：设置样本数量、noise:设置噪声、random_state：设置随机参数（嘿嘿，无所谓，随便设），我们主要讲参数noise
+from sklearn.datasets import make_moons import matplotlib.pyplot as plt # plt.style.use(&amp;#34;seaborn-whitegrid&amp;#34;) a,b = make_moons(noise=0) plt.scatter(a[:,0],a[:,1],c=b) result: ![](picture/sklearn.datasets中的几个函数make_moons,%20make_circles(,make_classification.png)
+#将noise设置为0.1 a,b = make_moons(noise=0.1) plt.scatter(a[:,0],a[:,1],c=b) #发现这个noise设置的越大，那么噪声就越大 result: make_circles() sklearn.datasets.make_circles(n_samples=100, shuffle=True, noise=None, random_state=None, factor=0.8)
+重要参数：n_samples：设置样本数量、noise:设置噪声、factor：0 &amp;lt; double &amp;lt; 1 默认值0.8，内外圆之间的比例因子、random_state：设置随机参数（嘿嘿，无所谓，随便设），我们主要讲参数noise、factor
+from sklearn.datasets import make_circles #将moise设置为0，factor设置为0.1 a,b = make_circles(noise=0,factor=0.1) plt.scatter(a[:,0],a[:,1],c=b) result: code:
+#将noise设置为0.1，factor设置为0.5 a,b = make_circles(noise=0.1,factor=0.5) plt.scatter(a[:,0],a[:,1],c=b) #发现这个noise设置的越大，那么噪声就越大，factor设置的越大，两个环就越近 result: make_classfication sklearn.datasets.make_classification(n_samples=100, n_features=20, n_informative=2, n_redundant=2, n_repeated=0, n_classes=2, n_clusters_per_class=2, weights=None, flip_y=0.01, class_sep=1.</description>
+    </item>
+    
+    <item>
+      <title>cannot import name &#39;cross_validation&#39; </title>
+      <link>https://example.com/p/cannot-import-name-cross_validation/</link>
+      <pubDate>Sat, 29 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/cannot-import-name-cross_validation/</guid>
+      <description>想从 sklearn 包中导入模块 cross_validation，调用 cross_validation 里面别的函数，例如 交叉验证数据 使用到的 cross_val_score 函数，但是 from sklearn import cross_validation 运行报错 code:
+from sklearn import corss_validation result:
+--------------------------------------------------------------------------- ImportError Traceback (most recent call last) ~\AppData\Local\Temp/ipykernel_6408/3988079335.py in &amp;lt;module&amp;gt; ----&amp;gt; 1 from sklearn import corss_validation ImportError: cannot import name &amp;#39;corss_validation&amp;#39; from &amp;#39;sklearn&amp;#39; (F:\anaconda3\lib\site-packages\sklearn\__init__.py) 这是因为 sklearn 0.21.1 版本的已经移除 cross_validation 模块 从 sklearn.model_selection 模块直接导入 cross_val_score 即
+from sklearn.model_selection import cross_val_score </description>
+    </item>
+    
+    <item>
+      <title>ccannot import name ‘cross_validation’ from ‘sklearn’ </title>
+      <link>https://example.com/p/ccannot-import-name-cross_validation-from-sklearn/</link>
+      <pubDate>Sat, 29 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/ccannot-import-name-cross_validation-from-sklearn/</guid>
+      <description>code:
+from sklearn import cross_validation result:
+--------------------------------------------------------------------------- ImportError Traceback (most recent call last) ~\AppData\Local\Temp/ipykernel_19376/266941855.py in &amp;lt;module&amp;gt; ----&amp;gt; 1 from sklearn import cross_validation ImportError: cannot import name &amp;#39;cross_validation&amp;#39; from &amp;#39;sklearn&amp;#39; (F:\anaconda3\lib\site-packages\sklearn\__init__.py) ‘cross_validation’ from ‘sklearn’”，后来百度才知道sklearn在0.18版本中，cross_validation被废弃了，原来在 cross_validation 里面的函数现在在 model_selection 里面，所以只要将cross_validation替换为model_selection就可以使用，数据信息都是一样的
+from sklearn.model_selection import cross_validate </description>
+    </item>
+    
+    <item>
+      <title>No module named &#39;sklearn.datasets.samples_generator&#39;’ </title>
+      <link>https://example.com/p/no-module-named-sklearn.datasets.samples_generator/</link>
+      <pubDate>Sat, 29 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/no-module-named-sklearn.datasets.samples_generator/</guid>
+      <description>code:
+from sklearn.datasets.samples_generator import make_blobs result:
+--------------------------------------------------------------------------- ModuleNotFoundError Traceback (most recent call last) ~\AppData\Local\Temp/ipykernel_14680/1800722232.py in &amp;lt;module&amp;gt; ----&amp;gt; 1 from sklearn.datasets.samples_generator import make_blobs ModuleNotFoundError: No module named &amp;#39;sklearn.datasets.samples_generator&amp;#39; 新版的sklearn中改为了这种用法：
+from sklearn.datasets import make_blobs </description>
+    </item>
+    
+    <item>
+      <title>No module named &#39;sklearn.grid_search&#39;</title>
+      <link>https://example.com/p/no-module-named-sklearn.grid_search/</link>
+      <pubDate>Sat, 29 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/no-module-named-sklearn.grid_search/</guid>
+      <description>code:
+from sklearn.grid_search import GridSearchCV result:
+ModuleNotFoundError Traceback (most recent call last) ~\AppData\Local\Temp/ipykernel_7712/1716585072.py in &amp;lt;module&amp;gt; ----&amp;gt; 1 from sklearn.grid_search import GridSearchCV ModuleNotFoundError: No module named &amp;#39;sklearn.grid_search&amp;#39; 检查Scikit-Learn的版本conda list scikit-learn如果高于等于0.20说明是grid_search模块已被弃用。
+改成这样了：
+from sklearn.model_selection import GridSearchCV </description>
+    </item>
+    
+    <item>
+      <title>metrics.accuracy_score()计算分类的准确率</title>
+      <link>https://example.com/p/metrics.accuracy_score%E8%AE%A1%E7%AE%97%E5%88%86%E7%B1%BB%E7%9A%84%E5%87%86%E7%A1%AE%E7%8E%87/</link>
+      <pubDate>Fri, 28 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/metrics.accuracy_score%E8%AE%A1%E7%AE%97%E5%88%86%E7%B1%BB%E7%9A%84%E5%87%86%E7%A1%AE%E7%8E%87/</guid>
+      <description>sklearn中提供了计算准确率的accurccy_score函数 from sklearn import metrics metrics.accuracy_score? 输入参数：
+y_true：真是标签。二分类和多分类情况下是一列，多标签情况下是标签的索引。
+y_pred：预测标签。二分类和多分类情况下是一列，多标签情况下是标签的索引。
+normalize:bool, optional (default=True)，如果是false，正确分类的样本的数目(int)；如果为true，返回正确分类的样本的比例，必须严格匹配真实数据集中的label，才为1，否则为0。
+sample_weight：array-like of shape (n_samples,), default=None。Sample weights.
+输出：
+如果normalize == True,返回正确分类的样本的比例，否则返回正确分类的样本的数目(int)</description>
+    </item>
+    
+    <item>
+      <title>Python对axis的理解</title>
+      <link>https://example.com/p/python%E5%AF%B9axis%E7%9A%84%E7%90%86%E8%A7%A3/</link>
+      <pubDate>Tue, 18 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/python%E5%AF%B9axis%E7%9A%84%E7%90%86%E8%A7%A3/</guid>
+      <description>千万不要用行和列的思维去想axis，因为行和列是没有方向的，这样想会在遇到不同的例子时感到困惑。
+二维的理解 轴用来为超过一维的数组定义的属性，二维数据拥有两个轴：第0轴沿着行的垂直往下，第1轴沿着列的方向水平延伸。 注意看，官方对于0和1的解释是轴，也就是坐标轴。而坐标轴是有方向的，所以千万不要用行和列的思维去想axis，因为行和列是没有方向的，这样想会在遇到不同的例子时感到困惑。
+根据官方的说法，1表示横轴，方向从左到右；0表示纵轴，方向从上到下。当axis=1时，数组的变化是横向的，而体现出来的是列的增加或者减少。
+其实axis的重点在于方向，而不是行和列。具体到各种用法而言也是如此。当axis=1时，如果是求平均，那么是从左到右横向求平均；如果是拼接，那么也是左右横向拼接；如果是drop，那么也是横向发生变化，体现为列的减少。
+当考虑了方向，即axis=1为横向，axis=0为纵向，而不是行和列，那么所有的例子就都统一了。
+code:
+import numpy as np a = np.array([[1,2,3],[4,5,6]]) a result:
+array([[1, 2, 3], [4, 5, 6]]) code:
+a.sum(axis=0) result:
+array([5, 7, 9]) code:
+a.sum(axis=1) result:
+array([ 6, 15]) code:
+a.sum(axis=-1) result:
+array([ 6, 15]) 高维的理解 这里解释一下三维，更高维也就都能理解了 地址：https://www.jianshu.com/p/93317c0dca6a
+什么意思呢？就是比如：
+当axis=0时，此时就时要找除了第一个下标，其他下标相同的放在一起，比如a000、a100、a200这个为一组，a001、a101、a201为一组&amp;hellip;. 最终为(4，5) 当axis=1时，此时就时要找除了第二个下标，其他下标相同的放在一起，比如a000、a010、a020、a030 这个为一组，a001、a011、a021、a031为一组&amp;hellip;.（3，5）
+当axis=-1（即为2时，解释下-1是什么，是找到最近的一个数，因为我们这里的下标就只有axxx，三位即0，1，2所以-1即为axis=2 a000,a001,a002,a003为一组。。。。 (3,4) image.png 总的来说就是 先分组处理，再根据要求合并</description>
+    </item>
+    
+    <item>
+      <title>&#39;GridSearchCV&#39; object has no attribute &#39;grid_scores_&#39;</title>
+      <link>https://example.com/p/gridsearchcv-object-has-no-attribute-grid_scores_/</link>
+      <pubDate>Tue, 11 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/gridsearchcv-object-has-no-attribute-grid_scores_/</guid>
+      <description>原因在于grid_scores_在sklearn0.20版本中已被删除，取而代之的是cv_results_</description>
+    </item>
+    
+    <item>
+      <title>《深度学习入门：基于Python的理论与实现》高清中文版</title>
+      <link>https://example.com/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8%E5%9F%BA%E4%BA%8Epython%E7%9A%84%E7%90%86%E8%AE%BA%E4%B8%8E%E5%AE%9E%E7%8E%B0%E9%AB%98%E6%B8%85%E4%B8%AD%E6%96%87%E7%89%88/</link>
+      <pubDate>Mon, 10 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8%E5%9F%BA%E4%BA%8Epython%E7%9A%84%E7%90%86%E8%AE%BA%E4%B8%8E%E5%AE%9E%E7%8E%B0%E9%AB%98%E6%B8%85%E4%B8%AD%E6%96%87%E7%89%88/</guid>
+      <description>! </description>
+    </item>
+    
+    <item>
+      <title>Learned protein embeddings for machine learning</title>
+      <link>https://example.com/p/learned-protein-embeddings-for-machine-learning/</link>
+      <pubDate>Mon, 03 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/learned-protein-embeddings-for-machine-learning/</guid>
+      <description>理解蛋白质序列在机器学习模型的编码 link:https://academic.oup.com/bioinformatics/article/34/15/2642/4951834</description>
+    </item>
+    
+    <item>
+      <title>《百面机器学习_算法工程师带你去面试》</title>
+      <link>https://example.com/p/%E7%99%BE%E9%9D%A2%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0_%E7%AE%97%E6%B3%95%E5%B7%A5%E7%A8%8B%E5%B8%88%E5%B8%A6%E4%BD%A0%E5%8E%BB%E9%9D%A2%E8%AF%95/</link>
+      <pubDate>Mon, 27 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E7%99%BE%E9%9D%A2%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0_%E7%AE%97%E6%B3%95%E5%B7%A5%E7%A8%8B%E5%B8%88%E5%B8%A6%E4%BD%A0%E5%8E%BB%E9%9D%A2%E8%AF%95/</guid>
+      <description> </description>
+    </item>
+    
+    <item>
+      <title>刘建平老师Pinard博客的XGBoost类库代码学习记录</title>
+      <link>https://example.com/p/%E5%88%98%E5%BB%BA%E5%B9%B3%E8%80%81%E5%B8%88pinard%E5%8D%9A%E5%AE%A2%E7%9A%84xgboost%E7%B1%BB%E5%BA%93%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</link>
+      <pubDate>Fri, 10 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E5%88%98%E5%BB%BA%E5%B9%B3%E8%80%81%E5%B8%88pinard%E5%8D%9A%E5%AE%A2%E7%9A%84xgboost%E7%B1%BB%E5%BA%93%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</guid>
+      <description>原生XGBoost需要先把数据集按输入特征部分，输出部分分开，然后放到一个DMatrix数据结构里面，这个DMatrix我们不需要关心里面的细节，使用我们的训练集X和y初始化即可。
+import pandas as pd import numpy as np import matplotlib import matplotlib.pyplot as plt matplotlib.style.use(&amp;#34;ggplot&amp;#34;) plt.rcParams[&amp;#34;font.sans-serif&amp;#34;] = &amp;#34;SimHei&amp;#34; plt.rcParams[&amp;#34;axes.unicode_minus&amp;#34;] = False plt.rcParams[&amp;#34;figure.figsize&amp;#34;] = (15,5) import xgboost as xgb from sklearn.model_selection import GridSearchCV from sklearn.model_selection import train_test_split # from sklearn.datasets.samples_generator import make_classification from sklearn.datasets import make_classification # X为样本特征，y为样本类别输出， 共10000个样本，每个样本20个特征，输出有2个类别，没有冗余特征，每个类别一个簇 X,y = make_classification(n_samples=10000,n_features=20,n_classes=2, n_clusters_per_class=1,n_redundant=0,flip_y=0.1) #flip_y 随机分配的样本的比例，增大会加大噪声，加大分类难度 X_train,X_test,y_train,y_test = train_test_split(X,y,random_state=22) dtrain = xgb.DMatrix(X_train,y_train) dtest = xgb.DMatrix(X_test,y_test) 上面的代码中，我们随机初始化了一个二分类的数据集，然后分成了训练集和验证集。使用训练集和验证集分别初始化了一个DMatrix，有了DMatrix，就可以做训练和预测了。简单的示例代码如下：
+# param = {&amp;#39;max_depth&amp;#39;:5, &amp;#39;eta&amp;#39;:0.5, &amp;#39;verbosity&amp;#39;:1, &amp;#39;objective&amp;#39;:&amp;#39;binary:logistic&amp;#39;} param = {&amp;#34;max_depth&amp;#34;:5,&amp;#34;eta&amp;#34;:0.</description>
+    </item>
+    
+    <item>
+      <title>刘建平老师Pinard博客的AdaBoostClassifier代码学习记录</title>
+      <link>https://example.com/p/%E5%88%98%E5%BB%BA%E5%B9%B3%E8%80%81%E5%B8%88pinard%E5%8D%9A%E5%AE%A2%E7%9A%84adaboostclassifier%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</link>
+      <pubDate>Sun, 05 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E5%88%98%E5%BB%BA%E5%B9%B3%E8%80%81%E5%B8%88pinard%E5%8D%9A%E5%AE%A2%E7%9A%84adaboostclassifier%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</guid>
+      <description>import numpy as np import pandas as pd import matplotlib.pyplot as plt import matplotlib # matplotlib.style.use(&amp;#34;ggplot&amp;#34;) matplotlib.line_width = 5000 matplotlib.max_columns = 60 plt.rcParams[&amp;#34;font.sans-serif&amp;#34;] = &amp;#34;SimHei&amp;#34; plt.rcParams[&amp;#34;axes.unicode_minus&amp;#34;] = False import warnings warnings.filterwarnings(&amp;#34;ignore&amp;#34;) from sklearn.ensemble import AdaBoostClassifier from sklearn.tree import DecisionTreeClassifier #用make_gaussian_quantiles生成分组多维正态分布的数据 from sklearn.datasets import make_gaussian_quantiles 接着我们生成一些随机数据来做二元分类
+#生成一些随机数据按位数分为两类，500个样本，2个样本特征，协方差系数为2 X1, y1 = make_gaussian_quantiles(cov=2.0,n_samples=500,n_features=2, n_classes=2,random_state=23) #生成的两个样本特征均值都为3 X2, y2 = make_gaussian_quantiles(cov=1.5,n_samples=400,n_features=2,n_classes=2, random_state=23,mean=(3,3)) X1[:5],y1[:5],X2[:5],y2[:5] result: #合并两组数据 #记得用一个()装 X = np.concatenate((X1,X2)) y = np.concatenate((y1,y2)) X[:5],y[:5] result: 我们通过可视化看看我们的分类数据，它有两个特征，两个输出类别，用颜色区别</description>
+    </item>
+    
+    <item>
+      <title>刘建平老师Pinard博客的sklearnGBDT代码学习记录</title>
+      <link>https://example.com/p/%E5%88%98%E5%BB%BA%E5%B9%B3%E8%80%81%E5%B8%88pinard%E5%8D%9A%E5%AE%A2%E7%9A%84sklearngbdt%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</link>
+      <pubDate>Sun, 05 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E5%88%98%E5%BB%BA%E5%B9%B3%E8%80%81%E5%B8%88pinard%E5%8D%9A%E5%AE%A2%E7%9A%84sklearngbdt%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</guid>
+      <description>import pandas as pd import numpy as np import matplotlib.pyplot as plt import matplotlib matplotlib.style.use(&amp;#34;ggplot&amp;#34;) plt.rcParams[&amp;#34;font.sans-serif&amp;#34;] = &amp;#34;SimHei&amp;#34; plt.rcParams[&amp;#34;axes.unicode_minus&amp;#34;] = False from sklearn.ensemble import GradientBoostingClassifier # from sklearn import cross_validation, metrics cross_validation 换成了 cross_val_score from sklearn.model_selection import GridSearchCV,cross_val_score from sklearn import metrics 接着，我们把解压的数据用下面的代码载入，顺便看看数据的类别分布。
+train = pd.read_csv(&amp;#34;./train_modified.csv&amp;#34;) train result: code:
+target = &amp;#34;Disbursed&amp;#34; IDcol = &amp;#34;ID&amp;#34; train[&amp;#34;Disbursed&amp;#34;].value_counts() # 可以看到类别输出如下，也就是类别0的占大多数。 result: 现在我们得到我们的训练集。最后一列Disbursed是分类输出。前面的所有列（不考虑ID列）都是样本特征 code:
+x_columns = [x for x in train.columns if x not in [target,IDcol]] X = train[x_columns] y = train[&amp;#34;Disbursed&amp;#34;] X.</description>
+    </item>
+    
+    <item>
+      <title>刘建平老师Pinard博客的随机森林代码学习记录</title>
+      <link>https://example.com/p/%E5%88%98%E5%BB%BA%E5%B9%B3%E8%80%81%E5%B8%88pinard%E5%8D%9A%E5%AE%A2%E7%9A%84%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</link>
+      <pubDate>Sun, 05 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E5%88%98%E5%BB%BA%E5%B9%B3%E8%80%81%E5%B8%88pinard%E5%8D%9A%E5%AE%A2%E7%9A%84%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</guid>
+      <description># 导包 import numpy as np import pandas as pd import matplotlib.pyplot as plt plt.rcParams[&amp;#34;font.sans-serif&amp;#34;] = [&amp;#34;SimHei&amp;#34;] plt.rcParams[&amp;#34;axes.unicode_minus&amp;#34;] = False import warnings warnings.filterwarnings(&amp;#34;ignore&amp;#34;) #从集成中导入RF from sklearn.ensemble import RandomForestClassifier #导入网格调参 # from sklearn.grid_search import GridSearchCV 旧版的sklearn from sklearn.model_selection import GridSearchCV # from sklearn import cross_validation,metrics 旧版写法 from sklearn.model_selection import cross_validate from sklearn import metrics #数据 train = pd.read_csv(&amp;#34;./train_modified.csv&amp;#34;) train result: code:
+target = &amp;#34;Disbursed&amp;#34;#Disbursed的值就是二元分类的输出 IDcol = &amp;#34;ID&amp;#34; train[&amp;#34;Disbursed&amp;#34;].value_counts()#查看类别的数量 result:
+0 19680 1 320 Name: Disbursed, dtype: int64 可以看到类别输出如上，也就是类别0的占大多数。</description>
+    </item>
+    
+    <item>
+      <title>数据集的创建make_classification的参数详情</title>
+      <link>https://example.com/p/%E6%95%B0%E6%8D%AE%E9%9B%86%E7%9A%84%E5%88%9B%E5%BB%BAmake_classification%E7%9A%84%E5%8F%82%E6%95%B0%E8%AF%A6%E6%83%85/</link>
+      <pubDate>Sat, 27 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E6%95%B0%E6%8D%AE%E9%9B%86%E7%9A%84%E5%88%9B%E5%BB%BAmake_classification%E7%9A%84%E5%8F%82%E6%95%B0%E8%AF%A6%E6%83%85/</guid>
+      <description>这里来记录下make_classification的参数详情 import numpy as np import pandas as pd import warnings warnings.filterwarnings(&amp;#34;ignore&amp;#34;) import matplotlib.pyplot as plt from sklearn.datasets import make_classification from sklearn.model_selection import train_test_split X,y = make_classification(n_samples=1000,#1000个样本 n_features=2,#两个特征，方便画图 n_informative=2,#信息特征(有用特征) n_redundant=0,#冗余特征，它是信息特征的线性组合 n_repeated=0,#重复特征 n_classes=2,#分类特征 random_state=None, n_clusters_per_class=2,#每个类别两簇 shuffle=True, class_sep=1,#将每个簇分隔开来，较大的值将使分类任务更加容易 shift = 10, scale = 3, flip_y = 0)#无噪声 #训练集与测试集分割函数 x_train,x_test,y_train,y_test = train_test_split(X,y,test_size=0.2,random_state=22) data = np.concatenate((X,y.reshape(1000,1)),axis=1) x0 = [] x1 = [] y0 = [] y1 = [] for d in data: if d[2]==0: x0.</description>
+    </item>
+    
+    <item>
+      <title>机器学习算法的随机数据生成</title>
+      <link>https://example.com/p/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95%E7%9A%84%E9%9A%8F%E6%9C%BA%E6%95%B0%E6%8D%AE%E7%94%9F%E6%88%90/</link>
+      <pubDate>Sat, 27 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95%E7%9A%84%E9%9A%8F%E6%9C%BA%E6%95%B0%E6%8D%AE%E7%94%9F%E6%88%90/</guid>
+      <description>numpy生成 import numpy as np np.random.rand(2,2,2) result: np.random.randn(3,2) result: #只需要在randn上每个生成的值x上做变换σx+μ即可 2*np.random.randn(3,2) + 1 result: np.random.randint(3,6,[2,3,4]) result: np.random.random_integers(3,6,[2,3,4]) result: np.random.random_sample([2,2]) result: #如果是其他区间[a,b),可以加以转换(b - a) * random_sample([size]) + a (5-2)*np.random.random_sample([3]) + 2 result: 回归模型随机数据 这里我们使用make_regression生成回归模型数据。几个关键参数有n_samples（生成样本数）， n_features（样本特征数），noise（样本随机噪音）和coef（是否返回回归系数）。例子代码如下：
+import matplotlib.pyplot as plt from sklearn.datasets import make_regression #X为样本特征，y为样本输出， coef为回归系数，共1000个样本，每个样本1个特征 X,y,coef = make_regression(n_samples=1000,n_features=1,noise=10,coef=True) plt.scatter(X,y,color=&amp;#34;black&amp;#34;) #看来coef是不包含bias print(coef) plt.plot(X,X*coef,color=&amp;#34;blue&amp;#34;,linewidth=3) plt.xticks(()) plt.yticks(()) plt.show() result: 分类模型随机数据 这里我们用make_classification生成三元分类模型数据。几个关键参数有n_samples（生成样本数）， n_features（样本特征数）， n_redundant（冗余特征数）和n_classes（输出的类别数），例子代码如下
+from sklearn.datasets import make_classification # X1为样本特征，Y1为样本类别输出， 共400个样本，每个样本2个特征，输出有3个类别，没有冗余特征，每个类别一个簇 X1,Y1 = make_classification(n_samples=400,n_classes=3,n_clusters_per_class=1,n_features=2,n_redundant=0) plt.scatter(X1[:,0],X1[:,1],marker=&amp;#34;o&amp;#34;,c=Y1) plt.</description>
+    </item>
+    
+    <item>
+      <title>WZU_集成学习算法代码学习记录</title>
+      <link>https://example.com/p/wzu_%E9%9B%86%E6%88%90%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</link>
+      <pubDate>Fri, 19 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/wzu_%E9%9B%86%E6%88%90%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</guid>
+      <description>机器学习练习8 集成学习 课程完整代码：https://github.com/fengdu78/WZU-machine-learning-course
+代码修改并注释：黄海广，haiguang2000@wzu.edu.cn
+import warnings warnings.filterwarnings(&amp;#34;ignore&amp;#34;) import pandas as pd from sklearn.model_selection import train_test_split 生成数据 生成12000行的数据，训练集和测试集按照3:1划分
+from sklearn.datasets import make_hastie_10_2 data, target = make_hastie_10_2() X_train, X_test, y_train, y_test = train_test_split(data, target, random_state=123) X_train.shape, X_test.shape result:
+((9000, 10), (3000, 10)) 模型对比 对比六大模型，都使用默认参数，因为数据是
+from sklearn.linear_model import LogisticRegression from sklearn.ensemble import RandomForestClassifier from sklearn.ensemble import AdaBoostClassifier from sklearn.ensemble import GradientBoostingClassifier from xgboost import XGBClassifier from lightgbm import LGBMClassifier from sklearn.model_selection import cross_val_score import time clf1 = LogisticRegression() clf2 = RandomForestClassifier() clf3 = AdaBoostClassifier() clf4 = GradientBoostingClassifier() clf5 = XGBClassifier() clf6 = LGBMClassifier() for clf, label in zip([clf1, clf2, clf3, clf4, clf5, clf6], [ &amp;#39;Logistic Regression&amp;#39;, &amp;#39;Random Forest&amp;#39;, &amp;#39;AdaBoost&amp;#39;, &amp;#39;GBDT&amp;#39;, &amp;#39;XGBoost&amp;#39;, &amp;#39;LightGBM&amp;#39; ]): start = time.</description>
+    </item>
+    
+    <item>
+      <title>《统计学习方法_李航》</title>
+      <link>https://example.com/p/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95_%E6%9D%8E%E8%88%AA/</link>
+      <pubDate>Sun, 07 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95_%E6%9D%8E%E8%88%AA/</guid>
+      <description> </description>
+    </item>
+    
+    <item>
+      <title>WZU_scikit_learn_代码学习记录</title>
+      <link>https://example.com/p/wzu_scikit_learn_%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</link>
+      <pubDate>Thu, 30 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/wzu_scikit_learn_%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</guid>
+      <description>机器学习练习 5 Scikit-learn的介绍
+整理编译：黄海广 haiguang2000@wzu.edu.cn,光城
+在本节教程中将会绘制几个图形，于是我们激活matplotlib,使得在notebook中显示内联图。
+%matplotlib inline import matplotlib.pyplot as plt 为什么要出这个教程？ scikit-learn 提供最先进的机器学习算法。 但是，这些算法不能直接用于原始数据。 原始数据需要事先进行预处理。 因此，除了机器学习算法之外，scikit-learn还提供了一套预处理方法。此外，scikit-learn 提供用于流水线化这些估计器的连接器(即转换器，回归器，分类器，聚类器等)。
+在本教程中,将介绍scikit-learn 函数集，允许流水线估计器、评估这些流水线、使用超参数优化调整这些流水线以及创建复杂的预处理步骤。
+基本用例：训练和测试分类器 对于第一个示例，我们将在数据集上训练和测试一个分类器。 我们将使用此示例来回忆scikit-learn的API。
+我们将使用digits数据集，这是一个手写数字的数据集。
+from sklearn.datasets import load_digits X, y = load_digits(return_X_y=True) X.shape result:
+(1797, 64) X中的每行包含64个图像像素的强度。 对于X中的每个样本，我们得到表示所写数字对应的y。
+plt.imshow(X[0].reshape(8, 8), cmap=&amp;#39;gray&amp;#39;);# 下面完成灰度图的绘制 # 灰度显示图像 plt.axis(&amp;#39;off&amp;#39;)# 关闭坐标轴 print(&amp;#39;The digit in the image is {}&amp;#39;.format(y[0]))# 格式化打印 result:
+在机器学习中，我们应该通过在不同的数据集上进行训练和测试来评估我们的模型。train_test_split 是一个用于将数据拆分为两个独立数据集的效用函数。stratify参数可强制将训练和测试数据集的类分布与整个数据集的类分布相同。
+code:
+y result:
+array([0, 1, 2, ..., 8, 9, 8]) code:
+from sklearn.</description>
+    </item>
+    
+    <item>
+      <title>my_decisionTree_code</title>
+      <link>https://example.com/p/my_decisiontree_code/</link>
+      <pubDate>Wed, 22 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/my_decisiontree_code/</guid>
+      <description>这是WZU老师搭配的决策树的code，自己略作修改
+1．分类决策树模型是表示基于特征对实例进行分类的树形结构。决策树可以转换成一个if-then规则的集合，也可以看作是定义在特征空间划分上的类的条件概率分布。
+2．决策树学习旨在构建一个与训练数据拟合很好，并且复杂度小的决策树。因为从可能的决策树中直接选取最优决策树是NP完全问题。现实中采用启发式方法学习次优的决策树。
+决策树学习算法包括3部分：特征选择、树的生成和树的剪枝。常用的算法有ID3、 C4.5和CART。
+3．特征选择的目的在于选取对训练数据能够分类的特征。特征选择的关键是其准则。常用的准则自己去MD中看
+4．决策树的生成。通常使用信息增益最大、信息增益比最大或基尼指数最小作为特征选择的准则。决策树的生成往往通过计算信息增益或其他指标，从根结点开始，递归地产生决策树。这相当于用信息增益或其他准则不断地选取局部最优的特征，或将训练集分割为能够基本正确分类的子集。
+5．决策树的剪枝。由于生成的决策树存在过拟合问题，需要对它进行剪枝，以简化学到的决策树。决策树的剪枝，往往从已生成的树上剪掉一些叶结点或叶结点以上的子树，并将其父结点或根结点作为新的叶结点，从而简化生成的决策树。
+#导库 import numpy as np import pandas as pd import math from sklearn import tree import matplotlib.pyplot as plt import warnings warnings.filterwarnings(&amp;#34;ignore&amp;#34;) plt.rcParams[&amp;#34;font.sans-serif&amp;#34;] = [&amp;#34;SimHei&amp;#34;] plt.rcParams[&amp;#34;axes.unicode_minus&amp;#34;] = False #原始数据 def create_data(): datasets = [[&amp;#39;青年&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;一般&amp;#39;, &amp;#39;否&amp;#39;], [&amp;#39;青年&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;好&amp;#39;, &amp;#39;否&amp;#39;], [&amp;#39;青年&amp;#39;, &amp;#39;是&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;好&amp;#39;, &amp;#39;是&amp;#39;], [&amp;#39;青年&amp;#39;, &amp;#39;是&amp;#39;, &amp;#39;是&amp;#39;, &amp;#39;一般&amp;#39;, &amp;#39;是&amp;#39;], [&amp;#39;青年&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;一般&amp;#39;, &amp;#39;否&amp;#39;], [&amp;#39;中年&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;一般&amp;#39;, &amp;#39;否&amp;#39;], [&amp;#39;中年&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;好&amp;#39;, &amp;#39;否&amp;#39;], [&amp;#39;中年&amp;#39;, &amp;#39;是&amp;#39;, &amp;#39;是&amp;#39;, &amp;#39;好&amp;#39;, &amp;#39;是&amp;#39;], [&amp;#39;中年&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;是&amp;#39;, &amp;#39;非常好&amp;#39;, &amp;#39;是&amp;#39;], [&amp;#39;中年&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;是&amp;#39;, &amp;#39;非常好&amp;#39;, &amp;#39;是&amp;#39;], [&amp;#39;老年&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;是&amp;#39;, &amp;#39;非常好&amp;#39;, &amp;#39;是&amp;#39;], [&amp;#39;老年&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;是&amp;#39;, &amp;#39;好&amp;#39;, &amp;#39;是&amp;#39;], [&amp;#39;老年&amp;#39;, &amp;#39;是&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;好&amp;#39;, &amp;#39;是&amp;#39;], [&amp;#39;老年&amp;#39;, &amp;#39;是&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;非常好&amp;#39;, &amp;#39;是&amp;#39;], [&amp;#39;老年&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;一般&amp;#39;, &amp;#39;否&amp;#39;], ] labels = [u&amp;#39;年龄&amp;#39;, u&amp;#39;有工作&amp;#39;, u&amp;#39;有自己的房子&amp;#39;, u&amp;#39;信贷情况&amp;#39;, u&amp;#39;类别&amp;#39;] # 返回数据集和每个维度的名称 return datasets, labels datasets,label = create_data() train_data = pd.</description>
+    </item>
+    
+    <item>
+      <title>WZU_DecisionTree</title>
+      <link>https://example.com/p/wzu_decisiontree/</link>
+      <pubDate>Mon, 20 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/wzu_decisiontree/</guid>
+      <description>这里是一个限制决策树层数为4的DecisionTreeClassifier例子。
+#1.导入相关库 from itertools import product#用来相互交叉乘即笛卡尔积 import numpy as np import matplotlib.pyplot as plt from sklearn import datasets from sklearn.tree import DecisionTreeClassifier #2.导入数据 iris = datasets.load_iris()#仍然是使用鸢尾花 X = iris.data[:,[0,2]] X result: code:
+y = iris.target#标签 y result: #使用算法训练模型 iris_decision_tree = DecisionTreeClassifier(max_depth=4) iris_decision_tree.fit(X,y) result:
+DecisionTreeClassifier(max_depth=4) #可视化数据 x_min,x_max = X[:,0].min() - 1, X[:,0].max() + 1#z这个处理是为了调整坐标轴 y_min,y_max = X[:,1].min() - 1, X[:,1].max() + 1 #注意分类图中的x和y #创建坐标轴 xx,yy = np.meshgrid(np.arange(x_min,x_max,0.1),np.arange(y_min,y_max,0.1)) #预测 Z = iris_decision_tree.</description>
+    </item>
+    
+    <item>
+      <title>刘建平老师Pinard博客的SVM_RBF分类调参例子</title>
+      <link>https://example.com/p/%E5%88%98%E5%BB%BA%E5%B9%B3%E8%80%81%E5%B8%88pinard%E5%8D%9A%E5%AE%A2%E7%9A%84svm_rbf%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E4%BE%8B%E5%AD%90/</link>
+      <pubDate>Fri, 17 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E5%88%98%E5%BB%BA%E5%B9%B3%E8%80%81%E5%B8%88pinard%E5%8D%9A%E5%AE%A2%E7%9A%84svm_rbf%E5%88%86%E7%B1%BB%E8%B0%83%E5%8F%82%E4%BE%8B%E5%AD%90/</guid>
+      <description>import numpy as np import pandas as pd import warnings warnings.filterwarnings(&amp;#34;ignore&amp;#34;) import matplotlib import matplotlib.pyplot as plt matplotlib.style.use(&amp;#34;ggplot&amp;#34;) plt.rcParams[&amp;#34;font.sans-serif&amp;#34;] = &amp;#34;SimHei&amp;#34; plt.rcParams[&amp;#34;axes.unicode_minus&amp;#34;] = False from sklearn import datasets,svm from sklearn.svm import SVC from sklearn.datasets import make_moons,make_circles,make_classification 生成一些随机数据来让我们后面去分类，为了数据难一点，我们加入了一些噪音。生成数据的同时把数据归一化
+#make_circles生成月亮形数据 X,y = make_circles(noise=0.2,factor=0.5,random_state=22) #从sklearn.preprocessing导入StandardScaler归一化处理 from sklearn.preprocessing import StandardScaler X = StandardScaler().fit_transform(X) 我们先看看我的数据是什么样子的，这里做一次可视化如下：
+from matplotlib.colors import ListedColormap # matplotlib.colors模块用于将颜色或数字参数转换为RGBA或RGB。 #此模块用于将数字映射到颜色或以一维颜色数组(也称为colormap)进行颜色规格转换。 cm = plt.cm.RdBu cm_bright = ListedColormap([&amp;#34;#FF0000&amp;#34;,&amp;#34;#0000FF&amp;#34;]) ax = plt.subplot() ax.set_title(&amp;#34;Input data&amp;#34;) ax.scatter(X[:,0],X[:,1],c=y,cmap=cm_bright) ax.set_xticks(()) ax.</description>
+    </item>
+    
+    <item>
+      <title>WZU_KNN代码学习记录</title>
+      <link>https://example.com/p/wzu_knn%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</link>
+      <pubDate>Tue, 14 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/wzu_knn%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</guid>
+      <description>机器学习练习6 KNN算法 代码修改并注释：黄海广，haiguang2000@wzu.edu.cn
+1．$k$近邻法是基本且简单的分类与回归方法。$k$近邻法的基本做法是：对给定的训练实例点和输入实例点，首先确定输入实例点的$k$个最近邻训练实例点，然后利用这$k$个训练实例点的类的多数来预测输入实例点的类。
+2．$k$近邻模型对应于基于训练数据集对特征空间的一个划分。$k$近邻法中，当训练集、距离度量、$k$值及分类决策规则确定后，其结果唯一确定。
+3．$k$近邻法三要素：距离度量、$k$值的选择和分类决策规则。常用的距离度量是欧氏距离及更一般的pL距离。$k$值小时，$k$近邻模型更复杂；$k$值大时，$k$近邻模型更简单。$k$值的选择反映了对近似误差与估计误差之间的权衡，通常由交叉验证选择最优的$k$。
+常用的分类决策规则是多数表决，对应于经验风险最小化。
+4．$k$近邻法的实现需要考虑如何快速搜索k个最近邻点。kd树是一种便于对k维空间中的数据进行快速检索的数据结构。kd树是二叉树，表示对$k$维空间的一个划分，其每个结点对应于$k$维空间划分中的一个超矩形区域。利用kd树可以省去对大部分数据点的搜索， 从而减少搜索的计算量。
+距离度量 在机器学习算法中，我们经常需要计算样本之间的相似度，通常的做法是计算样本之间的距离。
+设$x$和$y$为两个向量，求它们之间的距离。
+这里用Numpy实现，设和为ndarray &amp;lt;numpy.ndarray&amp;gt;，它们的shape都是(N,)
+$d$为所求的距离，是个浮点数（float）。
+import numpy as np #注意：运行代码时候需要导入NumPy库 欧氏距离(Euclidean distance) 欧几里得度量(euclidean metric)(也称欧氏距离)是一个通常采用的距离定义，指在$m$维空间中两个点之间的真实距离，或者向量的自然长度(即该点到原点的距离)。在二维和三维空间中的欧氏距离就是两点之间的实际距离。
+距离公式：
+$$ d\left( x,y \right) = \sqrt{\sum_{i}^{}(x_{i} - y_{i})^{2}} $$ 代码实现：
+def euclidean(x, y): return np.sqrt(np.sum((x - y)**2)) 曼哈顿距离(Manhattan distance) 想象你在城市道路里，要从一个十字路口开车到另外一个十字路口，驾驶距离是两点间的直线距离吗？显然不是，除非你能穿越大楼。实际驾驶距离就是这个“曼哈顿距离”。而这也是曼哈顿距离名称的来源，曼哈顿距离也称为城市街区距离(City Block distance)。
+距离公式：
+$$ d(x,y) = \sum_{i}^{}|x_{i} - y_{i}| $$ 代码实现：
+def manhattan(x, y): return np.sum(np.abs(x - y)) 切比雪夫距离(Chebyshev distance) 在数学中，切比雪夫距离(Chebyshev distance)或是L∞度量，是向量空间中的一种度量，二个点之间的距离定义是其各坐标数值差绝对值的最大值。以数学的观点来看，切比雪夫距离是由一致范数(uniform norm)(或称为上确界范数)所衍生的度量，也是超凸度量(injective metric space)的一种。</description>
+    </item>
+    
+    <item>
+      <title>刘建平老师Pinard博客的KNN算法例子</title>
+      <link>https://example.com/p/%E5%88%98%E5%BB%BA%E5%B9%B3%E8%80%81%E5%B8%88pinard%E5%8D%9A%E5%AE%A2%E7%9A%84knn%E7%AE%97%E6%B3%95%E4%BE%8B%E5%AD%90/</link>
+      <pubDate>Tue, 14 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E5%88%98%E5%BB%BA%E5%B9%B3%E8%80%81%E5%B8%88pinard%E5%8D%9A%E5%AE%A2%E7%9A%84knn%E7%AE%97%E6%B3%95%E4%BE%8B%E5%AD%90/</guid>
+      <description>这是刘建平Pinard老师博客上KNN的例子，略做了修改,https://www.cnblogs.com/nolonely/p/6980160.html
+%matplotlib inline import numpy as np import pandas as pd import matplotlib.pyplot as plt # from sklearn.datasets.samples_generator import make_classification from sklearn.datasets._samples_generator import make_classification 这里再讲下sklearn.datasets._sample_generator(旧写法sklearn.datasets.sample_generator) 是用来生成数据集的：可以用来分类任务，可以用来回归任务，可以用来聚类任务，用于流形学习的，用于因子分解任务的,用于分类任务和聚类任务的：这些函数产生样本特征向量矩阵以及对应的类别标签集合
+make_blobs：多类单标签数据集，为每个类分配一个或多个正太分布的点集
+make_classification：多类单标签数据集，为每个类分配一个或多个正太分布的点集，提供了为数据添加噪声的方式，包括维度相关性，无效特征以及冗余特征等
+make_gaussian-quantiles：将一个单高斯分布的点集划分为两个数量均等的点集，作为两类
+make_hastie-10-2：产生一个相似的二元分类数据集，有10个维度
+make_circle和make_moom产生二维二元分类数据集来测试某些算法的性能，可以为数据集添加噪声，可以为二元分类器产生一些球形判决界面的数据,X为样本特征，Y为样本类别输出， 共1000个样本，每个样本2个特征，输出有3个类别，没有冗余特征，每个类别一个簇
+code:
+#n_samples 样本数 n_features特征数 n_classes样本y即类别数 n_clusters_per_class 每个类别的簇数 (质心) 暂时没搞懂这个簇数有什么影响 X, Y = make_classification(n_samples=1000, n_features=2, n_redundant=0, n_clusters_per_class=1, n_classes=3) X[:10] result: code:
+Y[:10] result:
+array([1, 0, 1, 2, 1, 1, 2, 1, 2, 0]) code:
+plt.scatter(X[:, 0], X[:, 1], marker=&amp;#39;o&amp;#39;, c=Y) #参数c就是color，赋值为可迭代参数对象，长度与x，y相同，根据值的不同使得（x,y）参数对表现为不同的颜色。 # 简单地说，按x,y值其中某一个值来区分颜色就好，比如上边想按照y值来区分，所以直接c=y就可以了， #这里就是根据类取划分颜色 plt.</description>
+    </item>
+    
+    <item>
+      <title>my_KNN_code</title>
+      <link>https://example.com/p/my_knn_code/</link>
+      <pubDate>Sun, 12 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/my_knn_code/</guid>
+      <description>这里是用sklearn的KDtree来实现WZU对应的纯手写的那一部分，因为纯手写太麻烦了，不过里面提到的排序的思路值得一学！！ 顺便说一下，WZU的KNN的那个KD绘图，我还没看
+import numpy as np import pandas as pd import matplotlib.pyplot as plt from sklearn import neighbors #sklearn中的knn是有kd树和限定半径近邻，我们这里用的是kd树 from matplotlib.colors import ListedColormap#方便可视化时，使得相同的类颜色一致 在这次数据中没有意义了 import random from time import process_time#获取当前的时间 import warnings warnings.filterwarnings(&amp;#34;ignore&amp;#34;) plt.rcParams[&amp;#34;font.sans-serif&amp;#34;] = [&amp;#34;SimHei&amp;#34;] plt.rcParams[&amp;#34;axes.unicode_minus&amp;#34;] = False 在次之前先让我们看看md中数据来熟悉sklearn中KDtree的使用
+from sklearn import neighbors data_md = [(2,3), (5,7), (9,6), (4,5), (6,4), (7,2) ] data_md_tree = neighbors.KDTree(data_md) #Get data and node arrays. data_md_tree.get_arrays() #Arrays for storing tree data, index, node data and node bounds.</description>
+    </item>
+    
+    <item>
+      <title>myNBcode</title>
+      <link>https://example.com/p/mynbcode/</link>
+      <pubDate>Sat, 11 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/mynbcode/</guid>
+      <description>copy过来的，略作修改
+1．朴素贝叶斯法是典型的生成学习方法。生成方法由训练数据学习联合概率分布 $P(X,Y)$，然后求得后验概率分布$P(Y|X)$。具体来说，利用训练数据学习$P(X|Y)$和$P(Y)$的估计，得到联合概率分布：
+$$P(X,Y)＝P(Y)P(X|Y)$$
+概率估计方法可以是极大似然估计或贝叶斯估计。
+2．朴素贝叶斯法的基本假设是条件独立性，
+$$\begin{aligned} P(X&amp;amp;=x | Y=c_{k} )=P\left(X^{(1)}=x^{(1)}, \cdots, X^{(n)}=x^{(n)} | Y=c_{k}\right) \ &amp;amp;=\prod_{j=1}^{n} P\left(X^{(j)}=x^{(j)} | Y=c_{k}\right) \end{aligned}$$
+这是一个较强的假设。由于这一假设，模型包含的条件概率的数量大为减少，朴素贝叶斯法的学习与预测大为简化。因而朴素贝叶斯法高效，且易于实现。其缺点是分类的性能不一定很高。
+3．朴素贝叶斯法利用贝叶斯定理与学到的联合概率模型进行分类预测。
+$$P(Y | X)=\frac{P(X, Y)}{P(X)}=\frac{P(Y) P(X | Y)}{\sum_{Y} P(Y) P(X | Y)}$$
+将输入$x$分到后验概率最大的类$y$。
+$$y=\arg \max {c{k}} P\left(Y=c_{k}\right) \prod_{j=1}^{n} P\left(X_{j}=x^{(j)} | Y=c_{k}\right)$$
+后验概率最大等价于0-1损失函数时的期望风险最小化。（可能会用到拉普拉斯平滑）
+模型：
+高斯模型 多项式模型 伯努利模型 自定义一组数据用来看看 import numpy as np import pandas as pd import math from collections import Counter #这里用的是sklearn上自带的数据集Iris 鸢尾花 #https://www.cnblogs.com/nolonely/p/6980160.html #http://scikit-learn.org/stable/auto_examples/datasets/plot_iris_dataset.html from sklearn.datasets import load_iris #从model_selection模块中导入train_test_split划分数据用 from sklearn.</description>
+    </item>
+    
+    <item>
+      <title>mylogicRegresscode</title>
+      <link>https://example.com/p/mylogicregresscode/</link>
+      <pubDate>Tue, 07 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/mylogicregresscode/</guid>
+      <description>这次来练习下逻辑回归,感觉过程和线性回归很类似，只是加了个sigmoid函数,dataset分别是ex2data1.txt / ex2data2.txt
+dataset1 在训练的初始阶段，我们将要构建一个逻辑回归模型来预测，某个学生是否被大学录取。设想你是大学相关部分的管理者，想通过申请学生两次测试的评分，来决定他们是否被录取。现在你拥有之前申请学生的可以用于训练逻辑回归的训练样本集。对于每一个训练样本，你有他们两次测试的评分和最后是被录取的结果。为了完成这个预测任务，我们准备构建一个可以基于两次测试评分来评估录取可能性的分类模型。上面的话是copy过来的
+分析数据 import numpy as np import pandas as pd import matplotlib.pyplot as plt import seaborn as sns sns.set_style(&amp;#39;white&amp;#39;) import warnings warnings.filterwarnings(&amp;#39;ignore&amp;#39;) #为了美观，当然是不影响结果的前提下 plt.rcParams[&amp;#39;font.sans-serif&amp;#39;]=[&amp;#39;SimHei&amp;#39;] #正常显示中文 plt.rcParams[&amp;#39;axes.unicode_minus&amp;#39;]=False #正常显示非负号 dataset1 = pd.read_csv(&amp;#39;./ex2data1.txt&amp;#39;,header=None,names=[&amp;#39;Exam1&amp;#39;,&amp;#39;Exam2&amp;#39;,&amp;#39;Admitted&amp;#39;]) dataset1.head() result: code:
+dataset1.describe() result: code:
+dataset1.shape result:
+(100, 3) code:
+dataset1.isnull().sum() result:
+Exam1 0 Exam2 0 Admitted 0 dtype: int64 #可视化下数据 f,axes = plt.subplots(figsize=(9,9)) dataset1_corr = dataset1.corr() print(dataset1_corr) sns.heatmap(dataset1_corr,annot=True) plt.xticks(range(len(dataset1_corr.columns)),dataset1_corr.columns) plt.yticks(range(len(dataset1_corr.columns)),dataset1_corr.columns) plt.show() result: f,axes = plt.</description>
+    </item>
+    
+    <item>
+      <title>WZU_决策树算法代码学习记录</title>
+      <link>https://example.com/p/wzu_%E5%86%B3%E7%AD%96%E6%A0%91%E7%AE%97%E6%B3%95%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</link>
+      <pubDate>Tue, 07 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/wzu_%E5%86%B3%E7%AD%96%E6%A0%91%E7%AE%97%E6%B3%95%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</guid>
+      <description>机器学习练习7 决策树 代码修改并注释：黄海广，haiguang2000@wzu.edu.cn
+1．分类决策树模型是表示基于特征对实例进行分类的树形结构。决策树可以转换成一个if-then规则的集合，也可以看作是定义在特征空间划分上的类的条件概率分布。
+2．决策树学习旨在构建一个与训练数据拟合很好，并且复杂度小的决策树。因为从可能的决策树中直接选取最优决策树是NP完全问题。现实中采用启发式方法学习次优的决策树。
+决策树学习算法包括3部分：特征选择、树的生成和树的剪枝。常用的算法有ID3、 C4.5和CART。
+3．特征选择的目的在于选取对训练数据能够分类的特征。特征选择的关键是其准则。常用的准则如下：
+（1）样本集合$D$对特征$A$的信息增益（ID3）
+$$g(D, A)=H(D)-H(D|A)$$
+$$H(D)=-\sum_{k=1}^{K} \frac{\left|C_{k}\right|}{|D|} \log {2} \frac{\left|C{k}\right|}{|D|}$$
+$$H(D | A)=\sum_{i=1}^{n} \frac{\left|D_{i}\right|}{|D|} H\left(D_{i}\right)$$
+其中，$H(D)$是数据集$D$的熵，$H(D_i)$是数据集$D_i$的熵，$H(D|A)$是数据集$D$对特征$A$的条件熵。	$D_i$是$D$中特征$A$取第$i$个值的样本子集，$C_k$是$D$中属于第$k$类的样本子集。$n$是特征$A$取 值的个数，$K$是类的个数。
+（2）样本集合$D$对特征$A$的信息增益比（C4.5）
+$$g_{R}(D, A)=\frac{g(D, A)}{H(D)}$$
+其中，$g(D,A)$是信息增益，$H(D)$是数据集$D$的熵。
+（3）样本集合$D$的基尼指数（CART）
+$$\operatorname{Gini}(D)=1-\sum_{k=1}^{K}\left(\frac{\left|C_{k}\right|}{|D|}\right)^{2}$$
+特征$A$条件下集合$D$的基尼指数：
+$$\operatorname{Gini}(D, A)=\frac{\left|D_{1}\right|}{|D|} \operatorname{Gini}\left(D_{1}\right)+\frac{\left|D_{2}\right|}{|D|} \operatorname{Gini}\left(D_{2}\right)$$
+4．决策树的生成。通常使用信息增益最大、信息增益比最大或基尼指数最小作为特征选择的准则。决策树的生成往往通过计算信息增益或其他指标，从根结点开始，递归地产生决策树。这相当于用信息增益或其他准则不断地选取局部最优的特征，或将训练集分割为能够基本正确分类的子集。
+5．决策树的剪枝。由于生成的决策树存在过拟合问题，需要对它进行剪枝，以简化学到的决策树。决策树的剪枝，往往从已生成的树上剪掉一些叶结点或叶结点以上的子树，并将其父结点或根结点作为新的叶结点，从而简化生成的决策树。
+import numpy as np import pandas as pd import math from math import log 创建数据 def create_data(): datasets = [[&amp;#39;青年&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;一般&amp;#39;, &amp;#39;否&amp;#39;], [&amp;#39;青年&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;好&amp;#39;, &amp;#39;否&amp;#39;], [&amp;#39;青年&amp;#39;, &amp;#39;是&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;好&amp;#39;, &amp;#39;是&amp;#39;], [&amp;#39;青年&amp;#39;, &amp;#39;是&amp;#39;, &amp;#39;是&amp;#39;, &amp;#39;一般&amp;#39;, &amp;#39;是&amp;#39;], [&amp;#39;青年&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;一般&amp;#39;, &amp;#39;否&amp;#39;], [&amp;#39;中年&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;一般&amp;#39;, &amp;#39;否&amp;#39;], [&amp;#39;中年&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;好&amp;#39;, &amp;#39;否&amp;#39;], [&amp;#39;中年&amp;#39;, &amp;#39;是&amp;#39;, &amp;#39;是&amp;#39;, &amp;#39;好&amp;#39;, &amp;#39;是&amp;#39;], [&amp;#39;中年&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;是&amp;#39;, &amp;#39;非常好&amp;#39;, &amp;#39;是&amp;#39;], [&amp;#39;中年&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;是&amp;#39;, &amp;#39;非常好&amp;#39;, &amp;#39;是&amp;#39;], [&amp;#39;老年&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;是&amp;#39;, &amp;#39;非常好&amp;#39;, &amp;#39;是&amp;#39;], [&amp;#39;老年&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;是&amp;#39;, &amp;#39;好&amp;#39;, &amp;#39;是&amp;#39;], [&amp;#39;老年&amp;#39;, &amp;#39;是&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;好&amp;#39;, &amp;#39;是&amp;#39;], [&amp;#39;老年&amp;#39;, &amp;#39;是&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;非常好&amp;#39;, &amp;#39;是&amp;#39;], [&amp;#39;老年&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;否&amp;#39;, &amp;#39;一般&amp;#39;, &amp;#39;否&amp;#39;], ] labels = [u&amp;#39;年龄&amp;#39;, u&amp;#39;有工作&amp;#39;, u&amp;#39;有自己的房子&amp;#39;, u&amp;#39;信贷情况&amp;#39;, u&amp;#39;类别&amp;#39;] # 返回数据集和每个维度的名称 return datasets, labels datasets, labels = create_data() train_data = pd.</description>
+    </item>
+    
+    <item>
+      <title>WZU_逻辑回归代码学习记录</title>
+      <link>https://example.com/p/wzu_%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</link>
+      <pubDate>Tue, 07 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/wzu_%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</guid>
+      <description>机器学习练习 3 - 逻辑回归
+在这一次练习中，我们将要实现逻辑回归并且应用到一个分类任务。我们还将通过将正则化加入训练算法，来提高算法的鲁棒性，并用更复杂的情形来测试它。
+代码修改并注释：黄海广，haiguang2000@wzu.edu.cn
+逻辑回归 在训练的初始阶段，我们将要构建一个逻辑回归模型来预测，某个学生是否被大学录取。设想你是大学相关部分的管理者，想通过申请学生两次测试的评分，来决定他们是否被录取。现在你拥有之前申请学生的可以用于训练逻辑回归的训练样本集。对于每一个训练样本，你有他们两次测试的评分和最后是被录取的结果。为了完成这个预测任务，我们准备构建一个可以基于两次测试评分来评估录取可能性的分类模型。
+让我们从检查数据开始。
+import numpy as np import pandas as pd import matplotlib.pyplot as plt path = &amp;#39;ex2data1.txt&amp;#39; data = pd.read_csv(path, header=None, names=[&amp;#39;Exam 1&amp;#39;, &amp;#39;Exam 2&amp;#39;, &amp;#39;Admitted&amp;#39;]) data.head() result: code:
+data.shape result:
+(100, 3) 让我们创建两个分数的散点图，并使用颜色编码来可视化，如果样本是正的（被接纳）或负的（未被接纳）。
+positive = data[data[&amp;#39;Admitted&amp;#39;].isin([1])] negative = data[data[&amp;#39;Admitted&amp;#39;].isin([0])] fig, ax = plt.subplots(figsize=(12, 8)) ax.scatter(positive[&amp;#39;Exam 1&amp;#39;], positive[&amp;#39;Exam 2&amp;#39;], s=50, c=&amp;#39;b&amp;#39;, marker=&amp;#39;o&amp;#39;, label=&amp;#39;Admitted&amp;#39;) ax.scatter(negative[&amp;#39;Exam 1&amp;#39;], negative[&amp;#39;Exam 2&amp;#39;], s=50, c=&amp;#39;r&amp;#39;, marker=&amp;#39;x&amp;#39;, label=&amp;#39;Not Admitted&amp;#39;) ax.legend() ax.</description>
+    </item>
+    
+    <item>
+      <title>myRegressioncode1</title>
+      <link>https://example.com/p/myregressioncode1/</link>
+      <pubDate>Wed, 01 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/myregressioncode1/</guid>
+      <description>这是针对吴恩达老师课程的线性回归的课后练习 dataset:regress_data1.csv/regress_data2.csv
+采用手写算法，初期不调用sklearn库
+收集数据 数据由外部提供
+分析数据 import pandas as pd import numpy as np import matplotlib.pyplot as plt dataset1 = pd.read_csv(&amp;#34;./regress_data1.csv&amp;#34;) print(dataset1.head()) print(dataset1.describe()) result: 可以看出只有一个特征属于单变量的线性回归
+#可视化数据 plt.rcParams[&amp;#39;font.sans-serif&amp;#39;]=[&amp;#39;SimHei&amp;#39;]#显示中文 plt.rcParams[&amp;#39;axes.unicode_minus&amp;#39;]=False#显示负号 dataset1.plot(kind=&amp;#39;scatter&amp;#39;,x=&amp;#39;人口&amp;#39;,y=&amp;#39;收益&amp;#39;,figsize=(12,8)) plt.xlabel(&amp;#39;人口&amp;#39;,fontsize=18) plt.ylabel(&amp;#39;收益&amp;#39;,fontsize=18)#可以添加rotationx=0使得收益转为来 plt.show() result: 处理数据 #插入一列恒为1的列 dataset1.insert(0,&amp;#39;Ones&amp;#39;,1)#在第零列插入列名为Ones，值为1 的一列 dataset1 result: #分开特征和目标 X = dataset1.iloc[:,:2] Y = dataset1.iloc[:,2] print(X.head()) print(Y.head()) print(Y.shape) result: code:
+X.shape result:
+(97, 2) 训练算法 #编写cost函数，方便起见写成np数组，并初始化w和alpha X = np.matrix(X.values) Y = np.matrix(Y.values).T w = np.matrix(np.array([0,0]))#因为从dataset1中可以看出只有两个特征，所以初始化w为（1，2）的0矩阵就好了 print(X.shape,Y.shape,w.shape)#注意矩阵的数据的行列 result:
+(97, 2) (97, 1) (1, 2) 参数$w$为特征函数的代价函数 $$J\left( w \right)=\frac{1}{2m}\sum\limits_{i=1}^{m}{{{\left( {{h}}\left( {{x}^{(i)}} \right)-{{y}^{(i)}} \right)}^{2}}}$$ 其中：$${{h}}\left( x \right)={{w}^{T}}X={{w }{0}}{{x}{0}}+{{w }{1}}{{x}{1}}+{{w }{2}}{{x}{2}}+&amp;hellip;+{{w }{n}}{{x}{n}}$$ code:</description>
+    </item>
+    
+    <item>
+      <title>myRegressioncode2</title>
+      <link>https://example.com/p/myregressioncode2/</link>
+      <pubDate>Wed, 01 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/myregressioncode2/</guid>
+      <description>这次练习采用sklearn来实现预测,dataset：ToyotaCorolla,这里不详细探究调参，后期返回来再摸索参数对训练的影响,date 2021/10/1
+收集数据 分析数据 import numpy as np import pandas as pd import seaborn as sns import matplotlib.pyplot as plt sns.set_style(&amp;#39;white&amp;#39;) dataset = pd.read_csv(&amp;#39;ToyotaCorolla.csv&amp;#39;) dataset.head()#最好加上（）输出的结构结构比较好看 result: dataset.describe() result: code:
+len(dataset)#dataset.count()也行 result:
+1436 code:
+dataset.isnull().sum()#数据样本看来不用做null的处理了，没有null值~~~太好了 result: code:
+#采用和seaborn可视化数据,用一下热图吧 #首先，先看看相关性 dataset_corr = dataset.corr() print(dataset_corr.shape) #corr是pandas的函数之一，计算列与列之间的相关系数，返回相关系数矩阵，相关系数的取值范围为[-1, 1],当接近1时，表示两者具有强烈的正相关性，比如‘s’和‘x’；当接近-1时，表示有强烈的的负相关性，比如‘s’和‘c’，而若值接近0，则表示相关性很低. f,axes = plt.subplots(figsize=(10,10)) sns.heatmap(dataset_corr,annot=True,fmt=&amp;#39;.3f&amp;#39;) length = dataset_corr.columns plt.yticks(range(len(length)),dataset_corr.columns) plt.xticks(range(len(length)),dataset_corr.columns) plt.show() result: code:
+dataset_corr = dataset.corr() length = dataset_corr.columns print(length) result: 由上面的热图可以看出price和Age、KM呈负相关系数较大，和HP、Weight呈正相关的系数较大;注意热图中没有显示FuelType的数据，因为它是文本数据
+画个线性的图看看 f,axes = plt.subplots(2,2,figsize=(14,8)) #负相关的两个 sns.</description>
+    </item>
+    
+    <item>
+      <title>WZU_线性回归代码学习记录</title>
+      <link>https://example.com/p/wzu_%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</link>
+      <pubDate>Wed, 01 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/wzu_%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</guid>
+      <description>机器学习练习 - 线性回归 代码修改并注释：黄海广，haiguang2000@wzu.edu.cn
+单变量线性回归 import numpy as np import pandas as pd import matplotlib.pyplot as plt import matplotlib.pyplot as plt plt.rcParams[&amp;#39;font.sans-serif&amp;#39;]=[&amp;#39;SimHei&amp;#39;] #用来正常显示中文标签 plt.rcParams[&amp;#39;axes.unicode_minus&amp;#39;]=False #用来正常显示负号 path = &amp;#39;data/regress_data1.csv&amp;#39; data = pd.read_csv(path) data.head() result: code:
+data.describe() result: 看下数据长什么样子
+code:
+data.plot(kind=&amp;#39;scatter&amp;#39;, x=&amp;#39;人口&amp;#39;, y=&amp;#39;收益&amp;#39;, figsize=(12,8)) plt.xlabel(&amp;#39;人口&amp;#39;, fontsize=18) plt.ylabel(&amp;#39;收益&amp;#39;, rotation=0, fontsize=18) plt.show() result: 现在让我们使用梯度下降来实现线性回归，以最小化代价函数。
+首先，我们将创建一个以参数$w$为特征函数的代价函数 $$J\left( w \right)=\frac{1}{2m}\sum\limits_{i=1}^{m}{{{\left( {{h}}\left( {{x}^{(i)}} \right)-{{y}^{(i)}} \right)}^{2}}}$$ 其中：$${{h}}\left( x \right)={{w}^{T}}X={{w }{0}}{{x}{0}}+{{w }{1}}{{x}{1}}+{{w }{2}}{{x}{2}}+&amp;hellip;+{{w }{n}}{{x}{n}}$$ code:
+def computeCost(X, y, w): inner = np.</description>
+    </item>
+    
+    <item>
+      <title>用scikit-learn和pandas学习Ridge回归</title>
+      <link>https://example.com/p/%E7%94%A8scikit-learn%E5%92%8Cpandas%E5%AD%A6%E4%B9%A0ridge%E5%9B%9E%E5%BD%92/</link>
+      <pubDate>Wed, 01 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E7%94%A8scikit-learn%E5%92%8Cpandas%E5%AD%A6%E4%B9%A0ridge%E5%9B%9E%E5%BD%92/</guid>
+      <description>数据读取与训练集测试集划分 import pandas as pd import numpy as np import matplotlib import matplotlib.pyplot as plt import warnings warnings.filterwarnings(&amp;#34;ignore&amp;#34;) matplotlib.style.use(&amp;#34;ggplot&amp;#34;) from sklearn.linear_model import LinearRegression from sklearn import datasets data = pd.read_csv(&amp;#34;./CCPP/Folds5x2_pp.csv&amp;#34;) data.head() result: code:
+from sklearn.model_selection import train_test_split X_train,X_test,y_train,y_test = train_test_split(X,y,random_state=22) print(X_train.shape) print(X_test.shape) print(y_train.shape) print(y_test.shape) result:
+(7176, 4) (2392, 4) (7176, 1) (2392, 1) 用sklearn运行Ridge回归 要运行Ridge回归，我们必须要指定超参数α。你也许会问：“我也不知道超参数是多少啊？” 我也不知道，那么我们随机指定一个(比如1)，后面我们会讲到用交叉验证从多个输入超参数α中快速选择最优超参数的办法。
+from sklearn.linear_model import Ridge ridge = Ridge(alpha=1) ridge.fit(X_train,y_train) result:
+Ridge(alpha=1) code:
+print(ridge.intercept_) print(ridge.coef_) result:</description>
+    </item>
+    
+    <item>
+      <title>用scikit-learn和pandas学习线性回归</title>
+      <link>https://example.com/p/%E7%94%A8scikit-learn%E5%92%8Cpandas%E5%AD%A6%E4%B9%A0%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/</link>
+      <pubDate>Wed, 01 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E7%94%A8scikit-learn%E5%92%8Cpandas%E5%AD%A6%E4%B9%A0%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/</guid>
+      <description>pandas来读取数据 import pandas as pd import numpy as np import matplotlib import matplotlib.pyplot as plt matplotlib.style.use(&amp;#34;ggplot&amp;#34;) plt.rcParams[&amp;#34;font.sans-serif&amp;#34;] = &amp;#34;SimHei&amp;#34; plt.rcParams[&amp;#34;axes.unicode_minus&amp;#34;] = False from sklearn import datasets,linear_model import warnings warnings.filterwarnings(&amp;#34;ignore&amp;#34;) data = pd.read_csv(&amp;#34;./CCPP/Folds5x2_pp.csv&amp;#34;) data.head() result: 准备运行算法的数据 data.shape result:
+(9568, 5) 结果是(9568, 5)。说明我们有9568个样本，每个样本有5列。
+现在我们开始准备样本特征X，我们用AT， V，AP和RH这4个列作为样本特征。
+code:
+X = data[[&amp;#34;AT&amp;#34;,&amp;#34;V&amp;#34;,&amp;#34;AP&amp;#34;,&amp;#34;RH&amp;#34;]] X.head() result: code:
+y = data[[&amp;#34;PE&amp;#34;]] y.head result: 划分训练集和测试集 from sklearn.model_selection import train_test_split X_train,X_test,y_train,y_test = train_test_split(X,y,random_state=1) print(X_train.shape) print(X_test.shape) print(y_train.shape) print(y_test.shape) #可以看到75%的样本数据被作为训练集，25%的样本被作为测试集。 result: 运行scikit-learn的线性模型 scikit-learn的线性回归算法使用的是最小二乘法来实现的。</description>
+    </item>
+    
+    <item>
+      <title>ch16_监督学习方法</title>
+      <link>https://example.com/p/ch16_%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/</link>
+      <pubDate>Mon, 16 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/ch16_%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/</guid>
+      <description>biopython官方地址：https://biopython.org/
+github地址：https://github.com/biopython/biopython/blob/master/
+中文版教程：https://biopython-cn.readthedocs.io/zh_CN/latest/cn/chr06.html
+biopython包的说明（具体到每个模块了）：https://www.osgeo.cn/biopython/Bio.HMM.DynamicProgramming.html
+注意本章介绍的所有监督学习方法都需要先安装Numerical Python （numpy）。
+Logistic回归模型 背景和目的 Logistic回归是一种监督学习方法，通过若干预测变量 x__i 的加权和来尝试将样本划分为 K 个不同类别。Logistic回归模型可用来计算预测变量的权重 β_i_ 。在Biopython中，logistic回归模型目前只实现了二类别（ K = 2 ）分类，而预测变量的数量没有限制。
+作为一个例子，我们试着预测细菌中的操纵子结构。一个操纵子是在一条DNA链上许多相邻基因组成的一个集合，可以被共同转录为一条mRNA分子。这条mRNA分子经翻译后产生多个不同的蛋白质。我们将以枯草芽孢杆菌的操纵子数据进行说明，它的一个操纵子平均包含2.4个基因。
+作为理解细菌的基因调节的第一步，我们需要知道其操纵子的结构。枯草芽孢杆菌大约10%的基因操纵子结构已经通过实验获知。剩下的90%的基因操纵子结构可以通过一种监督学习方法来预测。
+在这种监督学习方法中，我们需要选择某些与操纵子结构有关的容易度量的预测变量 x__i 。例如可以选择基因间碱基对距离来来作为其中一个预测变量。同一个操纵子中的相邻基因往往距离相对较近，而位于不同操纵子的相邻基因间通常具有更大的空间来容纳启动子和终止子序列。另一个预测变量可以基于基因表达量度。根据操纵子的定义，属于同一个操纵子的基因有相同的基因表达谱，而不同操纵子的两个基因的表达谱也不相同。在实际操作中，由于存在测量误差，对相同操纵子的基因表达轮廓的测量不会完全一致。为了测量基因表达轮廓的相似性，我们假设测量误差服从正态分布，然后计算对应的对数似然分值。
+现在我们有了两个预测变量，可以据此预测在同一条DNA链上两个相邻基因是否属于相同的操纵子： - _x_1 ：两基因间的碱基对数； - _x_2 ：两基因表达谱的相似度。
+在logistic回归模型中，我们使用这两个预测变量的加权和来计算一个联合得分 S：
+S=β0+β1x1+β2x2.S=β0+β1x1+β2x2.
+根据下面两组示例基因，logistic回归模型对参数 β0 ， β1, β2 给出合适的值： - OP: 相邻基因，相同DNA链，属于相同操纵子； - NOP: 相邻基因，相同DNA链，属于不同操纵子。
+在logistic回归模型中，属于某个类别的概率依赖于通过logistic函数得出的分数。对于这两类OP和NOP，相应概率可如下表述：
+使用一组已知是否属于相同操纵子（OP类别）或不同操纵子（NOP类别）的基因对，通过最大化相应概率函数的对数似然值，我们可以计算权重 β0, β1, β2 。
+训练logistic回归模型 已知类别(OP or NOP)的相邻基因对.如果两个基因相重叠，其基因间距离为负值
+基因对	基因间距离 (x1)	基因表达得分 (x2)	类别 cotJA — cotJB	-53	-200.78	OP yesK — yesL	117	-267.</description>
+    </item>
+    
+    <item>
+      <title>ch15_聚类分析</title>
+      <link>https://example.com/p/ch15_%E8%81%9A%E7%B1%BB%E5%88%86%E6%9E%90/</link>
+      <pubDate>Sun, 15 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/ch15_%E8%81%9A%E7%B1%BB%E5%88%86%E6%9E%90/</guid>
+      <description>biopython官方地址：https://biopython.org/
+github地址：https://github.com/biopython/biopython/blob/master/
+中文版教程：https://biopython-cn.readthedocs.io/zh_CN/latest/cn/chr06.html
+biopython包的说明（具体到每个模块了）：https://www.osgeo.cn/biopython/Bio.HMM.DynamicProgramming.html
+聚类分析是根据元素相似度，进行分组的过程。在生物信息学中，聚类分析广泛 用于基因表达数据分析，用来对具有相似表达谱的基因归类；从而鉴定功能相关的基 因，或预测未知基因的功能。
+Biopython中的 Bio.Cluster 模块提供了常用的聚类算法。虽然Bio.Cluster被设计用于 基因表达数据，它也可用于其他类型数据的聚类。 Bio.Cluster 和其使用的C聚类库的说明见De Hoon et al. [14].
+Bio.Cluster 包含了以下四种聚类算法：
+系统聚类（成对重心法，最短距离，最大距离和平均连锁法); k-means, k-medians, 和 k-medoids 聚类; 自组织映射（Self-Organizing Maps）; 主成分分析 数据表示法
+用于聚类的输入为一个 n x m 的Python 数值矩阵 data。在基因表达数据聚类中， 每一行表示不同的基因，每一列表示不同的实验条件。 Bio.Cluster 既可以 针对每行（基因），也可以针对每列（实验条件）进行聚类。
+缺失值
+在芯片实验中，经常会有些缺失值，可以用一个额外的 n × m Numerical Python 整型矩阵 mask 表示。 例如 mask[i,j] ,表示 data[i,j] 是个缺失值， 并且在分析中被忽略。
+随机数据生成器
+k-means/medians/medoids 聚类和 Self-Organizing Maps (SOMs) 需要调用随机数生成器。在 Bio.Cluster 中，正态分布随机数 生成器的算法是基于L’Ecuyer [25] ，二项分布的随机数 生成器算法是基于Kachitvichyanukul and Schmeiser [23] 开发的BTPE算法。随机数生成器在调用时会首先进行初始化。由于随机数生成器使用了 两个乘同余发生器（multiplicative linear congruential generators），所以初始化时需要两个整型的 种子。这两个种子可以调用系统提供的 rand （C标准库）函数生成。在 Bio.</description>
+    </item>
+    
+    <item>
+      <title>《机器学习个人笔记完整版》</title>
+      <link>https://example.com/p/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B8%AA%E4%BA%BA%E7%AC%94%E8%AE%B0%E5%AE%8C%E6%95%B4%E7%89%88/</link>
+      <pubDate>Mon, 05 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B8%AA%E4%BA%BA%E7%AC%94%E8%AE%B0%E5%AE%8C%E6%95%B4%E7%89%88/</guid>
+      <description> </description>
+    </item>
+    
+  </channel>
+</rss>

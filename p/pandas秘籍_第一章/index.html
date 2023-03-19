@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='这是跟学《Pandas秘籍》这本书的学习笔记'><title>Pandas秘籍_第一章</title>
+
+<link rel='canonical' href='https://example.com/p/pandas%E7%A7%98%E7%B1%8D_%E7%AC%AC%E4%B8%80%E7%AB%A0/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='Pandas秘籍_第一章'>
+<meta property='og:description' content='这是跟学《Pandas秘籍》这本书的学习笔记'>
+<meta property='og:url' content='https://example.com/p/pandas%E7%A7%98%E7%B1%8D_%E7%AC%AC%E4%B8%80%E7%AB%A0/'>
+<meta property='og:site_name' content='叶宇浩随记博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='tutorials' /><meta property='article:tag' content='pandas' /><meta property='article:published_time' content='2021-09-03T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-09-03T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="Pandas秘籍_第一章">
+<meta name="twitter:description" content="这是跟学《Pandas秘籍》这本书的学习笔记">
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>Back</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/python/" >
+                python
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/pandas%E7%A7%98%E7%B1%8D_%E7%AC%AC%E4%B8%80%E7%AB%A0/">Pandas秘籍_第一章</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        这是跟学《Pandas秘籍》这本书的学习笔记
+    </h3>
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Sep 03, 2021</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    1 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <blockquote>
+<p>放这里用来随时随地看</p>
+</blockquote>
+<h2 id="读取文件">读取文件</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">warnings</span>
+</span></span><span class="line"><span class="cl"><span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&#34;ignore&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&#34;font.sans-serif&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&#34;SimHei&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&#34;axes.unicode_minus&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+</span></span></code></pre></div><p>您可以使用 read_csv 函数从CSV文件读取数据。 默认情况下，它假定字段以逗 号分隔。</p>
+<p>这个数据集是一个列表，蒙特利尔的 7 个不同的自行车道上每天有多少人。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&#34;./comptagevelo2012.csv&#34;</span><span class="p">,</span><span class="n">index_col</span><span class="o">=</span><span class="s2">&#34;Date&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">df</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 258; 
+			flex-basis: 620px"
+	>
+	<a href="/p/pandas%E7%A7%98%E7%B1%8D_%E7%AC%AC%E4%B8%80%E7%AB%A0/picture/%E7%AC%AC%E4%B8%80%E7%AB%A0.png" data-size="1256x486">
+		<img src="/p/pandas%E7%A7%98%E7%B1%8D_%E7%AC%AC%E4%B8%80%E7%AB%A0/picture/%E7%AC%AC%E4%B8%80%E7%AB%A0.png"
+			width="1256"
+			height="486"
+			srcset="/p/pandas%E7%A7%98%E7%B1%8D_%E7%AC%AC%E4%B8%80%E7%AB%A0/picture/%E7%AC%AC%E4%B8%80%E7%AB%A0_hu7f688a3baae2b8754e2afce03185806d_58319_480x0_resize_box_3.png 480w, /p/pandas%E7%A7%98%E7%B1%8D_%E7%AC%AC%E4%B8%80%E7%AB%A0/picture/%E7%AC%AC%E4%B8%80%E7%AB%A0_hu7f688a3baae2b8754e2afce03185806d_58319_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>你可以看到这完全损坏了。 read_csv 拥有一堆选项能够让我们修复它，在这里我 们：</p>
+<ul>
+<li>将列分隔符改成 ; sep=&quot;,&quot;</li>
+<li>将编码改为 latin1 （默认为 utf-8 ） encoding=&ldquo;latin1&rdquo;</li>
+<li>解析 Date 列中的日期 parse_dates=[&ldquo;Date&rdquo;]</li>
+<li>告诉它我们的日期将日放在前面，而不是月 dayfirst = True</li>
+<li>将索引设置为 Date index_col = &ldquo;Date&rdquo;</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&#34;./comptagevelo2012.csv&#34;</span><span class="p">,</span><span class="n">index_col</span><span class="o">=</span><span class="s2">&#34;Date&#34;</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s2">&#34;,&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="n">encoding</span><span class="o">=</span><span class="s2">&#34;latin1&#34;</span><span class="p">,</span><span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="s2">&#34;Date&#34;</span><span class="p">],</span><span class="n">dayfirst</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 206; 
+			flex-basis: 494px"
+	>
+	<a href="/p/pandas%E7%A7%98%E7%B1%8D_%E7%AC%AC%E4%B8%80%E7%AB%A0/picture/%E7%AC%AC%E4%B8%80%E7%AB%A0-1.png" data-size="1282x622">
+		<img src="/p/pandas%E7%A7%98%E7%B1%8D_%E7%AC%AC%E4%B8%80%E7%AB%A0/picture/%E7%AC%AC%E4%B8%80%E7%AB%A0-1.png"
+			width="1282"
+			height="622"
+			srcset="/p/pandas%E7%A7%98%E7%B1%8D_%E7%AC%AC%E4%B8%80%E7%AB%A0/picture/%E7%AC%AC%E4%B8%80%E7%AB%A0-1_hufebb578ad76d2989b03f9c718e634595_69164_480x0_resize_box_3.png 480w, /p/pandas%E7%A7%98%E7%B1%8D_%E7%AC%AC%E4%B8%80%E7%AB%A0/picture/%E7%AC%AC%E4%B8%80%E7%AB%A0-1_hufebb578ad76d2989b03f9c718e634595_69164_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="选择一列">选择一列</h2>
+<p>当你读取 CSV 时，你会得到一种称为 DataFrame 的对象，它由行和列组成。 您 从数据框架中获取列的方式与从字典中获取元素的方式相同。</p>
+<p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">df</span><span class="p">[</span><span class="s2">&#34;Berri1&#34;</span><span class="p">]</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 167; 
+			flex-basis: 402px"
+	>
+	<a href="/p/pandas%E7%A7%98%E7%B1%8D_%E7%AC%AC%E4%B8%80%E7%AB%A0/picture/%E7%AC%AC%E4%B8%80%E7%AB%A0-2.png" data-size="752x448">
+		<img src="/p/pandas%E7%A7%98%E7%B1%8D_%E7%AC%AC%E4%B8%80%E7%AB%A0/picture/%E7%AC%AC%E4%B8%80%E7%AB%A0-2.png"
+			width="752"
+			height="448"
+			srcset="/p/pandas%E7%A7%98%E7%B1%8D_%E7%AC%AC%E4%B8%80%E7%AB%A0/picture/%E7%AC%AC%E4%B8%80%E7%AB%A0-2_hu80249b92edbfd7ca7c785e0fab08ab5c_46353_480x0_resize_box_3.png 480w, /p/pandas%E7%A7%98%E7%B1%8D_%E7%AC%AC%E4%B8%80%E7%AB%A0/picture/%E7%AC%AC%E4%B8%80%E7%AB%A0-2_hu80249b92edbfd7ca7c785e0fab08ab5c_46353_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="绘制一列">绘制一列</h2>
+<p>只需要在末尾添加 .plot() ，再容易不过了。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#使图表漂亮一些 </span>
+</span></span><span class="line"><span class="cl"><span class="c1">#这个很有用！！！！mark了</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">matplotlib</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&#34;figure.figsize&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">matplotlib</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">&#34;ggplot&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">df</span><span class="p">[</span><span class="s2">&#34;Berri1&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 276; 
+			flex-basis: 664px"
+	>
+	<a href="/p/pandas%E7%A7%98%E7%B1%8D_%E7%AC%AC%E4%B8%80%E7%AB%A0/picture/%E7%AC%AC%E4%B8%80%E7%AB%A0-3.png" data-size="1274x460">
+		<img src="/p/pandas%E7%A7%98%E7%B1%8D_%E7%AC%AC%E4%B8%80%E7%AB%A0/picture/%E7%AC%AC%E4%B8%80%E7%AB%A0-3.png"
+			width="1274"
+			height="460"
+			srcset="/p/pandas%E7%A7%98%E7%B1%8D_%E7%AC%AC%E4%B8%80%E7%AB%A0/picture/%E7%AC%AC%E4%B8%80%E7%AB%A0-3_hud6b1c044be2641ea6f9f21207b285f72_142708_480x0_resize_box_3.png 480w, /p/pandas%E7%A7%98%E7%B1%8D_%E7%AC%AC%E4%B8%80%E7%AB%A0/picture/%E7%AC%AC%E4%B8%80%E7%AB%A0-3_hud6b1c044be2641ea6f9f21207b285f72_142708_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>我们也可以很容易地绘制所有的列。 我们会让它更大一点。 你可以看到它挤在一 起，但所有的自行车道基本表现相同 - 如果对骑自行车的人来说是一个糟糕的一 天，任意地方都是糟糕的一天。</p>
+<p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 140; 
+			flex-basis: 337px"
+	>
+	<a href="/p/pandas%E7%A7%98%E7%B1%8D_%E7%AC%AC%E4%B8%80%E7%AB%A0/picture/%E7%AC%AC%E4%B8%80%E7%AB%A0-4.png" data-size="1270x902">
+		<img src="/p/pandas%E7%A7%98%E7%B1%8D_%E7%AC%AC%E4%B8%80%E7%AB%A0/picture/%E7%AC%AC%E4%B8%80%E7%AB%A0-4.png"
+			width="1270"
+			height="902"
+			srcset="/p/pandas%E7%A7%98%E7%B1%8D_%E7%AC%AC%E4%B8%80%E7%AB%A0/picture/%E7%AC%AC%E4%B8%80%E7%AB%A0-4_hu7e250ca0f13115341868fac9325bedd9_303014_480x0_resize_box_3.png 480w, /p/pandas%E7%A7%98%E7%B1%8D_%E7%AC%AC%E4%B8%80%E7%AB%A0/picture/%E7%AC%AC%E4%B8%80%E7%AB%A0-4_hu7e250ca0f13115341868fac9325bedd9_303014_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/tutorials/">tutorials</a>
+        
+            <a href="/tags/pandas/">pandas</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">Related contents</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="">
+    <a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%8D%81%E4%B8%80%E8%AF%BE/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">学习Pandas_第十一课</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%83%E8%AF%BE/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">学习Pandas_第七课</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%8D%81%E8%AF%BE/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">学习Pandas_第十课</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%BA%94%E8%AF%BE/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">学习Pandas_第五课</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%85%AD%E8%AF%BE/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">学习Pandas_第六课</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2022 - 
+        
+        2023 叶宇浩随记博客
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.5.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">Table of contents</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#读取文件">读取文件</a></li>
+    <li><a href="#选择一列">选择一列</a></li>
+    <li><a href="#绘制一列">绘制一列</a></li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

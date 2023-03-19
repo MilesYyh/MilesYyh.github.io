@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='数据分析'><title>pandas的分组取最大多行并求和函数nlargest()</title>
+
+<link rel='canonical' href='https://example.com/p/pandas%E7%9A%84%E5%88%86%E7%BB%84%E5%8F%96%E6%9C%80%E5%A4%A7%E5%A4%9A%E8%A1%8C%E5%B9%B6%E6%B1%82%E5%92%8C%E5%87%BD%E6%95%B0nlargest/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='pandas的分组取最大多行并求和函数nlargest()'>
+<meta property='og:description' content='数据分析'>
+<meta property='og:url' content='https://example.com/p/pandas%E7%9A%84%E5%88%86%E7%BB%84%E5%8F%96%E6%9C%80%E5%A4%A7%E5%A4%9A%E8%A1%8C%E5%B9%B6%E6%B1%82%E5%92%8C%E5%87%BD%E6%95%B0nlargest/'>
+<meta property='og:site_name' content='叶宇浩随记博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='pandas' /><meta property='article:published_time' content='2022-11-07T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2022-11-07T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="pandas的分组取最大多行并求和函数nlargest()">
+<meta name="twitter:description" content="数据分析">
+    </head>
+    <body class="
+    article-page 
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        on-phone--column extended
+    
+">
+    
+        <aside class="sidebar left-sidebar sticky">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header class="site-info">
+        
+            
+            <figure class="site-avatar">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hub6b2d46d776162e2e8dcd667345276ca_41574_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+
+                
+            </figure>
+            
+        
+        
+        <h1 class="site-name"><a href="/">叶宇浩随记博客</a></h1>
+        <h2 class="site-description">始于rosetta</h2></header>
+
+    <ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/' target="_blank">
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>分类</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>检索</span>
+            </a>
+        </li>
+        
+
+        
+            <li id="dark-mode-toggle">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <span>Dark Mode</span>
+            </li>
+        
+    </ol>
+</aside>
+
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/python/" >
+                python
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/pandas%E7%9A%84%E5%88%86%E7%BB%84%E5%8F%96%E6%9C%80%E5%A4%A7%E5%A4%9A%E8%A1%8C%E5%B9%B6%E6%B1%82%E5%92%8C%E5%87%BD%E6%95%B0nlargest/">pandas的分组取最大多行并求和函数nlargest()</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        数据分析
+    </h3>
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Nov 07, 2022</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    1 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <p>在pandas库里面，我们常常关心的是最大的前几个，比如销售最好的几个产品，几个店，等。之前讲到的head(), 能够看到看到DF里面的前几行，如果需要看到最大或者最小的几行就需要先进行排序。max()和min()可以看到最大或者最小值，但是只能看到一个值。
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 137; 
+			flex-basis: 329px"
+	>
+	<a href="/p/pandas%E7%9A%84%E5%88%86%E7%BB%84%E5%8F%96%E6%9C%80%E5%A4%A7%E5%A4%9A%E8%A1%8C%E5%B9%B6%E6%B1%82%E5%92%8C%E5%87%BD%E6%95%B0nlargest/picture/pandas%E7%9A%84%E5%88%86%E7%BB%84%E5%8F%96%E6%9C%80%E5%A4%A7%E5%A4%9A%E8%A1%8C%E5%B9%B6%E6%B1%82%E5%92%8C%E5%87%BD%E6%95%B0nlargest%28%29.png" data-size="1124x818">
+		<img src="/p/pandas%E7%9A%84%E5%88%86%E7%BB%84%E5%8F%96%E6%9C%80%E5%A4%A7%E5%A4%9A%E8%A1%8C%E5%B9%B6%E6%B1%82%E5%92%8C%E5%87%BD%E6%95%B0nlargest/picture/pandas%E7%9A%84%E5%88%86%E7%BB%84%E5%8F%96%E6%9C%80%E5%A4%A7%E5%A4%9A%E8%A1%8C%E5%B9%B6%E6%B1%82%E5%92%8C%E5%87%BD%E6%95%B0nlargest%28%29.png"
+			width="1124"
+			height="818"
+			srcset="/p/pandas%E7%9A%84%E5%88%86%E7%BB%84%E5%8F%96%E6%9C%80%E5%A4%A7%E5%A4%9A%E8%A1%8C%E5%B9%B6%E6%B1%82%E5%92%8C%E5%87%BD%E6%95%B0nlargest/picture/_hu73efa6667d1eaf38ec85eeec197a5b9d_277655_3af1ea5623e8f801ffb166dc2d08e1d1.png 480w, /p/pandas%E7%9A%84%E5%88%86%E7%BB%84%E5%8F%96%E6%9C%80%E5%A4%A7%E5%A4%9A%E8%A1%8C%E5%B9%B6%E6%B1%82%E5%92%8C%E5%87%BD%E6%95%B0nlargest/picture/_hu73efa6667d1eaf38ec85eeec197a5b9d_277655_96c30ab3578fba4811572c692ba29f2c.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>所以我们可以使用nlargest()函数，nlargest()的优点就是能一次看到最大的几行，而且不需要排序。缺点就是只能看到最大的，看不到最小的。
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 192; 
+			flex-basis: 461px"
+	>
+	<a href="/p/pandas%E7%9A%84%E5%88%86%E7%BB%84%E5%8F%96%E6%9C%80%E5%A4%A7%E5%A4%9A%E8%A1%8C%E5%B9%B6%E6%B1%82%E5%92%8C%E5%87%BD%E6%95%B0nlargest/picture/pandas%E7%9A%84%E5%88%86%E7%BB%84%E5%8F%96%E6%9C%80%E5%A4%A7%E5%A4%9A%E8%A1%8C%E5%B9%B6%E6%B1%82%E5%92%8C%E5%87%BD%E6%95%B0nlargest%28%29-1.png" data-size="1088x566">
+		<img src="/p/pandas%E7%9A%84%E5%88%86%E7%BB%84%E5%8F%96%E6%9C%80%E5%A4%A7%E5%A4%9A%E8%A1%8C%E5%B9%B6%E6%B1%82%E5%92%8C%E5%87%BD%E6%95%B0nlargest/picture/pandas%E7%9A%84%E5%88%86%E7%BB%84%E5%8F%96%E6%9C%80%E5%A4%A7%E5%A4%9A%E8%A1%8C%E5%B9%B6%E6%B1%82%E5%92%8C%E5%87%BD%E6%95%B0nlargest%28%29-1.png"
+			width="1088"
+			height="566"
+			srcset="/p/pandas%E7%9A%84%E5%88%86%E7%BB%84%E5%8F%96%E6%9C%80%E5%A4%A7%E5%A4%9A%E8%A1%8C%E5%B9%B6%E6%B1%82%E5%92%8C%E5%87%BD%E6%95%B0nlargest/picture/_hu663eb5d06a99010fc609ae2e416c1d61_133077_67053125ecc60d8a84909671b627eba9.png 480w, /p/pandas%E7%9A%84%E5%88%86%E7%BB%84%E5%8F%96%E6%9C%80%E5%A4%A7%E5%A4%9A%E8%A1%8C%E5%B9%B6%E6%B1%82%E5%92%8C%E5%87%BD%E6%95%B0nlargest/picture/_hu663eb5d06a99010fc609ae2e416c1d61_133077_8e7156ccc6bc34e29306b0179e859a73.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>单价排在前十的数据</p>
+<p>nlargest()的第一个参数就是截取的行数。第二个参数就是依据的列名。</p>
+<p>这样就可以筛选出单价最高的前十行，而且是按照单价从最高到最低进行排列的，所以还是按照之前的索引。</p>
+<p>还可以按照total_price来进行排名
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 136; 
+			flex-basis: 327px"
+	>
+	<a href="/p/pandas%E7%9A%84%E5%88%86%E7%BB%84%E5%8F%96%E6%9C%80%E5%A4%A7%E5%A4%9A%E8%A1%8C%E5%B9%B6%E6%B1%82%E5%92%8C%E5%87%BD%E6%95%B0nlargest/picture/pandas%E7%9A%84%E5%88%86%E7%BB%84%E5%8F%96%E6%9C%80%E5%A4%A7%E5%A4%9A%E8%A1%8C%E5%B9%B6%E6%B1%82%E5%92%8C%E5%87%BD%E6%95%B0nlargest%28%29-2.png" data-size="1026x752">
+		<img src="/p/pandas%E7%9A%84%E5%88%86%E7%BB%84%E5%8F%96%E6%9C%80%E5%A4%A7%E5%A4%9A%E8%A1%8C%E5%B9%B6%E6%B1%82%E5%92%8C%E5%87%BD%E6%95%B0nlargest/picture/pandas%E7%9A%84%E5%88%86%E7%BB%84%E5%8F%96%E6%9C%80%E5%A4%A7%E5%A4%9A%E8%A1%8C%E5%B9%B6%E6%B1%82%E5%92%8C%E5%87%BD%E6%95%B0nlargest%28%29-2.png"
+			width="1026"
+			height="752"
+			srcset="/p/pandas%E7%9A%84%E5%88%86%E7%BB%84%E5%8F%96%E6%9C%80%E5%A4%A7%E5%A4%9A%E8%A1%8C%E5%B9%B6%E6%B1%82%E5%92%8C%E5%87%BD%E6%95%B0nlargest/picture/_hu127afde64b662dc1e460eea91a25e54f_172557_48e447526f3522298010df1e639a9735.png 480w, /p/pandas%E7%9A%84%E5%88%86%E7%BB%84%E5%8F%96%E6%9C%80%E5%A4%A7%E5%A4%9A%E8%A1%8C%E5%B9%B6%E6%B1%82%E5%92%8C%E5%87%BD%E6%95%B0nlargest/picture/_hu127afde64b662dc1e460eea91a25e54f_172557_74c2568aaf6f9cf1e2b6fd1b6f40afec.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>按照total_price排名</p>
+<p>nlargest还有一个参数，keep=&lsquo;first&rsquo;或者&rsquo;last&rsquo;。当出现重复值的时候，keep=&lsquo;first&rsquo;,会选取在原始DataFrame里排在前面的，keep=&lsquo;last&rsquo;则去排后面的。</p>
+<p>由于nlagerst()不能去最小的多个值，如果我们一定要使用这个函数进行选取也是可以的.</p>
+<p>先设置一个辅助列
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 177; 
+			flex-basis: 427px"
+	>
+	<a href="/p/pandas%E7%9A%84%E5%88%86%E7%BB%84%E5%8F%96%E6%9C%80%E5%A4%A7%E5%A4%9A%E8%A1%8C%E5%B9%B6%E6%B1%82%E5%92%8C%E5%87%BD%E6%95%B0nlargest/picture/pandas%E7%9A%84%E5%88%86%E7%BB%84%E5%8F%96%E6%9C%80%E5%A4%A7%E5%A4%9A%E8%A1%8C%E5%B9%B6%E6%B1%82%E5%92%8C%E5%87%BD%E6%95%B0nlargest%28%29-3.png" data-size="1114x626">
+		<img src="/p/pandas%E7%9A%84%E5%88%86%E7%BB%84%E5%8F%96%E6%9C%80%E5%A4%A7%E5%A4%9A%E8%A1%8C%E5%B9%B6%E6%B1%82%E5%92%8C%E5%87%BD%E6%95%B0nlargest/picture/pandas%E7%9A%84%E5%88%86%E7%BB%84%E5%8F%96%E6%9C%80%E5%A4%A7%E5%A4%9A%E8%A1%8C%E5%B9%B6%E6%B1%82%E5%92%8C%E5%87%BD%E6%95%B0nlargest%28%29-3.png"
+			width="1114"
+			height="626"
+			srcset="/p/pandas%E7%9A%84%E5%88%86%E7%BB%84%E5%8F%96%E6%9C%80%E5%A4%A7%E5%A4%9A%E8%A1%8C%E5%B9%B6%E6%B1%82%E5%92%8C%E5%87%BD%E6%95%B0nlargest/picture/_hu882520f76bd0b8bd5c19548da63b0366_155063_79d38209093baf0e4fbc9b6d0359b406.png 480w, /p/pandas%E7%9A%84%E5%88%86%E7%BB%84%E5%8F%96%E6%9C%80%E5%A4%A7%E5%A4%9A%E8%A1%8C%E5%B9%B6%E6%B1%82%E5%92%8C%E5%87%BD%E6%95%B0nlargest/picture/_hu882520f76bd0b8bd5c19548da63b0366_155063_3a9b8dc14351f2c5ca5956d8f0660f9b.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+然后在进行选取：
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 197; 
+			flex-basis: 474px"
+	>
+	<a href="/p/pandas%E7%9A%84%E5%88%86%E7%BB%84%E5%8F%96%E6%9C%80%E5%A4%A7%E5%A4%9A%E8%A1%8C%E5%B9%B6%E6%B1%82%E5%92%8C%E5%87%BD%E6%95%B0nlargest/picture/pandas%E7%9A%84%E5%88%86%E7%BB%84%E5%8F%96%E6%9C%80%E5%A4%A7%E5%A4%9A%E8%A1%8C%E5%B9%B6%E6%B1%82%E5%92%8C%E5%87%BD%E6%95%B0nlargest%28%29-4.png" data-size="1040x526">
+		<img src="/p/pandas%E7%9A%84%E5%88%86%E7%BB%84%E5%8F%96%E6%9C%80%E5%A4%A7%E5%A4%9A%E8%A1%8C%E5%B9%B6%E6%B1%82%E5%92%8C%E5%87%BD%E6%95%B0nlargest/picture/pandas%E7%9A%84%E5%88%86%E7%BB%84%E5%8F%96%E6%9C%80%E5%A4%A7%E5%A4%9A%E8%A1%8C%E5%B9%B6%E6%B1%82%E5%92%8C%E5%87%BD%E6%95%B0nlargest%28%29-4.png"
+			width="1040"
+			height="526"
+			srcset="/p/pandas%E7%9A%84%E5%88%86%E7%BB%84%E5%8F%96%E6%9C%80%E5%A4%A7%E5%A4%9A%E8%A1%8C%E5%B9%B6%E6%B1%82%E5%92%8C%E5%87%BD%E6%95%B0nlargest/picture/_hubb42b48f4e9186d6616a89706ab0a34e_138654_36a87b1223db1086f2df51da75c148f3.png 480w, /p/pandas%E7%9A%84%E5%88%86%E7%BB%84%E5%8F%96%E6%9C%80%E5%A4%A7%E5%A4%9A%E8%A1%8C%E5%B9%B6%E6%B1%82%E5%92%8C%E5%87%BD%E6%95%B0nlargest/picture/_hubb42b48f4e9186d6616a89706ab0a34e_138654_5284afeb2f95b70dddb575e832edd61f.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+以辅助列进行选取</p>
+<p>当然了，也可以通过head()加上排序进行选取的。</p>
+<p>那以前这些操作都可以通过其它函数来进行替代的话，nlargest()有什么必要介绍吗？或者说学不学这个函数有什么关系吗？</p>
+<p>这就是我们今天要重点介绍的，如果说要选择不同location_road下的前五名要怎么操作呢？</p>
+<p>很多人可能第一反应会想到先分组然后进行max()操作，但是这样的操作只能选择最大的一列：
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 448; 
+			flex-basis: 1076px"
+	>
+	<a href="/p/pandas%E7%9A%84%E5%88%86%E7%BB%84%E5%8F%96%E6%9C%80%E5%A4%A7%E5%A4%9A%E8%A1%8C%E5%B9%B6%E6%B1%82%E5%92%8C%E5%87%BD%E6%95%B0nlargest/picture/pandas%E7%9A%84%E5%88%86%E7%BB%84%E5%8F%96%E6%9C%80%E5%A4%A7%E5%A4%9A%E8%A1%8C%E5%B9%B6%E6%B1%82%E5%92%8C%E5%87%BD%E6%95%B0nlargest%28%29-6.png" data-size="1112x248">
+		<img src="/p/pandas%E7%9A%84%E5%88%86%E7%BB%84%E5%8F%96%E6%9C%80%E5%A4%A7%E5%A4%9A%E8%A1%8C%E5%B9%B6%E6%B1%82%E5%92%8C%E5%87%BD%E6%95%B0nlargest/picture/pandas%E7%9A%84%E5%88%86%E7%BB%84%E5%8F%96%E6%9C%80%E5%A4%A7%E5%A4%9A%E8%A1%8C%E5%B9%B6%E6%B1%82%E5%92%8C%E5%87%BD%E6%95%B0nlargest%28%29-6.png"
+			width="1112"
+			height="248"
+			srcset="/p/pandas%E7%9A%84%E5%88%86%E7%BB%84%E5%8F%96%E6%9C%80%E5%A4%A7%E5%A4%9A%E8%A1%8C%E5%B9%B6%E6%B1%82%E5%92%8C%E5%87%BD%E6%95%B0nlargest/picture/_hud92b30698d56c0243ab270f2d0458518_50201_cb53be36eac38aefe14a4dd5bdea3694.png 480w, /p/pandas%E7%9A%84%E5%88%86%E7%BB%84%E5%8F%96%E6%9C%80%E5%A4%A7%E5%A4%9A%E8%A1%8C%E5%B9%B6%E6%B1%82%E5%92%8C%E5%87%BD%E6%95%B0nlargest/picture/_hud92b30698d56c0243ab270f2d0458518_50201_7015bbe1855cbe4584f87c385fe8940e.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+使用max()</p>
+<p>但是使用max有一个问题，就是选取的是每一列的最大值，而不是选取最大值的那一行，也就是说只能在选取单列的最大值的时候才是准确的。</p>
+<p>这个时候我们就要想到apply和lambda的自定义函数了</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 291; 
+			flex-basis: 699px"
+	>
+	<a href="/p/pandas%E7%9A%84%E5%88%86%E7%BB%84%E5%8F%96%E6%9C%80%E5%A4%A7%E5%A4%9A%E8%A1%8C%E5%B9%B6%E6%B1%82%E5%92%8C%E5%87%BD%E6%95%B0nlargest/picture/pandas%E7%9A%84%E5%88%86%E7%BB%84%E5%8F%96%E6%9C%80%E5%A4%A7%E5%A4%9A%E8%A1%8C%E5%B9%B6%E6%B1%82%E5%92%8C%E5%87%BD%E6%95%B0nlargest%28%29-7.png" data-size="1096x376">
+		<img src="/p/pandas%E7%9A%84%E5%88%86%E7%BB%84%E5%8F%96%E6%9C%80%E5%A4%A7%E5%A4%9A%E8%A1%8C%E5%B9%B6%E6%B1%82%E5%92%8C%E5%87%BD%E6%95%B0nlargest/picture/pandas%E7%9A%84%E5%88%86%E7%BB%84%E5%8F%96%E6%9C%80%E5%A4%A7%E5%A4%9A%E8%A1%8C%E5%B9%B6%E6%B1%82%E5%92%8C%E5%87%BD%E6%95%B0nlargest%28%29-7.png"
+			width="1096"
+			height="376"
+			srcset="/p/pandas%E7%9A%84%E5%88%86%E7%BB%84%E5%8F%96%E6%9C%80%E5%A4%A7%E5%A4%9A%E8%A1%8C%E5%B9%B6%E6%B1%82%E5%92%8C%E5%87%BD%E6%95%B0nlargest/picture/_hucd162175280f6346601a6a7859ebb1dd_82324_6df4ec4572d537a2394f51bf0b44d2e6.png 480w, /p/pandas%E7%9A%84%E5%88%86%E7%BB%84%E5%8F%96%E6%9C%80%E5%A4%A7%E5%A4%9A%E8%A1%8C%E5%B9%B6%E6%B1%82%E5%92%8C%E5%87%BD%E6%95%B0nlargest/picture/_hucd162175280f6346601a6a7859ebb1dd_82324_54ee55bba18d25691d2175757a36ef0b.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>选取多个指标的TOP(N)</p>
+<p>这样就选出了不同loaction_road的price排在前五的行了。</p>
+<p>nlargest()函数在这种场景下使用是非常方便的，而且结果也已经默认排好顺序了。</p>
+<p>还有一些场景下需要计算分组的前几名，然后在进行求和的，这个我们也可以使用nlargest进行操作：
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 505; 
+			flex-basis: 1212px"
+	>
+	<a href="/p/pandas%E7%9A%84%E5%88%86%E7%BB%84%E5%8F%96%E6%9C%80%E5%A4%A7%E5%A4%9A%E8%A1%8C%E5%B9%B6%E6%B1%82%E5%92%8C%E5%87%BD%E6%95%B0nlargest/picture/pandas%E7%9A%84%E5%88%86%E7%BB%84%E5%8F%96%E6%9C%80%E5%A4%A7%E5%A4%9A%E8%A1%8C%E5%B9%B6%E6%B1%82%E5%92%8C%E5%87%BD%E6%95%B0nlargest%28%29-8.png" data-size="1122x222">
+		<img src="/p/pandas%E7%9A%84%E5%88%86%E7%BB%84%E5%8F%96%E6%9C%80%E5%A4%A7%E5%A4%9A%E8%A1%8C%E5%B9%B6%E6%B1%82%E5%92%8C%E5%87%BD%E6%95%B0nlargest/picture/pandas%E7%9A%84%E5%88%86%E7%BB%84%E5%8F%96%E6%9C%80%E5%A4%A7%E5%A4%9A%E8%A1%8C%E5%B9%B6%E6%B1%82%E5%92%8C%E5%87%BD%E6%95%B0nlargest%28%29-8.png"
+			width="1122"
+			height="222"
+			srcset="/p/pandas%E7%9A%84%E5%88%86%E7%BB%84%E5%8F%96%E6%9C%80%E5%A4%A7%E5%A4%9A%E8%A1%8C%E5%B9%B6%E6%B1%82%E5%92%8C%E5%87%BD%E6%95%B0nlargest/picture/_hubd7c2850021f8801e9b7eab9f1774e17_57238_e811ff2ca52843e90c7fc9e491e131c8.png 480w, /p/pandas%E7%9A%84%E5%88%86%E7%BB%84%E5%8F%96%E6%9C%80%E5%A4%A7%E5%A4%9A%E8%A1%8C%E5%B9%B6%E6%B1%82%E5%92%8C%E5%87%BD%E6%95%B0nlargest/picture/_hubd7c2850021f8801e9b7eab9f1774e17_57238_99dcf72b88112e220c9166ab95fe42ed.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+分组之后进行求和</p>
+<p>使用这种方法会出现报错提示，这个因为在列和索引都存在loaction_road，有重复，系统有警告，在实际使用时可以先改列名再操作。我们也可以换一种方式直接按照索引进行求和，这样就没有警告了：
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 679; 
+			flex-basis: 1629px"
+	>
+	<a href="/p/pandas%E7%9A%84%E5%88%86%E7%BB%84%E5%8F%96%E6%9C%80%E5%A4%A7%E5%A4%9A%E8%A1%8C%E5%B9%B6%E6%B1%82%E5%92%8C%E5%87%BD%E6%95%B0nlargest/picture/pandas%E7%9A%84%E5%88%86%E7%BB%84%E5%8F%96%E6%9C%80%E5%A4%A7%E5%A4%9A%E8%A1%8C%E5%B9%B6%E6%B1%82%E5%92%8C%E5%87%BD%E6%95%B0nlargest%28%29-9.png" data-size="1100x162">
+		<img src="/p/pandas%E7%9A%84%E5%88%86%E7%BB%84%E5%8F%96%E6%9C%80%E5%A4%A7%E5%A4%9A%E8%A1%8C%E5%B9%B6%E6%B1%82%E5%92%8C%E5%87%BD%E6%95%B0nlargest/picture/pandas%E7%9A%84%E5%88%86%E7%BB%84%E5%8F%96%E6%9C%80%E5%A4%A7%E5%A4%9A%E8%A1%8C%E5%B9%B6%E6%B1%82%E5%92%8C%E5%87%BD%E6%95%B0nlargest%28%29-9.png"
+			width="1100"
+			height="162"
+			srcset="/p/pandas%E7%9A%84%E5%88%86%E7%BB%84%E5%8F%96%E6%9C%80%E5%A4%A7%E5%A4%9A%E8%A1%8C%E5%B9%B6%E6%B1%82%E5%92%8C%E5%87%BD%E6%95%B0nlargest/picture/_hu42c4180e6c48c176e9b19f3bef59a91c_29313_3176f28bb01422c94524ed63565111c2.png 480w, /p/pandas%E7%9A%84%E5%88%86%E7%BB%84%E5%8F%96%E6%9C%80%E5%A4%A7%E5%A4%9A%E8%A1%8C%E5%B9%B6%E6%B1%82%E5%92%8C%E5%87%BD%E6%95%B0nlargest/picture/_hu42c4180e6c48c176e9b19f3bef59a91c_29313_f7abbf34a2be1a3baf5f861716f3f045.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/pandas/">pandas</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2022 - 
+        
+        2023 叶宇浩随记博客
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.5.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

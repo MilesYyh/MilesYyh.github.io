@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='这里来学习一下Python中的_Underscore的用处 总的来说可以提高编码效率,教程原文：https://www.datacamp.com/community/tutorials/role-underscore-python
+存储作用 Python automatically stores the value of the last expression in the interpreter to a particular variable called &amp;ldquo;_.&amp;rdquo; You can also assign these value to another variable if you want.
+简单来说就是存储上一次未指定变量名字的结果，并且可以通过变量赋值 占位作用 Ignoring Values Underscore() is also used to ignore the values. If you don&amp;rsquo;t want to use specific values while unpacking, just assign that value to underscore().
+Ignoring means assigning the values to special variable underscore().'><title>py_占位符运用</title>
+
+<link rel='canonical' href='https://example.com/p/py_%E5%8D%A0%E4%BD%8D%E7%AC%A6%E8%BF%90%E7%94%A8/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='py_占位符运用'>
+<meta property='og:description' content='这里来学习一下Python中的_Underscore的用处 总的来说可以提高编码效率,教程原文：https://www.datacamp.com/community/tutorials/role-underscore-python
+存储作用 Python automatically stores the value of the last expression in the interpreter to a particular variable called &amp;ldquo;_.&amp;rdquo; You can also assign these value to another variable if you want.
+简单来说就是存储上一次未指定变量名字的结果，并且可以通过变量赋值 占位作用 Ignoring Values Underscore() is also used to ignore the values. If you don&amp;rsquo;t want to use specific values while unpacking, just assign that value to underscore().
+Ignoring means assigning the values to special variable underscore().'>
+<meta property='og:url' content='https://example.com/p/py_%E5%8D%A0%E4%BD%8D%E7%AC%A6%E8%BF%90%E7%94%A8/'>
+<meta property='og:site_name' content='叶宇浩随记博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='python' /><meta property='article:published_time' content='2022-02-11T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2022-02-11T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="py_占位符运用">
+<meta name="twitter:description" content="这里来学习一下Python中的_Underscore的用处 总的来说可以提高编码效率,教程原文：https://www.datacamp.com/community/tutorials/role-underscore-python
+存储作用 Python automatically stores the value of the last expression in the interpreter to a particular variable called &amp;ldquo;_.&amp;rdquo; You can also assign these value to another variable if you want.
+简单来说就是存储上一次未指定变量名字的结果，并且可以通过变量赋值 占位作用 Ignoring Values Underscore() is also used to ignore the values. If you don&amp;rsquo;t want to use specific values while unpacking, just assign that value to underscore().
+Ignoring means assigning the values to special variable underscore().">
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>Back</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/code/" style="background-color: #fa1; color: #fff;">
+                编程
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/py_%E5%8D%A0%E4%BD%8D%E7%AC%A6%E8%BF%90%E7%94%A8/">py_占位符运用</a>
+    </h2>
+
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Feb 11, 2022</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    4 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <blockquote>
+<p>这里来学习一下Python中的_Underscore的用处
+总的来说可以提高编码效率,教程原文：https://www.datacamp.com/community/tutorials/role-underscore-python</p>
+</blockquote>
+<h2 id="存储作用">存储作用</h2>
+<p><strong>Python automatically stores the value of the last expression in the interpreter to a particular variable called &ldquo;_.&rdquo; You can also assign these value to another variable if you want.</strong></p>
+<p><strong>简单来说就是存储上一次未指定变量名字的结果，并且可以通过变量赋值</strong>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 254; 
+			flex-basis: 611px"
+	>
+	<a href="/p/py_%E5%8D%A0%E4%BD%8D%E7%AC%A6%E8%BF%90%E7%94%A8/picture/py_%E5%8D%A0%E4%BD%8D%E7%AC%A6%E8%BF%90%E7%94%A8.png" data-size="1080x424">
+		<img src="/p/py_%E5%8D%A0%E4%BD%8D%E7%AC%A6%E8%BF%90%E7%94%A8/picture/py_%E5%8D%A0%E4%BD%8D%E7%AC%A6%E8%BF%90%E7%94%A8.png"
+			width="1080"
+			height="424"
+			srcset="/p/py_%E5%8D%A0%E4%BD%8D%E7%AC%A6%E8%BF%90%E7%94%A8/picture/py_%E5%8D%A0%E4%BD%8D%E7%AC%A6%E8%BF%90%E7%94%A8_hu775f2ba049b8797be35bc8e74cb0b432_10706_480x0_resize_box_3.png 480w, /p/py_%E5%8D%A0%E4%BD%8D%E7%AC%A6%E8%BF%90%E7%94%A8/picture/py_%E5%8D%A0%E4%BD%8D%E7%AC%A6%E8%BF%90%E7%94%A8_hu775f2ba049b8797be35bc8e74cb0b432_10706_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="占位作用-ignoring-values">占位作用 Ignoring Values</h2>
+<p><strong>Underscore(<em>) is also used to ignore the values. If you don&rsquo;t want to use specific values while unpacking, just assign that value to underscore(</em>).</strong></p>
+<p><strong>Ignoring means assigning the values to special variable underscore(<em>). We&rsquo;re assigning the values to underscore(</em>) given not using that in future code.</strong></p>
+<p><strong>简单来说就是，当你取指定的位置的值时可以通过_ 或者 *_省略中值的赋值，我觉得很要用</strong></p>
+<p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">a</span><span class="p">,</span><span class="n">_</span><span class="p">,</span><span class="n">b</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#  only available in Python 3.x</span>
+</span></span><span class="line"><span class="cl"><span class="n">a</span><span class="p">,</span><span class="o">*</span><span class="n">_</span><span class="p">,</span><span class="n">b</span> <span class="o">=</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">87</span><span class="p">,</span><span class="mi">9</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">a</span><span class="p">,</span><span class="n">_</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="o">*</span><span class="n">_</span> <span class="o">=</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">87</span><span class="p">,</span><span class="mi">9</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="mi">1</span> <span class="mi">3</span>
+</span></span><span class="line"><span class="cl"><span class="mi">5</span> <span class="mi">9</span>
+</span></span><span class="line"><span class="cl"><span class="mi">5</span> <span class="mi">7</span>
+</span></span></code></pre></div><h2 id="循环中的使用">循环中的使用</h2>
+<p>Use In Looping</p>
+<p>You can use underscore(_) as a variable in looping. See the examples below to get an idea.</p>
+<p>loop中_代替i,此时_可以存储in的内容</p>
+<p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">_</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&#34;i&#34;</span><span class="p">,</span><span class="s2">&#34;am&#34;</span><span class="p">,</span><span class="s2">&#34;hahaah&#34;</span><span class="p">]:</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">_</span><span class="p">,</span><span class="n">end</span><span class="o">=</span><span class="s2">&#34; &#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#顺便说下py的每一次print默认是以换行符结束的，可以使用end来修改</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl"><span class="c1"># # # while中好像不行</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># _ = 6</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># whlie _ &lt;= 10:</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     print(_)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     _+=1</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="mi">2</span>
+</span></span><span class="line"><span class="cl"><span class="n">i</span> <span class="n">am</span> <span class="n">hahaah</span>
+</span></span></code></pre></div><blockquote>
+<p>但是要区分这两个</p>
+</blockquote>
+<p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span> <span class="ow">in</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],[</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]]:</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="mi">1</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl"><span class="mi">3</span> <span class="mi">4</span>
+</span></span></code></pre></div><p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">for</span> <span class="n">_</span><span class="p">,</span><span class="n">_</span> <span class="ow">in</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],[</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]]:</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">_</span><span class="p">,</span><span class="n">_</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#当第一次循环时，_=1后又发生了_=2，因为_和_是同样的变量名所以肯定指向同一个值</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="mi">2</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl"><span class="mi">4</span> <span class="mi">4</span>
+</span></span></code></pre></div><p>补充个知识点：
+PYthon 有三个内置函数，可以将你传递给他们的十进制数字 转换为 八进制、十六进制、二进制…</p>
+<pre><code>bin() —— 二进制、oct() —— 八进制、hex() —— 十六进制。
+</code></pre>
+<p>前缀： 二进制：0b （数字0）</p>
+<pre><code>        八进制：0o 或 0O （是数字0 和 字母小o 或 字母大O）
+        
+        十进制：0D 或 0d （数字0）
+        
+        十六进制：0x 或 0X（数字0） 或 使用后缀： H 表示！
+</code></pre>
+<h2 id="进制中的作用separating-digits-of-numbers">进制中的作用Separating Digits Of Numbers</h2>
+<p>If you have a long digits number, you can separate the group of digits as you like for better understanding.
+感觉上就是占位，代表0</p>
+<p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">million</span> <span class="o">=</span> <span class="mi">1_000_000</span>
+</span></span><span class="line"><span class="cl"><span class="n">binary</span> <span class="o">=</span> <span class="mb">0b_0010</span>
+</span></span><span class="line"><span class="cl"><span class="n">octa</span> <span class="o">=</span> <span class="mo">0o_64</span>
+</span></span><span class="line"><span class="cl"><span class="n">hexa</span> <span class="o">=</span> <span class="mh">0x_23_ab</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">million</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">binary</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">octa</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">hexa</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="mi">1000000</span>
+</span></span><span class="line"><span class="cl"><span class="mi">2</span>
+</span></span><span class="line"><span class="cl"><span class="mi">52</span>
+</span></span><span class="line"><span class="cl"><span class="mi">9131</span>
+</span></span></code></pre></div><h2 id="在函数命名中的作用他这里有个import的错误值得注意">在函数命名中的作用，他这里有个import的错误值得注意</h2>
+<p>Underscore(_) can be used to name variables, functions and classes, etc..,</p>
+<ul>
+<li>Single Pre Underscore:- _variable</li>
+<li>Signle Post Underscore:- variable_</li>
+<li>Double Pre Underscores:- __variable</li>
+<li>Double Pre and Post Underscores:- <strong>variable</strong></li>
+</ul>
+<p>single_pre_underscore_
+_name
+Single Pre Underscore is used for internal use.</p>
+<p>Most of us don&rsquo;t use it because of that reason.</p>
+<p>注意这里想讲的就是：函数的命名开头可以使用_,但是在导入这个函数时会报错，需要用另一种导入方式</p>
+<p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">T5</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&#34;test5&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">_num</span> <span class="o">=</span> <span class="mi">5</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl"><span class="n">TT5</span> <span class="o">=</span> <span class="n">T5</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">TT5</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">TT5</span><span class="o">.</span><span class="n">_num</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">test5</span>
+</span></span><span class="line"><span class="cl"><span class="mi">5</span>
+</span></span></code></pre></div><h2 id="现在有一份文件py_testpy">现在有一份文件py_test.py</h2>
+<p>内容：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">T5_name</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="s2">&#34;T5_test&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">_private_func</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">5</span>
+</span></span></code></pre></div><p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#这样导入是不行的</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># from py_test.py import * 错误写法不要加上.py</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">py_test</span> <span class="kn">import</span> <span class="o">*</span>     
+</span></span><span class="line"><span class="cl"><span class="n">T5_name</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">_private_func</span><span class="p">()</span><span class="c1">#在这里虽然可以，但是在交互界面可不行</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="mi">5</span>
+</span></span></code></pre></div><p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 241; 
+			flex-basis: 578px"
+	>
+	<a href="/p/py_%E5%8D%A0%E4%BD%8D%E7%AC%A6%E8%BF%90%E7%94%A8/picture/py_%E5%8D%A0%E4%BD%8D%E7%AC%A6%E8%BF%90%E7%94%A8-1.png" data-size="820x340">
+		<img src="/p/py_%E5%8D%A0%E4%BD%8D%E7%AC%A6%E8%BF%90%E7%94%A8/picture/py_%E5%8D%A0%E4%BD%8D%E7%AC%A6%E8%BF%90%E7%94%A8-1.png"
+			width="820"
+			height="340"
+			srcset="/p/py_%E5%8D%A0%E4%BD%8D%E7%AC%A6%E8%BF%90%E7%94%A8/picture/py_%E5%8D%A0%E4%BD%8D%E7%AC%A6%E8%BF%90%E7%94%A8-1_huda8366531bae242b8bfdbda242bfa6b5_17525_480x0_resize_box_3.png 480w, /p/py_%E5%8D%A0%E4%BD%8D%E7%AC%A6%E8%BF%90%E7%94%A8/picture/py_%E5%8D%A0%E4%BD%8D%E7%AC%A6%E8%BF%90%E7%94%A8-1_huda8366531bae242b8bfdbda242bfa6b5_17525_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#这样导入两种都可以显示。所以还是尽量用这个8</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#但是from *的写法可以不用写文件名.func() 直接func就好了   看情况用哪个吧</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">py_test</span>
+</span></span><span class="line"><span class="cl"><span class="n">py_test</span><span class="o">.</span><span class="n">T5_name</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">py_test</span><span class="o">.</span><span class="n">_private_func</span><span class="p">()</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="mi">5</span>
+</span></span></code></pre></div><p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 408; 
+			flex-basis: 981px"
+	>
+	<a href="/p/py_%E5%8D%A0%E4%BD%8D%E7%AC%A6%E8%BF%90%E7%94%A8/picture/py_%E5%8D%A0%E4%BD%8D%E7%AC%A6%E8%BF%90%E7%94%A8-4.png" data-size="826x202">
+		<img src="/p/py_%E5%8D%A0%E4%BD%8D%E7%AC%A6%E8%BF%90%E7%94%A8/picture/py_%E5%8D%A0%E4%BD%8D%E7%AC%A6%E8%BF%90%E7%94%A8-4.png"
+			width="826"
+			height="202"
+			srcset="/p/py_%E5%8D%A0%E4%BD%8D%E7%AC%A6%E8%BF%90%E7%94%A8/picture/py_%E5%8D%A0%E4%BD%8D%E7%AC%A6%E8%BF%90%E7%94%A8-4_hud9aa371c8277e18f9c6aa0f152fbb601_8074_480x0_resize_box_3.png 480w, /p/py_%E5%8D%A0%E4%BD%8D%E7%AC%A6%E8%BF%90%E7%94%A8/picture/py_%E5%8D%A0%E4%BD%8D%E7%AC%A6%E8%BF%90%E7%94%A8-4_hud9aa371c8277e18f9c6aa0f152fbb601_8074_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="不能使用关键词来命名变量名那可以在关键词后加上个_来命名">不能使用关键词来命名变量名，那可以在关键词后加上个_来命名</h2>
+<p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="err">= 1</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">File</span> <span class="s2">&#34;&lt;ipython-input-37-0251f39d4826&gt;&#34;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="k">class</span> <span class="err">= 1</span>
+</span></span><span class="line"><span class="cl">          <span class="o">^</span>
+</span></span><span class="line"><span class="cl"><span class="ne">SyntaxError</span><span class="p">:</span> <span class="n">invalid</span> <span class="n">syntax</span>
+</span></span></code></pre></div><p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">class_</span> <span class="o">=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">class_</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="mi">1</span>
+</span></span></code></pre></div><h2 id="double-pre-underscore">Double Pre Underscore</h2>
+<h4 id="__name">__name</h4>
+<p>Double Pre Underscores are used for the name mangling.</p>
+<p>Double Pre Underscores tells the Python interpreter to rewrite the attribute name of subclasses to avoid naming conflicts.</p>
+<p>Name Mangling:- interpreter of the Python alters the variable name in a way that it is challenging to clash when the class is inherited.
+code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Sample</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">_b</span> <span class="o">=</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">__c</span> <span class="o">=</span> <span class="mi">3</span><span class="c1">#注意这个__双下划线与前面的单个下划线_b意义不一样</span>
+</span></span><span class="line"><span class="cl"><span class="n">obj1</span> <span class="o">=</span> <span class="n">Sample</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nb">dir</span><span class="p">(</span><span class="n">obj1</span><span class="p">)</span><span class="c1">#返回了Sample所有的属性，可以看到前面写的a，_b是一模一样的名字</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#但是__c前面加上了_和_Sample；注意下两个下划线__在这里的作用时Name Mangling名字重整，加改变变量名，前面加上_类名</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="p">[</span><span class="s1">&#39;_Sample__c&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="s1">&#39;__class__&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="s1">&#39;__delattr__&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="s1">&#39;__dict__&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="s1">&#39;__dir__&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="s1">&#39;__doc__&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="s1">&#39;__eq__&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="s1">&#39;__format__&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="s1">&#39;__ge__&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="s1">&#39;__getattribute__&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="s1">&#39;__gt__&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="s1">&#39;__hash__&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="s1">&#39;__init__&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="s1">&#39;__init_subclass__&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="s1">&#39;__le__&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="s1">&#39;__lt__&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="s1">&#39;__module__&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="s1">&#39;__ne__&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="s1">&#39;__new__&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="s1">&#39;__reduce__&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="s1">&#39;__reduce_ex__&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="s1">&#39;__repr__&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="s1">&#39;__setattr__&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="s1">&#39;__sizeof__&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="s1">&#39;__str__&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="s1">&#39;__subclasshook__&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="s1">&#39;__weakref__&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="s1">&#39;_b&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="s1">&#39;a&#39;</span><span class="p">]</span>
+</span></span></code></pre></div><p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#创建一个继承Sample的子类SecondClass</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">SecondClass</span><span class="p">(</span><span class="n">Sample</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">=</span> <span class="s2">&#34;overridden&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">_b</span> <span class="o">=</span> <span class="s2">&#34;overridden&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">__c</span> <span class="o">=</span> <span class="s2">&#34;overridden&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">obj2</span> <span class="o">=</span> <span class="n">SecondClass</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">obj2</span><span class="o">.</span><span class="n">a</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">obj2</span><span class="o">.</span><span class="n">_b</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">obj2</span><span class="o">.</span><span class="n">__c</span><span class="p">)</span><span class="c1">#注意这里发生了名字重整</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">overridden</span>
+</span></span><span class="line"><span class="cl"><span class="n">overridden</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">---------------------------------------------------------------------------</span>
+</span></span><span class="line"><span class="cl"><span class="ne">AttributeError</span>                            <span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">44</span><span class="o">-</span><span class="n">a9d737266262</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">     <span class="mi">10</span> <span class="nb">print</span><span class="p">(</span><span class="n">obj2</span><span class="o">.</span><span class="n">a</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">     <span class="mi">11</span> <span class="nb">print</span><span class="p">(</span><span class="n">obj2</span><span class="o">.</span><span class="n">_b</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">---&gt;</span> <span class="mi">12</span> <span class="nb">print</span><span class="p">(</span><span class="n">obj2</span><span class="o">.</span><span class="n">__c</span><span class="p">)</span><span class="c1">#注意这里发生了名字重整</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="ne">AttributeError</span><span class="p">:</span> <span class="s1">&#39;SecondClass&#39;</span> <span class="nb">object</span> <span class="n">has</span> <span class="n">no</span> <span class="n">attribute</span> <span class="s1">&#39;__c&#39;</span>
+</span></span></code></pre></div><p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#创建一个继承Sample的子类SecondClass</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">SecondClass</span><span class="p">(</span><span class="n">Sample</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">=</span> <span class="s2">&#34;overridden&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">_b</span> <span class="o">=</span> <span class="s2">&#34;overridden&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">__c</span> <span class="o">=</span> <span class="s2">&#34;overridden&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">obj2</span> <span class="o">=</span> <span class="n">SecondClass</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">obj2</span><span class="o">.</span><span class="n">a</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">obj2</span><span class="o">.</span><span class="n">_b</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">obj2</span><span class="o">.</span><span class="n">_SecondClass__c</span><span class="p">)</span><span class="c1">#所以这样写才对,不用加上点.</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#同理前面的obj1也是这样取值</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">obj1</span><span class="o">.</span><span class="n">a</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">obj1</span><span class="o">.</span><span class="n">_b</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">obj1</span><span class="o">.</span><span class="n">_Sample__c</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">overridden</span>
+</span></span><span class="line"><span class="cl"><span class="n">overridden</span>
+</span></span><span class="line"><span class="cl"><span class="n">overridden</span>
+</span></span><span class="line"><span class="cl"><span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="mi">2</span>
+</span></span><span class="line"><span class="cl"><span class="mi">3</span>
+</span></span></code></pre></div><p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#另如果方法改写（即方法是__开头命名）的话，可以在类中下一个办法去return这个值</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">SimpleClass</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">__datacamp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="s2">&#34;datacamp&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">call_datacamp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__datacamp</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">obj</span> <span class="o">=</span> <span class="n">SimpleClass</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">call_datacamp</span><span class="p">())</span> 
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="nb">dir</span><span class="p">(</span><span class="n">obj</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">__datacamp</span><span class="p">())</span>    <span class="c1">## 这里会报错，因为__方法也会发生改写   __datacamp  变成 _SimpleClass__datacamp</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># print(obj._SimpleClass__datacamp())#对于方法这样写是不行的  所以只能写个新方法去return这个值，在同一个类中时不考虑命名重整的发生先</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">datacamp</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="s1">&#39;_SimpleClass__datacamp&#39;</span><span class="p">,</span> <span class="s1">&#39;__class__&#39;</span><span class="p">,</span> <span class="s1">&#39;__delattr__&#39;</span><span class="p">,</span> <span class="s1">&#39;__dict__&#39;</span><span class="p">,</span> <span class="s1">&#39;__dir__&#39;</span><span class="p">,</span> <span class="s1">&#39;__doc__&#39;</span><span class="p">,</span> <span class="s1">&#39;__eq__&#39;</span><span class="p">,</span> <span class="s1">&#39;__format__&#39;</span><span class="p">,</span> <span class="s1">&#39;__ge__&#39;</span><span class="p">,</span> <span class="s1">&#39;__getattribute__&#39;</span><span class="p">,</span> <span class="s1">&#39;__gt__&#39;</span><span class="p">,</span> <span class="s1">&#39;__hash__&#39;</span><span class="p">,</span> <span class="s1">&#39;__init__&#39;</span><span class="p">,</span> <span class="s1">&#39;__init_subclass__&#39;</span><span class="p">,</span> <span class="s1">&#39;__le__&#39;</span><span class="p">,</span> <span class="s1">&#39;__lt__&#39;</span><span class="p">,</span> <span class="s1">&#39;__module__&#39;</span><span class="p">,</span> <span class="s1">&#39;__ne__&#39;</span><span class="p">,</span> <span class="s1">&#39;__new__&#39;</span><span class="p">,</span> <span class="s1">&#39;__reduce__&#39;</span><span class="p">,</span> <span class="s1">&#39;__reduce_ex__&#39;</span><span class="p">,</span> <span class="s1">&#39;__repr__&#39;</span><span class="p">,</span> <span class="s1">&#39;__setattr__&#39;</span><span class="p">,</span> <span class="s1">&#39;__sizeof__&#39;</span><span class="p">,</span> <span class="s1">&#39;__str__&#39;</span><span class="p">,</span> <span class="s1">&#39;__subclasshook__&#39;</span><span class="p">,</span> <span class="s1">&#39;__weakref__&#39;</span><span class="p">,</span> <span class="s1">&#39;call_datacamp&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">---------------------------------------------------------------------------</span>
+</span></span><span class="line"><span class="cl"><span class="ne">AttributeError</span>                            <span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">62</span><span class="o">-</span><span class="mi">4</span><span class="n">df7a3343359</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">     <span class="mi">12</span> <span class="nb">print</span><span class="p">(</span><span class="nb">dir</span><span class="p">(</span><span class="n">obj</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">     <span class="mi">13</span> <span class="c1"># print(obj._SimpleClass__datacamp())#对于方法这样写是不行的</span>
+</span></span><span class="line"><span class="cl"><span class="o">---&gt;</span> <span class="mi">14</span> <span class="nb">print</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">__datacamp</span><span class="p">())</span>    <span class="c1">## 这里会报错，因为__方法也会发生改写   __datacamp  变成 _SimpleClass__datacamp</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="ne">AttributeError</span><span class="p">:</span> <span class="s1">&#39;SimpleClass&#39;</span> <span class="nb">object</span> <span class="n">has</span> <span class="n">no</span> <span class="n">attribute</span> <span class="s1">&#39;__datacamp&#39;</span>
+</span></span></code></pre></div><p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#接下来体会下命令重整的另一个小点</span>
+</span></span><span class="line"><span class="cl"><span class="n">_SimpleClass__name</span> <span class="o">=</span> <span class="s2">&#34;hahahah&#34;</span> <span class="c1">#这个相当于__name重整后的赋值了  即在外部赋予重整名字后的变量值也会影响到那个类中的值</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">SimpleClass</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">return_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">__name</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">obj</span> <span class="o">=</span> <span class="n">SimpleClass</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">return_name</span><span class="p">())</span> <span class="c1">##这样可以直接输出</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">hahahah</span>
+</span></span></code></pre></div><p>前面这两种总的来说就是：当类中的方法是以__(两个下划线)开头命名时，取值需要在写个方法去return这个方法，才能取出__方法的值</p>
+<p>如果是return中出现了__其他（没有定义的变量或者方法），那么可以再类的外面，通过重整命名来直接赋值;这里和前面的self.__c是差不多的理解</p>
+<h2 id="double-pre-and-post-underscores">Double Pre And Post Underscores</h2>
+<p><strong>name</strong></p>
+<p>In Python, you will find different names which start and end with the double underscore. They are called as magic methods or dunder methods.</p>
+<p>魔术方法，这个要区别开仅有__开头的东西即前面讲的</p>
+<p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Sample</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">__num__</span> <span class="o">=</span> <span class="mi">7</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">obj</span> <span class="o">=</span> <span class="n">Sample</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="nb">dir</span><span class="p">(</span><span class="n">obj</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">obj</span><span class="o">.</span><span class="n">__num__</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="p">[</span><span class="s1">&#39;__class__&#39;</span><span class="p">,</span> <span class="s1">&#39;__delattr__&#39;</span><span class="p">,</span> <span class="s1">&#39;__dict__&#39;</span><span class="p">,</span> <span class="s1">&#39;__dir__&#39;</span><span class="p">,</span> <span class="s1">&#39;__doc__&#39;</span><span class="p">,</span> <span class="s1">&#39;__eq__&#39;</span><span class="p">,</span> <span class="s1">&#39;__format__&#39;</span><span class="p">,</span> <span class="s1">&#39;__ge__&#39;</span><span class="p">,</span> <span class="s1">&#39;__getattribute__&#39;</span><span class="p">,</span> <span class="s1">&#39;__gt__&#39;</span><span class="p">,</span> <span class="s1">&#39;__hash__&#39;</span><span class="p">,</span> <span class="s1">&#39;__init__&#39;</span><span class="p">,</span> <span class="s1">&#39;__init_subclass__&#39;</span><span class="p">,</span> <span class="s1">&#39;__le__&#39;</span><span class="p">,</span> <span class="s1">&#39;__lt__&#39;</span><span class="p">,</span> <span class="s1">&#39;__module__&#39;</span><span class="p">,</span> <span class="s1">&#39;__ne__&#39;</span><span class="p">,</span> <span class="s1">&#39;__new__&#39;</span><span class="p">,</span> <span class="s1">&#39;__num__&#39;</span><span class="p">,</span> <span class="s1">&#39;__reduce__&#39;</span><span class="p">,</span> <span class="s1">&#39;__reduce_ex__&#39;</span><span class="p">,</span> <span class="s1">&#39;__repr__&#39;</span><span class="p">,</span> <span class="s1">&#39;__setattr__&#39;</span><span class="p">,</span> <span class="s1">&#39;__sizeof__&#39;</span><span class="p">,</span> <span class="s1">&#39;__str__&#39;</span><span class="p">,</span> <span class="s1">&#39;__subclasshook__&#39;</span><span class="p">,</span> <span class="s1">&#39;__weakref__&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Out</span><span class="p">[</span><span class="mi">66</span><span class="p">]:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="mi">7</span>
+</span></span></code></pre></div>
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/python/">python</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2022 - 
+        
+        2023 叶宇浩随记博客
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.5.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">Table of contents</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#存储作用">存储作用</a></li>
+    <li><a href="#占位作用-ignoring-values">占位作用 Ignoring Values</a></li>
+    <li><a href="#循环中的使用">循环中的使用</a></li>
+    <li><a href="#进制中的作用separating-digits-of-numbers">进制中的作用Separating Digits Of Numbers</a></li>
+    <li><a href="#在函数命名中的作用他这里有个import的错误值得注意">在函数命名中的作用，他这里有个import的错误值得注意</a></li>
+    <li><a href="#现在有一份文件py_testpy">现在有一份文件py_test.py</a></li>
+    <li><a href="#不能使用关键词来命名变量名那可以在关键词后加上个_来命名">不能使用关键词来命名变量名，那可以在关键词后加上个_来命名</a></li>
+    <li><a href="#double-pre-underscore">Double Pre Underscore</a>
+      <ol>
+        <li>
+          <ol>
+            <li><a href="#__name">__name</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#double-pre-and-post-underscores">Double Pre And Post Underscores</a></li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

@@ -1,0 +1,1321 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='python的基础概念_2'><title>python基础_2</title>
+
+<link rel='canonical' href='https://example.com/p/python%E5%9F%BA%E7%A1%80_2/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='python基础_2'>
+<meta property='og:description' content='python的基础概念_2'>
+<meta property='og:url' content='https://example.com/p/python%E5%9F%BA%E7%A1%80_2/'>
+<meta property='og:site_name' content='叶宇浩随记博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='tutorials' /><meta property='article:tag' content='python' /><meta property='article:published_time' content='2021-03-04T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-03-04T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="python基础_2">
+<meta name="twitter:description" content="python的基础概念_2">
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>Back</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/code/" style="background-color: #fa1; color: #fff;">
+                编程
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/python%E5%9F%BA%E7%A1%80_2/">python基础_2</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        python的基础概念_2
+    </h3>
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Mar 04, 2021</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    11 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <blockquote>
+<p>这是看完pythond的书后，再过一遍基础知识的post，原文地址：https://github.com/fengdu78/Data-Science-Notes/tree/master/1.python-basic</p>
+</blockquote>
+<h2 id="编码变换">编码变换</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># utf-8与gbk互相转化需要通过Unicode作为中介</span>
+</span></span><span class="line"><span class="cl"><span class="n">s</span><span class="o">=</span><span class="s2">&#34;我爱北京天安门&#34;</span>  <span class="c1"># 默认编码为Unicode</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&#34;gbk&#34;</span><span class="p">))</span> <span class="c1"># Unicode可直接转化为gbk</span>
+</span></span></code></pre></div><pre tabindex="0"><code>b&#39;\xce\xd2\xb0\xae\xb1\xb1\xbe\xa9\xcc\xec\xb0\xb2\xc3\xc5&#39;
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&#34;utf-8&#34;</span><span class="p">))</span> <span class="c1"># Unicode可直接转化为utf-8</span>
+</span></span></code></pre></div><pre tabindex="0"><code>b&#39;\xe6\x88\x91\xe7\x88\xb1\xe5\x8c\x97\xe4\xba\xac\xe5\xa4\xa9\xe5\xae\x89\xe9\x97\xa8&#39;
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&#34;utf-8&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&#34;utf-8&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&#34;gb2312&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 此时s.encode(&#34;utf-8&#34;)即转为utf-8了，然后转为gb2312，则需要先告诉Unicode你原先的编码是什么，即s.encode(&#34;utf-8&#34;).decode(&#34;utf-8&#34;),再对其进行编码为gb2312，即最终为s.encode(&#34;utf-8&#34;).decode(&#34;utf-8&#34;).encode(&#34;gb2312&#34;)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>b&#39;\xce\xd2\xb0\xae\xb1\xb1\xbe\xa9\xcc\xec\xb0\xb2\xc3\xc5&#39;
+</code></pre><h2 id="文件">文件</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">f</span><span class="o">=</span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;ly.txt&#39;</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="c1"># 文件句柄 &#39;w&#39;为创建文件，之前的数据就没了</span>
+</span></span><span class="line"><span class="cl"><span class="n">data</span><span class="o">=</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span></span></code></pre></div><pre tabindex="0"><code>��������������������我爱中华
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">f</span><span class="o">=</span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="c1"># 文件句柄 &#39;a&#39;为追加文件 append</span>
+</span></span><span class="line"><span class="cl"><span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&#34;</span><span class="se">\n</span><span class="s2">阿斯达所，</span><span class="se">\n</span><span class="s2">天安门上太阳升&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;ly.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>  <span class="c1"># 文件句柄</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>  <span class="c1"># strip()去掉空格和回车</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 到第十行不打印</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">()):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">index</span> <span class="o">==</span> <span class="mi">9</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;----我是分隔符-----&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">continue</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 到第十行不打印</span>
+</span></span><span class="line"><span class="cl"><span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">count</span> <span class="o">==</span> <span class="mi">9</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;----我是分隔符-----&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">        <span class="k">continue</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">    <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;ly.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>  <span class="c1"># 文件句柄</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">tell</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">tell</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="n">f</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">encoding</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">buffer</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">fileno</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">flush</span><span class="p">())</span>  <span class="c1"># 刷新缓冲区</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 进度条</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">time</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">50</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;#&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;ly.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>  <span class="c1"># 文件句柄</span>
+</span></span><span class="line"><span class="cl"><span class="n">f</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">f</span><span class="o">.</span><span class="n">truncate</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>  <span class="c1"># 指定10到20个字符，10个字符前面留着，后面20字符清除</span>
+</span></span><span class="line"><span class="cl"><span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;ly.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;r+&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>  <span class="c1"># 文件句柄</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&#34;我爱中华&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 实现简单的shell sed替换功能</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&#34;ly.txt&#34;</span><span class="p">,</span> <span class="s2">&#34;r&#34;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&#34;utf-8&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">f_new</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&#34;ly2.txt&#34;</span><span class="p">,</span> <span class="s2">&#34;w&#34;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&#34;utf-8&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="s2">&#34;肆意的快乐&#34;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&#34;肆意的快乐&#34;</span><span class="p">,</span> <span class="s2">&#34;肆意的happy&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">f_new</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">f_new</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">sys</span>
+</span></span><span class="line"><span class="cl"><span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&#34;ly.txt&#34;</span><span class="p">,</span> <span class="s2">&#34;r&#34;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&#34;utf-8&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">f_new</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&#34;ly2.txt&#34;</span><span class="p">,</span> <span class="s2">&#34;w&#34;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&#34;utf-8&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">find_str</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">replace_str</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">find_str</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">find_str</span><span class="p">,</span> <span class="n">replace_str</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">f_new</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">f_new</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># with语句---为了避免打开文件后忘记关闭，可以通过管理上下文</span>
+</span></span><span class="line"><span class="cl"><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;ly.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># python2.7后，with又支持同时对多个文件的上下文进行管理，即:</span>
+</span></span><span class="line"><span class="cl"><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;ly.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f1</span><span class="p">,</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;ly2.txt&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                                                       <span class="s1">&#39;r&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                                                       <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">pass</span>
+</span></span></code></pre></div><pre tabindex="0"><code>��������������������我爱中华
+
+
+
+
+0
+�����
+5
+�����
+utf-8
+&lt;_io.BufferedReader name=&#39;ly.txt&#39;&gt;
+5
+None
+##################################################��������������������
+
+
+��������������������我爱中华
+</code></pre><h2 id="全局变量">全局变量</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;Alex&#34;</span><span class="p">,</span> <span class="s2">&#34;Jack&#34;</span><span class="p">,</span> <span class="s2">&#34;Rain&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 除了整数和字符串在函数内不能改，列表，字典这些可以改</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">change_name</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="n">names</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&#34;金角大王&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;inside func&#34;</span><span class="p">,</span> <span class="n">names</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">change_name</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">names</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 当全局变量与局部变量同名时，在定义局部变量的子程序内，局部变量起作用，在其它地方全局变量起作用。</span>
+</span></span></code></pre></div><pre tabindex="0"><code>inside func [&#39;金角大王&#39;, &#39;Jack&#39;, &#39;Rain&#39;]
+[&#39;金角大王&#39;, &#39;Jack&#39;, &#39;Rain&#39;]
+</code></pre><h2 id="list操作">list操作</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">__author__</span><span class="o">=</span><span class="s2">&#34;Alex Li&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">names</span><span class="o">=</span><span class="s2">&#34;zhang Gu Xiang Xu&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s2">&#34;zhang&#34;</span><span class="p">,</span><span class="s2">&#34;Gu&#34;</span><span class="p">,</span><span class="s2">&#34;Xiang&#34;</span><span class="p">,</span><span class="s2">&#34;Xu&#34;</span><span class="p">]</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 1.切片</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">names</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">names</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">names</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+</span></span></code></pre></div><pre tabindex="0"><code>zhang Gu Xiang
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">names</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">])</span>  <span class="c1"># 顾头不顾尾，切片</span>
+</span></span></code></pre></div><pre tabindex="0"><code>[&#39;Gu&#39;, &#39;Xiang&#39;]
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">names</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="c1"># 在不知道多长情况下，取最后一个位置</span>
+</span></span></code></pre></div><pre tabindex="0"><code>Xu
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">names</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">3</span><span class="p">])</span> <span class="c1"># 切片是从左往右，此时不输出</span>
+</span></span></code></pre></div><pre tabindex="0"><code>[]
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">names</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="c1"># 顾头顾尾，取最后三个</span>
+</span></span></code></pre></div><pre tabindex="0"><code>[&#39;Gu&#39;, &#39;Xiang&#39;]
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">names</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">:])</span>  <span class="c1"># 取最后两个</span>
+</span></span></code></pre></div><pre tabindex="0"><code>[&#39;Xiang&#39;, &#39;Xu&#39;]
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">names</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">])</span> <span class="c1"># 切片 等价于 print(names[:3])</span>
+</span></span></code></pre></div><pre tabindex="0"><code>[&#39;zhang&#39;, &#39;Gu&#39;, &#39;Xiang&#39;]
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 2.追加</span>
+</span></span><span class="line"><span class="cl"><span class="n">names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&#34;Lei&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">names</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>[&#39;zhang&#39;, &#39;Gu&#39;, &#39;Xiang&#39;, &#39;Xu&#39;, &#39;Lei&#39;]
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 3.指定位置插入</span>
+</span></span><span class="line"><span class="cl"><span class="n">names</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="s2">&#34;Chen&#34;</span><span class="p">)</span> <span class="c1"># Gu前面插入</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">names</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>[&#39;zhang&#39;, &#39;Chen&#39;, &#39;Gu&#39;, &#39;Xiang&#39;, &#39;Xu&#39;, &#39;Lei&#39;]
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 4.修改</span>
+</span></span><span class="line"><span class="cl"><span class="n">names</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">=</span><span class="s2">&#34;Xie&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">names</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>[&#39;zhang&#39;, &#39;Chen&#39;, &#39;Xie&#39;, &#39;Xiang&#39;, &#39;Xu&#39;, &#39;Lei&#39;]
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 5.删除</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 第一种删除方法</span>
+</span></span><span class="line"><span class="cl"><span class="n">names</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&#34;Chen&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">names</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>[&#39;zhang&#39;, &#39;Xie&#39;, &#39;Xiang&#39;, &#39;Xu&#39;, &#39;Lei&#39;]
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 第二种删除方法</span>
+</span></span><span class="line"><span class="cl"><span class="k">del</span> <span class="n">names</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">names</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>[&#39;zhang&#39;, &#39;Xiang&#39;, &#39;Xu&#39;, &#39;Lei&#39;]
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 第三种删除方法</span>
+</span></span><span class="line"><span class="cl"><span class="n">names</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span> <span class="c1"># 默认删除最后一个</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">names</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>[&#39;zhang&#39;, &#39;Xiang&#39;, &#39;Xu&#39;]
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">names</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="c1">#删除第二个元素</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">names</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>[&#39;zhang&#39;, &#39;Xu&#39;]
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">names</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s2">&#34;Xu&#34;</span><span class="p">))</span> <span class="c1"># 1</span>
+</span></span></code></pre></div><pre tabindex="0"><code>1
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">names</span><span class="p">[</span><span class="n">names</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s2">&#34;Xu&#34;</span><span class="p">)])</span> <span class="c1">#打印出找出的元素值3</span>
+</span></span></code></pre></div><pre tabindex="0"><code>Xu
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 6.统计</span>
+</span></span><span class="line"><span class="cl"><span class="n">names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&#34;zhang&#34;</span><span class="p">)</span> <span class="c1">#再加一个用于学习统计&#34;zhang&#34;的个数</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">names</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s2">&#34;zhang&#34;</span><span class="p">))</span>
+</span></span></code></pre></div><pre tabindex="0"><code>2
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 7.排序</span>
+</span></span><span class="line"><span class="cl"><span class="n">names</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span> <span class="c1">#按照ASCII码排序</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">names</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>[&#39;Xu&#39;, &#39;zhang&#39;, &#39;zhang&#39;]
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">names</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span> <span class="c1"># 逆序</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">names</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>[&#39;zhang&#39;, &#39;zhang&#39;, &#39;Xu&#39;]
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 8.合并</span>
+</span></span><span class="line"><span class="cl"><span class="n">names2</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">names</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">names2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">names</span><span class="p">,</span><span class="n">names2</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>[&#39;zhang&#39;, &#39;zhang&#39;, &#39;Xu&#39;, 1, 2, 3, 4] [1, 2, 3, 4]
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 9.删掉names2</span>
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;&#39;&#39;del names2&#39;&#39;&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">names2</span><span class="p">)</span> <span class="c1"># NameError: name &#39;names2&#39; is not defined,表示已删除</span>
+</span></span></code></pre></div><pre tabindex="0"><code>[1, 2, 3, 4]
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 10.浅copy</span>
+</span></span><span class="line"><span class="cl"><span class="n">names2</span><span class="o">=</span><span class="n">names</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">names</span><span class="p">,</span><span class="n">names2</span><span class="p">)</span> <span class="c1"># 此时names2与names指向相同</span>
+</span></span></code></pre></div><pre tabindex="0"><code>[&#39;zhang&#39;, &#39;zhang&#39;, &#39;Xu&#39;, 1, 2, 3, 4] [&#39;zhang&#39;, &#39;zhang&#39;, &#39;Xu&#39;, 1, 2, 3, 4]
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">names</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">=</span><span class="s2">&#34;大张&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">names</span><span class="p">,</span><span class="n">names2</span><span class="p">)</span> <span class="c1"># 此时names改变，names2不变</span>
+</span></span></code></pre></div><pre tabindex="0"><code>[&#39;zhang&#39;, &#39;zhang&#39;, &#39;大张&#39;, 1, 2, 3, 4] [&#39;zhang&#39;, &#39;zhang&#39;, &#39;Xu&#39;, 1, 2, 3, 4]
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 11.浅copy在列表嵌套应用</span>
+</span></span><span class="line"><span class="cl"><span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,[</span><span class="s2">&#34;zhang&#34;</span><span class="p">,</span><span class="s2">&#34;Gu&#34;</span><span class="p">],</span><span class="mi">5</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">names</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>[1, 2, 3, 4, [&#39;zhang&#39;, &#39;Gu&#39;], 5]
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">names2</span><span class="o">=</span><span class="n">names</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">names</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">=</span><span class="s2">&#34;斯&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">names</span><span class="p">[</span><span class="mi">4</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="s2">&#34;张改&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">names</span><span class="p">,</span><span class="n">names2</span><span class="p">)</span> <span class="c1"># copy为浅copy,第一层copy不变，后面的嵌套全部都变,修改names2与names都一样</span>
+</span></span></code></pre></div><pre tabindex="0"><code>[1, 2, 3, &#39;斯&#39;, [&#39;张改&#39;, &#39;Gu&#39;], 5] [1, 2, 3, 4, [&#39;张改&#39;, &#39;Gu&#39;], 5]
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 12.完整克隆</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">copy</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 浅copy与深copy</span>
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;&#39;&#39;浅copy与深copy区别就是浅copy只copy一层，而深copy就是完全克隆&#39;&#39;&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="p">[</span><span class="s2">&#34;zhang&#34;</span><span class="p">,</span> <span class="s2">&#34;Gu&#34;</span><span class="p">],</span> <span class="mi">5</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># names2=copy.copy(names) # 这个跟列表的浅copy一样</span>
+</span></span><span class="line"><span class="cl"><span class="n">names2</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">names</span><span class="p">)</span>  <span class="c1">#深copy</span>
+</span></span><span class="line"><span class="cl"><span class="n">names</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&#34;斯&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">names</span><span class="p">[</span><span class="mi">4</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&#34;张改&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="n">names2</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>[1, 2, 3, &#39;斯&#39;, [&#39;张改&#39;, &#39;Gu&#39;], 5] [1, 2, 3, 4, [&#39;zhang&#39;, &#39;Gu&#39;], 5]
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 13.列表循环</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">names</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span><span class="mi">2</span><span class="p">])</span> <span class="c1"># 步长为2进行切片</span>
+</span></span></code></pre></div><pre tabindex="0"><code>1
+2
+3
+斯
+[&#39;张改&#39;, &#39;Gu&#39;]
+5
+[1, 3, [&#39;张改&#39;, &#39;Gu&#39;]]
+</code></pre><h2 id="tuple操作">Tuple操作</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">names</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;alex&#39;</span><span class="p">,</span><span class="s1">&#39;jack&#39;</span><span class="p">,</span><span class="s1">&#39;alex&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">names</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s1">&#39;alex&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">names</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s1">&#39;jack&#39;</span><span class="p">))</span>
+</span></span></code></pre></div><pre tabindex="0"><code>2
+1
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 购物篮程序</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">product_list</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="s1">&#39;Iphone&#39;</span><span class="p">,</span> <span class="mi">5800</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="s1">&#39;Mac Pro&#39;</span><span class="p">,</span> <span class="mi">9800</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="s1">&#39;Bike&#39;</span><span class="p">,</span> <span class="mi">5800</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="s1">&#39;Watch&#39;</span><span class="p">,</span> <span class="mi">10600</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="s1">&#39;Coffee&#39;</span><span class="p">,</span> <span class="mi">31</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="s1">&#39;Alex Python&#39;</span><span class="p">,</span> <span class="mi">120</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl"><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">shopping_list</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl"><span class="n">salary</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&#34;Input your salary:&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="n">salary</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="n">salary</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">salary</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;&#39;&#39;for item in product_list:
+</span></span></span><span class="line"><span class="cl"><span class="s1">            print(product_list.index(item),item)
+</span></span></span><span class="line"><span class="cl"><span class="s1">        &#39;&#39;&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">product_list</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">print</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">user_choice</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&#34;选择要买嘛？&gt;&gt;:&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">user_choice</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">            <span class="n">user_choice</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">user_choice</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="n">user_choice</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">product_list</span><span class="p">)</span> <span class="ow">and</span> <span class="n">user_choice</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">p_item</span> <span class="o">=</span> <span class="n">product_list</span><span class="p">[</span><span class="n">user_choice</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="n">p_item</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">salary</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">shopping_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p_item</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">salary</span> <span class="o">-=</span> <span class="n">p_item</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">                    <span class="nb">print</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                        <span class="s2">&#34;Added </span><span class="si">%s</span><span class="s2"> into shopping cart, your current balance is </span><span class="se">\033</span><span class="s2">[31;1m</span><span class="si">%s</span><span class="se">\033</span><span class="s2">[0m&#34;</span>
+</span></span><span class="line"><span class="cl">                        <span class="o">%</span> <span class="p">(</span><span class="n">p_item</span><span class="p">,</span> <span class="n">salary</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">                <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;</span><span class="se">\033</span><span class="s2">[41;1m你的余额只剩[</span><span class="si">%s</span><span class="s2">]啦，还买个毛线</span><span class="se">\033</span><span class="s2">[0m&#34;</span> <span class="o">%</span> <span class="n">salary</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;product code[</span><span class="si">%s</span><span class="s2">] is not exist!&#34;</span> <span class="o">%</span> <span class="n">user_choice</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">elif</span> <span class="n">user_choice</span> <span class="o">==</span> <span class="s1">&#39;q&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;-----------shopping list----------------&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">shopping_list</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="nb">print</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;Your current balance:&#34;</span><span class="p">,</span> <span class="n">salary</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">exit</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;invalid option&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>Input your salary:8000
+0 (&#39;Iphone&#39;, 5800)
+1 (&#39;Mac Pro&#39;, 9800)
+2 (&#39;Bike&#39;, 5800)
+3 (&#39;Watch&#39;, 10600)
+4 (&#39;Coffee&#39;, 31)
+5 (&#39;Alex Python&#39;, 120)
+选择要买嘛？&gt;&gt;:
+invalid option
+0 (&#39;Iphone&#39;, 5800)
+1 (&#39;Mac Pro&#39;, 9800)
+2 (&#39;Bike&#39;, 5800)
+3 (&#39;Watch&#39;, 10600)
+4 (&#39;Coffee&#39;, 31)
+5 (&#39;Alex Python&#39;, 120)
+选择要买嘛？&gt;&gt;:1
+[41;1m你的余额只剩[8000]啦，还买个毛线[0m
+0 (&#39;Iphone&#39;, 5800)
+1 (&#39;Mac Pro&#39;, 9800)
+2 (&#39;Bike&#39;, 5800)
+3 (&#39;Watch&#39;, 10600)
+4 (&#39;Coffee&#39;, 31)
+5 (&#39;Alex Python&#39;, 120)
+选择要买嘛？&gt;&gt;:0
+Added (&#39;Iphone&#39;, 5800) into shopping cart, your current balance is [31;1m2200[0m
+0 (&#39;Iphone&#39;, 5800)
+1 (&#39;Mac Pro&#39;, 9800)
+2 (&#39;Bike&#39;, 5800)
+3 (&#39;Watch&#39;, 10600)
+4 (&#39;Coffee&#39;, 31)
+5 (&#39;Alex Python&#39;, 120)
+选择要买嘛？&gt;&gt;:6
+product code[6] is not exist!
+0 (&#39;Iphone&#39;, 5800)
+1 (&#39;Mac Pro&#39;, 9800)
+2 (&#39;Bike&#39;, 5800)
+3 (&#39;Watch&#39;, 10600)
+4 (&#39;Coffee&#39;, 31)
+5 (&#39;Alex Python&#39;, 120)
+选择要买嘛？&gt;&gt;:q
+-----------shopping list----------------
+(&#39;Iphone&#39;, 5800)
+Your current balance: 2200
+0 (&#39;Iphone&#39;, 5800)
+1 (&#39;Mac Pro&#39;, 9800)
+2 (&#39;Bike&#39;, 5800)
+3 (&#39;Watch&#39;, 10600)
+4 (&#39;Coffee&#39;, 31)
+5 (&#39;Alex Python&#39;, 120)
+选择要买嘛？&gt;&gt;:p
+invalid option
+0 (&#39;Iphone&#39;, 5800)
+1 (&#39;Mac Pro&#39;, 9800)
+2 (&#39;Bike&#39;, 5800)
+3 (&#39;Watch&#39;, 10600)
+4 (&#39;Coffee&#39;, 31)
+5 (&#39;Alex Python&#39;, 120)
+选择要买嘛？&gt;&gt;:no
+invalid option
+0 (&#39;Iphone&#39;, 5800)
+1 (&#39;Mac Pro&#39;, 9800)
+2 (&#39;Bike&#39;, 5800)
+3 (&#39;Watch&#39;, 10600)
+4 (&#39;Coffee&#39;, 31)
+5 (&#39;Alex Python&#39;, 120)
+选择要买嘛？&gt;&gt;:4
+Added (&#39;Coffee&#39;, 31) into shopping cart, your current balance is [31;1m2169[0m
+0 (&#39;Iphone&#39;, 5800)
+1 (&#39;Mac Pro&#39;, 9800)
+2 (&#39;Bike&#39;, 5800)
+3 (&#39;Watch&#39;, 10600)
+4 (&#39;Coffee&#39;, 31)
+5 (&#39;Alex Python&#39;, 120)
+选择要买嘛？&gt;&gt;:4
+Added (&#39;Coffee&#39;, 31) into shopping cart, your current balance is [31;1m2138[0m
+0 (&#39;Iphone&#39;, 5800)
+1 (&#39;Mac Pro&#39;, 9800)
+2 (&#39;Bike&#39;, 5800)
+3 (&#39;Watch&#39;, 10600)
+4 (&#39;Coffee&#39;, 31)
+5 (&#39;Alex Python&#39;, 120)
+选择要买嘛？&gt;&gt;:4
+Added (&#39;Coffee&#39;, 31) into shopping cart, your current balance is [31;1m2107[0m
+0 (&#39;Iphone&#39;, 5800)
+1 (&#39;Mac Pro&#39;, 9800)
+2 (&#39;Bike&#39;, 5800)
+3 (&#39;Watch&#39;, 10600)
+4 (&#39;Coffee&#39;, 31)
+5 (&#39;Alex Python&#39;, 120)
+选择要买嘛？&gt;&gt;:43
+product code[43] is not exist!
+0 (&#39;Iphone&#39;, 5800)
+1 (&#39;Mac Pro&#39;, 9800)
+2 (&#39;Bike&#39;, 5800)
+3 (&#39;Watch&#39;, 10600)
+4 (&#39;Coffee&#39;, 31)
+5 (&#39;Alex Python&#39;, 120)
+选择要买嘛？&gt;&gt;:2
+[41;1m你的余额只剩[2107]啦，还买个毛线[0m
+0 (&#39;Iphone&#39;, 5800)
+1 (&#39;Mac Pro&#39;, 9800)
+2 (&#39;Bike&#39;, 5800)
+3 (&#39;Watch&#39;, 10600)
+4 (&#39;Coffee&#39;, 31)
+5 (&#39;Alex Python&#39;, 120)
+选择要买嘛？&gt;&gt;:1
+[41;1m你的余额只剩[2107]啦，还买个毛线[0m
+0 (&#39;Iphone&#39;, 5800)
+1 (&#39;Mac Pro&#39;, 9800)
+2 (&#39;Bike&#39;, 5800)
+3 (&#39;Watch&#39;, 10600)
+4 (&#39;Coffee&#39;, 31)
+5 (&#39;Alex Python&#39;, 120)
+选择要买嘛？&gt;&gt;:2
+[41;1m你的余额只剩[2107]啦，还买个毛线[0m
+0 (&#39;Iphone&#39;, 5800)
+1 (&#39;Mac Pro&#39;, 9800)
+2 (&#39;Bike&#39;, 5800)
+3 (&#39;Watch&#39;, 10600)
+4 (&#39;Coffee&#39;, 31)
+5 (&#39;Alex Python&#39;, 120)
+选择要买嘛？&gt;&gt;:3
+[41;1m你的余额只剩[2107]啦，还买个毛线[0m
+0 (&#39;Iphone&#39;, 5800)
+1 (&#39;Mac Pro&#39;, 9800)
+2 (&#39;Bike&#39;, 5800)
+3 (&#39;Watch&#39;, 10600)
+4 (&#39;Coffee&#39;, 31)
+5 (&#39;Alex Python&#39;, 120)
+选择要买嘛？&gt;&gt;:4
+Added (&#39;Coffee&#39;, 31) into shopping cart, your current balance is [31;1m2076[0m
+0 (&#39;Iphone&#39;, 5800)
+1 (&#39;Mac Pro&#39;, 9800)
+2 (&#39;Bike&#39;, 5800)
+3 (&#39;Watch&#39;, 10600)
+4 (&#39;Coffee&#39;, 31)
+5 (&#39;Alex Python&#39;, 120)
+选择要买嘛？&gt;&gt;:5
+Added (&#39;Alex Python&#39;, 120) into shopping cart, your current balance is [31;1m1956[0m
+0 (&#39;Iphone&#39;, 5800)
+1 (&#39;Mac Pro&#39;, 9800)
+2 (&#39;Bike&#39;, 5800)
+3 (&#39;Watch&#39;, 10600)
+4 (&#39;Coffee&#39;, 31)
+5 (&#39;Alex Python&#39;, 120)
+</code></pre><h2 id="set操作">Set操作</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 集合set  集合关系测试</span>
+</span></span><span class="line"><span class="cl"><span class="n">list_1</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">9</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">list_1</span><span class="o">=</span><span class="nb">set</span><span class="p">(</span><span class="n">list_1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">list_1</span><span class="p">,</span><span class="nb">type</span><span class="p">(</span><span class="n">list_1</span><span class="p">))</span>
+</span></span></code></pre></div><pre tabindex="0"><code>{1, 3, 4, 5, 6, 7, 9} &lt;class &#39;set&#39;&gt;
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">list_2</span><span class="o">=</span><span class="nb">set</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">22</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">list_2</span><span class="p">,</span><span class="nb">type</span><span class="p">(</span><span class="n">list_2</span><span class="p">))</span>
+</span></span></code></pre></div><pre tabindex="0"><code>{0, 2, 4, 6, 8, 22} &lt;class &#39;set&#39;&gt;
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;--------------------------------&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 取交集</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;方法一&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">list_1</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">list_2</span><span class="p">))</span>
+</span></span></code></pre></div><pre tabindex="0"><code>--------------------------------
+方法一
+{4, 6}
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;方法二&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">list_1</span><span class="o">&amp;</span><span class="n">list_2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;--------------------------------&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>方法二
+{4, 6}
+--------------------------------
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 取并集</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;方法一&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">list_1</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">list_2</span><span class="p">))</span>
+</span></span></code></pre></div><pre tabindex="0"><code>方法一
+{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 22}
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;方法二&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">list_1</span><span class="o">|</span><span class="n">list_2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;--------------------------------&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>方法二
+{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 22}
+--------------------------------
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 差集 in list_1 but not in list_2</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">list_1</span><span class="o">.</span><span class="n">difference</span><span class="p">(</span><span class="n">list_2</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">list_1</span><span class="o">-</span><span class="n">list_2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;--------------------------------&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>{1, 3, 5, 7, 9}
+{1, 3, 5, 7, 9}
+--------------------------------
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 子集</span>
+</span></span><span class="line"><span class="cl"><span class="n">list_3</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">6</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">list_4</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">list_3</span><span class="o">=</span><span class="nb">set</span><span class="p">(</span><span class="n">list_3</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">list_4</span><span class="o">=</span><span class="nb">set</span><span class="p">(</span><span class="n">list_4</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">list_3</span><span class="o">.</span><span class="n">issubset</span><span class="p">(</span><span class="n">list_4</span><span class="p">))</span>
+</span></span></code></pre></div><pre tabindex="0"><code>True
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">list_4</span><span class="o">.</span><span class="n">issuperset</span><span class="p">(</span><span class="n">list_3</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;--------------------------------&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>True
+--------------------------------
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 对称差集 把list_1与list_2互相都没有的元素放在一块，其实就是去掉重复元素</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">list_1</span><span class="o">.</span><span class="n">symmetric_difference</span><span class="p">(</span><span class="n">list_2</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">list_1</span><span class="o">^</span><span class="n">list_2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;--------------------------------&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>{0, 1, 2, 3, 5, 7, 8, 9, 22}
+{0, 1, 2, 3, 5, 7, 8, 9, 22}
+--------------------------------
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 是否没有交集 Return True if two sets have a null intersection.</span>
+</span></span><span class="line"><span class="cl"><span class="n">list_5</span><span class="o">=</span><span class="nb">set</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="n">list_6</span><span class="o">=</span><span class="nb">set</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">list_5</span><span class="o">.</span><span class="n">isdisjoint</span><span class="p">(</span><span class="n">list_6</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;--------------------------------&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>True
+--------------------------------
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 基本操作</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 添加一项</span>
+</span></span><span class="line"><span class="cl"><span class="n">list_1</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">list_1</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>{1, 3, 4, 5, 6, 7, &#39;x&#39;, 9}
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 添加多项</span>
+</span></span><span class="line"><span class="cl"><span class="n">list_1</span><span class="o">.</span><span class="n">update</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span><span class="mi">37</span><span class="p">,</span><span class="mi">42</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">list_1</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>{1, 3, 4, 5, 6, 7, &#39;x&#39;, 9, 10, 37, 42}
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 删除一项</span>
+</span></span><span class="line"><span class="cl"><span class="n">list_1</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">list_1</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>{1, 3, 4, 5, 6, 7, &#39;x&#39;, 9, 37, 42}
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># set长度</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">list_1</span><span class="p">))</span>
+</span></span></code></pre></div><pre tabindex="0"><code>10
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 测试9是否是list_1的成员</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="mi">9</span> <span class="ow">in</span> <span class="n">list_1</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>True
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># pop()删除并且返回一个任意的元素</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">list_1</span><span class="o">.</span><span class="n">pop</span><span class="p">())</span>
+</span></span></code></pre></div><pre tabindex="0"><code>1
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 删除一个指定的值</span>
+</span></span><span class="line"><span class="cl"><span class="n">list_1</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">list_1</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>{3, 4, 5, 6, 7, 9, 37, 42}
+</code></pre><h2 id="字符串操作">字符串操作</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">name</span><span class="o">=</span><span class="s2">&#34;alex&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">name</span><span class="o">.</span><span class="n">capitalize</span><span class="p">())</span> <span class="c1"># 首字母大写</span>
+</span></span></code></pre></div><pre tabindex="0"><code>Alex
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">name</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s2">&#34;a&#34;</span><span class="p">))</span> <span class="c1"># 统计字母个数</span>
+</span></span></code></pre></div><pre tabindex="0"><code>1
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">name</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span><span class="s2">&#34;-&#34;</span><span class="p">))</span> <span class="c1">#总共打印50个字符，并把nam放在中间，不够的用-补上</span>
+</span></span></code></pre></div><pre tabindex="0"><code>-----------------------alex-----------------------
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">name</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&#34;ex&#34;</span><span class="p">))</span> <span class="c1"># 判断字符串以什么结尾</span>
+</span></span></code></pre></div><pre tabindex="0"><code>True
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">name</span><span class="o">=</span><span class="s2">&#34;alex </span><span class="se">\t</span><span class="s2">name is alex&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">name</span><span class="o">.</span><span class="n">expandtabs</span><span class="p">(</span><span class="n">tabsize</span><span class="o">=</span><span class="mi">30</span><span class="p">))</span> <span class="c1"># 将name中\t转为30个空格</span>
+</span></span></code></pre></div><pre tabindex="0"><code>alex                          name is alex
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">name</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&#34;x&#34;</span><span class="p">))</span> <span class="c1"># 取索引</span>
+</span></span></code></pre></div><pre tabindex="0"><code>3
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">name</span><span class="p">[</span><span class="n">name</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&#34;x&#34;</span><span class="p">):])</span> <span class="c1"># 字符串切片</span>
+</span></span></code></pre></div><pre tabindex="0"><code>x 	name is alex
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">name</span><span class="o">=</span><span class="s2">&#34;my </span><span class="se">\t</span><span class="s2">name is </span><span class="si">{name}</span><span class="s2"> and i am </span><span class="si">{year}</span><span class="s2"> old&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">name</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&#34;alex&#34;</span><span class="p">,</span><span class="n">year</span><span class="o">=</span><span class="mi">23</span><span class="p">))</span>
+</span></span></code></pre></div><pre tabindex="0"><code>my 	name is alex and i am 23 old
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">name</span><span class="o">.</span><span class="n">format_map</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span><span class="s1">&#39;alex&#39;</span><span class="p">,</span><span class="s1">&#39;year&#39;</span><span class="p">:</span><span class="mi">23</span><span class="p">}))</span>
+</span></span></code></pre></div><pre tabindex="0"><code>my 	name is alex and i am 23 old
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;ab123&#39;</span><span class="o">.</span><span class="n">isalnum</span><span class="p">())</span> <span class="c1">#isalnum()包含所有字母及数字，如果不是这两个，则为False</span>
+</span></span></code></pre></div><pre tabindex="0"><code>True
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;ab123&#39;</span><span class="o">.</span><span class="n">isalpha</span><span class="p">())</span> <span class="c1"># False  isalpha()包含纯英文字符</span>
+</span></span></code></pre></div><pre tabindex="0"><code>False
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;1A&#39;</span><span class="o">.</span><span class="n">isdecimal</span><span class="p">())</span> <span class="c1"># 是否是十进制 False</span>
+</span></span></code></pre></div><pre tabindex="0"><code>False
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;1A&#39;</span><span class="o">.</span><span class="n">isdigit</span><span class="p">())</span> <span class="c1"># 是否是整数 False</span>
+</span></span></code></pre></div><pre tabindex="0"><code>False
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="o">.</span><span class="n">isidentifier</span><span class="p">())</span> <span class="c1">#判断是否是合法的标识符，实质是否为合法变量名 True</span>
+</span></span></code></pre></div><pre tabindex="0"><code>True
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;aasd&#39;</span><span class="o">.</span><span class="n">islower</span><span class="p">())</span> <span class="c1"># 判断是否是小写 True</span>
+</span></span></code></pre></div><pre tabindex="0"><code>True
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">isspace</span><span class="p">())</span> <span class="c1"># 是否是空格 False</span>
+</span></span></code></pre></div><pre tabindex="0"><code>False
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;My name is&#39;</span><span class="o">.</span><span class="n">istitle</span><span class="p">())</span> <span class="c1"># 字符串首字母大写为title，否则不是</span>
+</span></span></code></pre></div><pre tabindex="0"><code>False
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;+&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s1">&#39;1&#39;</span><span class="p">,</span><span class="s1">&#39;2&#39;</span><span class="p">,</span><span class="s1">&#39;3&#39;</span><span class="p">]))</span> <span class="c1"># 对一列表中所有元素进行join操作</span>
+</span></span></code></pre></div><pre tabindex="0"><code>1+2+3
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">name</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span><span class="s1">&#39;*&#39;</span><span class="p">))</span> <span class="c1"># 左对齐字符串，多余位用*补全</span>
+</span></span></code></pre></div><pre tabindex="0"><code>my 	name is {name} and i am {year} old************
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">name</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span><span class="s1">&#39;-&#39;</span><span class="p">))</span> <span class="c1"># 右对齐字符串，多余位用*-补全</span>
+</span></span></code></pre></div><pre tabindex="0"><code>------------my 	name is {name} and i am {year} old
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1"> Alex&#39;</span><span class="o">.</span><span class="n">lstrip</span><span class="p">())</span> <span class="c1"># 去掉左边的空格/回车</span>
+</span></span></code></pre></div><pre tabindex="0"><code>Alex
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Alex</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">rstrip</span><span class="p">())</span> <span class="c1"># 去掉右边的空格/回车</span>
+</span></span></code></pre></div><pre tabindex="0"><code>Alex
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Alex</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span> <span class="c1"># 去掉左边和右边的空格/回车</span>
+</span></span></code></pre></div><pre tabindex="0"><code>Alex
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Alex&#39;</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>Alex
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">p</span><span class="o">=</span><span class="nb">str</span><span class="o">.</span><span class="n">maketrans</span><span class="p">(</span><span class="s2">&#34;abcdef&#34;</span><span class="p">,</span><span class="s2">&#34;123456&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;alex li&#34;</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">p</span><span class="p">))</span>  <span class="c1">#把alex li换成上一行对应的值</span>
+</span></span></code></pre></div><pre tabindex="0"><code>1l5x li
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;alex li&#34;</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;l&#39;</span><span class="p">,</span><span class="s1">&#39;L&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span> <span class="c1"># 替换 1表示替换几个l,从左到右计算替换个数</span>
+</span></span></code></pre></div><pre tabindex="0"><code>aLex li
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;alex li&#34;</span><span class="o">.</span><span class="n">rfind</span><span class="p">(</span><span class="s1">&#39;l&#39;</span><span class="p">))</span> <span class="c1"># 找到的最右边的下标返回</span>
+</span></span></code></pre></div><pre tabindex="0"><code>5
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;alex li&#34;</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;l&#39;</span><span class="p">))</span> 
+</span></span><span class="line"><span class="cl"><span class="c1"># 默认将字符串按照空格分隔成列表，也可以在()中填写相应的分隔符，比如以字符l分隔，print(&#34;alex li&#34;.split(‘l’)),而且分隔符在列表中不会出现</span>
+</span></span></code></pre></div><pre tabindex="0"><code>[&#39;a&#39;, &#39;ex &#39;, &#39;i&#39;]
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;1+2+3+4&#34;</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;+&#39;</span><span class="p">))</span> <span class="c1"># [&#39;1&#39;, &#39;2&#39;, &#39;3&#39;, &#39;4&#39;]</span>
+</span></span></code></pre></div><pre tabindex="0"><code>[&#39;1&#39;, &#39;2&#39;, &#39;3&#39;, &#39;4&#39;]
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;1+2</span><span class="se">\n</span><span class="s2">+3+4&#34;</span><span class="o">.</span><span class="n">splitlines</span><span class="p">())</span> <span class="c1"># [&#39;1+2&#39;, &#39;+3+4&#39;]</span>
+</span></span></code></pre></div><pre tabindex="0"><code>[&#39;1+2&#39;, &#39;+3+4&#39;]
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;Alex Li&#34;</span><span class="o">.</span><span class="n">swapcase</span><span class="p">())</span> <span class="c1"># aLEX lI</span>
+</span></span></code></pre></div><pre tabindex="0"><code>aLEX lI
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;lex li&#39;</span><span class="o">.</span><span class="n">title</span><span class="p">())</span> <span class="c1"># Lex Li</span>
+</span></span></code></pre></div><pre tabindex="0"><code>Lex Li
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;lex li&#39;</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="mi">50</span><span class="p">))</span> <span class="c1">#不够以0填充</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;---&#39;</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>00000000000000000000000000000000000000000000lex li
+---
+</code></pre><h2 id="字典">字典</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 字典无序</span>
+</span></span><span class="line"><span class="cl"><span class="n">info</span><span class="o">=</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;stu1101&#39;</span><span class="p">:</span><span class="s2">&#34;tengxun&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;stu1102&#39;</span><span class="p">:</span><span class="s2">&#34;baidu&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;stu1103&#39;</span><span class="p">:</span><span class="s2">&#34;ali&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">info</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>{&#39;stu1101&#39;: &#39;tengxun&#39;, &#39;stu1102&#39;: &#39;baidu&#39;, &#39;stu1103&#39;: &#39;ali&#39;}
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 0.查找</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 方法一:确定存在</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="s2">&#34;stu1101&#34;</span><span class="p">])</span> <span class="c1"># 查找若不在，则报错</span>
+</span></span></code></pre></div><pre tabindex="0"><code>tengxun
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;stu11004&#34;</span><span class="p">))</span> <span class="c1"># 查找不在不会报错，直接返回None，若有直接返回</span>
+</span></span></code></pre></div><pre tabindex="0"><code>None
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;stu1103&#39;</span> <span class="ow">in</span> <span class="n">info</span><span class="p">)</span> <span class="c1"># True</span>
+</span></span></code></pre></div><pre tabindex="0"><code>True
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 1.修改</span>
+</span></span><span class="line"><span class="cl"><span class="n">info</span><span class="p">[</span><span class="s2">&#34;stu1101&#34;</span><span class="p">]</span><span class="o">=</span><span class="s2">&#34;腾讯&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">info</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>{&#39;stu1101&#39;: &#39;腾讯&#39;, &#39;stu1102&#39;: &#39;baidu&#39;, &#39;stu1103&#39;: &#39;ali&#39;}
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 2.增加</span>
+</span></span><span class="line"><span class="cl"><span class="n">info</span><span class="p">[</span><span class="s2">&#34;stu1104&#34;</span><span class="p">]</span><span class="o">=</span><span class="s2">&#34;zhubajie&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">info</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>{&#39;stu1101&#39;: &#39;腾讯&#39;, &#39;stu1102&#39;: &#39;baidu&#39;, &#39;stu1103&#39;: &#39;ali&#39;, &#39;stu1104&#39;: &#39;zhubajie&#39;}
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 3.删除</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 方法一</span>
+</span></span><span class="line"><span class="cl"><span class="k">del</span> <span class="n">info</span><span class="p">[</span><span class="s2">&#34;stu1101&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">info</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>{&#39;stu1102&#39;: &#39;baidu&#39;, &#39;stu1103&#39;: &#39;ali&#39;, &#39;stu1104&#39;: &#39;zhubajie&#39;}
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 方法二</span>
+</span></span><span class="line"><span class="cl"><span class="n">info</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&#34;stu1102&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">info</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;&#39;&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s1"># 随机删除
+</span></span></span><span class="line"><span class="cl"><span class="s1">info.popitem()
+</span></span></span><span class="line"><span class="cl"><span class="s1">print(info)
+</span></span></span><span class="line"><span class="cl"><span class="s1">&#39;&#39;&#39;</span>
+</span></span></code></pre></div><pre tabindex="0"><code>{&#39;stu1103&#39;: &#39;ali&#39;, &#39;stu1104&#39;: &#39;zhubajie&#39;}
+
+
+
+
+
+&#39;\n# 随机删除\ninfo.popitem()\nprint(info)\n&#39;
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 4.多级字典嵌套及操作</span>
+</span></span><span class="line"><span class="cl"><span class="n">av_catalog</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;A&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;www.yo333.com&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;aaa&#34;</span><span class="p">,</span><span class="s2">&#34;111&#34;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;www.po333.com&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;bbb&#34;</span><span class="p">,</span><span class="s2">&#34;222&#34;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;333you.com&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;ccc&#34;</span><span class="p">,</span><span class="s2">&#34;333&#34;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;333art.com&#34;</span><span class="p">:[</span><span class="s2">&#34;ddd&#34;</span><span class="p">,</span><span class="s2">&#34;444&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;B&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;tokyo-lot&#34;</span><span class="p">:[</span><span class="s2">&#34;eee&#34;</span><span class="p">,</span><span class="s2">&#34;555&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;C&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;1022&#34;</span><span class="p">:[</span><span class="s2">&#34;fff&#34;</span><span class="p">,</span><span class="s2">&#34;666&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="n">b</span><span class="o">=</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;stu1101&#39;</span><span class="p">:</span><span class="s2">&#34;Alex&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">2</span><span class="p">:</span><span class="mi">5</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="n">info</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="c1">#将两个字典合并，存在key,则更新value，不存在key，则合并</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">info</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>{&#39;stu1103&#39;: &#39;ali&#39;, &#39;stu1104&#39;: &#39;zhubajie&#39;, &#39;stu1101&#39;: &#39;Alex&#39;, 1: 3, 2: 5}
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">items</span><span class="p">())</span> <span class="c1">#把一个字典转成列表</span>
+</span></span></code></pre></div><pre tabindex="0"><code>dict_items([(&#39;stu1103&#39;, &#39;ali&#39;), (&#39;stu1104&#39;, &#39;zhubajie&#39;), (&#39;stu1101&#39;, &#39;Alex&#39;), (1, 3), (2, 5)])
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">c</span><span class="o">=</span><span class="n">info</span><span class="o">.</span><span class="n">fromkeys</span><span class="p">([</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">],</span><span class="s2">&#34;test&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>{6: &#39;test&#39;, 7: &#39;test&#39;, 8: &#39;test&#39;}
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">c</span><span class="o">=</span><span class="n">info</span><span class="o">.</span><span class="n">fromkeys</span><span class="p">([</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">],[</span><span class="mi">1</span><span class="p">,{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span><span class="s1">&#39;alex&#39;</span><span class="p">},</span><span class="mi">444</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>{6: [1, {&#39;name&#39;: &#39;alex&#39;}, 444], 7: [1, {&#39;name&#39;: &#39;alex&#39;}, 444], 8: [1, {&#39;name&#39;: &#39;alex&#39;}, 444]}
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">c</span><span class="p">[</span><span class="mi">7</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;Jack Chen&#39;</span> <span class="c1"># 3个key共用一个value,修改一个则所有的都修改了</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>{6: [1, {&#39;name&#39;: &#39;Jack Chen&#39;}, 444], 7: [1, {&#39;name&#39;: &#39;Jack Chen&#39;}, 444], 8: [1, {&#39;name&#39;: &#39;Jack Chen&#39;}, 444]}
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;--------&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">av_catalog</span><span class="p">[</span><span class="s2">&#34;A&#34;</span><span class="p">][</span><span class="s2">&#34;333you.com&#34;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="s2">&#34;可以在国内做镜像&#34;</span> <span class="c1"># 二级字典替换</span>
+</span></span><span class="line"><span class="cl"><span class="n">av_catalog</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&#34;taiwan&#34;</span><span class="p">,{</span><span class="s2">&#34;www.baidu.com&#34;</span><span class="p">:[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]})</span> <span class="c1"># 如果不重名，即创建一个新的值，如果重名，将找到的值返回</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">av_catalog</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>--------
+{&#39;A&#39;: {&#39;www.yo333.com&#39;: [&#39;aaa&#39;, &#39;111&#39;], &#39;www.po333.com&#39;: [&#39;bbb&#39;, &#39;222&#39;], &#39;333you.com&#39;: [&#39;ccc&#39;, &#39;可以在国内做镜像&#39;], &#39;333art.com&#39;: [&#39;ddd&#39;, &#39;444&#39;]}, &#39;B&#39;: {&#39;tokyo-lot&#39;: [&#39;eee&#39;, &#39;555&#39;]}, &#39;C&#39;: {&#39;1022&#39;: [&#39;fff&#39;, &#39;666&#39;]}, &#39;taiwan&#39;: {&#39;www.baidu.com&#39;: [1, 2]}}
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="c1"># 打印出所有的key</span>
+</span></span></code></pre></div><pre tabindex="0"><code>dict_keys([&#39;stu1103&#39;, &#39;stu1104&#39;, &#39;stu1101&#39;, 1, 2])
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">values</span><span class="p">())</span> <span class="c1"># 打印出所有的value</span>
+</span></span></code></pre></div><pre tabindex="0"><code>dict_values([&#39;ali&#39;, &#39;zhubajie&#39;, &#39;Alex&#39;, 3, 5])
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;---------------&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">info</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">info</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>  <span class="c1">#效率更高点</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;---------------&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>---------------
+stu1103 ali
+stu1104 zhubajie
+stu1101 Alex
+1 3
+2 5
+---------------
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">info</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="n">v</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>stu1103 ali
+stu1104 zhubajie
+stu1101 Alex
+1 3
+2 5
+</code></pre><h2 id="函数">函数</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 1.无参函数</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 定义一个函数</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">fun1</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;&#39;&#39;testing&#39;&#39;&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;in the fun1&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 定义一个过程 实质就是无返回值的函数</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">fun2</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;&#39;&#39;testing2&#39;&#39;&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;in the fun2&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">x</span><span class="o">=</span><span class="n">fun1</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">y</span><span class="o">=</span><span class="n">fun2</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>  <span class="c1"># 没有返回值得情况下，python隐式地返回一个None</span>
+</span></span></code></pre></div><pre tabindex="0"><code>in the fun1
+in the fun2
+1
+None
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">time</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">logger</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="n">time_format</span><span class="o">=</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> </span><span class="si">%X</span><span class="s1"> %A %B %p %I&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">time_current</span><span class="o">=</span><span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="n">time_format</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;a.txt&#39;</span><span class="p">,</span><span class="s1">&#39;a+&#39;</span><span class="p">)</span><span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;time </span><span class="si">%s</span><span class="s1"> end action</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">%</span><span class="n">time_current</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">test1</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;in the test1&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">logger</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">test2</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;in the test2&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">logger</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">test3</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;in the test3&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">logger</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">1</span><span class="p">,{</span><span class="mi">5</span><span class="p">:</span><span class="s2">&#34;sda&#34;</span><span class="p">,</span><span class="mi">6</span><span class="p">:</span><span class="s2">&#34;zad&#34;</span><span class="p">},[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">x</span><span class="o">=</span><span class="n">test1</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">y</span><span class="o">=</span><span class="n">test2</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">z</span><span class="o">=</span><span class="n">test3</span><span class="p">()</span>
+</span></span></code></pre></div><pre tabindex="0"><code>in the test1
+in the test2
+in the test3
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># None</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="c1"># 0</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">z</span><span class="p">)</span> <span class="c1"># (1, {5: &#39;sda&#39;, 6: &#39;zad&#39;}, [1, 2, 3])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;&#39;&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s1">总结：
+</span></span></span><span class="line"><span class="cl"><span class="s1">    返回值数=0:返回None
+</span></span></span><span class="line"><span class="cl"><span class="s1">    返回值数=1:返回object
+</span></span></span><span class="line"><span class="cl"><span class="s1">    返回值数&gt;1:返回tuple
+</span></span></span><span class="line"><span class="cl"><span class="s1">&#39;&#39;&#39;</span>
+</span></span></code></pre></div><pre tabindex="0"><code>None
+0
+(1, {5: &#39;sda&#39;, 6: &#39;zad&#39;}, [1, 2, 3])
+
+
+
+
+
+&#39;\n总结：\n    返回值数=0:返回None\n    返回值数=1:返回object\n    返回值数&gt;1:返回tuple\n&#39;
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 2.有参函数</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 默认参数特点：调用函数的时候，默认参数非必须传递</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 用途：1.默认安装值</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">test</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">test</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>     <span class="c1"># 位置参数调用 与形参意义对应</span>
+</span></span><span class="line"><span class="cl"><span class="n">test</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># 关键字调用，与形参顺序无关</span>
+</span></span><span class="line"><span class="cl"><span class="n">test</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># 如果既有关键字调用又有位置参数，前面一个一定是位置参数，一句话：关键参数一定不能写在位置参数前面</span>
+</span></span></code></pre></div><pre tabindex="0"><code>1
+2
+2
+1
+3
+2
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="s1">&#39;&#39;&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s1">比如加入一个参数z
+</span></span></span><span class="line"><span class="cl"><span class="s1">&#39;&#39;&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">test1</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 关键参数一定不能放在位置参数前面</span>
+</span></span><span class="line"><span class="cl"><span class="n">test1</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="n">z</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">test1</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="n">z</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>3
+4
+6
+3
+4
+6
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 默认参数,</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">test</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">test</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>1
+2
+2
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 用*args传递多个参数，转换成元组的方式 *表示一个功能代号，表示接受的参数不固定，args可以随意起名</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">test</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">test</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">test</span><span class="p">(</span><span class="o">*</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">])</span> <span class="c1"># args=tuple([1,2,3,4,5])</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">test</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">test</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">)</span> <span class="c1"># 1 (2,3,4,5,6,7)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>(1, 3, 4, 5, 5, 6)
+(1, 3, 4, 5, 5, 6)
+1
+(2, 3, 4, 5, 6, 7)
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 字典传值 **kwagrs:把N个关键字参数，转换成字典的方式</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">test</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">],</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">],</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;sex&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">test</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;alex&#39;</span><span class="p">,</span><span class="n">age</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span><span class="nb">id</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="n">sex</span><span class="o">=</span><span class="s1">&#39;M&#39;</span><span class="p">)</span> <span class="c1"># {&#39;name&#39;: &#39;alex&#39;, &#39;age&#39;: 8, &#39;id&#39;: 10, &#39;sex&#39;: &#39;M&#39;}</span>
+</span></span></code></pre></div><pre tabindex="0"><code>{&#39;name&#39;: &#39;alex&#39;, &#39;age&#39;: 8, &#39;id&#39;: 10, &#39;sex&#39;: &#39;M&#39;}
+alex 8 10 M
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">test</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span><span class="s1">&#39;alex&#39;</span><span class="p">,</span><span class="s1">&#39;age&#39;</span><span class="p">:</span><span class="mi">8</span><span class="p">,</span><span class="s1">&#39;id&#39;</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span><span class="s1">&#39;sex&#39;</span><span class="p">:</span><span class="s1">&#39;M&#39;</span><span class="p">})</span>
+</span></span></code></pre></div><pre tabindex="0"><code>{&#39;name&#39;: &#39;alex&#39;, &#39;age&#39;: 8, &#39;id&#39;: 10, &#39;sex&#39;: &#39;M&#39;}
+alex 8 10 M
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">test</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">test</span><span class="p">(</span><span class="s1">&#39;alex&#39;</span><span class="p">,</span><span class="n">age</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span><span class="n">sex</span><span class="o">=</span><span class="s1">&#39;M&#39;</span><span class="p">)</span> <span class="c1"># 字典 {&#39;age&#39;: 18, &#39;sex&#39;: &#39;M&#39;}</span>
+</span></span></code></pre></div><pre tabindex="0"><code>alex
+{&#39;age&#39;: 18, &#39;sex&#39;: &#39;M&#39;}
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 默认参数得放在参数组前面</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">test</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="n">age</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">age</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">test</span><span class="p">(</span><span class="s1">&#39;alex&#39;</span><span class="p">,</span><span class="n">sex</span><span class="o">=</span><span class="s1">&#39;M&#39;</span><span class="p">,</span><span class="n">hobby</span><span class="o">=</span><span class="s1">&#39;tesla&#39;</span><span class="p">,</span><span class="n">age</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>alex
+3
+{&#39;sex&#39;: &#39;M&#39;, &#39;hobby&#39;: &#39;tesla&#39;}
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">test</span><span class="p">(</span><span class="s1">&#39;alex&#39;</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="n">sex</span><span class="o">=</span><span class="s1">&#39;M&#39;</span><span class="p">,</span><span class="n">hobby</span><span class="o">=</span><span class="s1">&#39;tesla&#39;</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>alex
+3
+{&#39;sex&#39;: &#39;M&#39;, &#39;hobby&#39;: &#39;tesla&#39;}
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">test</span><span class="p">(</span><span class="s1">&#39;alex&#39;</span><span class="p">)</span> <span class="c1"># 后面的**kwargs不赋值输出为空字典</span>
+</span></span></code></pre></div><pre tabindex="0"><code>alex
+18
+{}
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">test</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="n">age</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span><span class="o">*</span><span class="n">args</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">age</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">test</span><span class="p">(</span><span class="s1">&#39;alex&#39;</span><span class="p">,</span><span class="n">age</span><span class="o">=</span><span class="mi">34</span><span class="p">,</span><span class="n">sex</span><span class="o">=</span><span class="s1">&#39;M&#39;</span><span class="p">,</span><span class="n">hobby</span><span class="o">=</span><span class="s1">&#39;tesla&#39;</span><span class="p">)</span> <span class="c1"># alex 34 () {&#39;sex&#39;: &#39;M&#39;, &#39;hobby&#39;: &#39;tesla&#39;}</span>
+</span></span></code></pre></div><pre tabindex="0"><code>alex
+34
+()
+{&#39;sex&#39;: &#39;M&#39;, &#39;hobby&#39;: &#39;tesla&#39;}
+</code></pre><h2 id="高阶函数">高阶函数</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 高阶函数 变量可以指向函数，函数的参数能接受变量，那么一个函数就可以接受另一个函数作为参数，这个函数就叫做高阶函数</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">x</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">f</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">+</span><span class="n">f</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">res</span><span class="o">=</span><span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">f</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>  <span class="c1"># 3</span>
+</span></span></code></pre></div><pre tabindex="0"><code>3
+</code></pre>
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/tutorials/">tutorials</a>
+        
+            <a href="/tags/python/">python</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">Related contents</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="">
+    <a href="/p/py_basic_q91-100/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">py_basic_Q91-100</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/py_basic_q81-90/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">py_basic_Q81-90</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/py_basic_q71-80/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">py_basic_Q71-80</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/py_basic_q61-70/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">py_basic_Q61-70</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/py_basic_q51-60/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">py_basic_Q51-60</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2022 - 
+        
+        2023 叶宇浩随记博客
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.5.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">Table of contents</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#编码变换">编码变换</a></li>
+    <li><a href="#文件">文件</a></li>
+    <li><a href="#全局变量">全局变量</a></li>
+    <li><a href="#list操作">list操作</a></li>
+    <li><a href="#tuple操作">Tuple操作</a></li>
+    <li><a href="#set操作">Set操作</a></li>
+    <li><a href="#字符串操作">字符串操作</a></li>
+    <li><a href="#字典">字典</a></li>
+    <li><a href="#函数">函数</a></li>
+    <li><a href="#高阶函数">高阶函数</a></li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Pages on 叶宇浩随记博客</title>
+    <link>https://example.com/page/</link>
+    <description>Recent content in Pages on 叶宇浩随记博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 12 Mar 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://example.com/page/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>分类</title>
+      <link>https://example.com/archives/</link>
+      <pubDate>Sat, 12 Mar 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/archives/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>关于</title>
+      <link>https://example.com/%E5%85%B3%E4%BA%8E/</link>
+      <pubDate>Mon, 03 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/%E5%85%B3%E4%BA%8E/</guid>
+      <description> 👋Hi, I’m 叶宇浩 Miles 👋对计算生物学感兴趣，始于蛋白设计，朝技术方向发展，讨厌形式主义和官僚主义 🌱邮箱:milesyeyuhao@gmail.com 🌱wechat:yyh2022Miles </description>
+    </item>
+    
+    <item>
+      <title>检索</title>
+      <link>https://example.com/search/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/search/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

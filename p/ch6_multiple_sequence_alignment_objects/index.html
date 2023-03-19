@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='biopython官方教程学习笔记'><title>Ch6_Multiple_Sequence_Alignment_objects</title>
+
+<link rel='canonical' href='https://example.com/p/ch6_multiple_sequence_alignment_objects/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='Ch6_Multiple_Sequence_Alignment_objects'>
+<meta property='og:description' content='biopython官方教程学习笔记'>
+<meta property='og:url' content='https://example.com/p/ch6_multiple_sequence_alignment_objects/'>
+<meta property='og:site_name' content='叶宇浩随记博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='tutorials' /><meta property='article:published_time' content='2021-08-06T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-08-06T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="Ch6_Multiple_Sequence_Alignment_objects">
+<meta name="twitter:description" content="biopython官方教程学习笔记">
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>Back</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/biopython/" style="background-color: #002be1; color: #fff;">
+                生物编程
+            </a>
+        
+            <a href="/categories/bioinformatic/" style="background-color: #7816ff; color: #fff;">
+                生物信息学&amp;计算生物学
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/ch6_multiple_sequence_alignment_objects/">Ch6_Multiple_Sequence_Alignment_objects</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        biopython官方教程学习笔记
+    </h3>
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Aug 06, 2021</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    7 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <p><strong>biopython官方地址：</strong><a class="link" href="https://biopython.org/"  target="_blank" rel="noopener"
+    ><strong>https://biopython.org/</strong></a></p>
+<p><strong>github地址：</strong><a class="link" href="https://github.com/biopython/biopython/blob/master/README.rst"  target="_blank" rel="noopener"
+    ><strong>https://github.com/biopython/biopython/blob/master/</strong></a></p>
+<p><strong>中文版教程：</strong><a class="link" href="https://biopython-cn.readthedocs.io/zh_CN/latest/cn/chr06.html"  target="_blank" rel="noopener"
+    ><strong>https://biopython-cn.readthedocs.io/zh_CN/latest/cn/chr06.html</strong></a></p>
+<p><strong>biopython包的说明（具体到每个模块了）：</strong><a class="link" href="https://www.osgeo.cn/biopython/Bio.HMM.DynamicProgramming.html"  target="_blank" rel="noopener"
+    ><strong>https://www.osgeo.cn/biopython/Bio.HMM.DynamicProgramming.html</strong></a></p>
+<h2 id="msa的基本原理">MSA的基本原理</h2>
+<p>多序列比对（Multiple Sequence Alignment, MSA）是指对多个序列进行对位排列。 这通常需要保证序列间的等同位点处在同一列上，并通过引进小横线（-）以保证最终的序列具有相同的长度。这种序列比对可以视作是由字符组成的矩阵。在Biopython中，多序列比对中每一个序列是以 SeqRecord 对象来表示的。
+这里我们介绍一种新的对象 – MultipleSeqAlignment 来表示这样一类数据，我们还将介绍 Bio.AlignIO 模块来读写不同格式的多序列比对数据（ Bio.AlignIO 在设计上与之前介绍的 Bio.SeqIO 模块是类似的）。Biopython中， Bio.SeqIO 和 Bio.AlignIO 都能读写各种格式的多序列比对数据。在实际处理中，使用哪一个模块取决于用户需要对数据进行何种操作。</p>
+<h2 id="读取多序列比对数据">读取多序列比对数据</h2>
+<p>在Biopython中，有两种方法读取多序列比对数据：</p>
+<ul>
+<li>io.AlignIO.read() 只能读取一个多序列比对，在大多数情况下，你所遇到的文件仅仅包括一个多序列比对。这时，你应该使用 Bio.AlignIO.read() ，这将返回一个 MultipleSeqAlignment 对象</li>
+<li>Bio.AlignIO.parse() 可以依次读取多个序列比对数据，将会返回一个 MultipleSeqAlignment 的 <em>迭代器（iterator）</em> 。迭代器往往在循环中使用。在实际数据分析过程中会时常处理包含有多个多序列比对的文件</li>
+<li>这两个函数的参数：</li>
+</ul>
+<ol>
+<li>第一个参数为包含有多序列比对数据的 <em>句柄（handle）</em> 。在实际操作中，这往往是一个打开的文件/文件名</li>
+<li>第二个参数为多序列比对文件格式（小写）（<a class="link" href="http://biopython.org/wiki/AlignIO"  target="_blank" rel="noopener"
+    >http://biopython.org/wiki/AlignIO</a> 这里可以看支持哪几种格式）</li>
+<li>Bio.AlignIO 模块还接受一个可选参数 seq_count，它可以处理不确定的多序列比对格式，或者包含有多个序列的排列</li>
+</ol>
+<h2 id="单一的序列比对">单一的序列比对</h2>
+<p>F05371_seed.sth文件是一个FAM数据库中Phage_Coat_Gp8的种子排列（PF05371）
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 197; 
+			flex-basis: 473px"
+	>
+	<a href="/p/ch6_multiple_sequence_alignment_objects/picture/Ch6_Multiple_Sequence_Alignment_objects-1.png" data-size="782x396">
+		<img src="/p/ch6_multiple_sequence_alignment_objects/picture/Ch6_Multiple_Sequence_Alignment_objects-1.png"
+			width="782"
+			height="396"
+			srcset="/p/ch6_multiple_sequence_alignment_objects/picture/Ch6_Multiple_Sequence_Alignment_objects-1_hud6316408edf1807bdab14b2a3906db52_173969_480x0_resize_box_3.png 480w, /p/ch6_multiple_sequence_alignment_objects/picture/Ch6_Multiple_Sequence_Alignment_objects-1_hud6316408edf1807bdab14b2a3906db52_173969_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+你会注意到，以上输出截短了中间一部分序列的内容。你也可以很容易地通过控制多序列比对中每一条序列（作为 SeqRecord 对象）来输出你所喜欢的格式。例如
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 241; 
+			flex-basis: 578px"
+	>
+	<a href="/p/ch6_multiple_sequence_alignment_objects/picture/Ch6_Multiple_Sequence_Alignment_objects-2.png" data-size="752x312">
+		<img src="/p/ch6_multiple_sequence_alignment_objects/picture/Ch6_Multiple_Sequence_Alignment_objects-2.png"
+			width="752"
+			height="312"
+			srcset="/p/ch6_multiple_sequence_alignment_objects/picture/Ch6_Multiple_Sequence_Alignment_objects-2_hu5610c4500e8b8aaa9a5446b003db6229_180361_480x0_resize_box_3.png 480w, /p/ch6_multiple_sequence_alignment_objects/picture/Ch6_Multiple_Sequence_Alignment_objects-2_hu5610c4500e8b8aaa9a5446b003db6229_180361_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+你是否已经注意到以上原始数据文件中包含有蛋白数据库（PDB）交叉引用以及相关二级结构的信息？可以尝试以下代码：record.dbxrefs
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 382; 
+			flex-basis: 919px"
+	>
+	<a href="/p/ch6_multiple_sequence_alignment_objects/picture/Ch6_Multiple_Sequence_Alignment_objects-3.png" data-size="628x164">
+		<img src="/p/ch6_multiple_sequence_alignment_objects/picture/Ch6_Multiple_Sequence_Alignment_objects-3.png"
+			width="628"
+			height="164"
+			srcset="/p/ch6_multiple_sequence_alignment_objects/picture/Ch6_Multiple_Sequence_Alignment_objects-3_hu3ef45658bbafa2430c2c6b9228debc3b_60771_480x0_resize_box_3.png 480w, /p/ch6_multiple_sequence_alignment_objects/picture/Ch6_Multiple_Sequence_Alignment_objects-3_hu3ef45658bbafa2430c2c6b9228debc3b_60771_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="多个序列比对">多个序列比对</h2>
+<p>如果你想用 Bio.AlignIO 来读取这个文件，你可以使用：
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 103; 
+			flex-basis: 249px"
+	>
+	<a href="/p/ch6_multiple_sequence_alignment_objects/picture/Ch6_Multiple_Sequence_Alignment_objects-4.png" data-size="704x678">
+		<img src="/p/ch6_multiple_sequence_alignment_objects/picture/Ch6_Multiple_Sequence_Alignment_objects-4.png"
+			width="704"
+			height="678"
+			srcset="/p/ch6_multiple_sequence_alignment_objects/picture/Ch6_Multiple_Sequence_Alignment_objects-4_hu9f0dcb8e152ff4a6b9c8970eb130c110_128675_480x0_resize_box_3.png 480w, /p/ch6_multiple_sequence_alignment_objects/picture/Ch6_Multiple_Sequence_Alignment_objects-4_hu9f0dcb8e152ff4a6b9c8970eb130c110_128675_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+与 Bio.SeqIO.parse 一样， Bio.SeqIO.parse() 将返回一个迭代器（iterator）。如果你希望把所有的序列比对都读取到内存中，以下代码将把它们储存在一个列表对象里
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 608; 
+			flex-basis: 1459px"
+	>
+	<a href="/p/ch6_multiple_sequence_alignment_objects/picture/Ch6_Multiple_Sequence_Alignment_objects-5.png" data-size="596x98">
+		<img src="/p/ch6_multiple_sequence_alignment_objects/picture/Ch6_Multiple_Sequence_Alignment_objects-5.png"
+			width="596"
+			height="98"
+			srcset="/p/ch6_multiple_sequence_alignment_objects/picture/Ch6_Multiple_Sequence_Alignment_objects-5_hub920a8bcfa24c85d2a1507e481b91437_32286_480x0_resize_box_3.png 480w, /p/ch6_multiple_sequence_alignment_objects/picture/Ch6_Multiple_Sequence_Alignment_objects-5_hub920a8bcfa24c85d2a1507e481b91437_32286_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="含糊的序列比对">含糊的序列比对</h2>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 214; 
+			flex-basis: 515px"
+	>
+	<a href="/p/ch6_multiple_sequence_alignment_objects/picture/Ch6_Multiple_Sequence_Alignment_objects-6.png" data-size="790x368">
+		<img src="/p/ch6_multiple_sequence_alignment_objects/picture/Ch6_Multiple_Sequence_Alignment_objects-6.png"
+			width="790"
+			height="368"
+			srcset="/p/ch6_multiple_sequence_alignment_objects/picture/Ch6_Multiple_Sequence_Alignment_objects-6_hu08bd736ea98c83447f9469891233b6f9_95789_480x0_resize_box_3.png 480w, /p/ch6_multiple_sequence_alignment_objects/picture/Ch6_Multiple_Sequence_Alignment_objects-6_hu08bd736ea98c83447f9469891233b6f9_95789_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+将多个序列比对以FASTA格式储存并不方便。然而，在某些情况下，如果你一定要这么做， Bio.AlignIO 依然能够处理上述情形（但是所有的序列比对必须都含有相同的序列）。一个很常见的例子是，我们经常会使用EMBOSS工具箱中的 needle 和 water 来产生许多两两间的序列比对 —— 然而在这种情况下，你可以指定数据格式为“emboss”，Bio.AlignIO 仍然能够识别这些原始输出
+为了处理这样的FASTA格式的数据，我们可以指定 Bio.AlignIO.parse() 的第三个可选参数 seq_count ，这一参数将告诉Biopython你所期望的每个序列比对中序列的个数。例如
+就是这里将6条序列分成了三份，这三份单独去进行
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 168; 
+			flex-basis: 404px"
+	>
+	<a href="/p/ch6_multiple_sequence_alignment_objects/picture/Ch6_Multiple_Sequence_Alignment_objects-7.png" data-size="768x456">
+		<img src="/p/ch6_multiple_sequence_alignment_objects/picture/Ch6_Multiple_Sequence_Alignment_objects-7.png"
+			width="768"
+			height="456"
+			srcset="/p/ch6_multiple_sequence_alignment_objects/picture/Ch6_Multiple_Sequence_Alignment_objects-7_hud11df30da4d0845bc68ddeaa16516242_107146_480x0_resize_box_3.png 480w, /p/ch6_multiple_sequence_alignment_objects/picture/Ch6_Multiple_Sequence_Alignment_objects-7_hud11df30da4d0845bc68ddeaa16516242_107146_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+如果你使用 Bio.AlignIO.read() 或者 Bio.AlignIO.parse() 而不指定 seq_count ，这将返回一个包含有六条序列的序列比对。对于上面的第三个例子，由于序列长度不同，导致它们不能被解析为一个序列比对，Biopython将会抛出一个异常。
+如果数据格式本身包含有分割符， Bio.AlignIO 可以很聪明地自动确定文件中每一个序列比对，而无需指定 seq_count 选项。如果你仍然指定 seq_count 但是却与数据本身的分隔符相冲突，Biopython将产生一个错误。
+注意指定这一可选的 seq_count 参数将假设文件中所有的序列比对都包含相同数目的序列。假如你真的遇到每一个序列比对都有不同数目的序列， Bio.AlignIO 将无法读取。这时，我们建议你使用 Bio.SeqIO 来读取数据，然后将序列转换为序列比对</p>
+<h2 id="序列比对的写出">序列比对的写出</h2>
+<h3 id="bioaligniowrite">Bio.AlignIO.write()</h3>
+<p>接受三个参数：</p>
+<ul>
+<li>一个 MultipleSeqAlignment 对象（或者是一个 Alignment 对象），一个可写的文件句柄（handle）或者期望写出的文件名，以及写出文件的格式
+我们手动创造一个MultipleSeqAlignment对象</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">Bio.Seq</span> <span class="kn">import</span> <span class="n">Seq</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">Bio.SeqRecord</span> <span class="kn">import</span> <span class="n">SeqRecord</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">Bio.Align</span> <span class="kn">import</span> <span class="n">MultipleSeqAlignment</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">align1</span> <span class="o">=</span> <span class="n">MultipleSeqAlignment</span><span class="p">([</span>
+</span></span><span class="line"><span class="cl">             <span class="n">SeqRecord</span><span class="p">(</span><span class="n">Seq</span><span class="p">(</span><span class="s2">&#34;ACTGCTAGCTAG&#34;</span><span class="p">),</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&#34;Alpha&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">             <span class="n">SeqRecord</span><span class="p">(</span><span class="n">Seq</span><span class="p">(</span><span class="s2">&#34;ACT-CTAGCTAG&#34;</span><span class="p">),</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&#34;Beta&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">             <span class="n">SeqRecord</span><span class="p">(</span><span class="n">Seq</span><span class="p">(</span><span class="s2">&#34;ACTGCTAGDTAG&#34;</span><span class="p">),</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&#34;Gamma&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">         <span class="p">])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">align2</span> <span class="o">=</span> <span class="n">MultipleSeqAlignment</span><span class="p">([</span>
+</span></span><span class="line"><span class="cl">             <span class="n">SeqRecord</span><span class="p">(</span><span class="n">Seq</span><span class="p">(</span><span class="s2">&#34;GTCAGC-AG&#34;</span><span class="p">),</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&#34;Delta&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">             <span class="n">SeqRecord</span><span class="p">(</span><span class="n">Seq</span><span class="p">(</span><span class="s2">&#34;GACAGCTAG&#34;</span><span class="p">),</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&#34;Epsilon&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">             <span class="n">SeqRecord</span><span class="p">(</span><span class="n">Seq</span><span class="p">(</span><span class="s2">&#34;GTCAGCTAG&#34;</span><span class="p">),</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&#34;Zeta&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">         <span class="p">])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">align3</span> <span class="o">=</span> <span class="n">MultipleSeqAlignment</span><span class="p">([</span>
+</span></span><span class="line"><span class="cl">             <span class="n">SeqRecord</span><span class="p">(</span><span class="n">Seq</span><span class="p">(</span><span class="s2">&#34;ACTAGTACAGCTG&#34;</span><span class="p">),</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&#34;Eta&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">             <span class="n">SeqRecord</span><span class="p">(</span><span class="n">Seq</span><span class="p">(</span><span class="s2">&#34;ACTAGTACAGCT-&#34;</span><span class="p">),</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&#34;Theta&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">             <span class="n">SeqRecord</span><span class="p">(</span><span class="n">Seq</span><span class="p">(</span><span class="s2">&#34;-CTACTACAGGTG&#34;</span><span class="p">),</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&#34;Iota&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">         <span class="p">])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">my_alignments</span> <span class="o">=</span> <span class="p">[</span><span class="n">align1</span><span class="p">,</span> <span class="n">align2</span><span class="p">,</span> <span class="n">align3</span><span class="p">]</span>
+</span></span></code></pre></div><p>将其写出为PHYLIP格式的对象</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">Bio</span> <span class="kn">import</span> <span class="n">AlignIO</span>
+</span></span><span class="line"><span class="cl"><span class="n">AlignIO</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">my_alignments</span><span class="p">,</span> <span class="s2">&#34;my_example.phy&#34;</span><span class="p">,</span> <span class="s2">&#34;phylip&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><h2 id="序列比对的格式间转换">序列比对的格式间转换</h2>
+<p>建议使用 Bio.AlignIO.parse() 来读取序列比对数据，然后使用 Bio.AlignIO.write() 函数来写出。或者你也可以直接使用 Bio.AlignIO.convert() 函数来实现格式的转换
+在本例中，我们将读取PFAM/Stockholm格式的序列比对，然后将其保存为Clustal格式</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">Bio</span> <span class="kn">import</span> <span class="n">AlignIO</span>
+</span></span><span class="line"><span class="cl"><span class="n">count</span> <span class="o">=</span> <span class="n">AlignIO</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s2">&#34;PF05371_seed.sth&#34;</span><span class="p">,</span><span class="s2">&#34;stockholm&#34;</span><span class="p">,</span><span class="s2">&#34;PF05371_seed.sth&#34;</span><span class="p">,</span><span class="s2">&#34;clustal&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;Converted </span><span class="si">%i</span><span class="s2"> alignments&#34;</span> <span class="o">%</span> <span class="n">count</span><span class="p">)</span>
+</span></span></code></pre></div><p>或者，使用 Bio.AlignIO.parse() 和 Bio.AlignIO.write()</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio</span> <span class="kn">import</span> <span class="n">AlignIO</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">alignments</span> <span class="o">=</span> <span class="n">AlignIO</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s2">&#34;PF05371_seed.sth&#34;</span><span class="p">,</span> <span class="s2">&#34;stockholm&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">count</span> <span class="o">=</span> <span class="n">AlignIO</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">alignments</span><span class="p">,</span> <span class="s2">&#34;PF05371_seed.aln&#34;</span><span class="p">,</span> <span class="s2">&#34;clustal&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;Converted </span><span class="si">%i</span><span class="s2"> alignments&#34;</span> <span class="o">%</span> <span class="n">count</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">Converted</span> <span class="mi">1</span> <span class="n">alignments</span>
+</span></span></code></pre></div><h2 id="将序列比对对象转换为格式化字符串formatted-strings">将序列比对对象转换为格式化字符串（formatted strings)</h2>
+<p>因为 Bio.AlignIO 模块是基于文件句柄的，因此你如果想将序列比对读入为一个字符串对象，你需要做一些额外的工作。然而，我们提供一个 format() 方法来帮助你实现这项任务。 format() 方法需要用户提供一个小写的格式参数（这可以是任何 AlignIO 支持的序列比对格式）</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio</span> <span class="kn">import</span> <span class="n">AlignIO</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">alignment</span> <span class="o">=</span> <span class="n">AlignIO</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">&#34;PF05371_seed.sth&#34;</span><span class="p">,</span> <span class="s2">&#34;stockholm&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">alignment</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&#34;clustal&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">CLUSTAL</span> <span class="n">X</span> <span class="p">(</span><span class="mf">1.81</span><span class="p">)</span> <span class="n">multiple</span> <span class="n">sequence</span> <span class="n">alignment</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">COATB_BPIKE</span><span class="o">/</span><span class="mi">30</span><span class="o">-</span><span class="mi">81</span>                   <span class="n">AEPNAATNYATEAMDSLKTQAIDLISQTWPVVTTVVVAGLVIRLFKKFSS</span>
+</span></span><span class="line"><span class="cl"><span class="n">Q9T0Q8_BPIKE</span><span class="o">/</span><span class="mi">1</span><span class="o">-</span><span class="mi">52</span>                   <span class="n">AEPNAATNYATEAMDSLKTQAIDLISQTWPVVTTVVVAGLVIKLFKKFVS</span>
+</span></span><span class="line"><span class="cl"><span class="n">COATB_BPI22</span><span class="o">/</span><span class="mi">32</span><span class="o">-</span><span class="mi">83</span>                   <span class="n">DGTSTATSYATEAMNSLKTQATDLIDQTWPVVTSVAVAGLAIRLFKKFSS</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span></code></pre></div><p>format() 方法是利用 StringIO 以及 Bio.AlignIO.write() 来实现以上输出的。如果你使用的是较老版本的Biopython，你可以使用以下代码来完成相同的工作</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio</span> <span class="kn">import</span> <span class="n">AlignIO</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">StringIO</span> <span class="kn">import</span> <span class="n">StringIO</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">alignments</span> <span class="o">=</span> <span class="n">AlignIO</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s2">&#34;PF05371_seed.sth&#34;</span><span class="p">,</span> <span class="s2">&#34;stockholm&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">out_handle</span> <span class="o">=</span> <span class="n">StringIO</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">AlignIO</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">alignments</span><span class="p">,</span> <span class="n">out_handle</span><span class="p">,</span> <span class="s2">&#34;clustal&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">clustal_data</span> <span class="o">=</span> <span class="n">out_handle</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">clustal_data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">CLUSTAL</span> <span class="n">X</span> <span class="p">(</span><span class="mf">1.81</span><span class="p">)</span> <span class="n">multiple</span> <span class="n">sequence</span> <span class="n">alignment</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">COATB_BPIKE</span><span class="o">/</span><span class="mi">30</span><span class="o">-</span><span class="mi">81</span>                   <span class="n">AEPNAATNYATEAMDSLKTQAIDLISQTWPVVTTVVVAGLVIRLFKKFSS</span>
+</span></span><span class="line"><span class="cl"><span class="n">Q9T0Q8_BPIKE</span><span class="o">/</span><span class="mi">1</span><span class="o">-</span><span class="mi">52</span>                   <span class="n">AEPNAATNYATEAMDSLKTQAIDLISQTWPVVTTVVVAGLVIKLFKKFVS</span>
+</span></span><span class="line"><span class="cl"><span class="n">COATB_BPI22</span><span class="o">/</span><span class="mi">32</span><span class="o">-</span><span class="mi">83</span>                   <span class="n">DGTSTATSYATEAMNSLKTQATDLIDQTWPVVTSVAVAGLAIRLFKKFSS</span>
+</span></span><span class="line"><span class="cl"><span class="n">COATB_BPM13</span><span class="o">/</span><span class="mi">24</span><span class="o">-</span><span class="mi">72</span>                   <span class="n">AEGDDP</span><span class="o">---</span><span class="n">AKAAFNSLQASATEYIGYAWAMVVVIVGATIGIKLFKKFTS</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span></code></pre></div><h2 id="序列比对的操纵">序列比对的操纵</h2>
+<h3 id="切片操纵">切片操纵</h3>
+<p>首先，用户可以认为读入的序列比对是一个由 SeqRecord 对象构成的Python列表（list）。有了这样一个印象以后，你可以使用 len() 方法来得到行数（序列比对的个数），你也可以对序列比对进行迭代。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio</span> <span class="kn">import</span> <span class="n">AlignIO</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">alignment</span> <span class="o">=</span> <span class="n">AlignIO</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">&#34;PF05371_seed.sth&#34;</span><span class="p">,</span> <span class="s2">&#34;stockholm&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;Number of rows: </span><span class="si">%i</span><span class="s2">&#34;</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">alignment</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">Number</span> <span class="n">of</span> <span class="n">rows</span><span class="p">:</span> <span class="mi">7</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">record</span> <span class="ow">in</span> <span class="n">alignment</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>     <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;</span><span class="si">%s</span><span class="s2"> - </span><span class="si">%s</span><span class="s2">&#34;</span> <span class="o">%</span> <span class="p">(</span><span class="n">record</span><span class="o">.</span><span class="n">seq</span><span class="p">,</span> <span class="n">record</span><span class="o">.</span><span class="n">id</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="n">AEPNAATNYATEAMDSLKTQAIDLISQTWPVVTTVVVAGLVIRLFKKFSSKA</span> <span class="o">-</span> <span class="n">COATB_BPIKE</span><span class="o">/</span><span class="mi">30</span><span class="o">-</span><span class="mi">81</span>
+</span></span><span class="line"><span class="cl"><span class="n">AEPNAATNYATEAMDSLKTQAIDLISQTWPVVTTVVVAGLVIKLFKKFVSRA</span> <span class="o">-</span> <span class="n">Q9T0Q8_BPIKE</span><span class="o">/</span><span class="mi">1</span><span class="o">-</span><span class="mi">52</span>
+</span></span><span class="line"><span class="cl"><span class="n">DGTSTATSYATEAMNSLKTQATDLIDQTWPVVTSVAVAGLAIRLFKKFSSKA</span> <span class="o">-</span> <span class="n">COATB_BPI22</span><span class="o">/</span><span class="mi">32</span><span class="o">-</span><span class="mi">83</span>
+</span></span><span class="line"><span class="cl"><span class="n">AEGDDP</span><span class="o">---</span><span class="n">AKAAFNSLQASATEYIGYAWAMVVVIVGATIGIKLFKKFTSKA</span> <span class="o">-</span> <span class="n">COATB_BPM13</span><span class="o">/</span><span class="mi">24</span><span class="o">-</span><span class="mi">72</span>
+</span></span><span class="line"><span class="cl"><span class="n">AEGDDP</span><span class="o">---</span><span class="n">AKAAFDSLQASATEYIGYAWAMVVVIVGATIGIKLFKKFASKA</span> <span class="o">-</span> <span class="n">COATB_BPZJ2</span><span class="o">/</span><span class="mi">1</span><span class="o">-</span><span class="mi">49</span>
+</span></span><span class="line"><span class="cl"><span class="n">AEGDDP</span><span class="o">---</span><span class="n">AKAAFDSLQASATEYIGYAWAMVVVIVGATIGIKLFKKFTSKA</span> <span class="o">-</span> <span class="n">Q9T0Q9_BPFD</span><span class="o">/</span><span class="mi">1</span><span class="o">-</span><span class="mi">49</span>
+</span></span><span class="line"><span class="cl"><span class="n">FAADDATSQAKAAFDSLTAQATEMSGYAWALVVLVVGATVGIKLFKKFVSRA</span> <span class="o">-</span> <span class="n">COATB_BPIF1</span><span class="o">/</span><span class="mi">22</span><span class="o">-</span><span class="mi">73</span>
+</span></span></code></pre></div><p>你可以使用列表所拥有的 append 和 extend 方法来给序列比对增加序列。请读者一定要正确理解序列比对与其包含的序列的关系，这样你就可以使用切片操作来获得其中某些序列比对。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">alignment</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">Alignment</span> <span class="k">with</span> <span class="mi">7</span> <span class="n">rows</span> <span class="ow">and</span> <span class="mi">52</span> <span class="n">columns</span>
+</span></span><span class="line"><span class="cl"><span class="n">AEPNAATNYATEAMDSLKTQAIDLISQTWPVVTTVVVAGLVIRL</span><span class="o">...</span><span class="n">SKA</span> <span class="n">COATB_BPIKE</span><span class="o">/</span><span class="mi">30</span><span class="o">-</span><span class="mi">81</span>
+</span></span><span class="line"><span class="cl"><span class="n">AEPNAATNYATEAMDSLKTQAIDLISQTWPVVTTVVVAGLVIKL</span><span class="o">...</span><span class="n">SRA</span> <span class="n">Q9T0Q8_BPIKE</span><span class="o">/</span><span class="mi">1</span><span class="o">-</span><span class="mi">52</span>
+</span></span><span class="line"><span class="cl"><span class="n">DGTSTATSYATEAMNSLKTQATDLIDQTWPVVTSVAVAGLAIRL</span><span class="o">...</span><span class="n">SKA</span> <span class="n">COATB_BPI22</span><span class="o">/</span><span class="mi">32</span><span class="o">-</span><span class="mi">83</span>
+</span></span><span class="line"><span class="cl"><span class="n">AEGDDP</span><span class="o">---</span><span class="n">AKAAFNSLQASATEYIGYAWAMVVVIVGATIGIKL</span><span class="o">...</span><span class="n">SKA</span> <span class="n">COATB_BPM13</span><span class="o">/</span><span class="mi">24</span><span class="o">-</span><span class="mi">72</span>
+</span></span><span class="line"><span class="cl"><span class="n">AEGDDP</span><span class="o">---</span><span class="n">AKAAFDSLQASATEYIGYAWAMVVVIVGATIGIKL</span><span class="o">...</span><span class="n">SKA</span> <span class="n">COATB_BPZJ2</span><span class="o">/</span><span class="mi">1</span><span class="o">-</span><span class="mi">49</span>
+</span></span><span class="line"><span class="cl"><span class="n">AEGDDP</span><span class="o">---</span><span class="n">AKAAFDSLQASATEYIGYAWAMVVVIVGATIGIKL</span><span class="o">...</span><span class="n">SKA</span> <span class="n">Q9T0Q9_BPFD</span><span class="o">/</span><span class="mi">1</span><span class="o">-</span><span class="mi">49</span>
+</span></span><span class="line"><span class="cl"><span class="n">FAADDATSQAKAAFDSLTAQATEMSGYAWALVVLVVGATVGIKL</span><span class="o">...</span><span class="n">SRA</span> <span class="n">COATB_BPIF1</span><span class="o">/</span><span class="mi">22</span><span class="o">-</span><span class="mi">73</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">alignment</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="mi">7</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="n">Alignment</span> <span class="k">with</span> <span class="mi">4</span> <span class="n">rows</span> <span class="ow">and</span> <span class="mi">52</span> <span class="n">columns</span>
+</span></span><span class="line"><span class="cl"><span class="n">AEGDDP</span><span class="o">---</span><span class="n">AKAAFNSLQASATEYIGYAWAMVVVIVGATIGIKL</span><span class="o">...</span><span class="n">SKA</span> <span class="n">COATB_BPM13</span><span class="o">/</span><span class="mi">24</span><span class="o">-</span><span class="mi">72</span>
+</span></span><span class="line"><span class="cl"><span class="n">AEGDDP</span><span class="o">---</span><span class="n">AKAAFDSLQASATEYIGYAWAMVVVIVGATIGIKL</span><span class="o">...</span><span class="n">SKA</span> <span class="n">COATB_BPZJ2</span><span class="o">/</span><span class="mi">1</span><span class="o">-</span><span class="mi">49</span>
+</span></span><span class="line"><span class="cl"><span class="n">AEGDDP</span><span class="o">---</span><span class="n">AKAAFDSLQASATEYIGYAWAMVVVIVGATIGIKL</span><span class="o">...</span><span class="n">SKA</span> <span class="n">Q9T0Q9_BPFD</span><span class="o">/</span><span class="mi">1</span><span class="o">-</span><span class="mi">49</span>
+</span></span><span class="line"><span class="cl"><span class="n">FAADDATSQAKAAFDSLTAQATEMSGYAWALVVLVVGATVGIKL</span><span class="o">...</span><span class="n">SRA</span> <span class="n">COATB_BPIF1</span><span class="o">/</span><span class="mi">22</span><span class="o">-</span><span class="mi">73</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">alignment</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">6</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="n">T</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">alignment</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">seq</span><span class="p">[</span><span class="mi">6</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="n">T</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">alignment</span><span class="p">[:,</span><span class="mi">6</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="n">TTT</span><span class="o">---</span><span class="n">T</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">alignment</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="mi">6</span><span class="p">,:</span><span class="mi">6</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="n">Alignment</span> <span class="k">with</span> <span class="mi">3</span> <span class="n">rows</span> <span class="ow">and</span> <span class="mi">6</span> <span class="n">columns</span>
+</span></span><span class="line"><span class="cl"><span class="n">AEGDDP</span> <span class="n">COATB_BPM13</span><span class="o">/</span><span class="mi">24</span><span class="o">-</span><span class="mi">72</span>
+</span></span><span class="line"><span class="cl"><span class="n">AEGDDP</span> <span class="n">COATB_BPZJ2</span><span class="o">/</span><span class="mi">1</span><span class="o">-</span><span class="mi">49</span>
+</span></span><span class="line"><span class="cl"><span class="n">AEGDDP</span> <span class="n">Q9T0Q9_BPFD</span><span class="o">/</span><span class="mi">1</span><span class="o">-</span><span class="mi">49</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">alignment</span><span class="p">[:,:</span><span class="mi">6</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="n">Alignment</span> <span class="k">with</span> <span class="mi">7</span> <span class="n">rows</span> <span class="ow">and</span> <span class="mi">6</span> <span class="n">columns</span>
+</span></span><span class="line"><span class="cl"><span class="n">AEPNAA</span> <span class="n">COATB_BPIKE</span><span class="o">/</span><span class="mi">30</span><span class="o">-</span><span class="mi">81</span>
+</span></span><span class="line"><span class="cl"><span class="n">AEPNAA</span> <span class="n">Q9T0Q8_BPIKE</span><span class="o">/</span><span class="mi">1</span><span class="o">-</span><span class="mi">52</span>
+</span></span><span class="line"><span class="cl"><span class="n">DGTSTA</span> <span class="n">COATB_BPI22</span><span class="o">/</span><span class="mi">32</span><span class="o">-</span><span class="mi">83</span>
+</span></span><span class="line"><span class="cl"><span class="n">AEGDDP</span> <span class="n">COATB_BPM13</span><span class="o">/</span><span class="mi">24</span><span class="o">-</span><span class="mi">72</span>
+</span></span><span class="line"><span class="cl"><span class="n">AEGDDP</span> <span class="n">COATB_BPZJ2</span><span class="o">/</span><span class="mi">1</span><span class="o">-</span><span class="mi">49</span>
+</span></span><span class="line"><span class="cl"><span class="n">AEGDDP</span> <span class="n">Q9T0Q9_BPFD</span><span class="o">/</span><span class="mi">1</span><span class="o">-</span><span class="mi">49</span>
+</span></span><span class="line"><span class="cl"><span class="n">FAADDA</span> <span class="n">COATB_BPIF1</span><span class="o">/</span><span class="mi">22</span><span class="o">-</span><span class="mi">73</span>
+</span></span></code></pre></div><p>现在，你可以通过列来操纵序列比对。这也是你能够去除序列比对中的许多列。例如：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">edited</span> <span class="o">=</span> <span class="n">alignment</span><span class="p">[:,:</span><span class="mi">6</span><span class="p">]</span> <span class="o">+</span> <span class="n">alignment</span><span class="p">[:,</span><span class="mi">9</span><span class="p">:]</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">edited</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">Alignment</span> <span class="k">with</span> <span class="mi">7</span> <span class="n">rows</span> <span class="ow">and</span> <span class="mi">49</span> <span class="n">columns</span>
+</span></span><span class="line"><span class="cl"><span class="n">AEPNAAATEAMDSLKTQAIDLISQTWPVVTTVVVAGLVIRLFKKFSSKA</span> <span class="n">COATB_BPIKE</span><span class="o">/</span><span class="mi">30</span><span class="o">-</span><span class="mi">81</span>
+</span></span><span class="line"><span class="cl"><span class="n">AEPNAAATEAMDSLKTQAIDLISQTWPVVTTVVVAGLVIKLFKKFVSRA</span> <span class="n">Q9T0Q8_BPIKE</span><span class="o">/</span><span class="mi">1</span><span class="o">-</span><span class="mi">52</span>
+</span></span><span class="line"><span class="cl"><span class="n">DGTSTAATEAMNSLKTQATDLIDQTWPVVTSVAVAGLAIRLFKKFSSKA</span> <span class="n">COATB_BPI22</span><span class="o">/</span><span class="mi">32</span><span class="o">-</span><span class="mi">83</span>
+</span></span><span class="line"><span class="cl"><span class="n">AEGDDPAKAAFNSLQASATEYIGYAWAMVVVIVGATIGIKLFKKFTSKA</span> <span class="n">COATB_BPM13</span><span class="o">/</span><span class="mi">24</span><span class="o">-</span><span class="mi">72</span>
+</span></span><span class="line"><span class="cl"><span class="n">AEGDDPAKAAFDSLQASATEYIGYAWAMVVVIVGATIGIKLFKKFASKA</span> <span class="n">COATB_BPZJ2</span><span class="o">/</span><span class="mi">1</span><span class="o">-</span><span class="mi">49</span>
+</span></span><span class="line"><span class="cl"><span class="n">AEGDDPAKAAFDSLQASATEYIGYAWAMVVVIVGATIGIKLFKKFTSKA</span> <span class="n">Q9T0Q9_BPFD</span><span class="o">/</span><span class="mi">1</span><span class="o">-</span><span class="mi">49</span>
+</span></span><span class="line"><span class="cl"><span class="n">FAADDAAKAAFDSLTAQATEMSGYAWALVVLVVGATVGIKLFKKFVSRA</span> <span class="n">COATB_BPIF1</span><span class="o">/</span><span class="mi">22</span><span class="o">-</span><span class="mi">73</span>
+</span></span></code></pre></div><p>另一个经常使用的序列比对操作是将多个基因的序列比对拼接成一个大的序列比对（meta-alignment）。 在进行这种操作时一定要注意序列的ID需要匹配。为了达到这种目的，用 sort() 方法将序列ID按照字母顺序进行排列可能会有所帮助
+注意：只有当两个序列比对拥有相同的行的时候才能进行序列比对的拼接。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">edited</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">edited</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">Alignment</span> <span class="k">with</span> <span class="mi">7</span> <span class="n">rows</span> <span class="ow">and</span> <span class="mi">49</span> <span class="n">columns</span>
+</span></span><span class="line"><span class="cl"><span class="n">DGTSTAATEAMNSLKTQATDLIDQTWPVVTSVAVAGLAIRLFKKFSSKA</span> <span class="n">COATB_BPI22</span><span class="o">/</span><span class="mi">32</span><span class="o">-</span><span class="mi">83</span>
+</span></span><span class="line"><span class="cl"><span class="n">FAADDAAKAAFDSLTAQATEMSGYAWALVVLVVGATVGIKLFKKFVSRA</span> <span class="n">COATB_BPIF1</span><span class="o">/</span><span class="mi">22</span><span class="o">-</span><span class="mi">73</span>
+</span></span><span class="line"><span class="cl"><span class="n">AEPNAAATEAMDSLKTQAIDLISQTWPVVTTVVVAGLVIRLFKKFSSKA</span> <span class="n">COATB_BPIKE</span><span class="o">/</span><span class="mi">30</span><span class="o">-</span><span class="mi">81</span>
+</span></span><span class="line"><span class="cl"><span class="n">AEGDDPAKAAFNSLQASATEYIGYAWAMVVVIVGATIGIKLFKKFTSKA</span> <span class="n">COATB_BPM13</span><span class="o">/</span><span class="mi">24</span><span class="o">-</span><span class="mi">72</span>
+</span></span><span class="line"><span class="cl"><span class="n">AEGDDPAKAAFDSLQASATEYIGYAWAMVVVIVGATIGIKLFKKFASKA</span> <span class="n">COATB_BPZJ2</span><span class="o">/</span><span class="mi">1</span><span class="o">-</span><span class="mi">49</span>
+</span></span><span class="line"><span class="cl"><span class="n">AEPNAAATEAMDSLKTQAIDLISQTWPVVTTVVVAGLVIKLFKKFVSRA</span> <span class="n">Q9T0Q8_BPIKE</span><span class="o">/</span><span class="mi">1</span><span class="o">-</span><span class="mi">52</span>
+</span></span><span class="line"><span class="cl"><span class="n">AEGDDPAKAAFDSLQASATEYIGYAWAMVVVIVGATIGIKLFKKFTSKA</span> <span class="n">Q9T0Q9_BPFD</span><span class="o">/</span><span class="mi">1</span><span class="o">-</span><span class="mi">49</span>
+</span></span></code></pre></div><h2 id="序列比对作为数组">序列比对作为数组</h2>
+<p>有时将序列比对转换为字符数组是非常方便的。你可以用 Numpy 来实现这一目的</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio</span> <span class="kn">import</span> <span class="n">AlignIO</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">alignment</span> <span class="o">=</span> <span class="n">AlignIO</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">&#34;PF05371_seed.sth&#34;</span><span class="p">,</span> <span class="s2">&#34;stockholm&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">align_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="nb">list</span><span class="p">(</span><span class="n">rec</span><span class="p">)</span> <span class="k">for</span> <span class="n">rec</span> <span class="ow">in</span> <span class="n">alignment</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">character</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;Array shape </span><span class="si">%i</span><span class="s2"> by </span><span class="si">%i</span><span class="s2">&#34;</span> <span class="o">%</span> <span class="n">align_array</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">Array</span> <span class="n">shape</span> <span class="mi">7</span> <span class="n">by</span> <span class="mi">52</span>
+</span></span></code></pre></div><p>如果你需要频繁地使用列操作，你可以让 Numpy 将序列比对以列的形式进行储存（与Fortran一样），而不是 Numpy 默认形式（与C一样以行储存）：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">align_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="nb">list</span><span class="p">(</span><span class="n">rec</span><span class="p">)</span> <span class="k">for</span> <span class="n">rec</span> <span class="ow">in</span> <span class="n">alignment</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">character</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s2">&#34;F&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><h2 id="获取线路信息">获取线路信息</h2>
+<h3 id="substitutions属性报告路线中的字母相互替换的频率">substitutions属性报告路线中的字母相互替换的频率</h3>
+<p>路线的<code>substitutions</code>属性报告路线中的字母相互替换的频率。通过对路线中的所有行对进行计数，计算两个字母彼此对齐的次数并在所有对中求和计算得出</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio.Seq</span> <span class="kn">import</span> <span class="n">Seq</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio.SeqRecord</span> <span class="kn">import</span> <span class="n">SeqRecord</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio.Align</span> <span class="kn">import</span> <span class="n">MultipleSeqAlignment</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">alignment</span> <span class="o">=</span> <span class="n">MultipleSeqAlignment</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>     <span class="p">[</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>         <span class="n">SeqRecord</span><span class="p">(</span><span class="n">Seq</span><span class="p">(</span><span class="s2">&#34;ACTCCTA&#34;</span><span class="p">),</span> <span class="nb">id</span><span class="o">=</span><span class="s1">&#39;seq1&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>         <span class="n">SeqRecord</span><span class="p">(</span><span class="n">Seq</span><span class="p">(</span><span class="s2">&#34;AAT-CTA&#34;</span><span class="p">),</span> <span class="nb">id</span><span class="o">=</span><span class="s1">&#39;seq2&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>         <span class="n">SeqRecord</span><span class="p">(</span><span class="n">Seq</span><span class="p">(</span><span class="s2">&#34;CCTACT-&#34;</span><span class="p">),</span> <span class="nb">id</span><span class="o">=</span><span class="s1">&#39;seq3&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>         <span class="n">SeqRecord</span><span class="p">(</span><span class="n">Seq</span><span class="p">(</span><span class="s2">&#34;TCTCCTC&#34;</span><span class="p">),</span> <span class="nb">id</span><span class="o">=</span><span class="s1">&#39;seq4&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>     <span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">alignment</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">Alignment</span> <span class="k">with</span> <span class="mi">4</span> <span class="n">rows</span> <span class="ow">and</span> <span class="mi">7</span> <span class="n">columns</span>
+</span></span><span class="line"><span class="cl"><span class="n">ACTCCTA</span> <span class="n">seq1</span>
+</span></span><span class="line"><span class="cl"><span class="n">AAT</span><span class="o">-</span><span class="n">CTA</span> <span class="n">seq2</span>
+</span></span><span class="line"><span class="cl"><span class="n">CCTACT</span><span class="o">-</span> <span class="n">seq3</span>
+</span></span><span class="line"><span class="cl"><span class="n">TCTCCTC</span> <span class="n">seq4</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">substitutions</span> <span class="o">=</span> <span class="n">alignment</span><span class="o">.</span><span class="n">substitutions</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">substitutions</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">A</span>    <span class="n">C</span>    <span class="n">T</span>
+</span></span><span class="line"><span class="cl"><span class="n">A</span> <span class="mf">2.0</span>  <span class="mf">4.5</span>  <span class="mf">1.0</span>
+</span></span><span class="line"><span class="cl"><span class="n">C</span> <span class="mf">4.5</span> <span class="mf">10.0</span>  <span class="mf">0.5</span>
+</span></span><span class="line"><span class="cl"><span class="n">T</span> <span class="mf">1.0</span>  <span class="mf">0.5</span> <span class="mf">12.0</span>
+</span></span></code></pre></div><p>由于对的顺序是任意的，因此计数在对角线的上方和下方均分。例如，A<code>到</code>C的9个对齐在位置[‘A’，’C’]处为4.5，在位置[‘C’，’A’]处为4.5，当根据这些计数计算替换矩阵时，这种安排有助于简化数学运算
+请注意，包含仅在路线中出现的字母的条目。 您可以使用<code>select</code>方法添加缺少字母的条目，例如</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">m</span> <span class="o">=</span> <span class="n">substitutions</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&#34;ATCG&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">A</span>    <span class="n">T</span>    <span class="n">C</span>   <span class="n">G</span>
+</span></span><span class="line"><span class="cl"><span class="n">A</span> <span class="mf">2.0</span>  <span class="mf">1.0</span>  <span class="mf">4.5</span> <span class="mf">0.0</span>
+</span></span><span class="line"><span class="cl"><span class="n">T</span> <span class="mf">1.0</span> <span class="mf">12.0</span>  <span class="mf">0.5</span> <span class="mf">0.0</span>
+</span></span><span class="line"><span class="cl"><span class="n">C</span> <span class="mf">4.5</span>  <span class="mf">0.5</span> <span class="mf">10.0</span> <span class="mf">0.0</span>
+</span></span><span class="line"><span class="cl"><span class="n">G</span> <span class="mf">0.0</span>  <span class="mf">0.0</span>  <span class="mf">0.0</span> <span class="mf">0.0</span>
+</span></span></code></pre></div><h2 id="构建序列比对工具">构建序列比对工具</h2>
+<p>目前有非常多的算法来帮助你构建一个序列比对，包括两两间的比对和多序列比对。这些算法在计算上往往是非常慢的，你一定不会希望用Python来实现他们。然而，你可以使用Biopython来运行命令行程序。通常你需要</p>
+<ol>
+<li>准备一个包含未比对序列的输入文件，一般为FASTA格式的序列。你可以使用 Bio.SeqIO 来创建一个</li>
+<li>在Biopython中运行一个命令行程序来构建序列比对（我们将在这里详细介绍）。这需要通过Biopython的打包程序（wrapper）来实现</li>
+<li>读取以上程序的输出，也就是排列好的序列比对。这往往可以通过 Bio.AlignIO 来实现</li>
+</ol>
+<p>本章所介绍的所有的命令行打包程序都将以同样的方式使用。你创造一个命令行对象来指定各种参数（例如：输入文件名，输出文件名等），然后通过Python的系统命令模块来运行这一程序（例如：使用 subprocess 进程）</p>
+<h3 id="大多数的打包程序都在-bioalignapplications-中定义">大多数的打包程序都在 Bio.Align.Applications 中定义</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">Bio.Align.Applications</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">dir</span><span class="p">(</span><span class="n">Bio</span><span class="o">.</span><span class="n">Align</span><span class="o">.</span><span class="n">Applications</span><span class="p">)</span> 
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="s1">&#39;ClustalwCommandline&#39;</span><span class="p">,</span> <span class="s1">&#39;DialignCommandline&#39;</span><span class="p">,</span> <span class="s1">&#39;MafftCommandline&#39;</span><span class="p">,</span> <span class="s1">&#39;MuscleCommandline&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;PrankCommandline&#39;</span><span class="p">,</span> <span class="s1">&#39;ProbconsCommandline&#39;</span><span class="p">,</span> <span class="s1">&#39;TCoffeeCommandline&#39;</span> <span class="o">...</span><span class="p">]</span>
+</span></span></code></pre></div><h3 id="clustalw">ClustalW</h3>
+<p>ClustalW是一个非常流行的进行多序列比对的命令行程序（其还有一个图形化的版本称之为ClustalX）。Biopython的 Bio.Align.Applications 模块包含这一多序列比对程序的打包程序
+我们建议你在Python中使用ClustalW之前在命令行界面下手动使用ClustalW，这样能使你更清楚这一程序的参数。你会发现Biopython打包程序非常严格地遵循实际的命令行API：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio.Align.Applications</span> <span class="kn">import</span> <span class="n">ClustalwCommandline</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">help</span><span class="p">(</span><span class="n">ClustalwCommandline</span><span class="p">)</span>
+</span></span></code></pre></div><p>ClustalW在默认情况下会产生一个包括所有输入序列的序列比对以及一个由输入序列名字构成的指导树（guide tree）。例如，用上述文件作为输入，ClustalW将会输出 opuntia.aln 和 opuntia.dnd 两个文件：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio.Align.Applications</span> <span class="kn">import</span> <span class="n">ClustalwCommandline</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">cline</span> <span class="o">=</span> <span class="n">ClustalwCommandline</span><span class="p">(</span><span class="s2">&#34;clustalw2&#34;</span><span class="p">,</span> <span class="n">infile</span><span class="o">=</span><span class="s2">&#34;opuntia.fasta&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">cline</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">clustalw2</span> <span class="o">-</span><span class="n">infile</span><span class="o">=</span><span class="n">opuntia</span><span class="o">.</span><span class="n">fasta</span>
+</span></span></code></pre></div><p>注意这里我们给出的执行文件名是 clustalw2 ，这是ClustalW的第二个版本（第一个版本的文件名为 clustalw ）。ClustalW的这两个版本具有相同的参数，并且在功能上也是一致的
+你可能会发现，尽管你安装了ClustalW，以上的命令行却无法正确运行。你可能会得到“command not found”的错误信息（尤其是在Windows上）。这往往是由于ClustalW的运行程序并不在系统的工作目录PATH下（一个包含着运行程序路径的环境变量）。你既可以修改PATH，使其包括ClustalW的运行程序（不同系统需要以不同的方式修改），或者你也可以直接指定程序的绝对路径
+注意，Python中 \n 和 \t 会被解析为一个新行和制表空白（tab）。然而，如果你将一个小写的“r”放在字符串的前面，这一字符串就将保留原始状态，而不被解析。这种方式对于指定Windows风格的文件名来说是一种良好的习惯。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">os</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio.Align.Applications</span> <span class="kn">import</span> <span class="n">ClustalwCommandline</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">clustalw_exe</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&#34;C:\Program Files\new clustal\clustalw2.exe&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">clustalw_cline</span> <span class="o">=</span> <span class="n">ClustalwCommandline</span><span class="p">(</span><span class="n">clustalw_exe</span><span class="p">,</span> <span class="n">infile</span><span class="o">=</span><span class="s2">&#34;opuntia.fasta&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">clustalw_exe</span><span class="p">),</span> <span class="s2">&#34;Clustal W executable missing&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">stdout</span><span class="p">,</span> <span class="n">stderr</span> <span class="o">=</span> <span class="n">clustalw_cline</span><span class="p">()</span>
+</span></span></code></pre></div><p>Biopython在内部使用较新的 subprocess 模块来实现打包程序，而不是 os.system() 和 os.popen*</p>
+<h3 id="命令行工具到底是如何运作的">命令行工具到底是如何运作的</h3>
+<p>现在，我们有必要去了解命令行工具是如何工作的。当你使用一个命令行时，它往往会在屏幕上输出一些内容。这一输出可以被保存或重定向。在系统输出中，有两种管道（pipe）来区分不同的输出信息–标准输出（standard output）包含正常的输出内容，标准错误（standard error）显示错误和调试信息。同时，系统也接受标准输入（standard input）。这也是命令行工具如何读取数据文件的。当程序运行结束以后，它往往会返回一个整数。一般返回值为0意味着程序正常结束。
+当你使用Biopython打包程序来调用命令行工具的时候，它将会等待程序结束，并检查程序的返回值。如果返回值不为0，Biopython将会提示一个错误信息。Biopython打包程序将会输出两个字符串，标准输出和标准错误。
+在ClustalW的例子中，当你使用程序时，所有重要的输出都被保存到输出文件中。所有打印在屏幕上的内容（通过 stdout or stderr）可以被忽略掉（假设它已经成功运行）。</p>
+<h3 id="运行clustalw时返回的aln文件和dnd文件">运行clustalW时返回的.aln文件和dnd文件</h3>
+<p>当运行ClustalW的时候，我们所关心的往往是输出的序列比对文件和指导树文件。ClustalW会自动根据输入数据的文件名来命名输出文件。在本例中，输出文件将是 opuntia.aln 。当你成功运行完ClustalW以后，你可以使用 Bio.AlignIO 来读取输出结果：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio</span> <span class="kn">import</span> <span class="n">AlignIO</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">align</span> <span class="o">=</span> <span class="n">AlignIO</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">&#34;opuntia.aln&#34;</span><span class="p">,</span> <span class="s2">&#34;clustal&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">align</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">SingleLetterAlphabet</span><span class="p">()</span> <span class="n">alignment</span> <span class="k">with</span> <span class="mi">7</span> <span class="n">rows</span> <span class="ow">and</span> <span class="mi">906</span> <span class="n">columns</span>
+</span></span><span class="line"><span class="cl"><span class="n">TATACATTAAAGAAGGGGGATGCGGATAAATGGAAAGGCGAAAG</span><span class="o">...</span><span class="n">AGA</span> <span class="n">gi</span><span class="o">|</span><span class="mi">6273285</span><span class="o">|</span><span class="n">gb</span><span class="o">|</span><span class="n">AF191659</span><span class="mf">.1</span><span class="o">|</span><span class="n">AF191</span>
+</span></span><span class="line"><span class="cl"><span class="n">TATACATTAAAGAAGGGGGATGCGGATAAATGGAAAGGCGAAAG</span><span class="o">...</span><span class="n">AGA</span> <span class="n">gi</span><span class="o">|</span><span class="mi">6273284</span><span class="o">|</span><span class="n">gb</span><span class="o">|</span><span class="n">AF191658</span><span class="mf">.1</span><span class="o">|</span><span class="n">AF191</span>
+</span></span><span class="line"><span class="cl"><span class="n">TATACATTAAAGAAGGGGGATGCGGATAAATGGAAAGGCGAAAG</span><span class="o">...</span><span class="n">AGA</span> <span class="n">gi</span><span class="o">|</span><span class="mi">6273287</span><span class="o">|</span><span class="n">gb</span><span class="o">|</span><span class="n">AF191661</span><span class="mf">.1</span><span class="o">|</span><span class="n">AF191</span>
+</span></span><span class="line"><span class="cl"><span class="n">TATACATAAAAGAAGGGGGATGCGGATAAATGGAAAGGCGAAAG</span><span class="o">...</span><span class="n">AGA</span> <span class="n">gi</span><span class="o">|</span><span class="mi">6273286</span><span class="o">|</span><span class="n">gb</span><span class="o">|</span><span class="n">AF191660</span><span class="mf">.1</span><span class="o">|</span><span class="n">AF191</span>
+</span></span><span class="line"><span class="cl"><span class="n">TATACATTAAAGGAGGGGGATGCGGATAAATGGAAAGGCGAAAG</span><span class="o">...</span><span class="n">AGA</span> <span class="n">gi</span><span class="o">|</span><span class="mi">6273290</span><span class="o">|</span><span class="n">gb</span><span class="o">|</span><span class="n">AF191664</span><span class="mf">.1</span><span class="o">|</span><span class="n">AF191</span>
+</span></span><span class="line"><span class="cl"><span class="n">TATACATTAAAGGAGGGGGATGCGGATAAATGGAAAGGCGAAAG</span><span class="o">...</span><span class="n">AGA</span> <span class="n">gi</span><span class="o">|</span><span class="mi">6273289</span><span class="o">|</span><span class="n">gb</span><span class="o">|</span><span class="n">AF191663</span><span class="mf">.1</span><span class="o">|</span><span class="n">AF191</span>
+</span></span><span class="line"><span class="cl"><span class="n">TATACATTAAAGGAGGGGGATGCGGATAAATGGAAAGGCGAAAG</span><span class="o">...</span><span class="n">AGA</span> <span class="n">gi</span><span class="o">|</span><span class="mi">6273291</span><span class="o">|</span><span class="n">gb</span><span class="o">|</span><span class="n">AF191665</span><span class="mf">.1</span><span class="o">|</span><span class="n">AF191</span>
+</span></span></code></pre></div><p>另一个输出文件 opuntia.dnd 中包含有一个newick格式的指导树，你可以使用Biopython中的 Bio.Phylo 来读取它</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio</span> <span class="kn">import</span> <span class="n">Phylo</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">tree</span> <span class="o">=</span> <span class="n">Phylo</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">&#34;opuntia.dnd&#34;</span><span class="p">,</span> <span class="s2">&#34;newick&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">Phylo</span><span class="o">.</span><span class="n">draw_ascii</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                             <span class="n">_______________</span> <span class="n">gi</span><span class="o">|</span><span class="mi">6273291</span><span class="o">|</span><span class="n">gb</span><span class="o">|</span><span class="n">AF191665</span><span class="mf">.1</span><span class="o">|</span><span class="n">AF191665</span>
+</span></span><span class="line"><span class="cl">  <span class="n">__________________________</span><span class="o">|</span>
+</span></span><span class="line"><span class="cl"> <span class="o">|</span>                          <span class="o">|</span>   <span class="n">______</span> <span class="n">gi</span><span class="o">|</span><span class="mi">6273290</span><span class="o">|</span><span class="n">gb</span><span class="o">|</span><span class="n">AF191664</span><span class="mf">.1</span><span class="o">|</span><span class="n">AF191664</span>
+</span></span><span class="line"><span class="cl"> <span class="o">|</span>                          <span class="o">|</span><span class="n">__</span><span class="o">|</span>
+</span></span><span class="line"><span class="cl"> <span class="o">|</span>                             <span class="o">|</span><span class="n">_____</span> <span class="n">gi</span><span class="o">|</span><span class="mi">6273289</span><span class="o">|</span><span class="n">gb</span><span class="o">|</span><span class="n">AF191663</span><span class="mf">.1</span><span class="o">|</span><span class="n">AF191663</span>
+</span></span><span class="line"><span class="cl"> <span class="o">|</span>
+</span></span><span class="line"><span class="cl"><span class="n">_</span><span class="o">|</span><span class="n">_________________</span> <span class="n">gi</span><span class="o">|</span><span class="mi">6273287</span><span class="o">|</span><span class="n">gb</span><span class="o">|</span><span class="n">AF191661</span><span class="mf">.1</span><span class="o">|</span><span class="n">AF191661</span>
+</span></span><span class="line"><span class="cl"> <span class="o">|</span>
+</span></span><span class="line"><span class="cl"> <span class="o">|</span><span class="n">__________</span> <span class="n">gi</span><span class="o">|</span><span class="mi">6273286</span><span class="o">|</span><span class="n">gb</span><span class="o">|</span><span class="n">AF191660</span><span class="mf">.1</span><span class="o">|</span><span class="n">AF191660</span>
+</span></span><span class="line"><span class="cl"> <span class="o">|</span>
+</span></span><span class="line"><span class="cl"> <span class="o">|</span>    <span class="n">__</span> <span class="n">gi</span><span class="o">|</span><span class="mi">6273285</span><span class="o">|</span><span class="n">gb</span><span class="o">|</span><span class="n">AF191659</span><span class="mf">.1</span><span class="o">|</span><span class="n">AF191659</span>
+</span></span><span class="line"><span class="cl"> <span class="o">|</span><span class="n">___</span><span class="o">|</span>
+</span></span><span class="line"><span class="cl">     <span class="o">|</span> <span class="n">gi</span><span class="o">|</span><span class="mi">6273284</span><span class="o">|</span><span class="n">gb</span><span class="o">|</span><span class="n">AF191658</span><span class="mf">.1</span><span class="o">|</span><span class="n">AF191658</span>
+</span></span></code></pre></div><h3 id="muscle">MUSCLE</h3>
+<p>MUSCLE是另一个较新的序列比对工具，Biopython的 Bio.Align.Applications 中也有针对Muscle的打包程序。与ClustalW一样，我们也建议你先在命令行界面下使用MUSCLE以后再使用Biopython打包程序。你会发现，Biopython的打包程序非常严格地包括了所有命令行输入参数：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio.Align.Applications</span> <span class="kn">import</span> <span class="n">MuscleCommandline</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">help</span><span class="p">(</span><span class="n">MuscleCommandline</span><span class="p">)</span>
+</span></span></code></pre></div><h4 id="简单的应用">简单的应用</h4>
+<p>作为最简单的例子，你只需要一个Fasta格式的数据文件作为输入。例如： <a class="link" href="https://raw.githubusercontent.com/biopython/biopython/master/Doc/examples/opuntia.fasta"  target="_blank" rel="noopener"
+    >opuntia.fasta</a> 然后你可以告诉MUSCLE来读取该FASTA文件，并将序列比对写出：
+注意，MUSCLE使用“-in”和“-out”来指定输入和输出文件，而在Biopython中，我们使用“input”和“out”作为关键字来指定输入输出。这是由于“in”是Python的一个关键词而被保留。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio.Align.Applications</span> <span class="kn">import</span> <span class="n">MuscleCommandline</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">cline</span> <span class="o">=</span> <span class="n">MuscleCommandline</span><span class="p">(</span><span class="nb">input</span><span class="o">=</span><span class="s2">&#34;opuntia.fasta&#34;</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="s2">&#34;opuntia.txt&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">cline</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">muscle</span> <span class="o">-</span><span class="ow">in</span> <span class="n">opuntia</span><span class="o">.</span><span class="n">fasta</span> <span class="o">-</span><span class="n">out</span> <span class="n">opuntia</span><span class="o">.</span><span class="n">txt</span>
+</span></span></code></pre></div><p>默认情况下，MUSCLE的输出文件将是包含间隔（gap）的FASTA格式文件。 当你指定 format=fasta 时， Bio.AlignIO 能够读取该FASTA文件。你也可以告诉MUSCLE来输出ClustalW-like的文件结果</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio.Align.Applications</span> <span class="kn">import</span> <span class="n">MuscleCommandline</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">cline</span> <span class="o">=</span> <span class="n">MuscleCommandline</span><span class="p">(</span><span class="nb">input</span><span class="o">=</span><span class="s2">&#34;opuntia.fasta&#34;</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="s2">&#34;opuntia.aln&#34;</span><span class="p">,</span> <span class="n">clw</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">cline</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">muscle</span> <span class="o">-</span><span class="ow">in</span> <span class="n">opuntia</span><span class="o">.</span><span class="n">fasta</span> <span class="o">-</span><span class="n">out</span> <span class="n">opuntia</span><span class="o">.</span><span class="n">aln</span> <span class="o">-</span><span class="n">clw</span>
+</span></span></code></pre></div><p>或者，严格的ClustalW的输出文件（这将输出原始的ClustalW的文件标签）。例如：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio.Align.Applications</span> <span class="kn">import</span> <span class="n">MuscleCommandline</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">cline</span> <span class="o">=</span> <span class="n">MuscleCommandline</span><span class="p">(</span><span class="nb">input</span><span class="o">=</span><span class="s2">&#34;opuntia.fasta&#34;</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="s2">&#34;opuntia.aln&#34;</span><span class="p">,</span> <span class="n">clwstrict</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">cline</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">muscle</span> <span class="o">-</span><span class="ow">in</span> <span class="n">opuntia</span><span class="o">.</span><span class="n">fasta</span> <span class="o">-</span><span class="n">out</span> <span class="n">opuntia</span><span class="o">.</span><span class="n">aln</span> <span class="o">-</span><span class="n">clwstrict</span>
+</span></span></code></pre></div><p>你可以使用 Bio.AlignIO 的 format=&ldquo;clustal&rdquo; 参数来读取这些序列比对输出。</p>
+<h4 id="muscle标准输出">MUSCLE标准输出</h4>
+<p>使用以上的MUSCLE命令行将会把序列比对结果写出到一个文件中。然而MUSCLE也允许你将序列比对结果作为系统的标准输出。Biopython打包程序可以利用这一特性来避免创建一个临时文件。例如：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio.Align.Applications</span> <span class="kn">import</span> <span class="n">MuscleCommandline</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">muscle_cline</span> <span class="o">=</span> <span class="n">MuscleCommandline</span><span class="p">(</span><span class="nb">input</span><span class="o">=</span><span class="s2">&#34;opuntia.fasta&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">muscle_cline</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">muscle</span> <span class="o">-</span><span class="ow">in</span> <span class="n">opuntia</span><span class="o">.</span><span class="n">fasta</span>
+</span></span></code></pre></div><p>对于这个muscle_cline的输出要采用stringIO模块去读取
+如果你使用打包程序运行上述命令，程序将返回一个字符串对象。为了读取它，我们可以使用 StringIO 模块。记住MUSCLE将默认以FASTA格式输出序列比对：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio.Align.Applications</span> <span class="kn">import</span> <span class="n">MuscleCommandline</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">muscle_cline</span> <span class="o">=</span> <span class="n">MuscleCommandline</span><span class="p">(</span><span class="nb">input</span><span class="o">=</span><span class="s2">&#34;opuntia.fasta&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">stdout</span><span class="p">,</span> <span class="n">stderr</span> <span class="o">=</span> <span class="n">muscle_cline</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">StringIO</span> <span class="kn">import</span> <span class="n">StringIO</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio</span> <span class="kn">import</span> <span class="n">AlignIO</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">align</span> <span class="o">=</span> <span class="n">AlignIO</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">StringIO</span><span class="p">(</span><span class="n">stdout</span><span class="p">),</span> <span class="s2">&#34;fasta&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">align</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">Alignment</span> <span class="k">with</span> <span class="mi">7</span> <span class="n">rows</span> <span class="ow">and</span> <span class="mi">906</span> <span class="n">columns</span>
+</span></span><span class="line"><span class="cl"><span class="n">TATACATTAAAGGAGGGGGATGCGGATAAATGGAAAGGCGAAAG</span><span class="o">...</span><span class="n">AGA</span> <span class="n">gi</span><span class="o">|</span><span class="mi">6273289</span><span class="o">|</span><span class="n">gb</span><span class="o">|</span><span class="n">AF191663</span><span class="mf">.1</span><span class="o">|</span><span class="n">AF191663</span>
+</span></span><span class="line"><span class="cl"><span class="n">TATACATTAAAGGAGGGGGATGCGGATAAATGGAAAGGCGAAAG</span><span class="o">...</span><span class="n">AGA</span> <span class="n">gi</span><span class="o">|</span><span class="mi">6273291</span><span class="o">|</span><span class="n">gb</span><span class="o">|</span><span class="n">AF191665</span><span class="mf">.1</span><span class="o">|</span><span class="n">AF191665</span>
+</span></span><span class="line"><span class="cl"><span class="n">TATACATTAAAGGAGGGGGATGCGGATAAATGGAAAGGCGAAAG</span><span class="o">...</span><span class="n">AGA</span> <span class="n">gi</span><span class="o">|</span><span class="mi">6273290</span><span class="o">|</span><span class="n">gb</span><span class="o">|</span><span class="n">AF191664</span><span class="mf">.1</span><span class="o">|</span><span class="n">AF191664</span>
+</span></span><span class="line"><span class="cl"><span class="n">TATACATTAAAGAAGGGGGATGCGGATAAATGGAAAGGCGAAAG</span><span class="o">...</span><span class="n">AGA</span> <span class="n">gi</span><span class="o">|</span><span class="mi">6273287</span><span class="o">|</span><span class="n">gb</span><span class="o">|</span><span class="n">AF191661</span><span class="mf">.1</span><span class="o">|</span><span class="n">AF191661</span>
+</span></span><span class="line"><span class="cl"><span class="n">TATACATAAAAGAAGGGGGATGCGGATAAATGGAAAGGCGAAAG</span><span class="o">...</span><span class="n">AGA</span> <span class="n">gi</span><span class="o">|</span><span class="mi">6273286</span><span class="o">|</span><span class="n">gb</span><span class="o">|</span><span class="n">AF191660</span><span class="mf">.1</span><span class="o">|</span><span class="n">AF191660</span>
+</span></span><span class="line"><span class="cl"><span class="n">TATACATTAAAGAAGGGGGATGCGGATAAATGGAAAGGCGAAAG</span><span class="o">...</span><span class="n">AGA</span> <span class="n">gi</span><span class="o">|</span><span class="mi">6273285</span><span class="o">|</span><span class="n">gb</span><span class="o">|</span><span class="n">AF191659</span><span class="mf">.1</span><span class="o">|</span><span class="n">AF191659</span>
+</span></span><span class="line"><span class="cl"><span class="n">TATACATTAAAGAAGGGGGATGCGGATAAATGGAAAGGCGAAAG</span><span class="o">...</span><span class="n">AGA</span> <span class="n">gi</span><span class="o">|</span><span class="mi">6273284</span><span class="o">|</span><span class="n">gb</span><span class="o">|</span><span class="n">AF191658</span><span class="mf">.1</span><span class="o">|</span><span class="n">AF191658</span>
+</span></span></code></pre></div><h4 id="对于大的数据使用subprocess模块去解决">对于大的数据，使用subprocess模块去解决</h4>
+<p>以上是一个非常简单的例子，如果你希望处理较大的输出数据，我们并不建议你将它们全部读入内存中。对于这种情况， subprocess 模块可以非常方便地处理。例如：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">subprocess</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio.Align.Applications</span> <span class="kn">import</span> <span class="n">MuscleCommandline</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">muscle_cline</span> <span class="o">=</span> <span class="n">MuscleCommandline</span><span class="p">(</span><span class="nb">input</span><span class="o">=</span><span class="s2">&#34;opuntia.fasta&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">child</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">muscle_cline</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>                          <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>                          <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>                          <span class="n">shell</span><span class="o">=</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">platform</span><span class="o">!=</span><span class="s2">&#34;win32&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio</span> <span class="kn">import</span> <span class="n">AlignIO</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">align</span> <span class="o">=</span> <span class="n">AlignIO</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">child</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="s2">&#34;fasta&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">align</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">Alignment</span> <span class="k">with</span> <span class="mi">7</span> <span class="n">rows</span> <span class="ow">and</span> <span class="mi">906</span> <span class="n">columns</span>
+</span></span><span class="line"><span class="cl"><span class="n">TATACATTAAAGGAGGGGGATGCGGATAAATGGAAAGGCGAAAG</span><span class="o">...</span><span class="n">AGA</span> <span class="n">gi</span><span class="o">|</span><span class="mi">6273289</span><span class="o">|</span><span class="n">gb</span><span class="o">|</span><span class="n">AF191663</span><span class="mf">.1</span><span class="o">|</span><span class="n">AF191663</span>
+</span></span><span class="line"><span class="cl"><span class="n">TATACATTAAAGGAGGGGGATGCGGATAAATGGAAAGGCGAAAG</span><span class="o">...</span><span class="n">AGA</span> <span class="n">gi</span><span class="o">|</span><span class="mi">6273291</span><span class="o">|</span><span class="n">gb</span><span class="o">|</span><span class="n">AF191665</span><span class="mf">.1</span><span class="o">|</span><span class="n">AF191665</span>
+</span></span><span class="line"><span class="cl"><span class="n">TATACATTAAAGGAGGGGGATGCGGATAAATGGAAAGGCGAAAG</span><span class="o">...</span><span class="n">AGA</span> <span class="n">gi</span><span class="o">|</span><span class="mi">6273290</span><span class="o">|</span><span class="n">gb</span><span class="o">|</span><span class="n">AF191664</span><span class="mf">.1</span><span class="o">|</span><span class="n">AF191664</span>
+</span></span><span class="line"><span class="cl"><span class="n">TATACATTAAAGAAGGGGGATGCGGATAAATGGAAAGGCGAAAG</span><span class="o">...</span><span class="n">AGA</span> <span class="n">gi</span><span class="o">|</span><span class="mi">6273287</span><span class="o">|</span><span class="n">gb</span><span class="o">|</span><span class="n">AF191661</span><span class="mf">.1</span><span class="o">|</span><span class="n">AF191661</span>
+</span></span><span class="line"><span class="cl"><span class="n">TATACATAAAAGAAGGGGGATGCGGATAAATGGAAAGGCGAAAG</span><span class="o">...</span><span class="n">AGA</span> <span class="n">gi</span><span class="o">|</span><span class="mi">6273286</span><span class="o">|</span><span class="n">gb</span><span class="o">|</span><span class="n">AF191660</span><span class="mf">.1</span><span class="o">|</span><span class="n">AF191660</span>
+</span></span><span class="line"><span class="cl"><span class="n">TATACATTAAAGAAGGGGGATGCGGATAAATGGAAAGGCGAAAG</span><span class="o">...</span><span class="n">AGA</span> <span class="n">gi</span><span class="o">|</span><span class="mi">6273285</span><span class="o">|</span><span class="n">gb</span><span class="o">|</span><span class="n">AF191659</span><span class="mf">.1</span><span class="o">|</span><span class="n">AF191659</span>
+</span></span><span class="line"><span class="cl"><span class="n">TATACATTAAAGAAGGGGGATGCGGATAAATGGAAAGGCGAAAG</span><span class="o">...</span><span class="n">AGA</span> <span class="n">gi</span><span class="o">|</span><span class="mi">6273284</span><span class="o">|</span><span class="n">gb</span><span class="o">|</span><span class="n">AF191658</span><span class="mf">.1</span><span class="o">|</span><span class="n">AF191658</span>
+</span></span></code></pre></div><h4 id="以标准输入和标准输出使用muscle">以标准输入和标准输出使用MUSCLE</h4>
+<p>事实上，我们并不需要将序列放在一个文件里来使用MUSCLE。MUSCLE可以读取系统标准输入的内容;为了让MUSCLE读取标准输入的内容，我们首先需要将未排列的序列以 SeqRecord 对象的形式读入到内存。在这里，我们将以一个规则来选择特定的序列（序列长度小于900bp的），使用生成器表达式.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio</span> <span class="kn">import</span> <span class="n">SeqIO</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">records</span> <span class="o">=</span> <span class="p">(</span><span class="n">r</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">SeqIO</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s2">&#34;opuntia.fasta&#34;</span><span class="p">,</span> <span class="s2">&#34;fasta&#34;</span><span class="p">)</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">900</span><span class="p">)</span>
+</span></span></code></pre></div><p>随后，我们需要建立一个MUSCLE命令行，但是不指定输入和输出（MUSCLE默认为标准输入和标准输出）。这里，我们将指定输出格式为严格的Clustal格式：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio.Align.Applications</span> <span class="kn">import</span> <span class="n">MuscleCommandline</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">muscle_cline</span> <span class="o">=</span> <span class="n">MuscleCommandline</span><span class="p">(</span><span class="n">clwstrict</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">muscle_cline</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">muscle</span> <span class="o">-</span><span class="n">clwstrict</span>
+</span></span></code></pre></div><p>我们使用Python的内置模块 subprocess 来实现这一目的：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">subprocess</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">sys</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">child</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">cline</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>                          <span class="n">stdin</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>                          <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>                          <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>                          <span class="n">universal_newlines</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>                          <span class="n">shell</span><span class="o">=</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">platform</span><span class="o">!=</span><span class="s2">&#34;win32&#34;</span><span class="p">))</span>
+</span></span></code></pre></div><p>这一命令将启动MUSCLE，但是它将会等待FASTA格式的输入数据。我们可以通过标准输入句柄来提供给它：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">SeqIO</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">records</span><span class="p">,</span> <span class="n">child</span><span class="o">.</span><span class="n">stdin</span><span class="p">,</span> <span class="s2">&#34;fasta&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="mi">6</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">child</span><span class="o">.</span><span class="n">stdin</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span></span></code></pre></div><p>在将6条序列写入句柄后，MUSCLE仍将会等待，判断是否所有的FASTA序列全部输入完毕了。我们可以关闭句柄来提示给MUSCLE。这时，MUSCLE将开始运行。最后，我们可以在标准输出中获得结果：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio</span> <span class="kn">import</span> <span class="n">AlignIO</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">align</span> <span class="o">=</span> <span class="n">AlignIO</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">child</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="s2">&#34;clustal&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">align</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">Alignment</span> <span class="k">with</span> <span class="mi">6</span> <span class="n">rows</span> <span class="ow">and</span> <span class="mi">900</span> <span class="n">columns</span>
+</span></span><span class="line"><span class="cl"><span class="n">TATACATTAAAGGAGGGGGATGCGGATAAATGGAAAGGCGAAAG</span><span class="o">...</span><span class="n">AGA</span> <span class="n">gi</span><span class="o">|</span><span class="mi">6273290</span><span class="o">|</span><span class="n">gb</span><span class="o">|</span><span class="n">AF191664</span><span class="mf">.1</span><span class="o">|</span><span class="n">AF19166</span>
+</span></span><span class="line"><span class="cl"><span class="n">TATACATTAAAGGAGGGGGATGCGGATAAATGGAAAGGCGAAAG</span><span class="o">...</span><span class="n">AGA</span> <span class="n">gi</span><span class="o">|</span><span class="mi">6273289</span><span class="o">|</span><span class="n">gb</span><span class="o">|</span><span class="n">AF191663</span><span class="mf">.1</span><span class="o">|</span><span class="n">AF19166</span>
+</span></span><span class="line"><span class="cl"><span class="n">TATACATTAAAGAAGGGGGATGCGGATAAATGGAAAGGCGAAAG</span><span class="o">...</span><span class="n">AGA</span> <span class="n">gi</span><span class="o">|</span><span class="mi">6273287</span><span class="o">|</span><span class="n">gb</span><span class="o">|</span><span class="n">AF191661</span><span class="mf">.1</span><span class="o">|</span><span class="n">AF19166</span>
+</span></span><span class="line"><span class="cl"><span class="n">TATACATAAAAGAAGGGGGATGCGGATAAATGGAAAGGCGAAAG</span><span class="o">...</span><span class="n">AGA</span> <span class="n">gi</span><span class="o">|</span><span class="mi">6273286</span><span class="o">|</span><span class="n">gb</span><span class="o">|</span><span class="n">AF191660</span><span class="mf">.1</span><span class="o">|</span><span class="n">AF19166</span>
+</span></span><span class="line"><span class="cl"><span class="n">TATACATTAAAGAAGGGGGATGCGGATAAATGGAAAGGCGAAAG</span><span class="o">...</span><span class="n">AGA</span> <span class="n">gi</span><span class="o">|</span><span class="mi">6273285</span><span class="o">|</span><span class="n">gb</span><span class="o">|</span><span class="n">AF191659</span><span class="mf">.1</span><span class="o">|</span><span class="n">AF19165</span>
+</span></span><span class="line"><span class="cl"><span class="n">TATACATTAAAGAAGGGGGATGCGGATAAATGGAAAGGCGAAAG</span><span class="o">...</span><span class="n">AGA</span> <span class="n">gi</span><span class="o">|</span><span class="mi">6273284</span><span class="o">|</span><span class="n">gb</span><span class="o">|</span><span class="n">AF191658</span><span class="mf">.1</span><span class="o">|</span><span class="n">AF19165</span>
+</span></span></code></pre></div><h2 id="emboss包的序列比对工具needle和water">EMBOSS包的序列比对工具——needle和water</h2>
+<p><a class="link" href="http://emboss.sourceforge.net/"  target="_blank" rel="noopener"
+    >EMBOSS</a> 包有两个序列比对程序—— water 和 needle 来实现Smith-Waterman做局部序列比对（local alignment）和Needleman-Wunsch算法来做全局排列（global alignment）。这两个程序具有相同的使用方式，因此我们仅以 needle 为例
+这里以alpha.fasta / beta.fasta为例子
+开始使用一个完整的 needle 命令行对象：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio.Emboss.Applications</span> <span class="kn">import</span> <span class="n">NeedleCommandline</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">needle_cline</span> <span class="o">=</span> <span class="n">NeedleCommandline</span><span class="p">(</span><span class="n">asequence</span><span class="o">=</span><span class="s2">&#34;alpha.faa&#34;</span><span class="p">,</span> <span class="n">bsequence</span><span class="o">=</span><span class="s2">&#34;beta.faa&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>                                  <span class="n">gapopen</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">gapextend</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">outfile</span><span class="o">=</span><span class="s2">&#34;needle.txt&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">needle_cline</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">needle</span> <span class="o">-</span><span class="n">outfile</span><span class="o">=</span><span class="n">needle</span><span class="o">.</span><span class="n">txt</span> <span class="o">-</span><span class="n">asequence</span><span class="o">=</span><span class="n">alpha</span><span class="o">.</span><span class="n">faa</span> <span class="o">-</span><span class="n">bsequence</span><span class="o">=</span><span class="n">beta</span><span class="o">.</span><span class="n">faa</span> <span class="o">-</span><span class="n">gapopen</span><span class="o">=</span><span class="mi">10</span> <span class="o">-</span><span class="n">gapextend</span><span class="o">=</span><span class="mf">0.5</span>
+</span></span></code></pre></div><p>你可能会有疑问，为什么不直接在终端里运行这一程序呢？你会发现，它将进行一个序列两两间的排列，并把结果记录在 needle.txt 中（以EMBOSS默认的序列比对格式）。
+或者这样写(PATH)</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio.Emboss.Applications</span> <span class="kn">import</span> <span class="n">NeedleCommandline</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">needle_cline</span> <span class="o">=</span> <span class="n">NeedleCommandline</span><span class="p">(</span><span class="sa">r</span><span class="s2">&#34;C:\EMBOSS\needle.exe&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>                                  <span class="n">asequence</span><span class="o">=</span><span class="s2">&#34;alpha.faa&#34;</span><span class="p">,</span> <span class="n">bsequence</span><span class="o">=</span><span class="s2">&#34;beta.faa&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>                                  <span class="n">gapopen</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">gapextend</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">outfile</span><span class="o">=</span><span class="s2">&#34;needle.txt&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><h3 id="也可以直接对needle指定参数">也可以直接对Needle指定参数</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio.Emboss.Applications</span> <span class="kn">import</span> <span class="n">NeedleCommandline</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">needle_cline</span> <span class="o">=</span> <span class="n">NeedleCommandline</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">needle_cline</span><span class="o">.</span><span class="n">asequence</span><span class="o">=</span><span class="s2">&#34;alpha.faa&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">needle_cline</span><span class="o">.</span><span class="n">bsequence</span><span class="o">=</span><span class="s2">&#34;beta.faa&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">needle_cline</span><span class="o">.</span><span class="n">gapopen</span><span class="o">=</span><span class="mi">10</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">needle_cline</span><span class="o">.</span><span class="n">gapextend</span><span class="o">=</span><span class="mf">0.5</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">needle_cline</span><span class="o">.</span><span class="n">outfile</span><span class="o">=</span><span class="s2">&#34;needle.txt&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">needle_cline</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">needle</span> <span class="o">-</span><span class="n">outfile</span><span class="o">=</span><span class="n">needle</span><span class="o">.</span><span class="n">txt</span> <span class="o">-</span><span class="n">asequence</span><span class="o">=</span><span class="n">alpha</span><span class="o">.</span><span class="n">faa</span> <span class="o">-</span><span class="n">bsequence</span><span class="o">=</span><span class="n">beta</span><span class="o">.</span><span class="n">faa</span> <span class="o">-</span><span class="n">gapopen</span><span class="o">=</span><span class="mi">10</span> <span class="o">-</span><span class="n">gapextend</span><span class="o">=</span><span class="mf">0.5</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">needle_cline</span><span class="o">.</span><span class="n">outfile</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">needle</span><span class="o">.</span><span class="n">txt</span>
+</span></span></code></pre></div><p>现在我们获得了一个 needle 命令行，并希望在Python中运行它。我们在之前解释过，如果你希望完全地控制这一过程， subprocess 是最好的选择，但是如果你只是想尝试使用打包程序，以下命令足以达到目的：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">stdout</span><span class="p">,</span> <span class="n">stderr</span> <span class="o">=</span> <span class="n">needle_cline</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">stdout</span> <span class="o">+</span> <span class="n">stderr</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">Needleman</span><span class="o">-</span><span class="n">Wunsch</span> <span class="k">global</span> <span class="n">alignment</span> <span class="n">of</span> <span class="n">two</span> <span class="n">sequences</span>
+</span></span></code></pre></div><p>随后，我们需要载入 Bio.AlignIO 模块来读取needle输出（ emboss 格式）：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">Bio</span> <span class="kn">import</span> <span class="n">AlignIO</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">align</span> <span class="o">=</span> <span class="n">AlignIO</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">&#34;needle.txt&#34;</span><span class="p">,</span> <span class="s2">&#34;emboss&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">align</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">Alignment</span> <span class="k">with</span> <span class="mi">2</span> <span class="n">rows</span> <span class="ow">and</span> <span class="mi">149</span> <span class="n">columns</span>
+</span></span><span class="line"><span class="cl"><span class="n">MV</span><span class="o">-</span><span class="n">LSPADKTNVKAAWGKVGAHAGEYGAEALERMFLSFPTTKTY</span><span class="o">...</span><span class="n">KYR</span> <span class="n">HBA_HUMAN</span>
+</span></span><span class="line"><span class="cl"><span class="n">MVHLTPEEKSAVTALWGKV</span><span class="o">--</span><span class="n">NVDEVGGEALGRLLVVYPWTQRF</span><span class="o">...</span><span class="n">KYH</span> <span class="n">HBB_HUMAN</span>
+</span></span></code></pre></div><p>在这个例子中，我们让EMBOSS将结果保存到一个输出文件中，但是你也可以让其写入标准输出中（这往往是在不需要临时文件的情况下的选择，你可以使用 stdout=True 参数而不是 outfile 参数）。与MUSCLE的例子一样，你也可以从标准输入里读取序列（ asequence=&ldquo;stdin&rdquo; 参数）。
+以上例子仅仅介绍了 needle 和 water 最简单的使用。一个有用的小技巧是，第二个序列文件可以包含有多个序列，EMBOSS工具将将每一个序列与第一个文件进行两两序列比对。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/tutorials/">tutorials</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2022 - 
+        
+        2023 叶宇浩随记博客
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.5.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">Table of contents</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#msa的基本原理">MSA的基本原理</a></li>
+    <li><a href="#读取多序列比对数据">读取多序列比对数据</a></li>
+    <li><a href="#单一的序列比对">单一的序列比对</a></li>
+    <li><a href="#多个序列比对">多个序列比对</a></li>
+    <li><a href="#含糊的序列比对">含糊的序列比对</a></li>
+    <li><a href="#序列比对的写出">序列比对的写出</a>
+      <ol>
+        <li><a href="#bioaligniowrite">Bio.AlignIO.write()</a></li>
+      </ol>
+    </li>
+    <li><a href="#序列比对的格式间转换">序列比对的格式间转换</a></li>
+    <li><a href="#将序列比对对象转换为格式化字符串formatted-strings">将序列比对对象转换为格式化字符串（formatted strings)</a></li>
+    <li><a href="#序列比对的操纵">序列比对的操纵</a>
+      <ol>
+        <li><a href="#切片操纵">切片操纵</a></li>
+      </ol>
+    </li>
+    <li><a href="#序列比对作为数组">序列比对作为数组</a></li>
+    <li><a href="#获取线路信息">获取线路信息</a>
+      <ol>
+        <li><a href="#substitutions属性报告路线中的字母相互替换的频率">substitutions属性报告路线中的字母相互替换的频率</a></li>
+      </ol>
+    </li>
+    <li><a href="#构建序列比对工具">构建序列比对工具</a>
+      <ol>
+        <li><a href="#大多数的打包程序都在-bioalignapplications-中定义">大多数的打包程序都在 Bio.Align.Applications 中定义</a></li>
+        <li><a href="#clustalw">ClustalW</a></li>
+        <li><a href="#命令行工具到底是如何运作的">命令行工具到底是如何运作的</a></li>
+        <li><a href="#运行clustalw时返回的aln文件和dnd文件">运行clustalW时返回的.aln文件和dnd文件</a></li>
+        <li><a href="#muscle">MUSCLE</a>
+          <ol>
+            <li><a href="#简单的应用">简单的应用</a></li>
+            <li><a href="#muscle标准输出">MUSCLE标准输出</a></li>
+            <li><a href="#对于大的数据使用subprocess模块去解决">对于大的数据，使用subprocess模块去解决</a></li>
+            <li><a href="#以标准输入和标准输出使用muscle">以标准输入和标准输出使用MUSCLE</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#emboss包的序列比对工具needle和water">EMBOSS包的序列比对工具——needle和water</a>
+      <ol>
+        <li><a href="#也可以直接对needle指定参数">也可以直接对Needle指定参数</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

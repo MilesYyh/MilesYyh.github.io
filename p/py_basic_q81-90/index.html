@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='为了加强python基础而做的练习'><title>py_basic_Q81-90</title>
+
+<link rel='canonical' href='https://example.com/p/py_basic_q81-90/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='py_basic_Q81-90'>
+<meta property='og:description' content='为了加强python基础而做的练习'>
+<meta property='og:url' content='https://example.com/p/py_basic_q81-90/'>
+<meta property='og:site_name' content='叶宇浩随记博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='tutorials' /><meta property='article:tag' content='python' /><meta property='article:published_time' content='2021-06-13T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-06-13T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="py_basic_Q81-90">
+<meta name="twitter:description" content="为了加强python基础而做的练习">
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>Back</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/code/" style="background-color: #fa1; color: #fff;">
+                编程
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/py_basic_q81-90/">py_basic_Q81-90</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        为了加强python基础而做的练习
+    </h3>
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Jun 13, 2021</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    4 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <blockquote>
+<p>这是为了加强Python基础，在Github上找来的练习，地址：https://github.com/darkprinx/break-the-ice-with-python</p>
+</blockquote>
+<h2 id="question-81">Question 81</h2>
+<h3 id="question"><strong>Question</strong></h3>
+<blockquote>
+<p><strong><em>By using list comprehension, please write a program to print the list after removing numbers which are divisible by 5 and 7 in [12,24,35,70,88,120,155].</em></strong></p>
+</blockquote>
+<hr>
+<h3 id="hints">Hints</h3>
+<blockquote>
+<p><strong><em>Use list comprehension to delete a bunch of element from a list.</em></strong></p>
+</blockquote>
+<hr>
+<p><strong>Solutions:</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="p">[</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">12</span><span class="p">,</span><span class="mi">24</span><span class="p">,</span><span class="mi">35</span><span class="p">,</span><span class="mi">70</span><span class="p">,</span><span class="mi">88</span><span class="p">,</span><span class="mi">120</span><span class="p">,</span><span class="mi">155</span><span class="p">]</span> <span class="k">if</span> <span class="n">i</span><span class="o">%</span><span class="p">(</span><span class="mi">5</span><span class="o">*</span><span class="mi">7</span><span class="p">)</span><span class="o">!=</span><span class="mi">0</span><span class="p">]</span>
+</span></span></code></pre></div><pre tabindex="0"><code>[12, 24, 88, 120, 155]
+</code></pre><hr>
+<h2 id="question-82">Question 82</h2>
+<h3 id="question-1"><strong>Question</strong></h3>
+<blockquote>
+<p><strong><em>By using list comprehension, please write a program to print the list after removing the 0th, 2nd, 4th,6th numbers in [12,24,35,70,88,120,155].</em></strong></p>
+</blockquote>
+<hr>
+<h3 id="hints-1">Hints</h3>
+<blockquote>
+<p>**_Use list comprehension to delete a bunch of element from a list.</p>
+</blockquote>
+<p>Use enumerate() to get (index, value) tuple._**</p>
+<hr>
+<p><strong>Solutions:</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#enumerate枚举的方法，enumerate(data) 返回的是data的index和value  多数与遍历有关</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span> <span class="n">y</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><span class="mi">12</span><span class="p">,</span><span class="mi">24</span><span class="p">,</span><span class="mi">35</span><span class="p">,</span><span class="mi">70</span><span class="p">,</span><span class="mi">88</span><span class="p">,</span><span class="mi">120</span><span class="p">,</span><span class="mi">155</span><span class="p">])</span> <span class="k">if</span> <span class="n">x</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">6</span><span class="p">]]</span>
+</span></span></code></pre></div><pre tabindex="0"><code>[24, 70, 120]
+</code></pre><hr>
+<h2 id="question-83">Question 83</h2>
+<h3 id="question-2"><strong>Question</strong></h3>
+<blockquote>
+<p><strong><em>By using list comprehension, please write a program to print the list after removing the 2nd - 4th numbers in [12,24,35,70,88,120,155].</em></strong></p>
+</blockquote>
+<hr>
+<h3 id="hints-2">Hints</h3>
+<blockquote>
+<p>**_Use list comprehension to delete a bunch of element from a list.</p>
+</blockquote>
+<p>Use enumerate() to get (index, value) tuple._**</p>
+<hr>
+<p><strong>Solutions:</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#可以看出not in 后面可以跟renge表示范围</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span> <span class="n">y</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><span class="mi">12</span><span class="p">,</span><span class="mi">24</span><span class="p">,</span><span class="mi">35</span><span class="p">,</span><span class="mi">70</span><span class="p">,</span><span class="mi">88</span><span class="p">,</span><span class="mi">120</span><span class="p">,</span><span class="mi">155</span><span class="p">])</span> <span class="k">if</span> <span class="n">x</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span> <span class="p">]</span>
+</span></span></code></pre></div><pre tabindex="0"><code>[12, 24, 120, 155]
+</code></pre><hr>
+<h2 id="question-84">Question 84</h2>
+<h3 id="question-3"><strong>Question</strong></h3>
+<blockquote>
+<p><strong><em>By using list comprehension, please write a program generate a 3<em>5</em>8 3D array whose each element is 0.</em></strong></p>
+</blockquote>
+<hr>
+<h3 id="hints-3">Hints</h3>
+<blockquote>
+<p><strong><em>Use list comprehension to make an array.</em></strong></p>
+</blockquote>
+<hr>
+<p><strong>Solution:</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#三层循环填充</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#列表理解式可以直接包含多层循环</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#注意理解三维数组的概念   i*j*z   i表示有多少个独立数组 j*z表示每个独立数组的二维</span>
+</span></span><span class="line"><span class="cl"><span class="p">[[[</span><span class="mi">0</span> <span class="k">for</span> <span class="n">z</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">)]</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)]</span>
+</span></span></code></pre></div><pre tabindex="0"><code>[[[0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0]],
+ [[0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0]],
+ [[0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0]]]
+</code></pre><h2 id="question-85">Question 85</h2>
+<h3 id="question-4"><strong>Question</strong></h3>
+<blockquote>
+<p><strong><em>By using list comprehension, please write a program to print the list after removing the 0th,4th,5th numbers in [12,24,35,70,88,120,155].</em></strong></p>
+</blockquote>
+<hr>
+<h3 id="hints-4">Hints</h3>
+<blockquote>
+<p><strong><em>Use list comprehension to delete a bunch of element from a list.Use enumerate() to get (index, value) tuple.</em></strong></p>
+</blockquote>
+<hr>
+<p><strong>Solutions:</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="p">[</span> <span class="n">y</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><span class="mi">12</span><span class="p">,</span><span class="mi">24</span><span class="p">,</span><span class="mi">35</span><span class="p">,</span><span class="mi">70</span><span class="p">,</span><span class="mi">88</span><span class="p">,</span><span class="mi">120</span><span class="p">,</span><span class="mi">155</span><span class="p">])</span> <span class="k">if</span> <span class="n">x</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">]</span>  <span class="p">]</span>
+</span></span></code></pre></div><pre tabindex="0"><code>[24, 35, 70, 155]
+</code></pre><hr>
+<h2 id="question-86">Question 86</h2>
+<h3 id="question-5"><strong>Question</strong></h3>
+<blockquote>
+<p><strong><em>By using list comprehension, please write a program to print the list after removing the value 24 in [12,24,35,24,88,120,155].</em></strong></p>
+</blockquote>
+<hr>
+<h3 id="hints-5">Hints</h3>
+<blockquote>
+<p><strong><em>Use list&rsquo;s remove method to delete a value.</em></strong></p>
+</blockquote>
+<hr>
+<p><strong>Solutions:</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="p">[</span> <span class="n">y</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><span class="mi">12</span><span class="p">,</span><span class="mi">24</span><span class="p">,</span><span class="mi">35</span><span class="p">,</span><span class="mi">70</span><span class="p">,</span><span class="mi">88</span><span class="p">,</span><span class="mi">120</span><span class="p">,</span><span class="mi">155</span><span class="p">])</span> <span class="k">if</span> <span class="n">y</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">24</span><span class="p">]</span>  <span class="p">]</span>
+</span></span></code></pre></div><pre tabindex="0"><code>[12, 35, 70, 88, 120, 155]
+</code></pre><p><strong>0R</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#直接用py的内置函数remove移除指定元素,它会将相关元素取出去除</span>
+</span></span><span class="line"><span class="cl"><span class="n">liss</span> <span class="o">=</span> <span class="p">[</span><span class="mi">12</span><span class="p">,</span><span class="mi">24</span><span class="p">,</span><span class="mi">35</span><span class="p">,</span><span class="mi">24</span><span class="p">,</span><span class="mi">88</span><span class="p">,</span><span class="mi">120</span><span class="p">,</span><span class="mi">155</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">liss</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="mi">24</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">liss</span>
+</span></span></code></pre></div><pre tabindex="0"><code>[12, 35, 24, 88, 120, 155]
+</code></pre><hr>
+<h2 id="question-87">Question 87</h2>
+<h3 id="question-6"><strong>Question</strong></h3>
+<blockquote>
+<p><strong><em>With two given lists [1,3,6,78,35,55] and [12,24,35,24,88,120,155], write a program to make a list whose elements are intersection of the above given lists.</em></strong></p>
+</blockquote>
+<hr>
+<h3 id="hints-6">Hints</h3>
+<blockquote>
+<p><strong><em>Use set() and &ldquo;&amp;=&rdquo; to do set intersection operation.</em></strong></p>
+</blockquote>
+<hr>
+<p><strong>Solutions:</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#集合的交集</span>
+</span></span><span class="line"><span class="cl"><span class="n">x</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">78</span><span class="p">,</span><span class="mi">35</span><span class="p">,</span><span class="mi">55</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="n">y</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="mi">12</span><span class="p">,</span><span class="mi">24</span><span class="p">,</span><span class="mi">35</span><span class="p">,</span><span class="mi">24</span><span class="p">,</span><span class="mi">88</span><span class="p">,</span><span class="mi">120</span><span class="p">,</span><span class="mi">155</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="o">&amp;</span><span class="n">y</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>{35}
+</code></pre><p><strong>OR</strong></p>
+<hr>
+<h2 id="question-88">Question 88</h2>
+<h3 id="question-7"><strong>Question</strong></h3>
+<blockquote>
+<p><strong><em>With a given list [12,24,35,24,88,120,155,88,120,155], write a program to print this list after removing all duplicate values with original order reserved.</em></strong></p>
+</blockquote>
+<hr>
+<h3 id="hints-7">Hints</h3>
+<blockquote>
+<p><strong><em>Use set() to store a number of values without duplicate.</em></strong></p>
+</blockquote>
+<hr>
+<p><strong>Solutions:</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#set去重会维持升序</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span><span class="p">([</span><span class="mi">12</span><span class="p">,</span><span class="mi">24</span><span class="p">,</span><span class="mi">35</span><span class="p">,</span><span class="mi">24</span><span class="p">,</span><span class="mi">88</span><span class="p">,</span><span class="mi">120</span><span class="p">,</span><span class="mi">155</span><span class="p">,</span><span class="mi">88</span><span class="p">,</span><span class="mi">120</span><span class="p">,</span><span class="mi">155</span><span class="p">])</span>
+</span></span></code></pre></div><pre tabindex="0"><code>{12, 24, 35, 88, 120, 155}
+</code></pre><hr>
+<h2 id="question-89">Question 89</h2>
+<h3 id="question-8"><strong>Question</strong></h3>
+<blockquote>
+<p><strong><em>Define a class Person and its two child classes: Male and Female. All classes have a method &ldquo;getGender&rdquo; which can print &ldquo;Male&rdquo; for Male class and &ldquo;Female&rdquo; for Female class.</em></strong></p>
+</blockquote>
+<hr>
+<h3 id="hints-8">Hints</h3>
+<blockquote>
+<p><strong><em>Use Subclass(Parentclass) to define a child class.</em></strong></p>
+</blockquote>
+<hr>
+<p><strong>Solution:</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Person</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">getGender</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">pass</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Female</span><span class="p">(</span><span class="n">Person</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">getGender</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;Female&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Male</span><span class="p">(</span><span class="n">Person</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">getGender</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;Male&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">x</span><span class="p">,</span><span class="n">y</span> <span class="o">=</span> <span class="n">Female</span><span class="p">(),</span><span class="n">Male</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># print(x.getGender)          //这样返回的是一个声明之类的东西 &lt;bound method Female.getGender of &lt;__main__.Female object at 0x000002B809A68C40&gt;&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># print(y.getGender)          //所以调用时记得加()</span>
+</span></span><span class="line"><span class="cl"><span class="n">x</span><span class="o">.</span><span class="n">getGender</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">y</span><span class="o">.</span><span class="n">getGender</span><span class="p">()</span>
+</span></span></code></pre></div><pre tabindex="0"><code>Female
+Male
+</code></pre><h2 id="question-90">Question 90</h2>
+<h3 id="question-9"><strong>Question</strong></h3>
+<blockquote>
+<p><strong><em>Please write a program which count and print the numbers of each character in a string input by console.</em></strong></p>
+</blockquote>
+<blockquote>
+<p>**_Example:</p>
+</blockquote>
+<p>If the following string is given as input to the program:_**</p>
+<pre tabindex="0"><code>abcdefgabc
+</code></pre><blockquote>
+<p><strong><em>Then, the output of the program should be:</em></strong></p>
+</blockquote>
+<pre tabindex="0"><code>a,2
+c,2
+b,2
+e,1
+d,1
+g,1
+f,1
+</code></pre><h3 id="hints-9">Hints</h3>
+<blockquote>
+<p>**_Use dict to store key/value pairs.</p>
+</blockquote>
+<p>Use dict.get() method to lookup a key with default value._**</p>
+<hr>
+<p><strong>Solutions:</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">liss</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">input</span><span class="p">()]</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#注意要set去重</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#顺便说下format（）中可以直接用表达式如liss.count(i)     在列表生成式中 .format是直接跟在&#34;&#34;后的</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;</span><span class="si">{}</span><span class="s2">,</span><span class="si">{}</span><span class="s2">&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">liss</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">i</span><span class="p">)))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">liss</span><span class="p">))</span> <span class="p">]</span>
+</span></span></code></pre></div><pre tabindex="0"><code>abcdefgabc
+a,2
+b,2
+c,2
+d,1
+e,1
+f,1
+g,1
+
+
+
+
+
+[None, None, None, None, None, None, None]
+</code></pre><p><strong>这里的None是因为函数没用到return即没用返回值,所以每次都None</strong></p>
+<h2 id="0">0</h2>
+<p><strong>练习coding : 叶宇浩Miles</strong></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/tutorials/">tutorials</a>
+        
+            <a href="/tags/python/">python</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">Related contents</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="">
+    <a href="/p/py_basic_q91-100/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">py_basic_Q91-100</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/py_basic_q71-80/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">py_basic_Q71-80</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/py_basic_q61-70/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">py_basic_Q61-70</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/py_basic_q51-60/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">py_basic_Q51-60</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/py_basic_q41-50/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">py_basic_Q41-50</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2022 - 
+        
+        2023 叶宇浩随记博客
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.5.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">Table of contents</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#question-81">Question 81</a>
+      <ol>
+        <li><a href="#question"><strong>Question</strong></a></li>
+        <li><a href="#hints">Hints</a></li>
+      </ol>
+    </li>
+    <li><a href="#question-82">Question 82</a>
+      <ol>
+        <li><a href="#question-1"><strong>Question</strong></a></li>
+        <li><a href="#hints-1">Hints</a></li>
+      </ol>
+    </li>
+    <li><a href="#question-83">Question 83</a>
+      <ol>
+        <li><a href="#question-2"><strong>Question</strong></a></li>
+        <li><a href="#hints-2">Hints</a></li>
+      </ol>
+    </li>
+    <li><a href="#question-84">Question 84</a>
+      <ol>
+        <li><a href="#question-3"><strong>Question</strong></a></li>
+        <li><a href="#hints-3">Hints</a></li>
+      </ol>
+    </li>
+    <li><a href="#question-85">Question 85</a>
+      <ol>
+        <li><a href="#question-4"><strong>Question</strong></a></li>
+        <li><a href="#hints-4">Hints</a></li>
+      </ol>
+    </li>
+    <li><a href="#question-86">Question 86</a>
+      <ol>
+        <li><a href="#question-5"><strong>Question</strong></a></li>
+        <li><a href="#hints-5">Hints</a></li>
+      </ol>
+    </li>
+    <li><a href="#question-87">Question 87</a>
+      <ol>
+        <li><a href="#question-6"><strong>Question</strong></a></li>
+        <li><a href="#hints-6">Hints</a></li>
+      </ol>
+    </li>
+    <li><a href="#question-88">Question 88</a>
+      <ol>
+        <li><a href="#question-7"><strong>Question</strong></a></li>
+        <li><a href="#hints-7">Hints</a></li>
+      </ol>
+    </li>
+    <li><a href="#question-89">Question 89</a>
+      <ol>
+        <li><a href="#question-8"><strong>Question</strong></a></li>
+        <li><a href="#hints-8">Hints</a></li>
+      </ol>
+    </li>
+    <li><a href="#question-90">Question 90</a>
+      <ol>
+        <li><a href="#question-9"><strong>Question</strong></a></li>
+        <li><a href="#hints-9">Hints</a></li>
+      </ol>
+    </li>
+    <li><a href="#0">0</a></li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

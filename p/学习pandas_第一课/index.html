@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='这是跟学《学习pandas》学习笔记这本书的学习笔记'><title>学习Pandas_第一课</title>
+
+<link rel='canonical' href='https://example.com/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%80%E8%AF%BE/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='学习Pandas_第一课'>
+<meta property='og:description' content='这是跟学《学习pandas》学习笔记这本书的学习笔记'>
+<meta property='og:url' content='https://example.com/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%80%E8%AF%BE/'>
+<meta property='og:site_name' content='叶宇浩随记博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='tutorials' /><meta property='article:tag' content='pandas' /><meta property='article:published_time' content='2021-09-21T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-09-21T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="学习Pandas_第一课">
+<meta name="twitter:description" content="这是跟学《学习pandas》学习笔记这本书的学习笔记">
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>Back</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/python/" >
+                python
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%80%E8%AF%BE/">学习Pandas_第一课</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        这是跟学《学习pandas》学习笔记这本书的学习笔记
+    </h3>
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Sep 21, 2021</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    2 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <p>数据异常常见的情况：</p>
+<ul>
+<li>数据缺失 missing data</li>
+<li>数据不一致 inconsistent</li>
+<li>在正常范围之外 out of place</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#导入相关库</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">sys</span> <span class="c1">#导入这个是为了确认py的版本</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">matplotlib</span> <span class="c1">#这样导入matplotlib只是为了显示一下其版本号</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 初始化matplotlib，用inline方式显示图形</span>
+</span></span><span class="line"><span class="cl"><span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;Python 版本&#34;</span> <span class="o">+</span> <span class="n">sys</span><span class="o">.</span><span class="n">version</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;pd版本&#34;</span> <span class="o">+</span> <span class="n">pd</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;plt版本&#34;</span> <span class="o">+</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 783; 
+			flex-basis: 1881px"
+	>
+	<a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%80%E8%AF%BE/picture/%E7%AC%AC%E4%B8%80%E7%AB%A0.png" data-size="1254x160">
+		<img src="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%80%E8%AF%BE/picture/%E7%AC%AC%E4%B8%80%E7%AB%A0.png"
+			width="1254"
+			height="160"
+			srcset="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%80%E8%AF%BE/picture/%E7%AC%AC%E4%B8%80%E7%AB%A0_hu689c07cbe972d31eb78ae307a3b30973_27626_480x0_resize_box_3.png 480w, /p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%80%E8%AF%BE/picture/%E7%AC%AC%E4%B8%80%E7%AB%A0_hu689c07cbe972d31eb78ae307a3b30973_27626_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="创建数据">创建数据</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#初始化数据集: 婴儿名字和出生率</span>
+</span></span><span class="line"><span class="cl"><span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Bob&#39;</span><span class="p">,</span><span class="s1">&#39;Jessica&#39;</span><span class="p">,</span><span class="s1">&#39;Mary&#39;</span><span class="p">,</span><span class="s1">&#39;John&#39;</span><span class="p">,</span><span class="s1">&#39;Mel&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">births</span> <span class="o">=</span> <span class="p">[</span><span class="mi">968</span><span class="p">,</span> <span class="mi">155</span><span class="p">,</span> <span class="mi">77</span><span class="p">,</span> <span class="mi">578</span><span class="p">,</span> <span class="mi">973</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#zip函数可以将多个列并起来为一个大的list  即拼接在一起如names中的第一个和births中的第一个放在一起，以此类推</span>
+</span></span><span class="line"><span class="cl"><span class="nb">zip</span><span class="err">?</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#这样可以查看zip函数的说明</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#zip函数进行直到某列没有数据，停止</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">BabyDataSet</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">names</span><span class="p">,</span><span class="n">births</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">BabyDataSet</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 1318; 
+			flex-basis: 3165px"
+	>
+	<a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%80%E8%AF%BE/picture/%E7%AC%AC%E4%B8%80%E7%AB%A0-1.png" data-size="1266x96">
+		<img src="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%80%E8%AF%BE/picture/%E7%AC%AC%E4%B8%80%E7%AB%A0-1.png"
+			width="1266"
+			height="96"
+			srcset="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%80%E8%AF%BE/picture/%E7%AC%AC%E4%B8%80%E7%AB%A0-1_hu98c06700274330424f54221b07fb5ce1_16165_480x0_resize_box_3.png 480w, /p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%80%E8%AF%BE/picture/%E7%AC%AC%E4%B8%80%E7%AB%A0-1_hu98c06700274330424f54221b07fb5ce1_16165_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+df 是一个 DataFrame对象。 你可以把这个对象理解为包含了 BabyDataset 的 内容而格式非常象一个 sql 表格或者 Excel 的数据表。 让我们看看 df 中的内容。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#创建DataFrame时可以通过参数columns赋予列的名称</span>
+</span></span><span class="line"><span class="cl"><span class="n">df</span>  <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">BabyDataSet</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&#34;name&#34;</span><span class="p">,</span><span class="s2">&#34;births&#34;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="n">df</span><span class="err">```</span>
+</span></span><span class="line"><span class="cl"><span class="n">result</span>
+</span></span><span class="line"><span class="cl"><span class="err">!</span><span class="p">[](</span><span class="n">picture</span><span class="o">/</span><span class="n">第一章</span><span class="o">-</span><span class="mf">2.</span><span class="n">png</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">将</span> <span class="n">dataframe</span> <span class="n">导出到一个</span> <span class="n">csv</span> <span class="n">文件中</span><span class="err">。</span> <span class="n">我们将导出文件命名为</span> <span class="n">births1880</span><span class="o">.</span><span class="n">csv</span><span class="err">。</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">导出</span> <span class="n">csv</span> <span class="n">文件的函数是</span> <span class="n">to_csv</span><span class="err">。</span> <span class="n">除非你指定了其他的文件目录</span><span class="err">，</span><span class="n">否则导出的文件</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">将保存在和</span> <span class="n">notebook</span> <span class="n">文件相同的位置</span><span class="err">。</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">我们会使用的参数是</span> <span class="n">index</span> <span class="n">和</span> <span class="n">header</span><span class="err">。</span> <span class="n">将这两个参数设置为</span> <span class="kc">False</span> <span class="n">将会防止索</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">引</span><span class="p">(</span><span class="n">index</span><span class="p">)</span><span class="n">和列名</span><span class="p">(</span><span class="n">header</span> <span class="n">names</span><span class="p">)</span><span class="n">被导出到文件中</span><span class="err">。</span> <span class="n">你可以试着改变这两个参数值来</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">更好的理解这两个参数的作用</span><span class="err">。</span>
+</span></span><span class="line"><span class="cl"><span class="err">```</span><span class="n">python</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#to_csv可以将dataframe导出为csv，index/header可以是否导出索引和列名</span>
+</span></span><span class="line"><span class="cl"><span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&#34;births1880.csv&#34;</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">header</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span></span></code></pre></div><h2 id="获取数据">获取数据</h2>
+<p>我们将使用 pandas 的 read_csv 函数从 csv 文件中获取数据。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#查看帮助,这个函数有很多的参数</span>
+</span></span><span class="line"><span class="cl"><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="err">?</span>
+</span></span></code></pre></div><p>注意字符串之前的 r 。 因为斜线(slash)是一个特殊字符，在字符串之前放置前导的</p>
+<p>r 将会防止整个字符串进行转义(escape)</p>
+<p>比如：你想在string中输出&rsquo;单引号，则需要用到&rsquo;才行</p>
+<p>&lsquo;r&rsquo;是防止字符转义的， 如果字符串中出现&rsquo;\n&rsquo;的话 ，不加r的话，\n就会被转义成换行符,</p>
+<p>而加了&rsquo;r&rsquo;之后&rsquo;\n&rsquo;就能保留原有的样子。。</p>
+<p>code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">Location</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&#34;./births1880.csv&#34;</span><span class="c1">#从当前脚本所在的文件夹位置读取 csv 文件</span>
+</span></span><span class="line"><span class="cl"><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">Location</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">df</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 112; 
+			flex-basis: 269px"
+	>
+	<a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%80%E8%AF%BE/picture/%E7%AC%AC%E4%B8%80%E7%AB%A0-3.png" data-size="310x276">
+		<img src="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%80%E8%AF%BE/picture/%E7%AC%AC%E4%B8%80%E7%AB%A0-3.png"
+			width="310"
+			height="276"
+			srcset="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%80%E8%AF%BE/picture/%E7%AC%AC%E4%B8%80%E7%AB%A0-3_hu172183d70deaf50b4ef45412697915d2_13908_480x0_resize_box_3.png 480w, /p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%80%E8%AF%BE/picture/%E7%AC%AC%E4%B8%80%E7%AB%A0-3_hu172183d70deaf50b4ef45412697915d2_13908_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>这里出现了一个问题。 read_csv 函数将 csv 文件中的第一行作为了每列的列名</p>
+<p>(head names)。 这明显不对，因为数据文件没有提供列名。</p>
+<p>要修正这个错误，我们需要给 read_csv 函数传入 header 这个参数，并设置为</p>
+<p>None (Python中 null 的意思)。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#read_csv的参数header可以决定是否将数据第一行作为列名</span>
+</span></span><span class="line"><span class="cl"><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&#34;./births1880.csv&#34;</span><span class="p">,</span><span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">df</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 84; 
+			flex-basis: 203px"
+	>
+	<a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%80%E8%AF%BE/picture/%E7%AC%AC%E4%B8%80%E7%AB%A0-4.png" data-size="268x316">
+		<img src="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%80%E8%AF%BE/picture/%E7%AC%AC%E4%B8%80%E7%AB%A0-4.png"
+			width="268"
+			height="316"
+			srcset="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%80%E8%AF%BE/picture/%E7%AC%AC%E4%B8%80%E7%AB%A0-4_hu525f84c9dea023d45408bfbf06d9ffd9_14906_480x0_resize_box_3.png 480w, /p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%80%E8%AF%BE/picture/%E7%AC%AC%E4%B8%80%E7%AB%A0-4_hu525f84c9dea023d45408bfbf06d9ffd9_14906_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+如果我们需要为每一列指定一个名字，我们可以传入另外一个参数 names，同时</p>
+<p>去掉 header 这个参数。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#read_csv的参数names可以赋予数据列名</span>
+</span></span><span class="line"><span class="cl"><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&#34;./births1880.csv&#34;</span><span class="p">,</span><span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s2">&#34;names&#34;</span><span class="p">,</span><span class="s2">&#34;births&#34;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="n">df</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 104; 
+			flex-basis: 251px"
+	>
+	<a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%80%E8%AF%BE/picture/%E7%AC%AC%E4%B8%80%E7%AB%A0-5.png" data-size="344x328">
+		<img src="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%80%E8%AF%BE/picture/%E7%AC%AC%E4%B8%80%E7%AB%A0-5.png"
+			width="344"
+			height="328"
+			srcset="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%80%E8%AF%BE/picture/%E7%AC%AC%E4%B8%80%E7%AB%A0-5_hu2e46872d7e6929f06e70fc65d13ca6ee_17227_480x0_resize_box_3.png 480w, /p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%80%E8%AF%BE/picture/%E7%AC%AC%E4%B8%80%E7%AB%A0-5_hu2e46872d7e6929f06e70fc65d13ca6ee_17227_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>你可以把数字 [0,1,2,3,4] 设想为 Excel 文件中的行标 (row number)。 在 pandas中，这些是 索引 (index) 的一部分。 你可以把索引(index)理解为一个sql表中的主键(primary key)，但是索引(index)是可以重复的。[Names, Births] 是列名，和sql表或者Excel数据表中的列名(column header)是类似的</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#删除刚刚生成的csv</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">os</span>
+</span></span><span class="line"><span class="cl"><span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&#34;./births1880.csv&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><h2 id="准备数据">准备数据</h2>
+<p>我们的数据包含了1880年出生的婴儿及其数量。 我们已经知道我们有5条记录而且 没有缺失值(所有值都是非空 non-null 的)。</p>
+<p>Names 列是由字母和数字串组成的婴儿名字。 这一列也许会出现一些脏数据但我 们现在不需要有太多顾虑。 Births 列应该是通过整型数字(integers)表示一个指定 年份指定婴儿名字的出生率。 我们可以检查一下是否这一列的数字都是整型。这一 列出现浮点型(float)是没有意义的。但我们不需要担心这一列出现任何可能的离群 值(outlier)。</p>
+<p>请注意在目前这个阶段，简单地看一下dataframe中的数据来检查&quot;Names&quot;列已经足 够了。 在之后我们做数据分析的过程中，我们还有很多机会来发现数据中的问题。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#dtypes 可以查看每一列的数据类型</span>
+</span></span><span class="line"><span class="cl"><span class="n">df</span><span class="o">.</span><span class="n">dtypes</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 292; 
+			flex-basis: 702px"
+	>
+	<a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%80%E8%AF%BE/picture/%E7%AC%AC%E4%B8%80%E7%AB%A0-6.png" data-size="316x108">
+		<img src="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%80%E8%AF%BE/picture/%E7%AC%AC%E4%B8%80%E7%AB%A0-6.png"
+			width="316"
+			height="108"
+			srcset="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%80%E8%AF%BE/picture/%E7%AC%AC%E4%B8%80%E7%AB%A0-6_hu791b3093d9483634857cec641155b3fe_10748_480x0_resize_box_3.png 480w, /p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%80%E8%AF%BE/picture/%E7%AC%AC%E4%B8%80%E7%AB%A0-6_hu791b3093d9483634857cec641155b3fe_10748_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#列名.dtypes 可以查看指定列的数据类型</span>
+</span></span><span class="line"><span class="cl"><span class="n">df</span><span class="o">.</span><span class="n">births</span><span class="o">.</span><span class="n">dtype</span>
+</span></span></code></pre></div><p>result
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 718; 
+			flex-basis: 1723px"
+	>
+	<a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%80%E8%AF%BE/picture/%E7%AC%AC%E4%B8%80%E7%AB%A0-7.png" data-size="316x44">
+		<img src="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%80%E8%AF%BE/picture/%E7%AC%AC%E4%B8%80%E7%AB%A0-7.png"
+			width="316"
+			height="44"
+			srcset="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%80%E8%AF%BE/picture/%E7%AC%AC%E4%B8%80%E7%AB%A0-7_hu78d1ede49aedfb10e1f23f52d6c2efed_4196_480x0_resize_box_3.png 480w, /p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%80%E8%AF%BE/picture/%E7%AC%AC%E4%B8%80%E7%AB%A0-7_hu78d1ede49aedfb10e1f23f52d6c2efed_4196_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="分析数据">分析数据</h2>
+<p>要找到最高出生率的婴儿名或者是最热门的婴儿名字，我们可以这么做。</p>
+<ul>
+<li>将 dataframe 排序并且找到第一行</li>
+<li>使用 max() 属性找到最大值</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 方法1：</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#sort_values的方法可以传入列名（整个数据集按这一列排序），ascending(升序)来决定排序的升/降  </span>
+</span></span><span class="line"><span class="cl"><span class="n">Sorted</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">([</span><span class="s2">&#34;births&#34;</span><span class="p">],</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">Sorted</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 114; 
+			flex-basis: 274px"
+	>
+	<a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%80%E8%AF%BE/picture/%E7%AC%AC%E4%B8%80%E7%AB%A0-8.png" data-size="370x324">
+		<img src="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%80%E8%AF%BE/picture/%E7%AC%AC%E4%B8%80%E7%AB%A0-8.png"
+			width="370"
+			height="324"
+			srcset="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%80%E8%AF%BE/picture/%E7%AC%AC%E4%B8%80%E7%AB%A0-8_hu2f5666d1b1648fab426984ece16d11b2_17283_480x0_resize_box_3.png 480w, /p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%80%E8%AF%BE/picture/%E7%AC%AC%E4%B8%80%E7%AB%A0-8_hu2f5666d1b1648fab426984ece16d11b2_17283_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">Sorted</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 283; 
+			flex-basis: 679px"
+	>
+	<a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%80%E8%AF%BE/picture/%E7%AC%AC%E4%B8%80%E7%AB%A0-9.png" data-size="300x106">
+		<img src="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%80%E8%AF%BE/picture/%E7%AC%AC%E4%B8%80%E7%AB%A0-9.png"
+			width="300"
+			height="106"
+			srcset="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%80%E8%AF%BE/picture/%E7%AC%AC%E4%B8%80%E7%AB%A0-9_hu1e488a4f1ee8e849519bbcddfe9cccc5_5681_480x0_resize_box_3.png 480w, /p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%80%E8%AF%BE/picture/%E7%AC%AC%E4%B8%80%E7%AB%A0-9_hu1e488a4f1ee8e849519bbcddfe9cccc5_5681_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#方法2 </span>
+</span></span><span class="line"><span class="cl"><span class="c1">#列名.max()可以返回这一列中数据最大的这个这一列的值</span>
+</span></span><span class="line"><span class="cl"><span class="n">df</span><span class="p">[</span><span class="s2">&#34;births&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 178; 
+			flex-basis: 427px"
+	>
+	<a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%80%E8%AF%BE/picture/%E7%AC%AC%E4%B8%80%E7%AB%A0-10.png" data-size="82x46">
+		<img src="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%80%E8%AF%BE/picture/%E7%AC%AC%E4%B8%80%E7%AB%A0-10.png"
+			width="82"
+			height="46"
+			srcset="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%80%E8%AF%BE/picture/%E7%AC%AC%E4%B8%80%E7%AB%A0-10_hub0457029d9d59b24933828bf6bb038d8_1314_480x0_resize_box_3.png 480w, /p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%80%E8%AF%BE/picture/%E7%AC%AC%E4%B8%80%E7%AB%A0-10_hub0457029d9d59b24933828bf6bb038d8_1314_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<h2 id="表现数据">表现数据</h2>
+<p>我们可以将 Births 这一列标记在图形上向用户展示数值最大的点。 对照数据表， 用户就会有一个非常直观的画面 Mel 是这组数据中最热门的婴儿名字。</p>
+<p>pandas 使用非常方便的 plot() 让你用 dataframe 中的数据来轻松制图。 刚才我们 在 Births 列找到了最大值，现在我们要找到 973 这个值对应的婴儿名字。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&#34;births&#34;</span><span class="p">]</span> <span class="o">==</span> <span class="n">df</span><span class="p">[</span><span class="s2">&#34;births&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()]</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 在 Births 列中找到值是973 的所有记录  不等于 df[....]</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#可以看出是遍历了全部的数据的，只有等于时才会返回Tue，佛则为False</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 266; 
+			flex-basis: 640px"
+	>
+	<a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%80%E8%AF%BE/picture/%E7%AC%AC%E4%B8%80%E7%AB%A0-11.png" data-size="544x204">
+		<img src="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%80%E8%AF%BE/picture/%E7%AC%AC%E4%B8%80%E7%AB%A0-11.png"
+			width="544"
+			height="204"
+			srcset="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%80%E8%AF%BE/picture/%E7%AC%AC%E4%B8%80%E7%AB%A0-11_huca8e38b44ff78a7bc8be94d44cb79bd0_17448_480x0_resize_box_3.png 480w, /p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%80%E8%AF%BE/picture/%E7%AC%AC%E4%B8%80%E7%AB%A0-11_huca8e38b44ff78a7bc8be94d44cb79bd0_17448_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">df</span><span class="p">[</span><span class="s2">&#34;names&#34;</span><span class="p">][</span><span class="n">df</span><span class="p">[</span><span class="s2">&#34;births&#34;</span><span class="p">]</span> <span class="o">==</span> <span class="n">df</span><span class="p">[</span><span class="s2">&#34;births&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()]</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#返回符合条件的指定的列的值</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#的意思是 在 Names列中挑选出 [Births 列的值等于 973]  也就是相当于sql的where了</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 595; 
+			flex-basis: 1428px"
+	>
+	<a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%80%E8%AF%BE/picture/%E7%AC%AC%E4%B8%80%E7%AB%A0-12.png" data-size="488x82">
+		<img src="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%80%E8%AF%BE/picture/%E7%AC%AC%E4%B8%80%E7%AB%A0-12.png"
+			width="488"
+			height="82"
+			srcset="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%80%E8%AF%BE/picture/%E7%AC%AC%E4%B8%80%E7%AB%A0-12_huc79bf8564348b07582cfcf9e3336b9a0_8444_480x0_resize_box_3.png 480w, /p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%80%E8%AF%BE/picture/%E7%AC%AC%E4%B8%80%E7%AB%A0-12_huc79bf8564348b07582cfcf9e3336b9a0_8444_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#也可以这样，Sorted之前排序过了</span>
+</span></span><span class="line"><span class="cl"><span class="n">Sorted</span><span class="p">[</span><span class="s2">&#34;names&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="mi">4</span>    <span class="n">Mel</span>
+</span></span><span class="line"><span class="cl"><span class="n">Name</span><span class="p">:</span> <span class="n">names</span><span class="p">,</span> <span class="n">dtype</span><span class="p">:</span> <span class="nb">object</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">Sorted</span><span class="p">[</span><span class="s2">&#34;names&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="c1">#返回值且没有index</span>
+</span></span></code></pre></div><p>result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">array</span><span class="p">([</span><span class="s1">&#39;Mel&#39;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span>
+</span></span></code></pre></div><p>str() 可以将一个对象转换为字符串。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#绘图</span>
+</span></span><span class="line"><span class="cl"><span class="n">df</span><span class="p">[</span><span class="s2">&#34;births&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">bar</span><span class="p">()</span><span class="c1">#条形图</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#births中的最大值</span>
+</span></span><span class="line"><span class="cl"><span class="n">max_value</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&#34;births&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">max_name</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&#34;names&#34;</span><span class="p">][</span><span class="n">df</span><span class="p">[</span><span class="s2">&#34;births&#34;</span><span class="p">]</span> <span class="o">==</span> <span class="n">df</span><span class="p">[</span><span class="s2">&#34;births&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()]</span><span class="o">.</span><span class="n">values</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#显示的文本</span>
+</span></span><span class="line"><span class="cl"><span class="n">text</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">max_value</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&#34; - &#34;</span> <span class="o">+</span> <span class="n">max_name</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#将文本显示在图中      annotate</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="n">text</span><span class="p">,</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">max_value</span><span class="p">),</span><span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">            <span class="n">xycoords</span><span class="o">=</span><span class="p">(</span><span class="s2">&#34;axes fraction&#34;</span><span class="p">,</span><span class="s1">&#39;data&#39;</span><span class="p">),</span><span class="n">textcoords</span><span class="o">=</span><span class="s2">&#34;offset points&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;The most popular name&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;births&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;births&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()]</span><span class="c1">#df[条件]返回的是符合条件的整行数据</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 143; 
+			flex-basis: 344px"
+	>
+	<a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%80%E8%AF%BE/picture/%E7%AC%AC%E4%B8%80%E7%AB%A0-13.png" data-size="984x686">
+		<img src="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%80%E8%AF%BE/picture/%E7%AC%AC%E4%B8%80%E7%AB%A0-13.png"
+			width="984"
+			height="686"
+			srcset="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%80%E8%AF%BE/picture/%E7%AC%AC%E4%B8%80%E7%AB%A0-13_hu533f0461c628b45f37de50756095c6d6_34100_480x0_resize_box_3.png 480w, /p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%80%E8%AF%BE/picture/%E7%AC%AC%E4%B8%80%E7%AB%A0-13_hu533f0461c628b45f37de50756095c6d6_34100_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/tutorials/">tutorials</a>
+        
+            <a href="/tags/pandas/">pandas</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">Related contents</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="">
+    <a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%8D%81%E4%B8%80%E8%AF%BE/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">学习Pandas_第十一课</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%B8%83%E8%AF%BE/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">学习Pandas_第七课</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%8D%81%E8%AF%BE/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">学习Pandas_第十课</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E4%BA%94%E8%AF%BE/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">学习Pandas_第五课</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/%E5%AD%A6%E4%B9%A0pandas_%E7%AC%AC%E5%85%AD%E8%AF%BE/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">学习Pandas_第六课</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2022 - 
+        
+        2023 叶宇浩随记博客
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.5.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">Table of contents</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#创建数据">创建数据</a></li>
+    <li><a href="#获取数据">获取数据</a></li>
+    <li><a href="#准备数据">准备数据</a></li>
+    <li><a href="#分析数据">分析数据</a></li>
+    <li><a href="#表现数据">表现数据</a></li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

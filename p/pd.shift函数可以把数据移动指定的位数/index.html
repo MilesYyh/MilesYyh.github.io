@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='数据分析'><title>pd.shift()函数可以把数据移动指定的位数</title>
+
+<link rel='canonical' href='https://example.com/p/pd.shift%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E6%8A%8A%E6%95%B0%E6%8D%AE%E7%A7%BB%E5%8A%A8%E6%8C%87%E5%AE%9A%E7%9A%84%E4%BD%8D%E6%95%B0/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='pd.shift()函数可以把数据移动指定的位数'>
+<meta property='og:description' content='数据分析'>
+<meta property='og:url' content='https://example.com/p/pd.shift%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E6%8A%8A%E6%95%B0%E6%8D%AE%E7%A7%BB%E5%8A%A8%E6%8C%87%E5%AE%9A%E7%9A%84%E4%BD%8D%E6%95%B0/'>
+<meta property='og:site_name' content='叶宇浩随记博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='pandas' /><meta property='article:published_time' content='2021-10-04T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-10-04T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="pd.shift()函数可以把数据移动指定的位数">
+<meta name="twitter:description" content="数据分析">
+    </head>
+    <body class="
+    article-page 
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        on-phone--column extended
+    
+">
+    
+        <aside class="sidebar left-sidebar sticky">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header class="site-info">
+        
+            
+            <figure class="site-avatar">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hub6b2d46d776162e2e8dcd667345276ca_41574_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+
+                
+            </figure>
+            
+        
+        
+        <h1 class="site-name"><a href="/">叶宇浩随记博客</a></h1>
+        <h2 class="site-description">始于rosetta</h2></header>
+
+    <ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/' target="_blank">
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>分类</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>检索</span>
+            </a>
+        </li>
+        
+
+        
+            <li id="dark-mode-toggle">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <span>Dark Mode</span>
+            </li>
+        
+    </ol>
+</aside>
+
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/python/" >
+                python
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/pd.shift%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E6%8A%8A%E6%95%B0%E6%8D%AE%E7%A7%BB%E5%8A%A8%E6%8C%87%E5%AE%9A%E7%9A%84%E4%BD%8D%E6%95%B0/">pd.shift()函数可以把数据移动指定的位数</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        数据分析
+    </h3>
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Oct 04, 2021</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    1 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <p>pandas DataFrame.shift()函数可以把数据移动指定的位数</p>
+<p>period参数指定移动的步幅,可以为正为负.axis指定移动的轴</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</span></span><span class="line"><span class="cl"><span class="n">data1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;a&#34;</span><span class="p">:[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">9</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="n">data1</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 27; 
+			flex-basis: 65px"
+	>
+	<a href="/p/pd.shift%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E6%8A%8A%E6%95%B0%E6%8D%AE%E7%A7%BB%E5%8A%A8%E6%8C%87%E5%AE%9A%E7%9A%84%E4%BD%8D%E6%95%B0/picture/pd.shift%28%29%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E6%8A%8A%E6%95%B0%E6%8D%AE%E7%A7%BB%E5%8A%A8%E6%8C%87%E5%AE%9A%E7%9A%84%E4%BD%8D%E6%95%B0.png" data-size="160x586">
+		<img src="/p/pd.shift%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E6%8A%8A%E6%95%B0%E6%8D%AE%E7%A7%BB%E5%8A%A8%E6%8C%87%E5%AE%9A%E7%9A%84%E4%BD%8D%E6%95%B0/picture/pd.shift%28%29%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E6%8A%8A%E6%95%B0%E6%8D%AE%E7%A7%BB%E5%8A%A8%E6%8C%87%E5%AE%9A%E7%9A%84%E4%BD%8D%E6%95%B0.png"
+			width="160"
+			height="586"
+			srcset="/p/pd.shift%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E6%8A%8A%E6%95%B0%E6%8D%AE%E7%A7%BB%E5%8A%A8%E6%8C%87%E5%AE%9A%E7%9A%84%E4%BD%8D%E6%95%B0/picture/pd.shift%28%29%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E6%8A%8A%E6%95%B0%E6%8D%AE%E7%A7%BB%E5%8A%A8%E6%8C%87%E5%AE%9A%E7%9A%84%E4%BD%8D%E6%95%B0_hu2ebcb40a8aa379a4b0f1221e338ff5d5_14527_480x0_resize_box_3.png 480w, /p/pd.shift%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E6%8A%8A%E6%95%B0%E6%8D%AE%E7%A7%BB%E5%8A%A8%E6%8C%87%E5%AE%9A%E7%9A%84%E4%BD%8D%E6%95%B0/picture/pd.shift%28%29%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E6%8A%8A%E6%95%B0%E6%8D%AE%E7%A7%BB%E5%8A%A8%E6%8C%87%E5%AE%9A%E7%9A%84%E4%BD%8D%E6%95%B0_hu2ebcb40a8aa379a4b0f1221e338ff5d5_14527_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>如果想让 a和b的数据都往下移动一位:</p>
+<p>没有的话，会以NAN填充</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">data2</span> <span class="o">=</span> <span class="n">data1</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">data2</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 35; 
+			flex-basis: 86px"
+	>
+	<a href="/p/pd.shift%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E6%8A%8A%E6%95%B0%E6%8D%AE%E7%A7%BB%E5%8A%A8%E6%8C%87%E5%AE%9A%E7%9A%84%E4%BD%8D%E6%95%B0/picture/pd.shift%28%29%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E6%8A%8A%E6%95%B0%E6%8D%AE%E7%A7%BB%E5%8A%A8%E6%8C%87%E5%AE%9A%E7%9A%84%E4%BD%8D%E6%95%B0-1.png" data-size="214x596">
+		<img src="/p/pd.shift%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E6%8A%8A%E6%95%B0%E6%8D%AE%E7%A7%BB%E5%8A%A8%E6%8C%87%E5%AE%9A%E7%9A%84%E4%BD%8D%E6%95%B0/picture/pd.shift%28%29%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E6%8A%8A%E6%95%B0%E6%8D%AE%E7%A7%BB%E5%8A%A8%E6%8C%87%E5%AE%9A%E7%9A%84%E4%BD%8D%E6%95%B0-1.png"
+			width="214"
+			height="596"
+			srcset="/p/pd.shift%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E6%8A%8A%E6%95%B0%E6%8D%AE%E7%A7%BB%E5%8A%A8%E6%8C%87%E5%AE%9A%E7%9A%84%E4%BD%8D%E6%95%B0/picture/pd.shift%28%29%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E6%8A%8A%E6%95%B0%E6%8D%AE%E7%A7%BB%E5%8A%A8%E6%8C%87%E5%AE%9A%E7%9A%84%E4%BD%8D%E6%95%B0-1_huc7c20769c8bc0fd0038580010c51fbba_23460_480x0_resize_box_3.png 480w, /p/pd.shift%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E6%8A%8A%E6%95%B0%E6%8D%AE%E7%A7%BB%E5%8A%A8%E6%8C%87%E5%AE%9A%E7%9A%84%E4%BD%8D%E6%95%B0/picture/pd.shift%28%29%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E6%8A%8A%E6%95%B0%E6%8D%AE%E7%A7%BB%E5%8A%A8%E6%8C%87%E5%AE%9A%E7%9A%84%E4%BD%8D%E6%95%B0-1_huc7c20769c8bc0fd0038580010c51fbba_23460_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">data1</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 23; 
+			flex-basis: 55px"
+	>
+	<a href="/p/pd.shift%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E6%8A%8A%E6%95%B0%E6%8D%AE%E7%A7%BB%E5%8A%A8%E6%8C%87%E5%AE%9A%E7%9A%84%E4%BD%8D%E6%95%B0/picture/pd.shift%28%29%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E6%8A%8A%E6%95%B0%E6%8D%AE%E7%A7%BB%E5%8A%A8%E6%8C%87%E5%AE%9A%E7%9A%84%E4%BD%8D%E6%95%B0-2.png" data-size="136x588">
+		<img src="/p/pd.shift%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E6%8A%8A%E6%95%B0%E6%8D%AE%E7%A7%BB%E5%8A%A8%E6%8C%87%E5%AE%9A%E7%9A%84%E4%BD%8D%E6%95%B0/picture/pd.shift%28%29%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E6%8A%8A%E6%95%B0%E6%8D%AE%E7%A7%BB%E5%8A%A8%E6%8C%87%E5%AE%9A%E7%9A%84%E4%BD%8D%E6%95%B0-2.png"
+			width="136"
+			height="588"
+			srcset="/p/pd.shift%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E6%8A%8A%E6%95%B0%E6%8D%AE%E7%A7%BB%E5%8A%A8%E6%8C%87%E5%AE%9A%E7%9A%84%E4%BD%8D%E6%95%B0/picture/pd.shift%28%29%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E6%8A%8A%E6%95%B0%E6%8D%AE%E7%A7%BB%E5%8A%A8%E6%8C%87%E5%AE%9A%E7%9A%84%E4%BD%8D%E6%95%B0-2_hueff147b1b11e761c5af1fbf55b266083_14178_480x0_resize_box_3.png 480w, /p/pd.shift%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E6%8A%8A%E6%95%B0%E6%8D%AE%E7%A7%BB%E5%8A%A8%E6%8C%87%E5%AE%9A%E7%9A%84%E4%BD%8D%E6%95%B0/picture/pd.shift%28%29%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E6%8A%8A%E6%95%B0%E6%8D%AE%E7%A7%BB%E5%8A%A8%E6%8C%87%E5%AE%9A%E7%9A%84%E4%BD%8D%E6%95%B0-2_hueff147b1b11e761c5af1fbf55b266083_14178_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">data3</span> <span class="o">=</span> <span class="n">data1</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">data3</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 26; 
+			flex-basis: 63px"
+	>
+	<a href="/p/pd.shift%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E6%8A%8A%E6%95%B0%E6%8D%AE%E7%A7%BB%E5%8A%A8%E6%8C%87%E5%AE%9A%E7%9A%84%E4%BD%8D%E6%95%B0/picture/pd.shift%28%29%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E6%8A%8A%E6%95%B0%E6%8D%AE%E7%A7%BB%E5%8A%A8%E6%8C%87%E5%AE%9A%E7%9A%84%E4%BD%8D%E6%95%B0-3.png" data-size="160x606">
+		<img src="/p/pd.shift%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E6%8A%8A%E6%95%B0%E6%8D%AE%E7%A7%BB%E5%8A%A8%E6%8C%87%E5%AE%9A%E7%9A%84%E4%BD%8D%E6%95%B0/picture/pd.shift%28%29%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E6%8A%8A%E6%95%B0%E6%8D%AE%E7%A7%BB%E5%8A%A8%E6%8C%87%E5%AE%9A%E7%9A%84%E4%BD%8D%E6%95%B0-3.png"
+			width="160"
+			height="606"
+			srcset="/p/pd.shift%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E6%8A%8A%E6%95%B0%E6%8D%AE%E7%A7%BB%E5%8A%A8%E6%8C%87%E5%AE%9A%E7%9A%84%E4%BD%8D%E6%95%B0/picture/pd.shift%28%29%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E6%8A%8A%E6%95%B0%E6%8D%AE%E7%A7%BB%E5%8A%A8%E6%8C%87%E5%AE%9A%E7%9A%84%E4%BD%8D%E6%95%B0-3_hu0bb9ed075c769867fe8627b6fa2b213a_20203_480x0_resize_box_3.png 480w, /p/pd.shift%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E6%8A%8A%E6%95%B0%E6%8D%AE%E7%A7%BB%E5%8A%A8%E6%8C%87%E5%AE%9A%E7%9A%84%E4%BD%8D%E6%95%B0/picture/pd.shift%28%29%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E6%8A%8A%E6%95%B0%E6%8D%AE%E7%A7%BB%E5%8A%A8%E6%8C%87%E5%AE%9A%E7%9A%84%E4%BD%8D%E6%95%B0-3_hu0bb9ed075c769867fe8627b6fa2b213a_20203_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">data1</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 29; 
+			flex-basis: 71px"
+	>
+	<a href="/p/pd.shift%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E6%8A%8A%E6%95%B0%E6%8D%AE%E7%A7%BB%E5%8A%A8%E6%8C%87%E5%AE%9A%E7%9A%84%E4%BD%8D%E6%95%B0/picture/pd.shift%28%29%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E6%8A%8A%E6%95%B0%E6%8D%AE%E7%A7%BB%E5%8A%A8%E6%8C%87%E5%AE%9A%E7%9A%84%E4%BD%8D%E6%95%B0-4.png" data-size="182x608">
+		<img src="/p/pd.shift%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E6%8A%8A%E6%95%B0%E6%8D%AE%E7%A7%BB%E5%8A%A8%E6%8C%87%E5%AE%9A%E7%9A%84%E4%BD%8D%E6%95%B0/picture/pd.shift%28%29%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E6%8A%8A%E6%95%B0%E6%8D%AE%E7%A7%BB%E5%8A%A8%E6%8C%87%E5%AE%9A%E7%9A%84%E4%BD%8D%E6%95%B0-4.png"
+			width="182"
+			height="608"
+			srcset="/p/pd.shift%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E6%8A%8A%E6%95%B0%E6%8D%AE%E7%A7%BB%E5%8A%A8%E6%8C%87%E5%AE%9A%E7%9A%84%E4%BD%8D%E6%95%B0/picture/pd.shift%28%29%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E6%8A%8A%E6%95%B0%E6%8D%AE%E7%A7%BB%E5%8A%A8%E6%8C%87%E5%AE%9A%E7%9A%84%E4%BD%8D%E6%95%B0-4_hu4abb5c5c9acdbaa87b76d0ea8ac0c37a_14802_480x0_resize_box_3.png 480w, /p/pd.shift%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E6%8A%8A%E6%95%B0%E6%8D%AE%E7%A7%BB%E5%8A%A8%E6%8C%87%E5%AE%9A%E7%9A%84%E4%BD%8D%E6%95%B0/picture/pd.shift%28%29%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E6%8A%8A%E6%95%B0%E6%8D%AE%E7%A7%BB%E5%8A%A8%E6%8C%87%E5%AE%9A%E7%9A%84%E4%BD%8D%E6%95%B0-4_hu4abb5c5c9acdbaa87b76d0ea8ac0c37a_14802_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+<p>如果想往上或者往左移动,可以指定(periods=-1):
+因为periods是用来指定步长</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">data4</span> <span class="o">=</span> <span class="n">data1</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="n">periods</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">data4</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 40; 
+			flex-basis: 96px"
+	>
+	<a href="/p/pd.shift%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E6%8A%8A%E6%95%B0%E6%8D%AE%E7%A7%BB%E5%8A%A8%E6%8C%87%E5%AE%9A%E7%9A%84%E4%BD%8D%E6%95%B0/picture/pd.shift%28%29%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E6%8A%8A%E6%95%B0%E6%8D%AE%E7%A7%BB%E5%8A%A8%E6%8C%87%E5%AE%9A%E7%9A%84%E4%BD%8D%E6%95%B0-5.png" data-size="250x622">
+		<img src="/p/pd.shift%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E6%8A%8A%E6%95%B0%E6%8D%AE%E7%A7%BB%E5%8A%A8%E6%8C%87%E5%AE%9A%E7%9A%84%E4%BD%8D%E6%95%B0/picture/pd.shift%28%29%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E6%8A%8A%E6%95%B0%E6%8D%AE%E7%A7%BB%E5%8A%A8%E6%8C%87%E5%AE%9A%E7%9A%84%E4%BD%8D%E6%95%B0-5.png"
+			width="250"
+			height="622"
+			srcset="/p/pd.shift%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E6%8A%8A%E6%95%B0%E6%8D%AE%E7%A7%BB%E5%8A%A8%E6%8C%87%E5%AE%9A%E7%9A%84%E4%BD%8D%E6%95%B0/picture/pd.shift%28%29%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E6%8A%8A%E6%95%B0%E6%8D%AE%E7%A7%BB%E5%8A%A8%E6%8C%87%E5%AE%9A%E7%9A%84%E4%BD%8D%E6%95%B0-5_hua596d6ba4eadca9650d7ae07a02163f0_24045_480x0_resize_box_3.png 480w, /p/pd.shift%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E6%8A%8A%E6%95%B0%E6%8D%AE%E7%A7%BB%E5%8A%A8%E6%8C%87%E5%AE%9A%E7%9A%84%E4%BD%8D%E6%95%B0/picture/pd.shift%28%29%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E6%8A%8A%E6%95%B0%E6%8D%AE%E7%A7%BB%E5%8A%A8%E6%8C%87%E5%AE%9A%E7%9A%84%E4%BD%8D%E6%95%B0-5_hua596d6ba4eadca9650d7ae07a02163f0_24045_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+一个例子:</p>
+<p>这里有一组某车站各个小时的总进站人数和总出站人数的数据:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">entries_and_exits</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;ENTRIESn&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">3144312</span><span class="p">,</span> <span class="mi">3144335</span><span class="p">,</span> <span class="mi">3144353</span><span class="p">,</span> <span class="mi">3144424</span><span class="p">,</span> <span class="mi">3144594</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                 <span class="mi">3144808</span><span class="p">,</span> <span class="mi">3144895</span><span class="p">,</span> <span class="mi">3144905</span><span class="p">,</span> <span class="mi">3144941</span><span class="p">,</span> <span class="mi">3145094</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;EXITSn&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1088151</span><span class="p">,</span> <span class="mi">1088159</span><span class="p">,</span> <span class="mi">1088177</span><span class="p">,</span> <span class="mi">1088231</span><span class="p">,</span> <span class="mi">1088275</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">               <span class="mi">1088317</span><span class="p">,</span> <span class="mi">1088328</span><span class="p">,</span> <span class="mi">1088331</span><span class="p">,</span> <span class="mi">1088420</span><span class="p">,</span> <span class="mi">1088753</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">entries_and_exits</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 51; 
+			flex-basis: 122px"
+	>
+	<a href="/p/pd.shift%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E6%8A%8A%E6%95%B0%E6%8D%AE%E7%A7%BB%E5%8A%A8%E6%8C%87%E5%AE%9A%E7%9A%84%E4%BD%8D%E6%95%B0/picture/pd.shift%28%29%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E6%8A%8A%E6%95%B0%E6%8D%AE%E7%A7%BB%E5%8A%A8%E6%8C%87%E5%AE%9A%E7%9A%84%E4%BD%8D%E6%95%B0-6.png" data-size="312x610">
+		<img src="/p/pd.shift%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E6%8A%8A%E6%95%B0%E6%8D%AE%E7%A7%BB%E5%8A%A8%E6%8C%87%E5%AE%9A%E7%9A%84%E4%BD%8D%E6%95%B0/picture/pd.shift%28%29%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E6%8A%8A%E6%95%B0%E6%8D%AE%E7%A7%BB%E5%8A%A8%E6%8C%87%E5%AE%9A%E7%9A%84%E4%BD%8D%E6%95%B0-6.png"
+			width="312"
+			height="610"
+			srcset="/p/pd.shift%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E6%8A%8A%E6%95%B0%E6%8D%AE%E7%A7%BB%E5%8A%A8%E6%8C%87%E5%AE%9A%E7%9A%84%E4%BD%8D%E6%95%B0/picture/pd.shift%28%29%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E6%8A%8A%E6%95%B0%E6%8D%AE%E7%A7%BB%E5%8A%A8%E6%8C%87%E5%AE%9A%E7%9A%84%E4%BD%8D%E6%95%B0-6_hufa992ca02d1d875e836d2dc7ebd8d307_47770_480x0_resize_box_3.png 480w, /p/pd.shift%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E6%8A%8A%E6%95%B0%E6%8D%AE%E7%A7%BB%E5%8A%A8%E6%8C%87%E5%AE%9A%E7%9A%84%E4%BD%8D%E6%95%B0/picture/pd.shift%28%29%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E6%8A%8A%E6%95%B0%E6%8D%AE%E7%A7%BB%E5%8A%A8%E6%8C%87%E5%AE%9A%E7%9A%84%E4%BD%8D%E6%95%B0-6_hufa992ca02d1d875e836d2dc7ebd8d307_47770_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+要求计算每个小时该车站进出站人数</p>
+<p>思路: 把第n+1小时的总人数-第n小时的总人数,就是这个小时里的进出站人数</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">a</span> <span class="o">=</span> <span class="n">entries_and_exits</span> <span class="o">-</span> <span class="n">entries_and_exits</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">a</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span></span></code></pre></div><p>result:
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 55; 
+			flex-basis: 132px"
+	>
+	<a href="/p/pd.shift%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E6%8A%8A%E6%95%B0%E6%8D%AE%E7%A7%BB%E5%8A%A8%E6%8C%87%E5%AE%9A%E7%9A%84%E4%BD%8D%E6%95%B0/picture/pd.shift%28%29%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E6%8A%8A%E6%95%B0%E6%8D%AE%E7%A7%BB%E5%8A%A8%E6%8C%87%E5%AE%9A%E7%9A%84%E4%BD%8D%E6%95%B0-7.png" data-size="328x596">
+		<img src="/p/pd.shift%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E6%8A%8A%E6%95%B0%E6%8D%AE%E7%A7%BB%E5%8A%A8%E6%8C%87%E5%AE%9A%E7%9A%84%E4%BD%8D%E6%95%B0/picture/pd.shift%28%29%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E6%8A%8A%E6%95%B0%E6%8D%AE%E7%A7%BB%E5%8A%A8%E6%8C%87%E5%AE%9A%E7%9A%84%E4%BD%8D%E6%95%B0-7.png"
+			width="328"
+			height="596"
+			srcset="/p/pd.shift%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E6%8A%8A%E6%95%B0%E6%8D%AE%E7%A7%BB%E5%8A%A8%E6%8C%87%E5%AE%9A%E7%9A%84%E4%BD%8D%E6%95%B0/picture/pd.shift%28%29%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E6%8A%8A%E6%95%B0%E6%8D%AE%E7%A7%BB%E5%8A%A8%E6%8C%87%E5%AE%9A%E7%9A%84%E4%BD%8D%E6%95%B0-7_hu501a6bbdd25fdb5554aa85ed319f03eb_25699_480x0_resize_box_3.png 480w, /p/pd.shift%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E6%8A%8A%E6%95%B0%E6%8D%AE%E7%A7%BB%E5%8A%A8%E6%8C%87%E5%AE%9A%E7%9A%84%E4%BD%8D%E6%95%B0/picture/pd.shift%28%29%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E6%8A%8A%E6%95%B0%E6%8D%AE%E7%A7%BB%E5%8A%A8%E6%8C%87%E5%AE%9A%E7%9A%84%E4%BD%8D%E6%95%B0-7_hu501a6bbdd25fdb5554aa85ed319f03eb_25699_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/pandas/">pandas</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2022 - 
+        
+        2023 叶宇浩随记博客
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.5.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
